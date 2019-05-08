@@ -2,10 +2,10 @@ Pod::Spec.new do |spec|
 
   spec.name          = "CordialSDK"
   spec.version       = "0.0.1"
-  spec.summary       = "A short description of CordialSDK."
+  spec.summary       = "The Cordial SDK allows application developers to pass customer and event data from their applications to the Cordial platform."
 
   spec.description   = <<-DESC
-	A long description of CordialSDK.
+	The Cordial SDK allows application developers to pass customer and event data from their applications to the Cordial platform.
   DESC
 
   spec.homepage      = "https://gitlab.com/CordialExperiences/mobile/ios-sdk"
