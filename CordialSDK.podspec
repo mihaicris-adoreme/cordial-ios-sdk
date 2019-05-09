@@ -16,6 +16,8 @@ Pod::Spec.new do |spec|
 
   spec.platform      = :ios, "11.0"
 
+  spec.swift_version = "4.2"
+
   spec.source        = { :git => "https://gitlab.com/CordialExperiences/mobile/ios-sdk.git", :tag => "#{spec.version}" }
 
   spec.source_files  = "CordialSDK", "CordialSDK/**/*.{swift}"
