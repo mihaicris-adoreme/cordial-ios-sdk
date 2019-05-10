@@ -2,7 +2,17 @@
 
 ## Installation
 
-**[INSERT A SECTION ON HOW TO INSTALL VIA COCOAPODS ONCE THE SDK IS PUBLISHED]**
+### Cocoapods
+
+Make sure you have access to CordialSDK gitlab repo. After that specify CordialSDK in your Podfile:
+
+`pod 'CordialSDK', :git => 'https://gitlab.com/CordialExperiences/mobile/ios-sdk.git'`
+
+And after that run:
+
+`pod install`
+
+This will add the the latest version of CordialSDK to your project.
 
 ## Initialize SDK
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initWithAccountKey` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
