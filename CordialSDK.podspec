@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name          = "CordialSDK"
-  spec.version       = "0.0.2"
+  spec.version       = "0.0.3"
   spec.summary       = "The Cordial SDK allows application developers to pass customer and event data from their applications to the Cordial platform."
 
   spec.description   = <<-DESC
@@ -20,7 +20,7 @@ Pod::Spec.new do |spec|
 
   spec.source        = { :git => "https://gitlab.com/CordialExperiences/mobile/ios-sdk.git", :tag => "#{spec.version}" }
 
-  spec.source_files  = "CordialSDK", "CordialSDK/**/*.{swift}"
+  spec.source_files  = "CordialSDK", "CordialSDK/**/*.{swift,xcdatamodeld}"
 
   spec.requires_arc  = true
 
