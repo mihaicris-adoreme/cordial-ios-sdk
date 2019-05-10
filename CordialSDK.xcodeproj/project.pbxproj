@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E07AF512285C74D00C2D9F0 /* CordialNotificationServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E07AF502285C74D00C2D9F0 /* CordialNotificationServiceExtension.swift */; };
 		9E0813842274523500BD1412 /* ContactsSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0813832274523500BD1412 /* ContactsSender.swift */; };
 		9E081386227458C800BD1412 /* UpsertContacts.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081385227458C800BD1412 /* UpsertContacts.swift.swift */; };
 		9E0813882274722000BD1412 /* ContactRequestsCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */; };
@@ -63,6 +64,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E07AF4E2285C74C00C2D9F0 /* CordialNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CordialNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E07AF502285C74D00C2D9F0 /* CordialNotificationServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialNotificationServiceExtension.swift; sourceTree = "<group>"; };
+		9E07AF522285C74D00C2D9F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E0813832274523500BD1412 /* ContactsSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSender.swift; sourceTree = "<group>"; };
 		9E081385227458C800BD1412 /* UpsertContacts.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContacts.swift.swift; sourceTree = "<group>"; };
 		9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRequestsCoreData.swift; sourceTree = "<group>"; };
@@ -113,6 +117,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9E07AF4B2285C74C00C2D9F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E7A5A3C222EB54D0020054F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -131,6 +142,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E07AF4F2285C74D00C2D9F0 /* CordialNotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				9E07AF502285C74D00C2D9F0 /* CordialNotificationServiceExtension.swift */,
+				9E07AF522285C74D00C2D9F0 /* Info.plist */,
+			);
+			path = CordialNotificationServiceExtension;
+			sourceTree = "<group>";
+		};
 		9E2C646E2260B77C002C6605 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +183,7 @@
 		9E45FE7222536EA0006A5A6B /* PushNotification */ = {
 			isa = PBXGroup;
 			children = (
+				9E07AF4F2285C74D00C2D9F0 /* CordialNotificationServiceExtension */,
 				9EBF4AA32252559900CA24C7 /* CordialPushNotificationSwizzler.swift */,
 				9E45FE78225378F5006A5A6B /* CordialPushNotificationDelegate.swift */,
 				9E45FE7A22538194006A5A6B /* CordialPushNotification.swift */,
@@ -223,6 +244,7 @@
 			children = (
 				9E7A5A3F222EB54D0020054F /* CordialSDK.framework */,
 				9E7A5A48222EB54E0020054F /* CordialSDKTests.xctest */,
+				9E07AF4E2285C74C00C2D9F0 /* CordialNotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -333,6 +355,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		9E07AF4D2285C74C00C2D9F0 /* CordialNotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9E07AF552285C74D00C2D9F0 /* Build configuration list for PBXNativeTarget "CordialNotificationServiceExtension" */;
+			buildPhases = (
+				9E07AF4A2285C74C00C2D9F0 /* Sources */,
+				9E07AF4B2285C74C00C2D9F0 /* Frameworks */,
+				9E07AF4C2285C74C00C2D9F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CordialNotificationServiceExtension;
+			productName = CordialNotificationServiceExtension;
+			productReference = 9E07AF4E2285C74C00C2D9F0 /* CordialNotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		9E7A5A3E222EB54D0020054F /* CordialSDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E7A5A53222EB54E0020054F /* Build configuration list for PBXNativeTarget "CordialSDK" */;
@@ -375,10 +414,13 @@
 		9E7A5A36222EB54D0020054F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = cordial.io;
 				TargetAttributes = {
+					9E07AF4D2285C74C00C2D9F0 = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
 					9E7A5A3E222EB54D0020054F = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
@@ -402,11 +444,19 @@
 			targets = (
 				9E7A5A3E222EB54D0020054F /* CordialSDK */,
 				9E7A5A47222EB54D0020054F /* CordialSDKTests */,
+				9E07AF4D2285C74C00C2D9F0 /* CordialNotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9E07AF4C2285C74C00C2D9F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E7A5A3D222EB54D0020054F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -424,6 +474,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9E07AF4A2285C74C00C2D9F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E07AF512285C74D00C2D9F0 /* CordialNotificationServiceExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E7A5A3B222EB54D0020054F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -490,6 +548,46 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		9E07AF532285C74D00C2D9F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
+				INFOPLIST_FILE = "$(SRCROOT)/CordialSDK/PushNotification/CordialNotificationServiceExtension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk.CordialNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9E07AF542285C74D00C2D9F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
+				INFOPLIST_FILE = "$(SRCROOT)/CordialSDK/PushNotification/CordialNotificationServiceExtension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk.CordialNotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		9E7A5A51222EB54E0020054F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -708,6 +806,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9E07AF552285C74D00C2D9F0 /* Build configuration list for PBXNativeTarget "CordialNotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E07AF532285C74D00C2D9F0 /* Debug */,
+				9E07AF542285C74D00C2D9F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9E7A5A39222EB54D0020054F /* Build configuration list for PBXProject "CordialSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
