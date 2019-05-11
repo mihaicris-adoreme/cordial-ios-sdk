@@ -15,8 +15,7 @@ class CoreDataManager {
     
     private init(){}
     
-    let identifier: String  = "io.cordial.sdk"       // Framework Bundle ID
-    let model: String       = "CoreDataModel"        // CoreData Model Name
+    let modelName = "CoreDataModel"
     
     let customEventRequests = CustomEventRequestsCoreData()
     let contactCartRequest = ContactCartRequestCoreData()
@@ -25,11 +24,11 @@ class CoreDataManager {
     
     lazy var persistentContainer: NSPersistentContainer = {
         
-        let messageKitBundle = Bundle(identifier: self.identifier)
-        let modelURL = messageKitBundle!.url(forResource: self.model, withExtension: "momd")!
-        let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL)
+        let bundle = Bundle(for: type(of: self))
+        let modelURL = bundle.url(forResource: self.modelName, withExtension: "momd")!
+        let objectModel = NSManagedObjectModel(contentsOf: modelURL)!
         
-        let container = NSPersistentContainer(name: self.model, managedObjectModel: managedObjectModel!)
+        let container = NSPersistentContainer(name: self.modelName, managedObjectModel: objectModel)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")

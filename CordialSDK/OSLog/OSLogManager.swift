@@ -11,7 +11,7 @@ import os.log
 
 extension OSLog {
     
-    private static var subsystem = CoreDataManager.shared.identifier
+    private static var subsystem = Bundle.main.bundleIdentifier!
     
     static let sendCustomEvents = OSLog(subsystem: subsystem, category: "SendCustomEvents")
     static let upsertContactCart = OSLog(subsystem: subsystem, category: "UpsertContactCart")
