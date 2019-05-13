@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="ContactCartRequest" representedClassName="ContactCartRequest" syncable="YES" codeGenerationType="class">
+    <entity name="ContactCartRequest" representedClassName="ContactCartRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
-    <entity name="ContactOrderRequest" representedClassName="ContactOrderRequest" syncable="YES" codeGenerationType="class">
+    <entity name="ContactOrderRequest" representedClassName="ContactOrderRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
-    <entity name="ContactRequest" representedClassName="ContactRequest" syncable="YES" codeGenerationType="class">
+    <entity name="ContactRequest" representedClassName="ContactRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
-    <entity name="CustomEventRequest" representedClassName="CustomEventRequest" syncable="YES" codeGenerationType="class">
+    <entity name="CustomEventRequest" representedClassName="CustomEventRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
     <elements>
         <element name="ContactCartRequest" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="ContactOrderRequest" positionX="-45" positionY="9" width="128" height="60"/>
-        <element name="CustomEventRequest" positionX="-45" positionY="0" width="128" height="60"/>
         <element name="ContactRequest" positionX="-45" positionY="9" width="128" height="60"/>
+        <element name="CustomEventRequest" positionX="-45" positionY="0" width="128" height="60"/>
     </elements>
 </model>

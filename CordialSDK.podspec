@@ -2,7 +2,7 @@ Pod::Spec.new do |spec|
 
   spec.name          = "CordialSDK"
   spec.version       = "0.0.3"
-  spec.summary       = "The Cordial SDK allows application developers to pass customer and event data from their applications to the Cordial platform."
+  spec.summary       = "The Cordial SDK."
 
   spec.description   = <<-DESC
 	The Cordial SDK allows application developers to pass customer and event data from their applications to the Cordial platform.
@@ -22,7 +22,7 @@ Pod::Spec.new do |spec|
 
   spec.source_files  = "CordialSDK", "CordialSDK/**/*.{swift}"
 
-  spec.resource_bundles = { "CordialSDK" => ["CordialSDK/*.xcdatamodeld"] }
+  spec.resource_bundles = { "CordialSDK" => ["CordialSDK/**/*.{xcdatamodeld}"] }
 
   spec.requires_arc  = true
 
