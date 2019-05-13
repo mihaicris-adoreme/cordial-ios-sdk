@@ -24,7 +24,7 @@ class CordialRequestFactory {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")  
         request.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        let userAgent = "Cordial SDK/1.0.0 iPhone5,2 iOS/10_1 CFNetwork/808.3 Darwin/16.3.0"
+        let userAgent = UserAgentBuilder().getUserAgent()
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
         
         let accountKey = cordialAPI.getAccountKey()
