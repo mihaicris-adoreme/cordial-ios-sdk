@@ -15,6 +15,7 @@ class CoreDataManager {
     
     private init(){}
     
+    let frameworkIdentifier = "io.cordial.sdk"
     let modelName = "CoreDataModel"
     
     let customEventRequests = CustomEventRequestsCoreData()
@@ -38,15 +39,11 @@ class CoreDataManager {
         
         var rawBundle: Bundle? {
             
-            let bundle = Bundle(for: type(of: self))
-            let dictionary = bundle.infoDictionary!
-            
-            let frameworkIdentifier = dictionary["CFBundleIdentifier"] as! String
-            
-            if let bundle = Bundle(identifier: frameworkIdentifier) {
+            if let bundle = Bundle(identifier: self.frameworkIdentifier) {
                 return bundle
             }
             
+            let dictionary = Bundle(for: type(of: self)).infoDictionary!
             let frameworkName = dictionary["CFBundleName"] as! String
             
             guard
