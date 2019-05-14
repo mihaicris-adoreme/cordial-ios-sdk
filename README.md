@@ -40,7 +40,9 @@ class NotificationService: CordialNotificationServiceExtension {
 ## Initialize SDK
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initWithAccountKey` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
-`CordialApiConfiguration.shared.initWithAccountKey(accountKey: “your account key“)`
+```
+CordialApiConfiguration.shared.initialize(accountKey: "<your_account_key>", channelKey: "<your_channel_key>")
+```
 
 After initialized the SDK will automatically start tracking internal events as they occur in the application. Those events are:
 - track application opens and closes
@@ -64,7 +66,7 @@ let cordialApi = CordialAPI()
 Besides internal events, the SDK allows to send custom events specific to each app. Those may be, for example, user logged in, discount applied or app preferences updated to name a few. To send custom event, use the `CordialApi.sendCustomEvent` method:
 
 ```
-let request = SendCustomEventRequest(eventName: “{custom event name}”, properties: [“{property name}”: “{property value}”])  
+let request = SendCustomEventRequest(eventName: “{custom event name}”, properties: [“<property name>”: “<property value>”])  
 cordialApi.sendCustomEvent(sendCustomEventRequest: request)
 ```
 
