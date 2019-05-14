@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E0813842274523500BD1412 /* ContactsSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0813832274523500BD1412 /* ContactsSender.swift */; };
-		9E081386227458C800BD1412 /* UpsertContacts.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081385227458C800BD1412 /* UpsertContacts.swift.swift */; };
+		9E081386227458C800BD1412 /* UpsertContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081385227458C800BD1412 /* UpsertContacts.swift */; };
 		9E0813882274722000BD1412 /* ContactRequestsCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */; };
 		9E3EA62522579FBA00ECE52E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3EA62422579FBA00ECE52E /* Reachability.swift */; };
 		9E3EA6272257A02400ECE52E /* CustomEventsSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3EA6262257A02400ECE52E /* CustomEventsSender.swift */; };
@@ -73,7 +73,7 @@
 
 /* Begin PBXFileReference section */
 		9E0813832274523500BD1412 /* ContactsSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSender.swift; sourceTree = "<group>"; };
-		9E081385227458C800BD1412 /* UpsertContacts.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContacts.swift.swift; sourceTree = "<group>"; };
+		9E081385227458C800BD1412 /* UpsertContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContacts.swift; sourceTree = "<group>"; };
 		9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRequestsCoreData.swift; sourceTree = "<group>"; };
 		9E3EA62422579FBA00ECE52E /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		9E3EA6262257A02400ECE52E /* CustomEventsSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventsSender.swift; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				9E0813832274523500BD1412 /* ContactsSender.swift */,
-				9E081385227458C800BD1412 /* UpsertContacts.swift.swift */,
+				9E081385227458C800BD1412 /* UpsertContacts.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -168,14 +168,14 @@
 			path = Reachability;
 			sourceTree = "<group>";
 		};
-		9E44CB1B222FE24B00DADC6C /* UpsertContact */ = {
+		9E44CB1B222FE24B00DADC6C /* UpsertContacts */ = {
 			isa = PBXGroup;
 			children = (
 				9E2C646E2260B77C002C6605 /* Helper */,
 				9E44CB1C222FE28D00DADC6C /* UpsertContactRequest.swift */,
 				9E7FAC3C223001710097C0B0 /* UpsertContactResponse.swift */,
 			);
-			path = UpsertContact;
+			path = UpsertContacts;
 			sourceTree = "<group>";
 		};
 		9E45FE7222536EA0006A5A6B /* PushNotification */ = {
@@ -256,7 +256,7 @@
 				9E3EA62322579F9C00ECE52E /* Reachability */,
 				9E45FE7222536EA0006A5A6B /* PushNotification */,
 				9EEE995322412BDE0041D8AE /* SendCustomEvent */,
-				9E44CB1B222FE24B00DADC6C /* UpsertContact */,
+				9E44CB1B222FE24B00DADC6C /* UpsertContacts */,
 				9E7037A022688254000C3582 /* UpsertContactCart */,
 				9E97DEEE226F2A8400856341 /* SendContactOrder */,
 				9E7A5A42222EB54D0020054F /* CordialSDK.h */,
@@ -493,7 +493,7 @@
 				9E97DEF9226F382500856341 /* SendContactOrderResponse.swift in Sources */,
 				9EBE675F22731EB70065AA06 /* CustomEventRequestsCoreData.swift in Sources */,
 				9E7037A922688EC9000C3582 /* UpsertContactCart.swift in Sources */,
-				9E081386227458C800BD1412 /* UpsertContacts.swift.swift in Sources */,
+				9E081386227458C800BD1412 /* UpsertContacts.swift in Sources */,
 				9E97DEF5226F307E00856341 /* Order.swift in Sources */,
 				9E565B8C225B6E7C005EC4AF /* CordialApiConfiguration.swift in Sources */,
 				9EBEA123225C9EF200F001FE /* NotificationManager.swift in Sources */,

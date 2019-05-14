@@ -1,5 +1,5 @@
 //
-//  UpsertContacts.swift.swift
+//  UpsertContacts.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 4/27/19.
@@ -58,7 +58,8 @@ class UpsertContacts {
             UserDefaults.standard.set(upsertContactRequest.primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
             
             var rootContainer  = [
-                "\"deviceId\": \"\(upsertContactRequest.deviceID)\""
+                "\"deviceId\": \"\(upsertContactRequest.deviceID)\"",
+                "\"subscribeStatus\": \"\(upsertContactRequest.subscribeStatus)\""
             ]
             
             if let token = upsertContactRequest.token {
