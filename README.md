@@ -4,10 +4,10 @@
 
 ### Cocoapods
 
-Make sure you have access to CordialSDK gitlab repo. After that specify CordialSDK in your Podfile:
+Make sure you have access to CordialSDK gitlab repo. We recommend adding your SSH key to Gitlab. After that specify CordialSDK in your Podfile:
 
 ```
-pod 'CordialSDK', :git => 'https://gitlab.com/CordialExperiences/mobile/ios-sdk.git'
+pod 'CordialSDK', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'
 ```
 
 And after that run:
@@ -22,7 +22,7 @@ In order to take advantage of iOS 10 notification attachments, you will need to 
 
 ```
 target "<The name of the new Notification Service Extension target>" do  
-    pod 'CordialAppExtensions', :git => 'https://gitlab.com/CordialExperiences/mobile/ios-sdk.git'  
+    pod 'CordialAppExtensions', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'  
 end
 ```
 
