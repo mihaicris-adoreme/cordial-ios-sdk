@@ -18,7 +18,7 @@ pod install
 
 This will add the the latest version of CordialSDK to your project.
 
-In order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. In order to do that create "Notification Service Extension" target and add CordialAppExtensions to it:
+Additionally, in order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. In order to do that create "Notification Service Extension" target and add CordialAppExtensions to it:
 
 ```
 target "<The name of the new Notification Service Extension target>" do  
