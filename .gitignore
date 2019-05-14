@@ -4,11 +4,4 @@
 # Ignore JetBrains
 .idea/
 
-# Ignore CocoaPods
-Podfile.lock
-Pods/
-
-# Ignore Xcode
-CordialSDK.xcworkspace/
-xcuserdata/
 
