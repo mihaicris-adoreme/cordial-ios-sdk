@@ -23,12 +23,8 @@ class CoreDataManager {
     let contactRequests = ContactRequestsCoreData()
     
     lazy var persistentContainer: NSPersistentContainer = {
-        
-        let bundle = Bundle(for: type(of: self))
-        let modelURL = bundle.url(forResource: self.modelName, withExtension: "momd")!
-        let objectModel = NSManagedObjectModel(contentsOf: modelURL)!
-        
-        let container = NSPersistentContainer(name: self.modelName, managedObjectModel: objectModel)
+    
+        let container = NSPersistentContainer(name: self.modelName, managedObjectModel: self.managedObjectModel)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -36,6 +32,45 @@ class CoreDataManager {
         })
         
         return container
+    }()
+    
+    fileprivate lazy var managedObjectModel: NSManagedObjectModel = {
+        
+        var rawBundle: Bundle? {
+            
+            let bundle = Bundle(for: type(of: self))
+            let dictionary = bundle.infoDictionary!
+            
+            let frameworkIdentifier = dictionary["CFBundleIdentifier"] as! String
+            
+            if let bundle = Bundle(identifier: frameworkIdentifier) {
+                return bundle
+            }
+            
+            let frameworkName = dictionary["CFBundleName"] as! String
+            
+            guard
+                let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: frameworkName, withExtension: "bundle"),
+                let resourceBundle = Bundle(url: resourceBundleURL) else {
+                    return nil
+                }
+            
+            return resourceBundle
+        }
+        
+        guard let bundle = rawBundle else {
+            print("Could not get bundle that contains the model ")
+            return NSManagedObjectModel()
+        }
+        
+        guard
+            let modelURL = bundle.url(forResource: self.modelName, withExtension: "momd"),
+            let model = NSManagedObjectModel(contentsOf: modelURL) else {
+                print("Could not get bundle for managed object model")
+                return NSManagedObjectModel()
+        }
+        
+        return model
     }()
     
     func deleteAllCoreDataByEntity(entityName: String) {
