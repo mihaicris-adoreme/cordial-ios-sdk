@@ -22,6 +22,7 @@ In order to take advantage of iOS 10 notification attachments, you will need to 
 
 ```
 target "<The name of the new Notification Service Extension target>" do  
+    use_frameworks!
     pod 'CordialAppExtensions', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'  
 end
 ```
