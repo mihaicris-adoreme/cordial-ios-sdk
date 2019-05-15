@@ -86,15 +86,15 @@ class UpsertContactCart {
             }
             
             if let qty = cartItem.qty {
-                cartItemContainer.append("\"qty\": \"\(qty)\"")
+                cartItemContainer.append("\"qty\": \(qty)")
             }
             
             if let itemPrice = cartItem.itemPrice {
-                cartItemContainer.append("\"itemPrice\": \"\(itemPrice)\"")
+                cartItemContainer.append("\"itemPrice\": \(itemPrice)")
             }
             
             if let salePrice = cartItem.salePrice {
-                cartItemContainer.append("\"salePrice\": \"\(salePrice)\"")
+                cartItemContainer.append("\"salePrice\": \(salePrice)")
             }
             
             if let attr = cartItem.attr {
