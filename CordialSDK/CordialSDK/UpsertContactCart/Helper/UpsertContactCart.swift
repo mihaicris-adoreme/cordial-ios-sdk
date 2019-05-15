@@ -82,19 +82,19 @@ class UpsertContactCart {
             }
             
             if let itemDescription = cartItem.itemDescription {
-                cartItemContainer.append("\"url\": \"\(itemDescription)\"")
+                cartItemContainer.append("\"description\": \"\(itemDescription)\"")
             }
             
             if let qty = cartItem.qty {
-                cartItemContainer.append("\"url\": \"\(qty)\"")
+                cartItemContainer.append("\"qty\": \"\(qty)\"")
             }
             
             if let itemPrice = cartItem.itemPrice {
-                cartItemContainer.append("\"url\": \"\(itemPrice)\"")
+                cartItemContainer.append("\"itemPrice\": \"\(itemPrice)\"")
             }
             
             if let salePrice = cartItem.salePrice {
-                cartItemContainer.append("\"url\": \"\(salePrice)\"")
+                cartItemContainer.append("\"salePrice\": \"\(salePrice)\"")
             }
             
             if let attr = cartItem.attr {

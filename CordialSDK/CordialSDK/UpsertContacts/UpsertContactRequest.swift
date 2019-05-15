@@ -24,12 +24,14 @@ public class UpsertContactRequest: NSObject, NSCoding {
         case subscribeStatus = "subscribeStatus"
         case attributes = "attributes"
     }
+    
+    private let baseSubscribeStatus = "none"
 
     public init(token: String) {
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.token = token
         self.primaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
-        self.subscribeStatus = "subscribed"
+        self.subscribeStatus = self.baseSubscribeStatus
         self.attributes = nil
     }
     
@@ -37,7 +39,7 @@ public class UpsertContactRequest: NSObject, NSCoding {
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_TOKEN)
         self.primaryKey = primaryKey
-        self.subscribeStatus = "subscribed"
+        self.subscribeStatus = self.baseSubscribeStatus
         self.attributes = attributes
     }
     
