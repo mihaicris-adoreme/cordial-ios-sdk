@@ -77,15 +77,26 @@ public class CordialAPI: NSObject {
         }
     }
     
+    // MARK: Get primary key
+    
+    public func getContactPrimaryKey() -> String? {
+        
+        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+    }
+    
     // MARK: Set Contact
     
     public func setContact(primaryKey: String) {
+        UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+        
         let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey)
         self.upsertContact(upsertContactRequest: upsertContactRequest)
     }
     
+    // MARK: Unset Contact
+    
     public func unsetContact() {
-        UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+//        UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
     // MARK: Upsert Contact

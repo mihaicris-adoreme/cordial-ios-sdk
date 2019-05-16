@@ -55,8 +55,6 @@ class UpsertContacts {
         var upsertContactsArrayJSON = [String]()
         
         upsertContactRequests.forEach { upsertContactRequest in
-            UserDefaults.standard.set(upsertContactRequest.primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
-            
             var rootContainer  = [
                 "\"deviceId\": \"\(upsertContactRequest.deviceID)\"",
                 "\"subscribeStatus\": \"\(upsertContactRequest.subscribeStatus)\""

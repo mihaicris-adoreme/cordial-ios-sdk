@@ -7,24 +7,42 @@
 //
 
 import UIKit
+import CordialSDK
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var emailTextField: UITextField!
+    
+    let cordialAPI = CordialAPI()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emailTextField.setBottomBorder(color: UIColor.gray)
+        
+        self.title = "Profile"
+        
+        if let primaryKey = cordialAPI.getContactPrimaryKey() {
+            emailTextField.text = primaryKey
+        }
+    }
 
-        // Do any additional setup after loading the view.
+    @IBAction func updateProfileButtonAction(_ sender: UIButton) {
+        if let email = emailTextField.text, !email.isEmpty {
+            if let primaryKey = cordialAPI.getContactPrimaryKey() {
+                if primaryKey != email {
+                    cordialAPI.setContact(primaryKey: email)
+                }
+            }
+            
+            let upsertContactRequest = UpsertContactRequest(attributes: nil)
+            cordialAPI.upsertContact(upsertContactRequest: upsertContactRequest)
+            
+            popupSimpleNoteAlert(title: "PROFILE", message: "UPDATED", controller: self)
+            
+        } else {
+            emailTextField.setBottomBorder(color: UIColor.red)
+        }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

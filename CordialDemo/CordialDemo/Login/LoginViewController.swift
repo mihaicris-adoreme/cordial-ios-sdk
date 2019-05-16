@@ -35,6 +35,12 @@ class LoginViewController: UIViewController {
         self.setupCordialSDKLogicErrorHandler ()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if let primaryKey = cordialAPI.getContactPrimaryKey() {
+            emailTextField.text = primaryKey
+        }
+    }
+    
     func setupCordialSDKLogicErrorHandler () {
         let notificationCenter = NotificationCenter.default
         
