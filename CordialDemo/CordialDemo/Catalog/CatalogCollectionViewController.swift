@@ -16,6 +16,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let reuseIdentifier = "catalogCell"
     let segueToProductIdentifier = "segueToProduct"
     let segueToCartIdentifier = "segueToCart"
+    let segueToProfileIdentifier = "segueToProfile"
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -30,8 +31,6 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         Product(id: "6", img: "men6", brand: "Rip Curl", name: "Botanical Short Sleeve Shirt", price: 54.50, sku: "ab26f89c-6110-11e9-8647-d663bd873d93", shortDescription: "\u{00B7} Classic styling \n\u{00B7} Clean lines \n\u{00B7} Brand mark logo on center \n\u{00B7} 50% 50% mix \n\u{00B7} Washable \n\u{00B7} Imported \n\u{00B7} Measurements: Length: 10 \n\u{00B7} Product measurements were taken using size MD \n\u{00B7} Please note that measurements may vary by size")
     ]
     
-    var notificationProductID: String!
-    
     var selectedItem: Int?
     
     override func viewDidLoad() {
@@ -43,10 +42,6 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "cart"), style: .plain, target: self, action: #selector(cartButtonAction))
         
         self.title = catalogName
-        
-        if notificationProductID != nil {
-            self.performSegue(withIdentifier: self.segueToProductIdentifier, sender: self)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,6 +58,16 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     
     @objc func cartButtonAction() {
         self.performSegue(withIdentifier: self.segueToCartIdentifier, sender: self)
+    }
+    
+    @IBAction func profileButtonAction(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: self.segueToProfileIdentifier, sender: self)
+    }
+    
+    @IBAction func logoutButtonAction(_ sender: UIBarButtonItem) {
+        cordialAPI.unsetContact()
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     // MARK: Prepare for segue

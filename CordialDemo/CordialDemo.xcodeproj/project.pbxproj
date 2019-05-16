@@ -29,6 +29,7 @@
 		9E7A5A8D222EB64C0020054F /* CordialDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */; };
 		9E7BD8BC228D6605004B4EB9 /* CordialSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7BD8B9228D65EE004B4EB9 /* CordialSDK.framework */; };
 		9E7BD8BD228D6605004B4EB9 /* CordialSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7BD8B9228D65EE004B4EB9 /* CordialSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */; };
 		9EDC7E402242912000BF8FB0 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC7E3F2242912000BF8FB0 /* App.swift */; };
 		9EF7B20B2266259B003B223D /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF7B20A2266259B003B223D /* Product.swift */; };
 		9EF7B20D22662A79003B223D /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF7B20C22662A79003B223D /* CartViewController.swift */; };
@@ -140,6 +141,7 @@
 		9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemoUITests.swift; sourceTree = "<group>"; };
 		9E7A5A8E222EB64C0020054F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E7BD8B3228D65EE004B4EB9 /* CordialSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordialSDK.xcodeproj; path = ../CordialSDK/CordialSDK.xcodeproj; sourceTree = "<group>"; };
+		9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9EDC7E3F2242912000BF8FB0 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		9EF7B20A2266259B003B223D /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		9EF7B20C22662A79003B223D /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 			children = (
 				9EF7B21422666102003B223D /* PushNotification */,
 				9EF7B213226660D0003B223D /* Login */,
+				9E7BD8C7228DADDC004B4EB9 /* Profile */,
 				9EF7B2112266609A003B223D /* Catalog */,
 				9EF7B212226660B1003B223D /* Product */,
 				9EF7B21522666111003B223D /* Cart */,
@@ -302,6 +305,14 @@
 				9E7BD8BB228D65EE004B4EB9 /* CordialSDKTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9E7BD8C7228DADDC004B4EB9 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		9EF7B21022663864003B223D /* CoreData */ = {
@@ -688,6 +699,7 @@
 				9EDC7E402242912000BF8FB0 /* App.swift in Sources */,
 				9EF7B20D22662A79003B223D /* CartViewController.swift in Sources */,
 				9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */,
+				9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */,
 				9EF7B20B2266259B003B223D /* Product.swift in Sources */,
 				9EF7B20F2266340F003B223D /* AppDataManager.swift in Sources */,
 				9E7A5A6C222EB64B0020054F /* LoginViewController.swift in Sources */,

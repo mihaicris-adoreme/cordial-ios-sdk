@@ -50,14 +50,10 @@ class SendContactOrders {
         sendContactOrderRequests.forEach { sendContactOrderRequest in
             let orderJSON = self.getOrderJSON(order: sendContactOrderRequest.order)
             
-            var rootContainer  = [
+            let rootContainer  = [
                 "\"deviceId\": \"\(sendContactOrderRequest.deviceID)\"",
                 "\"order\": \(orderJSON)"
             ]
-            
-            if let primaryKey = sendContactOrderRequest.primaryKey {
-                rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
-            }
             
             let stringJSON = "{ " + rootContainer.joined(separator: ", ") + " }"
             
