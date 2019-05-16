@@ -77,6 +77,13 @@ public class CordialAPI: NSObject {
         }
     }
     
+    // MARK: Set Contact
+    
+    public func setContact(primaryKey: String) {
+        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey)
+        self.upsertContact(upsertContactRequest: upsertContactRequest)
+    }
+    
     // MARK: Upsert Contact
     
     public func upsertContact(upsertContactRequest: UpsertContactRequest) -> Void {

@@ -62,7 +62,7 @@ class LoginViewController: UIViewController {
         self.saveTestInitData()
         
         if let email = emailTextField.text, !email.isEmpty {
-            let upsertContactRequest = UpsertContactRequest(primaryKey: email, attributes: nil)
+            let upsertContactRequest = UpsertContactRequest(attributes: nil)
             cordialAPI.upsertContact(upsertContactRequest: upsertContactRequest)
             
             self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
