@@ -18,6 +18,8 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToCartIdentifier = "segueToCart"
     let segueToProfileIdentifier = "segueToProfile"
     
+    @IBOutlet weak var profileButtonItem: UIBarButtonItem!
+    @IBOutlet weak var logoutButtonItem: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     
     let catalogName = "Mens"
@@ -42,12 +44,22 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "cart"), style: .plain, target: self, action: #selector(cartButtonAction))
         
         self.title = catalogName
+        
+        self.prerareProfileAndLogoutButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.sendBrowseCategoryCustomEvent()
+    }
+    
+    func prerareProfileAndLogoutButtons() {
+        if cordialAPI.getContactPrimaryKey() == nil {
+            self.profileButtonItem.isEnabled = false
+            self.logoutButtonItem.title = "Login"
+            
+        }
     }
     
     func sendBrowseCategoryCustomEvent() {
@@ -65,7 +77,9 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     }
     
     @IBAction func logoutButtonAction(_ sender: UIBarButtonItem) {
-        cordialAPI.unsetContact()
+        if cordialAPI.getContactPrimaryKey() != nil {
+            cordialAPI.unsetContact()
+        }
         
         self.dismiss(animated: true, completion: nil)
     }

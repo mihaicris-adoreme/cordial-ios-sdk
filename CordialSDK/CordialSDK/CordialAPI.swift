@@ -96,7 +96,7 @@ public class CordialAPI: NSObject {
     // MARK: Unset Contact
     
     public func unsetContact() {
-//        UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+        UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
     // MARK: Upsert Contact

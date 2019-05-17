@@ -77,6 +77,13 @@ class LoginViewController: UIViewController {
         }
     }
     
+    @IBAction func guestAction(_ sender: UIButton) {
+        self.saveTestInitData()
+        
+        self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
+    }
+    
+    
     func saveTestInitData() {
         if let baseURL = baseURLTextField.text, let accountKey = accountKeyTextField.text, let channelKey = channelKeyTextField.text {
             cordialAPI.setBaseURL(baseURL: baseURL)
