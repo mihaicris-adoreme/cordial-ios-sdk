@@ -20,23 +20,6 @@ class ReachabilitySender {
     }
     
     @objc private func sendCacheFromCoreData() {
-        let customEventRequests = CoreDataManager.shared.customEventRequests.getCustomEventRequestsFromCoreData()
-        if customEventRequests.count > 0 {
-            CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
-        }
-        
-        if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestToCoreData() {
-            ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
-        }
-        
-        let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-        if sendContactOrderRequests.count > 0 {
-            ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
-        }
-        
-        let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
-        if upsertContactRequests.count > 0 {
-            ContactsSender().upsertContactRequests(upsertContactRequests: upsertContactRequests)
-        }
+        CordialAPI().sendCacheFromCoreData()
     }
 }

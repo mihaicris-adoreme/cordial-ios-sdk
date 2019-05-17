@@ -36,9 +36,15 @@ class UpsertContacts {
                 switch httpResponse.statusCode {
                 case 200:
                     let result = UpsertContactResponse(status: .UPDATED)
+                    
+                    CordialAPI().sendCacheFromCoreData()
+                    
                     onSuccess(result)
                 case 201:
                     let result = UpsertContactResponse(status: .CREATED)
+                    
+                    CordialAPI().sendCacheFromCoreData()
+                    
                     onSuccess(result)
                 default:
                     let responseBody = String(decoding: responseData, as: UTF8.self)

@@ -12,7 +12,7 @@ import os.log
 class ContactOrdersSender {
     
     func sendContactOrders(sendContactOrderRequests: [SendContactOrderRequest]) {
-        if ReachabilityManager.shared.isConnectedToInternet {
+        if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
             let sendContactOrders = SendContactOrders()
             
             os_log("Sending contact orders:", log: OSLog.sendContactOrders, type: .info)

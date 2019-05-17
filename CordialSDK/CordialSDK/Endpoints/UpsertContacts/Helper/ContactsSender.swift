@@ -11,8 +11,8 @@ import os.log
 
 class ContactsSender {
     
-    func upsertContactRequests(upsertContactRequests: [UpsertContactRequest]) {
-        if ReachabilityManager.shared.isConnectedToInternet {
+    func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
+        if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
             let upsertContacts = UpsertContacts()
             
             os_log("Sending contacts:", log: OSLog.upsertContacts, type: .info)

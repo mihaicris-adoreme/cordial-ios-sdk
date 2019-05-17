@@ -12,7 +12,7 @@ import os.log
 class CustomEventsSender {
     
     func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
-        if ReachabilityManager.shared.isConnectedToInternet {
+        if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
             let sendCustomEvents = SendCustomEvents()
             
             os_log("Sending events:", log: OSLog.sendCustomEvents, type: .info)

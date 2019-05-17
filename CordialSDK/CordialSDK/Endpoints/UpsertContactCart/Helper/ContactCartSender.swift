@@ -12,7 +12,7 @@ import os.log
 class ContactCartSender {
     
     func upsertContactCart(upsertContactCartRequest: UpsertContactCartRequest) {
-        if ReachabilityManager.shared.isConnectedToInternet {
+        if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
             let upsertContactCart = UpsertContactCart()
             
             os_log("Sending contact cart. Device ID: [%{PUBLIC}@]", log: OSLog.upsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
