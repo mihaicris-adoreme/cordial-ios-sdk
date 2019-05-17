@@ -13,7 +13,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="BYZ-38-t0r" customClass="LoginViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -159,7 +159,7 @@
         <!--Navigation Controller-->
         <scene sceneID="4Y4-lb-RqM">
             <objects>
-                <navigationController id="NUN-ha-vwX" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CatalogNavigationController" id="NUN-ha-vwX" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JiE-CS-eJg">
                         <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -175,7 +175,7 @@
         <!--Catalog Collection View Controller-->
         <scene sceneID="JUx-oN-wxu">
             <objects>
-                <viewController storyboardIdentifier="catalogCollectionViewController" id="27a-yX-dEo" customClass="CatalogCollectionViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CatalogCollectionViewController" id="27a-yX-dEo" customClass="CatalogCollectionViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bm6-br-Zoh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

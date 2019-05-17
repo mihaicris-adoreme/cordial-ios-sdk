@@ -25,6 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.initialize(accountKey: "test_account_key", channelKey: "test_channel_key")
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
         
+        if CordialAPI().getContactPrimaryKey() != nil {
+            let catalogNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
+            self.window?.rootViewController = catalogNavigationController
+        }
+        
         return true
     }
 

@@ -32,13 +32,7 @@ class LoginViewController: UIViewController {
         accountKeyTextField.text = cordialAPI.getAccountKey()
         channelKeyTextField.text = cordialAPI.getChannelKey()
         
-        self.setupCordialSDKLogicErrorHandler ()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if let primaryKey = cordialAPI.getContactPrimaryKey() {
-            emailTextField.text = primaryKey
-        }
+        self.setupCordialSDKLogicErrorHandler()
     }
     
     func setupCordialSDKLogicErrorHandler () {

@@ -81,7 +81,8 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
             cordialAPI.unsetContact()
         }
         
-        self.dismiss(animated: true, completion: nil)
+        let loginViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        self.present(loginViewController, animated: true, completion: nil)
     }
     
     // MARK: Prepare for segue
