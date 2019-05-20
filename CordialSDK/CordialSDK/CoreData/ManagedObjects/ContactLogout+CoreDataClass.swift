@@ -1,5 +1,5 @@
 //
-//  ContactOrderRequest+CoreDataClass.swift
+//  ContactLogout+CoreDataClass.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 5/20/19.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(ContactOrderRequest)
-public class ContactOrderRequest: NSManagedObject {
+@objc(ContactLogout)
+public class ContactLogout: NSManagedObject {
 
 }

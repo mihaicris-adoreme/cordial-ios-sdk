@@ -27,8 +27,6 @@
 		9E7A5A77222EB64C0020054F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7A5A75222EB64C0020054F /* LaunchScreen.storyboard */; };
 		9E7A5A82222EB64C0020054F /* CordialDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A81222EB64C0020054F /* CordialDemoTests.swift */; };
 		9E7A5A8D222EB64C0020054F /* CordialDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */; };
-		9E7BD8BC228D6605004B4EB9 /* CordialSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7BD8B9228D65EE004B4EB9 /* CordialSDK.framework */; };
-		9E7BD8BD228D6605004B4EB9 /* CordialSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7BD8B9228D65EE004B4EB9 /* CordialSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */; };
 		9EDC7E402242912000BF8FB0 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC7E3F2242912000BF8FB0 /* App.swift */; };
 		9EF7B20B2266259B003B223D /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF7B20A2266259B003B223D /* Product.swift */; };
@@ -59,27 +57,6 @@
 			remoteGlobalIDString = 9E7A5A65222EB64B0020054F;
 			remoteInfo = CordialDemo;
 		};
-		9E7BD8B8228D65EE004B4EB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E7BD8B3228D65EE004B4EB9 /* CordialSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9E7A5A3F222EB54D0020054F;
-			remoteInfo = CordialSDK;
-		};
-		9E7BD8BA228D65EE004B4EB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E7BD8B3228D65EE004B4EB9 /* CordialSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9E7A5A48222EB54E0020054F;
-			remoteInfo = CordialSDKTests;
-		};
-		9E7BD8BE228D6605004B4EB9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E7BD8B3228D65EE004B4EB9 /* CordialSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9E7A5A3E222EB54D0020054F;
-			remoteInfo = CordialSDK;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -100,7 +77,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9E7BD8BD228D6605004B4EB9 /* CordialSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,7 +116,6 @@
 		9E7A5A88222EB64C0020054F /* CordialDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CordialDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemoUITests.swift; sourceTree = "<group>"; };
 		9E7A5A8E222EB64C0020054F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9E7BD8B3228D65EE004B4EB9 /* CordialSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordialSDK.xcodeproj; path = ../CordialSDK/CordialSDK.xcodeproj; sourceTree = "<group>"; };
 		9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9EDC7E3F2242912000BF8FB0 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		9EF7B20A2266259B003B223D /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -166,7 +141,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E7BD8BC228D6605004B4EB9 /* CordialSDK.framework in Frameworks */,
 				6C102E85A5A269BAD6F316DB /* Pods_CordialDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,7 +200,6 @@
 		9E7A5A5D222EB64B0020054F = {
 			isa = PBXGroup;
 			children = (
-				9E7BD8B3228D65EE004B4EB9 /* CordialSDK.xcodeproj */,
 				9E7A5A68222EB64B0020054F /* CordialDemo */,
 				9E7A5A80222EB64C0020054F /* CordialDemoTests */,
 				9E7A5A8B222EB64C0020054F /* CordialDemoUITests */,
@@ -296,15 +269,6 @@
 				A97206FA92CB1BAD2D9232C9 /* Pods_CordialDemo_NotificationServiceExtension.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		9E7BD8B4228D65EE004B4EB9 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9E7BD8B9228D65EE004B4EB9 /* CordialSDK.framework */,
-				9E7BD8BB228D65EE004B4EB9 /* CordialSDKTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		9E7BD8C7228DADDC004B4EB9 /* Profile */ = {
@@ -405,7 +369,6 @@
 			);
 			dependencies = (
 				9E77896F22878C090089C986 /* PBXTargetDependency */,
-				9E7BD8BF228D6605004B4EB9 /* PBXTargetDependency */,
 			);
 			name = CordialDemo;
 			productName = CordialDemo;
@@ -499,12 +462,6 @@
 			mainGroup = 9E7A5A5D222EB64B0020054F;
 			productRefGroup = 9E7A5A67222EB64B0020054F /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 9E7BD8B4228D65EE004B4EB9 /* Products */;
-					ProjectRef = 9E7BD8B3228D65EE004B4EB9 /* CordialSDK.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				9E7A5A65222EB64B0020054F /* CordialDemo */,
@@ -514,23 +471,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		9E7BD8B9228D65EE004B4EB9 /* CordialSDK.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CordialSDK.framework;
-			remoteRef = 9E7BD8B8228D65EE004B4EB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9E7BD8BB228D65EE004B4EB9 /* CordialSDKTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = CordialSDKTests.xctest;
-			remoteRef = 9E7BD8BA228D65EE004B4EB9 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9E77896722878C090089C986 /* Resources */ = {
@@ -643,6 +583,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo/Pods-CordialDemo-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CordialSDK/CordialSDK.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/CordialAppExtensions/CordialAppExtensions.framework",
 			);
@@ -650,6 +591,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CordialSDK.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CordialAppExtensions.framework",
 			);
@@ -745,11 +687,6 @@
 			isa = PBXTargetDependency;
 			target = 9E7A5A65222EB64B0020054F /* CordialDemo */;
 			targetProxy = 9E7A5A89222EB64C0020054F /* PBXContainerItemProxy */;
-		};
-		9E7BD8BF228D6605004B4EB9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CordialSDK;
-			targetProxy = 9E7BD8BE228D6605004B4EB9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
