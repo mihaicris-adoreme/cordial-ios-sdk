@@ -17,5 +17,6 @@ extension OSLog {
     static let upsertContactCart = OSLog(subsystem: subsystem, category: "UpsertContactCart")
     static let sendContactOrders = OSLog(subsystem: subsystem, category: "SendContactOrders")
     static let upsertContacts = OSLog(subsystem: subsystem, category: "UpsertContacts")
+    static let sendContactLogout = OSLog(subsystem: subsystem, category: "SendContactLogout")
     
 }

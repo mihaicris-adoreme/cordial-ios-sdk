@@ -50,6 +50,9 @@ class LoginViewController: UIViewController {
         notificationCenter.removeObserver(self, name: .upsertContactsLogicError, object: nil)
         notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .upsertContactsLogicError, object: nil)
         
+        notificationCenter.removeObserver(self, name: .sendContactLogoutLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .sendContactLogoutLogicError, object: nil)
+        
     }
     
     @objc func cordialNotificationErrorHandler(notification: NSNotification) {

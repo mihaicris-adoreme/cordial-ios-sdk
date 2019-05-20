@@ -16,12 +16,12 @@ class CordialApiEndpoints {
         return cordialAPI.getBaseURL() + "mobile/events"
     }
     
-    func getContactURL() -> String {
-        return cordialAPI.getBaseURL() + "mobile/contact"
-    }
-    
     func getContactsURL() -> String {
         return cordialAPI.getBaseURL() + "mobile/contacts"
+    }
+    
+    func getContactLogoutURL() -> String {
+        return cordialAPI.getBaseURL() + "mobile/contact/logout"
     }
     
     func getСontactСartURL() -> String {
@@ -29,6 +29,6 @@ class CordialApiEndpoints {
     }
     
     func getOrdersURL() -> String {
-        return cordialAPI.getBaseURL() + "/mobile/orders"
+        return cordialAPI.getBaseURL() + "mobile/orders"
     }
 }

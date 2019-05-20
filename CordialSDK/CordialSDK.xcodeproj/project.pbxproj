@@ -33,6 +33,10 @@
 		9E7FAC3D223001710097C0B0 /* UpsertContactResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7FAC3C223001710097C0B0 /* UpsertContactResponse.swift */; };
 		9E806DAC2271E05200A15F8E /* ReachabilitySender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E806DAB2271E05200A15F8E /* ReachabilitySender.swift */; };
 		9E806DAE2271EA8D00A15F8E /* ContactCartSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E806DAD2271EA8D00A15F8E /* ContactCartSender.swift */; };
+		9E92D3D2228EF26500D8AFE0 /* SendContactLogoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */; };
+		9E92D3D4228EF27600D8AFE0 /* SendContactLogoutResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D3228EF27600D8AFE0 /* SendContactLogoutResponse.swift */; };
+		9E92D3D7228F01CA00D8AFE0 /* ContactLogoutSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D6228F01CA00D8AFE0 /* ContactLogoutSender.swift */; };
+		9E92D3D9228F022800D8AFE0 /* SendContactLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D8228F022800D8AFE0 /* SendContactLogout.swift */; };
 		9E97DEF1226F2B1900856341 /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E97DEF0226F2B1900856341 /* Address.swift */; };
 		9E97DEF5226F307E00856341 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E97DEF4226F307E00856341 /* Order.swift */; };
 		9E97DEF7226F381700856341 /* SendContactOrderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E97DEF6226F381700856341 /* SendContactOrderRequest.swift */; };
@@ -102,6 +106,10 @@
 		9E7FAC3C223001710097C0B0 /* UpsertContactResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactResponse.swift; sourceTree = "<group>"; };
 		9E806DAB2271E05200A15F8E /* ReachabilitySender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilitySender.swift; sourceTree = "<group>"; };
 		9E806DAD2271EA8D00A15F8E /* ContactCartSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCartSender.swift; sourceTree = "<group>"; };
+		9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogoutRequest.swift; sourceTree = "<group>"; };
+		9E92D3D3228EF27600D8AFE0 /* SendContactLogoutResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogoutResponse.swift; sourceTree = "<group>"; };
+		9E92D3D6228F01CA00D8AFE0 /* ContactLogoutSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLogoutSender.swift; sourceTree = "<group>"; };
+		9E92D3D8228F022800D8AFE0 /* SendContactLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogout.swift; sourceTree = "<group>"; };
 		9E97DEF0226F2B1900856341 /* Address.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		9E97DEF4226F307E00856341 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		9E97DEF6226F381700856341 /* SendContactOrderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactOrderRequest.swift; sourceTree = "<group>"; };
@@ -281,12 +289,32 @@
 		9E7BD8C1228D9999004B4EB9 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
+				9E92D3D0228EF22A00D8AFE0 /* SendContactLogout */,
 				9E44CB1B222FE24B00DADC6C /* UpsertContacts */,
 				9EEE995322412BDE0041D8AE /* SendCustomEvent */,
 				9E7037A022688254000C3582 /* UpsertContactCart */,
 				9E97DEEE226F2A8400856341 /* SendContactOrder */,
 			);
 			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		9E92D3D0228EF22A00D8AFE0 /* SendContactLogout */ = {
+			isa = PBXGroup;
+			children = (
+				9E92D3D5228EF28000D8AFE0 /* Helper */,
+				9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */,
+				9E92D3D3228EF27600D8AFE0 /* SendContactLogoutResponse.swift */,
+			);
+			path = SendContactLogout;
+			sourceTree = "<group>";
+		};
+		9E92D3D5228EF28000D8AFE0 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				9E92D3D6228F01CA00D8AFE0 /* ContactLogoutSender.swift */,
+				9E92D3D8228F022800D8AFE0 /* SendContactLogout.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		9E97DEEE226F2A8400856341 /* SendContactOrder */ = {
@@ -486,11 +514,13 @@
 				9E806DAC2271E05200A15F8E /* ReachabilitySender.swift in Sources */,
 				9EBE675A22731C030065AA06 /* ContactOrdersSender.swift in Sources */,
 				9E5392F2222EE4BA0043F5E6 /* API.swift in Sources */,
+				9E92D3D2228EF26500D8AFE0 /* SendContactLogoutRequest.swift in Sources */,
 				9E0813842274523500BD1412 /* ContactsSender.swift in Sources */,
 				9EDB6E072289D4E100A77BBE /* ContactOrderRequest+CoreDataClass.swift in Sources */,
 				9E45FE7B22538194006A5A6B /* CordialPushNotification.swift in Sources */,
 				9EEE995722412C270041D8AE /* SendCustomEventResponse.swift in Sources */,
 				9E7037A2226882F4000C3582 /* UpsertContactCartRequest.swift in Sources */,
+				9E92D3D4228EF27600D8AFE0 /* SendContactLogoutResponse.swift in Sources */,
 				9E565B8E225B7198005EC4AF /* SendCustomEvents.swift in Sources */,
 				9EDB6E012289D4E100A77BBE /* ContactRequest+CoreDataClass.swift in Sources */,
 				9E565B95225B9E47005EC4AF /* CoreDataManager.swift in Sources */,
@@ -525,7 +555,9 @@
 				9E97DEF1226F2B1900856341 /* Address.swift in Sources */,
 				9ED26372224CFAF300BD9BB3 /* CordialFirstLaunch.swift in Sources */,
 				9E7FAC3D223001710097C0B0 /* UpsertContactResponse.swift in Sources */,
+				9E92D3D7228F01CA00D8AFE0 /* ContactLogoutSender.swift in Sources */,
 				9EBF4AA42252559900CA24C7 /* CordialPushNotificationSwizzler.swift in Sources */,
+				9E92D3D9228F022800D8AFE0 /* SendContactLogout.swift in Sources */,
 				9EFCA9DA225F8C8B005A8AC8 /* CordialApiEndpoints.swift in Sources */,
 				9E97DEFB226F413300856341 /* SendContactOrders.swift in Sources */,
 				9EEE995522412C160041D8AE /* SendCustomEventRequest.swift in Sources */,
