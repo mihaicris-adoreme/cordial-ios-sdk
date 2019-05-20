@@ -112,7 +112,7 @@ public class CordialAPI: NSObject {
                 CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
             }
             
-            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestToCoreData() {
+            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
                 ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
             }
             
@@ -124,6 +124,10 @@ public class CordialAPI: NSObject {
             let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
             if upsertContactRequests.count > 0 {
                 ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
+            }
+            
+            if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
+                ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
             }
         }
     }

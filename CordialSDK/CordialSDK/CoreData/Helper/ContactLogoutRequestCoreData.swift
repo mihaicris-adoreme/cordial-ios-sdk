@@ -1,19 +1,19 @@
 //
-//  ContactCartRequestCoreData.swift
+//  ContactLogoutRequestCoreData.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 4/26/19.
+//  Created by Yan Malinovsky on 5/20/19.
 //  Copyright © 2019 cordial.io. All rights reserved.
 //
 
 import Foundation
 import CoreData
 
-class ContactCartRequestCoreData {
+class ContactLogoutRequestCoreData {
     
-    let entityName = "ContactCartRequest"
+    let entityName = "ContactLogout"
     
-    func setContactCartRequestToCoreData(upsertContactCartRequest: UpsertContactCartRequest) {
+    func setContactLogoutRequestToCoreData(sendContactLogoutRequest: SendContactLogoutRequest) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
@@ -22,8 +22,8 @@ class ContactCartRequestCoreData {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                let upsertContactCartRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest, requiringSecureCoding: false)
-                newRow.setValue(upsertContactCartRequestData, forKey: "data")
+                let sendContactLogoutRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactLogoutRequest, requiringSecureCoding: false)
+                newRow.setValue(sendContactLogoutRequestData, forKey: "data")
                 
                 try context.save()
             } catch {
@@ -32,7 +32,7 @@ class ContactCartRequestCoreData {
         }
     }
     
-    func getContactCartRequestFromCoreData() -> UpsertContactCartRequest? {
+    func getContactLogoutRequestFromCoreData() -> SendContactLogoutRequest? {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -44,10 +44,10 @@ class ContactCartRequestCoreData {
                 guard let anyData = data.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UpsertContactCartRequest {
+                if let sendContactLogoutRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendContactLogoutRequest {
                     CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
                     
-                    return sendCustomEventRequest
+                    return sendContactLogoutRequest
                 }
             }
         } catch let error as NSError {

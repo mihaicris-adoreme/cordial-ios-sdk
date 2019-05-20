@@ -3,6 +3,9 @@
     <entity name="ContactCartRequest" representedClassName="ContactCartRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
+    <entity name="ContactLogout" representedClassName="ContactLogout" syncable="YES" codeGenerationType="class">
+        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+    </entity>
     <entity name="ContactOrderRequest" representedClassName="ContactOrderRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
     </entity>
@@ -17,5 +20,6 @@
         <element name="ContactOrderRequest" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="ContactRequest" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="CustomEventRequest" positionX="-45" positionY="0" width="128" height="60"/>
+        <element name="ContactLogout" positionX="-45" positionY="9" width="128" height="60"/>
     </elements>
 </model>

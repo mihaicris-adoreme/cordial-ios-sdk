@@ -22,6 +22,7 @@ class CoreDataManager {
     let contactCartRequest = ContactCartRequestCoreData()
     let contactOrderRequests = ContactOrderRequestsCoreData()
     let contactRequests = ContactRequestsCoreData()
+    let contactLogoutRequest = ContactLogoutRequestCoreData()
     
     lazy var persistentContainer: NSPersistentContainer = {
     
@@ -71,7 +72,7 @@ class CoreDataManager {
     }()
     
     func deleteAllCoreDataByEntity(entityName: String) {
-        let context = persistentContainer.viewContext
+        let context = self.persistentContainer.viewContext
         
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
@@ -89,6 +90,7 @@ class CoreDataManager {
         self.deleteAllCoreDataByEntity(entityName: contactCartRequest.entityName)
         self.deleteAllCoreDataByEntity(entityName: contactOrderRequests.entityName)
         self.deleteAllCoreDataByEntity(entityName: contactRequests.entityName)
+        self.deleteAllCoreDataByEntity(entityName: contactLogoutRequest.entityName)
     }
     
 }
