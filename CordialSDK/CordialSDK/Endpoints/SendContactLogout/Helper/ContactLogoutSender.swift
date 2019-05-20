@@ -12,10 +12,7 @@ import os.log
 class ContactLogoutSender {
     
     func sendContactLogout(sendContactLogoutRequest: SendContactLogoutRequest) {
-        
-        CoreDataManager.shared.deleteAllCoreData()
-        
-        if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
+        if ReachabilityManager.shared.isConnectedToInternet {
             let sendContactLogout = SendContactLogout()
             
             os_log("Sending contact logout:", log: OSLog.sendContactLogout, type: .info)

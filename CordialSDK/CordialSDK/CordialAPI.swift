@@ -99,6 +99,7 @@ public class CordialAPI: NSObject {
             let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
             
+            UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
             UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
         }
     }
@@ -125,10 +126,10 @@ public class CordialAPI: NSObject {
             if upsertContactRequests.count > 0 {
                 ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
             }
-            
-            if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
-                ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
-            }
+        }
+        
+        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
+            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         }
     }
     

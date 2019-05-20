@@ -12,6 +12,12 @@ import os.log
 class ContactsSender {
     
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
+        if let primaryKey = CordialAPI().getContactPrimaryKey(), let previousPrimaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY) {
+            if primaryKey != previousPrimaryKey {
+                CoreDataManager.shared.deleteAllCoreData()
+            }
+        }
+        
         if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
             let upsertContacts = UpsertContacts()
             
