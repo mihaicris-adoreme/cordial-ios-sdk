@@ -23,7 +23,7 @@ public class SendContactOrderRequest: NSObject, NSCoding {
     
     public init(order: Order) {
         self.deviceID = cordialAPI.getDeviceIdentifier()
-        self.primaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+        self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.order = order
     }
     

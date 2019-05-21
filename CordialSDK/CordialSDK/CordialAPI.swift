@@ -95,7 +95,7 @@ public class CordialAPI: NSObject {
     // MARK: Unset Contact
     
     public func unsetContact() {
-        if let primaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY) {
+        if let primaryKey = self.getContactPrimaryKey() {
             let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
             

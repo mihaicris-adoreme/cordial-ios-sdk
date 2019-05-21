@@ -23,7 +23,7 @@ public class UpsertContactCartRequest: NSObject, NSCoding {
     
     public init(cartItems: [CartItem]) {
         self.deviceID = cordialAPI.getDeviceIdentifier()
-        self.primaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+        self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.cartItems = cartItems
     }
     
