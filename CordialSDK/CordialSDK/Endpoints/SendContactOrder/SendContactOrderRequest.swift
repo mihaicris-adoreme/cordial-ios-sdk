@@ -17,7 +17,6 @@ public class SendContactOrderRequest: NSObject, NSCoding {
     let cordialAPI = CordialAPI()
     
     enum Key: String {
-        case primaryKey = "primaryKey"
         case order = "order"
     }
     
@@ -27,21 +26,13 @@ public class SendContactOrderRequest: NSObject, NSCoding {
         self.order = order
     }
     
-    private init(primaryKey: String?, order: Order) {
-        self.deviceID = cordialAPI.getDeviceIdentifier()
-        self.primaryKey = primaryKey
-        self.order = order
-    }
-    
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(primaryKey, forKey: Key.primaryKey.rawValue)
         aCoder.encode(order, forKey: Key.order.rawValue)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {
-        let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
         let order = aDecoder.decodeObject(forKey: Key.order.rawValue) as! Order
         
-        self.init(primaryKey: primaryKey, order: order)
+        self.init(order: order)
     }
 }

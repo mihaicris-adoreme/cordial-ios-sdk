@@ -56,6 +56,10 @@ class SendCustomEvents {
                 "\"timestamp\": \"\(sendCustomEventRequest.timestamp)\""
             ]
             
+            if let primaryKey = sendCustomEventRequest.primaryKey {
+                rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
+            }
+            
             if let properties = sendCustomEventRequest.properties {
                 rootContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
             }

@@ -17,7 +17,6 @@ public class UpsertContactCartRequest: NSObject, NSCoding {
     let cordialAPI = CordialAPI()
     
     enum Key: String {
-        case primaryKey = "primaryKey"
         case cartItems = "cartItems"
     }
     
@@ -27,21 +26,13 @@ public class UpsertContactCartRequest: NSObject, NSCoding {
         self.cartItems = cartItems
     }
     
-    private init(primaryKey: String?, cartItems: [CartItem]) {  
-        self.deviceID = cordialAPI.getDeviceIdentifier()
-        self.primaryKey = primaryKey
-        self.cartItems = cartItems
-    }
-    
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(primaryKey, forKey: Key.primaryKey.rawValue)
         aCoder.encode(cartItems, forKey: Key.cartItems.rawValue)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {
-        let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
         let cartItems = aDecoder.decodeObject(forKey: Key.cartItems.rawValue) as! [CartItem]
         
-        self.init(primaryKey: primaryKey, cartItems: cartItems)
+        self.init(cartItems: cartItems)
     }
 }

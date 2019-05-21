@@ -47,10 +47,14 @@ class UpsertContactCart {
     private func getUpsertContactCartJSON(upsertContactCartRequest: UpsertContactCartRequest) -> String {
         let cartItemsJSON = self.getCartItemsJSON(cartItems: upsertContactCartRequest.cartItems)
         
-        let rootContainer  = [
+        var rootContainer  = [
             "\"deviceId\": \"\(upsertContactCartRequest.deviceID)\"",
             "\"cartitems\": \(cartItemsJSON)"
         ]
+        
+        if let primaryKey = upsertContactCartRequest.primaryKey {
+            rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
+        }
         
         let upsertContactCartJSON = "[ { " + rootContainer.joined(separator: ", ") + " } ]"
         
