@@ -43,7 +43,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.upsertCartTableFooterView()
     }
     
-    @objc func checkoutAction(){
+    @objc func checkoutAction() {
         self.sendContactOrder()
         popupSimpleNoteAlert(title: "CHECKOUT", message: "SUCCESS", controller: self)
         

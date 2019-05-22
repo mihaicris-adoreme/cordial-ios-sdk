@@ -60,6 +60,10 @@ class SendCustomEvents {
                 rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
             }
             
+            if let mcID = sendCustomEventRequest.mcID {
+                rootContainer.append("\"mcID\": \"\(mcID)\"")
+            }
+            
             if let properties = sendCustomEventRequest.properties {
                 rootContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
             }
