@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class CordialPushNotificationSwizzler {
     
@@ -50,7 +51,7 @@ class CordialPushNotificationSwizzler {
     @objc func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
-        print("Device Token: \(token)")
+        os_log("Device Token: [%{public}@]", log: OSLog.pushNotification, type: .info, token)
         
         UserDefaults.standard.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_TOKEN)
         

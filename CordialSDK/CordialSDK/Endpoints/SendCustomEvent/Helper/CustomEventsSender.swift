@@ -17,14 +17,14 @@ class CustomEventsSender {
             
             os_log("Sending events:", log: OSLog.sendCustomEvents, type: .info)
             sendCustomEventRequests.forEach({ sendCustomEventRequest in
-                os_log("[%{PUBLIC}@]: [%{PUBLIC}@]", log: OSLog.sendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
+                os_log("[%{public}@]: [%{public}@]", log: OSLog.sendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
             })
             
             sendCustomEvents.sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests,
                 onSuccess: { result in
                     os_log("Events sent:", log: OSLog.sendCustomEvents, type: .info)
                     sendCustomEventRequests.forEach({ sendCustomEventRequest in
-                        os_log("[%{PUBLIC}@]: [%{PUBLIC}@]", log: OSLog.sendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
+                        os_log("[%{public}@]: [%{public}@]", log: OSLog.sendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
                     })
                 }, systemError: { error in
                     CoreDataManager.shared.customEventRequests.setCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)

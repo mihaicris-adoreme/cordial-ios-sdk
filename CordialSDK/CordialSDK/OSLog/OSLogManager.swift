@@ -13,6 +13,8 @@ extension OSLog {
     
     private static var subsystem = Bundle.main.bundleIdentifier!
     
+    static let pushNotification = OSLog(subsystem: subsystem, category: "PushNotification")
+    
     static let sendCustomEvents = OSLog(subsystem: subsystem, category: "SendCustomEvents")
     static let upsertContactCart = OSLog(subsystem: subsystem, category: "UpsertContactCart")
     static let sendContactOrders = OSLog(subsystem: subsystem, category: "SendContactOrders")

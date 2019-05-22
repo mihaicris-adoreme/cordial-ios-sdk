@@ -15,11 +15,11 @@ class ContactCartSender {
         if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
             let upsertContactCart = UpsertContactCart()
             
-            os_log("Sending contact cart. Device ID: [%{PUBLIC}@]", log: OSLog.upsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
+            os_log("Sending contact cart. Device ID: [%{public}@]", log: OSLog.upsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
             
             upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest,
                 onSuccess: { result in
-                    os_log("Contact cart sent. Device ID: [%{PUBLIC}@]", log: OSLog.upsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
+                    os_log("Contact cart sent. Device ID: [%{public}@]", log: OSLog.upsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
                 }, systemError: { error in
                     CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
                     os_log("Sending contact cart failed. Saved to retry later.", log: OSLog.upsertContactCart, type: .info)

@@ -23,14 +23,14 @@ class ContactsSender {
             
             os_log("Sending contacts:", log: OSLog.upsertContacts, type: .info)
             upsertContactRequests.forEach({ upsertContactRequest in
-                os_log("Device ID: [%{PUBLIC}@]", log: OSLog.upsertContacts, type: .info, upsertContactRequest.deviceID)
+                os_log("Device ID: [%{public}@]", log: OSLog.upsertContacts, type: .info, upsertContactRequest.deviceID)
             })
         
             upsertContacts.upsertContacts(upsertContactRequests: upsertContactRequests,
                 onSuccess: { result in
                     os_log("Contacts sent:", log: OSLog.upsertContacts, type: .info)
                     upsertContactRequests.forEach({ upsertContactRequest in
-                        os_log("Device ID: [%{PUBLIC}@]", log: OSLog.upsertContacts, type: .info, upsertContactRequest.deviceID)
+                        os_log("Device ID: [%{public}@]", log: OSLog.upsertContacts, type: .info, upsertContactRequest.deviceID)
                     })
                 }, systemError: { error in
                     CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)

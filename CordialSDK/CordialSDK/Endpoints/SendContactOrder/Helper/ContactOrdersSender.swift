@@ -17,14 +17,14 @@ class ContactOrdersSender {
             
             os_log("Sending contact orders:", log: OSLog.sendContactOrders, type: .info)
             sendContactOrderRequests.forEach({ sendContactOrderRequest in
-                os_log("Order ID: [%{PUBLIC}@]", log: OSLog.sendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                os_log("Order ID: [%{public}@]", log: OSLog.sendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
             })
             
             sendContactOrders.sendContactOrders(sendContactOrderRequests: sendContactOrderRequests,
                 onSuccess: { result in
                     os_log("Orders sent:", log: OSLog.sendContactOrders, type: .info)
                     sendContactOrderRequests.forEach({ sendContactOrderRequest in
-                        os_log("Order ID: [%{PUBLIC}@]", log: OSLog.sendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                        os_log("Order ID: [%{public}@]", log: OSLog.sendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
                     })
                 }, systemError: { error in
                     CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)

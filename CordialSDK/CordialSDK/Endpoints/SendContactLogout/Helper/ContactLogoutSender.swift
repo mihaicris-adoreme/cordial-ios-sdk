@@ -16,12 +16,12 @@ class ContactLogoutSender {
             let sendContactLogout = SendContactLogout()
             
             os_log("Sending contact logout:", log: OSLog.sendContactLogout, type: .info)
-            os_log("Device ID: [%{PUBLIC}@]", log: OSLog.sendContactLogout, type: .info, sendContactLogoutRequest.deviceID)
+            os_log("Device ID: [%{public}@]", log: OSLog.sendContactLogout, type: .info, sendContactLogoutRequest.deviceID)
             
             sendContactLogout.sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest,
                 onSuccess: { result in
                     os_log("Contact logout sent:", log: OSLog.sendContactLogout, type: .info)
-                    os_log("Device ID: [%{PUBLIC}@]", log: OSLog.sendContactLogout, type: .info, sendContactLogoutRequest.deviceID)
+                    os_log("Device ID: [%{public}@]", log: OSLog.sendContactLogout, type: .info, sendContactLogoutRequest.deviceID)
                 }, systemError: { error in
                     CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
                     os_log("Sending contact failed. Saved to retry later.", log: OSLog.sendContactLogout, type: .info)
