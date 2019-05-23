@@ -63,6 +63,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginAction(_ sender: UIButton) {
         self.saveTestInitData()
+        self.deleteAllCartItems()
         
         if let email = emailTextField.text, !email.isEmpty {
             cordialAPI.setContact(primaryKey: email)
@@ -76,6 +77,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func guestAction(_ sender: UIButton) {
         self.saveTestInitData()
+        self.deleteAllCartItems()
         
         self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
     }
@@ -86,6 +88,13 @@ class LoginViewController: UIViewController {
             cordialAPI.setBaseURL(baseURL: baseURL)
             cordialAPI.setAccountKey(accountKey: accountKey)
             cordialAPI.setChannelKey(channelKey: channelKey)
+        }
+    }
+    
+    func deleteAllCartItems() {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let entityName = AppDataManager.shared.cartEntityName
+            AppDataManager.shared.deleteAllCoreDataByEntity(appDelegate: appDelegate, entityName: entityName)
         }
     }
 }
