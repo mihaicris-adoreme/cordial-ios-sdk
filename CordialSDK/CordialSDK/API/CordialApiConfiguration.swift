@@ -21,7 +21,7 @@ public class CordialApiConfiguration {
     
     public var pushNotificationHandler: CordialPushNotificationDelegate?
     let cordialPushNotification = CordialPushNotification()
-    let cordialPushNotificationSwizzler = CordialPushNotificationSwizzler()
+    let cordialSwizzler = CordialSwizzler()
     
     private init(){}
     
@@ -85,6 +85,6 @@ public class CordialApiConfiguration {
         
         // Setup Push Notification
         cordialPushNotification.registerForPushNotifications()
-        cordialPushNotificationSwizzler.swizzleAppDelegateMethods()
+        cordialSwizzler.swizzleAppDelegateMethods()
     }
 }

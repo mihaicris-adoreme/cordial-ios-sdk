@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationSwizzler.swift
+//  CordialSwizzler.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 4/1/19.
@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-class CordialPushNotificationSwizzler {
+class CordialSwizzler {
     
     let applicationDelegate: UIApplicationDelegate?
     
@@ -29,7 +29,7 @@ class CordialPushNotificationSwizzler {
             let applicationSelector = #selector(UIApplicationDelegate.application(_:didRegisterForRemoteNotificationsWithDeviceToken:))
             
             if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-                let swizzleMethod = class_getInstanceMethod(CordialPushNotificationSwizzler.self, #selector(application(_:didRegisterForRemoteNotificationsWithDeviceToken:))) {
+                let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(application(_:didRegisterForRemoteNotificationsWithDeviceToken:))) {
                     method_exchangeImplementations(originalMethod, swizzleMethod)
             }
         }
@@ -42,7 +42,7 @@ class CordialPushNotificationSwizzler {
             let applicationSelector = #selector(UIApplicationDelegate.application(_:didFailToRegisterForRemoteNotificationsWithError:))
             
             if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-                let swizzleMethod = class_getInstanceMethod(CordialPushNotificationSwizzler.self, #selector(application(_:didFailToRegisterForRemoteNotificationsWithError:))) {
+                let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(application(_:didFailToRegisterForRemoteNotificationsWithError:))) {
                 method_exchangeImplementations(originalMethod, swizzleMethod)
             }
         }
