@@ -20,6 +20,7 @@ class CordialSwizzler {
     func swizzleAppDelegateMethods() {
         self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
         self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
+        self.swizzleContinueRestorationHandler()
     }
     
     func swizzleDidRegisterForRemoteNotificationsWithDeviceToken() {
@@ -48,6 +49,19 @@ class CordialSwizzler {
         }
     }
     
+    func swizzleContinueRestorationHandler() {
+        if let delegate = applicationDelegate {
+            let delegateClass: AnyClass! = object_getClass(delegate)
+            
+            let applicationSelector = #selector(UIApplicationDelegate.application(_:continue:restorationHandler:))
+            
+            if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
+                let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(application(_:continue:restorationHandler:))) {
+                method_exchangeImplementations(originalMethod, swizzleMethod)
+            }
+        }
+    }
+    
     @objc func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
@@ -63,4 +77,12 @@ class CordialSwizzler {
         print(error.localizedDescription)
     }
     
+    @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        
+        if let continueRestorationHandler = CordialApiConfiguration.shared.continueRestorationHandler {
+            return continueRestorationHandler.appOpenViaUniversalLink(application, continue: userActivity, restorationHandler: restorationHandler)
+        }
+        
+        return false
+    }
 }

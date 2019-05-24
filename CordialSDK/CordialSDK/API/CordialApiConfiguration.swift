@@ -19,9 +19,12 @@ public class CordialApiConfiguration {
     var channelKey = String()
     var baseURL = String()
     
-    public var pushNotificationHandler: CordialPushNotificationDelegate?
-    let cordialPushNotification = CordialPushNotification()
     let cordialSwizzler = CordialSwizzler()
+    
+    public var continueRestorationHandler: CordialContinueRestorationDelegate?
+    public var pushNotificationHandler: CordialPushNotificationDelegate?
+    
+    let cordialPushNotification = CordialPushNotification()
     
     private init(){}
     

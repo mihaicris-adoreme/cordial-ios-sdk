@@ -295,7 +295,7 @@
         <!--Product View Controller-->
         <scene sceneID="bI8-uW-ZaS">
             <objects>
-                <viewController id="Vx5-xg-rJR" customClass="ProductViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProductViewController" id="Vx5-xg-rJR" customClass="ProductViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Q3Y-mg-d92">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -565,7 +565,7 @@
         <image name="logo" width="452.33334350585938" height="185"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="AlP-xG-MIL"/>
+        <segue reference="KPT-34-jm2"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.25567400455474854" green="0.42760902643203735" blue="0.56480115652084351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
