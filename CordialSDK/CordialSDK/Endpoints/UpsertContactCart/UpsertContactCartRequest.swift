@@ -27,7 +27,7 @@ public class UpsertContactCartRequest: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(cartItems, forKey: Key.cartItems.rawValue)
+        aCoder.encode(self.cartItems, forKey: Key.cartItems.rawValue)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {

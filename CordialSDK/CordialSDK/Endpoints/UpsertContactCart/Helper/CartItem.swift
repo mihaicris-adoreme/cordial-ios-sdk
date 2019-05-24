@@ -59,19 +59,19 @@ public class CartItem: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(productID, forKey: Key.productID.rawValue)
-        aCoder.encode(name, forKey: Key.name.rawValue)
-        aCoder.encode(sku, forKey: Key.sku.rawValue)
-        aCoder.encode(category, forKey: Key.category.rawValue)
-        aCoder.encode(url, forKey: Key.url.rawValue)
-        aCoder.encode(itemDescription, forKey: Key.itemDescription.rawValue)
-        aCoder.encode(qty, forKey: Key.qty.rawValue)
-        aCoder.encode(itemPrice, forKey: Key.itemPrice.rawValue)
-        aCoder.encode(salePrice, forKey: Key.salePrice.rawValue)
-        aCoder.encode(timestamp, forKey: Key.timestamp.rawValue)
-        aCoder.encode(attr, forKey: Key.attr.rawValue)
-        aCoder.encode(images, forKey: Key.images.rawValue)
-        aCoder.encode(properties, forKey: Key.properties.rawValue)
+        aCoder.encode(self.productID, forKey: Key.productID.rawValue)
+        aCoder.encode(self.name, forKey: Key.name.rawValue)
+        aCoder.encode(self.sku, forKey: Key.sku.rawValue)
+        aCoder.encode(self.category, forKey: Key.category.rawValue)
+        aCoder.encode(self.url, forKey: Key.url.rawValue)
+        aCoder.encode(self.itemDescription, forKey: Key.itemDescription.rawValue)
+        aCoder.encode(self.qty, forKey: Key.qty.rawValue)
+        aCoder.encode(self.itemPrice, forKey: Key.itemPrice.rawValue)
+        aCoder.encode(self.salePrice, forKey: Key.salePrice.rawValue)
+        aCoder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
+        aCoder.encode(self.attr, forKey: Key.attr.rawValue)
+        aCoder.encode(self.images, forKey: Key.images.rawValue)
+        aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
     private init(productID: String, name: String, sku: String, category: String?, url: String?, itemDescription: String?, qty: Int64?, itemPrice: Double?, salePrice: Double?, timestamp: String, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, String>?) {

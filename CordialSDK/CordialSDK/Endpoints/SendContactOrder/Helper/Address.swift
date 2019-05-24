@@ -36,12 +36,12 @@ public class Address: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(name, forKey: Key.name.rawValue)
-        aCoder.encode(address, forKey: Key.address.rawValue)
-        aCoder.encode(city, forKey: Key.city.rawValue)
-        aCoder.encode(state, forKey: Key.state.rawValue)
-        aCoder.encode(postalCode, forKey: Key.postalCode.rawValue)
-        aCoder.encode(country, forKey: Key.country.rawValue)
+        aCoder.encode(self.name, forKey: Key.name.rawValue)
+        aCoder.encode(self.address, forKey: Key.address.rawValue)
+        aCoder.encode(self.city, forKey: Key.city.rawValue)
+        aCoder.encode(self.state, forKey: Key.state.rawValue)
+        aCoder.encode(self.postalCode, forKey: Key.postalCode.rawValue)
+        aCoder.encode(self.country, forKey: Key.country.rawValue)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {

@@ -45,10 +45,10 @@ public class SendCustomEventRequest: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(eventName, forKey: Key.eventName.rawValue)
-        aCoder.encode(timestamp, forKey: Key.timestamp.rawValue)
-        aCoder.encode(mcID, forKey: Key.mcID.rawValue)
-        aCoder.encode(properties, forKey: Key.properties.rawValue)
+        aCoder.encode(self.eventName, forKey: Key.eventName.rawValue)
+        aCoder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
+        aCoder.encode(self.mcID, forKey: Key.mcID.rawValue)
+        aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {

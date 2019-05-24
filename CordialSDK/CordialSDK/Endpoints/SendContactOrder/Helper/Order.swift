@@ -51,17 +51,17 @@ public class Order: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(orderID, forKey: Key.orderID.rawValue)
-        aCoder.encode(status, forKey: Key.status.rawValue)
-        aCoder.encode(storeID, forKey: Key.storeID.rawValue)
-        aCoder.encode(customerID, forKey: Key.customerID.rawValue)
-        aCoder.encode(purchaseDate, forKey: Key.purchaseDate.rawValue)
-        aCoder.encode(shippingAddress, forKey: Key.shippingAddress.rawValue)
-        aCoder.encode(billingAddress, forKey: Key.billingAddress.rawValue)
-        aCoder.encode(items, forKey: Key.items.rawValue)
-        aCoder.encode(tax, forKey: Key.tax.rawValue)
-        aCoder.encode(shippingAndHandling, forKey: Key.shippingAndHandling.rawValue)
-        aCoder.encode(properties, forKey: Key.properties.rawValue)
+        aCoder.encode(self.orderID, forKey: Key.orderID.rawValue)
+        aCoder.encode(self.status, forKey: Key.status.rawValue)
+        aCoder.encode(self.storeID, forKey: Key.storeID.rawValue)
+        aCoder.encode(self.customerID, forKey: Key.customerID.rawValue)
+        aCoder.encode(self.purchaseDate, forKey: Key.purchaseDate.rawValue)
+        aCoder.encode(self.shippingAddress, forKey: Key.shippingAddress.rawValue)
+        aCoder.encode(self.billingAddress, forKey: Key.billingAddress.rawValue)
+        aCoder.encode(self.items, forKey: Key.items.rawValue)
+        aCoder.encode(self.tax, forKey: Key.tax.rawValue)
+        aCoder.encode(self.shippingAndHandling, forKey: Key.shippingAndHandling.rawValue)
+        aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {

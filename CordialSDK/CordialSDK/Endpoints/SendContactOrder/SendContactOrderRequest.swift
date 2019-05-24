@@ -27,7 +27,7 @@ public class SendContactOrderRequest: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(order, forKey: Key.order.rawValue)
+        aCoder.encode(self.order, forKey: Key.order.rawValue)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {

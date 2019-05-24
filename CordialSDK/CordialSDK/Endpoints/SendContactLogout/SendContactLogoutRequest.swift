@@ -26,7 +26,7 @@ public class SendContactLogoutRequest: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(primaryKey, forKey: Key.primaryKey.rawValue)
+        aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {

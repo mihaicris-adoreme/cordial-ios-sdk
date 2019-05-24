@@ -60,10 +60,10 @@ public class UpsertContactRequest: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(token, forKey: Key.token.rawValue)
-        aCoder.encode(primaryKey, forKey: Key.primaryKey.rawValue)
-        aCoder.encode(subscribeStatus, forKey: Key.subscribeStatus.rawValue)
-        aCoder.encode(attributes, forKey: Key.attributes.rawValue)
+        aCoder.encode(self.token, forKey: Key.token.rawValue)
+        aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
+        aCoder.encode(self.subscribeStatus, forKey: Key.subscribeStatus.rawValue)
+        aCoder.encode(self.attributes, forKey: Key.attributes.rawValue)
     }
     
     public required convenience init?(coder aDecoder: NSCoder) {
