@@ -50,7 +50,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     func prerareProfileAndLogoutButtons() {
         if cordialAPI.getContactPrimaryKey() == nil {
             self.profileButtonItem.isEnabled = false
-            self.logoutButtonItem.title = "Login"
+            self.logoutButtonItem.title = "Log in"
             
         }
     }
