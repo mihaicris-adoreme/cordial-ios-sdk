@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     let pushNotificationHandler = CordialPushNotificationHandler()
     let continueRestorationHandler = CordialContinueRestorationHandler()
+    let openOptionsHandler = CordialOpenOptionsHandler()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -26,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.initialize(accountKey: "test_account_key", channelKey: "test_channel_key")
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
         CordialApiConfiguration.shared.continueRestorationHandler = continueRestorationHandler
+        CordialApiConfiguration.shared.openOptionsHandler = openOptionsHandler
         
         if CordialAPI().getContactPrimaryKey() != nil {
             let catalogNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
@@ -117,6 +119,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Handle universal links
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+        return false
+    }
+    
+    // MARK: Handle URL schemes
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return false
     }
 }

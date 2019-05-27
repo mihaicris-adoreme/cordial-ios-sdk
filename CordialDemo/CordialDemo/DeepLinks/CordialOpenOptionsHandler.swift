@@ -1,20 +1,21 @@
 //
-//  CordialContinueRestorationHandler.swift
+//  CordialOpenOptionsHandler.swift
 //  CordialDemo
 //
-//  Created by Yan Malinovsky on 5/24/19.
+//  Created by Yan Malinovsky on 5/27/19.
 //  Copyright © 2019 cordial.io. All rights reserved.
 //
 
 import Foundation
 import CordialSDK
 
-class CordialContinueRestorationHandler: CordialContinueRestorationDelegate {
+class CordialOpenOptionsHandler: CordialOpenOptionsDelegate {
     
-    func appOpenViaUniversalLink(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+    func appOpenViaUrlScheme(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
 
-        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-            let url = userActivity.webpageURL,
+        let urlScheme = "io.cordial"
+        
+        guard let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare(urlScheme) == .orderedSame, let host = url.host,
             let products = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
                 return false
         }
@@ -30,12 +31,12 @@ class CordialContinueRestorationHandler: CordialContinueRestorationDelegate {
             return true
         }
         
-        if let webpageUrl = URL(string: "https://tjs.cordialdev.com/") {
-            application.open(webpageUrl)
+        if let webpageUrl = URL(string: "https://\(host)/") {
+            app.open(webpageUrl)
             return false
         }
         
         return false
     }
-
+    
 }

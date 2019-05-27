@@ -21,6 +21,7 @@ class CordialSwizzler {
         self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
         self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
         self.swizzleContinueRestorationHandler()
+        self.swizzleOpenOptions()
     }
     
     func swizzleDidRegisterForRemoteNotificationsWithDeviceToken() {
@@ -62,6 +63,19 @@ class CordialSwizzler {
         }
     }
     
+    func swizzleOpenOptions() {
+        if let delegate = applicationDelegate {
+            let delegateClass: AnyClass! = object_getClass(delegate)
+            
+            let applicationSelector = #selector(UIApplicationDelegate.application(_:open:options:))
+            
+            if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
+                let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(application(_:open:options:))) {
+                method_exchangeImplementations(originalMethod, swizzleMethod)
+            }
+        }
+    }
+    
     @objc func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
@@ -81,6 +95,15 @@ class CordialSwizzler {
         
         if let continueRestorationHandler = CordialApiConfiguration.shared.continueRestorationHandler {
             return continueRestorationHandler.appOpenViaUniversalLink(application, continue: userActivity, restorationHandler: restorationHandler)
+        }
+        
+        return false
+    }
+    
+    @objc func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        if let openOptionsHandler = CordialApiConfiguration.shared.openOptionsHandler {
+            return openOptionsHandler.appOpenViaUrlScheme(app, open: url, options: options)
         }
         
         return false

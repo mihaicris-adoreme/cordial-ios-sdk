@@ -22,6 +22,7 @@ public class CordialApiConfiguration {
     let cordialSwizzler = CordialSwizzler()
     
     public var continueRestorationHandler: CordialContinueRestorationDelegate?
+    public var openOptionsHandler: CordialOpenOptionsDelegate?
     public var pushNotificationHandler: CordialPushNotificationDelegate?
     
     let cordialPushNotification = CordialPushNotification()

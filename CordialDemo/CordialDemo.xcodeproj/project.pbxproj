@@ -16,6 +16,7 @@
 		9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */; };
 		9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */; };
 		9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */; };
+		9E577451229C217200869F02 /* CordialOpenOptionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E577450229C217200869F02 /* CordialOpenOptionsHandler.swift */; };
 		9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E602D09226744CC00197CBD /* CartTableViewCell.swift */; };
 		9E77896C22878C090089C986 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E77896B22878C090089C986 /* NotificationService.swift */; };
 		9E77897022878C090089C986 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9E77896922878C090089C986 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -100,6 +101,7 @@
 		9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewController.swift; sourceTree = "<group>"; };
 		9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		9E577450229C217200869F02 /* CordialOpenOptionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialOpenOptionsHandler.swift; sourceTree = "<group>"; };
 		9E602D09226744CC00197CBD /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		9E77896922878C090089C986 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E77896B22878C090089C986 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -229,7 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				9ECF6B7D2298559300E6E88F /* ProductHandler */,
-				9ECF6B7A22984FEA00E6E88F /* UniversalLinks */,
+				9ECF6B7A22984FEA00E6E88F /* DeepLinks */,
 				9EF7B21422666102003B223D /* PushNotification */,
 				9EF7B213226660D0003B223D /* Login */,
 				9E7BD8C7228DADDC004B4EB9 /* Profile */,
@@ -285,12 +287,13 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		9ECF6B7A22984FEA00E6E88F /* UniversalLinks */ = {
+		9ECF6B7A22984FEA00E6E88F /* DeepLinks */ = {
 			isa = PBXGroup;
 			children = (
 				9ECF6B7B2298500A00E6E88F /* CordialContinueRestorationHandler.swift */,
+				9E577450229C217200869F02 /* CordialOpenOptionsHandler.swift */,
 			);
-			path = UniversalLinks;
+			path = DeepLinks;
 			sourceTree = "<group>";
 		};
 		9ECF6B7D2298559300E6E88F /* ProductHandler */ = {
@@ -676,6 +679,7 @@
 				9E45FE7622537648006A5A6B /* CordialPushNotificationHandler.swift in Sources */,
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,
 				9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */,
+				9E577451229C217200869F02 /* CordialOpenOptionsHandler.swift in Sources */,
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
 			);
