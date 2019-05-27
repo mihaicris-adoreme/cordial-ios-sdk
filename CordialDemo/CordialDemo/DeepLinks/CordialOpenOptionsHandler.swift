@@ -13,7 +13,7 @@ class CordialOpenOptionsHandler: CordialOpenOptionsDelegate {
     
     func appOpenViaUrlScheme(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
 
-        let urlScheme = "io.cordial"
+        let urlScheme = "cordial"
         
         guard let scheme = url.scheme, scheme.localizedCaseInsensitiveCompare(urlScheme) == .orderedSame, let host = url.host,
             let products = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
