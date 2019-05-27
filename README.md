@@ -62,6 +62,36 @@ The access point for every action above is the `CordialAPI` class. You can eithe
 let cordialApi = CordialAPI()
 ```
 
+## Setting a contact
+
+Every app is assumed to be operating on behalf of a specific contact. Contact is a user of the client application. For example, if Amazon is a client, each user of the Amazon who logs in is a contact. Every contact must have a primary key. Naturally that when the app is installed, the is no contact associated with the app as the user might not have logged in yet. In this case identifying a contact is done via device id, which is a unique identifier of the iOS device the app is running on. Every piece of information (internal or custom events, updating a contact etc) that is passed by SDK to Cordial backend has a device id automatically associated with it. Later, when the user logs into the app and his primary key becomes known, the client application must pass that primary key to the backend via calling the `setContact` method. When the backend receives a contact update with the primary key it associates the device id with the primary key of a contact. That association is crucial to make effective use of Cordial.
+
+When there is no contact associated with the SDK, all requests that the SDK makes to Cordial until the contact becomes known (that is until `setContact` method is called).
+
+setContact usage:
+
+```
+cordialAPI.setContact(primaryKey: email)
+```
+
+## Unsetting a contact
+
+Whenever a contact is disassociated with the application, which typically happens on user log out, the SDK should be told so so that it stops associating all client generated events with the contact who is no logged in. This is done via `unsetContact` method:
+
+```
+cordialAPI.unsetContact()
+```
+
+## Upserting a contact
+
+Each contact has a set of attributes associated with it. To update values of the attributes of the set contact, `upsertContact` method should be used. For example, if there are `firstName` and `lastName` attributes updating their values will be done in the following way:
+
+```
+let attributes = ["firstName":"John", "lastName":"Doe"]
+let upsertContactRequest = UpsertContactRequest(attributes: attributes)
+cordialAPI.upsertContact(upsertContactRequest: upsertContactRequest)
+```
+
 ## Send custom events
 Besides internal events, the SDK allows to send custom events specific to each app. Those may be, for example, user logged in, discount applied or app preferences updated to name a few. To send custom event, use the `CordialApi.sendCustomEvent` method:
 
@@ -71,17 +101,6 @@ cordialApi.sendCustomEvent(sendCustomEventRequest: request)
 ```
 
 `properties` - is a dictionary of string keys and string values that can be attached to the event. Can be nil.
-
-## Upsert a contact
-Every app is assumed to be operating on behalf of a specific contact. Contact is a user of the client application. For example, if Amazon is a client, each user of the Amazon who logs in is a contact. Every contact must have a primary key. Naturally that when the app is installed, the is no contact associated with the app as the user might not have logged in yet. In this case identifying a contact is done via device id, which is a unique identifier of the iOS device the app is running on. Every piece of information (internal or custom events, updating a contact etc) that is passed by SDK to Cordial backend has a device id automatically associated with it. Later, when the user logs into the app and his primary key becomes known, the client application must pass that primary key to the backed as part of updating a contact request. When the backend receives a contact update with the primary key it associates the device id with the primary key of a contact. That association is crucial to make effective use of Cordial.
-To update a contact, use the `CordialApi.upsertContact` method:
-
-```
-let request = UpsertContactRequest(primaryKey: email, attributes: nil)
-cordialAPI.upsertContact(upsertContactRequest: request)
-```
-
-`attributes` - is a dictionary of string keys and strings values attributes that can be attached to a contact. Can be nil.
 
 ## Post an order
 When an order is posted in client application, the app should notify Cordial about that. In order to post an order to Cordial, use the `CordialApi.sendOrder` method:
