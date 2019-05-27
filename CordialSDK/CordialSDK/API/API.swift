@@ -25,6 +25,8 @@ struct API {
     static let USER_DEFAULTS_KEY_FOR_APP_MOVED_FROM_BACKGROUND = "app_open"
     static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_DELIVERED_FOREGROUND = "notification_delivered_in_foreground"
     static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_APP_OPEN_VIA_TAP = "app_open_via_notification_tap"
+    static let USER_DEFAULTS_KEY_FOR_DEEP_LINKS_APP_OPEN_VIA_UNIVERSAL_LINK = "app_open_via_universal_link"
+    static let USER_DEFAULTS_KEY_FOR_DEEP_LINKS_APP_OPEN_VIA_URL_SCHEME = "app_open_via_url_scheme"
     
     static func getDictionaryJSON(stringDictionary: Dictionary<String, String>) -> String {
         var stringDictionaryContainer = [String]()

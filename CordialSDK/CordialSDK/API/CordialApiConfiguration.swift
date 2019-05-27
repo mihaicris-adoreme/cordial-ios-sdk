@@ -38,13 +38,11 @@ public class CordialApiConfiguration {
         
         self.prepareDeviceIdentifier()
         
-        let cordialAPI = CordialAPI()
-        
         let firstLaunch = CordialFirstLaunch(userDefaults: .standard, key: API.USER_DEFAULTS_KEY_FOR_FIRST_LAUNCH)
         if firstLaunch.isFirstLaunch {
             let eventName = API.USER_DEFAULTS_KEY_FOR_FIRST_LAUNCH_EVENT_NAME
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-            cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         }
         
         let notificationCenter = NotificationCenter.default
@@ -68,19 +66,15 @@ public class CordialApiConfiguration {
     }
     
     @objc func appMovedToBackground() {
-        let cordialAPI = CordialAPI()
-        
         let eventName = API.USER_DEFAULTS_KEY_FOR_APP_MOVED_TO_BACKGROUND
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-        cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     @objc func appMovedFromBackground() {
-        let cordialAPI =  CordialAPI()
-        
         let eventName = API.USER_DEFAULTS_KEY_FOR_APP_MOVED_FROM_BACKGROUND
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-        cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     @objc func handleAppDidFinishLaunchingNotification(notification: NSNotification) {

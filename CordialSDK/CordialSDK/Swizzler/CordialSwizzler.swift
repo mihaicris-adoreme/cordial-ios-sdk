@@ -94,6 +94,10 @@ class CordialSwizzler {
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         
         if let continueRestorationHandler = CordialApiConfiguration.shared.continueRestorationHandler {
+            let eventName = API.USER_DEFAULTS_KEY_FOR_DEEP_LINKS_APP_OPEN_VIA_UNIVERSAL_LINK
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+            CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            
             return continueRestorationHandler.appOpenViaUniversalLink(application, continue: userActivity, restorationHandler: restorationHandler)
         }
         
@@ -103,6 +107,10 @@ class CordialSwizzler {
     @objc func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         if let openOptionsHandler = CordialApiConfiguration.shared.openOptionsHandler {
+            let eventName = API.USER_DEFAULTS_KEY_FOR_DEEP_LINKS_APP_OPEN_VIA_URL_SCHEME
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+            CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            
             return openOptionsHandler.appOpenViaUrlScheme(app, open: url, options: options)
         }
         

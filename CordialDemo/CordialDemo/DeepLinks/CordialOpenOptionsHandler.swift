@@ -20,7 +20,7 @@ class CordialOpenOptionsHandler: CordialOpenOptionsDelegate {
                 return false
         }
         
-        if let product = ProductHandler.shared.products.filter({ $0.path == products.path}).first {
+        if let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
             let productViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProductViewController") as! ProductViewController
             
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
