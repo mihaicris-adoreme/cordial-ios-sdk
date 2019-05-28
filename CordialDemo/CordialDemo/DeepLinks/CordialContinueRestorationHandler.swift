@@ -20,11 +20,16 @@ class CordialContinueRestorationHandler: CordialContinueRestorationDelegate {
         }
         
         if let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-            let productViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ProductViewController") as! ProductViewController
-            
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                
+                let productViewController = storyboard.instantiateViewController(withIdentifier: "ProductViewController") as! ProductViewController
                 productViewController.product = product
-                appDelegate.window?.rootViewController = productViewController
+                
+                let catalogNavigationController = storyboard.instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
+                catalogNavigationController.pushViewController(productViewController, animated: false)
+                
+                appDelegate.window?.rootViewController = catalogNavigationController
             }
             
             return true
