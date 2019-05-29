@@ -57,7 +57,7 @@ class CoreDataManager {
         }
         
         guard let bundle = rawBundle else {
-            print("Could not get bundle that contains the model ")
+            print("Could not get bundle that contains the model")
             return NSManagedObjectModel()
         }
         

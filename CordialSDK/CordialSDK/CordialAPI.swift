@@ -108,7 +108,7 @@ public class CordialAPI: NSObject {
     
     internal func sendCacheFromCoreData() {
         if CordialAPI().getContactPrimaryKey() != nil {
-            let customEventRequests = CoreDataManager.shared.customEventRequests.getCustomEventRequestsFromCoreData()
+            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
             if customEventRequests.count > 0 {
                 CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
             }

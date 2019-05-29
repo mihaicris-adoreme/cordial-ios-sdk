@@ -12,8 +12,10 @@ public class CordialApiConfiguration {
     
     public static let shared = CordialApiConfiguration()
     
-    let reachabilityManager = ReachabilityManager.shared
-    let reachabilitySender = ReachabilitySender.shared
+    let initReachabilityManagerSingleton = ReachabilityManager.shared
+    let initReachabilitySenderSingleton = ReachabilitySender.shared
+    
+    public var qtyCachedEventQueue = 1000
     
     var accountKey = String()
     var channelKey = String()
