@@ -18,10 +18,18 @@ class CordialSwizzler {
     }
     
     func swizzleAppDelegateMethods() {
-        self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
-        self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
-        self.swizzleContinueRestorationHandler()
-        self.swizzleOpenOptions()
+        if CordialApiConfiguration.shared.pushNotificationHandler != nil {
+            self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
+            self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
+        }
+        
+        if CordialApiConfiguration.shared.continueRestorationHandler != nil {
+            self.swizzleContinueRestorationHandler()
+        }
+        
+        if CordialApiConfiguration.shared.openOptionsHandler != nil {
+            self.swizzleOpenOptions()
+        }
     }
     
     func swizzleDidRegisterForRemoteNotificationsWithDeviceToken() {

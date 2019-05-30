@@ -59,8 +59,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqd-Tg-XaB">
-                                <rect key="frame" x="338" y="64" width="56" height="30"/>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                <rect key="frame" x="328" y="64" width="66" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="20"/>
                                 <state key="normal" title="Settings"/>
                                 <connections>
                                     <action selector="settingsButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bgz-C5-pZ4"/>
