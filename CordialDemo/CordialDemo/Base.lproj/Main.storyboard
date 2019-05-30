@@ -58,26 +58,16 @@
                                     <action selector="guestAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0aG-m0-8M1"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqd-Tg-XaB">
-                                <rect key="frame" x="328" y="64" width="66" height="36"/>
-                                <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="20"/>
-                                <state key="normal" title="Settings"/>
-                                <connections>
-                                    <action selector="settingsButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bgz-C5-pZ4"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0zj-WB-bT6" firstAttribute="centerX" secondItem="kkc-SQ-zrc" secondAttribute="centerX" id="4wW-rv-oEe"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sqd-Tg-XaB" secondAttribute="trailing" constant="20" id="5T8-96-733"/>
                             <constraint firstItem="0zj-WB-bT6" firstAttribute="top" secondItem="kkc-SQ-zrc" secondAttribute="bottom" constant="32" id="9u3-tP-Tdp"/>
                             <constraint firstItem="i9h-UQ-dqV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="E6q-rj-6IC"/>
                             <constraint firstItem="l8D-5j-8A3" firstAttribute="leading" relation="lessThanOrEqual" secondItem="kkc-SQ-zrc" secondAttribute="leading" id="Ipg-8p-TbE"/>
                             <constraint firstItem="l8D-5j-8A3" firstAttribute="top" secondItem="0zj-WB-bT6" secondAttribute="bottom" constant="16" id="KB6-cG-Etl"/>
                             <constraint firstItem="l8D-5j-8A3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="NFl-Ec-qOS"/>
                             <constraint firstItem="0zj-WB-bT6" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="NaD-9e-WsO"/>
-                            <constraint firstItem="sqd-Tg-XaB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="QJU-sT-YaL"/>
                             <constraint firstItem="0zj-WB-bT6" firstAttribute="leading" relation="lessThanOrEqual" secondItem="kkc-SQ-zrc" secondAttribute="leading" id="WlZ-a5-oSf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="l8D-5j-8A3" secondAttribute="trailing" constant="32" id="ag7-u5-qUG"/>
                             <constraint firstAttribute="trailing" secondItem="i9h-UQ-dqV" secondAttribute="trailing" id="bx7-lz-xTi"/>
@@ -90,7 +80,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Fff-0W-UeB"/>
+                    <navigationItem key="navigationItem" id="Fff-0W-UeB">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="fyt-v4-KuE">
+                            <connections>
+                                <action selector="settingsButtonAction:" destination="BYZ-38-t0r" id="Npw-lI-geJ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="emailTextField" destination="kkc-SQ-zrc" id="0UR-3n-EcC"/>
                         <segue destination="NUN-ha-vwX" kind="show" identifier="segueToCatalog" id="eVh-h5-U6r"/>

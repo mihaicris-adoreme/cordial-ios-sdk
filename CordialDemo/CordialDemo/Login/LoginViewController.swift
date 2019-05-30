@@ -78,7 +78,7 @@ class LoginViewController: UIViewController {
         }
     }
     
-    @IBAction func settingsButtonAction(_ sender: UIButton) {
+    @IBAction func settingsButtonAction(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: self.segueToSettingsIdentifier, sender: self)
     }
     

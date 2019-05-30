@@ -21,6 +21,8 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "Settings"
+        
         baseURLTextField.setBottomBorder(color: UIColor.gray)
         accountKeyTextField.setBottomBorder(color: UIColor.gray)
         channelKeyTextField.setBottomBorder(color: UIColor.gray)
