@@ -140,51 +140,69 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AccountKey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFa-Cn-36j">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFa-Cn-36j">
                                         <rect key="frame" x="16" y="94" width="382" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="AccountKey" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hs-dC-qKU">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Account key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hs-dC-qKU">
                                         <rect key="frame" x="16" y="123" width="382" height="17"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ChannelKey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGs-ke-oVI">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGs-ke-oVI">
                                         <rect key="frame" x="16" y="172" width="382" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="ChannelKey" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HSW-rz-9bB">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Channel key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HSW-rz-9bB">
                                         <rect key="frame" x="16" y="201" width="382" height="17"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qty cached event queue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQp-Ij-iuB">
+                                        <rect key="frame" x="16" y="250" width="382" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Qty cached event queue" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="trI-V3-xbA">
+                                        <rect key="frame" x="16" y="279" width="382" height="17"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstItem="trI-V3-xbA" firstAttribute="trailing" secondItem="HSW-rz-9bB" secondAttribute="trailing" id="0vz-Xg-w85"/>
                                     <constraint firstItem="OFa-Cn-36j" firstAttribute="leading" secondItem="9hs-dC-qKU" secondAttribute="leading" id="1jS-FS-SMr"/>
+                                    <constraint firstItem="trI-V3-xbA" firstAttribute="top" secondItem="FQp-Ij-iuB" secondAttribute="bottom" constant="8" id="Hd6-FJ-WpC"/>
                                     <constraint firstAttribute="trailing" secondItem="HiI-Dr-GUO" secondAttribute="trailing" constant="16" id="Jcf-dj-2r4"/>
                                     <constraint firstItem="9hs-dC-qKU" firstAttribute="leading" secondItem="zGs-ke-oVI" secondAttribute="leading" id="KAp-4e-5tW"/>
                                     <constraint firstItem="9hs-dC-qKU" firstAttribute="top" secondItem="OFa-Cn-36j" secondAttribute="bottom" constant="8" symbolic="YES" id="Ktz-Iv-xp5"/>
                                     <constraint firstItem="HiI-Dr-GUO" firstAttribute="centerX" secondItem="BF4-SP-GVS" secondAttribute="centerX" id="MEw-yI-YIn"/>
                                     <constraint firstItem="OFa-Cn-36j" firstAttribute="top" secondItem="ZvR-1i-86o" secondAttribute="bottom" constant="32" id="NOe-us-odb"/>
                                     <constraint firstItem="ZvR-1i-86o" firstAttribute="trailing" secondItem="OFa-Cn-36j" secondAttribute="trailing" id="QGe-qO-lDQ"/>
+                                    <constraint firstItem="FQp-Ij-iuB" firstAttribute="top" secondItem="HSW-rz-9bB" secondAttribute="bottom" constant="32" id="QMA-UL-zfk"/>
                                     <constraint firstItem="ZvR-1i-86o" firstAttribute="leading" secondItem="HiI-Dr-GUO" secondAttribute="leading" priority="750" id="QSC-QW-Rwf"/>
                                     <constraint firstItem="HiI-Dr-GUO" firstAttribute="top" secondItem="BF4-SP-GVS" secondAttribute="topMargin" constant="8" id="RZL-ai-iBq"/>
                                     <constraint firstItem="ZvR-1i-86o" firstAttribute="leading" secondItem="OFa-Cn-36j" secondAttribute="leading" id="RzO-J9-l8W"/>
                                     <constraint firstItem="OFa-Cn-36j" firstAttribute="trailing" secondItem="9hs-dC-qKU" secondAttribute="trailing" id="TKB-gN-r11"/>
+                                    <constraint firstItem="FQp-Ij-iuB" firstAttribute="leading" secondItem="HSW-rz-9bB" secondAttribute="leading" id="WV2-Lg-YlJ"/>
                                     <constraint firstItem="zGs-ke-oVI" firstAttribute="trailing" secondItem="HSW-rz-9bB" secondAttribute="trailing" id="duL-Jm-Vcu"/>
                                     <constraint firstItem="ZvR-1i-86o" firstAttribute="top" secondItem="HiI-Dr-GUO" secondAttribute="bottom" constant="8" symbolic="YES" id="eag-Jc-xCC"/>
                                     <constraint firstItem="HiI-Dr-GUO" firstAttribute="leading" secondItem="BF4-SP-GVS" secondAttribute="leading" constant="16" id="g34-01-33M"/>
-                                    <constraint firstAttribute="bottom" secondItem="HSW-rz-9bB" secondAttribute="bottom" constant="32" id="k6O-cQ-oWM"/>
                                     <constraint firstItem="9hs-dC-qKU" firstAttribute="trailing" secondItem="zGs-ke-oVI" secondAttribute="trailing" id="mKc-m7-jgM"/>
                                     <constraint firstItem="zGs-ke-oVI" firstAttribute="leading" secondItem="HSW-rz-9bB" secondAttribute="leading" id="mZb-jf-UUj"/>
                                     <constraint firstItem="HSW-rz-9bB" firstAttribute="top" secondItem="zGs-ke-oVI" secondAttribute="bottom" constant="8" symbolic="YES" id="pW7-JN-ue0"/>
+                                    <constraint firstItem="trI-V3-xbA" firstAttribute="leading" secondItem="HSW-rz-9bB" secondAttribute="leading" id="tdw-hy-04S"/>
+                                    <constraint firstItem="FQp-Ij-iuB" firstAttribute="trailing" secondItem="HSW-rz-9bB" secondAttribute="trailing" id="vs4-dC-19O"/>
                                     <constraint firstItem="ZvR-1i-86o" firstAttribute="trailing" secondItem="HiI-Dr-GUO" secondAttribute="trailing" priority="750" id="vxP-uT-2hQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="trI-V3-xbA" secondAttribute="bottom" constant="32" id="zDf-yR-jyQ"/>
                                     <constraint firstItem="zGs-ke-oVI" firstAttribute="top" secondItem="9hs-dC-qKU" secondAttribute="bottom" constant="32" id="zxM-jZ-x4W"/>
                                 </constraints>
                             </scrollView>
@@ -203,6 +221,7 @@
                         <outlet property="accountKeyTextField" destination="9hs-dC-qKU" id="Wi5-Gg-Tw8"/>
                         <outlet property="baseURLTextField" destination="ZvR-1i-86o" id="bFM-j4-gV1"/>
                         <outlet property="channelKeyTextField" destination="HSW-rz-9bB" id="57C-Mc-T1P"/>
+                        <outlet property="qtyCachedEventQueueTextField" destination="trI-V3-xbA" id="8Nm-eO-oDn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMy-uq-mV0" userLabel="First Responder" sceneMemberID="firstResponder"/>
