@@ -12,25 +12,16 @@ import CordialSDK
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var baseURLTextField: UITextField!
-    @IBOutlet weak var accountKeyTextField: UITextField!
-    @IBOutlet weak var channelKeyTextField: UITextField!
     
     let cordialAPI = CordialAPI()
     
     let segueToCatalogIdentifier = "segueToCatalog"
+    let segueToSettingsIdentifier = "segueToSettings"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         emailTextField.setBottomBorder(color: UIColor.gray)
-        baseURLTextField.setBottomBorder(color: UIColor.gray)
-        accountKeyTextField.setBottomBorder(color: UIColor.gray)
-        channelKeyTextField.setBottomBorder(color: UIColor.gray)
-        
-        baseURLTextField.text = cordialAPI.getBaseURL()
-        accountKeyTextField.text = cordialAPI.getAccountKey()
-        channelKeyTextField.text = cordialAPI.getChannelKey()
         
         self.setupCordialSDKLogicErrorHandler()
     }
@@ -62,7 +53,6 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginAction(_ sender: UIButton) {
-        self.saveTestInitData()
         self.deleteAllCartItems()
         
         if let email = emailTextField.text, !email.isEmpty {
@@ -76,19 +66,9 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func guestAction(_ sender: UIButton) {
-        self.saveTestInitData()
         self.deleteAllCartItems()
         
         self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
-    }
-    
-    
-    func saveTestInitData() {
-        if let baseURL = baseURLTextField.text, let accountKey = accountKeyTextField.text, let channelKey = channelKeyTextField.text {
-            cordialAPI.setBaseURL(baseURL: baseURL)
-            cordialAPI.setAccountKey(accountKey: accountKey)
-            cordialAPI.setChannelKey(channelKey: channelKey)
-        }
     }
     
     func deleteAllCartItems() {
@@ -97,4 +77,9 @@ class LoginViewController: UIViewController {
             AppDataManager.shared.deleteAllCoreDataByEntity(appDelegate: appDelegate, entityName: entityName)
         }
     }
+    
+    @IBAction func settingsButtonAction(_ sender: UIButton) {
+        self.performSegue(withIdentifier: self.segueToSettingsIdentifier, sender: self)
+    }
+    
 }

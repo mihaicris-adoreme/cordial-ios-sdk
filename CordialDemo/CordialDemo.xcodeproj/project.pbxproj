@@ -29,6 +29,7 @@
 		9E7A5A82222EB64C0020054F /* CordialDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A81222EB64C0020054F /* CordialDemoTests.swift */; };
 		9E7A5A8D222EB64C0020054F /* CordialDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */; };
 		9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */; };
+		9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB260CA229FF489005786BD /* SettingsViewController.swift */; };
 		9ECF6B7C2298500A00E6E88F /* CordialContinueRestorationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECF6B7B2298500A00E6E88F /* CordialContinueRestorationHandler.swift */; };
 		9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECF6B7F229855F500E6E88F /* ProductHandler.swift */; };
 		9EDC7E402242912000BF8FB0 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC7E3F2242912000BF8FB0 /* App.swift */; };
@@ -121,6 +122,7 @@
 		9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemoUITests.swift; sourceTree = "<group>"; };
 		9E7A5A8E222EB64C0020054F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		9EB260CA229FF489005786BD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9ECF6B7B2298500A00E6E88F /* CordialContinueRestorationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialContinueRestorationHandler.swift; sourceTree = "<group>"; };
 		9ECF6B7F229855F500E6E88F /* ProductHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHandler.swift; sourceTree = "<group>"; };
 		9EDC7E3F2242912000BF8FB0 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 		9E7A5A68222EB64B0020054F /* CordialDemo */ = {
 			isa = PBXGroup;
 			children = (
+				9EB260C8229FF475005786BD /* Settings */,
 				9ECF6B7D2298559300E6E88F /* ProductHandler */,
 				9ECF6B7A22984FEA00E6E88F /* DeepLinks */,
 				9EF7B21422666102003B223D /* PushNotification */,
@@ -285,6 +288,14 @@
 				9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		9EB260C8229FF475005786BD /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9EB260CA229FF489005786BD /* SettingsViewController.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		9ECF6B7A22984FEA00E6E88F /* DeepLinks */ = {
@@ -682,6 +693,7 @@
 				9E577451229C217200869F02 /* CordialOpenOptionsHandler.swift in Sources */,
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
+				9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
