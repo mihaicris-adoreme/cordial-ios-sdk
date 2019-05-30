@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         
         CordialApiConfiguration.shared.initialize(accountKey: "test_account_key", channelKey: "test_channel_key")
-        CordialApiConfiguration.shared.qtyCachedEventQueue = 10
+        CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
         CordialApiConfiguration.shared.continueRestorationHandler = continueRestorationHandler
         CordialApiConfiguration.shared.openOptionsHandler = openOptionsHandler
