@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 public class CordialApiConfiguration {
     
@@ -77,6 +78,20 @@ public class CordialApiConfiguration {
         let eventName = API.USER_DEFAULTS_KEY_FOR_APP_MOVED_FROM_BACKGROUND
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        
+        self.prepareCurrentSubscribeStatus()
+    }
+    
+    private func prepareCurrentSubscribeStatus() {
+        let current = UNUserNotificationCenter.current()
+        
+        current.getNotificationSettings(completionHandler: { (settings) in
+            if settings.authorizationStatus == .authorized {
+                UserDefaults.standard.set("subscribed", forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_SUBSCRIBE_STATUS)
+            } else {
+                UserDefaults.standard.set("none", forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_SUBSCRIBE_STATUS)
+            }
+        })
     }
     
     @objc func handleAppDidFinishLaunchingNotification(notification: NSNotification) {
