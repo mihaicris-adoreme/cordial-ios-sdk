@@ -12,7 +12,7 @@ public class CordialAPI: NSObject {
 
     // MARK: Get timestamp
     
-    public func getTimestamp() -> String {
+    internal func getTimestamp() -> String {
         let date = Date()
         let formatter = ISO8601DateFormatter()
         
@@ -21,8 +21,37 @@ public class CordialAPI: NSObject {
     
     // MARK: Get device identifier
     
-    public func getDeviceIdentifier() -> String {
+    internal func getDeviceIdentifier() -> String {
         return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)!
+    }
+    
+    // MARK: Send cache from CoreData
+    
+    internal func sendCacheFromCoreData() {
+        if self.getContactPrimaryKey() != nil {
+            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
+            if customEventRequests.count > 0 {
+                CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
+            }
+            
+            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
+                ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+            }
+            
+            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
+            if sendContactOrderRequests.count > 0 {
+                ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
+            }
+            
+            let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
+            if upsertContactRequests.count > 0 {
+                ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
+            }
+        }
+        
+        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
+            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
+        }
     }
     
     // MARK: Get account key
@@ -101,35 +130,6 @@ public class CordialAPI: NSObject {
             
             UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
             UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
-        }
-    }
-    
-    // MARK: Send cache from CoreData
-    
-    internal func sendCacheFromCoreData() {
-        if CordialAPI().getContactPrimaryKey() != nil {
-            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
-            if customEventRequests.count > 0 {
-                CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
-            }
-            
-            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
-                ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
-            }
-            
-            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-            if sendContactOrderRequests.count > 0 {
-                ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
-            }
-            
-            let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
-            if upsertContactRequests.count > 0 {
-                ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
-            }
-        }
-        
-        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
-            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         }
     }
     
