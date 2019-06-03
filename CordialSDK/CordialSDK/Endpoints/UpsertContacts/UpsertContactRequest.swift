@@ -14,6 +14,7 @@ public class UpsertContactRequest: NSObject, NSCoding {
     let token: String?
     let primaryKey: String?
     let subscribeStatus: String
+    let status: String
     let attributes: Dictionary<String, String>?
     
     let cordialAPI = CordialAPI()
@@ -28,7 +29,8 @@ public class UpsertContactRequest: NSObject, NSCoding {
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_TOKEN)
         self.primaryKey = cordialAPI.getContactPrimaryKey()
-        self.subscribeStatus = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_SUBSCRIBE_STATUS) ?? "none"
+        self.subscribeStatus = "none"
+        self.status = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
         self.attributes = attributes
     }
     
@@ -36,7 +38,8 @@ public class UpsertContactRequest: NSObject, NSCoding {
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.token = token
         self.primaryKey = cordialAPI.getContactPrimaryKey()
-        self.subscribeStatus = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_SUBSCRIBE_STATUS) ?? "none"
+        self.subscribeStatus = "none"
+        self.status = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
         self.attributes = nil
     }
     
@@ -44,7 +47,8 @@ public class UpsertContactRequest: NSObject, NSCoding {
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_TOKEN)
         self.primaryKey = primaryKey
-        self.subscribeStatus = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_SUBSCRIBE_STATUS) ?? "none"
+        self.subscribeStatus = "none"
+        self.status = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
         self.attributes = nil
     }
     
@@ -52,7 +56,8 @@ public class UpsertContactRequest: NSObject, NSCoding {
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.token = token
         self.primaryKey = primaryKey
-        self.subscribeStatus = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_SUBSCRIBE_STATUS) ?? "none"
+        self.subscribeStatus = "none"
+        self.status = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
         self.attributes = attributes
     }
     

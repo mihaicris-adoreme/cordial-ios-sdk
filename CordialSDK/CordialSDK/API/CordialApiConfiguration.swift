@@ -43,7 +43,7 @@ public class CordialApiConfiguration {
         
         let firstLaunch = CordialFirstLaunch(userDefaults: .standard, key: API.USER_DEFAULTS_KEY_FOR_FIRST_LAUNCH)
         if firstLaunch.isFirstLaunch {
-            let eventName = API.USER_DEFAULTS_KEY_FOR_FIRST_LAUNCH_EVENT_NAME
+            let eventName = API.FIRST_LAUNCH_EVENT_NAME
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
             CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         }
@@ -69,13 +69,13 @@ public class CordialApiConfiguration {
     }
     
     @objc func appMovedToBackground() {
-        let eventName = API.USER_DEFAULTS_KEY_FOR_APP_MOVED_TO_BACKGROUND
+        let eventName = API.APP_MOVED_TO_BACKGROUND
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     @objc func appMovedFromBackground() {
-        let eventName = API.USER_DEFAULTS_KEY_FOR_APP_MOVED_FROM_BACKGROUND
+        let eventName = API.APP_MOVED_FROM_BACKGROUND
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
@@ -87,9 +87,23 @@ public class CordialApiConfiguration {
         
         current.getNotificationSettings(completionHandler: { (settings) in
             if settings.authorizationStatus == .authorized {
-                UserDefaults.standard.set("subscribed", forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_SUBSCRIBE_STATUS)
+                if let currentPushNotificationStatus = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    if currentPushNotificationStatus != API.PUSH_NOTIFICATION_STATUS_ALLOW {
+                        let upsertContactRequest = UpsertContactRequest(attributes: nil)
+                        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+                    }
+                }
+                
+                UserDefaults.standard.set(API.PUSH_NOTIFICATION_STATUS_ALLOW, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
             } else {
-                UserDefaults.standard.set("none", forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_SUBSCRIBE_STATUS)
+                if let currentPushNotificationStatus = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    if currentPushNotificationStatus != API.PUSH_NOTIFICATION_STATUS_DISALLOW {
+                        let upsertContactRequest = UpsertContactRequest(attributes: nil)
+                        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+                    }
+                }
+                
+                UserDefaults.standard.set(API.PUSH_NOTIFICATION_STATUS_DISALLOW, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
             }
         })
     }
