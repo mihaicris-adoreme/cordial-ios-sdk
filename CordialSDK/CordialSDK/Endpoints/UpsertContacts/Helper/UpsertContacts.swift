@@ -62,9 +62,12 @@ class UpsertContacts {
         
         upsertContactRequests.forEach { upsertContactRequest in
             var rootContainer  = [
-                "\"deviceId\": \"\(upsertContactRequest.deviceID)\"",
-                "\"subscribeStatus\": \"\(upsertContactRequest.subscribeStatus)\""
+                "\"deviceId\": \"\(upsertContactRequest.deviceID)\""
             ]
+            
+            if let subscribeStatus = upsertContactRequest.subscribeStatus {
+                rootContainer.append("\"subscribeStatus\": \"\(subscribeStatus)\"")
+            }
             
             if let token = upsertContactRequest.token {
                 rootContainer.append("\"token\": \"\(token)\"")
