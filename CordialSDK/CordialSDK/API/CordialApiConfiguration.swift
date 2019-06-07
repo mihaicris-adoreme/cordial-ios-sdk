@@ -87,23 +87,15 @@ public class CordialApiConfiguration {
         
         current.getNotificationSettings(completionHandler: { (settings) in
             if settings.authorizationStatus == .authorized {
-                if let currentPushNotificationStatus = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                    if currentPushNotificationStatus != API.PUSH_NOTIFICATION_STATUS_ALLOW {
-                        let upsertContactRequest = UpsertContactRequest(attributes: nil)
-                        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
-                    }
+                if API.PUSH_NOTIFICATION_STATUS_ALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_ALLOW)
+                    CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
                 }
-                
-                UserDefaults.standard.set(API.PUSH_NOTIFICATION_STATUS_ALLOW, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
             } else {
-                if let currentPushNotificationStatus = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                    if currentPushNotificationStatus != API.PUSH_NOTIFICATION_STATUS_DISALLOW {
-                        let upsertContactRequest = UpsertContactRequest(attributes: nil)
-                        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
-                    }
+                if API.PUSH_NOTIFICATION_STATUS_DISALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_DISALLOW)
+                    CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
                 }
-                
-                UserDefaults.standard.set(API.PUSH_NOTIFICATION_STATUS_DISALLOW, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
             }
         })
     }

@@ -36,9 +36,8 @@ class UpsertContacts {
                 switch httpResponse.statusCode {
                 case 200:
                     upsertContactRequests.forEach({ upsertContactRequest in
-                        if upsertContactRequest.token != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN) {
-                            UserDefaults.standard.set(upsertContactRequest.token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
-                        }
+                        UserDefaults.standard.set(upsertContactRequest.token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
+                        UserDefaults.standard.set(upsertContactRequest.status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
                     })
                     
                     let result = UpsertContactResponse(status: .SUCCESS)

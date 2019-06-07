@@ -38,11 +38,19 @@ public class UpsertContactRequest: NSObject, NSCoding {
         self.attributes = attributes
     }
     
-    public init(token: String) {
+    internal init(token: String) {
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.token = token
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.status = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
+        self.attributes = nil
+    }
+    
+    internal init(status: String) {
+        self.deviceID = cordialAPI.getDeviceIdentifier()
+        self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
+        self.primaryKey = cordialAPI.getContactPrimaryKey()
+        self.status = status
         self.attributes = nil
     }
     
