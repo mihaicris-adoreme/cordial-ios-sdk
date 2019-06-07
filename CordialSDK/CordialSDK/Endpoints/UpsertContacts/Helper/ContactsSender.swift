@@ -21,8 +21,6 @@ class ContactsSender {
         }
         
         if ReachabilityManager.shared.isConnectedToInternet {
-            
-            
             os_log("Sending contacts:", log: OSLog.upsertContacts, type: .info)
             upsertContactRequests.forEach({ upsertContactRequest in
                 os_log("Device ID: [%{public}@]", log: OSLog.upsertContacts, type: .info, upsertContactRequest.deviceID)

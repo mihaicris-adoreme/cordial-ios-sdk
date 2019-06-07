@@ -39,6 +39,8 @@ public class UpsertContactRequest: NSObject, NSCoding {
     }
     
     internal init(token: String) {
+        UserDefaults.standard.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
+        
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.token = token
         self.primaryKey = cordialAPI.getContactPrimaryKey()
@@ -47,6 +49,8 @@ public class UpsertContactRequest: NSObject, NSCoding {
     }
     
     internal init(status: String) {
+        UserDefaults.standard.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
+        
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
         self.primaryKey = cordialAPI.getContactPrimaryKey()

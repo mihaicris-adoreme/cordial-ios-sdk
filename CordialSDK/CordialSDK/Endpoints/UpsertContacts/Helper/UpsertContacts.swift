@@ -39,12 +39,6 @@ class UpsertContacts {
                         if let primaryKey = upsertContactRequest.primaryKey {
                             UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
                         }
-                        
-                        if let token = upsertContactRequest.token {
-                            UserDefaults.standard.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
-                        }
-                        
-                        UserDefaults.standard.set(upsertContactRequest.status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
                     })
                     
                     let result = UpsertContactResponse(status: .SUCCESS)
