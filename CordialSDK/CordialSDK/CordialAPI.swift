@@ -115,8 +115,6 @@ public class CordialAPI: NSObject {
     // MARK: Set Contact
     
     public func setContact(primaryKey: String) {
-        UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
-        
         let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey)
         self.upsertContact(upsertContactRequest: upsertContactRequest)
     }

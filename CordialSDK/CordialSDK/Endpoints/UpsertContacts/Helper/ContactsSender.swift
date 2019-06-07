@@ -18,7 +18,7 @@ class ContactsSender {
             }
         }
         
-        if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
+        if ReachabilityManager.shared.isConnectedToInternet {
             let upsertContacts = UpsertContacts()
             
             os_log("Sending contacts:", log: OSLog.upsertContacts, type: .info)

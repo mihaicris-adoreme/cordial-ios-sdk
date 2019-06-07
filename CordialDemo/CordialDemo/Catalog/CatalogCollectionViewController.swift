@@ -48,7 +48,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     }
     
     func prerareProfileAndLogoutButtons() {
-        if cordialAPI.getContactPrimaryKey() == nil {
+        if App.isGuestUser() {
             self.profileButtonItem.isEnabled = false
             self.logoutButtonItem.title = "Log in"
             
@@ -70,9 +70,9 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     }
     
     @IBAction func logoutButtonAction(_ sender: UIBarButtonItem) {
-        if cordialAPI.getContactPrimaryKey() != nil {
-            cordialAPI.unsetContact()
-        }
+        cordialAPI.unsetContact()
+        
+        App.userLogOut()
         
         let loginNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginNavigationController")
         self.present(loginNavigationController, animated: true, completion: nil)

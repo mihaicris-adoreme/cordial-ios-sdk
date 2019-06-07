@@ -9,6 +9,23 @@
 import Foundation
 import UIKit
 
+struct App {
+    
+    static private let USER_DEFAULTS_KEY_FOR_IS_GUEST_USER = "USER_DEFAULTS_KEY_FOR_IS_GUEST_USER"
+    
+    static func isGuestUser() -> Bool {
+        return UserDefaults.standard.bool(forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER)
+    }
+    
+    static func userLogIn() {
+        UserDefaults.standard.set(false, forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER)
+    }
+    
+    static func userLogOut() {
+        UserDefaults.standard.set(true, forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER)
+    }
+}
+
 extension UITextField {
     func setBottomBorder(color: UIColor) {
         self.borderStyle = .none
