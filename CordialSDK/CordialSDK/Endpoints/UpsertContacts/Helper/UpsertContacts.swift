@@ -67,27 +67,7 @@ class UpsertContacts {
         var upsertContactsArrayJSON = [String]()
         
         upsertContactRequests.forEach { upsertContactRequest in
-            var rootContainer  = [
-                "\"deviceId\": \"\(upsertContactRequest.deviceID)\""
-            ]
-            
-            if let subscribeStatus = upsertContactRequest.subscribeStatus {
-                rootContainer.append("\"subscribeStatus\": \"\(subscribeStatus)\"")
-            }
-            
-            if let token = upsertContactRequest.token {
-                rootContainer.append("\"token\": \"\(token)\"")
-            }
-            
-            if let primaryKey = upsertContactRequest.primaryKey {
-                rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
-            }
-            
-            if let attributes = upsertContactRequest.attributes {
-                rootContainer.append("\"attributes\": \(API.getDictionaryJSON(stringDictionary: attributes))")
-            }
-            
-            let upsertContactJSON = "{ " + rootContainer.joined(separator: ", ") + " }"
+            let upsertContactJSON = self.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest)
             
             upsertContactsArrayJSON.append(upsertContactJSON)
         }
@@ -95,5 +75,33 @@ class UpsertContacts {
         let upsertContactsJSON = "[ " + upsertContactsArrayJSON.joined(separator: ", ") + " ]"
         
         return upsertContactsJSON
+    }
+    
+    internal func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest) -> String {
+        
+        var rootContainer  = [
+            "\"deviceId\": \"\(upsertContactRequest.deviceID)\"",
+            "\"status\": \"\(upsertContactRequest.status)\""
+        ]
+        
+        if let token = upsertContactRequest.token {
+            rootContainer.append("\"token\": \"\(token)\"")
+        }
+        
+        if let primaryKey = upsertContactRequest.primaryKey {
+            rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
+        }
+        
+        if let subscribeStatus = upsertContactRequest.subscribeStatus {
+            rootContainer.append("\"subscribeStatus\": \"\(subscribeStatus)\"")
+        }
+        
+        if let attributes = upsertContactRequest.attributes {
+            rootContainer.append("\"attributes\": \(API.getDictionaryJSON(stringDictionary: attributes))")
+        }
+        
+        let upsertContactJSON = "{ " + rootContainer.joined(separator: ", ") + " }"
+        
+        return upsertContactJSON
     }
 }

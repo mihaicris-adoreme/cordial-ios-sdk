@@ -11,6 +11,8 @@ import os.log
 
 class ContactsSender {
     
+    let upsertContacts = UpsertContacts()
+    
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
         if let primaryKey = CordialAPI().getContactPrimaryKey(), let previousPrimaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY) {
             if primaryKey != previousPrimaryKey {
@@ -19,18 +21,18 @@ class ContactsSender {
         }
         
         if ReachabilityManager.shared.isConnectedToInternet {
-            let upsertContacts = UpsertContacts()
+            
             
             os_log("Sending contacts:", log: OSLog.upsertContacts, type: .info)
             upsertContactRequests.forEach({ upsertContactRequest in
                 os_log("Device ID: [%{public}@]", log: OSLog.upsertContacts, type: .info, upsertContactRequest.deviceID)
             })
         
-            upsertContacts.upsertContacts(upsertContactRequests: upsertContactRequests,
+            self.upsertContacts.upsertContacts(upsertContactRequests: upsertContactRequests,
                 onSuccess: { result in
                     os_log("Contacts sent:", log: OSLog.upsertContacts, type: .info)
                     upsertContactRequests.forEach({ upsertContactRequest in
-                        os_log("Device ID: [%{public}@]", log: OSLog.upsertContacts, type: .info, upsertContactRequest.deviceID)
+                        os_log("Contact payload: [%{public}@]", log: OSLog.upsertContacts, type: .info, self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest))
                     })
                 }, systemError: { error in
                     CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
@@ -45,4 +47,5 @@ class ContactsSender {
             os_log("Sending contact failed. Saved to retry later.", log: OSLog.upsertContacts, type: .info)
         }
     }
+    
 }
