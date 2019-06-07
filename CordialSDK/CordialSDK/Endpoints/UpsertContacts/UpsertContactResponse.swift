@@ -17,8 +17,7 @@ public class UpsertContactResponse {
     }
     
     public enum UpsertContactStatus: String {
-        case CREATED
-        case UPDATED
+        case SUCCESS
     }
     
 }

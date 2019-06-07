@@ -87,12 +87,13 @@ class CordialSwizzler {
     @objc func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
+        
         os_log("Device Token: [%{public}@]", log: OSLog.pushNotification, type: .info, token)
         
-        UserDefaults.standard.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_TOKEN)
-        
-        let upsertContactRequest = UpsertContactRequest(token: token)
-        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+        if token != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN) {
+            let upsertContactRequest = UpsertContactRequest(token: token)
+            CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+        }
     }
     
     @objc func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

@@ -35,13 +35,13 @@ class UpsertContacts {
                 
                 switch httpResponse.statusCode {
                 case 200:
-                    let result = UpsertContactResponse(status: .UPDATED)
+                    upsertContactRequests.forEach({ upsertContactRequest in
+                        if upsertContactRequest.token != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN) {
+                            UserDefaults.standard.set(upsertContactRequest.token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
+                        }
+                    })
                     
-                    CordialAPI().sendCacheFromCoreData()
-                    
-                    onSuccess(result)
-                case 201:
-                    let result = UpsertContactResponse(status: .CREATED)
+                    let result = UpsertContactResponse(status: .SUCCESS)
                     
                     CordialAPI().sendCacheFromCoreData()
                     
