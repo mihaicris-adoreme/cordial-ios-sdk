@@ -114,8 +114,10 @@ public class CordialApiConfiguration {
         // This code will be called immediately after application:didFinishLaunchingWithOptions:
         print(notification)
         
-        // Setup Push Notification
-        cordialPushNotification.registerForPushNotifications()
-        cordialSwizzler.swizzleAppDelegateMethods()
+        self.cordialSwizzler.swizzleAppDelegateMethods()
+        
+        if CordialApiConfiguration.shared.pushNotificationHandler != nil {
+            self.cordialPushNotification.registerForPushNotifications()
+        }
     }
 }
