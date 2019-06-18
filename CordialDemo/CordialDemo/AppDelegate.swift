@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import CoreLocation
 import IQKeyboardManagerSwift
 import CordialSDK
 
@@ -25,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         
         CordialApiConfiguration.shared.initialize(accountKey: "test_account_key", channelKey: "test_channel_key")
+        CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
         CordialApiConfiguration.shared.continueRestorationHandler = continueRestorationHandler
