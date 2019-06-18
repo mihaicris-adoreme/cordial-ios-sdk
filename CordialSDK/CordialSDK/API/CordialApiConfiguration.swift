@@ -112,7 +112,6 @@ public class CordialApiConfiguration {
     
     @objc func handleAppDidFinishLaunchingNotification(notification: NSNotification) {
         // This code will be called immediately after application:didFinishLaunchingWithOptions:
-        print(notification)
         
         self.cordialSwizzler.swizzleAppDelegateMethods()
         

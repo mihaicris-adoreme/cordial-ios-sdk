@@ -64,6 +64,14 @@ class SendCustomEvents {
                 rootContainer.append("\"mcID\": \"\(mcID)\"")
             }
             
+            if let latitude = sendCustomEventRequest.latitude {
+                rootContainer.append("\"lat\": \(latitude)")
+            }
+            
+            if let longitude = sendCustomEventRequest.longitude {
+                rootContainer.append("\"lon\": \(longitude)")
+            }
+            
             if let properties = sendCustomEventRequest.properties {
                 rootContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
             }

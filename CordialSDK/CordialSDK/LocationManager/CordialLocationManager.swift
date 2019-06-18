@@ -43,7 +43,10 @@ class CordialLocationManager: NSObject, CLLocationManagerDelegate {
     // MARK: CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations.description)
+        locations.forEach { location in
+            UserDefaults.standard.set(location.coordinate.latitude, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
+            UserDefaults.standard.set(location.coordinate.longitude, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
