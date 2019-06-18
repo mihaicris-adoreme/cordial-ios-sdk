@@ -17,6 +17,7 @@ class ContactsSender {
         if let primaryKey = CordialAPI().getContactPrimaryKey(), let previousPrimaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY) {
             if primaryKey != previousPrimaryKey {
                 CoreDataManager.shared.deleteAllCoreData()
+                UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
             }
         }
         
