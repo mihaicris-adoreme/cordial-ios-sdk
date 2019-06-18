@@ -14,10 +14,13 @@ class ContactsSender {
     let upsertContacts = UpsertContacts()
     
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
-        if let primaryKey = CordialAPI().getContactPrimaryKey(), let previousPrimaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY) {
-            if primaryKey != previousPrimaryKey {
-                CoreDataManager.shared.deleteAllCoreData()
-                UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+        
+        if let previousPrimaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY) {
+            upsertContactRequests.forEach { upsertContactRequest in
+                if upsertContactRequest.primaryKey != previousPrimaryKey {
+                    CoreDataManager.shared.deleteAllCoreData()
+                    UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+                }
             }
         }
         
