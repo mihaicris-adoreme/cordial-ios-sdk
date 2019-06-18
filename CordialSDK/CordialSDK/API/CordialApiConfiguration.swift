@@ -8,7 +8,6 @@
 
 import Foundation
 import UserNotifications
-import CoreLocation
 
 public class CordialApiConfiguration {
     
@@ -59,15 +58,6 @@ public class CordialApiConfiguration {
         
         notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(handleAppDidFinishLaunchingNotification), name: UIApplication.didFinishLaunchingNotification, object: nil)
-    }
-    
-    public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance, untilTraveled: CLLocationDistance, timeout: TimeInterval) {
-        CordialLocationManager.shared.desiredAccuracy = desiredAccuracy
-        CordialLocationManager.shared.distanceFilter = distanceFilter
-        CordialLocationManager.shared.untilTraveled = untilTraveled
-        CordialLocationManager.shared.timeout = timeout
-        
-        CordialLocationManager.shared.locationManager.requestWhenInUseAuthorization()
     }
     
     func prepareDeviceIdentifier() {
