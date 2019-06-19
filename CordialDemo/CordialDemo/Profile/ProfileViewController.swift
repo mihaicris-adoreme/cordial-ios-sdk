@@ -18,7 +18,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        emailTextField.setBottomBorder(color: UIColor.gray)
+        emailTextField.setBottomBorder(color: UIColor.black)
         
         self.title = "Profile"
         
