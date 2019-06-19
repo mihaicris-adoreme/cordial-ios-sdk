@@ -112,6 +112,30 @@ public class CordialAPI: NSObject {
         return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
+    // MARK: Global alert
+    
+    public func globalAlert(title: String, message: String?) {
+        DispatchQueue.main.async {
+            if var currentVC = UIApplication.shared.keyWindow?.rootViewController {
+                while let presentedVC = currentVC.presentedViewController {
+                    if let navVC = (presentedVC as? UINavigationController)?.viewControllers.last {
+                        currentVC = navVC
+                    } else if let tabVC = (presentedVC as? UITabBarController)?.selectedViewController {
+                        currentVC = tabVC
+                    } else {
+                        currentVC = presentedVC
+                    }
+                }
+                
+                let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .cancel)
+                alertController.addAction(okAction)
+                
+                currentVC.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
     // MARK: Set Contact
     
     public func setContact(primaryKey: String) {

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import CordialSDK
 
 struct App {
     
@@ -23,6 +24,35 @@ struct App {
     
     static func userLogOut() {
         UserDefaults.standard.set(true, forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER)
+    }
+}
+
+extension AppDelegate {
+    
+    func setupCordialSDKLogicErrorHandler() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.removeObserver(self, name: .sendCustomEventsLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .sendCustomEventsLogicError, object: nil)
+        
+        notificationCenter.removeObserver(self, name: .upsertContactCartLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .upsertContactCartLogicError, object: nil)
+        
+        notificationCenter.removeObserver(self, name: .sendContactOrdersLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .sendContactOrdersLogicError, object: nil)
+        
+        notificationCenter.removeObserver(self, name: .upsertContactsLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .upsertContactsLogicError, object: nil)
+        
+        notificationCenter.removeObserver(self, name: .sendContactLogoutLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .sendContactLogoutLogicError, object: nil)
+        
+    }
+    
+    @objc func cordialNotificationErrorHandler(notification: NSNotification) {
+        if let error = notification.object as? ResponseError {
+            CordialAPI().globalAlert(title: error.message, message: error.responseBody)
+        }
     }
 }
 
