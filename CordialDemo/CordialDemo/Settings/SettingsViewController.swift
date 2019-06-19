@@ -23,10 +23,10 @@ class SettingsViewController: UIViewController {
 
         self.title = "Settings"
         
-        baseURLTextField.setBottomBorder(color: UIColor.gray)
-        accountKeyTextField.setBottomBorder(color: UIColor.gray)
-        channelKeyTextField.setBottomBorder(color: UIColor.gray)
-        qtyCachedEventQueueTextField.setBottomBorder(color: UIColor.gray)
+        baseURLTextField.setBottomBorder(color: UIColor.black)
+        accountKeyTextField.setBottomBorder(color: UIColor.black)
+        channelKeyTextField.setBottomBorder(color: UIColor.black)
+        qtyCachedEventQueueTextField.setBottomBorder(color: UIColor.black)
         
         baseURLTextField.text = cordialAPI.getBaseURL()
         accountKeyTextField.text = cordialAPI.getAccountKey()
