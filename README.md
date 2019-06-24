@@ -38,7 +38,7 @@ class NotificationService: CordialNotificationServiceExtension {
 ```
 
 ## Initialize SDK
-In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initWithAccountKey` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
+In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initialize` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
 ```
 CordialApiConfiguration.shared.initialize(accountKey: "<your_account_key>", channelKey: "<your_channel_key>")
