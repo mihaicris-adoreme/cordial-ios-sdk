@@ -11,12 +11,6 @@ import os.log
 
 class CordialSwizzler {
     
-    let applicationDelegate: UIApplicationDelegate?
-    
-    init() {
-        self.applicationDelegate = UIApplication.shared.delegate
-    }
-    
     func swizzleAppDelegateMethods() {
         if CordialApiConfiguration.shared.pushNotificationHandler != nil {
             self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
@@ -33,56 +27,50 @@ class CordialSwizzler {
     }
     
     func swizzleDidRegisterForRemoteNotificationsWithDeviceToken() {
-        if let delegate = applicationDelegate {
-            let delegateClass: AnyClass! = object_getClass(delegate)
-            
-            let applicationSelector = #selector(UIApplicationDelegate.application(_:didRegisterForRemoteNotificationsWithDeviceToken:))
-            
-            if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-                let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(application(_:didRegisterForRemoteNotificationsWithDeviceToken:))) {
-                    method_exchangeImplementations(originalMethod, swizzleMethod)
-            }
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        
+        let applicationSelector = #selector(UIApplicationDelegate.application(_:didRegisterForRemoteNotificationsWithDeviceToken:))
+        
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
+            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didRegisterForRemoteNotificationsWithDeviceToken:))) {
+                method_exchangeImplementations(originalMethod, swizzleMethod)
         }
     }
     
     func swizzleDidFailToRegisterForRemoteNotificationsWithError() {
-        if let delegate = applicationDelegate {
-            let delegateClass: AnyClass! = object_getClass(delegate)
-            
-            let applicationSelector = #selector(UIApplicationDelegate.application(_:didFailToRegisterForRemoteNotificationsWithError:))
-            
-            if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-                let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(application(_:didFailToRegisterForRemoteNotificationsWithError:))) {
-                method_exchangeImplementations(originalMethod, swizzleMethod)
-            }
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        
+        let applicationSelector = #selector(UIApplicationDelegate.application(_:didFailToRegisterForRemoteNotificationsWithError:))
+        
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
+            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didFailToRegisterForRemoteNotificationsWithError:))) {
+            method_exchangeImplementations(originalMethod, swizzleMethod)
         }
     }
     
     func swizzleContinueRestorationHandler() {
-        if let delegate = applicationDelegate {
-            let delegateClass: AnyClass! = object_getClass(delegate)
-            
-            let applicationSelector = #selector(UIApplicationDelegate.application(_:continue:restorationHandler:))
-            
-            if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-                let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(application(_:continue:restorationHandler:))) {
-                method_exchangeImplementations(originalMethod, swizzleMethod)
-            }
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        
+        let applicationSelector = #selector(UIApplicationDelegate.application(_:continue:restorationHandler:))
+        
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
+            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:continue:restorationHandler:))) {
+            method_exchangeImplementations(originalMethod, swizzleMethod)
         }
     }
     
     func swizzleOpenOptions() {
-        if let delegate = applicationDelegate {
-            let delegateClass: AnyClass! = object_getClass(delegate)
-            
-            let applicationSelector = #selector(UIApplicationDelegate.application(_:open:options:))
-            
-            if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-                let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(application(_:open:options:))) {
-                method_exchangeImplementations(originalMethod, swizzleMethod)
-            }
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        
+        let applicationSelector = #selector(UIApplicationDelegate.application(_:open:options:))
+        
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
+            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:open:options:))) {
+            method_exchangeImplementations(originalMethod, swizzleMethod)
         }
     }
+    
+    // MARK: Swizzled methods realization
     
     @objc func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
