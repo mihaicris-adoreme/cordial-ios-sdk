@@ -55,7 +55,7 @@ extension AppDelegate {
     
     @objc func cordialNotificationErrorHandler(notification: NSNotification) {
         if let error = notification.object as? ResponseError {
-            CordialAPI().globalAlert(title: error.message, message: error.responseBody)
+            CordialAPI().showSystemAlert(title: error.message, message: error.responseBody)
         }
     }
 }

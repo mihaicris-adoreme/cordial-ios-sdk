@@ -1,5 +1,5 @@
 //
-//  CordialRequest
+//  CordialRequestFactory
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 3/5/19.

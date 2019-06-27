@@ -44,6 +44,8 @@
 		9E97DEF7226F381700856341 /* SendContactOrderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E97DEF6226F381700856341 /* SendContactOrderRequest.swift */; };
 		9E97DEF9226F382500856341 /* SendContactOrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E97DEF8226F382500856341 /* SendContactOrderResponse.swift */; };
 		9E97DEFB226F413300856341 /* SendContactOrders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E97DEFA226F413300856341 /* SendContactOrders.swift */; };
+		9EA2EFA622C4F0700047314C /* InAppMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */; };
+		9EA2EFA822C4F4670047314C /* InAppMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */; };
 		9EA31A302292D5E80037B786 /* ContactLogoutRequestCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */; };
 		9EB17ABD22930D7B00EEAB7D /* ContactRequest+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17AB322930D7A00EEAB7D /* ContactRequest+CoreDataClass.swift */; };
 		9EB17ABE22930D7B00EEAB7D /* ContactRequest+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17AB422930D7A00EEAB7D /* ContactRequest+CoreDataProperties.swift */; };
@@ -124,6 +126,8 @@
 		9E97DEF6226F381700856341 /* SendContactOrderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactOrderRequest.swift; sourceTree = "<group>"; };
 		9E97DEF8226F382500856341 /* SendContactOrderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactOrderResponse.swift; sourceTree = "<group>"; };
 		9E97DEFA226F413300856341 /* SendContactOrders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactOrders.swift; sourceTree = "<group>"; };
+		9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageManager.swift; sourceTree = "<group>"; };
+		9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageViewController.swift; sourceTree = "<group>"; };
 		9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLogoutRequestCoreData.swift; sourceTree = "<group>"; };
 		9EB17AB322930D7A00EEAB7D /* ContactRequest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactRequest+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9EB17AB422930D7A00EEAB7D /* ContactRequest+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactRequest+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -278,6 +282,7 @@
 		9E7A5A41222EB54D0020054F /* CordialSDK */ = {
 			isa = PBXGroup;
 			children = (
+				9EA2EFA422C4F0290047314C /* InAppMessage */,
 				9E3EA04322B2804200EDBF93 /* LocationManager */,
 				9ECF6B6922982F4A00E6E88F /* FirstLaunch */,
 				9ECF6B6822982ED600E6E88F /* API */,
@@ -356,6 +361,15 @@
 				9E97DEFA226F413300856341 /* SendContactOrders.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		9EA2EFA422C4F0290047314C /* InAppMessage */ = {
+			isa = PBXGroup;
+			children = (
+				9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */,
+				9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */,
+			);
+			path = InAppMessage;
 			sourceTree = "<group>";
 		};
 		9EBE675B22731E920065AA06 /* Helper */ = {
@@ -601,6 +615,7 @@
 				9E97DEF5226F307E00856341 /* Order.swift in Sources */,
 				9E565B8C225B6E7C005EC4AF /* CordialApiConfiguration.swift in Sources */,
 				9EBEA123225C9EF200F001FE /* NotificationManager.swift in Sources */,
+				9EA2EFA822C4F4670047314C /* InAppMessageViewController.swift in Sources */,
 				9EB17AC222930D7B00EEAB7D /* ContactLogout+CoreDataProperties.swift in Sources */,
 				9E7037A7226885E4000C3582 /* CartItem.swift in Sources */,
 				9E3EA6272257A02400ECE52E /* CustomEventsSender.swift in Sources */,
@@ -625,6 +640,7 @@
 				9EBF4AA42252559900CA24C7 /* CordialSwizzler.swift in Sources */,
 				9E3EA04522B2805900EDBF93 /* CordialLocationManager.swift in Sources */,
 				9EB17ABD22930D7B00EEAB7D /* ContactRequest+CoreDataClass.swift in Sources */,
+				9EA2EFA622C4F0700047314C /* InAppMessageManager.swift in Sources */,
 				9E92D3D9228F022800D8AFE0 /* SendContactLogout.swift in Sources */,
 				9EFCA9DA225F8C8B005A8AC8 /* CordialApiEndpoints.swift in Sources */,
 				9E97DEFB226F413300856341 /* SendContactOrders.swift in Sources */,

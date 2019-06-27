@@ -15,6 +15,7 @@ class CordialSwizzler {
         if CordialApiConfiguration.shared.pushNotificationHandler != nil {
             self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
             self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
+            self.swizzleDidReceiveRemoteNotificationfetchCompletionHandler()
         }
         
         if CordialApiConfiguration.shared.continueRestorationHandler != nil {
@@ -26,7 +27,7 @@ class CordialSwizzler {
         }
     }
     
-    func swizzleDidRegisterForRemoteNotificationsWithDeviceToken() {
+    private func swizzleDidRegisterForRemoteNotificationsWithDeviceToken() {
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         
         let applicationSelector = #selector(UIApplicationDelegate.application(_:didRegisterForRemoteNotificationsWithDeviceToken:))
@@ -37,7 +38,7 @@ class CordialSwizzler {
         }
     }
     
-    func swizzleDidFailToRegisterForRemoteNotificationsWithError() {
+    private func swizzleDidFailToRegisterForRemoteNotificationsWithError() {
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         
         let applicationSelector = #selector(UIApplicationDelegate.application(_:didFailToRegisterForRemoteNotificationsWithError:))
@@ -48,7 +49,18 @@ class CordialSwizzler {
         }
     }
     
-    func swizzleContinueRestorationHandler() {
+    private func swizzleDidReceiveRemoteNotificationfetchCompletionHandler() {
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        
+        let applicationSelector = #selector(UIApplicationDelegate.application(_:didReceiveRemoteNotification:fetchCompletionHandler:))
+        
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
+            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didReceiveRemoteNotification:fetchCompletionHandler:))) {
+            method_exchangeImplementations(originalMethod, swizzleMethod)
+        }
+    }
+    
+    private func swizzleContinueRestorationHandler() {
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         
         let applicationSelector = #selector(UIApplicationDelegate.application(_:continue:restorationHandler:))
@@ -59,7 +71,7 @@ class CordialSwizzler {
         }
     }
     
-    func swizzleOpenOptions() {
+    private func swizzleOpenOptions() {
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         
         let applicationSelector = #selector(UIApplicationDelegate.application(_:open:options:))
@@ -86,6 +98,14 @@ class CordialSwizzler {
     
     @objc func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error.localizedDescription)
+    }
+    
+    @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if let html = userInfo["html"] as? String {
+            CordialAPI().showInAppMessagePopup(html: html)
+        }
+        
+        completionHandler(.noData)
     }
     
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {

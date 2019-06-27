@@ -114,24 +114,46 @@ public class CordialAPI: NSObject {
     
     // MARK: Global alert
     
-    public func globalAlert(title: String, message: String?) {
+    public func showSystemAlert(title: String, message: String?) {
         DispatchQueue.main.async {
-            if var currentVC = UIApplication.shared.keyWindow?.rootViewController {
-                while let presentedVC = currentVC.presentedViewController {
-                    if let navVC = (presentedVC as? UINavigationController)?.viewControllers.last {
-                        currentVC = navVC
-                    } else if let tabVC = (presentedVC as? UITabBarController)?.selectedViewController {
-                        currentVC = tabVC
-                    } else {
-                        currentVC = presentedVC
-                    }
-                }
-                
+            if let currentVC = self.getActiveViewController() {
                 let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .cancel)
                 alertController.addAction(okAction)
                 
                 currentVC.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    // MARK: Get active view controller
+    
+    private func getActiveViewController() -> UIViewController? {
+        if var currentVC = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedVC = currentVC.presentedViewController {
+                if let navVC = (presentedVC as? UINavigationController)?.viewControllers.last {
+                    currentVC = navVC
+                } else if let tabVC = (presentedVC as? UITabBarController)?.selectedViewController {
+                    currentVC = tabVC
+                } else {
+                    currentVC = presentedVC
+                }
+            }
+            
+            return currentVC
+        }
+        
+        return nil
+    }
+    
+    // MARK: Show in-app message popup
+    
+    internal func showInAppMessagePopup(html: String) {
+        DispatchQueue.main.async {
+            if let activeViewController = self.getActiveViewController() {
+                let webViewController = InAppMessageManager().getWebViewController(activeViewController: activeViewController, html: html)
+                
+                activeViewController.present(webViewController, animated: true, completion: nil)
             }
         }
     }

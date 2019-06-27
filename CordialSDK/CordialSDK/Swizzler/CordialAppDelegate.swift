@@ -20,6 +20,10 @@ open class CordialAppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    open func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        
+    }
+    
     // MARK: Handle universal links
     
     open func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
