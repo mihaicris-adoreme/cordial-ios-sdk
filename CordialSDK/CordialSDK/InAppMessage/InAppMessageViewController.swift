@@ -9,25 +9,30 @@
 import UIKit
 import WebKit
 
-class InAppMessageViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelegate {
+class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIScrollViewDelegate {
     
-    let webView = WKWebView()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    var webView: WKWebView!
+    
+    override func loadView() {
+        self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
         self.webView.scrollView.delegate = self
-        
         self.webView.scrollView.isScrollEnabled = false
         
-        self.view.addSubview(self.webView)
+        let webView = UIView(frame: self.webView.frame)
+        webView.addSubview(self.webView)
+        self.view = webView
     }
     
-    func setWebViewSize(webViewSize: CGRect) {
-        self.view.frame = webViewSize
+    func initWebView(webViewSize: CGRect) {
+        let webConfiguration = WKWebViewConfiguration()
+        let contentController = WKUserContentController()
+        let js = "function test() { window.location.href='https://tjs.cordialdev.com/prep-tj1.html'; }"
+        let userScript = WKUserScript(source: js, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
+        contentController.addUserScript(userScript)
+        webConfiguration.userContentController = contentController
         
-        self.webView.frame = self.view.frame
+        self.webView = WKWebView(frame: webViewSize, configuration: webConfiguration)
     }
     
     // MARK: WKNavigationDelegate

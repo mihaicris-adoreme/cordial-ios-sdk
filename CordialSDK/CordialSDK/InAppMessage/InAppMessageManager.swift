@@ -24,8 +24,10 @@ class InAppMessageManager {
     }
     
     private func prepareInAppMessageSize(activeViewController: UIViewController, inAppMessageViewController: InAppMessageViewController) {
-        let width = activeViewController.view.bounds.size.width * 0.7
-        let height = activeViewController.view.bounds.size.height * 0.7
+        let scale = CGFloat(0.7)
+        
+        let width = activeViewController.view.bounds.size.width * scale
+        let height = activeViewController.view.bounds.size.height * scale
         let size = CGSize(width: width, height: height)
         
         let x = (activeViewController.view.bounds.size.width - width) / 2
@@ -34,7 +36,7 @@ class InAppMessageManager {
         
         let inAppMessageSize = CGRect(origin: origin, size: size)
         
-        inAppMessageViewController.setWebViewSize(webViewSize: inAppMessageSize)
+        inAppMessageViewController.initWebView(webViewSize: inAppMessageSize)
     }
     
 }
