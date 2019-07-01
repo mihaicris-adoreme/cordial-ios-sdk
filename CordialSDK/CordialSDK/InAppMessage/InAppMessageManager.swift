@@ -13,12 +13,28 @@ class InAppMessageManager {
     func getWebViewController(activeViewController: UIViewController, html: String) -> UIViewController {
         let inAppMessageViewController = InAppMessageViewController()
         
-        inAppMessageViewController.view.bounds = activeViewController.view.bounds
-        inAppMessageViewController.view.frame = activeViewController.view.frame
+        inAppMessageViewController.modalPresentationStyle = .overCurrentContext
+        inAppMessageViewController.modalTransitionStyle = .crossDissolve
+
+        self.prepareInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController)
         
         inAppMessageViewController.webView.loadHTMLString(html, baseURL: nil)
         
         return inAppMessageViewController
+    }
+    
+    private func prepareInAppMessageSize(activeViewController: UIViewController, inAppMessageViewController: InAppMessageViewController) {
+        let width = activeViewController.view.bounds.size.width * 0.7
+        let height = activeViewController.view.bounds.size.height * 0.7
+        let size = CGSize(width: width, height: height)
+        
+        let x = (activeViewController.view.bounds.size.width - width) / 2
+        let y = (activeViewController.view.bounds.size.height - height) / 2
+        let origin = CGPoint(x: x, y: y)
+        
+        let inAppMessageSize = CGRect(origin: origin, size: size)
+        
+        inAppMessageViewController.setWebViewSize(webViewSize: inAppMessageSize)
     }
     
 }

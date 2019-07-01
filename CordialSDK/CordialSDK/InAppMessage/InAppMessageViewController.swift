@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class InAppMessageViewController: UIViewController, WKNavigationDelegate {
+class InAppMessageViewController: UIViewController, WKNavigationDelegate, UIScrollViewDelegate {
     
     let webView = WKWebView()
 
@@ -17,28 +17,49 @@ class InAppMessageViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
 
         self.webView.navigationDelegate = self
-        
-        self.webView.bounds = self.view.bounds
-        self.webView.frame = self.view.frame
+        self.webView.scrollView.delegate = self
         
         self.webView.scrollView.isScrollEnabled = false
         
         self.view.addSubview(self.webView)
     }
     
+    func setWebViewSize(webViewSize: CGRect) {
+        self.view.frame = webViewSize
+        
+        self.webView.frame = self.view.frame
+    }
+    
     // MARK: WKNavigationDelegate
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        guard let url = navigationAction.request.url, let scheme = url.scheme, scheme.contains("cordial") else {
-            // This is not HTTP link - can be a local file or a mailto, etc.
-            decisionHandler(.allow)
-            return
+        var navigationActionPolicy = WKNavigationActionPolicy.cancel
+        
+        if let url = navigationAction.request.url {
+            if let scheme = url.scheme, scheme.contains("http") {
+                let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+                userActivity.webpageURL = url
+                let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+                
+                navigationActionPolicy = .cancel
+            } else {
+                navigationActionPolicy = .allow
+            }
+            
+            if url.absoluteString == "dismiss" {
+                self.dismiss(animated: true, completion: nil)
+                navigationActionPolicy = .cancel
+            }
         }
         
-        // This is a HTTP link
-        UIApplication.shared.open(url, options:[:], completionHandler: nil)
-        
-        decisionHandler(.allow)
+        decisionHandler(navigationActionPolicy)
     }
     
+    // MARK: UIScrollViewDelegate
+    
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        scrollView.pinchGestureRecognizer?.isEnabled = false
+        scrollView.panGestureRecognizer.isEnabled = false
+    }
+
 }
