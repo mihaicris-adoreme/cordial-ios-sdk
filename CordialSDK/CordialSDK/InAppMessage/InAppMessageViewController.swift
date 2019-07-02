@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, UIScrollViewDelegate {
+class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, UIScrollViewDelegate {
     
     var webView: WKWebView!
     
@@ -26,38 +26,31 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     func initWebView(webViewSize: CGRect) {
         let webConfiguration = WKWebViewConfiguration()
-        let contentController = WKUserContentController()
-        let js = "function test() { window.location.href='https://tjs.cordialdev.com/prep-tj1.html'; }"
-        let userScript = WKUserScript(source: js, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
-        contentController.addUserScript(userScript)
-        webConfiguration.userContentController = contentController
         
+        if let inAppMessageJS = self.getInAppMessageJS() {
+            let userScript = WKUserScript(source: inAppMessageJS, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
+            
+            let contentController = WKUserContentController()
+            contentController.addUserScript(userScript)
+            contentController.add(self, name: "buttonAction")
+            webConfiguration.userContentController = contentController
+        }
+
         self.webView = WKWebView(frame: webViewSize, configuration: webConfiguration)
     }
     
-    // MARK: WKNavigationDelegate
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        var navigationActionPolicy = WKNavigationActionPolicy.cancel
-        
-        if let url = navigationAction.request.url {
-            if let scheme = url.scheme, scheme.contains("http") {
-                let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
-                userActivity.webpageURL = url
-                let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+    private func getInAppMessageJS() -> String? {
+        if let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: "InAppMessage", withExtension: "js") {
+            do {
+                let contents = try String(contentsOfFile: resourceBundleURL.path)
                 
-                navigationActionPolicy = .cancel
-            } else {
-                navigationActionPolicy = .allow
-            }
-            
-            if url.absoluteString == "dismiss" {
-                self.dismiss(animated: true, completion: nil)
-                navigationActionPolicy = .cancel
+                return contents
+            } catch {
+                return nil
             }
         }
         
-        decisionHandler(navigationActionPolicy)
+        return nil
     }
     
     // MARK: UIScrollViewDelegate
@@ -67,4 +60,23 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         scrollView.panGestureRecognizer.isEnabled = false
     }
 
+    // MARK: WKScriptMessageHandler
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        let inAppMessage = InAppMessage()
+        
+        if message.name == "buttonAction" {
+            if let dict = message.body as? NSDictionary {
+                if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
+                    inAppMessage.openDeepLink(url: url)
+                }
+                
+                if let eventName = dict["eventName"] as? String {
+                    inAppMessage.sendCustomEvent(eventName: eventName)
+                }
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 }
