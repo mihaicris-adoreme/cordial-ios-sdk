@@ -22,7 +22,7 @@ Pod::Spec.new do |spec|
 
   spec.source_files  = "CordialSDK", "CordialSDK/CordialSDK/**/*.{swift}"
 
-  spec.resource_bundles = { "CordialSDK" => ["CordialSDK/CordialSDK/**/*.{xcdatamodeld}"] }
+  spec.resource_bundles = { "CordialSDK" => ["CordialSDK/CordialSDK/**/*.{xcdatamodeld}", "CordialSDK/CordialSDK/**/*.{js}"] }
 
   spec.requires_arc  = true
 
