@@ -13,6 +13,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     var webView: WKWebView!
     
+    let inAppMessageProcess = InAppMessageProcess()
+    
     override func loadView() {
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
@@ -27,7 +29,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func initWebView(webViewSize: CGRect) {
         let webConfiguration = WKWebViewConfiguration()
         
-        if let inAppMessageJS = self.getInAppMessageJS() {
+        if let inAppMessageJS = inAppMessageProcess.getInAppMessageJS() {
             let userScript = WKUserScript(source: inAppMessageJS, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
             
             let contentController = WKUserContentController()
@@ -37,20 +39,6 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         }
 
         self.webView = WKWebView(frame: webViewSize, configuration: webConfiguration)
-    }
-    
-    private func getInAppMessageJS() -> String? {
-        if let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: "InAppMessage", withExtension: "js") {
-            do {
-                let contents = try String(contentsOfFile: resourceBundleURL.path)
-                
-                return contents
-            } catch {
-                return nil
-            }
-        }
-        
-        return nil
     }
     
     // MARK: UIScrollViewDelegate
@@ -63,8 +51,6 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     // MARK: WKScriptMessageHandler
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        let inAppMessageProcess = InAppMessageProcess()
-        
         if message.name == "buttonAction" {
             if let dict = message.body as? NSDictionary {
                 if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
