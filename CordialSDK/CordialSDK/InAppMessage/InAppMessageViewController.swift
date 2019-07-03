@@ -63,16 +63,16 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     // MARK: WKScriptMessageHandler
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        let inAppMessage = InAppMessage()
+        let inAppMessageProcess = InAppMessageProcess()
         
         if message.name == "buttonAction" {
             if let dict = message.body as? NSDictionary {
                 if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
-                    inAppMessage.openDeepLink(url: url)
+                    inAppMessageProcess.openDeepLink(url: url)
                 }
                 
                 if let eventName = dict["eventName"] as? String {
-                    inAppMessage.sendCustomEvent(eventName: eventName)
+                    inAppMessageProcess.sendCustomEvent(eventName: eventName)
                 }
             }
             

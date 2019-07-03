@@ -1,5 +1,5 @@
 //
-//  InAppMessage.swift
+//  InAppMessageProcess.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 7/2/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class InAppMessage {
+class InAppMessageProcess {
     
     func openDeepLink(url: URL) {
         if let scheme = url.scheme, scheme.contains("http") {
