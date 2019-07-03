@@ -101,10 +101,6 @@ class CordialSwizzler {
     }
     
     @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-//        if let html = userInfo["html"] as? String {
-//            CordialAPI().showInAppMessagePopup(html: html)
-//        }
-        
         if let inApp = userInfo["in-app"] as? Bool, inApp, let mcID = userInfo["mcID"] as? String  {
             InAppMessageGetter().getInAppMessage(mcID: mcID)
         }

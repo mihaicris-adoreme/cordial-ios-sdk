@@ -15,8 +15,8 @@ class InAppMessageGetter {
             let inAppMessage = InAppMessage()
             
             inAppMessage.getInAppMessage(mcID: mcID,
-                onSuccess: { result in
-                    
+                onSuccess: { html in
+                    CordialAPI().showInAppMessagePopup(html: html)
                 }, systemError: { error in
                     
                 }, logicError: { error in
