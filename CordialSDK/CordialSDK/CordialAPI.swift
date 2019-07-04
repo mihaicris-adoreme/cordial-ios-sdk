@@ -52,6 +52,8 @@ public class CordialAPI: NSObject {
         if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         }
+        
+        InAppMessagesQueue().fetchInAppMessagesFromQueue()
     }
     
     // MARK: Get account key

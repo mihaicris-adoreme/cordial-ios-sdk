@@ -73,6 +73,8 @@
 		9ED26372224CFAF300BD9BB3 /* CordialFirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED26371224CFAF300BD9BB3 /* CordialFirstLaunch.swift */; };
 		9ED621DB22CE017E00A55DB2 /* InAppMessageCacheCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621DA22CE017E00A55DB2 /* InAppMessageCacheCoreData.swift */; };
 		9ED621DE22CE089600A55DB2 /* InAppMessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621DD22CE089600A55DB2 /* InAppMessageData.swift */; };
+		9ED621F322CE388900A55DB2 /* InAppMessageQueueCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621F222CE388900A55DB2 /* InAppMessageQueueCoreData.swift */; };
+		9ED621F522CE587400A55DB2 /* InAppMessagesQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621F422CE587400A55DB2 /* InAppMessagesQueue.swift */; };
 		9ED9266A22CB5BDF00809EC0 /* InAppMessage.js in Resources */ = {isa = PBXBuildFile; fileRef = 9ED9266922CB5BDF00809EC0 /* InAppMessage.js */; };
 		9EEC9D8022896F9900B40FFB /* UserAgentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEC9D7F22896F9900B40FFB /* UserAgentBuilder.swift */; };
 		9EEE995522412C160041D8AE /* SendCustomEventRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE995422412C160041D8AE /* SendCustomEventRequest.swift */; };
@@ -161,6 +163,8 @@
 		9ED26371224CFAF300BD9BB3 /* CordialFirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialFirstLaunch.swift; sourceTree = "<group>"; };
 		9ED621DA22CE017E00A55DB2 /* InAppMessageCacheCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageCacheCoreData.swift; sourceTree = "<group>"; };
 		9ED621DD22CE089600A55DB2 /* InAppMessageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageData.swift; sourceTree = "<group>"; };
+		9ED621F222CE388900A55DB2 /* InAppMessageQueueCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageQueueCoreData.swift; sourceTree = "<group>"; };
+		9ED621F422CE587400A55DB2 /* InAppMessagesQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessagesQueue.swift; sourceTree = "<group>"; };
 		9ED9266922CB5BDF00809EC0 /* InAppMessage.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = InAppMessage.js; sourceTree = "<group>"; };
 		9EEC9D7F22896F9900B40FFB /* UserAgentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentBuilder.swift; sourceTree = "<group>"; };
 		9EEE995422412C160041D8AE /* SendCustomEventRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCustomEventRequest.swift; sourceTree = "<group>"; };
@@ -405,6 +409,7 @@
 				9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */,
 				9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */,
 				9ED621DA22CE017E00A55DB2 /* InAppMessageCacheCoreData.swift */,
+				9ED621F222CE388900A55DB2 /* InAppMessageQueueCoreData.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -467,6 +472,7 @@
 			isa = PBXGroup;
 			children = (
 				9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */,
+				9ED621F422CE587400A55DB2 /* InAppMessagesQueue.swift */,
 				9E12EA4422CCD45100C2DED4 /* InAppMessage.swift */,
 			);
 			path = Helper;
@@ -648,7 +654,9 @@
 				9EB17ABE22930D7B00EEAB7D /* ContactRequest+CoreDataProperties.swift in Sources */,
 				9E7037A922688EC9000C3582 /* UpsertContactCart.swift in Sources */,
 				9E081386227458C800BD1412 /* UpsertContacts.swift in Sources */,
+				9ED621F522CE587400A55DB2 /* InAppMessagesQueue.swift in Sources */,
 				9ED621DE22CE089600A55DB2 /* InAppMessageData.swift in Sources */,
+				9ED621F322CE388900A55DB2 /* InAppMessageQueueCoreData.swift in Sources */,
 				9E12EA4522CCD45100C2DED4 /* InAppMessage.swift in Sources */,
 				9E97DEF5226F307E00856341 /* Order.swift in Sources */,
 				9E565B8C225B6E7C005EC4AF /* CordialApiConfiguration.swift in Sources */,

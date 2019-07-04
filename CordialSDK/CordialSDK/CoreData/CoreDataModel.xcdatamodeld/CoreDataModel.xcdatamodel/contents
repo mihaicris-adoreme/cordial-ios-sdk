@@ -19,7 +19,10 @@
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
     </entity>
-    <entity name="InAppMessageQueue" representedClassName="InAppMessageQueue" syncable="YES" codeGenerationType="class"/>
+    <entity name="InAppMessageQueue" representedClassName="InAppMessageQueue" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="mcID" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="ContactCartRequest" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="ContactLogout" positionX="-45" positionY="9" width="128" height="60"/>
@@ -27,6 +30,6 @@
         <element name="ContactRequest" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="CustomEventRequest" positionX="-45" positionY="0" width="128" height="60"/>
         <element name="InAppMessageCache" positionX="-45" positionY="9" width="128" height="75"/>
-        <element name="InAppMessageQueue" positionX="-36" positionY="18" width="128" height="45"/>
+        <element name="InAppMessageQueue" positionX="-36" positionY="18" width="128" height="75"/>
     </elements>
 </model>

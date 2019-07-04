@@ -91,6 +91,8 @@ public class CordialApiConfiguration {
         
         self.prepareCurrentSubscribeStatus()
         
+        InAppMessagesQueue().fetchInAppMessagesFromQueue()
+        
         self.showInAppMessages()
     }
     

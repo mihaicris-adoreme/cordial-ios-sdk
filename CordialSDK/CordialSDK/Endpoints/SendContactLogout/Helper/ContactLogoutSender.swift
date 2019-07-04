@@ -24,7 +24,7 @@ class ContactLogoutSender {
                     os_log("Device ID: [%{public}@]", log: OSLog.sendContactLogout, type: .info, sendContactLogoutRequest.deviceID)
                 }, systemError: { error in
                     CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
-                    os_log("Sending contact failed. Saved to retry later.", log: OSLog.sendContactLogout, type: .info)
+                    os_log("Sending contact logout failed. Saved to retry later.", log: OSLog.sendContactLogout, type: .info)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .sendContactLogoutLogicError, object: error)
                     os_log("Sending contact logout failed. Will not retry.", log: OSLog.sendContactLogout, type: .info)
@@ -32,7 +32,7 @@ class ContactLogoutSender {
             )
         } else {
             CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
-            os_log("Sending contact failed. Saved to retry later.", log: OSLog.sendContactLogout, type: .info)
+            os_log("Sending contact logout failed. Saved to retry later.", log: OSLog.sendContactLogout, type: .info)
         }
     }
 }

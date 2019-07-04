@@ -15,7 +15,7 @@ class CustomEventsSender {
         if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
             let sendCustomEvents = SendCustomEvents()
             
-            os_log("Sending events:", log: OSLog.sendCustomEvents, type: .info)
+            os_log("Sending custom events:", log: OSLog.sendCustomEvents, type: .info)
             sendCustomEventRequests.forEach({ sendCustomEventRequest in
                 os_log("[%{public}@]: [%{public}@]", log: OSLog.sendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
             })

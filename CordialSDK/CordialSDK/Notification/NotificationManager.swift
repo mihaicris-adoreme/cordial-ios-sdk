@@ -18,5 +18,6 @@ public extension Notification.Name {
     static let sendContactOrdersLogicError = Notification.Name("SendContactOrdersLogicError")
     static let upsertContactsLogicError = Notification.Name("UpsertContactsLogicError")
     static let sendContactLogoutLogicError = Notification.Name("SendContactLogoutLogicError")
+    static let fetchInAppMessageLogicError = Notification.Name("FetchInAppMessageLogicError")
     
 }

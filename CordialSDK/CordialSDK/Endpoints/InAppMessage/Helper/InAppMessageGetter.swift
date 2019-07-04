@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class InAppMessageGetter {
     
@@ -14,18 +15,24 @@ class InAppMessageGetter {
         if ReachabilityManager.shared.isConnectedToInternet {
             let inAppMessage = InAppMessage()
             
+            os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.fetchInAppMessage, type: .info, mcID)
+            
             inAppMessage.getInAppMessage(mcID: mcID,
                 onSuccess: { html in
                     let inAppMessageData = InAppMessageData(mcID: mcID, html: html)
                     CoreDataManager.shared.inAppMessageCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+                    os_log("Save IAM with mcID: [%{public}@]", log: OSLog.fetchInAppMessage, type: .info, mcID)
                 }, systemError: { error in
-                    
+                    CoreDataManager.shared.inAppMessageQueue.setInAppMessageQueueToCoreData(mcID: mcID)
+                    os_log("Fetching IAM failed. Saved to retry later.", log: OSLog.fetchInAppMessage, type: .info)
                 }, logicError: { error in
-                    
+                    NotificationCenter.default.post(name: .fetchInAppMessageLogicError, object: error)
+                    os_log("Fetching IAM failed. Will not retry.", log: OSLog.fetchInAppMessage, type: .info)
                 }
             )
         } else {
-            
+            CoreDataManager.shared.inAppMessageQueue.setInAppMessageQueueToCoreData(mcID: mcID)
+            os_log("Fetching IAM failed. Saved to retry later.", log: OSLog.fetchInAppMessage, type: .info)
         }
     }
     

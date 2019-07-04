@@ -50,6 +50,9 @@ extension AppDelegate {
         
         notificationCenter.removeObserver(self, name: .sendContactLogoutLogicError, object: nil)
         notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .sendContactLogoutLogicError, object: nil)
+
+        notificationCenter.removeObserver(self, name: .fetchInAppMessageLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .fetchInAppMessageLogicError, object: nil)
         
     }
     
