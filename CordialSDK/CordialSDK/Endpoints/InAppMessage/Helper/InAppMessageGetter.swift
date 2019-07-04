@@ -10,13 +10,14 @@ import Foundation
 
 class InAppMessageGetter {
     
-    func getInAppMessage(mcID: String) {
+    func fetchInAppMessage(mcID: String) {
         if ReachabilityManager.shared.isConnectedToInternet {
             let inAppMessage = InAppMessage()
             
             inAppMessage.getInAppMessage(mcID: mcID,
                 onSuccess: { html in
-                    CordialAPI().showInAppMessagePopup(html: html)
+                    let inAppMessageData = InAppMessageData(mcID: mcID, html: html)
+                    CoreDataManager.shared.inAppMessageCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
                 }, systemError: { error in
                     
                 }, logicError: { error in

@@ -90,6 +90,8 @@ public class CordialApiConfiguration {
         CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         self.prepareCurrentSubscribeStatus()
+        
+        self.showInAppMessages()
     }
     
     private func prepareCurrentSubscribeStatus() {
@@ -108,6 +110,12 @@ public class CordialApiConfiguration {
                 }
             }
         })
+    }
+    
+    private func showInAppMessages() {
+        if let inAppMessageData = CoreDataManager.shared.inAppMessageCache.getInAppMessageDataFromCoreData() {
+            CordialAPI().showInAppMessagePopup(html: inAppMessageData.html)
+        }
     }
     
     @objc func handleAppDidFinishLaunchingNotification(notification: NSNotification) {
