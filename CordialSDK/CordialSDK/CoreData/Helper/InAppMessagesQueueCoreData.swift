@@ -1,5 +1,5 @@
 //
-//  InAppMessageQueueCoreData.swift
+//  InAppMessagesQueueCoreData.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 7/4/19.
@@ -9,11 +9,11 @@
 import Foundation
 import CoreData
 
-class InAppMessageQueueCoreData {
+class InAppMessagesQueueCoreData {
     
-    let entityName = "InAppMessageQueue"
+    let entityName = "InAppMessagesQueue"
     
-    func setInAppMessageQueueToCoreData(mcID: String) {
+    func setMcIdToCoreDataInAppMessagesQueue(mcID: String) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
@@ -30,7 +30,7 @@ class InAppMessageQueueCoreData {
         }
     }
     
-    func getInAppMessagesQueueFromCoreData() -> [String] {
+    func getMcIDsFromCoreDataInAppMessagesQueue() -> [String] {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)

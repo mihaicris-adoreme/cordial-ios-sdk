@@ -1,5 +1,5 @@
 //
-//  InAppMessagesQueue.swift
+//  InAppMessagesQueueManager.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 7/4/19.
@@ -9,10 +9,10 @@
 import Foundation
 import os.log
 
-class InAppMessagesQueue {
+class InAppMessagesQueueManager {
     
     func fetchInAppMessagesFromQueue() {
-        let mcIDs = CoreDataManager.shared.inAppMessageQueue.getInAppMessagesQueueFromCoreData()
+        let mcIDs = CoreDataManager.shared.inAppMessagesQueue.getMcIDsFromCoreDataInAppMessagesQueue()
         mcIDs.forEach { mcID in
             InAppMessageGetter().fetchInAppMessage(mcID: mcID)
         }

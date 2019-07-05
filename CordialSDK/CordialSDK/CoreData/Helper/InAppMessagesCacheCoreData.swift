@@ -1,5 +1,5 @@
 //
-//  InAppMessageCacheCoreData.swift
+//  InAppMessagesCacheCoreData.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 7/4/19.
@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-class InAppMessageCacheCoreData {
+class InAppMessagesCacheCoreData {
     
-    let entityName = "InAppMessageCache"
+    let entityName = "InAppMessagesCache"
     
     func setInAppMessageDataToCoreData(inAppMessageData: InAppMessageData) {
         let context = CoreDataManager.shared.persistentContainer.viewContext

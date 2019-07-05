@@ -20,10 +20,10 @@ class InAppMessageGetter {
             inAppMessage.getInAppMessage(mcID: mcID,
                 onSuccess: { html in
                     let inAppMessageData = InAppMessageData(mcID: mcID, html: html)
-                    CoreDataManager.shared.inAppMessageCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+                    CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
                     os_log("Save IAM with mcID: [%{public}@]", log: OSLog.fetchInAppMessage, type: .info, mcID)
                 }, systemError: { error in
-                    CoreDataManager.shared.inAppMessageQueue.setInAppMessageQueueToCoreData(mcID: mcID)
+                    CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
                     os_log("Fetching IAM failed. Saved to retry later.", log: OSLog.fetchInAppMessage, type: .info)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .fetchInAppMessageLogicError, object: error)
@@ -31,7 +31,7 @@ class InAppMessageGetter {
                 }
             )
         } else {
-            CoreDataManager.shared.inAppMessageQueue.setInAppMessageQueueToCoreData(mcID: mcID)
+            CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
             os_log("Fetching IAM failed. Saved to retry later.", log: OSLog.fetchInAppMessage, type: .info)
         }
     }

@@ -91,7 +91,7 @@ public class CordialApiConfiguration {
         
         self.prepareCurrentSubscribeStatus()
         
-        InAppMessagesQueue().fetchInAppMessagesFromQueue()
+        InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
         
         self.showInAppMessages()
     }
@@ -115,7 +115,7 @@ public class CordialApiConfiguration {
     }
     
     private func showInAppMessages() {
-        if let inAppMessageData = CoreDataManager.shared.inAppMessageCache.getInAppMessageDataFromCoreData() {
+        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getInAppMessageDataFromCoreData() {
             CordialAPI().showInAppMessagePopup(html: inAppMessageData.html)
         }
     }

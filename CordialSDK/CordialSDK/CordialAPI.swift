@@ -53,7 +53,7 @@ public class CordialAPI: NSObject {
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         }
         
-        InAppMessagesQueue().fetchInAppMessagesFromQueue()
+        InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
     }
     
     // MARK: Get account key
