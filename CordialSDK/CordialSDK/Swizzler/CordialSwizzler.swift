@@ -101,6 +101,7 @@ class CordialSwizzler {
     }
     
     @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        os_log("Silent push notification received.", log: OSLog.fetchInAppMessage, type: .info)
         if let inApp = userInfo["in-app"] as? Bool, inApp, let mcID = userInfo["mcID"] as? String  {
             InAppMessageGetter().fetchInAppMessage(mcID: mcID)
         }
