@@ -28,15 +28,15 @@ class ContactOrdersSender {
                     })
                 }, systemError: { error in
                     CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
-                    os_log("Sending contact order failed. Saved to retry later.", log: OSLog.sendContactOrders, type: .info)
+                    os_log("Sending contact order failed. Saved to retry later. Error: [%{public}@]", log: OSLog.sendContactOrders, type: .info, error.message)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .sendContactOrdersLogicError, object: error)
-                    os_log("Sending contact order failed. Will not retry.", log: OSLog.sendContactOrders, type: .info)
+                    os_log("Sending contact order failed. Will not retry. For viewing exact error see .sendContactOrdersLogicError notification in notification center.", log: OSLog.sendContactOrders, type: .info)
                 }
             )
         } else {
             CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
-            os_log("Sending contact order failed. Saved to retry later.", log: OSLog.sendContactOrders, type: .info)
+            os_log("Sending contact order failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.sendContactOrders, type: .info)
         }
     }
 }

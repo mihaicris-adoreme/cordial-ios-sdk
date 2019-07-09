@@ -22,15 +22,15 @@ class ContactCartSender {
                     os_log("Contact cart sent. Device ID: [%{public}@]", log: OSLog.upsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
                 }, systemError: { error in
                     CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
-                    os_log("Sending contact cart failed. Saved to retry later.", log: OSLog.upsertContactCart, type: .info)
+                    os_log("Sending contact cart failed. Saved to retry later. Error: [%{public}@]", log: OSLog.upsertContactCart, type: .info, error.message)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .upsertContactCartLogicError, object: error)
-                    os_log("Sending contact cart failed. Will not retry.", log: OSLog.upsertContactCart, type: .info)
+                    os_log("Sending contact cart failed. Will not retry. For viewing exact error see .upsertContactCartLogicError notification in notification center.", log: OSLog.upsertContactCart, type: .info)
                 }
             )
         } else {
             CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
-            os_log("Sending contact cart failed. Saved to retry later.", log: OSLog.upsertContactCart, type: .info)
+            os_log("Sending contact cart failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.upsertContactCart, type: .info)
         }
     }
 }

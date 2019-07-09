@@ -38,15 +38,15 @@ class ContactsSender {
                     })
                 }, systemError: { error in
                     CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
-                    os_log("Sending contact failed. Saved to retry later.", log: OSLog.upsertContacts, type: .info)
+                    os_log("Sending contact failed. Saved to retry later. Error: [%{public}@]", log: OSLog.upsertContacts, type: .info, error.message)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .upsertContactsLogicError, object: error)
-                    os_log("Sending contact failed. Will not retry.", log: OSLog.upsertContacts, type: .info)
+                    os_log("Sending contact failed. Will not retry. For viewing exact error see .upsertContactsLogicError notification in notification center.", log: OSLog.upsertContacts, type: .info)
                 }
             )
         } else {
             CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
-            os_log("Sending contact failed. Saved to retry later.", log: OSLog.upsertContacts, type: .info)
+            os_log("Sending contact failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.upsertContacts, type: .info)
         }
     }
     
