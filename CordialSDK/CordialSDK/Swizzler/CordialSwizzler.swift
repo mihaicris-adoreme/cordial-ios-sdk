@@ -88,7 +88,7 @@ class CordialSwizzler {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         
-        os_log("Device Token: [%{public}@]", log: OSLog.pushNotification, type: .info, token)
+        os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
         
         if token != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN) {
             let upsertContactRequest = UpsertContactRequest(token: token)
@@ -101,7 +101,7 @@ class CordialSwizzler {
     }
     
     @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        os_log("Silent push notification received.", log: OSLog.fetchInAppMessage, type: .info)
+        os_log("Silent push notification received.", log: OSLog.cordialFetchInAppMessage, type: .info)
         
         if let inApp = userInfo["in-app"] as? Bool, inApp, let mcID = userInfo["mcID"] as? String  {
             InAppMessageGetter().fetchInAppMessage(mcID: mcID)

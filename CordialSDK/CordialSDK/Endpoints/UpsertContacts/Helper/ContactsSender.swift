@@ -25,28 +25,28 @@ class ContactsSender {
         }
         
         if ReachabilityManager.shared.isConnectedToInternet {
-            os_log("Sending contacts:", log: OSLog.upsertContacts, type: .info)
+            os_log("Sending contacts:", log: OSLog.cordialUpsertContacts, type: .info)
             upsertContactRequests.forEach({ upsertContactRequest in
-                os_log("Device ID: [%{public}@]", log: OSLog.upsertContacts, type: .info, upsertContactRequest.deviceID)
+                os_log("Device ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.deviceID)
             })
         
             self.upsertContacts.upsertContacts(upsertContactRequests: upsertContactRequests,
                 onSuccess: { result in
-                    os_log("Contacts sent:", log: OSLog.upsertContacts, type: .info)
+                    os_log("Contacts sent:", log: OSLog.cordialUpsertContacts, type: .info)
                     upsertContactRequests.forEach({ upsertContactRequest in
-                        os_log("Contact payload: [%{public}@]", log: OSLog.upsertContacts, type: .info, self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest))
+                        os_log("Contact payload: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest))
                     })
                 }, systemError: { error in
                     CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
-                    os_log("Sending contact failed. Saved to retry later. Error: [%{public}@]", log: OSLog.upsertContacts, type: .info, error.message)
+                    os_log("Sending contact failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, error.message)
                 }, logicError: { error in
-                    NotificationCenter.default.post(name: .upsertContactsLogicError, object: error)
-                    os_log("Sending contact failed. Will not retry. For viewing exact error see .upsertContactsLogicError notification in notification center.", log: OSLog.upsertContacts, type: .info)
+                    NotificationCenter.default.post(name: .cordialUpsertContactsLogicError, object: error)
+                    os_log("Sending contact failed. Will not retry. For viewing exact error see .upsertContactsLogicError notification in notification center.", log: OSLog.cordialUpsertContacts, type: .info)
                 }
             )
         } else {
             CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
-            os_log("Sending contact failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.upsertContacts, type: .info)
+            os_log("Sending contact failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialUpsertContacts, type: .info)
         }
     }
     

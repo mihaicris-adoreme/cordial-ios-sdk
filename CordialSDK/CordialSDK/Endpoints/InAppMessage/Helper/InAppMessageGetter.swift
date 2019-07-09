@@ -15,24 +15,24 @@ class InAppMessageGetter {
         if ReachabilityManager.shared.isConnectedToInternet {
             let inAppMessage = InAppMessage()
             
-            os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.fetchInAppMessage, type: .info, mcID)
+            os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, mcID)
             
             inAppMessage.getInAppMessage(mcID: mcID,
                 onSuccess: { html in
                     let inAppMessageData = InAppMessageData(mcID: mcID, html: html)
                     CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-                    os_log("Save IAM with mcID: [%{public}@]", log: OSLog.fetchInAppMessage, type: .info, mcID)
+                    os_log("Save IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, mcID)
                 }, systemError: { error in
                     CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
-                    os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.fetchInAppMessage, type: .info, error.message)
+                    os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, error.message)
                 }, logicError: { error in
-                    NotificationCenter.default.post(name: .fetchInAppMessageLogicError, object: error)
-                    os_log("Fetching IAM failed. Will not retry. For viewing exact error see .fetchInAppMessageLogicError notification in notification center.", log: OSLog.fetchInAppMessage, type: .info)
+                    NotificationCenter.default.post(name: .cordialFetchInAppMessageLogicError, object: error)
+                    os_log("Fetching IAM failed. Will not retry. For viewing exact error see .fetchInAppMessageLogicError notification in notification center.", log: OSLog.cordialFetchInAppMessage, type: .info)
                 }
             )
         } else {
             CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
-            os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.fetchInAppMessage, type: .info)
+            os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialFetchInAppMessage, type: .info)
         }
     }
 }

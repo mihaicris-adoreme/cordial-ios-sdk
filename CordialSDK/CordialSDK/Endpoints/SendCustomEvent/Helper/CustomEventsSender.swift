@@ -15,32 +15,32 @@ class CustomEventsSender {
         if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
             let sendCustomEvents = SendCustomEvents()
             
-            os_log("Sending custom events:", log: OSLog.sendCustomEvents, type: .info)
+            os_log("Sending custom events:", log: OSLog.cordialSendCustomEvents, type: .info)
             sendCustomEventRequests.forEach({ sendCustomEventRequest in
-                os_log("[%{public}@]: [%{public}@]", log: OSLog.sendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
+                os_log("[%{public}@]: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
             })
             
             sendCustomEvents.sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests,
                 onSuccess: { result in
-                    os_log("Events sent:", log: OSLog.sendCustomEvents, type: .info)
+                    os_log("Events sent:", log: OSLog.cordialSendCustomEvents, type: .info)
                     sendCustomEventRequests.forEach({ sendCustomEventRequest in
-                        os_log("[%{public}@]: [%{public}@]", log: OSLog.sendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
+                        os_log("[%{public}@]: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
                     })
                 }, systemError: { error in
                     CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
-                    os_log("Sending custom events failed. Saved to retry later. Error: [%{public}@]", log: OSLog.sendCustomEvents, type: .info, error.message)
+                    os_log("Sending custom events failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, error.message)
                 }, logicError: { error in
-                    NotificationCenter.default.post(name: .sendCustomEventsLogicError, object: error)
-                    os_log("Sending custom events failed. Will not retry. For viewing exact error see .sendCustomEventsLogicError notification in notification center.", log: OSLog.sendCustomEvents, type: .info)
+                    NotificationCenter.default.post(name: .cordialSendCustomEventsLogicError, object: error)
+                    os_log("Sending custom events failed. Will not retry. For viewing exact error see .sendCustomEventsLogicError notification in notification center.", log: OSLog.cordialSendCustomEvents, type: .info)
                 }
             )
         } else {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
             
             if CordialAPI().getContactPrimaryKey() == nil {
-                os_log("Sending custom events failed. Saved to retry later. Error: [primaryKey is nil]", log: OSLog.sendCustomEvents, type: .info)
+                os_log("Sending custom events failed. Saved to retry later. Error: [primaryKey is nil]", log: OSLog.cordialSendCustomEvents, type: .info)
             } else {
-                os_log("Sending custom events failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.sendCustomEvents, type: .info)
+                os_log("Sending custom events failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialSendCustomEvents, type: .info)
             }
         }
     }
