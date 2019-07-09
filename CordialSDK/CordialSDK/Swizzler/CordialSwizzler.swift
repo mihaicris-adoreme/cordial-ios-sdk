@@ -76,7 +76,7 @@ class CordialSwizzler {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         
-        os_log("Device Token: [%{public}@]", log: OSLog.pushNotification, type: .info, token)
+        os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
         
         if token != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN) {
             let upsertContactRequest = UpsertContactRequest(token: token)

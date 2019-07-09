@@ -29,20 +29,20 @@ class LoginViewController: UIViewController {
     func setupCordialSDKLogicErrorHandler () {
         let notificationCenter = NotificationCenter.default
         
-        notificationCenter.removeObserver(self, name: .sendCustomEventsLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .sendCustomEventsLogicError, object: nil)
+        notificationCenter.removeObserver(self, name: .cordialSendCustomEventsLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialSendCustomEventsLogicError, object: nil)
         
-        notificationCenter.removeObserver(self, name: .upsertContactCartLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .upsertContactCartLogicError, object: nil)
+        notificationCenter.removeObserver(self, name: .cordialUpsertContactCartLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialUpsertContactCartLogicError, object: nil)
         
-        notificationCenter.removeObserver(self, name: .sendContactOrdersLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .sendContactOrdersLogicError, object: nil)
+        notificationCenter.removeObserver(self, name: .cordialSendContactOrdersLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialSendContactOrdersLogicError, object: nil)
 
-        notificationCenter.removeObserver(self, name: .upsertContactsLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .upsertContactsLogicError, object: nil)
+        notificationCenter.removeObserver(self, name: .cordialUpsertContactsLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialUpsertContactsLogicError, object: nil)
         
-        notificationCenter.removeObserver(self, name: .sendContactLogoutLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .sendContactLogoutLogicError, object: nil)
+        notificationCenter.removeObserver(self, name: .cordialSendContactLogoutLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialSendContactLogoutLogicError, object: nil)
         
     }
     

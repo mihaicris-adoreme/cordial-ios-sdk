@@ -13,10 +13,10 @@ public extension Notification.Name {
     static let connectedToInternet = Notification.Name("ConnectedToInternet")
     static let notConnectedToInternet = Notification.Name("NotConnectedToInternet")
     
-    static let sendCustomEventsLogicError = Notification.Name("SendCustomEventsLogicError")
-    static let upsertContactCartLogicError = Notification.Name("UpsertContactCartLogicError")
-    static let sendContactOrdersLogicError = Notification.Name("SendContactOrdersLogicError")
-    static let upsertContactsLogicError = Notification.Name("UpsertContactsLogicError")
-    static let sendContactLogoutLogicError = Notification.Name("SendContactLogoutLogicError")
+    static let cordialSendCustomEventsLogicError = Notification.Name("CordialSendCustomEventsLogicError")
+    static let cordialUpsertContactCartLogicError = Notification.Name("CordialUpsertContactCartLogicError")
+    static let cordialSendContactOrdersLogicError = Notification.Name("CordialSendContactOrdersLogicError")
+    static let cordialUpsertContactsLogicError = Notification.Name("CordialUpsertContactsLogicError")
+    static let cordialSendContactLogoutLogicError = Notification.Name("CordialSendContactLogoutLogicError")
     
 }
