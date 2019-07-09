@@ -13,7 +13,7 @@ class ReachabilityManager {
     public static let shared = ReachabilityManager()
     
     let reachability = Reachability()!
-    public var isConnectedToInternet = false
+    public var isConnectedToInternet = true
     
     private init() {
         let notificationCenter = NotificationCenter.default

@@ -42,11 +42,11 @@ public class CordialAPI: NSObject {
             if sendContactOrderRequests.count > 0 {
                 ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
             }
-            
-            let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
-            if upsertContactRequests.count > 0 {
-                ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
-            }
+        }
+        
+        let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
+        if upsertContactRequests.count > 0 {
+            ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
         }
         
         if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
