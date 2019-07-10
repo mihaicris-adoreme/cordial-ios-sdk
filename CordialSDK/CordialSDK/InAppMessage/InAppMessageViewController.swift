@@ -24,6 +24,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         let webView = UIView(frame: self.webView.frame)
         webView.addSubview(self.webView)
         self.view = webView
+        self.view.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
     }
     
     func initWebView(webViewSize: CGRect) {
