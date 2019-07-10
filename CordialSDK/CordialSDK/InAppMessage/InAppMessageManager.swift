@@ -10,28 +10,29 @@ import Foundation
 
 class InAppMessageManager {
     
-    func getWebViewController(activeViewController: UIViewController, html: String) -> UIViewController {
+    func getWebViewController(activeViewController: UIViewController, inAppMessageData: InAppMessageData) -> UIViewController {
         let inAppMessageViewController = InAppMessageViewController()
         
         inAppMessageViewController.modalPresentationStyle = .overCurrentContext
         inAppMessageViewController.modalTransitionStyle = .crossDissolve
 
-        self.prepareInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController)
+        self.prepareInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
         
-        inAppMessageViewController.webView.loadHTMLString(html, baseURL: nil)
+        inAppMessageViewController.webView.loadHTMLString(inAppMessageData.html, baseURL: nil)
         
         return inAppMessageViewController
     }
     
-    private func prepareInAppMessageSize(activeViewController: UIViewController, inAppMessageViewController: InAppMessageViewController) {
-        let scale = CGFloat(0.7)
+    private func prepareInAppMessageSize(activeViewController: UIViewController, inAppMessageViewController: InAppMessageViewController, inAppMessageData: InAppMessageData) {
+        let activeViewBounds = activeViewController.view.bounds
         
-        let width = activeViewController.view.bounds.size.width * scale
-        let height = activeViewController.view.bounds.size.height * scale
+        let width = activeViewBounds.size.width - activeViewBounds.size.width * (CGFloat(inAppMessageData.left) / 100 + CGFloat(inAppMessageData.right) / 100)
+        let height = activeViewBounds.size.height - activeViewBounds.size.height * (CGFloat(inAppMessageData.top) / 100 + CGFloat(inAppMessageData.bottom) / 100)
+        
         let size = CGSize(width: width, height: height)
         
-        let x = (activeViewController.view.bounds.size.width - width) / 2
-        let y = (activeViewController.view.bounds.size.height - height) / 2
+        let x = (activeViewBounds.size.width - width) / 2
+        let y = (activeViewBounds.size.height - height) / 2
         let origin = CGPoint(x: x, y: y)
         
         let inAppMessageSize = CGRect(origin: origin, size: size)

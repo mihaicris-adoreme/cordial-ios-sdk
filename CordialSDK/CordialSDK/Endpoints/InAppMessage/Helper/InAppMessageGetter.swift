@@ -18,8 +18,7 @@ class InAppMessageGetter {
             os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, mcID)
             
             inAppMessage.getInAppMessage(mcID: mcID,
-                onSuccess: { html in
-                    let inAppMessageData = InAppMessageData(mcID: mcID, html: html)
+                onSuccess: { inAppMessageData in
                     CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
                     os_log("Save IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, mcID)
                 }, systemError: { error in

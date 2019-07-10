@@ -150,10 +150,10 @@ public class CordialAPI: NSObject {
     
     // MARK: Show in-app message popup
     
-    internal func showInAppMessagePopup(html: String) {
+    internal func showInAppMessagePopup(inAppMessageData: InAppMessageData) {
         DispatchQueue.main.async {
             if let activeViewController = self.getActiveViewController() {
-                let webViewController = InAppMessageManager().getWebViewController(activeViewController: activeViewController, html: html)
+                let webViewController = InAppMessageManager().getWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                 activeViewController.present(webViewController, animated: true, completion: nil)
             }
         }
