@@ -19,8 +19,17 @@ class InAppMessageGetter {
             
             inAppMessage.getInAppMessage(mcID: mcID,
                 onSuccess: { inAppMessageData in
-                    CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-                    os_log("Save IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, mcID)
+                    switch inAppMessageData.type {
+                    case InAppMessageType.modal:
+                        CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+                        os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, mcID)
+                    case InAppMessageType.fullscreen:
+                        CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+                        os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, mcID)
+                    case InAppMessageType.banner:
+                        CordialAPI().showBanerInAppMessage(inAppMessageData: inAppMessageData)
+                        os_log("Showing %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, mcID)
+                    }
                 }, systemError: { error in
                     CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
                     os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, error.message)

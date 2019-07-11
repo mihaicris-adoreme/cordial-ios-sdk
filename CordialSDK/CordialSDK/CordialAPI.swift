@@ -148,9 +148,20 @@ public class CordialAPI: NSObject {
         return nil
     }
     
-    // MARK: Show in-app message popup
+    // MARK: Show modal in-app message
     
-    internal func showInAppMessagePopup(inAppMessageData: InAppMessageData) {
+    internal func showModalInAppMessage(inAppMessageData: InAppMessageData) {
+        DispatchQueue.main.async {
+            if let activeViewController = self.getActiveViewController() {
+                let webViewController = InAppMessageManager().getWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                activeViewController.present(webViewController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    // MARK: Show baner in-app message
+    
+    internal func showBanerInAppMessage(inAppMessageData: InAppMessageData) {
         DispatchQueue.main.async {
             if let activeViewController = self.getActiveViewController() {
                 let webViewController = InAppMessageManager().getWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)

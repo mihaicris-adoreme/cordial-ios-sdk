@@ -29,7 +29,7 @@ class InAppMessage {
                 
                 switch httpResponse.statusCode {
                 case 200:
-                    let inAppMessageData = InAppMessageData(mcID: mcID, html: "", top: 30, right: 30, bottom: 30, left: 30)
+                    let inAppMessageData = InAppMessageData(mcID: mcID, html: "", type: InAppMessageType.modal, top: 30, right: 30, bottom: 30, left: 30)
                     onSuccess(inAppMessageData)
                 case 404: // tmp logic
                     let html = "<style type='text/css'>" +
@@ -48,7 +48,13 @@ class InAppMessage {
                                         "<div class='inner simple_button dismiss_button' onclick=\"buttonAction()\">DISMISS</div>" +
                                     "</div>" +
                                "</body>"
-                    let inAppMessageData = InAppMessageData(mcID: mcID, html: html, top: 20, right: 15, bottom: 20, left: 15)
+                    let top = 20
+                    let right = 15
+                    let bottom = 20
+                    let left = 15
+//                    let type = InAppMessageType.modal
+                    let type = InAppMessageType.banner
+                    let inAppMessageData = InAppMessageData(mcID: mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left)
                     onSuccess(inAppMessageData)
                 default:
                     let responseBody = String(decoding: responseData, as: UTF8.self)

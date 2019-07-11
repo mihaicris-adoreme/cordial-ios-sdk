@@ -13,6 +13,7 @@
 		9E12EA4322CCD42200C2DED4 /* InAppMessageGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */; };
 		9E12EA4522CCD45100C2DED4 /* InAppMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12EA4422CCD45100C2DED4 /* InAppMessage.swift */; };
 		9E189E0722CB7D790031C427 /* InAppMessageProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */; };
+		9E1D8CC922D7656F00CD9CDD /* InAppMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */; };
 		9E31E78222CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E31E77E22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift */; };
 		9E31E78322CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E31E77F22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift */; };
 		9E31E78422CF7E5200CB99E7 /* InAppMessagesCache+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E31E78022CF7E5200CB99E7 /* InAppMessagesCache+CoreDataClass.swift */; };
@@ -103,6 +104,7 @@
 		9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageGetter.swift; sourceTree = "<group>"; };
 		9E12EA4422CCD45100C2DED4 /* InAppMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessage.swift; sourceTree = "<group>"; };
 		9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageProcess.swift; sourceTree = "<group>"; };
+		9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageType.swift; sourceTree = "<group>"; };
 		9E31E77E22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesQueue+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9E31E77F22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesQueue+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9E31E78022CF7E5200CB99E7 /* InAppMessagesCache+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 				9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */,
 				9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */,
 				9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */,
+				9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */,
 				9ED9266922CB5BDF00809EC0 /* InAppMessage.js */,
 			);
 			path = InAppMessage;
@@ -694,6 +697,7 @@
 				9EB17AC122930D7B00EEAB7D /* ContactLogout+CoreDataClass.swift in Sources */,
 				9E3EA62522579FBA00ECE52E /* Reachability.swift in Sources */,
 				9E44CB1D222FE28D00DADC6C /* UpsertContactRequest.swift in Sources */,
+				9E1D8CC922D7656F00CD9CDD /* InAppMessageType.swift in Sources */,
 				9E5392F4222EEC920043F5E6 /* CordialRequestFactory.swift in Sources */,
 				9E565B9C225BC09A005EC4AF /* ReachabilityManager.swift in Sources */,
 				9E97DEF1226F2B1900856341 /* Address.swift in Sources */,
