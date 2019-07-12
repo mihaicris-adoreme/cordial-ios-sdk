@@ -31,7 +31,15 @@ class CustomEventsSender {
                     os_log("Sending custom events failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, error.message)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .cordialSendCustomEventsLogicError, object: error)
-                    os_log("Sending custom events failed. Will not retry. For viewing exact error see .sendCustomEventsLogicError notification in notification center.", log: OSLog.cordialSendCustomEvents, type: .info)
+                    os_log("Sending some custom events failed. Will not retry. For viewing exact error see .sendCustomEventsLogicError notification in notification center.", log: OSLog.cordialSendCustomEvents, type: .info)
+
+                    if let responseBody = error.responseBody {
+                        let sendCustomEventRequestsWithoutBrokenEvents = self.getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: sendCustomEventRequests, responseBody: responseBody)
+                        if sendCustomEventRequestsWithoutBrokenEvents.count > 0 {
+                            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
+                            os_log("Saved valid events to retry later.", log: OSLog.cordialSendCustomEvents, type: .info)
+                        }
+                    }
                 }
             )
         } else {
@@ -45,4 +53,37 @@ class CustomEventsSender {
         }
     }
 
+    private func getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: [SendCustomEventRequest], responseBody: String) -> [SendCustomEventRequest] {
+        let errorIDs = self.getErrorIDs(responseBody: responseBody)
+        
+        var mutableSendCustomEventRequests = sendCustomEventRequests
+        
+        errorIDs.forEach { errorID in
+            mutableSendCustomEventRequests.remove(at: errorID)
+        }
+        
+        return mutableSendCustomEventRequests
+    }
+    
+    private func getErrorIDs(responseBody: String) -> [Int] {
+        var errorIDs = [Int]()
+        
+        do {
+            if let responseBodyData = responseBody.data(using: .utf8) {
+                let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as! [String: AnyObject]
+                if let errorsJSON = responseBodyJSON["error"]?["errors"] as? [String: AnyObject] {
+                    let errors = errorsJSON.keys.map { $0 }
+                    errors.forEach { error in
+                        if let stringID = error.components(separatedBy: ".").first, let intID = Int(stringID) {
+                            errorIDs.append(intID)
+                        }
+                    }
+                }
+            }
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+        
+        return errorIDs
+    }
 }
