@@ -173,6 +173,8 @@ public class CordialAPI: NSObject {
     // MARK: Set Contact
     
     public func setContact(primaryKey: String) {
+        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
+        
         let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey)
         self.upsertContact(upsertContactRequest: upsertContactRequest)
     }

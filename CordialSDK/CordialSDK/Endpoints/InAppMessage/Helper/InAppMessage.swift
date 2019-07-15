@@ -65,12 +65,29 @@ class InAppMessage {
                             "</div>" +
                         "</body>" +
                     "</html>"
-                    let top = 15
-                    let right = 10
-                    let bottom = 20
-                    let left = 10
-//                    let type = InAppMessageType.modal
-                    let type = InAppMessageType.banner
+                    
+                    var top = 15
+                    var right = 10
+                    var bottom = 20
+                    var left = 10
+                    
+                    var type: InAppMessageType
+                    
+                    switch mcID {
+                    case "test_modal":
+                        type = InAppMessageType.modal
+                    case "test_fullscreen":
+                        type = InAppMessageType.fullscreen
+                        top = 0
+                        right = 0
+                        bottom = 0
+                        left = 0
+                    case "test_banner":
+                        type = InAppMessageType.banner
+                    default:
+                        type = InAppMessageType.modal
+                    }
+                    
                     let inAppMessageData = InAppMessageData(mcID: mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left)
                     onSuccess(inAppMessageData)
                 default:
