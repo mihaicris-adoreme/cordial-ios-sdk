@@ -24,7 +24,7 @@ public class CartItem: NSObject, NSCoding {
     let images: [String]?
     let properties: Dictionary<String, String>?
     
-    let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
     
     enum Key: String {
         case productID = "productID"
@@ -52,7 +52,7 @@ public class CartItem: NSObject, NSCoding {
         self.qty = qty
         self.itemPrice = itemPrice
         self.salePrice = salePrice
-        self.timestamp = cordialAPI.getTimestamp()
+        self.timestamp = internalCordialAPI.getTimestamp()
         self.attr = attr
         self.images = images
         self.properties = properties

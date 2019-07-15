@@ -27,7 +27,7 @@ class InAppMessageGetter {
                         CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
                         os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, mcID)
                     case InAppMessageType.banner:
-                        CordialAPI().showBanerInAppMessage(inAppMessageData: inAppMessageData)
+                        InternalCordialAPI().showBannerInAppMessage(inAppMessageData: inAppMessageData)
                         os_log("Showing %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, mcID)
                     }
                 }, systemError: { error in

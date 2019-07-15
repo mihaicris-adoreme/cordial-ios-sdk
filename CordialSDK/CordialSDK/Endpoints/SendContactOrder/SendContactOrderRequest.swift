@@ -15,13 +15,14 @@ public class SendContactOrderRequest: NSObject, NSCoding {
     let order: Order
     
     let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
     
     enum Key: String {
         case order = "order"
     }
     
     public init(order: Order) {
-        self.deviceID = cordialAPI.getDeviceIdentifier()
+        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.order = order
     }

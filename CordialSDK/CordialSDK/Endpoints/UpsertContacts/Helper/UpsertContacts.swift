@@ -43,7 +43,7 @@ class UpsertContacts {
                     
                     let result = UpsertContactResponse(status: .SUCCESS)
                     
-                    CordialAPI().sendCacheFromCoreData()
+                    InternalCordialAPI().sendCacheFromCoreData()
                     
                     onSuccess(result)
                 default:

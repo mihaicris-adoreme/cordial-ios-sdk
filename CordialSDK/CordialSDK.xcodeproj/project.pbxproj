@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E05637A22DC9AC000EECADD /* InternalCordialAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05637922DC9AC000EECADD /* InternalCordialAPI.swift */; };
 		9E0813842274523500BD1412 /* ContactsSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0813832274523500BD1412 /* ContactsSender.swift */; };
 		9E081386227458C800BD1412 /* UpsertContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081385227458C800BD1412 /* UpsertContacts.swift */; };
 		9E0813882274722000BD1412 /* ContactRequestsCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */; };
@@ -98,6 +99,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E05637922DC9AC000EECADD /* InternalCordialAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalCordialAPI.swift; sourceTree = "<group>"; };
 		9E0813832274523500BD1412 /* ContactsSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSender.swift; sourceTree = "<group>"; };
 		9E081385227458C800BD1412 /* UpsertContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContacts.swift; sourceTree = "<group>"; };
 		9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRequestsCoreData.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				9E565B93225B9DF7005EC4AF /* CoreData */,
 				9E3EA62322579F9C00ECE52E /* Reachability */,
 				9E7BD8C1228D9999004B4EB9 /* Endpoints */,
+				9E05637922DC9AC000EECADD /* InternalCordialAPI.swift */,
 				9E5392EC222EC50A0043F5E6 /* CordialAPI.swift */,
 				9E7A5A42222EB54D0020054F /* CordialSDK.h */,
 				9E7A5A43222EB54D0020054F /* Info.plist */,
@@ -705,6 +708,7 @@
 				9E7FAC3D223001710097C0B0 /* UpsertContactResponse.swift in Sources */,
 				9EB17AC422930D7B00EEAB7D /* ContactCartRequest+CoreDataProperties.swift in Sources */,
 				9E92D3D7228F01CA00D8AFE0 /* ContactLogoutSender.swift in Sources */,
+				9E05637A22DC9AC000EECADD /* InternalCordialAPI.swift in Sources */,
 				9EBF4AA42252559900CA24C7 /* CordialSwizzler.swift in Sources */,
 				9E3EA04522B2805900EDBF93 /* CordialLocationManager.swift in Sources */,
 				9EB17ABD22930D7B00EEAB7D /* ContactRequest+CoreDataClass.swift in Sources */,

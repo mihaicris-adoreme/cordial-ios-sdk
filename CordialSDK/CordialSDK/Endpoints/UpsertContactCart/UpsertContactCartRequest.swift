@@ -15,13 +15,14 @@ public class UpsertContactCartRequest: NSObject, NSCoding {
     let cartItems: [CartItem]
     
     let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
     
     enum Key: String {
         case cartItems = "cartItems"
     }
     
     public init(cartItems: [CartItem]) {
-        self.deviceID = cordialAPI.getDeviceIdentifier()
+        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.cartItems = cartItems
     }

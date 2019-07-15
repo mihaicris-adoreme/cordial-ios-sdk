@@ -20,6 +20,6 @@ class ReachabilitySender {
     }
     
     @objc private func sendCacheFromCoreData() {
-        CordialAPI().sendCacheFromCoreData()
+        InternalCordialAPI().sendCacheFromCoreData()
     }
 }

@@ -9,52 +9,6 @@
 import Foundation
 
 public class CordialAPI: NSObject {
-
-    // MARK: Get timestamp
-    
-    internal func getTimestamp() -> String {
-        let date = Date()
-        let formatter = ISO8601DateFormatter()
-        
-        return formatter.string(from: date)
-    }
-    
-    // MARK: Get device identifier
-    
-    internal func getDeviceIdentifier() -> String {
-        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)!
-    }
-    
-    // MARK: Send cache from CoreData
-    
-    internal func sendCacheFromCoreData() {
-        if self.getContactPrimaryKey() != nil {
-            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
-            if customEventRequests.count > 0 {
-                CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
-            }
-            
-            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
-                ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
-            }
-            
-            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-            if sendContactOrderRequests.count > 0 {
-                ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
-            }
-        }
-        
-        let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
-        if upsertContactRequests.count > 0 {
-            ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
-        }
-        
-        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
-            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
-        }
-        
-        InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
-    }
     
     // MARK: Get account key
     
@@ -118,7 +72,7 @@ public class CordialAPI: NSObject {
     
     public func showSystemAlert(title: String, message: String?) {
         DispatchQueue.main.async {
-            if let currentVC = self.getActiveViewController() {
+            if let currentVC = InternalCordialAPI().getActiveViewController() {
                 let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .cancel)
                 alertController.addAction(okAction)
@@ -127,49 +81,7 @@ public class CordialAPI: NSObject {
             }
         }
     }
-    
-    // MARK: Get active view controller
-    
-    private func getActiveViewController() -> UIViewController? {
-        if var currentVC = UIApplication.shared.keyWindow?.rootViewController {
-            while let presentedVC = currentVC.presentedViewController {
-                if let navVC = (presentedVC as? UINavigationController)?.viewControllers.last {
-                    currentVC = navVC
-                } else if let tabVC = (presentedVC as? UITabBarController)?.selectedViewController {
-                    currentVC = tabVC
-                } else {
-                    currentVC = presentedVC
-                }
-            }
-            
-            return currentVC
-        }
         
-        return nil
-    }
-    
-    // MARK: Show modal in-app message
-    
-    internal func showModalInAppMessage(inAppMessageData: InAppMessageData) {
-        DispatchQueue.main.async {
-            if let activeViewController = self.getActiveViewController() {
-                let webViewController = InAppMessageManager().getWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
-                activeViewController.present(webViewController, animated: true, completion: nil)
-            }
-        }
-    }
-    
-    // MARK: Show baner in-app message
-    
-    internal func showBanerInAppMessage(inAppMessageData: InAppMessageData) {
-        DispatchQueue.main.async {
-            if let activeViewController = self.getActiveViewController() {
-                let webViewController = InAppMessageManager().getWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
-                activeViewController.present(webViewController, animated: true, completion: nil)
-            }
-        }
-    }
-    
     // MARK: Set Contact
     
     public func setContact(primaryKey: String) {

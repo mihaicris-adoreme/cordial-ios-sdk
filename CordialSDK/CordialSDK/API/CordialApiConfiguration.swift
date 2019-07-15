@@ -116,7 +116,7 @@ public class CordialApiConfiguration {
     
     private func showModalInAppMessageIfExist() {
         if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getInAppMessageDataFromCoreData() {
-            CordialAPI().showModalInAppMessage(inAppMessageData: inAppMessageData)
+            InternalCordialAPI().showModalInAppMessage(inAppMessageData: inAppMessageData)
         }
     }
     

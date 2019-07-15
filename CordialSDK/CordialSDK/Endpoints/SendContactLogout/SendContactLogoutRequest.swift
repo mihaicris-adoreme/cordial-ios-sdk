@@ -13,7 +13,7 @@ public class SendContactLogoutRequest: NSObject, NSCoding {
     let deviceID: String
     let primaryKey: String
     
-    let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
     
     enum Key: String {
         case token = "token"
@@ -21,7 +21,7 @@ public class SendContactLogoutRequest: NSObject, NSCoding {
     }
     
     public init(primaryKey: String) {
-        self.deviceID = cordialAPI.getDeviceIdentifier()
+        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = primaryKey
     }
     

@@ -20,6 +20,7 @@ public class SendCustomEventRequest: NSObject, NSCoding {
     let properties: Dictionary<String, String>?
     
     let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
     
     enum Key: String {
         case eventName = "eventName"
@@ -29,10 +30,10 @@ public class SendCustomEventRequest: NSObject, NSCoding {
     }
     
     public init(eventName: String, properties: Dictionary<String, String>?) {
-        self.deviceID = cordialAPI.getDeviceIdentifier()
+        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.eventName = eventName
-        self.timestamp = cordialAPI.getTimestamp()
+        self.timestamp = internalCordialAPI.getTimestamp()
         self.mcID = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
         self.latitude = UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
         self.longitude = UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
@@ -40,7 +41,7 @@ public class SendCustomEventRequest: NSObject, NSCoding {
     }
     
     private init(eventName: String, timestamp: String, mcID: String?, properties: Dictionary<String, String>?) {
-        self.deviceID = cordialAPI.getDeviceIdentifier()
+        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.eventName = eventName
         self.timestamp = timestamp
