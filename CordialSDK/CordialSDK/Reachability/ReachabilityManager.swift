@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class ReachabilityManager {
     
@@ -24,7 +25,7 @@ class ReachabilityManager {
         do {
             try reachability.startNotifier()
         } catch {
-            print("Could not start reachability notifier")
+            os_log("ReachabilityManager: Could not start reachability notifier", log: OSLog.cordialError, type: .error)
         }
     }
     
@@ -33,15 +34,12 @@ class ReachabilityManager {
         
         switch reachability.connection {
         case .wifi:
-            print("Reachable via WiFi")
             isConnectedToInternet = true
             NotificationCenter.default.post(name: .connectedToInternet, object: nil)
         case .cellular:
-            print("Reachable via Cellular")
             isConnectedToInternet = true
             NotificationCenter.default.post(name: .connectedToInternet, object: nil)
         case .none:
-            print("Network not reachable")
             isConnectedToInternet = false
             NotificationCenter.default.post(name: .notConnectedToInternet, object: nil)
         }

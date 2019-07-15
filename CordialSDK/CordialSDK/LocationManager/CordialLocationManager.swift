@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import os.log
 
 class CordialLocationManager: NSObject, CLLocationManagerDelegate {
     
@@ -33,8 +34,6 @@ class CordialLocationManager: NSObject, CLLocationManagerDelegate {
         
         if CLLocationManager.deferredLocationUpdatesAvailable() {
             self.locationManager.allowDeferredLocationUpdates(untilTraveled: untilTraveled, timeout: timeout)
-        } else {
-            print("Device not supporte deferredLocationUpdates")
         }
         
         self.locationManager.startUpdatingLocation()
@@ -55,24 +54,22 @@ class CordialLocationManager: NSObject, CLLocationManagerDelegate {
             if let desiredAccuracy = self.desiredAccuracy, let distanceFilter = self.distanceFilter, let untilTraveled = self.untilTraveled, let timeout = self.timeout {
                 self.enableLocationManager(desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, untilTraveled: untilTraveled, timeout: timeout)
             }
-            print("Location status is OK always.")
         case .authorizedWhenInUse:
             if let desiredAccuracy = self.desiredAccuracy, let distanceFilter = self.distanceFilter, let untilTraveled = self.untilTraveled, let timeout = self.timeout {
                 self.enableLocationManager(desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, untilTraveled: untilTraveled, timeout: timeout)
             }
-            print("Location status is OK when app in use.")
         default: break
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.locationManager.stopUpdatingLocation()
-        print("Fail with error: \(error)")
+        os_log("LocationManager fail with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
     }
     
     func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
         if let error = error {
-            print("Deferred updates finish with error: \(error)")
+            os_log("LocationManager deferred updates finish with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
         }
     }
     

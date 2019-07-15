@@ -81,7 +81,7 @@ class CustomEventsSender {
                 }
             }
         } catch let error as NSError {
-            print(error.localizedDescription)
+            os_log("[%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
         }
         
         return errorIDs

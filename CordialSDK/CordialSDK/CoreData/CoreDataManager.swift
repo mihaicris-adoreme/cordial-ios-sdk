@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import os.log
 
 class CoreDataManager {
 
@@ -59,14 +60,14 @@ class CoreDataManager {
         }
         
         guard let bundle = rawBundle else {
-            print("Could not get bundle that contains the model")
+            os_log("Could not get bundle that contains the model", log: OSLog.cordialError, type: .error)
             return NSManagedObjectModel()
         }
         
         guard
             let modelURL = bundle.url(forResource: self.modelName, withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
-                print("Could not get bundle for managed object model")
+                os_log("Could not get bundle for managed object model", log: OSLog.cordialError, type: .error)
                 return NSManagedObjectModel()
         }
         
@@ -83,7 +84,7 @@ class CoreDataManager {
             try context.execute(deleteRequest)
             try context.save()
         } catch {
-            print ("There was an error")
+            os_log("Delete CoreData by entity failed with error", log: OSLog.cordialError, type: .error)
         }
     }
     

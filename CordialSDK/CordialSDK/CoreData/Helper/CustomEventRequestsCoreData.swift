@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import os.log
 
 class CustomEventRequestsCoreData {
     
@@ -39,7 +40,7 @@ class CustomEventRequestsCoreData {
 
                     try context.save()
                 } catch {
-                    print("Failed saving")
+                    os_log("CoreData Error: Failed saving", log: OSLog.cordialError, type: .error)
                 }
             }
         }
@@ -73,7 +74,7 @@ class CustomEventRequestsCoreData {
                 }
             }
         } catch let error as NSError {
-            print("Failed: \(error) \(error.userInfo)")
+            os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
         }
 
         return sendCustomEventRequests

@@ -20,7 +20,6 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
             guard let self = self else { return }
-            print("Permission granted: \(granted)")
             
             guard granted else { return }
             
@@ -32,7 +31,6 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     
     func getNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
-            print("Notification settings: \(settings)")
             guard settings.authorizationStatus == .authorized else { return }
             
             DispatchQueue.main.async {

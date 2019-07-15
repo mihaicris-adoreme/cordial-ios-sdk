@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import os.log
 
 class InAppMessagesQueueCoreData {
     
@@ -25,7 +26,7 @@ class InAppMessagesQueueCoreData {
                 
                 try context.save()
             } catch {
-                print("Failed saving")
+                os_log("CoreData Error: Failed saving", log: OSLog.cordialError, type: .error)
             }
         }
     }
@@ -50,7 +51,7 @@ class InAppMessagesQueueCoreData {
                 mcIDs.append(mcID)
             }
         } catch let error as NSError {
-            print("Failed: \(error) \(error.userInfo)")
+            os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
         }
         
         return mcIDs
