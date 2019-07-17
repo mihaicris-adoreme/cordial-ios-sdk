@@ -23,13 +23,16 @@ struct API {
     static let USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE = "USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE"
     static let USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE = "USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE"
     
-    static let FIRST_LAUNCH_EVENT_NAME = "app_install"
-    static let APP_MOVED_TO_BACKGROUND = "app_close"
-    static let APP_MOVED_FROM_BACKGROUND = "app_open"
-    static let PUSH_NOTIFICATION_DELIVERED_FOREGROUND = "notification_delivered_in_foreground"
-    static let PUSH_NOTIFICATION_APP_OPEN_VIA_TAP = "app_open_via_notification_tap"
-    static let DEEP_LINKS_APP_OPEN_VIA_UNIVERSAL_LINK = "app_open_via_universal_link"
-    static let DEEP_LINKS_APP_OPEN_VIA_URL_SCHEME = "app_open_via_url_scheme"
+    static let DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE = "DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE"
+    
+    static let EVENT_NAME_FIRST_LAUNCH = "app_install"
+    static let EVENT_NAME_APP_MOVED_TO_BACKGROUND = "app_close"
+    static let EVENT_NAME_APP_MOVED_FROM_BACKGROUND = "app_open"
+    static let EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND = "notification_delivered_in_foreground"
+    static let EVENT_NAME_PUSH_NOTIFICATION_APP_OPEN_VIA_TAP = "app_open_via_notification_tap"
+    static let EVENT_NAME_DEEP_LINKS_APP_OPEN_VIA_UNIVERSAL_LINK = "app_open_via_universal_link"
+    static let EVENT_NAME_DEEP_LINKS_APP_OPEN_VIA_URL_SCHEME = "app_open_via_url_scheme"
+    
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"
     

@@ -44,7 +44,7 @@ public class CordialApiConfiguration {
         
         let firstLaunch = CordialFirstLaunch(userDefaults: .standard, key: API.USER_DEFAULTS_KEY_FOR_FIRST_LAUNCH)
         if firstLaunch.isFirstLaunch {
-            let eventName = API.FIRST_LAUNCH_EVENT_NAME
+            let eventName = API.EVENT_NAME_FIRST_LAUNCH
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
             CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         }
@@ -79,13 +79,13 @@ public class CordialApiConfiguration {
     }
     
     @objc func appMovedToBackground() {
-        let eventName = API.APP_MOVED_TO_BACKGROUND
+        let eventName = API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     @objc func appMovedFromBackground() {
-        let eventName = API.APP_MOVED_FROM_BACKGROUND
+        let eventName = API.EVENT_NAME_APP_MOVED_FROM_BACKGROUND
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         

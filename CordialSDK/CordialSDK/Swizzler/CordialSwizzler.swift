@@ -25,7 +25,11 @@ class CordialSwizzler {
         if CordialApiConfiguration.shared.openOptionsHandler != nil {
             self.swizzleOpenOptions()
         }
+        
+        self.swizzleHandleEventsForBackgroundURLSessionCompletionHandler()
     }
+    
+    // MARK: - Swizzle AppDelegate remote notification registration methods.
     
     private func swizzleDidRegisterForRemoteNotificationsWithDeviceToken() {
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
@@ -60,6 +64,8 @@ class CordialSwizzler {
         }
     }
     
+    // MARK: Swizzle AppDelegate universal links method.
+    
     private func swizzleContinueRestorationHandler() {
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         
@@ -70,6 +76,8 @@ class CordialSwizzler {
             method_exchangeImplementations(originalMethod, swizzleMethod)
         }
     }
+    
+    // MARK: Swizzle AppDelegate URL schemes method.
     
     private func swizzleOpenOptions() {
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
@@ -82,7 +90,20 @@ class CordialSwizzler {
         }
     }
     
-    // MARK: Swizzled methods realization
+    // MARK: Swizzle AppDelegate background URLSession method.
+    
+    private func swizzleHandleEventsForBackgroundURLSessionCompletionHandler() {
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        
+        let applicationSelector = #selector(UIApplicationDelegate.application(_:handleEventsForBackgroundURLSession:completionHandler:))
+        
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
+            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:handleEventsForBackgroundURLSession:completionHandler:))) {
+            method_exchangeImplementations(originalMethod, swizzleMethod)
+        }
+    }
+    
+    // MARK: Swizzled AppDelegate remote notification registration methods.
     
     @objc func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
@@ -101,7 +122,7 @@ class CordialSwizzler {
     }
     
     @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        os_log("Silent push notification received.", log: OSLog.cordialFetchInAppMessage, type: .info)
+        os_log("Silent push notification received.", log: OSLog.cordialPushNotification, type: .info)
         
         if let inApp = userInfo["in-app"] as? Bool, inApp, let mcID = userInfo["mcID"] as? String  {
             InAppMessageGetter().fetchInAppMessage(mcID: mcID)
@@ -110,10 +131,12 @@ class CordialSwizzler {
         completionHandler(.noData)
     }
     
+    // MARK: Swizzled AppDelegate universal links method.
+    
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         
         if let continueRestorationHandler = CordialApiConfiguration.shared.continueRestorationHandler {
-            let eventName = API.DEEP_LINKS_APP_OPEN_VIA_UNIVERSAL_LINK
+            let eventName = API.EVENT_NAME_DEEP_LINKS_APP_OPEN_VIA_UNIVERSAL_LINK
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
             CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
@@ -123,10 +146,12 @@ class CordialSwizzler {
         return false
     }
     
+    // MARK: Swizzled AppDelegate URL schemes method.
+    
     @objc func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
         if let openOptionsHandler = CordialApiConfiguration.shared.openOptionsHandler {
-            let eventName = API.DEEP_LINKS_APP_OPEN_VIA_URL_SCHEME
+            let eventName = API.EVENT_NAME_DEEP_LINKS_APP_OPEN_VIA_URL_SCHEME
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
             CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
@@ -134,5 +159,11 @@ class CordialSwizzler {
         }
         
         return false
+    }
+    
+    // MARK: Swizzled AppDelegate background URLSession method.
+    
+    @objc func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
+        CordialURLSession.shared.backgroundCompletionHandler = completionHandler
     }
 }

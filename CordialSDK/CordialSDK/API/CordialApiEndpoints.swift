@@ -33,6 +33,6 @@ class CordialApiEndpoints {
     }
     
     func getInAppMessageURL(mcID: String) -> String {
-        return cordialAPI.getBaseURL() + "/mobile/message/\(mcID)"
+        return cordialAPI.getBaseURL() + "mobile/message/\(mcID)"
     }
 }

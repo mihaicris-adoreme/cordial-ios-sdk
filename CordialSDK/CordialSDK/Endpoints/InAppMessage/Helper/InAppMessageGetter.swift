@@ -17,30 +17,34 @@ class InAppMessageGetter {
             
             os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, mcID)
             
-            inAppMessage.getInAppMessage(mcID: mcID,
-                onSuccess: { inAppMessageData in
-                    switch inAppMessageData.type {
-                    case InAppMessageType.modal:
-                        CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-                        os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, mcID)
-                    case InAppMessageType.fullscreen:
-                        CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-                        os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, mcID)
-                    case InAppMessageType.banner:
-                        InternalCordialAPI().showBannerInAppMessage(inAppMessageData: inAppMessageData)
-                        os_log("Showing %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, mcID)
-                    }
-                }, systemError: { error in
-                    CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
-                    os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, error.message)
-                }, logicError: { error in
-                    NotificationCenter.default.post(name: .cordialFetchInAppMessageLogicError, object: error)
-                    os_log("Fetching IAM failed. Will not retry. For viewing exact error see .fetchInAppMessageLogicError notification in notification center.", log: OSLog.cordialFetchInAppMessage, type: .info)
-                }
-            )
+            inAppMessage.getInAppMessage(mcID: mcID)
         } else {
             CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
             os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialFetchInAppMessage, type: .info)
         }
+    }
+    
+    func completionHandler(inAppMessageData: InAppMessageData) {
+        switch inAppMessageData.type {
+        case InAppMessageType.modal:
+            CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+            os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+        case InAppMessageType.fullscreen:
+            CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+            os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+        case InAppMessageType.banner:
+            InternalCordialAPI().showBannerInAppMessage(inAppMessageData: inAppMessageData)
+            os_log("Showing %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+        }
+    }
+    
+    func systemErrorHandler(mcID: String, error: ResponseError) {
+        CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
+        os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, error.message)
+    }
+    
+    func logicErrorHandler(error: ResponseError) {
+        NotificationCenter.default.post(name: .cordialFetchInAppMessageLogicError, object: error)
+        os_log("Fetching IAM failed. Will not retry. For viewing exact error see .fetchInAppMessageLogicError notification in notification center.", log: OSLog.cordialFetchInAppMessage, type: .info)
     }
 }

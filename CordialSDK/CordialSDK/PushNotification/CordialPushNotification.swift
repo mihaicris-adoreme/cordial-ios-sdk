@@ -51,7 +51,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
             UserDefaults.standard.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
         }
         
-        let eventName = API.PUSH_NOTIFICATION_APP_OPEN_VIA_TAP
+        let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_APP_OPEN_VIA_TAP
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
@@ -66,7 +66,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         // Called when a notification is delivered to a foreground app.
         let userInfo = notification.request.content.userInfo
         
-        let eventName = API.PUSH_NOTIFICATION_DELIVERED_FOREGROUND
+        let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
