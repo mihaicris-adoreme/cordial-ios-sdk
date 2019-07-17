@@ -42,13 +42,14 @@ class InAppMessagesCacheCoreData {
         
         do {
             let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                context.delete(data)
-                
-                guard let anyData = data.value(forKey: "data") else { continue }
+            for managedObject in result as! [NSManagedObject] {
+                guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
                 if let inAppMessageData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InAppMessageData {
+                    context.delete(managedObject)
+                    try context.save()
+                    
                     return inAppMessageData
                 }
             }

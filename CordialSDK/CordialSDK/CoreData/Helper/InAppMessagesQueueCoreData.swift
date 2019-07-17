@@ -42,10 +42,8 @@ class InAppMessagesQueueCoreData {
         var mcIDs = [String]()
         do {
             let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                context.delete(data)
-                
-                guard let anyData = data.value(forKey: "mcID") else { continue }
+            for managedObject in result as! [NSManagedObject] {
+                guard let anyData = managedObject.value(forKey: "mcID") else { continue }
                 let mcID = anyData as! String
                 
                 mcIDs.append(mcID)
@@ -53,6 +51,8 @@ class InAppMessagesQueueCoreData {
         } catch let error as NSError {
             os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
         }
+        
+        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
         return mcIDs
     }
