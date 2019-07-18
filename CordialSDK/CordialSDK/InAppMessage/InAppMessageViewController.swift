@@ -12,8 +12,12 @@ import WebKit
 class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, UIScrollViewDelegate {
     
     var webView: WKWebView!
+    var inAppMessageView: UIView!
+    var isBanner: Bool!
     
     let inAppMessageProcess = InAppMessageProcess()
+    
+    var zoomScale = CGFloat()
     
     override func loadView() {
         self.webView.uiDelegate = self
@@ -21,10 +25,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         self.webView.scrollView.delegate = self
         self.webView.scrollView.isScrollEnabled = false
         
-        let webView = UIView(frame: self.webView.frame)
-        webView.addSubview(self.webView)
-        self.view = webView
-        self.view.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
+        self.inAppMessageView.addSubview(self.webView)
+        self.view = inAppMessageView
     }
     
     func initWebView(webViewSize: CGRect) {
@@ -40,6 +42,14 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         }
 
         self.webView = WKWebView(frame: webViewSize, configuration: webConfiguration)
+    
+        if self.isBanner {
+            self.inAppMessageView = InAppMessageBannerView(frame: self.webView.frame)
+        } else {
+            self.inAppMessageView = UIView(frame: self.webView.frame)
+            self.inAppMessageView.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
+        }
+
     }
     
     // MARK: UIScrollViewDelegate
@@ -47,8 +57,17 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         scrollView.pinchGestureRecognizer?.isEnabled = false
         scrollView.panGestureRecognizer.isEnabled = false
+        self.zoomScale = scrollView.zoomScale
     }
-
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        scrollView.setZoomScale(zoomScale, animated: false)
+    }
+    
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        scrollView.setZoomScale(zoomScale, animated: false)
+    }
+    
     // MARK: WKScriptMessageHandler
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
@@ -63,7 +82,18 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 }
             }
             
-            self.dismiss(animated: true, completion: nil)
+            if self.isBanner {
+                UIView.animate(withDuration: inAppMessageProcess.bannerAnimationDuration, animations: {
+                    let y = self.view.frame.origin.y + self.view.frame.size.height
+                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: -y, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                }, completion: { result in
+                    if result {
+                        self.view.removeFromSuperview()
+                    }
+                })
+            } else {
+                self.view.removeFromSuperview()
+            }
         }
     }
 }

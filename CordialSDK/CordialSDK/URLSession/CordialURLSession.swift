@@ -52,9 +52,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
     // MARK: URLSessionDownloadDelegate
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
-        guard let httpResponse = downloadTask.response as? HTTPURLResponse else {
-            return
-        }
+        guard let httpResponse = downloadTask.response as? HTTPURLResponse else { return }
         
         if let operation = self.operations[downloadTask.taskIdentifier] {
             switch operation.taskName {

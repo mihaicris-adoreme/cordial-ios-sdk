@@ -12,10 +12,8 @@ class InAppMessageManager {
     
     func getModalWebViewController(activeViewController: UIViewController, inAppMessageData: InAppMessageData) -> InAppMessageViewController {
         let inAppMessageViewController = InAppMessageViewController()
+        inAppMessageViewController.isBanner = false
         
-        inAppMessageViewController.modalPresentationStyle = .overCurrentContext
-        inAppMessageViewController.modalTransitionStyle = .crossDissolve
-
         self.prepareModalInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
         
         inAppMessageViewController.webView.loadHTMLString(inAppMessageData.html, baseURL: nil)
@@ -42,9 +40,7 @@ class InAppMessageManager {
     
     func getBannerViewController(activeViewController: UIViewController, inAppMessageData: InAppMessageData) -> InAppMessageViewController {
         let inAppMessageViewController = InAppMessageViewController()
-        
-        inAppMessageViewController.modalPresentationStyle = .overCurrentContext
-        inAppMessageViewController.modalTransitionStyle = .crossDissolve
+        inAppMessageViewController.isBanner = true
         
         self.prepareBannerInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
         

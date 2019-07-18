@@ -10,6 +10,8 @@ import Foundation
 
 class InAppMessageProcess {
     
+    let bannerAnimationDuration = 1.0
+    
     func getInAppMessageJS() -> String? {
         if let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: "InAppMessage", withExtension: "js") {
             do {

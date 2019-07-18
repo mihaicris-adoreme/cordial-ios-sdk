@@ -84,7 +84,10 @@ class InternalCordialAPI {
         DispatchQueue.main.async {
             if let activeViewController = self.getActiveViewController() {
                 let webViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
-                activeViewController.present(webViewController, animated: true, completion: nil)
+                
+                webViewController.view.frame = activeViewController.view.bounds
+                
+                activeViewController.view.addSubview(webViewController.view)
             }
         }
     }
@@ -94,16 +97,20 @@ class InternalCordialAPI {
     func showBannerInAppMessage(inAppMessageData: InAppMessageData) {
         DispatchQueue.main.async {
             if let activeViewController = self.getActiveViewController() {
-                let webViewController = InAppMessageManager().getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData) 
+                let webViewController = InAppMessageManager().getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                 
-                let transition = CATransition()
-                transition.duration = 3
-                transition.type = CATransitionType.push
-                transition.subtype = CATransitionSubtype.fromBottom
-                transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-                activeViewController.view.window?.layer.add(transition, forKey: kCATransition)
-                activeViewController.present(webViewController, animated: false, completion: nil)
+                webViewController.view.frame = activeViewController.view.bounds
+                
+                let y = webViewController.view.frame.origin.y + webViewController.view.frame.size.height
+                webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: -y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
+                activeViewController.view.addSubview(webViewController.view)
+                
+                UIView.animate(withDuration: InAppMessageProcess().bannerAnimationDuration, animations: {
+                    let y = abs(webViewController.view.frame.origin.y) - webViewController.view.frame.size.height
+                    webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
+                })
             }
         }
     }
+
 }
