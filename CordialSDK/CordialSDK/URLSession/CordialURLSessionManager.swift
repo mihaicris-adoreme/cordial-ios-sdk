@@ -67,14 +67,29 @@ class CordialURLSessionManager {
                     type = InAppMessageType.modal
                 case "test_fullscreen":
                     type = InAppMessageType.fullscreen
+                    
                     top = 0
                     right = 0
                     bottom = 0
                     left = 0
                 case "test_banner_up":
                     type = InAppMessageType.banner_up
+                    
+                    let height = 20
+                    
+                    top = 5
+                    right = 5
+                    bottom = Int(100 - Double(height) / 100.0 * 100)
+                    left = 5
                 case "test_banner_bottom":
                     type = InAppMessageType.banner_bottom
+                    
+                    let height = 20
+                    
+                    top = Int(100 - Double(height) / 100.0 * 100)
+                    right = 5
+                    bottom = 5
+                    left = 5
                 default:
                     type = InAppMessageType.modal
                 }

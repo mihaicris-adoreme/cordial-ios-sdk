@@ -16,23 +16,23 @@ class InAppMessageManager {
         
         inAppMessageViewController.inAppMessageData = inAppMessageData
         
-        self.prepareModalInAppMessage(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
+        self.prepareModalInAppMessage(inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
         
         inAppMessageViewController.view.frame = activeViewController.view.bounds
         
         return inAppMessageViewController
     }
     
-    private func prepareModalInAppMessage(activeViewController: UIViewController, inAppMessageViewController: InAppMessageViewController, inAppMessageData: InAppMessageData) {
-        let activeViewBounds = activeViewController.view.bounds
+    private func prepareModalInAppMessage(inAppMessageViewController: InAppMessageViewController, inAppMessageData: InAppMessageData) {
+        let screenBounds = UIScreen.main.bounds
         
-        let width = activeViewBounds.size.width - activeViewBounds.size.width * (CGFloat(inAppMessageData.left) / 100 + CGFloat(inAppMessageData.right) / 100)
-        let height = activeViewBounds.size.height - activeViewBounds.size.height * (CGFloat(inAppMessageData.top) / 100 + CGFloat(inAppMessageData.bottom) / 100)
+        let width = screenBounds.size.width - screenBounds.size.width * (CGFloat(inAppMessageData.left) / 100 + CGFloat(inAppMessageData.right) / 100)
+        let height = screenBounds.size.height - screenBounds.size.height * (CGFloat(inAppMessageData.top) / 100 + CGFloat(inAppMessageData.bottom) / 100)
         
         let size = CGSize(width: width, height: height)
         
-        let x = (activeViewBounds.size.width - width) / 2
-        let y = (activeViewBounds.size.height - height) / 2
+        let x = (screenBounds.size.width - width) / 2
+        let y = (screenBounds.size.height - height) / 2
         let origin = CGPoint(x: x, y: y)
         
         let inAppMessageSize = CGRect(origin: origin, size: size)
@@ -48,23 +48,31 @@ class InAppMessageManager {
         
         inAppMessageViewController.inAppMessageData = inAppMessageData
         
-        self.prepareBannerInAppMessage(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
+        self.prepareBannerInAppMessage(inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
         
         inAppMessageViewController.view.frame = activeViewController.view.bounds
         
         return inAppMessageViewController
     }
     
-    private func prepareBannerInAppMessage(activeViewController: UIViewController, inAppMessageViewController: InAppMessageViewController, inAppMessageData: InAppMessageData) {
-        let activeViewBounds = activeViewController.view.bounds
+    private func prepareBannerInAppMessage(inAppMessageViewController: InAppMessageViewController, inAppMessageData: InAppMessageData) {
+        let screenBounds = UIScreen.main.bounds
         
-        let width = activeViewBounds.size.width - activeViewBounds.size.width * (CGFloat(inAppMessageData.left) / 100 + CGFloat(inAppMessageData.right) / 100)
-        let height = activeViewBounds.size.height - activeViewBounds.size.height * (CGFloat(inAppMessageData.top) / 100 + CGFloat(inAppMessageData.bottom) / 100)
+        let width = screenBounds.size.width - screenBounds.size.width * (CGFloat(inAppMessageData.left) / 100 + CGFloat(inAppMessageData.right) / 100)
+        let height = screenBounds.size.height - screenBounds.size.height * (CGFloat(inAppMessageData.top) / 100 + CGFloat(inAppMessageData.bottom) / 100)
         
         let size = CGSize(width: width, height: height)
         
-        let x = (activeViewBounds.size.width - width) / 2
-        let y = (activeViewBounds.size.height - height) / 2
+        let x = (screenBounds.size.width - width) / 2
+        var y = CGFloat()
+        switch inAppMessageData.type {
+        case InAppMessageType.banner_up:
+            y = screenBounds.size.height * CGFloat(inAppMessageData.top) / 100.0
+        case InAppMessageType.banner_bottom:
+            y = screenBounds.size.height * CGFloat(inAppMessageData.top) / 100.0
+        default: break
+        }
+        
         let origin = CGPoint(x: x, y: y)
         
         let inAppMessageSize = CGRect(origin: origin, size: size)
