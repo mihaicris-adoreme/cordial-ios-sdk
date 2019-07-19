@@ -30,6 +30,33 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         
         self.inAppMessageView.addSubview(self.webView)
         self.view = inAppMessageView
+        
+        if self.isBanner {
+            self.addInAppMessageBannerGesturesRecognizer()
+        }
+    }
+    
+    func addInAppMessageBannerGesturesRecognizer(){
+        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeUpGestureRecognizer))
+        swipeUpGesture.direction = .up
+        
+        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeDownGestureRecognizer))
+        swipeDownGesture.direction = .down
+        
+        self.view.addGestureRecognizer(swipeUpGesture)
+        self.view.addGestureRecognizer(swipeDownGesture)
+    }
+    
+    @objc func swipeUpGestureRecognizer() {
+        if self.inAppMessageData.type == InAppMessageType.banner_up {
+            self.removeFromSuperviewWithAnimation()
+        }
+    }
+    
+    @objc func swipeDownGestureRecognizer() {
+        if self.inAppMessageData.type == InAppMessageType.banner_bottom {
+            self.removeFromSuperviewWithAnimation()
+        }
     }
     
     func initWebView(webViewSize: CGRect) {
@@ -54,11 +81,35 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
 
     }
     
+    func removeFromSuperviewWithAnimation() {
+        UIView.animate(withDuration: inAppMessageProcess.bannerAnimationDuration, animations: {
+            switch self.inAppMessageData.type {
+            case InAppMessageType.banner_up:
+                let x = self.view.frame.origin.x
+                let y = self.view.frame.origin.y + self.view.frame.size.height
+                let width = self.view.frame.size.width
+                let height = self.view.frame.size.height
+                
+                self.view.frame = CGRect(x: x, y: -y, width: width, height: height)
+            case InAppMessageType.banner_bottom:
+                let x = self.view.frame.origin.x
+                let y = self.view.frame.origin.y + self.view.frame.size.height
+                let width = self.view.frame.size.width
+                let height = self.view.frame.size.height
+                
+                self.view.frame = CGRect(x: x, y: y, width: width, height: height)
+            default: break
+            }
+            
+        }, completion: { result in
+            self.view.removeFromSuperview()
+        })
+    }
+    
     // MARK: UIScrollViewDelegate
     
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         scrollView.pinchGestureRecognizer?.isEnabled = false
-        scrollView.panGestureRecognizer.isEnabled = false
         self.zoomScale = scrollView.zoomScale
     }
     
@@ -85,20 +136,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             }
             
             if self.isBanner {
-                UIView.animate(withDuration: inAppMessageProcess.bannerAnimationDuration, animations: {
-                    switch self.inAppMessageData.type {
-                    case InAppMessageType.banner_up:
-                        let y = self.view.frame.origin.y + self.view.frame.size.height
-                        self.view.frame = CGRect(x: self.view.frame.origin.x, y: -y, width: self.view.frame.size.width, height: self.view.frame.size.height)
-                    case InAppMessageType.banner_bottom:
-                        let y = self.view.frame.origin.y + self.view.frame.size.height
-                        self.view.frame = CGRect(x: self.view.frame.origin.x, y: y, width: self.view.frame.size.width, height: self.view.frame.size.height)
-                    default: break
-                    }
-                    
-                }, completion: { result in
-                    self.view.removeFromSuperview()
-                })
+                self.removeFromSuperviewWithAnimation()
             } else {
                 self.view.removeFromSuperview()
             }

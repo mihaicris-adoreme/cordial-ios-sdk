@@ -85,8 +85,6 @@ class InternalCordialAPI {
             if let activeViewController = self.getActiveViewController() {
                 let webViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                 
-                webViewController.view.frame = activeViewController.view.bounds
-                
                 activeViewController.view.addSubview(webViewController.view)
             }
         }
@@ -99,9 +97,7 @@ class InternalCordialAPI {
             if let activeViewController = self.getActiveViewController() {
                 let webViewController = InAppMessageManager().getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                 
-                webViewController.view.frame = activeViewController.view.bounds
-                
-                InAppMessageProcess().addAnimationToBannerInAppMessage(inAppMessageData: inAppMessageData, webViewController: webViewController, activeViewController: activeViewController)
+                InAppMessageProcess().addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: webViewController, activeViewController: activeViewController)
             }
         }
     }

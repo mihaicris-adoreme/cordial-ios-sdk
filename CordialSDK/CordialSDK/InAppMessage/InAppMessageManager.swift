@@ -18,6 +18,8 @@ class InAppMessageManager {
         
         self.prepareModalInAppMessage(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
         
+        inAppMessageViewController.view.frame = activeViewController.view.bounds
+        
         return inAppMessageViewController
     }
     
@@ -47,6 +49,8 @@ class InAppMessageManager {
         inAppMessageViewController.inAppMessageData = inAppMessageData
         
         self.prepareBannerInAppMessage(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
+        
+        inAppMessageViewController.view.frame = activeViewController.view.bounds
         
         return inAppMessageViewController
     }

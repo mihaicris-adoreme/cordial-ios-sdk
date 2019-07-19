@@ -41,26 +41,43 @@ class InAppMessageProcess {
         CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
-    func addAnimationToBannerInAppMessage(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, activeViewController: UIViewController) {
+    func addAnimationSubviewInAppMessageBanner(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, activeViewController: UIViewController) {
         switch inAppMessageData.type {
         case InAppMessageType.banner_up:
+            let x = webViewController.view.frame.origin.x
             let y = webViewController.view.frame.origin.y + webViewController.view.frame.size.height
-            webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: -y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
+            let width = webViewController.view.frame.size.width
+            let height = webViewController.view.frame.size.height
+            
+            webViewController.view.frame = CGRect(x: x, y: -y, width: width, height: height)
+            
             activeViewController.view.addSubview(webViewController.view)
             
             UIView.animate(withDuration: InAppMessageProcess().bannerAnimationDuration, animations: {
-                
+                let x = webViewController.view.frame.origin.x
                 let y = abs(webViewController.view.frame.origin.y) - webViewController.view.frame.size.height
-                webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
+                let width = webViewController.view.frame.size.width
+                let height = webViewController.view.frame.size.height
+                
+                webViewController.view.frame = CGRect(x: x, y: y, width: width, height: height)
             })
         case InAppMessageType.banner_bottom:
+            let x = webViewController.view.frame.origin.x
             let y = activeViewController.view.frame.size.height - webViewController.view.frame.origin.y
-            webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
+            let width = webViewController.view.frame.size.width
+            let height = webViewController.view.frame.size.height
+            
+            webViewController.view.frame = CGRect(x: x, y: y, width: width, height: height)
+            
             activeViewController.view.addSubview(webViewController.view)
             
             UIView.animate(withDuration: InAppMessageProcess().bannerAnimationDuration, animations: {
+                let x = webViewController.view.frame.origin.x
                 let y = abs(webViewController.view.frame.origin.y) - webViewController.view.frame.size.height
-                webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
+                let width = webViewController.view.frame.size.width
+                let height = webViewController.view.frame.size.height
+                
+                webViewController.view.frame = CGRect(x: x, y: y, width: width, height: height)
             })
         default: break
         }
