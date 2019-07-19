@@ -16,12 +16,12 @@ class InAppMessageManager {
         
         inAppMessageViewController.inAppMessageData = inAppMessageData
         
-        self.prepareModalInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
+        self.prepareModalInAppMessage(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
         
         return inAppMessageViewController
     }
     
-    private func prepareModalInAppMessageSize(activeViewController: UIViewController, inAppMessageViewController: InAppMessageViewController, inAppMessageData: InAppMessageData) {
+    private func prepareModalInAppMessage(activeViewController: UIViewController, inAppMessageViewController: InAppMessageViewController, inAppMessageData: InAppMessageData) {
         let activeViewBounds = activeViewController.view.bounds
         
         let width = activeViewBounds.size.width - activeViewBounds.size.width * (CGFloat(inAppMessageData.left) / 100 + CGFloat(inAppMessageData.right) / 100)
@@ -36,6 +36,8 @@ class InAppMessageManager {
         let inAppMessageSize = CGRect(origin: origin, size: size)
         
         inAppMessageViewController.initWebView(webViewSize: inAppMessageSize)
+        
+        inAppMessageViewController.view.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
     }
     
     func getBannerViewController(activeViewController: UIViewController, inAppMessageData: InAppMessageData) -> InAppMessageViewController {
@@ -44,12 +46,12 @@ class InAppMessageManager {
         
         inAppMessageViewController.inAppMessageData = inAppMessageData
         
-        self.prepareBannerInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
+        self.prepareBannerInAppMessage(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
         
         return inAppMessageViewController
     }
     
-    private func prepareBannerInAppMessageSize(activeViewController: UIViewController, inAppMessageViewController: InAppMessageViewController, inAppMessageData: InAppMessageData) {
+    private func prepareBannerInAppMessage(activeViewController: UIViewController, inAppMessageViewController: InAppMessageViewController, inAppMessageData: InAppMessageData) {
         let activeViewBounds = activeViewController.view.bounds
         
         let width = activeViewBounds.size.width - activeViewBounds.size.width * (CGFloat(inAppMessageData.left) / 100 + CGFloat(inAppMessageData.right) / 100)
@@ -64,5 +66,11 @@ class InAppMessageManager {
         let inAppMessageSize = CGRect(origin: origin, size: size)
         
         inAppMessageViewController.initWebView(webViewSize: inAppMessageSize)
+        
+        inAppMessageViewController.view.layer.shadowColor = UIColor.gray.cgColor
+        inAppMessageViewController.view.layer.shadowOpacity = 1
+        inAppMessageViewController.view.layer.shadowOffset = .zero
+        inAppMessageViewController.view.layer.shadowRadius = 10
+        
     }
 }

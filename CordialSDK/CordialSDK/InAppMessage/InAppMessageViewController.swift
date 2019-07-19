@@ -50,7 +50,6 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             self.inAppMessageView = InAppMessageBannerView(frame: self.webView.frame)
         } else {
             self.inAppMessageView = UIView(frame: self.webView.frame)
-            self.inAppMessageView.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
         }
 
     }
