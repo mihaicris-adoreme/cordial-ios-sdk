@@ -14,9 +14,9 @@ class InAppMessageManager {
         let inAppMessageViewController = InAppMessageViewController()
         inAppMessageViewController.isBanner = false
         
-        self.prepareModalInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
+        inAppMessageViewController.inAppMessageData = inAppMessageData
         
-        inAppMessageViewController.webView.loadHTMLString(inAppMessageData.html, baseURL: nil)
+        self.prepareModalInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
         
         return inAppMessageViewController
     }
@@ -42,9 +42,9 @@ class InAppMessageManager {
         let inAppMessageViewController = InAppMessageViewController()
         inAppMessageViewController.isBanner = true
         
-        self.prepareBannerInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
+        inAppMessageViewController.inAppMessageData = inAppMessageData
         
-        inAppMessageViewController.webView.loadHTMLString(inAppMessageData.html, baseURL: nil)
+        self.prepareBannerInAppMessageSize(activeViewController: activeViewController, inAppMessageViewController: inAppMessageViewController, inAppMessageData: inAppMessageData)
         
         return inAppMessageViewController
     }

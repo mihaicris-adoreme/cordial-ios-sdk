@@ -14,6 +14,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var webView: WKWebView!
     var inAppMessageView: UIView!
     var isBanner: Bool!
+    var inAppMessageData: InAppMessageData!
     
     let inAppMessageProcess = InAppMessageProcess()
     
@@ -24,6 +25,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         self.webView.navigationDelegate = self
         self.webView.scrollView.delegate = self
         self.webView.scrollView.isScrollEnabled = false
+        
+        self.webView.loadHTMLString(self.inAppMessageData.html, baseURL: nil)
         
         self.inAppMessageView.addSubview(self.webView)
         self.view = inAppMessageView
@@ -84,12 +87,18 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             if self.isBanner {
                 UIView.animate(withDuration: inAppMessageProcess.bannerAnimationDuration, animations: {
-                    let y = self.view.frame.origin.y + self.view.frame.size.height
-                    self.view.frame = CGRect(x: self.view.frame.origin.x, y: -y, width: self.view.frame.size.width, height: self.view.frame.size.height)
-                }, completion: { result in
-                    if result {
-                        self.view.removeFromSuperview()
+                    switch self.inAppMessageData.type {
+                    case InAppMessageType.banner_up:
+                        let y = self.view.frame.origin.y + self.view.frame.size.height
+                        self.view.frame = CGRect(x: self.view.frame.origin.x, y: -y, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                    case InAppMessageType.banner_bottom:
+                        let y = self.view.frame.origin.y + self.view.frame.size.height
+                        self.view.frame = CGRect(x: self.view.frame.origin.x, y: y, width: self.view.frame.size.width, height: self.view.frame.size.height)
+                    default: break
                     }
+                    
+                }, completion: { result in
+                    self.view.removeFromSuperview()
                 })
             } else {
                 self.view.removeFromSuperview()

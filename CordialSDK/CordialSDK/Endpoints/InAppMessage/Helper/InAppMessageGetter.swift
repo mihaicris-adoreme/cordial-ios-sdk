@@ -32,9 +32,12 @@ class InAppMessageGetter {
         case InAppMessageType.fullscreen:
             CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
             os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-        case InAppMessageType.banner:
+        case InAppMessageType.banner_up:
             InternalCordialAPI().showBannerInAppMessage(inAppMessageData: inAppMessageData)
-            os_log("Showing %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+            os_log("Showing %{public}@ IAM banner from up with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+        case InAppMessageType.banner_bottom:
+            InternalCordialAPI().showBannerInAppMessage(inAppMessageData: inAppMessageData)
+            os_log("Showing %{public}@ IAM banner from bottom with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
         }
     }
     

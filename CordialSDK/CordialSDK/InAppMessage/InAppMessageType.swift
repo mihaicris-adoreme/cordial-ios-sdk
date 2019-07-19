@@ -10,6 +10,7 @@ import Foundation
 
 enum InAppMessageType: String {
     case modal = "modal"
-    case banner = "banner"
+    case banner_up = "banner_up"
+    case banner_bottom = "banner_bottom"
     case fullscreen = "fullscreen"
 }

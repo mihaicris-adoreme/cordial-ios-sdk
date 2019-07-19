@@ -101,14 +101,7 @@ class InternalCordialAPI {
                 
                 webViewController.view.frame = activeViewController.view.bounds
                 
-                let y = webViewController.view.frame.origin.y + webViewController.view.frame.size.height
-                webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: -y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
-                activeViewController.view.addSubview(webViewController.view)
-                
-                UIView.animate(withDuration: InAppMessageProcess().bannerAnimationDuration, animations: {
-                    let y = abs(webViewController.view.frame.origin.y) - webViewController.view.frame.size.height
-                    webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
-                })
+                InAppMessageProcess().addAnimationToBannerInAppMessage(inAppMessageData: inAppMessageData, webViewController: webViewController, activeViewController: activeViewController)
             }
         }
     }

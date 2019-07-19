@@ -71,8 +71,10 @@ class CordialURLSessionManager {
                     right = 0
                     bottom = 0
                     left = 0
-                case "test_banner":
-                    type = InAppMessageType.banner
+                case "test_banner_up":
+                    type = InAppMessageType.banner_up
+                case "test_banner_bottom":
+                    type = InAppMessageType.banner_bottom
                 default:
                     type = InAppMessageType.modal
                 }

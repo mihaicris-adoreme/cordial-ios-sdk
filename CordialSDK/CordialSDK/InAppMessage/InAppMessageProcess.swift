@@ -40,4 +40,29 @@ class InAppMessageProcess {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
+    
+    func addAnimationToBannerInAppMessage(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, activeViewController: UIViewController) {
+        switch inAppMessageData.type {
+        case InAppMessageType.banner_up:
+            let y = webViewController.view.frame.origin.y + webViewController.view.frame.size.height
+            webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: -y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
+            activeViewController.view.addSubview(webViewController.view)
+            
+            UIView.animate(withDuration: InAppMessageProcess().bannerAnimationDuration, animations: {
+                
+                let y = abs(webViewController.view.frame.origin.y) - webViewController.view.frame.size.height
+                webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
+            })
+        case InAppMessageType.banner_bottom:
+            let y = activeViewController.view.frame.size.height - webViewController.view.frame.origin.y
+            webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
+            activeViewController.view.addSubview(webViewController.view)
+            
+            UIView.animate(withDuration: InAppMessageProcess().bannerAnimationDuration, animations: {
+                let y = abs(webViewController.view.frame.origin.y) - webViewController.view.frame.size.height
+                webViewController.view.frame = CGRect(x: webViewController.view.frame.origin.x, y: y, width: webViewController.view.frame.size.width, height: webViewController.view.frame.size.height)
+            })
+        default: break
+        }
+    }
 }
