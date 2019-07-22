@@ -61,6 +61,7 @@ class CordialURLSessionManager {
                 var left = 10
                 
                 var type: InAppMessageType
+                var dismissBannerEventName: String?
                 
                 switch inAppMessageURLSessionData.mcID {
                 case "test_modal":
@@ -76,6 +77,7 @@ class CordialURLSessionManager {
                     type = InAppMessageType.banner_up
                     
                     let height = 20
+                    dismissBannerEventName = "in_app_message_banner_dismiss"
                     
                     top = 5
                     right = 5
@@ -85,6 +87,7 @@ class CordialURLSessionManager {
                     type = InAppMessageType.banner_bottom
                     
                     let height = 20
+                    dismissBannerEventName = "in_app_message_banner_dismiss"
                     
                     top = Int(100 - Double(height) / 100.0 * 100)
                     right = 5
@@ -94,7 +97,7 @@ class CordialURLSessionManager {
                     type = InAppMessageType.modal
                 }
                 
-                let inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left)
+                let inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left, dismissBannerEventName: dismissBannerEventName)
                 
                 self.inAppMessageGetter.completionHandler(inAppMessageData: inAppMessageData)
             default:

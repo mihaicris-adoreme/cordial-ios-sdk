@@ -17,6 +17,7 @@ class InAppMessageData: NSObject, NSCoding {
     let right: Int
     let bottom: Int
     let left: Int
+    let dismissBannerEventName: String?
     
     enum Key: String {
         case mcID = "mcID"
@@ -26,9 +27,10 @@ class InAppMessageData: NSObject, NSCoding {
         case right = "right"
         case bottom = "bottom"
         case left = "left"
+        case dismissBannerEventName = "dismissBannerEventName"
     }
     
-    init(mcID: String, html: String, type: InAppMessageType, top: Int, right: Int, bottom: Int, left: Int) {
+    init(mcID: String, html: String, type: InAppMessageType, top: Int, right: Int, bottom: Int, left: Int, dismissBannerEventName: String?) {
         self.mcID = mcID
         self.html = html
         self.type = type
@@ -36,6 +38,7 @@ class InAppMessageData: NSObject, NSCoding {
         self.right = right
         self.bottom = bottom
         self.left = left
+        self.dismissBannerEventName = dismissBannerEventName
     }
     
     func encode(with aCoder: NSCoder) {
@@ -46,6 +49,7 @@ class InAppMessageData: NSObject, NSCoding {
         aCoder.encode(self.right, forKey: Key.right.rawValue)
         aCoder.encode(self.bottom, forKey: Key.bottom.rawValue)
         aCoder.encode(self.left, forKey: Key.left.rawValue)
+        aCoder.encode(self.left, forKey: Key.dismissBannerEventName.rawValue)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -56,7 +60,8 @@ class InAppMessageData: NSObject, NSCoding {
         let right = Int(aDecoder.decodeInt32(forKey: Key.right.rawValue))
         let bottom = Int(aDecoder.decodeInt32(forKey: Key.bottom.rawValue))
         let left = Int(aDecoder.decodeInt32(forKey: Key.left.rawValue))
+        let dismissBannerEventName = aDecoder.decodeObject(forKey: Key.dismissBannerEventName.rawValue) as? String
         
-        self.init(mcID: mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left)
+        self.init(mcID: mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left, dismissBannerEventName: dismissBannerEventName)
     }
 }

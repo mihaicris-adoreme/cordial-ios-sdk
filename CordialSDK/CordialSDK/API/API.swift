@@ -32,6 +32,7 @@ struct API {
     static let EVENT_NAME_PUSH_NOTIFICATION_APP_OPEN_VIA_TAP = "app_open_via_notification_tap"
     static let EVENT_NAME_DEEP_LINKS_APP_OPEN_VIA_UNIVERSAL_LINK = "app_open_via_universal_link"
     static let EVENT_NAME_DEEP_LINKS_APP_OPEN_VIA_URL_SCHEME = "app_open_via_url_scheme"
+    static let EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE_BANNER = "in_app_message_banner_auto_dismiss"
     
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"

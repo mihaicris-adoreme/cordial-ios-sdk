@@ -19,6 +19,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     let inAppMessageProcess = InAppMessageProcess()
     
     var zoomScale = CGFloat()
+    var isBannerAvailable = false
     
     override func loadView() {
         self.webView.uiDelegate = self
@@ -32,6 +33,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         self.view = inAppMessageView
         
         if self.isBanner {
+            self.isBannerAvailable = true
             self.addInAppMessageBannerGesturesRecognizer()
             self.removeInAppMessageBannerWithDelay()
         }
@@ -39,7 +41,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     func removeInAppMessageBannerWithDelay() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
-            self.removeFromSuperviewWithAnimation()
+            if self.isBannerAvailable {
+                self.removeFromSuperviewWithAnimation(dismissBannerEventName: API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE_BANNER)
+            }
         })
     }
     
@@ -56,13 +60,13 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     @objc func swipeUpGestureRecognizer() {
         if self.inAppMessageData.type == InAppMessageType.banner_up {
-            self.removeFromSuperviewWithAnimation()
+            self.removeFromSuperviewWithAnimation(dismissBannerEventName: self.inAppMessageData.dismissBannerEventName)
         }
     }
     
     @objc func swipeDownGestureRecognizer() {
         if self.inAppMessageData.type == InAppMessageType.banner_bottom {
-            self.removeFromSuperviewWithAnimation()
+            self.removeFromSuperviewWithAnimation(dismissBannerEventName: self.inAppMessageData.dismissBannerEventName)
         }
     }
     
@@ -88,7 +92,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
 
     }
     
-    func removeFromSuperviewWithAnimation() {
+    func removeFromSuperviewWithAnimation(dismissBannerEventName: String?) {
         UIView.animate(withDuration: inAppMessageProcess.bannerAnimationDuration, animations: {
             switch self.inAppMessageData.type {
             case InAppMessageType.banner_up:
@@ -109,6 +113,11 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             }
             
         }, completion: { result in
+            if let eventName = dismissBannerEventName {
+                self.isBannerAvailable = false
+                self.inAppMessageProcess.sendCustomEvent(eventName: eventName)
+            }
+            
             self.view.removeFromSuperview()
         })
     }
@@ -143,7 +152,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             }
             
             if self.isBanner {
-                self.removeFromSuperviewWithAnimation()
+                self.removeFromSuperviewWithAnimation(dismissBannerEventName: self.inAppMessageData.dismissBannerEventName)
             } else {
                 self.view.removeFromSuperview()
             }
