@@ -47,8 +47,8 @@ class CordialURLSessionManager {
                     "<div class='subtitle'>Robert Graham</div>" +
                     "<div class='discount'>%50 Off this weekend!</div>" +
                     "<div class='actions'>" +
-                    "<div class='checkout-btn' onclick=\"buttonAction('https://tjs.cordialdev.com/prep-tj1.html', 'in_app_message_event_name')\">Check It Out</div>" +
-                    "<div class='discard' onclick='buttonAction()'>Discard</div>" +
+                    "<div class='checkout-btn' onclick=\"action('https://tjs.cordialdev.com/prep-tj1.html', 'in_app_message_event_name')\">Check It Out</div>" +
+                    "<div class='discard' onclick='action()'>Discard</div>" +
                     "</div>" +
                     "</div>" +
                     "</div>" +
