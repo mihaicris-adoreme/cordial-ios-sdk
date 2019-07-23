@@ -77,7 +77,7 @@ class CordialURLSessionManager {
                     type = InAppMessageType.banner_up
                     
                     let height = 20
-                    dismissBannerEventName = "in_app_message_banner_dismiss"
+                    dismissBannerEventName = "in_app_message_banner_manual_dismiss"
                     
                     top = 5
                     right = 5
@@ -87,7 +87,7 @@ class CordialURLSessionManager {
                     type = InAppMessageType.banner_bottom
                     
                     let height = 20
-                    dismissBannerEventName = "in_app_message_banner_dismiss"
+                    dismissBannerEventName = "in_app_message_banner_manual_dismiss"
                     
                     top = Int(100 - Double(height) / 100.0 * 100)
                     right = 5

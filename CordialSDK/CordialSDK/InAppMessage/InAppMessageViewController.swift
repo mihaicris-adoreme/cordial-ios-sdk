@@ -17,6 +17,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var inAppMessageData: InAppMessageData!
     
     let inAppMessageProcess = InAppMessageProcess()
+    let cordialAPI = CordialAPI()
     
     var zoomScale = CGFloat()
     var isBannerAvailable = false
@@ -40,7 +41,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     func removeInAppMessageBannerWithDelay() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
             if self.isBannerAvailable {
                 self.removeFromSuperviewWithAnimation(dismissBannerEventName: API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE_BANNER)
             }
@@ -78,7 +79,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             let contentController = WKUserContentController()
             contentController.addUserScript(userScript)
-            contentController.add(self, name: "buttonAction")
+            contentController.add(self, name: "action")
             webConfiguration.userContentController = contentController
         }
 
@@ -115,7 +116,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         }, completion: { result in
             if let eventName = dismissBannerEventName {
                 self.isBannerAvailable = false
-                self.inAppMessageProcess.sendCustomEvent(eventName: eventName)
+                
+                let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
             
             self.view.removeFromSuperview()
@@ -140,14 +143,15 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     // MARK: WKScriptMessageHandler
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "buttonAction" {
+        if message.name == "action" {
             if let dict = message.body as? NSDictionary {
                 if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
                     inAppMessageProcess.openDeepLink(url: url)
                 }
                 
                 if let eventName = dict["eventName"] as? String {
-                    inAppMessageProcess.sendCustomEvent(eventName: eventName)
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+                    self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 }
             }
             

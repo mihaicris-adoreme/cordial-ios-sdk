@@ -36,11 +36,6 @@ class InAppMessageProcess {
         }
     }
     
-    func sendCustomEvent(eventName: String) {
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-        CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-    }
-    
     func addAnimationSubviewInAppMessageBanner(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, activeViewController: UIViewController) {
         switch inAppMessageData.type {
         case InAppMessageType.banner_up:

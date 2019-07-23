@@ -1,7 +1,7 @@
 // Action function for user interaction with app
 function action(deepLink = null, eventName = null) {
     try {
-        webkit.messageHandlers.buttonAction.postMessage({
+        webkit.messageHandlers.action.postMessage({
             deepLink: deepLink,
             eventName: eventName
         });

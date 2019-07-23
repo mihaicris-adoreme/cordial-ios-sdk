@@ -86,6 +86,9 @@ class InternalCordialAPI {
                 let webViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                 
                 activeViewController.view.addSubview(webViewController.view)
+                
+                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
+                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
         }
     }
@@ -98,6 +101,9 @@ class InternalCordialAPI {
                 let webViewController = InAppMessageManager().getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                 
                 InAppMessageProcess().addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: webViewController, activeViewController: activeViewController)
+                
+                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
+                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
         }
     }
