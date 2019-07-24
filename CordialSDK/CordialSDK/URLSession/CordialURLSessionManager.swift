@@ -62,6 +62,7 @@ class CordialURLSessionManager {
                 
                 var type: InAppMessageType
                 var dismissBannerEventName: String?
+                let expirationTime = "2019-07-25T13:58:01Z"
                 
                 switch inAppMessageURLSessionData.mcID {
                 case "test_modal":
@@ -97,7 +98,7 @@ class CordialURLSessionManager {
                     type = InAppMessageType.modal
                 }
                 
-                let inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left, dismissBannerEventName: dismissBannerEventName)
+                let inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left, dismissBannerEventName: dismissBannerEventName, expirationTime: InternalCordialAPI().getDateFromTimestamp(timestamp: expirationTime))
                 
                 self.inAppMessageGetter.completionHandler(inAppMessageData: inAppMessageData)
             default:

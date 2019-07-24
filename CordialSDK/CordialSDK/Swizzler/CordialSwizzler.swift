@@ -125,6 +125,7 @@ class CordialSwizzler {
         os_log("Silent push notification received.", log: OSLog.cordialPushNotification, type: .info)
         
         if let inApp = userInfo["in-app"] as? Bool, inApp, let mcID = userInfo["mcID"] as? String  {
+            InternalCordialAPI().saveMcID(mcID: mcID)
             InAppMessageGetter().fetchInAppMessage(mcID: mcID)
         }
         

@@ -47,8 +47,8 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         os_log("Push notification payload: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, userInfo.description)
         
-        if let mcID = userInfo["mcID"] {
-            UserDefaults.standard.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+        if let mcID = userInfo["mcID"] as? String {
+            InternalCordialAPI().saveMcID(mcID: mcID)
         }
         
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_APP_OPEN_VIA_TAP

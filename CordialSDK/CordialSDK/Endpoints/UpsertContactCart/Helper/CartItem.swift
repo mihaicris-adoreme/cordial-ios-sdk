@@ -52,7 +52,7 @@ public class CartItem: NSObject, NSCoding {
         self.qty = qty
         self.itemPrice = itemPrice
         self.salePrice = salePrice
-        self.timestamp = internalCordialAPI.getTimestamp()
+        self.timestamp = internalCordialAPI.getCurrentTimestamp()
         self.attr = attr
         self.images = images
         self.properties = properties

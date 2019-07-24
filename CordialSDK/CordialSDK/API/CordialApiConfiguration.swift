@@ -92,8 +92,7 @@ public class CordialApiConfiguration {
         self.prepareCurrentSubscribeStatus()
         
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
-        
-        self.showModalInAppMessageIfExist()
+        InAppMessageProcess().showModalInAppMessageIfExist()
     }
     
     private func prepareCurrentSubscribeStatus() {
@@ -112,12 +111,6 @@ public class CordialApiConfiguration {
                 }
             }
         })
-    }
-    
-    private func showModalInAppMessageIfExist() {
-        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getInAppMessageDataFromCoreData() {
-            InternalCordialAPI().showModalInAppMessage(inAppMessageData: inAppMessageData)
-        }
     }
     
     @objc func handleAppDidFinishLaunchingNotification(notification: NSNotification) {

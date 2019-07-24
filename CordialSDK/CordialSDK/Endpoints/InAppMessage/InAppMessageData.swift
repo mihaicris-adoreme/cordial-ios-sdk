@@ -18,6 +18,7 @@ class InAppMessageData: NSObject, NSCoding {
     let bottom: Int
     let left: Int
     let dismissBannerEventName: String?
+    let expirationTime: Date?
     
     enum Key: String {
         case mcID = "mcID"
@@ -28,9 +29,10 @@ class InAppMessageData: NSObject, NSCoding {
         case bottom = "bottom"
         case left = "left"
         case dismissBannerEventName = "dismissBannerEventName"
+        case expirationTime = "expirationTime"
     }
     
-    init(mcID: String, html: String, type: InAppMessageType, top: Int, right: Int, bottom: Int, left: Int, dismissBannerEventName: String?) {
+    init(mcID: String, html: String, type: InAppMessageType, top: Int, right: Int, bottom: Int, left: Int, dismissBannerEventName: String?, expirationTime: Date?) {
         self.mcID = mcID
         self.html = html
         self.type = type
@@ -39,6 +41,7 @@ class InAppMessageData: NSObject, NSCoding {
         self.bottom = bottom
         self.left = left
         self.dismissBannerEventName = dismissBannerEventName
+        self.expirationTime = expirationTime
     }
     
     func encode(with aCoder: NSCoder) {
@@ -49,7 +52,8 @@ class InAppMessageData: NSObject, NSCoding {
         aCoder.encode(self.right, forKey: Key.right.rawValue)
         aCoder.encode(self.bottom, forKey: Key.bottom.rawValue)
         aCoder.encode(self.left, forKey: Key.left.rawValue)
-        aCoder.encode(self.left, forKey: Key.dismissBannerEventName.rawValue)
+        aCoder.encode(self.dismissBannerEventName, forKey: Key.dismissBannerEventName.rawValue)
+        aCoder.encode(self.expirationTime, forKey: Key.expirationTime.rawValue)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -61,7 +65,8 @@ class InAppMessageData: NSObject, NSCoding {
         let bottom = Int(aDecoder.decodeInt32(forKey: Key.bottom.rawValue))
         let left = Int(aDecoder.decodeInt32(forKey: Key.left.rawValue))
         let dismissBannerEventName = aDecoder.decodeObject(forKey: Key.dismissBannerEventName.rawValue) as? String
+        let expirationTime = aDecoder.decodeObject(forKey: Key.expirationTime.rawValue) as? Date
         
-        self.init(mcID: mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left, dismissBannerEventName: dismissBannerEventName)
+        self.init(mcID: mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left, dismissBannerEventName: dismissBannerEventName, expirationTime: expirationTime)
     }
 }

@@ -10,6 +10,9 @@ import Foundation
 
 class InAppMessageProcess {
     
+    let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
+    
     let bannerAnimationDuration = 1.0
     
     func getInAppMessageJS() -> String? {
@@ -75,6 +78,46 @@ class InAppMessageProcess {
                 webViewController.view.frame = CGRect(x: x, y: y, width: width, height: height)
             })
         default: break
+        }
+    }
+    
+    func showModalInAppMessageIfExist() {
+        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getInAppMessageDataFromCoreData() {
+            if let expirationTime = inAppMessageData.expirationTime {
+                if Int(expirationTime.timeIntervalSinceNow).signum() == 1 { // -1 if this value is negative and 1 if positive
+                    self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+                } else {
+                    self.showModalInAppMessageIfExist()
+                }
+            } else {
+                self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+            }
+        }
+    }
+    
+    func showModalInAppMessage(inAppMessageData: InAppMessageData) {
+        DispatchQueue.main.async {
+            if let activeViewController = self.internalCordialAPI.getActiveViewController() {
+                let webViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                
+                activeViewController.view.addSubview(webViewController.view)
+                
+                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
+                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            }
+        }
+    }
+    
+    func showBannerInAppMessage(inAppMessageData: InAppMessageData) {
+        DispatchQueue.main.async {
+            if let activeViewController = self.internalCordialAPI.getActiveViewController() {
+                let webViewController = InAppMessageManager().getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                
+                InAppMessageProcess().addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: webViewController, activeViewController: activeViewController)
+                
+                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
+                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            }
         }
     }
 }
