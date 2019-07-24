@@ -10,8 +10,14 @@ import Foundation
 
 class InAppMessageProcess {
     
+    static let shared = InAppMessageProcess()
+    
+    private init(){}
+    
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
+    
+    var modalInAppMessagePresentedControllers = [String: InAppMessageViewController]()
     
     let bannerAnimationDuration = 1.0
     
@@ -81,6 +87,12 @@ class InAppMessageProcess {
         }
     }
     
+    func showModalInAppMessageIfAvailable() {
+        if self.modalInAppMessagePresentedControllers.isEmpty {
+            self.showModalInAppMessageIfExist()
+        }
+    }
+    
     func showModalInAppMessageIfExist() {
         if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getInAppMessageDataFromCoreData() {
             if let expirationTime = inAppMessageData.expirationTime {
@@ -98,9 +110,12 @@ class InAppMessageProcess {
     func showModalInAppMessage(inAppMessageData: InAppMessageData) {
         DispatchQueue.main.async {
             if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-                let webViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                let modalWebViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                modalWebViewController.controllerIdentifier = UUID().uuidString
                 
-                activeViewController.view.addSubview(webViewController.view)
+                self.modalInAppMessagePresentedControllers[modalWebViewController.controllerIdentifier] = modalWebViewController
+                
+                activeViewController.view.addSubview(modalWebViewController.view)
                 
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
                 self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)

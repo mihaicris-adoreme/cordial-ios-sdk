@@ -15,8 +15,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var inAppMessageView: UIView!
     var isBanner: Bool!
     var inAppMessageData: InAppMessageData!
+    var controllerIdentifier: String!
     
-    let inAppMessageProcess = InAppMessageProcess()
     let cordialAPI = CordialAPI()
     
     var zoomScale = CGFloat()
@@ -74,7 +74,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func initWebView(webViewSize: CGRect) {
         let webConfiguration = WKWebViewConfiguration()
         
-        if let inAppMessageJS = inAppMessageProcess.getInAppMessageJS() {
+        if let inAppMessageJS = InAppMessageProcess.shared.getInAppMessageJS() {
             let userScript = WKUserScript(source: inAppMessageJS, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
             
             let contentController = WKUserContentController()
@@ -94,7 +94,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     func removeFromSuperviewWithAnimation(dismissBannerEventName: String?) {
-        UIView.animate(withDuration: inAppMessageProcess.bannerAnimationDuration, animations: {
+        UIView.animate(withDuration: InAppMessageProcess.shared.bannerAnimationDuration, animations: {
             switch self.inAppMessageData.type {
             case InAppMessageType.banner_up:
                 let x = self.view.frame.origin.x
@@ -146,7 +146,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         if message.name == "action" {
             if let dict = message.body as? NSDictionary {
                 if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
-                    inAppMessageProcess.openDeepLink(url: url)
+                    InAppMessageProcess.shared.openDeepLink(url: url)
                 }
                 
                 if let eventName = dict["eventName"] as? String {
@@ -158,6 +158,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             if self.isBanner {
                 self.removeFromSuperviewWithAnimation(dismissBannerEventName: self.inAppMessageData.dismissBannerEventName)
             } else {
+                InAppMessageProcess.shared.modalInAppMessagePresentedControllers.removeValue(forKey: self.controllerIdentifier)
                 self.view.removeFromSuperview()
             }
         }

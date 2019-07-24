@@ -92,7 +92,7 @@ public class CordialApiConfiguration {
         self.prepareCurrentSubscribeStatus()
         
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
-        InAppMessageProcess().showModalInAppMessageIfExist()
+        InAppMessageProcess.shared.showModalInAppMessageIfAvailable()
     }
     
     private func prepareCurrentSubscribeStatus() {
