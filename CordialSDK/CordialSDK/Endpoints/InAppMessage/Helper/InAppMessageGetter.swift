@@ -28,10 +28,10 @@ class InAppMessageGetter {
         DispatchQueue.main.async {
             if UIApplication.shared.applicationState == .active {
                 switch inAppMessageData.displayType {
-                case InAppMessageDisplayType.appOpenEvent:
+                case InAppMessageDisplayType.displayOnAppOpenEvent:
                     CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
                     os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                case InAppMessageDisplayType.immediately:
+                case InAppMessageDisplayType.displayImmediately:
                     InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
                 }
             } else {

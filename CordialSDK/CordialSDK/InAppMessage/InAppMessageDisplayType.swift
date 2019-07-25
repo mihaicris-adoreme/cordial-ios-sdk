@@ -9,6 +9,6 @@
 import Foundation
 
 enum InAppMessageDisplayType: String {
-    case immediately = "immediately"
-    case appOpenEvent = "appOpenEvent"
+    case displayOnAppOpenEvent = "displayOnAppOpenEvent"
+    case displayImmediately = "displayImmediately"
 }

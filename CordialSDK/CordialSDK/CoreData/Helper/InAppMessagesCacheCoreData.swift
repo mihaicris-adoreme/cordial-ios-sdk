@@ -24,6 +24,7 @@ class InAppMessagesCacheCoreData {
                 let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
                 newRow.setValue(inAppMessageArchivedData, forKey: "data")
                 newRow.setValue(NSDate(), forKey: "date")
+                newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
                 
                 try context.save()
             } catch {
@@ -32,13 +33,42 @@ class InAppMessagesCacheCoreData {
         }
     }
     
-    func getInAppMessageDataFromCoreData() -> InAppMessageData? {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+    func getLatestInAppMessageDataFromCoreData() -> InAppMessageData? {
+        if let displayImmediatelyInAppMessageData = self.getDisplayImmediatelyInAppMessageDataFromCoreData() {
+            return displayImmediatelyInAppMessageData
+        }
         
+        if let displayOnAppOpenEventInAppMessageData = self.getDisplayOnAppOpenEventInAppMessageDataFromCoreData() {
+            return displayOnAppOpenEventInAppMessageData
+        }
+        
+        return nil
+    }
+    
+    func getDisplayImmediatelyInAppMessageDataFromCoreData() -> InAppMessageData? {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         request.fetchLimit = 1
+            
+        request.predicate = NSPredicate(format: "displayType = %@", InAppMessageDisplayType.displayImmediately.rawValue)
+        
+        return self.getInAppMessageData(request: request)
+    }
+    
+    private func getDisplayOnAppOpenEventInAppMessageDataFromCoreData() -> InAppMessageData? {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        request.fetchLimit = 1
+        
+        request.predicate = NSPredicate(format: "displayType = %@", InAppMessageDisplayType.displayOnAppOpenEvent.rawValue)
+        
+        return self.getInAppMessageData(request: request)
+    }
+
+    private func getInAppMessageData(request: NSFetchRequest<NSFetchRequestResult>) -> InAppMessageData? {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
         
         do {
             let result = try context.fetch(request)
@@ -59,5 +89,4 @@ class InAppMessagesCacheCoreData {
         
         return nil
     }
-
 }

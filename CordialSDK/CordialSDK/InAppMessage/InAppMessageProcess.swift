@@ -101,19 +101,33 @@ class InAppMessageProcess {
         }
     }
     
-    func showInAppMessageIfAvailable() {
+    func showInAppMessageIfPopupCanBePresented() {
         if self.inAppMessagePresentedControllersQueue.isEmpty {
             self.showInAppMessageIfExist()
         }
     }
     
     func showInAppMessageIfExist() {
-        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getInAppMessageDataFromCoreData() { // InAppMessageData has deletes from CoreData during fetching
+        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getLatestInAppMessageDataFromCoreData() { // InAppMessageData has deletes from CoreData during fetching
             if let expirationTime = inAppMessageData.expirationTime {
                 if Int(expirationTime.timeIntervalSinceNow).signum() == 1 { // check is validate property expirationTime (-1 if this value is negative and 1 if positive )
                     self.showInAppMessage(inAppMessageData: inAppMessageData)
                 } else {
                     self.showInAppMessageIfExist() // try again recursively to find massage with validated property expirationTime
+                }
+            } else {
+                self.showInAppMessage(inAppMessageData: inAppMessageData)
+            }
+        }
+    }
+    
+    func showDisplayImmediatelyInAppMessageIfAvailable() {
+        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getDisplayImmediatelyInAppMessageDataFromCoreData() { // InAppMessageData has deletes from CoreData during fetching
+            if let expirationTime = inAppMessageData.expirationTime {
+                if Int(expirationTime.timeIntervalSinceNow).signum() == 1 { // check is validate property expirationTime (-1 if this value is negative and 1 if positive )
+                    self.showInAppMessage(inAppMessageData: inAppMessageData)
+                } else {
+                    self.showDisplayImmediatelyInAppMessageIfAvailable() // try again recursively to find massage with validated property expirationTime
                 }
             } else {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)

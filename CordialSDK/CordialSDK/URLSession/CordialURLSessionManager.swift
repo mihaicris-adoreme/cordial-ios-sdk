@@ -62,15 +62,15 @@ class CordialURLSessionManager {
                 
                 var type: InAppMessageType
                 var displayType: InAppMessageDisplayType
-                let expirationTime = "2019-07-25T13:58:01Z"
+                let expirationTime = "2020-07-25T13:58:01Z"
                 
                 switch inAppMessageURLSessionData.mcID {
                 case "test_modal":
                     type = InAppMessageType.modal
-                    displayType = InAppMessageDisplayType.appOpenEvent
+                    displayType = InAppMessageDisplayType.displayOnAppOpenEvent
                 case "test_fullscreen":
                     type = InAppMessageType.fullscreen
-                    displayType = InAppMessageDisplayType.appOpenEvent
+                    displayType = InAppMessageDisplayType.displayOnAppOpenEvent
                     
                     top = 0
                     right = 0
@@ -78,7 +78,7 @@ class CordialURLSessionManager {
                     left = 0
                 case "test_banner_up":
                     type = InAppMessageType.banner_up
-                    displayType = InAppMessageDisplayType.immediately
+                    displayType = InAppMessageDisplayType.displayImmediately
                     
                     let height = 20
                     
@@ -88,7 +88,7 @@ class CordialURLSessionManager {
                     left = 5
                 case "test_banner_bottom":
                     type = InAppMessageType.banner_bottom
-                    displayType = InAppMessageDisplayType.immediately
+                    displayType = InAppMessageDisplayType.displayImmediately
                     
                     let height = 20
                     
@@ -98,7 +98,7 @@ class CordialURLSessionManager {
                     left = 5
                 default:
                     type = InAppMessageType.modal
-                    displayType = InAppMessageDisplayType.appOpenEvent
+                    displayType = InAppMessageDisplayType.displayOnAppOpenEvent
                 }
                 
                 let inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: InternalCordialAPI().getDateFromTimestamp(timestamp: expirationTime))
