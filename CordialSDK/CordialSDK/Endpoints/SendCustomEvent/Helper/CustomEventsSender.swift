@@ -31,7 +31,7 @@ class CustomEventsSender {
                     os_log("Sending custom events failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, error.message)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .cordialSendCustomEventsLogicError, object: error)
-                    os_log("Sending some custom events failed. Will not retry. For viewing exact error see .sendCustomEventsLogicError notification in notification center.", log: OSLog.cordialSendCustomEvents, type: .info)
+                    os_log("Sending some custom events failed. Will not retry. For viewing exact error see .cordialSendCustomEventsLogicError notification in notification center.", log: OSLog.cordialSendCustomEvents, type: .info)
 
                     if let responseBody = error.responseBody {
                         let sendCustomEventRequestsWithoutBrokenEvents = self.getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: sendCustomEventRequests, responseBody: responseBody)

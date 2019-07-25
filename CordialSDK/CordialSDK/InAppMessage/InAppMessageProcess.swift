@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class InAppMessageProcess {
     
@@ -17,7 +18,7 @@ class InAppMessageProcess {
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
-    var modalInAppMessagePresentedControllers = [String: InAppMessageViewController]()
+    var inAppMessagePresentedControllersQueue = [String: InAppMessageViewController]()
     
     let bannerAnimationDuration = 1.0
     
@@ -45,6 +46,19 @@ class InAppMessageProcess {
         }
     }
     
+    func showInAppMessage(inAppMessageData: InAppMessageData) {
+        switch inAppMessageData.type {
+        case InAppMessageType.modal:
+            self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+        case InAppMessageType.fullscreen:
+            self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+        case InAppMessageType.banner_up:
+            self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+        case InAppMessageType.banner_bottom:
+            self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+        }
+    }
+    
     func addAnimationSubviewInAppMessageBanner(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, activeViewController: UIViewController) {
         switch inAppMessageData.type {
         case InAppMessageType.banner_up:
@@ -57,7 +71,7 @@ class InAppMessageProcess {
             
             activeViewController.view.addSubview(webViewController.view)
             
-            UIView.animate(withDuration: InAppMessageProcess().bannerAnimationDuration, animations: {
+            UIView.animate(withDuration: self.bannerAnimationDuration, animations: {
                 let x = webViewController.view.frame.origin.x
                 let y = abs(webViewController.view.frame.origin.y) - webViewController.view.frame.size.height
                 let width = webViewController.view.frame.size.width
@@ -75,7 +89,7 @@ class InAppMessageProcess {
             
             activeViewController.view.addSubview(webViewController.view)
             
-            UIView.animate(withDuration: InAppMessageProcess().bannerAnimationDuration, animations: {
+            UIView.animate(withDuration: self.bannerAnimationDuration, animations: {
                 let x = webViewController.view.frame.origin.x
                 let y = abs(webViewController.view.frame.origin.y) - webViewController.view.frame.size.height
                 let width = webViewController.view.frame.size.width
@@ -87,52 +101,69 @@ class InAppMessageProcess {
         }
     }
     
-    func showModalInAppMessageIfAvailable() {
-        if self.modalInAppMessagePresentedControllers.isEmpty {
-            self.showModalInAppMessageIfExist()
+    func showInAppMessageIfAvailable() {
+        if self.inAppMessagePresentedControllersQueue.isEmpty {
+            self.showInAppMessageIfExist()
         }
     }
     
-    func showModalInAppMessageIfExist() {
-        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getInAppMessageDataFromCoreData() {
+    func showInAppMessageIfExist() {
+        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getInAppMessageDataFromCoreData() { // InAppMessageData has deletes from CoreData during fetching
             if let expirationTime = inAppMessageData.expirationTime {
-                if Int(expirationTime.timeIntervalSinceNow).signum() == 1 { // -1 if this value is negative and 1 if positive
-                    self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+                if Int(expirationTime.timeIntervalSinceNow).signum() == 1 { // check is validate property expirationTime (-1 if this value is negative and 1 if positive )
+                    self.showInAppMessage(inAppMessageData: inAppMessageData)
                 } else {
-                    self.showModalInAppMessageIfExist()
+                    self.showInAppMessageIfExist() // try again recursively to find massage with validated property expirationTime
                 }
             } else {
-                self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+                self.showInAppMessage(inAppMessageData: inAppMessageData)
             }
         }
     }
     
     func showModalInAppMessage(inAppMessageData: InAppMessageData) {
-        DispatchQueue.main.async {
-            if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-                let modalWebViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
-                modalWebViewController.controllerIdentifier = UUID().uuidString
-                
-                self.modalInAppMessagePresentedControllers[modalWebViewController.controllerIdentifier] = modalWebViewController
-                
-                activeViewController.view.addSubview(modalWebViewController.view)
-                
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
-                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        if self.inAppMessagePresentedControllersQueue.isEmpty {
+            DispatchQueue.main.async {
+                if let activeViewController = self.internalCordialAPI.getActiveViewController() {
+                    let modalWebViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                    modalWebViewController.controllerIdentifier = UUID().uuidString
+                    
+                    self.inAppMessagePresentedControllersQueue[modalWebViewController.controllerIdentifier] = modalWebViewController
+                    
+                    activeViewController.view.addSubview(modalWebViewController.view)
+                    
+                    os_log("Showing %{public}@ IAM modal with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
+                    self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                }
             }
+        } else {
+            CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+            os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
         }
     }
     
     func showBannerInAppMessage(inAppMessageData: InAppMessageData) {
-        DispatchQueue.main.async {
-            if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-                let webViewController = InAppMessageManager().getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
-                
-                InAppMessageProcess().addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: webViewController, activeViewController: activeViewController)
-                
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
-                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        if self.inAppMessagePresentedControllersQueue.isEmpty {
+            DispatchQueue.main.async {
+                if let activeViewController = self.internalCordialAPI.getActiveViewController() {
+                    let bannerWebViewController = InAppMessageManager().getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                    bannerWebViewController.controllerIdentifier = UUID().uuidString
+                    
+                    self.inAppMessagePresentedControllersQueue[bannerWebViewController.controllerIdentifier] = bannerWebViewController
+                    
+                    self.addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: bannerWebViewController, activeViewController: activeViewController)
+                    
+                    os_log("Showing %{public}@ IAM banner with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
+                    self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                }
             }
+        } else {
+            CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+            os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
         }
     }
 }

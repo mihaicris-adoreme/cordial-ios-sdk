@@ -41,7 +41,7 @@ class ContactsSender {
                     os_log("Sending contact failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, error.message)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .cordialUpsertContactsLogicError, object: error)
-                    os_log("Sending contact failed. Will not retry. For viewing exact error see .upsertContactsLogicError notification in notification center.", log: OSLog.cordialUpsertContacts, type: .info)
+                    os_log("Sending contact failed. Will not retry. For viewing exact error see .cordialUpsertContactsLogicError notification in notification center.", log: OSLog.cordialUpsertContacts, type: .info)
                 }
             )
         } else {

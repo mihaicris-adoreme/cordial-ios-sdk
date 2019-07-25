@@ -43,7 +43,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func removeInAppMessageBannerWithDelay() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
             if self.isBannerAvailable {
-                self.removeFromSuperviewWithAnimation(dismissBannerEventName: API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE_BANNER)
+                self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE_BANNER)
             }
         })
     }
@@ -61,13 +61,13 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     @objc func swipeUpGestureRecognizer() {
         if self.inAppMessageData.type == InAppMessageType.banner_up {
-            self.removeFromSuperviewWithAnimation(dismissBannerEventName: self.inAppMessageData.dismissBannerEventName)
+            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE_BANNER)
         }
     }
     
     @objc func swipeDownGestureRecognizer() {
         if self.inAppMessageData.type == InAppMessageType.banner_bottom {
-            self.removeFromSuperviewWithAnimation(dismissBannerEventName: self.inAppMessageData.dismissBannerEventName)
+            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE_BANNER)
         }
     }
     
@@ -93,7 +93,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
 
     }
     
-    func removeFromSuperviewWithAnimation(dismissBannerEventName: String?) {
+    func removeBannerFromSuperviewWithAnimation(eventName: String?) {
         UIView.animate(withDuration: InAppMessageProcess.shared.bannerAnimationDuration, animations: {
             switch self.inAppMessageData.type {
             case InAppMessageType.banner_up:
@@ -114,15 +114,21 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             }
             
         }, completion: { result in
-            if let eventName = dismissBannerEventName {
-                self.isBannerAvailable = false
-                
+            self.isBannerAvailable = false
+            
+            if let eventName = eventName {
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
                 self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
             
+            InAppMessageProcess.shared.inAppMessagePresentedControllersQueue.removeValue(forKey: self.controllerIdentifier)
             self.view.removeFromSuperview()
         })
+    }
+    
+    func removeModalFromSuperviewWithoutAnimation() {
+        InAppMessageProcess.shared.inAppMessagePresentedControllersQueue.removeValue(forKey: self.controllerIdentifier)
+        self.view.removeFromSuperview()
     }
     
     // MARK: UIScrollViewDelegate
@@ -156,10 +162,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             }
             
             if self.isBanner {
-                self.removeFromSuperviewWithAnimation(dismissBannerEventName: self.inAppMessageData.dismissBannerEventName)
+                self.removeBannerFromSuperviewWithAnimation(eventName: nil)
             } else {
-                InAppMessageProcess.shared.modalInAppMessagePresentedControllers.removeValue(forKey: self.controllerIdentifier)
-                self.view.removeFromSuperview()
+                self.removeModalFromSuperviewWithoutAnimation()
             }
         }
     }

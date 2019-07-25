@@ -25,19 +25,19 @@ class InAppMessageGetter {
     }
     
     func completionHandler(inAppMessageData: InAppMessageData) {
-        switch inAppMessageData.type {
-        case InAppMessageType.modal:
-            CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-            os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-        case InAppMessageType.fullscreen:
-            CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-            os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-        case InAppMessageType.banner_up:
-            InAppMessageProcess.shared.showBannerInAppMessage(inAppMessageData: inAppMessageData)
-            os_log("Showing %{public}@ IAM banner from up with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-        case InAppMessageType.banner_bottom:
-            InAppMessageProcess.shared.showBannerInAppMessage(inAppMessageData: inAppMessageData)
-            os_log("Showing %{public}@ IAM banner from bottom with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+        DispatchQueue.main.async {
+            if UIApplication.shared.applicationState == .active {
+                switch inAppMessageData.displayType {
+                case InAppMessageDisplayType.appOpenEvent:
+                    CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+                    os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                case InAppMessageDisplayType.immediately:
+                    InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
+                }
+            } else {
+                CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+                os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+            }
         }
     }
     
@@ -48,6 +48,6 @@ class InAppMessageGetter {
     
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialFetchInAppMessageLogicError, object: error)
-        os_log("Fetching IAM failed. Will not retry. For viewing exact error see .fetchInAppMessageLogicError notification in notification center.", log: OSLog.cordialFetchInAppMessage, type: .info)
+        os_log("Fetching IAM failed. Will not retry. For viewing exact error see .cordialFetchInAppMessageLogicError notification in notification center.", log: OSLog.cordialFetchInAppMessage, type: .info)
     }
 }

@@ -61,14 +61,16 @@ class CordialURLSessionManager {
                 var left = 10
                 
                 var type: InAppMessageType
-                var dismissBannerEventName: String?
+                var displayType: InAppMessageDisplayType
                 let expirationTime = "2019-07-25T13:58:01Z"
                 
                 switch inAppMessageURLSessionData.mcID {
                 case "test_modal":
                     type = InAppMessageType.modal
+                    displayType = InAppMessageDisplayType.appOpenEvent
                 case "test_fullscreen":
                     type = InAppMessageType.fullscreen
+                    displayType = InAppMessageDisplayType.appOpenEvent
                     
                     top = 0
                     right = 0
@@ -76,9 +78,9 @@ class CordialURLSessionManager {
                     left = 0
                 case "test_banner_up":
                     type = InAppMessageType.banner_up
+                    displayType = InAppMessageDisplayType.immediately
                     
                     let height = 20
-                    dismissBannerEventName = "in_app_message_banner_manual_dismiss"
                     
                     top = 5
                     right = 5
@@ -86,9 +88,9 @@ class CordialURLSessionManager {
                     left = 5
                 case "test_banner_bottom":
                     type = InAppMessageType.banner_bottom
+                    displayType = InAppMessageDisplayType.immediately
                     
                     let height = 20
-                    dismissBannerEventName = "in_app_message_banner_manual_dismiss"
                     
                     top = Int(100 - Double(height) / 100.0 * 100)
                     right = 5
@@ -96,9 +98,10 @@ class CordialURLSessionManager {
                     left = 5
                 default:
                     type = InAppMessageType.modal
+                    displayType = InAppMessageDisplayType.appOpenEvent
                 }
                 
-                let inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, top: top, right: right, bottom: bottom, left: left, dismissBannerEventName: dismissBannerEventName, expirationTime: InternalCordialAPI().getDateFromTimestamp(timestamp: expirationTime))
+                let inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: InternalCordialAPI().getDateFromTimestamp(timestamp: expirationTime))
                 
                 self.inAppMessageGetter.completionHandler(inAppMessageData: inAppMessageData)
             default:
