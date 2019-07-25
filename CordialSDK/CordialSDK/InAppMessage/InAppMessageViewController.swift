@@ -123,7 +123,6 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             InAppMessageProcess.shared.inAppMessagePresentedControllersQueue.removeValue(forKey: self.controllerIdentifier)
             self.view.removeFromSuperview()
-            
             InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfAvailable()
         })
     }
@@ -131,6 +130,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func removeModalFromSuperviewWithoutAnimation() {
         InAppMessageProcess.shared.inAppMessagePresentedControllersQueue.removeValue(forKey: self.controllerIdentifier)
         self.view.removeFromSuperview()
+        InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfAvailable()
     }
     
     // MARK: UIScrollViewDelegate
