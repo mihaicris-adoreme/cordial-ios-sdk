@@ -121,16 +121,16 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
             
-            InAppMessageProcess.shared.inAppMessagePresentedControllersQueue.removeValue(forKey: self.controllerIdentifier)
+            InAppMessageProcess.shared.isPresentedInAppMessage = false
             self.view.removeFromSuperview()
-            InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfAvailable()
+            InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
         })
     }
     
     func removeModalFromSuperviewWithoutAnimation() {
-        InAppMessageProcess.shared.inAppMessagePresentedControllersQueue.removeValue(forKey: self.controllerIdentifier)
+        InAppMessageProcess.shared.isPresentedInAppMessage = false
         self.view.removeFromSuperview()
-        InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfAvailable()
+        InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
     }
     
     // MARK: UIScrollViewDelegate

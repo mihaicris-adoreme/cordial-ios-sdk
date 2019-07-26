@@ -18,7 +18,7 @@ class InAppMessageProcess {
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
-    var inAppMessagePresentedControllersQueue = [String: InAppMessageViewController]()
+    var isPresentedInAppMessage = false
     
     let bannerAnimationDuration = 1.0
     
@@ -102,18 +102,18 @@ class InAppMessageProcess {
     }
     
     func showInAppMessageIfPopupCanBePresented() {
-        if self.inAppMessagePresentedControllersQueue.isEmpty {
-            self.showInAppMessageIfExist()
+        if !self.isPresentedInAppMessage {
+            self.showInAppMessageIfExistAndAvailable()
         }
     }
     
-    func showInAppMessageIfExist() {
+    func showInAppMessageIfExistAndAvailable() {
         if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getLatestInAppMessageDataFromCoreData() { // InAppMessageData has deletes from CoreData during fetching
             if let expirationTime = inAppMessageData.expirationTime {
                 if Int(expirationTime.timeIntervalSinceNow).signum() == 1 { // check is validate property expirationTime (-1 if this value is negative and 1 if positive )
                     self.showInAppMessage(inAppMessageData: inAppMessageData)
                 } else {
-                    self.showInAppMessageIfExist() // try again recursively to find massage with validated property expirationTime
+                    self.showInAppMessageIfExistAndAvailable() // try again recursively to find massage with validated property expirationTime
                 }
             } else {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
@@ -121,13 +121,13 @@ class InAppMessageProcess {
         }
     }
     
-    func showDisplayImmediatelyInAppMessageIfAvailable() {
+    func showDisplayImmediatelyInAppMessageIfExistAndAvailable() {
         if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getDisplayImmediatelyInAppMessageDataFromCoreData() { // InAppMessageData has deletes from CoreData during fetching
             if let expirationTime = inAppMessageData.expirationTime {
                 if Int(expirationTime.timeIntervalSinceNow).signum() == 1 { // check is validate property expirationTime (-1 if this value is negative and 1 if positive )
                     self.showInAppMessage(inAppMessageData: inAppMessageData)
                 } else {
-                    self.showDisplayImmediatelyInAppMessageIfAvailable() // try again recursively to find massage with validated property expirationTime
+                    self.showDisplayImmediatelyInAppMessageIfExistAndAvailable() // try again recursively to find massage with validated property expirationTime
                 }
             } else {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
@@ -136,15 +136,15 @@ class InAppMessageProcess {
     }
     
     func showModalInAppMessage(inAppMessageData: InAppMessageData) {
-        if self.inAppMessagePresentedControllersQueue.isEmpty {
+        if !self.isPresentedInAppMessage {
             DispatchQueue.main.async {
                 if let activeViewController = self.internalCordialAPI.getActiveViewController() {
                     let modalWebViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                     modalWebViewController.controllerIdentifier = UUID().uuidString
                     
-                    self.inAppMessagePresentedControllersQueue[modalWebViewController.controllerIdentifier] = modalWebViewController
-                    
                     activeViewController.view.addSubview(modalWebViewController.view)
+                    
+                    self.isPresentedInAppMessage = true
                     
                     os_log("Showing %{public}@ IAM modal with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                     
@@ -159,15 +159,15 @@ class InAppMessageProcess {
     }
     
     func showBannerInAppMessage(inAppMessageData: InAppMessageData) {
-        if self.inAppMessagePresentedControllersQueue.isEmpty {
+        if !self.isPresentedInAppMessage {
             DispatchQueue.main.async {
                 if let activeViewController = self.internalCordialAPI.getActiveViewController() {
                     let bannerWebViewController = InAppMessageManager().getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                     bannerWebViewController.controllerIdentifier = UUID().uuidString
                     
-                    self.inAppMessagePresentedControllersQueue[bannerWebViewController.controllerIdentifier] = bannerWebViewController
-                    
                     self.addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: bannerWebViewController, activeViewController: activeViewController)
+                    
+                    self.isPresentedInAppMessage = true
                     
                     os_log("Showing %{public}@ IAM banner with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                     
