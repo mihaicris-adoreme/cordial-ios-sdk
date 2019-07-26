@@ -108,31 +108,37 @@ class InAppMessageProcess {
     }
     
     func showInAppMessageIfExistAndAvailable() {
-        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getLatestInAppMessageDataFromCoreData() { // InAppMessageData has deletes from CoreData during fetching
-            if let expirationTime = inAppMessageData.expirationTime {
-                if Int(expirationTime.timeIntervalSinceNow).signum() == 1 { // check is validate property expirationTime (-1 if this value is negative and 1 if positive )
-                    self.showInAppMessage(inAppMessageData: inAppMessageData)
-                } else {
-                    self.showInAppMessageIfExistAndAvailable() // try again recursively to find massage with validated property expirationTime
-                }
-            } else {
+        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getLatestInAppMessageDataFromCoreData() {
+            if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
+            } else {
+                os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                self.showInAppMessageIfExistAndAvailable()
             }
         }
     }
     
     func showDisplayImmediatelyInAppMessageIfExistAndAvailable() {
-        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getDisplayImmediatelyInAppMessageDataFromCoreData() { // InAppMessageData has deletes from CoreData during fetching
-            if let expirationTime = inAppMessageData.expirationTime {
-                if Int(expirationTime.timeIntervalSinceNow).signum() == 1 { // check is validate property expirationTime (-1 if this value is negative and 1 if positive )
-                    self.showInAppMessage(inAppMessageData: inAppMessageData)
-                } else {
-                    self.showDisplayImmediatelyInAppMessageIfExistAndAvailable() // try again recursively to find massage with validated property expirationTime
-                }
-            } else {
+        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getDisplayImmediatelyInAppMessageDataFromCoreData() {
+            if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
+            } else {
+                os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                self.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
             }
         }
+    }
+    
+    func isAvailableInAppMessage(inAppMessageData: InAppMessageData) -> Bool {
+        if let expirationTime = inAppMessageData.expirationTime {
+            if Int(expirationTime.timeIntervalSinceNow).signum() == 1 {
+                return true
+            } else {
+                return false
+            }
+        }
+        
+        return true
     }
     
     func showModalInAppMessage(inAppMessageData: InAppMessageData) {
@@ -146,7 +152,7 @@ class InAppMessageProcess {
                     
                     self.isPresentedInAppMessage = true
                     
-                    os_log("Showing %{public}@ IAM modal with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    os_log("Showing %{public}@ IAM modal with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                     
                     let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
                     self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
@@ -154,7 +160,7 @@ class InAppMessageProcess {
             }
         } else {
             CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-            os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+            os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
         }
     }
     
@@ -169,7 +175,7 @@ class InAppMessageProcess {
                     
                     self.isPresentedInAppMessage = true
                     
-                    os_log("Showing %{public}@ IAM banner with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    os_log("Showing %{public}@ IAM banner with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                     
                     let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
                     self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
@@ -177,7 +183,7 @@ class InAppMessageProcess {
             }
         } else {
             CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-            os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+            os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
         }
     }
 }

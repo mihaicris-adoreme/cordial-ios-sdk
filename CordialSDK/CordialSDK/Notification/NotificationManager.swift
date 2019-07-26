@@ -18,6 +18,6 @@ public extension Notification.Name {
     static let cordialSendContactOrdersLogicError = Notification.Name("CordialSendContactOrdersLogicError")
     static let cordialUpsertContactsLogicError = Notification.Name("CordialUpsertContactsLogicError")
     static let cordialSendContactLogoutLogicError = Notification.Name("CordialSendContactLogoutLogicError")
-    static let cordialFetchInAppMessageLogicError = Notification.Name("CordialFetchInAppMessageLogicErrorr")
+    static let cordialInAppMessageLogicError = Notification.Name("CordialInAppMessageLogicErrorr")
     
 }

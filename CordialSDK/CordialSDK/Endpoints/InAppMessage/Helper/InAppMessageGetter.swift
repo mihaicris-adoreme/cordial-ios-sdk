@@ -15,12 +15,12 @@ class InAppMessageGetter {
         if ReachabilityManager.shared.isConnectedToInternet {
             let inAppMessage = InAppMessage()
             
-            os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, mcID)
+            os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
             
             inAppMessage.getInAppMessage(mcID: mcID)
         } else {
             CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
-            os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialFetchInAppMessage, type: .info)
+            os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialInAppMessage, type: .info)
         }
     }
     
@@ -30,24 +30,28 @@ class InAppMessageGetter {
                 switch inAppMessageData.displayType {
                 case InAppMessageDisplayType.displayOnAppOpenEvent:
                     CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-                    os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                 case InAppMessageDisplayType.displayImmediately:
-                    InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
+                    if InAppMessageProcess.shared.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
+                        InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
+                    } else {
+                       os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    }
                 }
             } else {
                 CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-                os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
             }
         }
     }
     
     func systemErrorHandler(mcID: String, error: ResponseError) {
         CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
-        os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialFetchInAppMessage, type: .info, error.message)
+        os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, error.message)
     }
     
     func logicErrorHandler(error: ResponseError) {
-        NotificationCenter.default.post(name: .cordialFetchInAppMessageLogicError, object: error)
-        os_log("Fetching IAM failed. Will not retry. For viewing exact error see .cordialFetchInAppMessageLogicError notification in notification center.", log: OSLog.cordialFetchInAppMessage, type: .info)
+        NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
+        os_log("Fetching IAM failed. Will not retry. For viewing exact error see .cordialInAppMessageLogicError notification in notification center.", log: OSLog.cordialInAppMessage, type: .info)
     }
 }

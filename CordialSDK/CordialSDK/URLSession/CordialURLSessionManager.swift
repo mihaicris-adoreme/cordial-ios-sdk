@@ -110,7 +110,7 @@ class CordialURLSessionManager {
                 self.inAppMessageGetter.logicErrorHandler(error: responseError)
             }
         } catch {
-            os_log("Failed decode response data.", log: OSLog.cordialFetchInAppMessage, type: .error)
+            os_log("Failed decode response data.", log: OSLog.cordialInAppMessage, type: .error)
         }
     }
     
