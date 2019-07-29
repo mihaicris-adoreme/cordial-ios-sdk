@@ -7,6 +7,10 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <CordialSDK/CordialSDK.h>
+#import "CordialPushNotificationHandler.h"
+#import "CordialContinueRestorationHandler.h"
+#import "CordialOpenOptionsHandler.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SendContactOrderRequest: NSObject, NSCoding {
+@objc public class SendContactOrderRequest: NSObject, NSCoding {
 
     let deviceID: String
     var primaryKey: String?
@@ -20,17 +20,17 @@ public class SendContactOrderRequest: NSObject, NSCoding {
         case order = "order"
     }
     
-    public init(order: Order) {
+    @objc public init(order: Order) {
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.order = order
     }
     
-    public func encode(with aCoder: NSCoder) {
+    @objc public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.order, forKey: Key.order.rawValue)
     }
     
-    public required convenience init?(coder aDecoder: NSCoder) {
+    @objc public required convenience init?(coder aDecoder: NSCoder) {
         let order = aDecoder.decodeObject(forKey: Key.order.rawValue) as! Order
         
         self.init(order: order)

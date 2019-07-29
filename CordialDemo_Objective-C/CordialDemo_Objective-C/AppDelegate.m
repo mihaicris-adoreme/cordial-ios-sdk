@@ -15,7 +15,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [[CordialApiConfiguration shared] initializeWithAccountKey:@"test_account_key" channelKey:@"test_channel_key"];
+    [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
+    [CordialApiConfiguration shared].pushNotificationHandler = [[CordialPushNotificationHandler alloc] init];
+    [CordialApiConfiguration shared].continueRestorationHandler = [[CordialContinueRestorationHandler alloc] init];
+    [CordialApiConfiguration shared].openOptionsHandler = [[CordialOpenOptionsHandler alloc] init];
+    
     return YES;
 }
 

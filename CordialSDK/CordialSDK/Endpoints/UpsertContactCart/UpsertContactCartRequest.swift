@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class UpsertContactCartRequest: NSObject, NSCoding {
+@objc public class UpsertContactCartRequest: NSObject, NSCoding {
 
     let deviceID: String
     var primaryKey: String?
@@ -20,17 +20,17 @@ public class UpsertContactCartRequest: NSObject, NSCoding {
         case cartItems = "cartItems"
     }
     
-    public init(cartItems: [CartItem]) {
+    @objc public init(cartItems: [CartItem]) {
         self.deviceID = cordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.cartItems = cartItems
     }
     
-    public func encode(with aCoder: NSCoder) {
+    @objc public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.cartItems, forKey: Key.cartItems.rawValue)
     }
     
-    public required convenience init?(coder aDecoder: NSCoder) {
+    @objc public required convenience init?(coder aDecoder: NSCoder) {
         let cartItems = aDecoder.decodeObject(forKey: Key.cartItems.rawValue) as! [CartItem]
         
         self.init(cartItems: cartItems)

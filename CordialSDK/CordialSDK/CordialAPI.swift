@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CordialAPI: NSObject {
+@objc public class CordialAPI: NSObject {
 
     // MARK: Get timestamp
     
@@ -56,7 +56,7 @@ public class CordialAPI: NSObject {
     
     // MARK: Get account key
     
-    public func getAccountKey() -> String {
+    @objc public func getAccountKey() -> String {
         if let accountKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY) {
             return accountKey
         }
@@ -66,13 +66,13 @@ public class CordialAPI: NSObject {
     
     // MARK: Set account key
     
-    public func setAccountKey(accountKey: String) {
+    @objc public func setAccountKey(accountKey: String) {
         UserDefaults.standard.set(accountKey, forKey: API.USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY)
     }
     
     // MARK: Get channel key
     
-    public func getChannelKey() -> String {
+    @objc public func getChannelKey() -> String {
         if let channelKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CHANNEL_KEY) {
             return channelKey
         }
@@ -82,13 +82,13 @@ public class CordialAPI: NSObject {
     
     // MARK: Set channel key
     
-    public func setChannelKey(channelKey: String) {
+    @objc public func setChannelKey(channelKey: String) {
         UserDefaults.standard.set(channelKey, forKey: API.USER_DEFAULTS_KEY_FOR_CHANNEL_KEY)
     }
     
     // MARK: Get base URL
     
-    public func getBaseURL() -> String {
+    @objc public func getBaseURL() -> String {
         if let baseURL = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL) {
             return baseURL
         }
@@ -98,7 +98,7 @@ public class CordialAPI: NSObject {
     
     // MARK: Set base URL
     
-    public func setBaseURL(baseURL: String) {
+    @objc public func setBaseURL(baseURL: String) {
         if baseURL.last != "/" {
             UserDefaults.standard.set(baseURL + "/", forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
         } else {
@@ -108,20 +108,20 @@ public class CordialAPI: NSObject {
     
     // MARK: Get primary key
     
-    public func getContactPrimaryKey() -> String? {
+    @objc public func getContactPrimaryKey() -> String? {
         return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
     // MARK: Set Contact
     
-    public func setContact(primaryKey: String) {
+    @objc public func setContact(primaryKey: String) {
         let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey)
         self.upsertContact(upsertContactRequest: upsertContactRequest)
     }
     
     // MARK: Unset Contact
     
-    public func unsetContact() {
+    @objc public func unsetContact() {
         if let primaryKey = self.getContactPrimaryKey() {
             let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
@@ -133,26 +133,26 @@ public class CordialAPI: NSObject {
     
     // MARK: Upsert Contact
     
-    public func upsertContact(upsertContactRequest: UpsertContactRequest) -> Void {
+    @objc public func upsertContact(upsertContactRequest: UpsertContactRequest) -> Void {
         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
 
     // MARK: Send Custom Event
         
-    public func sendCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
+    @objc public func sendCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
         CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
     }
     
     // MARK: Upsert Contact Cart
     
-    public func upsertContactCart(cartItems: [CartItem]) {
+    @objc public func upsertContactCart(cartItems: [CartItem]) {
         let upsertContactCartRequest = UpsertContactCartRequest(cartItems: cartItems)
         ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
     }
     
     // MARK: Send Order
     
-    public func sendContactOrder(order: Order) {
+    @objc public func sendContactOrder(order: Order) {
         let sendContactOrderRequest = SendContactOrderRequest(order: order)
         ContactOrdersSender().sendContactOrders(sendContactOrderRequests: [sendContactOrderRequest])
     }

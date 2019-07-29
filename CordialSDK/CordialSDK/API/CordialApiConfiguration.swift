@@ -9,14 +9,14 @@
 import Foundation
 import UserNotifications
 
-public class CordialApiConfiguration {
+@objc public class CordialApiConfiguration: NSObject {
     
-    public static let shared = CordialApiConfiguration()
+    @objc public static let shared = CordialApiConfiguration()
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     
-    public var qtyCachedEventQueue = 1000
+    @objc public var qtyCachedEventQueue = 1000
     
     var accountKey = String()
     var channelKey = String()
@@ -24,15 +24,15 @@ public class CordialApiConfiguration {
     
     let cordialSwizzler = CordialSwizzler()
     
-    public var continueRestorationHandler: CordialContinueRestorationDelegate?
-    public var openOptionsHandler: CordialOpenOptionsDelegate?
-    public var pushNotificationHandler: CordialPushNotificationDelegate?
+    @objc public var continueRestorationHandler: CordialContinueRestorationDelegate?
+    @objc public var openOptionsHandler: CordialOpenOptionsDelegate?
+    @objc public var pushNotificationHandler: CordialPushNotificationDelegate?
     
     let cordialPushNotification = CordialPushNotification()
     
-    private init(){}
+    private override init(){}
     
-    public func initialize(accountKey: String, channelKey: String) {
+    @objc public func initialize(accountKey: String, channelKey: String) {
         self.accountKey = accountKey
         self.channelKey = channelKey
         self.baseURL = "https://events-stream-svc.cordial.com/"

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SendCustomEventResponse {
+@objc public class SendCustomEventResponse: NSObject {
     
     public let status: SendCustomEventStatus
     

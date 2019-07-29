@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Address: NSObject, NSCoding {
+@objc public class Address: NSObject, NSCoding {
     
     let name: String
     let address: String
@@ -26,7 +26,7 @@ public class Address: NSObject, NSCoding {
         case country = "country"
     }
     
-    public init(name: String, address: String, city: String, state: String, postalCode: String, country: String) {
+    @objc public init(name: String, address: String, city: String, state: String, postalCode: String, country: String) {
         self.name = name
         self.address = address
         self.city = city
@@ -35,7 +35,7 @@ public class Address: NSObject, NSCoding {
         self.country = country
     }
     
-    public func encode(with aCoder: NSCoder) {
+    @objc public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.name, forKey: Key.name.rawValue)
         aCoder.encode(self.address, forKey: Key.address.rawValue)
         aCoder.encode(self.city, forKey: Key.city.rawValue)
@@ -44,7 +44,7 @@ public class Address: NSObject, NSCoding {
         aCoder.encode(self.country, forKey: Key.country.rawValue)
     }
     
-    public required convenience init?(coder aDecoder: NSCoder) {
+    @objc public required convenience init?(coder aDecoder: NSCoder) {
         let name = aDecoder.decodeObject(forKey: Key.name.rawValue) as! String
         let address = aDecoder.decodeObject(forKey: Key.address.rawValue) as! String
         let city = aDecoder.decodeObject(forKey: Key.city.rawValue) as! String
