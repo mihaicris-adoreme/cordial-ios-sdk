@@ -9,11 +9,11 @@
 import Foundation
 import CoreData
 
-class CoreDataManager: NSObject {
+class CoreDataManager {
 
     static let shared = CoreDataManager()
     
-    private override init(){}
+    private init(){}
     
     let frameworkIdentifier = "io.cordial.sdk"
     let modelName = "CoreDataModel"
