@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CordialFirstLaunch {
+class CordialFirstLaunch {
     
     let wasLaunchedBefore: Bool
     var isFirstLaunch: Bool {

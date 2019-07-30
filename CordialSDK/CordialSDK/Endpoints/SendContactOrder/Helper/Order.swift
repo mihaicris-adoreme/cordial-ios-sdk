@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Order: NSObject, NSCoding {
+@objc public class Order: NSObject, NSCoding {
     
     let orderID: String
     let status: String
@@ -36,6 +36,10 @@ public class Order: NSObject, NSCoding {
         case properties = "properties"
     }
     
+    @objc public convenience init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: NSNumber?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
+        self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, purchaseDate: purchaseDate, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: tax?.doubleValue, shippingAndHandling: shippingAndHandling, properties: properties)
+    }
+    
     public init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: Double?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
         self.orderID = orderID
         self.status = status
@@ -50,7 +54,7 @@ public class Order: NSObject, NSCoding {
         self.properties = properties
     }
     
-    public func encode(with aCoder: NSCoder) {
+    @objc public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.orderID, forKey: Key.orderID.rawValue)
         aCoder.encode(self.status, forKey: Key.status.rawValue)
         aCoder.encode(self.storeID, forKey: Key.storeID.rawValue)
@@ -64,7 +68,7 @@ public class Order: NSObject, NSCoding {
         aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
-    public required convenience init?(coder aDecoder: NSCoder) {
+    @objc public required convenience init?(coder aDecoder: NSCoder) {
         let orderID = aDecoder.decodeObject(forKey: Key.orderID.rawValue) as! String
         let status = aDecoder.decodeObject(forKey: Key.status.rawValue) as! String
         let storeID = aDecoder.decodeObject(forKey: Key.storeID.rawValue) as! String

@@ -8,9 +8,9 @@
 
 import Foundation
 
-public protocol CordialPushNotificationDelegate {
+@objc public protocol CordialPushNotificationDelegate {
     
-    func appOpenViaNotificationTap(notificationContent: [AnyHashable : Any], completionHandler: @escaping () -> Void)
-    func notificationDeliveredInForeground(notificationContent: [AnyHashable : Any], completionHandler: @escaping () -> Void)
+    @objc func appOpenViaNotificationTap(notificationContent: [AnyHashable : Any], completionHandler: @escaping () -> Void)
+    @objc func notificationDeliveredInForeground(notificationContent: [AnyHashable : Any], completionHandler: @escaping () -> Void)
     
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class UpsertContactResponse {
+@objc public class UpsertContactResponse: NSObject {
     
     public let status: UpsertContactStatus
     

@@ -8,8 +8,8 @@
 
 import Foundation
 
-public protocol CordialOpenOptionsDelegate {
+@objc public protocol CordialOpenOptionsDelegate {
     
-    func appOpenViaUrlScheme(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool
+    @objc func appOpenViaUrlScheme(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool
     
 }

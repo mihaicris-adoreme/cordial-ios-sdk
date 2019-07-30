@@ -11,7 +11,7 @@ import CoreData
 
 class CoreDataManager {
 
-    public static let shared = CoreDataManager()
+    static let shared = CoreDataManager()
     
     private init(){}
     
