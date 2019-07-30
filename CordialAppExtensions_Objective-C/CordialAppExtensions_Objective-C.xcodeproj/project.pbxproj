@@ -10,6 +10,8 @@
 		9E4631BB22F0832C0081E8CE /* CordialAppExtensions_Objective_C.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4631B122F0832C0081E8CE /* CordialAppExtensions_Objective_C.framework */; };
 		9E4631C022F0832C0081E8CE /* CordialAppExtensions_Objective_CTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4631BF22F0832C0081E8CE /* CordialAppExtensions_Objective_CTests.m */; };
 		9E4631C222F0832C0081E8CE /* CordialAppExtensions_Objective_C.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E4631B422F0832C0081E8CE /* CordialAppExtensions_Objective_C.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9E46321F22F084C40081E8CE /* CordialNotificationServiceExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E46321D22F084C40081E8CE /* CordialNotificationServiceExtension.h */; };
+		9E46322022F084C40081E8CE /* CordialNotificationServiceExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E46321E22F084C40081E8CE /* CordialNotificationServiceExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		9E4631BA22F0832C0081E8CE /* CordialAppExtensions_Objective-CTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CordialAppExtensions_Objective-CTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E4631BF22F0832C0081E8CE /* CordialAppExtensions_Objective_CTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialAppExtensions_Objective_CTests.m; sourceTree = "<group>"; };
 		9E4631C122F0832C0081E8CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E46321D22F084C40081E8CE /* CordialNotificationServiceExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CordialNotificationServiceExtension.h; sourceTree = "<group>"; };
+		9E46321E22F084C40081E8CE /* CordialNotificationServiceExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialNotificationServiceExtension.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,8 @@
 			children = (
 				9E4631B422F0832C0081E8CE /* CordialAppExtensions_Objective_C.h */,
 				9E4631B522F0832C0081E8CE /* Info.plist */,
+				9E46321D22F084C40081E8CE /* CordialNotificationServiceExtension.h */,
+				9E46321E22F084C40081E8CE /* CordialNotificationServiceExtension.m */,
 			);
 			path = "CordialAppExtensions_Objective-C";
 			sourceTree = "<group>";
@@ -93,6 +99,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E46321F22F084C40081E8CE /* CordialNotificationServiceExtension.h in Headers */,
 				9E4631C222F0832C0081E8CE /* CordialAppExtensions_Objective_C.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,6 +199,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E46322022F084C40081E8CE /* CordialNotificationServiceExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
