@@ -1,15 +1,13 @@
-////
-////  NotificationService.h
-////  NotificationServiceExtension
-////
-////  Created by Yan Malinovsky on 7/30/19.
-////
 //
-//#import <UserNotifications/UserNotifications.h>
-//#import <CordialAppExtensions/CordialAppExtensions-Swift.h>
+//  NotificationService.h
+//  NotificationServiceExtension
 //
-//__attribute__((objc_subclassing_restricted))
+//  Created by Yan Malinovsky on 7/30/19.
 //
-//@interface NotificationService : CordialNotificationServiceExtension
-//
-//@end
+
+#import <CordialAppExtensions_Objective_C.h>
+#import <CordialAppExtensions_Objective_C/CordialNotificationServiceExtension.h>
+
+@interface NotificationService : CordialNotificationServiceExtension
+
+@end

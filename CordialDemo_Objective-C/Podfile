@@ -8,7 +8,7 @@ target 'CordialDemo_Objective-C' do
 
   target 'NotificationServiceExtension' do
     use_frameworks!
-#    pod 'CordialAppExtensions', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'
+    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'
   end
 
   target 'CordialDemo_Objective-CTests' do

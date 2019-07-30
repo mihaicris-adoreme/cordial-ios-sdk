@@ -20,7 +20,6 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
         
         if let bestAttemptContent = bestAttemptContent {
             // Modify the notification content here...
-            bestAttemptContent.title = "\(bestAttemptContent.title)"
             
             // Start
             
