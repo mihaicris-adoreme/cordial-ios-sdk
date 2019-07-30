@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D1A9B5F379225482D8F0FC7 /* libPods-CordialDemo_Objective-CTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 655BB4CE4881CA7156052CB0 /* libPods-CordialDemo_Objective-CTests.a */; };
-		7DF13AB4687DFDDEC2875D1F /* libPods-CordialDemo_Objective-CUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374B948DD738E6E682184F86 /* libPods-CordialDemo_Objective-CUITests.a */; };
+		67D764909231359CD730E9E7 /* Pods_CordialDemo_Objective_C.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5638A1FBC4BE049E198BF9F /* Pods_CordialDemo_Objective_C.framework */; };
+		8693A90244A9A3F25FDBE4B1 /* Pods_CordialDemo_Objective_CTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B8432EEC5A4458B1688552 /* Pods_CordialDemo_Objective_CTests.framework */; };
+		9A77BCF96EEB6B2E7EF2477F /* Pods_CordialDemo_Objective_CUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6494FB776F4366814E986A4 /* Pods_CordialDemo_Objective_CUITests.framework */; };
 		9E65C8F222EF1A1200E30F53 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C8F122EF1A1200E30F53 /* AppDelegate.m */; };
 		9E65C8F522EF1A1200E30F53 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C8F422EF1A1200E30F53 /* ViewController.m */; };
 		9E65C8F822EF1A1200E30F53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E65C8F622EF1A1200E30F53 /* Main.storyboard */; };
@@ -21,7 +22,6 @@
 		9EE6451622EF38640071E285 /* CordialPushNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6451522EF38640071E285 /* CordialPushNotificationHandler.m */; };
 		9EE6451A22EF39ED0071E285 /* CordialContinueRestorationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6451922EF39ED0071E285 /* CordialContinueRestorationHandler.m */; };
 		9EE6451D22EF3A8E0071E285 /* CordialOpenOptionsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6451C22EF3A8E0071E285 /* CordialOpenOptionsHandler.m */; };
-		AA800DB58E6AE739A10469B1 /* libPods-CordialDemo_Objective-C.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58380B2741FB9C9ED2BA5401 /* libPods-CordialDemo_Objective-C.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,11 +56,9 @@
 
 /* Begin PBXFileReference section */
 		1D4B9CBBA6CBED9636A56DA1 /* Pods-CordialDemo_Objective-CTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-CTests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-CTests/Pods-CordialDemo_Objective-CTests.release.xcconfig"; sourceTree = "<group>"; };
+		24B8432EEC5A4458B1688552 /* Pods_CordialDemo_Objective_CTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_Objective_CTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		274AF951B5EABF8C1945052A /* Pods-CordialDemo_Objective-C.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-C.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C.release.xcconfig"; sourceTree = "<group>"; };
 		3041B50B958931EAD809AA40 /* Pods-CordialDemo_Objective-C.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-C.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C.debug.xcconfig"; sourceTree = "<group>"; };
-		374B948DD738E6E682184F86 /* libPods-CordialDemo_Objective-CUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CordialDemo_Objective-CUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		58380B2741FB9C9ED2BA5401 /* libPods-CordialDemo_Objective-C.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CordialDemo_Objective-C.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		655BB4CE4881CA7156052CB0 /* libPods-CordialDemo_Objective-CTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CordialDemo_Objective-CTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B9F0304F8E84B70E77F454B /* Pods-CordialDemo_Objective-CTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-CTests.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-CTests/Pods-CordialDemo_Objective-CTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9E65C8ED22EF1A1200E30F53 /* CordialDemo_Objective-C.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CordialDemo_Objective-C.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E65C8F022EF1A1200E30F53 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -85,7 +83,9 @@
 		9EE6451922EF39ED0071E285 /* CordialContinueRestorationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialContinueRestorationHandler.m; sourceTree = "<group>"; };
 		9EE6451B22EF3A8E0071E285 /* CordialOpenOptionsHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CordialOpenOptionsHandler.h; sourceTree = "<group>"; };
 		9EE6451C22EF3A8E0071E285 /* CordialOpenOptionsHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialOpenOptionsHandler.m; sourceTree = "<group>"; };
+		A5638A1FBC4BE049E198BF9F /* Pods_CordialDemo_Objective_C.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_Objective_C.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA026853FEBF25AFAC53E82 /* Pods-CordialDemo_Objective-CUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-CUITests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-CUITests/Pods-CordialDemo_Objective-CUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C6494FB776F4366814E986A4 /* Pods_CordialDemo_Objective_CUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_Objective_CUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E51CE2B58CDBE5EDC5401784 /* Pods-CordialDemo_Objective-CUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-CUITests.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-CUITests/Pods-CordialDemo_Objective-CUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA800DB58E6AE739A10469B1 /* libPods-CordialDemo_Objective-C.a in Frameworks */,
+				67D764909231359CD730E9E7 /* Pods_CordialDemo_Objective_C.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,7 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D1A9B5F379225482D8F0FC7 /* libPods-CordialDemo_Objective-CTests.a in Frameworks */,
+				8693A90244A9A3F25FDBE4B1 /* Pods_CordialDemo_Objective_CTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7DF13AB4687DFDDEC2875D1F /* libPods-CordialDemo_Objective-CUITests.a in Frameworks */,
+				9A77BCF96EEB6B2E7EF2477F /* Pods_CordialDemo_Objective_CUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,16 +127,15 @@
 				E51CE2B58CDBE5EDC5401784 /* Pods-CordialDemo_Objective-CUITests.debug.xcconfig */,
 				AAA026853FEBF25AFAC53E82 /* Pods-CordialDemo_Objective-CUITests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		6EF443D3CA843A3CCFF19CF5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				58380B2741FB9C9ED2BA5401 /* libPods-CordialDemo_Objective-C.a */,
-				655BB4CE4881CA7156052CB0 /* libPods-CordialDemo_Objective-CTests.a */,
-				374B948DD738E6E682184F86 /* libPods-CordialDemo_Objective-CUITests.a */,
+				A5638A1FBC4BE049E198BF9F /* Pods_CordialDemo_Objective_C.framework */,
+				24B8432EEC5A4458B1688552 /* Pods_CordialDemo_Objective_CTests.framework */,
+				C6494FB776F4366814E986A4 /* Pods_CordialDemo_Objective_CUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -232,6 +231,7 @@
 				9E65C8EA22EF1A1200E30F53 /* Frameworks */,
 				9E65C8EB22EF1A1200E30F53 /* Resources */,
 				9EEFA9EB22EF1B1E004CBE8C /* Embed Frameworks */,
+				93D76847E372F7472BB4E1C8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -349,6 +349,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		93D76847E372F7472BB4E1C8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CordialSDK/CordialSDK.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CordialSDK.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AB7F42DD630E9FB647CE7629 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

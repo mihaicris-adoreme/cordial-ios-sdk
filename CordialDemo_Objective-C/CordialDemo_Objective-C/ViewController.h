@@ -6,7 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CordialSDK/CordialSDK.h>
+#import <CordialSDK/CordialSDK-Swift.h>
 
 @interface ViewController : UIViewController
 
