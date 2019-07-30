@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1A9B5F379225482D8F0FC7 /* libPods-CordialDemo_Objective-CTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 655BB4CE4881CA7156052CB0 /* libPods-CordialDemo_Objective-CTests.a */; };
+		7DF13AB4687DFDDEC2875D1F /* libPods-CordialDemo_Objective-CUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374B948DD738E6E682184F86 /* libPods-CordialDemo_Objective-CUITests.a */; };
 		9E65C8F222EF1A1200E30F53 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C8F122EF1A1200E30F53 /* AppDelegate.m */; };
 		9E65C8F522EF1A1200E30F53 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C8F422EF1A1200E30F53 /* ViewController.m */; };
 		9E65C8F822EF1A1200E30F53 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E65C8F622EF1A1200E30F53 /* Main.storyboard */; };
@@ -19,8 +21,7 @@
 		9EE6451622EF38640071E285 /* CordialPushNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6451522EF38640071E285 /* CordialPushNotificationHandler.m */; };
 		9EE6451A22EF39ED0071E285 /* CordialContinueRestorationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6451922EF39ED0071E285 /* CordialContinueRestorationHandler.m */; };
 		9EE6451D22EF3A8E0071E285 /* CordialOpenOptionsHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6451C22EF3A8E0071E285 /* CordialOpenOptionsHandler.m */; };
-		9EEFA9E722EF1B1E004CBE8C /* CordialSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E65C92B22EF1AFF00E30F53 /* CordialSDK.framework */; };
-		9EEFA9E822EF1B1E004CBE8C /* CordialSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E65C92B22EF1AFF00E30F53 /* CordialSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AA800DB58E6AE739A10469B1 /* libPods-CordialDemo_Objective-C.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58380B2741FB9C9ED2BA5401 /* libPods-CordialDemo_Objective-C.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,27 +39,6 @@
 			remoteGlobalIDString = 9E65C8EC22EF1A1200E30F53;
 			remoteInfo = "CordialDemo_Objective-C";
 		};
-		9E65C92A22EF1AFF00E30F53 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E65C92522EF1AFF00E30F53 /* CordialSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9E7A5A3F222EB54D0020054F;
-			remoteInfo = CordialSDK;
-		};
-		9E65C92C22EF1AFF00E30F53 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E65C92522EF1AFF00E30F53 /* CordialSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9E7A5A48222EB54E0020054F;
-			remoteInfo = CordialSDKTests;
-		};
-		9EEFA9E922EF1B1E004CBE8C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9E65C92522EF1AFF00E30F53 /* CordialSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9E7A5A3E222EB54D0020054F;
-			remoteInfo = CordialSDK;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,7 +48,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9EEFA9E822EF1B1E004CBE8C /* CordialSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,6 +55,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1D4B9CBBA6CBED9636A56DA1 /* Pods-CordialDemo_Objective-CTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-CTests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-CTests/Pods-CordialDemo_Objective-CTests.release.xcconfig"; sourceTree = "<group>"; };
+		274AF951B5EABF8C1945052A /* Pods-CordialDemo_Objective-C.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-C.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C.release.xcconfig"; sourceTree = "<group>"; };
+		3041B50B958931EAD809AA40 /* Pods-CordialDemo_Objective-C.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-C.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C.debug.xcconfig"; sourceTree = "<group>"; };
+		374B948DD738E6E682184F86 /* libPods-CordialDemo_Objective-CUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CordialDemo_Objective-CUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		58380B2741FB9C9ED2BA5401 /* libPods-CordialDemo_Objective-C.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CordialDemo_Objective-C.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		655BB4CE4881CA7156052CB0 /* libPods-CordialDemo_Objective-CTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CordialDemo_Objective-CTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B9F0304F8E84B70E77F454B /* Pods-CordialDemo_Objective-CTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-CTests.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-CTests/Pods-CordialDemo_Objective-CTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9E65C8ED22EF1A1200E30F53 /* CordialDemo_Objective-C.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CordialDemo_Objective-C.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E65C8F022EF1A1200E30F53 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9E65C8F122EF1A1200E30F53 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -93,13 +79,14 @@
 		9E65C91322EF1A1300E30F53 /* CordialDemo_Objective-CUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CordialDemo_Objective-CUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E65C91722EF1A1300E30F53 /* CordialDemo_Objective_CUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialDemo_Objective_CUITests.m; sourceTree = "<group>"; };
 		9E65C91922EF1A1300E30F53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9E65C92522EF1AFF00E30F53 /* CordialSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CordialSDK.xcodeproj; path = ../CordialSDK/CordialSDK.xcodeproj; sourceTree = "<group>"; };
 		9EE6451422EF38640071E285 /* CordialPushNotificationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CordialPushNotificationHandler.h; sourceTree = "<group>"; };
 		9EE6451522EF38640071E285 /* CordialPushNotificationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialPushNotificationHandler.m; sourceTree = "<group>"; };
 		9EE6451822EF39ED0071E285 /* CordialContinueRestorationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CordialContinueRestorationHandler.h; sourceTree = "<group>"; };
 		9EE6451922EF39ED0071E285 /* CordialContinueRestorationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialContinueRestorationHandler.m; sourceTree = "<group>"; };
 		9EE6451B22EF3A8E0071E285 /* CordialOpenOptionsHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CordialOpenOptionsHandler.h; sourceTree = "<group>"; };
 		9EE6451C22EF3A8E0071E285 /* CordialOpenOptionsHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialOpenOptionsHandler.m; sourceTree = "<group>"; };
+		AAA026853FEBF25AFAC53E82 /* Pods-CordialDemo_Objective-CUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-CUITests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-CUITests/Pods-CordialDemo_Objective-CUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E51CE2B58CDBE5EDC5401784 /* Pods-CordialDemo_Objective-CUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-CUITests.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-CUITests/Pods-CordialDemo_Objective-CUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EEFA9E722EF1B1E004CBE8C /* CordialSDK.framework in Frameworks */,
+				AA800DB58E6AE739A10469B1 /* libPods-CordialDemo_Objective-C.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D1A9B5F379225482D8F0FC7 /* libPods-CordialDemo_Objective-CTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,20 +110,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DF13AB4687DFDDEC2875D1F /* libPods-CordialDemo_Objective-CUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4317285811DC9BE6821A1CE1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3041B50B958931EAD809AA40 /* Pods-CordialDemo_Objective-C.debug.xcconfig */,
+				274AF951B5EABF8C1945052A /* Pods-CordialDemo_Objective-C.release.xcconfig */,
+				8B9F0304F8E84B70E77F454B /* Pods-CordialDemo_Objective-CTests.debug.xcconfig */,
+				1D4B9CBBA6CBED9636A56DA1 /* Pods-CordialDemo_Objective-CTests.release.xcconfig */,
+				E51CE2B58CDBE5EDC5401784 /* Pods-CordialDemo_Objective-CUITests.debug.xcconfig */,
+				AAA026853FEBF25AFAC53E82 /* Pods-CordialDemo_Objective-CUITests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		6EF443D3CA843A3CCFF19CF5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				58380B2741FB9C9ED2BA5401 /* libPods-CordialDemo_Objective-C.a */,
+				655BB4CE4881CA7156052CB0 /* libPods-CordialDemo_Objective-CTests.a */,
+				374B948DD738E6E682184F86 /* libPods-CordialDemo_Objective-CUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9E65C8E422EF1A1200E30F53 = {
 			isa = PBXGroup;
 			children = (
-				9E65C92522EF1AFF00E30F53 /* CordialSDK.xcodeproj */,
 				9E65C8EF22EF1A1200E30F53 /* CordialDemo_Objective-C */,
 				9E65C90B22EF1A1300E30F53 /* CordialDemo_Objective-CTests */,
 				9E65C91622EF1A1300E30F53 /* CordialDemo_Objective-CUITests */,
 				9E65C8EE22EF1A1200E30F53 /* Products */,
+				4317285811DC9BE6821A1CE1 /* Pods */,
+				6EF443D3CA843A3CCFF19CF5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -186,15 +200,6 @@
 			path = "CordialDemo_Objective-CUITests";
 			sourceTree = "<group>";
 		};
-		9E65C92622EF1AFF00E30F53 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9E65C92B22EF1AFF00E30F53 /* CordialSDK.framework */,
-				9E65C92D22EF1AFF00E30F53 /* CordialSDKTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		9EE6450C22EF35F10071E285 /* PushNotification */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,6 +227,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E65C91C22EF1A1300E30F53 /* Build configuration list for PBXNativeTarget "CordialDemo_Objective-C" */;
 			buildPhases = (
+				AB7F42DD630E9FB647CE7629 /* [CP] Check Pods Manifest.lock */,
 				9E65C8E922EF1A1200E30F53 /* Sources */,
 				9E65C8EA22EF1A1200E30F53 /* Frameworks */,
 				9E65C8EB22EF1A1200E30F53 /* Resources */,
@@ -230,7 +236,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9EEFA9EA22EF1B1E004CBE8C /* PBXTargetDependency */,
 			);
 			name = "CordialDemo_Objective-C";
 			productName = "CordialDemo_Objective-C";
@@ -241,6 +246,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E65C91F22EF1A1300E30F53 /* Build configuration list for PBXNativeTarget "CordialDemo_Objective-CTests" */;
 			buildPhases = (
+				BF3253D5D099A35A4C889F2D /* [CP] Check Pods Manifest.lock */,
 				9E65C90422EF1A1300E30F53 /* Sources */,
 				9E65C90522EF1A1300E30F53 /* Frameworks */,
 				9E65C90622EF1A1300E30F53 /* Resources */,
@@ -259,6 +265,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E65C92222EF1A1300E30F53 /* Build configuration list for PBXNativeTarget "CordialDemo_Objective-CUITests" */;
 			buildPhases = (
+				DC0E009B4434FF64050999A8 /* [CP] Check Pods Manifest.lock */,
 				9E65C90F22EF1A1300E30F53 /* Sources */,
 				9E65C91022EF1A1300E30F53 /* Frameworks */,
 				9E65C91122EF1A1300E30F53 /* Resources */,
@@ -305,12 +312,6 @@
 			mainGroup = 9E65C8E422EF1A1200E30F53;
 			productRefGroup = 9E65C8EE22EF1A1200E30F53 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 9E65C92622EF1AFF00E30F53 /* Products */;
-					ProjectRef = 9E65C92522EF1AFF00E30F53 /* CordialSDK.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				9E65C8EC22EF1A1200E30F53 /* CordialDemo_Objective-C */,
@@ -319,23 +320,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		9E65C92B22EF1AFF00E30F53 /* CordialSDK.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CordialSDK.framework;
-			remoteRef = 9E65C92A22EF1AFF00E30F53 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9E65C92D22EF1AFF00E30F53 /* CordialSDKTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = CordialSDKTests.xctest;
-			remoteRef = 9E65C92C22EF1AFF00E30F53 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9E65C8EB22EF1A1200E30F53 /* Resources */ = {
@@ -363,6 +347,75 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		AB7F42DD630E9FB647CE7629 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CordialDemo_Objective-C-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BF3253D5D099A35A4C889F2D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CordialDemo_Objective-CTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC0E009B4434FF64050999A8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CordialDemo_Objective-CUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9E65C8E922EF1A1200E30F53 /* Sources */ = {
@@ -407,11 +460,6 @@
 			isa = PBXTargetDependency;
 			target = 9E65C8EC22EF1A1200E30F53 /* CordialDemo_Objective-C */;
 			targetProxy = 9E65C91422EF1A1300E30F53 /* PBXContainerItemProxy */;
-		};
-		9EEFA9EA22EF1B1E004CBE8C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CordialSDK;
-			targetProxy = 9EEFA9E922EF1B1E004CBE8C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -549,6 +597,7 @@
 		};
 		9E65C91D22EF1A1300E30F53 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3041B50B958931EAD809AA40 /* Pods-CordialDemo_Objective-C.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -567,6 +616,7 @@
 		};
 		9E65C91E22EF1A1300E30F53 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 274AF951B5EABF8C1945052A /* Pods-CordialDemo_Objective-C.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -585,6 +635,7 @@
 		};
 		9E65C92022EF1A1300E30F53 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B9F0304F8E84B70E77F454B /* Pods-CordialDemo_Objective-CTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -604,6 +655,7 @@
 		};
 		9E65C92122EF1A1300E30F53 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D4B9CBBA6CBED9636A56DA1 /* Pods-CordialDemo_Objective-CTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -623,6 +675,7 @@
 		};
 		9E65C92322EF1A1300E30F53 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E51CE2B58CDBE5EDC5401784 /* Pods-CordialDemo_Objective-CUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
@@ -641,6 +694,7 @@
 		};
 		9E65C92422EF1A1300E30F53 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AAA026853FEBF25AFAC53E82 /* Pods-CordialDemo_Objective-CUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
