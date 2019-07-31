@@ -112,6 +112,12 @@ import Foundation
         return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
+    // MARK: Get current mcID
+    
+    @objc public func getCurrentMcID() -> String? {
+        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+    }
+    
     // MARK: Set Contact
     
     @objc public func setContact(primaryKey: String) {
