@@ -36,8 +36,8 @@ import Foundation
         case properties = "properties"
     }
     
-    @objc public convenience init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: NSNumber?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
-        self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, purchaseDate: purchaseDate, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: tax?.doubleValue, shippingAndHandling: shippingAndHandling, properties: properties)
+    @objc public convenience init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], taxNumber: NSNumber?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
+        self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, purchaseDate: purchaseDate, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: taxNumber?.doubleValue, shippingAndHandling: shippingAndHandling, properties: properties)
     }
     
     public init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: Double?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
