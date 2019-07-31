@@ -56,7 +56,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cartItems = self.getCartItems()
         
         let orderID = UUID().uuidString
-        let order = Order(orderID: orderID, status: "orderStatus", storeID: "storeID", customerID: "customerID", purchaseDate: Date(), shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
+        let order = Order(orderID: orderID, status: "orderStatus", storeID: "storeID", customerID: "customerID", purchaseDate: Date(), shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: 0.0, shippingAndHandling: nil, properties: nil)
         
         сordialAPI.sendContactOrder(order: order)
     }
