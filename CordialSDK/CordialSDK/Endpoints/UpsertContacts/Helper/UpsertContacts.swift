@@ -10,7 +10,7 @@ import Foundation
 
 class UpsertContacts {
     
-    public func upsertContacts(upsertContactRequests: [UpsertContactRequest], onSuccess: @escaping (UpsertContactResponse) -> Void, systemError: @escaping (ResponseError) -> Void, logicError: @escaping (ResponseError) -> Void) -> Void {
+    func upsertContacts(upsertContactRequests: [UpsertContactRequest], onSuccess: @escaping (UpsertContactResponse) -> Void, systemError: @escaping (ResponseError) -> Void, logicError: @escaping (ResponseError) -> Void) -> Void {
     
         if let url = URL(string: CordialApiEndpoints().getContactsURL()) {
             

@@ -10,7 +10,7 @@ import Foundation
 
 class ReachabilitySender {
     
-    public static let shared = ReachabilitySender()
+    static let shared = ReachabilitySender()
     
     private init(){
         let notificationCenter = NotificationCenter.default

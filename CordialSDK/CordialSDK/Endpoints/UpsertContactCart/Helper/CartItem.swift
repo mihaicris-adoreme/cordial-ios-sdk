@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class CartItem: NSObject, NSCoding {
+@objc public class CartItem: NSObject, NSCoding {
 
     let productID: String
     let name: String
@@ -42,6 +42,10 @@ public class CartItem: NSObject, NSCoding {
         case properties = "properties"
     }
     
+    @objc public convenience init(productID: String, name: String, sku: String, category: String?, url: String?, itemDescription: String?, qty: NSNumber?, itemPrice: NSNumber?, salePrice: NSNumber?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, String>?) {
+        self.init(productID: productID, name: name, sku: sku, category: category, url: url, itemDescription: itemDescription, qty: qty?.int64Value, itemPrice: itemPrice?.doubleValue, salePrice: salePrice?.doubleValue, attr: attr, images: images, properties: properties)
+    }
+    
     public init(productID: String, name: String, sku: String, category: String?, url: String?, itemDescription: String?, qty: Int64?, itemPrice: Double?, salePrice: Double?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, String>?) {
         self.productID = productID
         self.name = name
@@ -58,7 +62,7 @@ public class CartItem: NSObject, NSCoding {
         self.properties = properties
     }
     
-    public func encode(with aCoder: NSCoder) {
+    @objc public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.productID, forKey: Key.productID.rawValue)
         aCoder.encode(self.name, forKey: Key.name.rawValue)
         aCoder.encode(self.sku, forKey: Key.sku.rawValue)
@@ -90,7 +94,7 @@ public class CartItem: NSObject, NSCoding {
         self.properties = properties
     }
     
-    public required convenience init?(coder aDecoder: NSCoder) {
+    @objc public required convenience init?(coder aDecoder: NSCoder) {
         let productID = aDecoder.decodeObject(forKey: Key.productID.rawValue) as! String
         let name = aDecoder.decodeObject(forKey: Key.name.rawValue) as! String
         let sku = aDecoder.decodeObject(forKey: Key.sku.rawValue) as! String

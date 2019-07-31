@@ -1,0 +1,14 @@
+# Ignore macOS
+.DS_Store
+
+# Ignore JetBrains
+.idea/
+
+# Ignore CocoaPods
+Podfile.lock
+Pods/
+
+# Ignore Xcode
+CordialAppExtensions_Objective-C.xcworkspace/
+xcuserdata/
+

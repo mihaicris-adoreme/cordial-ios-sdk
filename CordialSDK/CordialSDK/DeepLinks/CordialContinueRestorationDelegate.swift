@@ -8,8 +8,8 @@
 
 import Foundation
 
-public protocol CordialContinueRestorationDelegate {
+@objc public protocol CordialContinueRestorationDelegate {
     
-    func appOpenViaUniversalLink(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool
+    @objc func appOpenViaUniversalLink(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool
     
 }

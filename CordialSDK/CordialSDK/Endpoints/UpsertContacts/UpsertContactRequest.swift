@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class UpsertContactRequest: NSObject, NSCoding {
+@objc public class UpsertContactRequest: NSObject, NSCoding {
     
     let deviceID: String
     let token: String?
@@ -31,7 +31,7 @@ public class UpsertContactRequest: NSObject, NSCoding {
         case attributes = "attributes"
     }
     
-    public init(attributes: Dictionary<String, String>?) {
+    @objc public init(attributes: Dictionary<String, String>?) {
         self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
         self.primaryKey = cordialAPI.getContactPrimaryKey()
@@ -75,13 +75,13 @@ public class UpsertContactRequest: NSObject, NSCoding {
         self.attributes = attributes
     }
     
-    public func encode(with aCoder: NSCoder) {
+    @objc public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.token, forKey: Key.token.rawValue)
         aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
         aCoder.encode(self.attributes, forKey: Key.attributes.rawValue)
     }
     
-    public required convenience init?(coder aDecoder: NSCoder) {
+    @objc public required convenience init?(coder aDecoder: NSCoder) {
         let token = aDecoder.decodeObject(forKey: Key.token.rawValue) as! String?
         let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
         let attributes = aDecoder.decodeObject(forKey: Key.attributes.rawValue) as! Dictionary<String, String>?

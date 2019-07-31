@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SendContactOrderResponse {
+@objc public class SendContactOrderResponse: NSObject {
     
     public let status: SendContactOrderResponseStatus
     

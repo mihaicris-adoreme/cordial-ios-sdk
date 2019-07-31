@@ -11,10 +11,10 @@ import os.log
 
 class ReachabilityManager {
     
-    public static let shared = ReachabilityManager()
+    static let shared = ReachabilityManager()
     
     let reachability = Reachability()!
-    public var isConnectedToInternet = true
+    var isConnectedToInternet = true
     
     private init() {
         let notificationCenter = NotificationCenter.default

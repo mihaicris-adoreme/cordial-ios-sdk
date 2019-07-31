@@ -8,12 +8,12 @@
 
 import Foundation
 
-public struct ResponseError {
+struct ResponseError {
     
-    public let message: String
-    public let statusCode: Int?
-    public let responseBody: String?
-    public let systemError: Error?
+    let message: String
+    let statusCode: Int?
+    let responseBody: String?
+    let systemError: Error?
     
     init(message: String, statusCode: Int?, responseBody: String?, systemError: Error?) {
         self.message = message

@@ -124,12 +124,15 @@ When a user updates the cart, the app should notify the Cordial backed by callin
 Every request described above is cached in case of its failure. For example, if internet is down on the device and an event failed to be delivered to Cordial, the event would be cached by the SDK and its delivery would be retried once internet connection is up again.
 
 ## Push notifications
-The application must use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically.  In order to handle push notification taps, the only thing to do is to provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. Do so in `AppDelegate.didFinishLaunchingWithOptions`:
+The application must use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to handle have push notification delivered and handle taps on them, the code needs to do 2 things:
+1. Provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. Do so in `AppDelegate.didFinishLaunchingWithOptions`:
 
 ```
 let pushNotificationHandler = YourImplementationOfTheProtocol()  
 CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
 ```
+
+2. Inherit `AppDelegate` from `CordialAppDelegate`
 
 **[INSERT A SECTION ON PROVIDING PUSH NOTIFICATION CERTIFICATE TO CORDIAL BACKEND]**
 

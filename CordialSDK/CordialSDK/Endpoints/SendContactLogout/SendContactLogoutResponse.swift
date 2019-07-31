@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SendContactLogoutResponse {
+@objc public class SendContactLogoutResponse: NSObject {
     
     public let status: SendContactLogoutStatus
     

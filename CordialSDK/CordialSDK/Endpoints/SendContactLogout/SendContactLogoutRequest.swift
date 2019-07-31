@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SendContactLogoutRequest: NSObject, NSCoding {
+@objc public class SendContactLogoutRequest: NSObject, NSCoding {
     
     let deviceID: String
     let primaryKey: String
@@ -20,16 +20,16 @@ public class SendContactLogoutRequest: NSObject, NSCoding {
         case primaryKey = "primaryKey"
     }
     
-    public init(primaryKey: String) {
+    @objc public init(primaryKey: String) {
         self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = primaryKey
     }
     
-    public func encode(with aCoder: NSCoder) {
+    @objc public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
     }
     
-    public required convenience init?(coder aDecoder: NSCoder) {
+    @objc public required convenience init?(coder aDecoder: NSCoder) {
         let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String
         
         self.init(primaryKey: primaryKey)

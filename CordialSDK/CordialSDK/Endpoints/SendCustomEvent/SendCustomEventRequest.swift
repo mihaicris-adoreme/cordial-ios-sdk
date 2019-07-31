@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SendCustomEventRequest: NSObject, NSCoding {
+@objc public class SendCustomEventRequest: NSObject, NSCoding {
     
     let deviceID: String
     let primaryKey: String?
@@ -29,7 +29,7 @@ public class SendCustomEventRequest: NSObject, NSCoding {
         case properties = "properties"
     }
     
-    public init(eventName: String, properties: Dictionary<String, String>?) {
+    @objc public init(eventName: String, properties: Dictionary<String, String>?) {
         self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.eventName = eventName
@@ -51,14 +51,14 @@ public class SendCustomEventRequest: NSObject, NSCoding {
         self.properties = properties
     }
     
-    public func encode(with aCoder: NSCoder) {
+    @objc public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.eventName, forKey: Key.eventName.rawValue)
         aCoder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
         aCoder.encode(self.mcID, forKey: Key.mcID.rawValue)
         aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
-    public required convenience init?(coder aDecoder: NSCoder) {
+    @objc public required convenience init?(coder aDecoder: NSCoder) {
         let eventName = aDecoder.decodeObject(forKey: Key.eventName.rawValue) as! String
         let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as! String
         let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as! String?
