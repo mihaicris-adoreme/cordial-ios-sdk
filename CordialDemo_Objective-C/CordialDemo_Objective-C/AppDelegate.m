@@ -17,6 +17,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [[CordialApiConfiguration shared] initializeWithAccountKey:@"test_account_key" channelKey:@"test_channel_key"];
+    [[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
     [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
     [CordialApiConfiguration shared].pushNotificationHandler = [[CordialPushNotificationHandler alloc] init];
     [CordialApiConfiguration shared].continueRestorationHandler = [[CordialContinueRestorationHandler alloc] init];
@@ -109,6 +110,10 @@
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     
 }
+    
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+}
 
 // MARK: Handle universal links
 
@@ -120,6 +125,12 @@
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     return NO;
+}
+    
+// MARK: Handle background URLSession.
+    
+- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(void))completionHandler {
+    
 }
 
 @end

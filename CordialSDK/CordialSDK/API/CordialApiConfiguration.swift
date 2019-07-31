@@ -61,7 +61,7 @@ import CoreLocation
         notificationCenter.addObserver(self, selector: #selector(handleAppDidFinishLaunchingNotification), name: UIApplication.didFinishLaunchingNotification, object: nil)
     }
     
-    public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance, untilTraveled: CLLocationDistance, timeout: TimeInterval) {
+    @objc public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance, untilTraveled: CLLocationDistance, timeout: TimeInterval) {
         CordialLocationManager.shared.desiredAccuracy = desiredAccuracy
         CordialLocationManager.shared.distanceFilter = distanceFilter
         CordialLocationManager.shared.untilTraveled = untilTraveled
