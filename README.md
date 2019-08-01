@@ -20,15 +20,27 @@ This will add the the latest version of CordialSDK to your project.
 
 Additionally, in order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. In order to do that create "Notification Service Extension" target and add CordialAppExtensions to it:
 
+Swift:
+___
 ```
 target "<The name of the new Notification Service Extension target>" do  
     use_frameworks!
     pod 'CordialAppExtensions', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'  
 end
 ```
+Objective-C:
+___
+```
+target "<The name of the new Notification Service Extension target>" do  
+    use_frameworks!
+    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'  
+end
+```
 
 Delete the code that your IDE generated for you for the new extension and inherit it from `CordialNotificationServiceExtension`:  
 
+Swift:
+___
 ```
 import CordialAppExtensions  
   
@@ -36,14 +48,42 @@ class NotificationService: CordialNotificationServiceExtension {
   
 }
 ```
+Objective-C:
+___
+```
+// NotificationService.h
+
+#import <CordialAppExtensions_Objective_C.h>
+#import <CordialAppExtensions_Objective_C/CordialNotificationServiceExtension.h>
+
+@interface NotificationService : CordialNotificationServiceExtension
+@end
+
+// NotificationService.m
+
+#import "NotificationService.h"
+
+@interface NotificationService ()
+@end
+
+@implementation NotificationService
+@end
+
+```
 
 ## Initialize SDK
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initialize` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
+Swift:
+___
 ```
 CordialApiConfiguration.shared.initialize(accountKey: "<your_account_key>", channelKey: "<your_channel_key>")
 ```
-
+Objective-C:
+___
+```
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"test_account_key" channelKey:@"test_channel_key"];
+```
 After initialized the SDK will automatically start tracking internal events as they occur in the application. Those events are:
 - track application opens and closes
 - track installs
@@ -58,8 +98,15 @@ Besides automatic events tracking, the SDK allows developers to make Cordial spe
 
 The access point for every action above is the `CordialAPI` class. You can either have a global reference to the object of the class or create an object for every action - that choice is left to an application.
 
+Swift:
+___
 ```
 let cordialApi = CordialAPI()
+```
+Objective-C:
+___
+```
+CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 ```
 
 ## Setting a contact
@@ -70,34 +117,65 @@ When there is no contact associated with the SDK, all requests that the SDK make
 
 setContact usage:
 
+Swift:
+___
 ```
 cordialAPI.setContact(primaryKey: email)
+```
+Objective-C:
+___
+```
+[cordialAPI setContactWithPrimaryKey:email];
 ```
 
 ## Unsetting a contact
 
 Whenever a contact is disassociated with the application, which typically happens on user log out, the SDK should be told so so that it stops associating all client generated events with the contact who is no logged in. This is done via `unsetContact` method:
 
+Swift:
+___
 ```
 cordialAPI.unsetContact()
+```
+Objective-C:
+___
+```
+[cordialAPI unsetContact];
 ```
 
 ## Upserting a contact
 
 Each contact has a set of attributes associated with it. To update values of the attributes of the set contact, `upsertContact` method should be used. For example, if there are `firstName` and `lastName` attributes updating their values will be done in the following way:
 
+Swift:
+___
 ```
 let attributes = ["firstName":"John", "lastName":"Doe"]
 let upsertContactRequest = UpsertContactRequest(attributes: attributes)
 cordialAPI.upsertContact(upsertContactRequest: upsertContactRequest)
 ```
+Objective-C:
+___
+```
+NSDictionary *attributes = @{ @"firstName" :@"John", @"lastName" :@"Doe" };
+UpsertContactRequest *upsertContactRequest = [[UpsertContactRequest alloc]initWithAttributes:attributes];
+[cordialAPI upsertContactWithUpsertContactRequest:upsertContactRequest];
+```
 
 ## Send custom events
 Besides internal events, the SDK allows to send custom events specific to each app. Those may be, for example, user logged in, discount applied or app preferences updated to name a few. To send custom event, use the `CordialApi.sendCustomEvent` method:
 
+Swift:
+___
 ```
-let request = SendCustomEventRequest(eventName: “{custom event name}”, properties: [“<property name>”: “<property value>”])  
+let request = SendCustomEventRequest(eventName: "{custom_event_name}", properties: ["<property_name>": "<property_value>"])  
 cordialApi.sendCustomEvent(sendCustomEventRequest: request)
+```
+Objective-C:
+___
+```
+SendCustomEventRequest *request = [[SendCustomEventRequest alloc] initWithEventName:@"{custom_event_name}" properties:@{ @"<property_name>" :@"<property_value>" }];
+[cordialAPI sendCustomEventWithSendCustomEventRequest:request];
 ```
 
 `properties` - is a dictionary of string keys and string values that can be attached to the event. Can be nil.
@@ -105,8 +183,15 @@ cordialApi.sendCustomEvent(sendCustomEventRequest: request)
 ## Post an order
 When an order is posted in client application, the app should notify Cordial about that. In order to post an order to Cordial, use the `CordialApi.sendOrder` method:
 
+Swift:
+___
 ```
 сordialAPI.sendContactOrder(order: order)
+```
+Objective-C:
+___
+```
+[cordialAPI sendContactOrderWithOrder:order];
 ```
 
 The `order` object specifies things like orderId, storeId, customerId, billing and shipping addresses. 
@@ -114,8 +199,15 @@ The `order` object specifies things like orderId, storeId, customerId, billing a
 ## Post a cart
 When a user updates the cart, the app should notify the Cordial backed by calling the `CordialApi.upsertCart` method:
 
+Swift:
+___
 ```
 сordialAPI.upsertContactCart(cartItems: items)
+```
+Objective-C:
+___
+```
+[cordialAPI upsertContactCartWithCartItems:items];
 ```
 
 `items` is an array of, well, cart items. Each items has items sku, quantity, price and other cart item specific attributes.
@@ -127,9 +219,17 @@ Every request described above is cached in case of its failure. For example, if 
 The application must use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to handle have push notification delivered and handle taps on them, the code needs to do 2 things:
 1. Provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. Do so in `AppDelegate.didFinishLaunchingWithOptions`:
 
+Swift:
+___
 ```
 let pushNotificationHandler = YourImplementationOfTheProtocol()  
 CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
+```
+Objective-C:
+___
+```
+YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationOfTheProtocol alloc] init];
+[CordialApiConfiguration shared].pushNotificationHandler = pushNotificationHandler;
 ```
 
 2. Inherit `AppDelegate` from `CordialAppDelegate`
