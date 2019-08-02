@@ -118,8 +118,6 @@ import CoreLocation
         
         self.cordialSwizzler.swizzleAppDelegateMethods()
         
-        if CordialApiConfiguration.shared.pushNotificationHandler != nil {
-            self.cordialPushNotification.registerForPushNotifications()
-        }
+        self.cordialPushNotification.getNotificationSettings()
     }
 }

@@ -30,6 +30,8 @@ class LoginViewController: UIViewController {
         if let email = emailTextField.text, !email.isEmpty {
             cordialAPI.setContact(primaryKey: email)
             
+            cordialAPI.registerForPushNotifications()
+            
             App.userLogIn()
             
             self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)

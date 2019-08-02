@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 @objc public class CordialAPI: NSObject {
     
@@ -133,5 +134,15 @@ import Foundation
     @objc public func sendContactOrder(order: Order) {
         let sendContactOrderRequest = SendContactOrderRequest(order: order)
         ContactOrdersSender().sendContactOrders(sendContactOrderRequests: [sendContactOrderRequest])
+    }
+    
+    // MARK: Register for push notifications
+    
+    @objc public func registerForPushNotifications() {
+        if CordialApiConfiguration.shared.pushNotificationHandler != nil {
+            CordialPushNotification().registerForPushNotifications()
+        } else {
+            os_log("Register for push notifications failed. Error: [CordialPushNotificationHandler is not set.]", log: OSLog.cordialPushNotification, type: .info)
+        }
     }
 }
