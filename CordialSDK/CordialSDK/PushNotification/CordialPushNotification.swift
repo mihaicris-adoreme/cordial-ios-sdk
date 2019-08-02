@@ -19,12 +19,10 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         let center = UNUserNotificationCenter.current()
         
         center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                DispatchQueue.main.async {
-                    UIApplication.shared.registerForRemoteNotifications()
-                }
+            guard error == nil else { return }
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
             }
         }
         
