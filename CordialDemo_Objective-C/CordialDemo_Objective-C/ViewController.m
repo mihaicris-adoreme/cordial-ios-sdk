@@ -38,10 +38,7 @@
     
     NSString *eventName = @"browse_category";
     
-    id objects[] = { @"Mens" };
-    id keys[] = { @"catalogName" };
-    NSUInteger count = sizeof(objects) / sizeof(id);
-    NSDictionary *properties = [NSDictionary dictionaryWithObjects:objects forKeys:keys count:count];
+    NSDictionary *properties = @{ @"catalogName" :@"Mens" };
     
     SendCustomEventRequest *sendCustomEventRequest = [[SendCustomEventRequest alloc] initWithEventName:eventName properties:properties];
     [cordialAPI sendCustomEventWithSendCustomEventRequest:sendCustomEventRequest];
