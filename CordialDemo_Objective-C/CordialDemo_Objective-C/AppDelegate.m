@@ -22,6 +22,8 @@
     [CordialApiConfiguration shared].continueRestorationHandler = [[CordialContinueRestorationHandler alloc] init];
     [CordialApiConfiguration shared].openOptionsHandler = [[CordialOpenOptionsHandler alloc] init];
     
+    [[[CordialAPI alloc] init] registerForPushNotifications];
+    
     return YES;
 }
 

@@ -18,13 +18,14 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     func registerForPushNotifications() {
         let center = UNUserNotificationCenter.current()
         
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] granted, error in
-            guard let self = self else { return }
-            print("Permission granted: \(granted)")
-            
-            guard granted else { return }
-            
-            self.getNotificationSettings()
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
         }
         
         center.delegate = self

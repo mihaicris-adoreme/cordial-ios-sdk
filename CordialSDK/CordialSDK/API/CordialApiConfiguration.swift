@@ -104,8 +104,8 @@ import UserNotifications
         // This code will be called immediately after application:didFinishLaunchingWithOptions:
         print(notification)
         
-        // Setup Push Notification
-        cordialPushNotification.registerForPushNotifications()
-        cordialSwizzler.swizzleAppDelegateMethods()
+        self.cordialSwizzler.swizzleAppDelegateMethods()
+        
+        self.cordialPushNotification.getNotificationSettings()
     }
 }
