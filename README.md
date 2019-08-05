@@ -158,7 +158,7 @@ cordialAPI.upsertContact(upsertContactRequest: upsertContactRequest)
 ___
 ```
 NSDictionary *attributes = @{ @"firstName" :@"John", @"lastName" :@"Doe" };
-UpsertContactRequest *upsertContactRequest = [[UpsertContactRequest alloc]initWithAttributes:attributes];
+UpsertContactRequest *upsertContactRequest = [[UpsertContactRequest alloc] initWithAttributes:attributes];
 [cordialAPI upsertContactWithUpsertContactRequest:upsertContactRequest];
 ```
 
