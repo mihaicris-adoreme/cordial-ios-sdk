@@ -33,8 +33,21 @@ class InternalCordialAPI {
         return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)!
     }
     
-    func saveMcID(mcID: String) {
+    // MARK: Set current mcID
+    
+    func setCurrentMcID(mcID: String) {
         UserDefaults.standard.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+    }
+    
+    // MARK: JSON Web Token
+    
+    func setCurrentJWT(JWT: String) {
+        UserDefaults.standard.set(JWT, forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
+        self.sendCacheFromCoreData()
+    }
+    
+    func getCurrentJWT() -> String? {
+        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
     
     // MARK: Send cache from CoreData

@@ -18,8 +18,6 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
     
     var operations = [Int: CordialURLSessionData]()
     
-    let cordialURLSessionManager = CordialURLSessionManager()
-    
     lazy var backgroundURLSession: URLSession = {
         let config = URLSessionConfiguration.background(withIdentifier: "CordialBackgroundURLSession")
         config.isDiscretionary = true
@@ -40,8 +38,11 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
         if let error = error, let operation = self.operations[task.taskIdentifier] {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
-                let inAppMessageURLSessionData = operation.taskData as! InAppMessageURLSessionData
-                self.cordialURLSessionManager.fetchInAppMessageErrorHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, error: error)
+                if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
+                    FetchInAppMessageURLSessionManager().errorHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, error: error)
+                }
+            case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
+                SDKSecurityGetJWTURLSessionManager().errorHandler(error: error)
             default: break
             }
         }
@@ -57,8 +58,11 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
         if let operation = self.operations[downloadTask.taskIdentifier] {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
-                let inAppMessageURLSessionData = operation.taskData as! InAppMessageURLSessionData
-                self.cordialURLSessionManager.fetchInAppMessageCompletionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, httpResponse: httpResponse, location: location)
+                if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
+                    FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, httpResponse: httpResponse, location: location)
+                }
+            case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
+                SDKSecurityGetJWTURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
             default: break
             }
         }

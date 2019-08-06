@@ -11,9 +11,9 @@ import Foundation
 class CordialURLSessionData {
     
     let taskName: String
-    let taskData: AnyObject
+    let taskData: AnyObject?
     
-    init(taskName: String, taskData: AnyObject) {
+    init(taskName: String, taskData: AnyObject?) {
         self.taskName = taskName
         self.taskData = taskData
     }

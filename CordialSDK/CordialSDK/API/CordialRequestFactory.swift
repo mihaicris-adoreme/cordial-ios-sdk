@@ -33,6 +33,11 @@ class CordialRequestFactory {
         let channelKey = cordialAPI.getChannelKey()
         request.setValue(channelKey, forHTTPHeaderField: "Cordial-ChannelKey")
         
+        if let JWT = InternalCordialAPI().getCurrentJWT() {
+            let authorizationBearerSchema = "Bearer " + JWT
+            request.setValue(authorizationBearerSchema, forHTTPHeaderField: "Authorization")
+        }
+        
         return request
     }
 

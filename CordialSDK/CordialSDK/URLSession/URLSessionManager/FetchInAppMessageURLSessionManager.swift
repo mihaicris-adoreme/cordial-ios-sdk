@@ -1,25 +1,31 @@
 //
-//  CordialURLSessionManager.swift
+//  FetchInAppMessageURLSessionManager.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 7/17/19.
+//  Created by Yan Malinovsky on 8/6/19.
 //  Copyright © 2019 cordial.io. All rights reserved.
 //
 
 import Foundation
 import os.log
 
-class CordialURLSessionManager {
+class FetchInAppMessageURLSessionManager {
     
     let inAppMessageGetter = InAppMessageGetter()
     
-    func fetchInAppMessageCompletionHandler(inAppMessageURLSessionData: InAppMessageURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+    func completionHandler(inAppMessageURLSessionData: InAppMessageURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
             switch httpResponse.statusCode {
             case 200:
                 break
+            case 401:
+                SDKSecurity().updateJWT()
+                
+                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
+                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                self.inAppMessageGetter.systemErrorHandler(mcID: inAppMessageURLSessionData.mcID, error: responseError)
             case 404: // tmp logic
                 let html = "<html>" +
                     "<head>" +
@@ -114,8 +120,9 @@ class CordialURLSessionManager {
         }
     }
     
-    func fetchInAppMessageErrorHandler(inAppMessageURLSessionData: InAppMessageURLSessionData, error: Error) {
+    func errorHandler(inAppMessageURLSessionData: InAppMessageURLSessionData, error: Error) {
         let responseError = ResponseError(message: error.localizedDescription, statusCode: nil, responseBody: nil, systemError: error)
         self.inAppMessageGetter.systemErrorHandler(mcID: inAppMessageURLSessionData.mcID, error: responseError)
     }
+
 }

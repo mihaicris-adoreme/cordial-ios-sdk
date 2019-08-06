@@ -33,6 +33,13 @@ class SendContactLogout {
                 case 200:
                     let result = SendContactLogoutResponse(status: .SUCCESS)
                     onSuccess(result)
+                case 401:
+                    SDKSecurity().updateJWT()
+                    
+                    let responseBody = String(decoding: responseData, as: UTF8.self)
+                    let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
+                    let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                    systemError(responseError)
                 default:
                     let responseBody = String(decoding: responseData, as: UTF8.self)
                     let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"

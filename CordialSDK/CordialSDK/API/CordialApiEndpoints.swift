@@ -35,4 +35,8 @@ class CordialApiEndpoints {
     func getInAppMessageURL(mcID: String) -> String {
         return cordialAPI.getBaseURL() + "mobile/message/\(mcID)"
     }
+    
+    func getSDKSecurityURL(secret: String) -> String {
+        return cordialAPI.getBaseURL() + "mobile/auth/\(secret)"
+    }
 }
