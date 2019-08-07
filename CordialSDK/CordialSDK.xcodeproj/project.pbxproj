@@ -27,6 +27,8 @@
 		9E44CB1D222FE28D00DADC6C /* UpsertContactRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44CB1C222FE28D00DADC6C /* UpsertContactRequest.swift */; };
 		9E45FE79225378F5006A5A6B /* CordialPushNotificationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E45FE78225378F5006A5A6B /* CordialPushNotificationDelegate.swift */; };
 		9E45FE7B22538194006A5A6B /* CordialPushNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E45FE7A22538194006A5A6B /* CordialPushNotification.swift */; };
+		9E4FA38022FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4FA37F22FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift */; };
+		9E4FA38822FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4FA38722FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift */; };
 		9E5392ED222EC50A0043F5E6 /* CordialAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5392EC222EC50A0043F5E6 /* CordialAPI.swift */; };
 		9E5392F2222EE4BA0043F5E6 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5392F1222EE4BA0043F5E6 /* API.swift */; };
 		9E5392F4222EEC920043F5E6 /* CordialRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5392F3222EEC920043F5E6 /* CordialRequestFactory.swift */; };
@@ -93,7 +95,6 @@
 		9EEC9D8022896F9900B40FFB /* UserAgentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEC9D7F22896F9900B40FFB /* UserAgentBuilder.swift */; };
 		9EEE941122E099A200A61FD3 /* InAppMessageBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */; };
 		9EEE995522412C160041D8AE /* SendCustomEventRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE995422412C160041D8AE /* SendCustomEventRequest.swift */; };
-		9EEE995722412C270041D8AE /* SendCustomEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE995622412C270041D8AE /* SendCustomEventResponse.swift */; };
 		9EFCA9DA225F8C8B005A8AC8 /* CordialApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFCA9D9225F8C8B005A8AC8 /* CordialApiEndpoints.swift */; };
 /* End PBXBuildFile section */
 
@@ -128,6 +129,8 @@
 		9E44CB1C222FE28D00DADC6C /* UpsertContactRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactRequest.swift; sourceTree = "<group>"; };
 		9E45FE78225378F5006A5A6B /* CordialPushNotificationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationDelegate.swift; sourceTree = "<group>"; };
 		9E45FE7A22538194006A5A6B /* CordialPushNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotification.swift; sourceTree = "<group>"; };
+		9E4FA37F22FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCustomEventsURLSessionManager.swift; sourceTree = "<group>"; };
+		9E4FA38722FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCustomEventsURLSessionData.swift; sourceTree = "<group>"; };
 		9E5392EC222EC50A0043F5E6 /* CordialAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialAPI.swift; sourceTree = "<group>"; };
 		9E5392F1222EE4BA0043F5E6 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9E5392F3222EEC920043F5E6 /* CordialRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialRequestFactory.swift; sourceTree = "<group>"; };
@@ -198,7 +201,6 @@
 		9EEC9D7F22896F9900B40FFB /* UserAgentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentBuilder.swift; sourceTree = "<group>"; };
 		9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageBannerView.swift; sourceTree = "<group>"; };
 		9EEE995422412C160041D8AE /* SendCustomEventRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCustomEventRequest.swift; sourceTree = "<group>"; };
-		9EEE995622412C270041D8AE /* SendCustomEventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCustomEventResponse.swift; sourceTree = "<group>"; };
 		9EFCA9D9225F8C8B005A8AC8 /* CordialApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialApiEndpoints.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -290,6 +292,24 @@
 				9E45FE7A22538194006A5A6B /* CordialPushNotification.swift */,
 			);
 			path = PushNotification;
+			sourceTree = "<group>";
+		};
+		9E4FA38522FB1D7300D630A7 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				9EE29BE522F9A8EE004DC8F9 /* URLSessionManager */,
+				9E4FA38622FB1D9300D630A7 /* URLSessionData */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		9E4FA38622FB1D9300D630A7 /* URLSessionData */ = {
+			isa = PBXGroup;
+			children = (
+				9E343A8022DF61BF000D39A3 /* InAppMessageURLSessionData.swift */,
+				9E4FA38722FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift */,
+			);
+			path = URLSessionData;
 			sourceTree = "<group>";
 		};
 		9E565B8F225B860F005EC4AF /* Helper */ = {
@@ -445,7 +465,6 @@
 				9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */,
 				9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */,
 				9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */,
-				9E343A8022DF61BF000D39A3 /* InAppMessageURLSessionData.swift */,
 				9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */,
 				9EB448B522E9B6160043C256 /* InAppMessageDisplayType.swift */,
 				9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */,
@@ -487,7 +506,7 @@
 		9EC86A5B22DDC99600ACF996 /* URLSession */ = {
 			isa = PBXGroup;
 			children = (
-				9EE29BE522F9A8EE004DC8F9 /* URLSessionManager */,
+				9E4FA38522FB1D7300D630A7 /* Helper */,
 				9EC86A5C22DDCA1A00ACF996 /* CordialURLSession.swift */,
 				9E343A7E22DF612B000D39A3 /* CordialURLSessionData.swift */,
 			);
@@ -568,6 +587,7 @@
 			children = (
 				9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */,
 				9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */,
+				9E4FA37F22FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift */,
 			);
 			path = URLSessionManager;
 			sourceTree = "<group>";
@@ -585,7 +605,6 @@
 			children = (
 				9E565B8F225B860F005EC4AF /* Helper */,
 				9EEE995422412C160041D8AE /* SendCustomEventRequest.swift */,
-				9EEE995622412C270041D8AE /* SendCustomEventResponse.swift */,
 			);
 			path = SendCustomEvent;
 			sourceTree = "<group>";
@@ -712,7 +731,6 @@
 				9E0813842274523500BD1412 /* ContactsSender.swift in Sources */,
 				9E45FE7B22538194006A5A6B /* CordialPushNotification.swift in Sources */,
 				9EB448C722E9D4960043C256 /* InAppMessagesCache+CoreDataProperties.swift in Sources */,
-				9EEE995722412C270041D8AE /* SendCustomEventResponse.swift in Sources */,
 				9E7037A2226882F4000C3582 /* UpsertContactCartRequest.swift in Sources */,
 				9E92D3D4228EF27600D8AFE0 /* SendContactLogoutResponse.swift in Sources */,
 				9EB17AC022930D7B00EEAB7D /* ContactOrderRequest+CoreDataProperties.swift in Sources */,
@@ -730,6 +748,7 @@
 				9EE29BE922F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift in Sources */,
 				9E97DEF9226F382500856341 /* SendContactOrderResponse.swift in Sources */,
 				9EB17AC322930D7B00EEAB7D /* ContactCartRequest+CoreDataClass.swift in Sources */,
+				9E4FA38822FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift in Sources */,
 				9ECA135822C39B2300DE96DF /* CordialAppDelegate.swift in Sources */,
 				9EB17ABF22930D7B00EEAB7D /* ContactOrderRequest+CoreDataClass.swift in Sources */,
 				9EBE675F22731EB70065AA06 /* CustomEventRequestsCoreData.swift in Sources */,
@@ -752,6 +771,7 @@
 				9E7037A7226885E4000C3582 /* CartItem.swift in Sources */,
 				9E3EA6272257A02400ECE52E /* CustomEventsSender.swift in Sources */,
 				9EB448B622E9B6160043C256 /* InAppMessageDisplayType.swift in Sources */,
+				9E4FA38022FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift in Sources */,
 				9EBE676322732A930065AA06 /* ContactOrderRequestsCoreData.swift in Sources */,
 				9E0813882274722000BD1412 /* ContactRequestsCoreData.swift in Sources */,
 				9E45FE79225378F5006A5A6B /* CordialPushNotificationDelegate.swift in Sources */,

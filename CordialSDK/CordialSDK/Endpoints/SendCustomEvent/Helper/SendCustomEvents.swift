@@ -10,45 +10,22 @@ import Foundation
 
 class SendCustomEvents {
     
-    func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest], onSuccess: @escaping (SendCustomEventResponse) -> Void, systemError: @escaping (ResponseError) -> Void, logicError: @escaping (ResponseError) -> Void) -> Void {
-        if let url = URL(string: CordialApiEndpoints().getEventsURL()) {
+    func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
+        
+        if let url = URL(string: CordialApiEndpoints().getCustomEventsURL()) {
             var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
             
             let sendCustomEventsJSON = self.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
             
             request.httpBody = sendCustomEventsJSON.data(using: .utf8)
             
-            URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-                guard let responseData = data, error == nil, let httpResponse = response as? HTTPURLResponse else {
-                    if let error = error {
-                        let responseError = ResponseError(message: error.localizedDescription, statusCode: nil, responseBody: nil, systemError: error)
-                        systemError(responseError)
-                    } else {
-                        let responseError = ResponseError(message: "Unexpected error.", statusCode: nil, responseBody: nil, systemError: nil)
-                        systemError(responseError)
-                    }
-                    
-                    return
-                }
-                
-                switch httpResponse.statusCode {
-                case 200:
-                    let result = SendCustomEventResponse(status: .SUCCESS)
-                    onSuccess(result)
-                case 403:
-                    SDKSecurity().updateJWT()
-                    
-                    let responseBody = String(decoding: responseData, as: UTF8.self)
-                    let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                    let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                    systemError(responseError)
-                default:
-                    let responseBody = String(decoding: responseData, as: UTF8.self)
-                    let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                    let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                    logicError(responseError)
-                }
-            }).resume()
+            let sendCustomEventsDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+            
+            let sendCustomEventsURLSessionData = SendCustomEventsURLSessionData(sendCustomEventRequests: sendCustomEventRequests)
+            let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS, taskData: sendCustomEventsURLSessionData)
+            CordialURLSession.shared.operations[sendCustomEventsDownloadTask.taskIdentifier] = cordialURLSessionData
+            
+            sendCustomEventsDownloadTask.resume()
         }
     }
     

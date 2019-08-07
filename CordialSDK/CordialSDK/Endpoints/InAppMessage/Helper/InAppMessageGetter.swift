@@ -13,11 +13,8 @@ class InAppMessageGetter {
     
     func fetchInAppMessage(mcID: String) {
         if ReachabilityManager.shared.isConnectedToInternet {
-            let inAppMessage = InAppMessage()
-            
             os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
-            
-            inAppMessage.getInAppMessage(mcID: mcID)
+            InAppMessage().getInAppMessage(mcID: mcID)
         } else {
             CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
             os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialInAppMessage, type: .info)

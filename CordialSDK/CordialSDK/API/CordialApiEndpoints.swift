@@ -12,7 +12,7 @@ class CordialApiEndpoints {
     
     let cordialAPI = CordialAPI()
     
-    func getEventsURL() -> String {
+    func getCustomEventsURL() -> String {
         let baseURL = cordialAPI.getBaseURL()
         
         return "\(baseURL)mobile/events"

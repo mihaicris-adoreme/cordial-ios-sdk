@@ -43,6 +43,10 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 }
             case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
                 SDKSecurityGetJWTURLSessionManager().errorHandler(error: error)
+            case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
+                if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData {
+                    SendCustomEventsURLSessionManager().errorHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, error: error)
+                }
             default: break
             }
         }
@@ -63,6 +67,10 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 }
             case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
                 SDKSecurityGetJWTURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
+            case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
+                if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData {
+                    SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, httpResponse: httpResponse, location: location)
+                }
             default: break
             }
         }
