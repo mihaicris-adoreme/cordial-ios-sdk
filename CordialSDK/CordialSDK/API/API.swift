@@ -46,7 +46,9 @@ struct API {
             stringDictionaryContainer.append("\"\(key)\": \"\(value)\"")
         }
         
-        return "{ " + stringDictionaryContainer.joined(separator: ", ") + " }"
+        let stringContainer = stringDictionaryContainer.joined(separator: ", ")
+        
+        return "{ \(stringContainer) }"
     }
     
     static func getStringArrayJSON(stringArray: [String]) -> String {
@@ -55,6 +57,8 @@ struct API {
             stringArrayContainer.append(image)
         })
         
-        return "[ " + stringArrayContainer.joined(separator: ", ") + " ]"
+        let stringContainer = stringArrayContainer.joined(separator: ", ")
+        
+        return "[ \(stringContainer) ]"
     }
 }

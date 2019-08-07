@@ -46,7 +46,7 @@ class UpsertContacts {
                     InternalCordialAPI().sendCacheFromCoreData()
                     
                     onSuccess(result)
-                case 401:
+                case 403:
                     SDKSecurity().updateJWT()
 
                     let responseBody = String(decoding: responseData, as: UTF8.self)
@@ -73,7 +73,9 @@ class UpsertContacts {
             upsertContactsArrayJSON.append(upsertContactJSON)
         }
         
-        let upsertContactsJSON = "[ " + upsertContactsArrayJSON.joined(separator: ", ") + " ]"
+        let upsertContactsStringJSON = upsertContactsArrayJSON.joined(separator: ", ")
+        
+        let upsertContactsJSON = "[ \(upsertContactsStringJSON) ]"
         
         return upsertContactsJSON
     }
@@ -101,7 +103,9 @@ class UpsertContacts {
             rootContainer.append("\"attributes\": \(API.getDictionaryJSON(stringDictionary: attributes))")
         }
         
-        let upsertContactJSON = "{ " + rootContainer.joined(separator: ", ") + " }"
+        let rootContainerString = rootContainer.joined(separator: ", ")
+        
+        let upsertContactJSON = "{ \(rootContainerString) }"
         
         return upsertContactJSON
     }

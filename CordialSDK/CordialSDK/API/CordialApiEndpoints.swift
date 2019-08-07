@@ -13,30 +13,44 @@ class CordialApiEndpoints {
     let cordialAPI = CordialAPI()
     
     func getEventsURL() -> String {
-        return cordialAPI.getBaseURL() + "mobile/events"
+        let baseURL = cordialAPI.getBaseURL()
+        
+        return "\(baseURL)mobile/events"
     }
     
     func getContactsURL() -> String {
-        return cordialAPI.getBaseURL() + "mobile/contacts"
+        let baseURL = cordialAPI.getBaseURL()
+        
+        return "\(baseURL)mobile/contacts"
     }
     
     func getContactLogoutURL() -> String {
-        return cordialAPI.getBaseURL() + "mobile/contact/logout"
+        let baseURL = cordialAPI.getBaseURL()
+        
+        return "\(baseURL)mobile/contact/logout"
     }
     
     func getСontactСartURL() -> String {
-        return cordialAPI.getBaseURL() + "mobile/contact/cart"
+        let baseURL = cordialAPI.getBaseURL()
+        
+        return "\(baseURL)mobile/contact/cart"
     }
     
     func getOrdersURL() -> String {
-        return cordialAPI.getBaseURL() + "mobile/orders"
+        let baseURL = cordialAPI.getBaseURL()
+        
+        return "\(baseURL)mobile/orders"
     }
     
     func getInAppMessageURL(mcID: String) -> String {
-        return cordialAPI.getBaseURL() + "mobile/message/\(mcID)"
+        let baseURL = cordialAPI.getBaseURL()
+        
+        return "\(baseURL)mobile/message/\(mcID)"
     }
     
     func getSDKSecurityURL(secret: String) -> String {
-        return cordialAPI.getBaseURL() + "mobile/auth/\(secret)"
+        let baseURL = cordialAPI.getBaseURL()
+        
+        return "\(baseURL)mobile/auth/\(secret)"
     }
 }

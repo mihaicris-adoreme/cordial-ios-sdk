@@ -34,7 +34,7 @@ class UpsertContactCart {
                 case 200:
                     let result = UpsertContactCartResponse(status: .SUCCESS)
                     onSuccess(result)
-                case 401:
+                case 403:
                     SDKSecurity().updateJWT()
                     
                     let responseBody = String(decoding: responseData, as: UTF8.self)
@@ -63,7 +63,9 @@ class UpsertContactCart {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         
-        let upsertContactCartJSON = "[ { " + rootContainer.joined(separator: ", ") + " } ]"
+        let rootContainerString = rootContainer.joined(separator: ", ")
+        
+        let upsertContactCartJSON = "[ { \(rootContainerString) } ]"
         
         return upsertContactCartJSON
     }
@@ -116,11 +118,16 @@ class UpsertContactCart {
                 cartItemContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
             }
             
-            cartItemJSON = "{ " + cartItemContainer.joined(separator: ", ") + " }"
+            let cartItemContainerString = cartItemContainer.joined(separator: ", ")
+            
+            cartItemJSON = "{ \(cartItemContainerString) }"
             
             cartItemsContainer.append(cartItemJSON)
         })
-        cartItemsJSON = "[ " + cartItemsContainer.joined(separator: ", ") + " ]"
+        
+        let cartItemsContainerString = cartItemsContainer.joined(separator: ", ")
+        
+        cartItemsJSON = "[ \(cartItemsContainerString) ]"
         
         return cartItemsJSON
     }

@@ -34,7 +34,7 @@ class SendContactOrders {
                 case 200:
                     let result = SendContactOrderResponse(status: .SUCCESS)
                     onSuccess(result)
-                case 401:
+                case 403:
                     SDKSecurity().updateJWT()
                     
                     let responseBody = String(decoding: responseData, as: UTF8.self)
@@ -66,12 +66,16 @@ class SendContactOrders {
                 rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
             }
             
-            let stringJSON = "{ " + rootContainer.joined(separator: ", ") + " }"
+            let rootContainerString = rootContainer.joined(separator: ", ")
+            
+            let stringJSON = "{ \(rootContainerString) }"
             
             sendContactOrdersArrayJSON.append(stringJSON)
         }
         
-        let sendContactOrderJSON = "[ " + sendContactOrdersArrayJSON.joined(separator: ", ") + " ]"
+        let sendContactOrdersStringJSON = sendContactOrdersArrayJSON.joined(separator: ", ")
+        
+        let sendContactOrderJSON = "[ \(sendContactOrdersStringJSON) ]"
         
         return sendContactOrderJSON
     }
@@ -101,7 +105,9 @@ class SendContactOrders {
             orderContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
         }
         
-        return "{ " + orderContainer.joined(separator: ", ") + " }"
+        let orderContainerString = orderContainer.joined(separator: ", ")
+        
+        return "{ \(orderContainerString) }"
     }
     
     private func getAddressJSON(address: Address) -> String {
@@ -114,7 +120,9 @@ class SendContactOrders {
             "\"country\": \"\(address.country)\""
         ]
         
-        return "{ " + addressContainer.joined(separator: ", ") + " }"
+        let addressContainerString = addressContainer.joined(separator: ", ")
+        
+        return "{ \(addressContainerString) }"
     }
     
 }

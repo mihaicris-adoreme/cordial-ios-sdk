@@ -35,7 +35,7 @@ class SendCustomEvents {
                 case 200:
                     let result = SendCustomEventResponse(status: .SUCCESS)
                     onSuccess(result)
-                case 401:
+                case 403:
                     SDKSecurity().updateJWT()
                     
                     let responseBody = String(decoding: responseData, as: UTF8.self)
@@ -83,12 +83,16 @@ class SendCustomEvents {
                 rootContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
             }
             
-            let stringJSON = "{ " + rootContainer.joined(separator: ", ") + " }"
+            let rootContainerString = rootContainer.joined(separator: ", ")
+            
+            let stringJSON = "{ \(rootContainerString) }"
             
             sendCustomEventsArrayJSON.append(stringJSON)
         }
         
-        let sendCustomEventsJSON = "[ " + sendCustomEventsArrayJSON.joined(separator: ", ") + " ]"
+        let sendCustomEventsStringJSON = sendCustomEventsArrayJSON.joined(separator: ", ")
+        
+        let sendCustomEventsJSON = "[ \(sendCustomEventsStringJSON) ]"
         
         return sendCustomEventsJSON
     }

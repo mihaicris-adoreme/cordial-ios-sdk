@@ -57,7 +57,7 @@ import os.log
     
     @objc public func setBaseURL(baseURL: String) {
         if baseURL.last != "/" {
-            UserDefaults.standard.set(baseURL + "/", forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
+            UserDefaults.standard.set("\(baseURL)/", forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
         } else {
             UserDefaults.standard.set(baseURL, forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
         }

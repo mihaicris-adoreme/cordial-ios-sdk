@@ -33,7 +33,7 @@ class SendContactLogout {
                 case 200:
                     let result = SendContactLogoutResponse(status: .SUCCESS)
                     onSuccess(result)
-                case 401:
+                case 403:
                     SDKSecurity().updateJWT()
                     
                     let responseBody = String(decoding: responseData, as: UTF8.self)
@@ -56,7 +56,9 @@ class SendContactLogout {
             "\"primaryKey\": \"\(sendContactLogoutRequest.primaryKey)\""
         ]
         
-        let sendContactLogoutJSON = "{ " + rootContainer.joined(separator: ", ") + " }"
+        let rootContainerString = rootContainer.joined(separator: ", ")
+        
+        let sendContactLogoutJSON = "{ \(rootContainerString) }"
         
         return sendContactLogoutJSON
     }
