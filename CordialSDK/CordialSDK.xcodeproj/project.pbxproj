@@ -33,6 +33,8 @@
 		9E5147AC22FC358E00977278 /* UpsertContactsURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5147AB22FC358E00977278 /* UpsertContactsURLSessionManager.swift */; };
 		9E5147C822FC4D9B00977278 /* SendContactLogoutURLSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5147C722FC4D9B00977278 /* SendContactLogoutURLSessionData.swift */; };
 		9E5147CA22FC4DFD00977278 /* SendContactLogoutURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5147C922FC4DFD00977278 /* SendContactLogoutURLSessionManager.swift */; };
+		9E5147E622FC5DA000977278 /* UpsertContactCartURLSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5147E522FC5DA000977278 /* UpsertContactCartURLSessionData.swift */; };
+		9E5147E822FC5DCB00977278 /* UpsertContactCartURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5147E722FC5DCB00977278 /* UpsertContactCartURLSessionManager.swift */; };
 		9E5392ED222EC50A0043F5E6 /* CordialAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5392EC222EC50A0043F5E6 /* CordialAPI.swift */; };
 		9E5392F2222EE4BA0043F5E6 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5392F1222EE4BA0043F5E6 /* API.swift */; };
 		9E5392F4222EEC920043F5E6 /* CordialRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5392F3222EEC920043F5E6 /* CordialRequestFactory.swift */; };
@@ -43,7 +45,6 @@
 		9E565BA0225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E565B9D225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld */; };
 		9E57744F229C1A9600869F02 /* CordialOpenOptionsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E57744E229C1A9600869F02 /* CordialOpenOptionsDelegate.swift */; };
 		9E7037A2226882F4000C3582 /* UpsertContactCartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A1226882F4000C3582 /* UpsertContactCartRequest.swift */; };
-		9E7037A422688304000C3582 /* UpsertContactCartResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A322688304000C3582 /* UpsertContactCartResponse.swift */; };
 		9E7037A7226885E4000C3582 /* CartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A6226885E4000C3582 /* CartItem.swift */; };
 		9E7037A922688EC9000C3582 /* UpsertContactCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A822688EC9000C3582 /* UpsertContactCart.swift */; };
 		9E7A5A49222EB54E0020054F /* CordialSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E7A5A3F222EB54D0020054F /* CordialSDK.framework */; };
@@ -137,6 +138,8 @@
 		9E5147AB22FC358E00977278 /* UpsertContactsURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactsURLSessionManager.swift; sourceTree = "<group>"; };
 		9E5147C722FC4D9B00977278 /* SendContactLogoutURLSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogoutURLSessionData.swift; sourceTree = "<group>"; };
 		9E5147C922FC4DFD00977278 /* SendContactLogoutURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogoutURLSessionManager.swift; sourceTree = "<group>"; };
+		9E5147E522FC5DA000977278 /* UpsertContactCartURLSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactCartURLSessionData.swift; sourceTree = "<group>"; };
+		9E5147E722FC5DCB00977278 /* UpsertContactCartURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactCartURLSessionManager.swift; sourceTree = "<group>"; };
 		9E5392EC222EC50A0043F5E6 /* CordialAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialAPI.swift; sourceTree = "<group>"; };
 		9E5392F1222EE4BA0043F5E6 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9E5392F3222EEC920043F5E6 /* CordialRequestFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialRequestFactory.swift; sourceTree = "<group>"; };
@@ -148,7 +151,6 @@
 		9E565B9F225BD1A4005EC4AF /* CordialCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CordialCoreData.xcdatamodel; sourceTree = "<group>"; };
 		9E57744E229C1A9600869F02 /* CordialOpenOptionsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialOpenOptionsDelegate.swift; sourceTree = "<group>"; };
 		9E7037A1226882F4000C3582 /* UpsertContactCartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactCartRequest.swift; sourceTree = "<group>"; };
-		9E7037A322688304000C3582 /* UpsertContactCartResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactCartResponse.swift; sourceTree = "<group>"; };
 		9E7037A6226885E4000C3582 /* CartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
 		9E7037A822688EC9000C3582 /* UpsertContactCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactCart.swift; sourceTree = "<group>"; };
 		9E7A5A3F222EB54D0020054F /* CordialSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CordialSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -313,6 +315,7 @@
 				9E4FA38722FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift */,
 				9E5147A922FC264D00977278 /* UpsertContactsURLSessionData.swift */,
 				9E5147C722FC4D9B00977278 /* SendContactLogoutURLSessionData.swift */,
+				9E5147E522FC5DA000977278 /* UpsertContactCartURLSessionData.swift */,
 			);
 			path = URLSessionData;
 			sourceTree = "<group>";
@@ -342,7 +345,6 @@
 			children = (
 				9E7037A5226885CD000C3582 /* Helper */,
 				9E7037A1226882F4000C3582 /* UpsertContactCartRequest.swift */,
-				9E7037A322688304000C3582 /* UpsertContactCartResponse.swift */,
 			);
 			path = UpsertContactCart;
 			sourceTree = "<group>";
@@ -594,6 +596,7 @@
 				9E4FA37F22FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift */,
 				9E5147AB22FC358E00977278 /* UpsertContactsURLSessionManager.swift */,
 				9E5147C922FC4DFD00977278 /* SendContactLogoutURLSessionManager.swift */,
+				9E5147E722FC5DCB00977278 /* UpsertContactCartURLSessionManager.swift */,
 			);
 			path = URLSessionManager;
 			sourceTree = "<group>";
@@ -739,6 +742,7 @@
 				9E5147C822FC4D9B00977278 /* SendContactLogoutURLSessionData.swift in Sources */,
 				9EB448C722E9D4960043C256 /* InAppMessagesCache+CoreDataProperties.swift in Sources */,
 				9E7037A2226882F4000C3582 /* UpsertContactCartRequest.swift in Sources */,
+				9E5147E822FC5DCB00977278 /* UpsertContactCartURLSessionManager.swift in Sources */,
 				9EB17AC022930D7B00EEAB7D /* ContactOrderRequest+CoreDataProperties.swift in Sources */,
 				9ED621DB22CE017E00A55DB2 /* InAppMessagesCacheCoreData.swift in Sources */,
 				9EA31A302292D5E80037B786 /* ContactLogoutRequestCoreData.swift in Sources */,
@@ -786,7 +790,6 @@
 				9E189E0722CB7D790031C427 /* InAppMessageProcess.swift in Sources */,
 				9EBEA126225CDCD000F001FE /* OSLogManager.swift in Sources */,
 				9E806DAE2271EA8D00A15F8E /* ContactCartSender.swift in Sources */,
-				9E7037A422688304000C3582 /* UpsertContactCartResponse.swift in Sources */,
 				9E5392ED222EC50A0043F5E6 /* CordialAPI.swift in Sources */,
 				9EC9F80E2243BC8E00D7E3C5 /* ResponseError.swift in Sources */,
 				9EB448C622E9D4960043C256 /* InAppMessagesCache+CoreDataClass.swift in Sources */,
@@ -801,6 +804,7 @@
 				9E5147AA22FC264D00977278 /* UpsertContactsURLSessionData.swift in Sources */,
 				9EB17AC422930D7B00EEAB7D /* ContactCartRequest+CoreDataProperties.swift in Sources */,
 				9EEE941122E099A200A61FD3 /* InAppMessageBannerView.swift in Sources */,
+				9E5147E622FC5DA000977278 /* UpsertContactCartURLSessionData.swift in Sources */,
 				9E343A7F22DF612B000D39A3 /* CordialURLSessionData.swift in Sources */,
 				9E92D3D7228F01CA00D8AFE0 /* ContactLogoutSender.swift in Sources */,
 				9E05637A22DC9AC000EECADD /* InternalCordialAPI.swift in Sources */,
