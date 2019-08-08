@@ -34,7 +34,7 @@ class UpsertContactCart {
                 case 200:
                     let result = UpsertContactCartResponse(status: .SUCCESS)
                     onSuccess(result)
-                case 403:
+                case 401:
                     SDKSecurity().updateJWT()
                     
                     let responseBody = String(decoding: responseData, as: UTF8.self)

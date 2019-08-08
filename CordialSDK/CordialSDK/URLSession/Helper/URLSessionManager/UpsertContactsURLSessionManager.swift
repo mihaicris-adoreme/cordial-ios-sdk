@@ -20,7 +20,7 @@ class UpsertContactsURLSessionManager {
             switch httpResponse.statusCode {
             case 200:
                 self.contactsSender.completionHandler(upsertContactRequests: upsertContactsURLSessionData.upsertContactRequests)
-            case 403:
+            case 401:
                 SDKSecurity().updateJWT()
                 
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"

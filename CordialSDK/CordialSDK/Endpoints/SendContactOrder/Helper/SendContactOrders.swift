@@ -34,7 +34,7 @@ class SendContactOrders {
                 case 200:
                     let result = SendContactOrderResponse(status: .SUCCESS)
                     onSuccess(result)
-                case 403:
+                case 401:
                     SDKSecurity().updateJWT()
                     
                     let responseBody = String(decoding: responseData, as: UTF8.self)

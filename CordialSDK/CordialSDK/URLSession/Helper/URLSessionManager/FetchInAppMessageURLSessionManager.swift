@@ -20,7 +20,7 @@ class FetchInAppMessageURLSessionManager {
             switch httpResponse.statusCode {
             case 200:
                 break
-            case 403:
+            case 401:
                 SDKSecurity().updateJWT()
                 
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"

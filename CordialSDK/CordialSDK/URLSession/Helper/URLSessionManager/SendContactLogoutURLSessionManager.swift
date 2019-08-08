@@ -20,7 +20,7 @@ class SendContactLogoutURLSessionManager {
             switch httpResponse.statusCode {
             case 200:
                 contactLogoutSender.completionHandler(sendContactLogoutRequest: sendContactLogoutURLSessionData.sendContactLogoutRequest)
-            case 403:
+            case 401:
                 SDKSecurity().updateJWT()
                 
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
