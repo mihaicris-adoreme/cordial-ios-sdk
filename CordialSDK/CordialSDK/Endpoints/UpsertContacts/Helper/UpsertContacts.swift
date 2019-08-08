@@ -10,56 +10,22 @@ import Foundation
 
 class UpsertContacts {
     
-    func upsertContacts(upsertContactRequests: [UpsertContactRequest], onSuccess: @escaping (UpsertContactResponse) -> Void, systemError: @escaping (ResponseError) -> Void, logicError: @escaping (ResponseError) -> Void) -> Void {
+    func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
     
         if let url = URL(string: CordialApiEndpoints().getContactsURL()) {
-            
             var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
             
             let upsertContactRequestsJSON = self.getUpsertContactRequestsJSON(upsertContactRequests: upsertContactRequests)
             
             request.httpBody = upsertContactRequestsJSON.data(using: .utf8)
             
-            URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-                guard let responseData = data, error == nil, let httpResponse = response as? HTTPURLResponse else {
-                    if let error = error {
-                        let responseError = ResponseError(message: error.localizedDescription, statusCode: nil, responseBody: nil, systemError: error)
-                        systemError(responseError)
-                    } else {
-                        let responseError = ResponseError(message: "Unexpected error.", statusCode: nil, responseBody: nil, systemError: nil)
-                        systemError(responseError)
-                    }
-                    
-                    return
-                }
-                
-                switch httpResponse.statusCode {
-                case 200:
-                    upsertContactRequests.forEach({ upsertContactRequest in
-                        if let primaryKey = upsertContactRequest.primaryKey {
-                            UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
-                        }
-                    })
-                    
-                    let result = UpsertContactResponse(status: .SUCCESS)
-                    
-                    InternalCordialAPI().sendCacheFromCoreData()
-                    
-                    onSuccess(result)
-                case 403:
-                    SDKSecurity().updateJWT()
-
-                    let responseBody = String(decoding: responseData, as: UTF8.self)
-                    let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                    let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                    systemError(responseError)
-                default:
-                    let responseBody = String(decoding: responseData, as: UTF8.self)
-                    let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                    let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                    logicError(responseError)
-                }
-            }).resume()
+            let upsertContactsDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+            
+            let upsertContactsURLSessionData = UpsertContactsURLSessionData(upsertContactRequests: upsertContactRequests)
+            let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS, taskData: upsertContactsURLSessionData)
+            CordialURLSession.shared.operations[upsertContactsDownloadTask.taskIdentifier] = cordialURLSessionData
+            
+            upsertContactsDownloadTask.resume()
         }
     }
     
@@ -80,7 +46,7 @@ class UpsertContacts {
         return upsertContactsJSON
     }
     
-    internal func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest) -> String {
+    func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest) -> String {
         
         var rootContainer  = [
             "\"deviceId\": \"\(upsertContactRequest.deviceID)\"",

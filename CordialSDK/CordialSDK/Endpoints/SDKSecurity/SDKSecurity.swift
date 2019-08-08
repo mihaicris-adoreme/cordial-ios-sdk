@@ -41,11 +41,11 @@ class SDKSecurity {
         return CordialApiEndpoints().getSDKSecurityURL(secret: secret)
     }
 
-    func onSuccess(JWT: String) {
+    func completionHandler(JWT: String) {
         InternalCordialAPI().setCurrentJWT(JWT: JWT)
     }
     
-    func onError(error: ResponseError) {
+    func errorHandler(error: ResponseError) {
         os_log("Getting JWT failed. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .info, error.message)
     }
 }

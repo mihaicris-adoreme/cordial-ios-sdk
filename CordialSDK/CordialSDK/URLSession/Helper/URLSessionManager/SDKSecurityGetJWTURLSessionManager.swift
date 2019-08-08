@@ -22,17 +22,17 @@ class SDKSecurityGetJWTURLSessionManager {
                 if let responseBodyData = responseBody.data(using: .utf8) {
                     let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as! [String: AnyObject]
                     if let JWT = responseBodyJSON["token"] as? String {
-                        sdkSecurity.onSuccess(JWT: JWT)
+                        self.sdkSecurity.completionHandler(JWT: JWT)
                     } else {
                         let message = "JWT is absent."
                         let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                        sdkSecurity.onError(error: responseError)
+                        self.sdkSecurity.errorHandler(error: responseError)
                     }
                 }
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                sdkSecurity.onError(error: responseError)
+                self.sdkSecurity.errorHandler(error: responseError)
             }
         } catch {
             os_log("Failed decode response data.", log: OSLog.cordialSDKSecurity, type: .error)
@@ -41,6 +41,6 @@ class SDKSecurityGetJWTURLSessionManager {
     
     func errorHandler(error: Error) {
         let responseError = ResponseError(message: error.localizedDescription, statusCode: nil, responseBody: nil, systemError: error)
-        sdkSecurity.onError(error: responseError)
+        self.sdkSecurity.errorHandler(error: responseError)
     }
 }
