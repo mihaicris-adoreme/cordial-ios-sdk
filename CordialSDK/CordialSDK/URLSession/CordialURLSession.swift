@@ -59,6 +59,10 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 if let upsertContactCartURLSessionData = operation.taskData as? UpsertContactCartURLSessionData {
                     UpsertContactCartURLSessionManager().errorHandler(upsertContactCartURLSessionData: upsertContactCartURLSessionData, error: error)
                 }
+            case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS:
+                if let sendContactOrdersURLSessionData = operation.taskData as? SendContactOrdersURLSessionData {
+                    SendContactOrdersURLSessionManager().errorHandler(sendContactOrdersURLSessionData: sendContactOrdersURLSessionData, error: error)
+                }
             default: break
             }
         }
@@ -94,6 +98,10 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
             case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART:
                 if let upsertContactCartURLSessionData = operation.taskData as? UpsertContactCartURLSessionData {
                     UpsertContactCartURLSessionManager().completionHandler(upsertContactCartURLSessionData: upsertContactCartURLSessionData, httpResponse: httpResponse, location: location)
+                }
+            case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS:
+                if let sendContactOrdersURLSessionData = operation.taskData as? SendContactOrdersURLSessionData {
+                    SendContactOrdersURLSessionManager().completionHandler(sendContactOrdersURLSessionData: sendContactOrdersURLSessionData, httpResponse: httpResponse, location: location)
                 }
             default: break
             }
