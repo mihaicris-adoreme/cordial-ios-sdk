@@ -51,6 +51,10 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 if let upsertContactsURLSessionData = operation.taskData as? UpsertContactsURLSessionData {
                     UpsertContactsURLSessionManager().errorHandler(upsertContactsURLSessionData: upsertContactsURLSessionData, error: error)
                 }
+            case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT:
+                if let sendContactLogoutURLSessionData = operation.taskData as? SendContactLogoutURLSessionData {
+                    SendContactLogoutURLSessionManager().errorHandler(sendContactLogoutURLSessionData: sendContactLogoutURLSessionData, error: error)
+                }
             default: break
             }
         }
@@ -78,6 +82,10 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
             case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS:
                 if let upsertContactsURLSessionData = operation.taskData as? UpsertContactsURLSessionData {
                     UpsertContactsURLSessionManager().completionHandler(upsertContactsURLSessionData: upsertContactsURLSessionData, httpResponse: httpResponse, location: location)
+                }
+            case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT:
+                if let sendContactLogoutURLSessionData = operation.taskData as? SendContactLogoutURLSessionData {
+                    SendContactLogoutURLSessionManager().completionHandler(sendContactLogoutURLSessionData: sendContactLogoutURLSessionData, httpResponse: httpResponse, location: location)
                 }
             default: break
             }
