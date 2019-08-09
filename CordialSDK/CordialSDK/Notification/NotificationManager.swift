@@ -58,21 +58,23 @@ class NotificationManager {
     }
     
     private func prepareCurrentSubscribeStatus() {
-        let current = UNUserNotificationCenter.current()
-        
-        current.getNotificationSettings(completionHandler: { (settings) in
-            if settings.authorizationStatus == .authorized {
-                if API.PUSH_NOTIFICATION_STATUS_ALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                    let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_ALLOW)
-                    CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+        DispatchQueue.main.async {
+            let current = UNUserNotificationCenter.current()
+            
+            current.getNotificationSettings(completionHandler: { (settings) in
+                if settings.authorizationStatus == .authorized {
+                    if API.PUSH_NOTIFICATION_STATUS_ALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                        let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_ALLOW)
+                        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+                    }
+                } else {
+                    if API.PUSH_NOTIFICATION_STATUS_DISALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                        let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_DISALLOW)
+                        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+                    }
                 }
-            } else {
-                if API.PUSH_NOTIFICATION_STATUS_DISALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                    let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_DISALLOW)
-                    CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
-                }
-            }
-        })
+            })
+        }
     }
     
     @objc func handleAppDidFinishLaunchingNotification(notification: NSNotification) {
