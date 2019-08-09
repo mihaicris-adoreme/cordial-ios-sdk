@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import UserNotifications
 import CoreLocation
 
 @objc public class CordialApiConfiguration: NSObject {
@@ -16,6 +15,7 @@ import CoreLocation
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
+    let initNotificationManager = NotificationManager.shared
     
     @objc public var qtyCachedEventQueue = 1000
     
@@ -40,25 +40,8 @@ import CoreLocation
         
 //        CoreDataManager.shared.deleteAllCoreData()
         
-        self.prepareDeviceIdentifier()
+        InternalCordialAPI().prepareDeviceIdentifier()
         
-        let firstLaunch = CordialFirstLaunch(userDefaults: .standard, key: API.USER_DEFAULTS_KEY_FOR_FIRST_LAUNCH)
-        if firstLaunch.isFirstLaunch {
-            let eventName = API.EVENT_NAME_FIRST_LAUNCH
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-            CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-        }
-        
-        let notificationCenter = NotificationCenter.default
-        
-        notificationCenter.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-        
-        notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
-        
-        notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(handleAppDidFinishLaunchingNotification), name: UIApplication.didFinishLaunchingNotification, object: nil)
     }
     
     @objc public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance, untilTraveled: CLLocationDistance, timeout: TimeInterval) {
@@ -70,54 +53,4 @@ import CoreLocation
         CordialLocationManager.shared.locationManager.requestWhenInUseAuthorization()
     }
     
-    func prepareDeviceIdentifier() {
-        if let deviceID = UIDevice.current.identifierForVendor?.uuidString {
-            UserDefaults.standard.set(deviceID, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
-        } else {
-            UserDefaults.standard.set(UUID().uuidString, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
-        }
-    }
-    
-    @objc func appMovedToBackground() {
-        let eventName = API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-        CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-    }
-    
-    @objc func appMovedFromBackground() {
-        let eventName = API.EVENT_NAME_APP_MOVED_FROM_BACKGROUND
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-        CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-        
-        self.prepareCurrentSubscribeStatus()
-        
-        InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
-        InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
-    }
-    
-    private func prepareCurrentSubscribeStatus() {
-        let current = UNUserNotificationCenter.current()
-        
-        current.getNotificationSettings(completionHandler: { (settings) in
-            if settings.authorizationStatus == .authorized {
-                if API.PUSH_NOTIFICATION_STATUS_ALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                    let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_ALLOW)
-                    CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
-                }
-            } else {
-                if API.PUSH_NOTIFICATION_STATUS_DISALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                    let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_DISALLOW)
-                    CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
-                }
-            }
-        })
-    }
-    
-    @objc func handleAppDidFinishLaunchingNotification(notification: NSNotification) {
-        // This code will be called immediately after application:didFinishLaunchingWithOptions:
-        
-        self.cordialSwizzler.swizzleAppDelegateMethods()
-        
-        self.cordialPushNotification.getNotificationSettings()
-    }
 }

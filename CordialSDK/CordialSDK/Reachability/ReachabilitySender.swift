@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 class ReachabilitySender {
     
     static let shared = ReachabilitySender()
@@ -16,10 +17,14 @@ class ReachabilitySender {
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.removeObserver(self, name: .connectedToInternet, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(sendCacheFromCoreData), name: .connectedToInternet, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(makeAllNeededHTTPCalls), name: .connectedToInternet, object: nil)
     }
     
-    @objc private func sendCacheFromCoreData() {
-        InternalCordialAPI().sendCacheFromCoreData()
+    @objc private func makeAllNeededHTTPCalls() {
+        let internalCordialAPI = InternalCordialAPI()
+        
+        internalCordialAPI.sendFirstLaunchCustomEvent()
+        internalCordialAPI.sendCacheFromCoreData()
     }
+    
 }

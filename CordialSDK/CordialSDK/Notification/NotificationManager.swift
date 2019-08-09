@@ -1,5 +1,5 @@
 //
-//  Notification.swift
+//  NotificationManager.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 4/9/19.
@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 public extension Notification.Name {
     
@@ -20,4 +21,66 @@ public extension Notification.Name {
     static let cordialSendContactLogoutLogicError = Notification.Name("CordialSendContactLogoutLogicError")
     static let cordialInAppMessageLogicError = Notification.Name("CordialInAppMessageLogicErrorr")
     
+}
+
+class NotificationManager {
+    
+    static let shared = NotificationManager()
+
+    private init() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        
+        notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+        notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(handleAppDidFinishLaunchingNotification), name: UIApplication.didFinishLaunchingNotification, object: nil)
+    }
+    
+    @objc func appMovedToBackground() {
+        let eventName = API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+        CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+    }
+    
+    @objc func appMovedFromBackground() {
+        let eventName = API.EVENT_NAME_APP_MOVED_FROM_BACKGROUND
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+        CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        
+        self.prepareCurrentSubscribeStatus()
+        
+        InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
+        InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
+    }
+    
+    private func prepareCurrentSubscribeStatus() {
+        let current = UNUserNotificationCenter.current()
+        
+        current.getNotificationSettings(completionHandler: { (settings) in
+            if settings.authorizationStatus == .authorized {
+                if API.PUSH_NOTIFICATION_STATUS_ALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_ALLOW)
+                    CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+                }
+            } else {
+                if API.PUSH_NOTIFICATION_STATUS_DISALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_DISALLOW)
+                    CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+                }
+            }
+        })
+    }
+    
+    @objc func handleAppDidFinishLaunchingNotification(notification: NSNotification) {
+        // This code will be called immediately after application:didFinishLaunchingWithOptions:
+        
+        CordialApiConfiguration.shared.cordialSwizzler.swizzleAppDelegateMethods()
+        
+        CordialApiConfiguration.shared.cordialPushNotification.getNotificationSettings()
+    }
+
 }

@@ -101,4 +101,24 @@ class InternalCordialAPI {
         return nil
     }
 
+    // MARK: Send first launch custom event
+    
+    func sendFirstLaunchCustomEvent() {
+        let firstLaunch = CordialFirstLaunch(userDefaults: .standard, key: API.USER_DEFAULTS_KEY_FOR_FIRST_LAUNCH)
+        if firstLaunch.isFirstLaunch {
+            let eventName = API.EVENT_NAME_FIRST_LAUNCH
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+            CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        }
+    }
+    
+    // MARK: Prepare device identifier
+    
+    func prepareDeviceIdentifier() {
+        if let deviceID = UIDevice.current.identifierForVendor?.uuidString {
+            UserDefaults.standard.set(deviceID, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
+        } else {
+            UserDefaults.standard.set(UUID().uuidString, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
+        }
+    }
 }
