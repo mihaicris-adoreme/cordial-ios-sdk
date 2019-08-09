@@ -15,6 +15,7 @@ class ContactsSender {
     
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
         
+        // Remove all cache data if had exist previously primary key equal to current setting primary key
         if let previousPrimaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY) {
             upsertContactRequests.forEach { upsertContactRequest in
                 if upsertContactRequest.primaryKey != previousPrimaryKey {

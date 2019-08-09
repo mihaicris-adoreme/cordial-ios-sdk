@@ -12,19 +12,8 @@ import os.log
 class ContactCartSender {
     
     func upsertContactCart(upsertContactCartRequest: UpsertContactCartRequest) {
-        if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
-            let upsertContactCart = UpsertContactCart()
-            
-            os_log("Sending contact cart. Device ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
-            
-            if InternalCordialAPI().getCurrentJWT() != nil {
-                upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
-            } else {
-                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                self.systemErrorHandler(upsertContactCartRequest: upsertContactCartRequest, error: responseError)
-                
-                SDKSecurity().updateJWT()
-            }
+        if ReachabilityManager.shared.isConnectedToInternet {
+            self.upsertContactCartIfUserLoggedIn(upsertContactCartRequest: upsertContactCartRequest)
         } else {
             CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
             os_log("Sending contact cart failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialUpsertContactCart, type: .info)
@@ -43,5 +32,25 @@ class ContactCartSender {
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialUpsertContactCartLogicError, object: error)
         os_log("Sending contact cart failed. Will not retry. For viewing exact error see .cordialUpsertContactCartLogicError notification in notification center.", log: OSLog.cordialUpsertContactCart, type: .info)
+    }
+    
+    private func upsertContactCartIfUserLoggedIn(upsertContactCartRequest: UpsertContactCartRequest) {
+        if CordialAPI().getContactPrimaryKey() != nil {
+            let upsertContactCart = UpsertContactCart()
+            
+            os_log("Sending contact cart. Device ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
+            
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(upsertContactCartRequest: upsertContactCartRequest, error: responseError)
+                
+                SDKSecurity().updateJWT()
+            }
+        } else {
+            CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
+            os_log("Sending contact cart failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialUpsertContactCart, type: .info)
+        }
     }
 }

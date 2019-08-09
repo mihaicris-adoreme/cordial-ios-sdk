@@ -12,22 +12,8 @@ import os.log
 class ContactOrdersSender {
     
     func sendContactOrders(sendContactOrderRequests: [SendContactOrderRequest]) {
-        if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
-            let sendContactOrders = SendContactOrders()
-            
-            os_log("Sending contact orders:", log: OSLog.cordialSendContactOrders, type: .info)
-            sendContactOrderRequests.forEach({ sendContactOrderRequest in
-                os_log("Order ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
-            })
-            
-            if InternalCordialAPI().getCurrentJWT() != nil {
-                sendContactOrders.sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
-            } else {
-                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                self.systemErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
-                
-                SDKSecurity().updateJWT()
-            }
+        if ReachabilityManager.shared.isConnectedToInternet {
+            self.sendContactOrdersIfUserLoggedIn(sendContactOrderRequests: sendContactOrderRequests)
         } else {
             CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
             os_log("Sending contact order failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendContactOrders, type: .info)
@@ -49,5 +35,28 @@ class ContactOrdersSender {
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactOrdersLogicError, object: error)
         os_log("Sending contact order failed. Will not retry. For viewing exact error see .cordialSendContactOrdersLogicError notification in notification center.", log: OSLog.cordialSendContactOrders, type: .info)
+    }
+    
+    private func sendContactOrdersIfUserLoggedIn(sendContactOrderRequests: [SendContactOrderRequest]) {
+        if CordialAPI().getContactPrimaryKey() != nil {
+            let sendContactOrders = SendContactOrders()
+            
+            os_log("Sending contact orders:", log: OSLog.cordialSendContactOrders, type: .info)
+            sendContactOrderRequests.forEach({ sendContactOrderRequest in
+                os_log("Order ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+            })
+            
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                sendContactOrders.sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
+                
+                SDKSecurity().updateJWT()
+            }
+        } else {
+            CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
+            os_log("Sending contact order failed. Saved to retry later. Error: [primaryKey is nil]", log: OSLog.cordialSendContactOrders, type: .info)
+        }
     }
 }

@@ -12,28 +12,11 @@ import os.log
 class CustomEventsSender {
     
     func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
-        if ReachabilityManager.shared.isConnectedToInternet && CordialAPI().getContactPrimaryKey() != nil {
-            os_log("Sending custom events:", log: OSLog.cordialSendCustomEvents, type: .info)
-            sendCustomEventRequests.forEach({ sendCustomEventRequest in
-                os_log("[%{public}@]: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
-            })
-            
-            if InternalCordialAPI().getCurrentJWT() != nil {
-                SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
-            } else {
-                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
-                
-                SDKSecurity().updateJWT()
-            }
+        if ReachabilityManager.shared.isConnectedToInternet {
+            self.sendCustomEventsIfUserLoggedIn(sendCustomEventRequests: sendCustomEventRequests)
         } else {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
-            
-            if CordialAPI().getContactPrimaryKey() == nil {
-                os_log("Sending custom events failed. Saved to retry later. Error: [primaryKey is nil]", log: OSLog.cordialSendCustomEvents, type: .info)
-            } else {
-                os_log("Sending custom events failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendCustomEvents, type: .info)
-            }
+            os_log("Sending custom events failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendCustomEvents, type: .info)
         }
     }
     
@@ -59,6 +42,27 @@ class CustomEventsSender {
                 CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
                 os_log("Saved valid events to retry later", log: OSLog.cordialSendCustomEvents, type: .info)
             }
+        }
+    }
+    
+    private func sendCustomEventsIfUserLoggedIn(sendCustomEventRequests: [SendCustomEventRequest]) {
+        if CordialAPI().getContactPrimaryKey() != nil {
+            os_log("Sending custom events:", log: OSLog.cordialSendCustomEvents, type: .info)
+            sendCustomEventRequests.forEach({ sendCustomEventRequest in
+                os_log("[%{public}@]: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
+            })
+            
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
+                
+                SDKSecurity().updateJWT()
+            }
+        } else {
+            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
+            os_log("Sending custom events failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendCustomEvents, type: .info)
         }
     }
 
