@@ -21,11 +21,11 @@ class FetchInAppMessageURLSessionManager {
             case 200:
                 break
             case 401:
-                SDKSecurity().updateJWT()
-                
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 self.inAppMessageGetter.systemErrorHandler(mcID: inAppMessageURLSessionData.mcID, error: responseError)
+                
+                SDKSecurity().updateJWT()
             case 404: // tmp logic
                 let html = "<html>" +
                     "<head>" +
@@ -116,7 +116,7 @@ class FetchInAppMessageURLSessionManager {
                 self.inAppMessageGetter.logicErrorHandler(error: responseError)
             }
         } catch {
-            os_log("Failed decode response data.", log: OSLog.cordialInAppMessage, type: .error)
+            os_log("Failed decode response data", log: OSLog.cordialInAppMessage, type: .error)
         }
     }
     

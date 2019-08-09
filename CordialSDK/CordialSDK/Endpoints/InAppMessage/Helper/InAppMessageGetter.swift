@@ -14,10 +14,18 @@ class InAppMessageGetter {
     func fetchInAppMessage(mcID: String) {
         if ReachabilityManager.shared.isConnectedToInternet {
             os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
-            InAppMessage().getInAppMessage(mcID: mcID)
+            
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                InAppMessage().getInAppMessage(mcID: mcID)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(mcID: mcID, error: responseError)
+                
+                SDKSecurity().updateJWT()
+            }
         } else {
             CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
-            os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialInAppMessage, type: .info)
+            os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialInAppMessage, type: .info)
         }
     }
     

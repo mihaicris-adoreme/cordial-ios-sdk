@@ -16,10 +16,17 @@ class ContactLogoutSender {
             os_log("Sending contact logout:", log: OSLog.cordialSendContactLogout, type: .info)
             os_log("Device ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.deviceID)
             
-            SendContactLogout().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                SendContactLogout().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(sendContactLogoutRequest: sendContactLogoutRequest, error: responseError)
+                
+                SDKSecurity().updateJWT()
+            }
         } else {
             CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
-            os_log("Sending contact logout failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialSendContactLogout, type: .info)
+            os_log("Sending contact logout failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendContactLogout, type: .info)
         }
     }
     

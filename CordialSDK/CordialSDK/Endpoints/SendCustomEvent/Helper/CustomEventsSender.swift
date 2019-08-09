@@ -18,14 +18,21 @@ class CustomEventsSender {
                 os_log("[%{public}@]: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
             })
             
-            SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
+                
+                SDKSecurity().updateJWT()
+            }
         } else {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
             
             if CordialAPI().getContactPrimaryKey() == nil {
                 os_log("Sending custom events failed. Saved to retry later. Error: [primaryKey is nil]", log: OSLog.cordialSendCustomEvents, type: .info)
             } else {
-                os_log("Sending custom events failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialSendCustomEvents, type: .info)
+                os_log("Sending custom events failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendCustomEvents, type: .info)
             }
         }
     }
@@ -50,7 +57,7 @@ class CustomEventsSender {
             let sendCustomEventRequestsWithoutBrokenEvents = self.getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: sendCustomEventRequests, responseBody: responseBody)
             if sendCustomEventRequestsWithoutBrokenEvents.count > 0 {
                 CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
-                os_log("Saved valid events to retry later.", log: OSLog.cordialSendCustomEvents, type: .info)
+                os_log("Saved valid events to retry later", log: OSLog.cordialSendCustomEvents, type: .info)
             }
         }
     }

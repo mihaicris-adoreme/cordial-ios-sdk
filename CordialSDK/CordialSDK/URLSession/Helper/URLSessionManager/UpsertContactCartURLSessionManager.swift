@@ -21,18 +21,18 @@ class UpsertContactCartURLSessionManager {
             case 200:
                 contactCartSender.completionHandler(upsertContactCartRequest: upsertContactCartURLSessionData.upsertContactCartRequest)
             case 401:
-                SDKSecurity().updateJWT()
-                
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 contactCartSender.systemErrorHandler(upsertContactCartRequest: upsertContactCartURLSessionData.upsertContactCartRequest, error: responseError)
+                
+                SDKSecurity().updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 contactCartSender.logicErrorHandler(error: responseError)
             }
         } catch {
-            os_log("Failed decode response data.", log: OSLog.cordialUpsertContactCart, type: .error)
+            os_log("Failed decode response data", log: OSLog.cordialUpsertContactCart, type: .error)
         }
     }
     

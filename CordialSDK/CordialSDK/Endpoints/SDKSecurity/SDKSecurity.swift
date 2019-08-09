@@ -16,6 +16,8 @@ class SDKSecurity {
     
     func updateJWT() {
         if let url = URL(string: self.getSDKSecurityURL()) {
+            os_log("Start getting JWT", log: OSLog.cordialSDKSecurity, type: .info)
+            
             let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
             
             let sdkSecurityGetJWTDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
@@ -43,6 +45,8 @@ class SDKSecurity {
 
     func completionHandler(JWT: String) {
         InternalCordialAPI().setCurrentJWT(JWT: JWT)
+        
+        os_log("JWT has been received successfully", log: OSLog.cordialSDKSecurity, type: .info)
     }
     
     func errorHandler(error: ResponseError) {

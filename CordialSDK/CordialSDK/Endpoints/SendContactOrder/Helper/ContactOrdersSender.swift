@@ -20,10 +20,17 @@ class ContactOrdersSender {
                 os_log("Order ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
             })
             
-            sendContactOrders.sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                sendContactOrders.sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
+                
+                SDKSecurity().updateJWT()
+            }
         } else {
             CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
-            os_log("Sending contact order failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialSendContactOrders, type: .info)
+            os_log("Sending contact order failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendContactOrders, type: .info)
         }
     }
     

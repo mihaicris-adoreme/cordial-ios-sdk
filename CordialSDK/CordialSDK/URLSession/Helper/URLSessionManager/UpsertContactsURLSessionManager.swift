@@ -21,12 +21,11 @@ class UpsertContactsURLSessionManager {
             case 200:
                 self.contactsSender.completionHandler(upsertContactRequests: upsertContactsURLSessionData.upsertContactRequests)
             case 401:
-                SDKSecurity().updateJWT()
-                
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                
                 self.contactsSender.systemErrorHandler(upsertContactRequests: upsertContactsURLSessionData.upsertContactRequests, error: responseError)
+                
+                SDKSecurity().updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
@@ -34,7 +33,7 @@ class UpsertContactsURLSessionManager {
                 self.contactsSender.logicErrorHandler(error: responseError)
             }
         } catch {
-            os_log("Failed decode response data.", log: OSLog.cordialUpsertContacts, type: .error)
+            os_log("Failed decode response data", log: OSLog.cordialUpsertContacts, type: .error)
         }
     }
     

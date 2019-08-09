@@ -30,10 +30,17 @@ class ContactsSender {
                 os_log("Device ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.deviceID)
             })
         
-            self.upsertContacts.upsertContacts(upsertContactRequests: upsertContactRequests)
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                self.upsertContacts.upsertContacts(upsertContactRequests: upsertContactRequests)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)
+                
+                SDKSecurity().updateJWT()
+            }
         } else {
             CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
-            os_log("Sending contact failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialUpsertContacts, type: .info)
+            os_log("Sending contact failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialUpsertContacts, type: .info)
         }
     }
     

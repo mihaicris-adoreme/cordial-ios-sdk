@@ -24,7 +24,7 @@ class SDKSecurityGetJWTURLSessionManager {
                     if let JWT = responseBodyJSON["token"] as? String {
                         self.sdkSecurity.completionHandler(JWT: JWT)
                     } else {
-                        let message = "JWT is absent."
+                        let message = "JWT is absent"
                         let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                         self.sdkSecurity.errorHandler(error: responseError)
                     }
@@ -35,7 +35,7 @@ class SDKSecurityGetJWTURLSessionManager {
                 self.sdkSecurity.errorHandler(error: responseError)
             }
         } catch {
-            os_log("Failed decode response data.", log: OSLog.cordialSDKSecurity, type: .error)
+            os_log("Failed decode response data", log: OSLog.cordialSDKSecurity, type: .error)
         }
     }
     

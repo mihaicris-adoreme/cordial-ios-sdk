@@ -21,18 +21,18 @@ class SendContactOrdersURLSessionManager {
             case 200:
                 contactOrdersSender.completionHandler(sendContactOrderRequests: sendContactOrdersURLSessionData.sendContactOrderRequests)
             case 401:
-                SDKSecurity().updateJWT()
-                
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 contactOrdersSender.systemErrorHandler(sendContactOrderRequests: sendContactOrdersURLSessionData.sendContactOrderRequests, error: responseError)
+                
+                SDKSecurity().updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 contactOrdersSender.logicErrorHandler(error: responseError)
             }
         } catch {
-            os_log("Failed decode response data.", log: OSLog.cordialSendContactOrders, type: .error)
+            os_log("Failed decode response data", log: OSLog.cordialSendContactOrders, type: .error)
         }
     }
     

@@ -17,10 +17,17 @@ class ContactCartSender {
             
             os_log("Sending contact cart. Device ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
             
-            upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(upsertContactCartRequest: upsertContactCartRequest, error: responseError)
+                
+                SDKSecurity().updateJWT()
+            }
         } else {
             CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
-            os_log("Sending contact cart failed. Saved to retry later. Error: [No Internet connection.]", log: OSLog.cordialUpsertContactCart, type: .info)
+            os_log("Sending contact cart failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialUpsertContactCart, type: .info)
         }
     }
     
