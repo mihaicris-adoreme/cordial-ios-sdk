@@ -50,7 +50,7 @@ class ContactCartSender {
             }
         } else {
             CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
-            os_log("Sending contact cart failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialUpsertContactCart, type: .info)
+            os_log("Sending contact cart failed. Saved to retry later. Error: [primaryKey is nil]", log: OSLog.cordialUpsertContactCart, type: .info)
         }
     }
 }

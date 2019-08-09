@@ -16,7 +16,7 @@ class SDKSecurity {
     
     func updateJWT() {
         if let url = URL(string: self.getSDKSecurityURL()) {
-            os_log("Start getting JWT", log: OSLog.cordialSDKSecurity, type: .info)
+            os_log("Fetching JWT", log: OSLog.cordialSDKSecurity, type: .info)
             
             let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
             
