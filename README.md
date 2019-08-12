@@ -213,10 +213,23 @@ ___
 `items` is an array of, well, cart items. Each items has items sku, quantity, price and other cart item specific attributes.
 
 ## Caching
-Every request described above is cached in case of its failure. For example, if internet is down on the device and an event failed to be delivered to Cordial, the event would be cached by the SDK and its delivery would be retried once internet connection is up again.
+Every request described above is cached in case of its failure. For example, if internet is down on the device and an event failed to be delivered to Cordial, the event would be cached by the SDK and its delivery would be retried once internet connection is up again. 
+
+Events cache has quantity limits of cached events. By default this value is equal to 1000. If you want you can change cached events quantity limit to any value on the SDK initialization step in the following way:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.qtyCachedEventQueue = 100
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].qtyCachedEventQueue = 100;
+```
 
 ## Push notifications
-The application must use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to handle have push notification delivered and handle taps on them, the code needs to do 2 things:
+The application must use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to handle have push notification delivered and handle taps on them, the code needs to do 3 things:
 1. Provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. Do so in `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
