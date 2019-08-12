@@ -917,7 +917,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4A8DE7A872AAAB391A676024 /* Pods-CordialDemo.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CordialDemo/CordialDemo.entitlements;
@@ -942,7 +942,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E98625E452DF05D5A0616FF0 /* Pods-CordialDemo.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				APPLICATION_EXTENSION_API_ONLY = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CordialDemo/CordialDemo.entitlements;
