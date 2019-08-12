@@ -113,7 +113,7 @@ CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 
 Every app is assumed to be operating on behalf of a specific contact. Contact is a user of the client application. For example, if Amazon is a client, each user of the Amazon who logs in is a contact. Every contact must have a primary key. Naturally that when the app is installed, the is no contact associated with the app as the user might not have logged in yet. In this case identifying a contact is done via device id, which is a unique identifier of the iOS device the app is running on. Every piece of information (internal or custom events, updating a contact etc) that is passed by SDK to Cordial backend has a device id automatically associated with it. Later, when the user logs into the app and his primary key becomes known, the client application must pass that primary key to the backend via calling the `setContact` method. When the backend receives a contact update with the primary key it associates the device id with the primary key of a contact. That association is crucial to make effective use of Cordial.
 
-When there is no contact associated with the SDK, all requests that the SDK makes to Cordial until the contact becomes known (that is until `setContact` method is called).
+When there is no contact associated with the SDK, all requests that the SDK makes to Cordial are cached until the contact becomes known (that is until `setContact` method is called).
 
 setContact usage:
 
