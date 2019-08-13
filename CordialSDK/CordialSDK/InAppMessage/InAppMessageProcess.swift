@@ -146,7 +146,16 @@ class InAppMessageProcess {
             DispatchQueue.main.async {
                 if let activeViewController = self.internalCordialAPI.getActiveViewController() {
                     let modalWebViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
-                    modalWebViewController.controllerIdentifier = UUID().uuidString
+                    
+                    if inAppMessageData.type == .fullscreen {
+                        let closeButton = UIButton(frame: CGRect(x: modalWebViewController.webView.frame.width - 50, y: modalWebViewController.webView.safeAreaInsets.top + 30, width: 50, height: 50))
+                        closeButton.setTitle("✖️", for: .normal)
+                        
+                        closeButton.addTarget(modalWebViewController, action: #selector(modalWebViewController.removeModalFromSuperviewWithoutAnimation), for: .touchUpInside)
+                        closeButton.autoresizingMask = [.flexibleLeftMargin, .flexibleBottomMargin]
+                        
+                        modalWebViewController.webView.addSubview(closeButton)
+                    }
                     
                     activeViewController.view.addSubview(modalWebViewController.view)
                     
@@ -169,7 +178,6 @@ class InAppMessageProcess {
             DispatchQueue.main.async {
                 if let activeViewController = self.internalCordialAPI.getActiveViewController() {
                     let bannerWebViewController = InAppMessageManager().getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
-                    bannerWebViewController.controllerIdentifier = UUID().uuidString
                     
                     self.addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: bannerWebViewController, activeViewController: activeViewController)
                     

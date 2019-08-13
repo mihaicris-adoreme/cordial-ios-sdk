@@ -15,7 +15,6 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var inAppMessageView: UIView!
     var isBanner: Bool!
     var inAppMessageData: InAppMessageData!
-    var controllerIdentifier: String!
     
     let cordialAPI = CordialAPI()
     
@@ -89,6 +88,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             self.inAppMessageView = InAppMessageBannerView(frame: self.webView.frame)
         } else {
             self.inAppMessageView = UIView(frame: self.webView.frame)
+            self.inAppMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeModalFromSuperviewWithoutAnimation)))
         }
 
     }
@@ -127,7 +127,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         })
     }
     
-    func removeModalFromSuperviewWithoutAnimation() {
+    @objc func removeModalFromSuperviewWithoutAnimation() {
         InAppMessageProcess.shared.isPresentedInAppMessage = false
         self.view.removeFromSuperview()
         InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()

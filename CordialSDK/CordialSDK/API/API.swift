@@ -41,6 +41,7 @@ struct API {
     static let EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN = "in_app_message_has_been_shown"
     static let EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE_BANNER = "in_app_message_banner_auto_dismiss"
     static let EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE_BANNER = "in_app_message_banner_manual_dismiss"
+    static let EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE_MODAL = "in_app_message_modal_manual_dismiss"
     
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"
