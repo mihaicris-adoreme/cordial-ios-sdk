@@ -13,35 +13,41 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CartTableFooterView" customModule="CordialDemo" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="186"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="166"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total quantity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EwJ-D3-BXo">
-                    <rect key="frame" x="190.5" y="35" width="95.5" height="18"/>
+                    <rect key="frame" x="190.5" y="15" width="95.5" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="52e-rh-f3R"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SW2-hQ-eLt">
-                    <rect key="frame" x="294" y="35" width="10" height="18"/>
+                    <rect key="frame" x="294" y="15" width="10" height="18"/>
                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Total price:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzX-yv-GuV">
-                    <rect key="frame" x="208" y="68" width="78" height="18"/>
+                    <rect key="frame" x="208" y="48" width="78" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="RxC-Vm-BSG"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CxP-hF-TkS">
-                    <rect key="frame" x="294" y="68" width="10" height="18"/>
+                    <rect key="frame" x="294" y="48" width="10" height="18"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="up3-x7-fPT">
-                    <rect key="frame" x="16" y="116" width="288" height="50"/>
+                    <rect key="frame" x="16" y="96" width="288" height="50"/>
                     <color key="backgroundColor" red="0.77821618319999997" green="0.16530567409999999" blue="0.19212961200000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="up3-x7-fPT" secondAttribute="height" multiplier="144:25" id="svv-g0-0Mq"/>
@@ -53,10 +59,10 @@
             </subviews>
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="SW2-hQ-eLt" secondAttribute="trailing" constant="16" id="74h-ul-Gue"/>
-                <constraint firstAttribute="bottom" secondItem="up3-x7-fPT" secondAttribute="bottom" constant="20" symbolic="YES" id="8CX-5J-foH"/>
                 <constraint firstItem="SW2-hQ-eLt" firstAttribute="top" secondItem="EwJ-D3-BXo" secondAttribute="top" id="IsC-Zs-C4J"/>
                 <constraint firstItem="CxP-hF-TkS" firstAttribute="top" secondItem="EzX-yv-GuV" secondAttribute="top" id="NrN-xR-Mk5"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="CxP-hF-TkS" secondAttribute="trailing" constant="16" id="QJU-Me-8fa"/>
+                <constraint firstItem="EwJ-D3-BXo" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="15" id="VpU-fo-I5x"/>
                 <constraint firstItem="SW2-hQ-eLt" firstAttribute="leading" secondItem="EwJ-D3-BXo" secondAttribute="trailing" constant="8" id="cMz-Y6-K4a"/>
                 <constraint firstItem="CxP-hF-TkS" firstAttribute="leading" secondItem="EzX-yv-GuV" secondAttribute="trailing" constant="8" id="e4J-nQ-K7P"/>
                 <constraint firstItem="SW2-hQ-eLt" firstAttribute="bottom" secondItem="EwJ-D3-BXo" secondAttribute="bottom" id="gnZ-XH-adt"/>
@@ -73,7 +79,7 @@
                 <outlet property="totalPriceLabel" destination="CxP-hF-TkS" id="m7l-KA-s9s"/>
                 <outlet property="totalQtyLabel" destination="SW2-hQ-eLt" id="dvJ-bl-nqf"/>
             </connections>
-            <point key="canvasLocation" x="263" y="-112"/>
+            <point key="canvasLocation" x="0.0" y="-100.35211267605634"/>
         </view>
     </objects>
 </document>
