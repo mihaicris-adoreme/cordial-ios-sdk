@@ -151,7 +151,7 @@ class InAppMessageProcess {
                         let closeButton = UIButton(frame: CGRect(x: modalWebViewController.webView.frame.width - 50, y: modalWebViewController.webView.safeAreaInsets.top + 30, width: 50, height: 50))
                         closeButton.setTitle("✖️", for: .normal)
                         
-                        closeButton.addTarget(modalWebViewController, action: #selector(modalWebViewController.removeModalFromSuperviewWithoutAnimation), for: .touchUpInside)
+                        closeButton.addTarget(modalWebViewController, action: #selector(modalWebViewController.dismissModalInAppMessage), for: .touchUpInside)
                         closeButton.autoresizingMask = [.flexibleLeftMargin, .flexibleBottomMargin]
                         
                         modalWebViewController.webView.addSubview(closeButton)

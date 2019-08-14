@@ -88,7 +88,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             self.inAppMessageView = InAppMessageBannerView(frame: self.webView.frame)
         } else {
             self.inAppMessageView = UIView(frame: self.webView.frame)
-            self.inAppMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(removeModalFromSuperviewWithoutAnimation)))
+            self.inAppMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissModalInAppMessage)))
         }
 
     }
@@ -127,7 +127,14 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         })
     }
     
-    @objc func removeModalFromSuperviewWithoutAnimation() {
+    @objc func dismissModalInAppMessage() {
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE_MODAL, properties: nil)
+        self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        
+        self.removeModalFromSuperviewWithoutAnimation()
+    }
+    
+    func removeModalFromSuperviewWithoutAnimation() {
         InAppMessageProcess.shared.isPresentedInAppMessage = false
         self.view.removeFromSuperview()
         InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
