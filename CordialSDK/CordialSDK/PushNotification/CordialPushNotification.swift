@@ -18,6 +18,8 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     let cordialAPI = CordialAPI()
 
     func registerForPushNotifications() {
+        self.notificationCenter.delegate = self
+        
         self.notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             guard error == nil else { return }
             
@@ -25,11 +27,11 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
                 UIApplication.shared.registerForRemoteNotifications()
             }
         }
-        
-        self.notificationCenter.delegate = self
     }
     
     func getNotificationSettings() {
+        self.notificationCenter.delegate = self
+        
         self.notificationCenter.getNotificationSettings { settings in
             print("Notification settings: \(settings)")
             guard settings.authorizationStatus == .authorized else { return }
@@ -38,8 +40,6 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
                 UIApplication.shared.registerForRemoteNotifications()
             }
         }
-        
-        self.notificationCenter.delegate = self
     }
     
     // MARK: UNUserNotificationCenterDelegate
