@@ -13,24 +13,26 @@ import os.log
 
 class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     
+    let notificationCenter = UNUserNotificationCenter.current()
+    
     let cordialAPI = CordialAPI()
 
     func registerForPushNotifications() {
-        let center = UNUserNotificationCenter.current()
+        self.notificationCenter.delegate = self
         
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+        self.notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             guard error == nil else { return }
             
             DispatchQueue.main.async {
                 UIApplication.shared.registerForRemoteNotifications()
             }
         }
-        
-        center.delegate = self
     }
     
     func getNotificationSettings() {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
+        self.notificationCenter.delegate = self
+        
+        self.notificationCenter.getNotificationSettings { settings in
             guard settings.authorizationStatus == .authorized else { return }
             
             DispatchQueue.main.async {
