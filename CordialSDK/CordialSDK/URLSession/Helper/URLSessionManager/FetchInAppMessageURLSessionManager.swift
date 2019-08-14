@@ -26,7 +26,7 @@ class FetchInAppMessageURLSessionManager {
                 self.inAppMessageGetter.systemErrorHandler(mcID: inAppMessageURLSessionData.mcID, error: responseError)
                 
                 SDKSecurity().updateJWT()
-            case 500: // tmp logic
+            case 404: // tmp logic
                 let html = "<html>" +
                     "<head>" +
                     "<style>" +
@@ -36,7 +36,7 @@ class FetchInAppMessageURLSessionManager {
                     ".subtitle { font-size: 2rem; font-weight: normal; line-height: 1.4; text-align: center; }" +
                     ".discount { font-size: 5rem; font-weight: bold; text-align: center; color: #f44336; margin-top: 4rem; }" +
                     ".product { height: 100%; display: flex; flex-direction: column; }" +
-                    ".image { margin-top: 5rem; height: 60%; width: auto; object-fit: contain; text-align: center; }" +
+                    ".image { margin-top: 4rem; height: 60%; width: auto; object-fit: contain; text-align: center; }" +
                     ".image > img { height: 100%; width: auto; }" +
                     ".actions { margin-top: auto; font-size: 2rem; }" +
                     ".checkout-btn { padding: 16px 16px; text-decoration: none; text-align: center; vertical-align: middle; white-space: nowrap; cursor: pointer; border: 1px solid transparent; user-select: none; border-radius: 2px; background-color: #f45b4f; color: #fff; font-size: 4rem; margin-left: 5rem; margin-right: 5rem; }" +

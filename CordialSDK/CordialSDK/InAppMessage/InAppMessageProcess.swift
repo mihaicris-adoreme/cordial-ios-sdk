@@ -147,15 +147,7 @@ class InAppMessageProcess {
                 if let activeViewController = self.internalCordialAPI.getActiveViewController() {
                     let modalWebViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                     
-                    if inAppMessageData.type == .fullscreen {
-                        let closeButton = UIButton(frame: CGRect(x: modalWebViewController.webView.frame.width - 50, y: modalWebViewController.webView.safeAreaInsets.top + 30, width: 50, height: 50))
-                        closeButton.setTitle("✖️", for: .normal)
-                        
-                        closeButton.addTarget(modalWebViewController, action: #selector(modalWebViewController.dismissModalInAppMessage), for: .touchUpInside)
-                        closeButton.autoresizingMask = [.flexibleLeftMargin, .flexibleBottomMargin]
-                        
-                        modalWebViewController.webView.addSubview(closeButton)
-                    }
+                    self.addDismissButtonToModalInAppMessageViewController(modalWebViewController: modalWebViewController)
                     
                     activeViewController.view.addSubview(modalWebViewController.view)
                     
@@ -171,6 +163,23 @@ class InAppMessageProcess {
             CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
             os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
         }
+    }
+    
+    private func addDismissButtonToModalInAppMessageViewController(modalWebViewController: InAppMessageViewController) {
+        var safeAreaTop = CGFloat()
+        if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
+            if UIScreen.main.bounds.height - safeAreaInsetsTop < modalWebViewController.webView.frame.height {
+                safeAreaTop = safeAreaInsetsTop
+            }
+        }
+        
+        let closeButton = UIButton(frame: CGRect(x: modalWebViewController.webView.frame.width - 50, y: safeAreaTop, width: 50, height: 50))
+        closeButton.setTitle("✖️", for: .normal)
+        
+        closeButton.addTarget(modalWebViewController, action: #selector(modalWebViewController.dismissModalInAppMessage), for: .touchUpInside)
+        closeButton.autoresizingMask = [.flexibleLeftMargin, .flexibleBottomMargin]
+        
+        modalWebViewController.webView.addSubview(closeButton)
     }
     
     func showBannerInAppMessage(inAppMessageData: InAppMessageData) {
