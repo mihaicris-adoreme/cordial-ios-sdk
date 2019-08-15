@@ -26,6 +26,8 @@ import Foundation
         case eventName = "eventName"
         case timestamp = "timestamp"
         case mcID = "mcID"
+        case latitude = "latitude"
+        case longitude = "longitude"
         case properties = "properties"
     }
     
@@ -40,14 +42,14 @@ import Foundation
         self.properties = properties
     }
     
-    private init(eventName: String, timestamp: String, mcID: String?, properties: Dictionary<String, String>?) {
+    private init(eventName: String, timestamp: String, mcID: String?, latitude: Double?, longitude: Double?, properties: Dictionary<String, String>?) {
         self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.eventName = eventName
         self.timestamp = timestamp
         self.mcID = mcID
-        self.latitude = UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
-        self.longitude = UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
+        self.latitude = latitude
+        self.longitude = longitude
         self.properties = properties
     }
     
@@ -55,6 +57,8 @@ import Foundation
         aCoder.encode(self.eventName, forKey: Key.eventName.rawValue)
         aCoder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
         aCoder.encode(self.mcID, forKey: Key.mcID.rawValue)
+        aCoder.encode(self.latitude, forKey: Key.latitude.rawValue)
+        aCoder.encode(self.longitude, forKey: Key.longitude.rawValue)
         aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
@@ -62,9 +66,20 @@ import Foundation
         let eventName = aDecoder.decodeObject(forKey: Key.eventName.rawValue) as! String
         let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as! String
         let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as! String?
+        
+        var latitude: Double?
+        if let decodedLatitudeNumber = aDecoder.decodeObject(forKey: Key.latitude.rawValue) as? NSNumber {
+            latitude = decodedLatitudeNumber.doubleValue
+        }
+        
+        var longitude: Double?
+        if let decodedLongitudeNumber = aDecoder.decodeObject(forKey: Key.longitude.rawValue) as? NSNumber {
+            longitude = decodedLongitudeNumber.doubleValue
+        }
+        
         let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, String>?
         
-        self.init(eventName: eventName, timestamp: timestamp, mcID: mcID, properties: properties)
+        self.init(eventName: eventName, timestamp: timestamp, mcID: mcID, latitude: latitude, longitude: longitude, properties: properties)
     }
     
 }
