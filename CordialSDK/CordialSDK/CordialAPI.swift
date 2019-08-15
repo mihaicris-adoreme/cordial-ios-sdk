@@ -24,7 +24,9 @@ import os.log
     // MARK: Set account key
     
     @objc public func setAccountKey(accountKey: String) {
-        UserDefaults.standard.set(accountKey, forKey: API.USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY)
+        if accountKey != self.getAccountKey() {
+            UserDefaults.standard.set(accountKey, forKey: API.USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY)
+        }
     }
     
     // MARK: Get channel key
@@ -40,7 +42,9 @@ import os.log
     // MARK: Set channel key
     
     @objc public func setChannelKey(channelKey: String) {
-        UserDefaults.standard.set(channelKey, forKey: API.USER_DEFAULTS_KEY_FOR_CHANNEL_KEY)
+        if channelKey != self.getChannelKey() {
+            UserDefaults.standard.set(channelKey, forKey: API.USER_DEFAULTS_KEY_FOR_CHANNEL_KEY)
+        }
     }
     
     // MARK: Get base URL
@@ -56,10 +60,12 @@ import os.log
     // MARK: Set base URL
     
     @objc public func setBaseURL(baseURL: String) {
-        if baseURL.last != "/" {
-            UserDefaults.standard.set("\(baseURL)/", forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
-        } else {
-            UserDefaults.standard.set(baseURL, forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
+        if baseURL != self.getBaseURL() {
+            if baseURL.last != "/" {
+                UserDefaults.standard.set("\(baseURL)/", forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
+            } else {
+                UserDefaults.standard.set(baseURL, forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
+            }
         }
     }
     
