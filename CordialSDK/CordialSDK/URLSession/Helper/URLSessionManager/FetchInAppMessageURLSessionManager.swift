@@ -26,7 +26,7 @@ class FetchInAppMessageURLSessionManager {
                 self.inAppMessageGetter.systemErrorHandler(mcID: inAppMessageURLSessionData.mcID, error: responseError)
                 
                 SDKSecurity().updateJWT()
-            case 404: // tmp logic
+            case 500: // tmp logic
                 let html = "<html>" +
                     "<head>" +
                     "<style>" +
