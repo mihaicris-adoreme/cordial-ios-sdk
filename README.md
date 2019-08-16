@@ -7,7 +7,7 @@
 Make sure you have access to CordialSDK gitlab repo. We recommend adding your SSH key to Gitlab. After that specify CordialSDK in your Podfile:
 
 ```
-pod 'CordialSDK', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'
+pod 'CordialSDK', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'
 ```
 
 And after that run:
@@ -25,7 +25,7 @@ ___
 ```
 target "<The name of the new Notification Service Extension target>" do  
     use_frameworks!
-    pod 'CordialAppExtensions', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'  
+    pod 'CordialAppExtensions', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
 end
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
@@ -33,7 +33,7 @@ ___
 ```
 target "<The name of the new Notification Service Extension target>" do  
     use_frameworks!
-    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'  
+    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
 end
 ```
 

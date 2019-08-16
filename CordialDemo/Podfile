@@ -6,11 +6,11 @@ target 'CordialDemo' do
   use_frameworks!
 
     pod 'IQKeyboardManagerSwift'
-    pod 'CordialSDK', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'
+    pod 'CordialSDK', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'
 
     target 'NotificationServiceExtension' do
       use_frameworks!
-      pod 'CordialAppExtensions', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'
+      pod 'CordialAppExtensions', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'
     end
 
   target 'CordialDemoTests' do
