@@ -4,11 +4,11 @@ platform :ios, '11.0'
 target 'CordialDemo_Objective-C' do
   # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
   use_frameworks!
-    pod 'CordialSDK', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'
+    pod 'CordialSDK', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'
 
   target 'NotificationServiceExtension' do
     use_frameworks!
-    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'
+    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'
   end
 
   target 'CordialDemo_Objective-CTests' do
