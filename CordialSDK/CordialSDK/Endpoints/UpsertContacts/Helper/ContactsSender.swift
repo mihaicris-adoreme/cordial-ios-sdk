@@ -37,7 +37,7 @@ class ContactsSender {
                 let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
                 self.systemErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)
                 
-                SDKSecurity().updateJWT()
+                SDKSecurity.shared.updateJWT()
             }
         } else {
             CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)

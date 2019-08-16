@@ -14,6 +14,8 @@ class FetchInAppMessageURLSessionManager {
     let inAppMessageGetter = InAppMessageGetter()
     
     func completionHandler(inAppMessageURLSessionData: InAppMessageURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+        SDKSecurity.shared.isCurrentlyFetchingJWT = false
+        
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
@@ -25,7 +27,7 @@ class FetchInAppMessageURLSessionManager {
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 self.inAppMessageGetter.systemErrorHandler(mcID: inAppMessageURLSessionData.mcID, error: responseError)
                 
-                SDKSecurity().updateJWT()
+                SDKSecurity.shared.updateJWT()
             case 500: // tmp logic
                 let html = "<html>" +
                     "<head>" +
@@ -121,6 +123,8 @@ class FetchInAppMessageURLSessionManager {
     }
     
     func errorHandler(inAppMessageURLSessionData: InAppMessageURLSessionData, error: Error) {
+        SDKSecurity.shared.isCurrentlyFetchingJWT = false
+        
         let responseError = ResponseError(message: error.localizedDescription, statusCode: nil, responseBody: nil, systemError: error)
         self.inAppMessageGetter.systemErrorHandler(mcID: inAppMessageURLSessionData.mcID, error: responseError)
     }

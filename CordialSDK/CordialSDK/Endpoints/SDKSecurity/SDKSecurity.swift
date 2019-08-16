@@ -12,20 +12,32 @@ import os.log
 
 class SDKSecurity {
     
+    static let shared = SDKSecurity()
+    
+    private init(){}
+    
     let cordialAPI = CordialAPI()
     
+    var isCurrentlyFetchingJWT = false
+    
     func updateJWT() {
-        if let url = URL(string: self.getSDKSecurityURL()) {
-            os_log("Fetching JWT", log: OSLog.cordialSDKSecurity, type: .info)
-            
-            let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
-            
-            let sdkSecurityGetJWTDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
-            
-            let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT, taskData: nil)
-            CordialURLSession.shared.operations[sdkSecurityGetJWTDownloadTask.taskIdentifier] = cordialURLSessionData
-            
-            sdkSecurityGetJWTDownloadTask.resume()
+        if !isCurrentlyFetchingJWT {
+            if let url = URL(string: self.getSDKSecurityURL()) {
+                os_log("Fetching JWT", log: OSLog.cordialSDKSecurity, type: .info)
+                
+                let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+                
+                let sdkSecurityGetJWTDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+                
+                let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT, taskData: nil)
+                CordialURLSession.shared.operations[sdkSecurityGetJWTDownloadTask.taskIdentifier] = cordialURLSessionData
+                
+                self.isCurrentlyFetchingJWT = true
+                
+                sdkSecurityGetJWTDownloadTask.resume()
+            }
+        } else {
+            os_log("JWT is currently fetching", log: OSLog.cordialSDKSecurity, type: .info)
         }
     }
     

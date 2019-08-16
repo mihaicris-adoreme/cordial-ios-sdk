@@ -46,7 +46,7 @@ class ContactCartSender {
                 let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
                 self.systemErrorHandler(upsertContactCartRequest: upsertContactCartRequest, error: responseError)
                 
-                SDKSecurity().updateJWT()
+                SDKSecurity.shared.updateJWT()
             }
         } else {
             CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)

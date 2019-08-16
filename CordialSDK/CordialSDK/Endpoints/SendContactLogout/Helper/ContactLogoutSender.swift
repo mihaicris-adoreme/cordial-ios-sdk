@@ -22,7 +22,7 @@ class ContactLogoutSender {
                 let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
                 self.systemErrorHandler(sendContactLogoutRequest: sendContactLogoutRequest, error: responseError)
                 
-                SDKSecurity().updateJWT()
+                SDKSecurity.shared.updateJWT()
             }
         } else {
             CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)

@@ -21,7 +21,7 @@ class InAppMessageGetter {
                 let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
                 self.systemErrorHandler(mcID: mcID, error: responseError)
                 
-                SDKSecurity().updateJWT()
+                SDKSecurity.shared.updateJWT()
             }
         } else {
             CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)

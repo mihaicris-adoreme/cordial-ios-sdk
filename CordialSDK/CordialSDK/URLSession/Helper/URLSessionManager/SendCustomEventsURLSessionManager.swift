@@ -25,7 +25,7 @@ class SendCustomEventsURLSessionManager {
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 self.customEventsSender.systemErrorHandler(sendCustomEventRequests: sendCustomEventsURLSessionData.sendCustomEventRequests, error: responseError)
                 
-                SDKSecurity().updateJWT()
+                SDKSecurity.shared.updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)

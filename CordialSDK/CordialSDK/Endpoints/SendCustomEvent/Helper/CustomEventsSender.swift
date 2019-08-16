@@ -58,7 +58,7 @@ class CustomEventsSender {
                 let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
                 self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
                 
-                SDKSecurity().updateJWT()
+                SDKSecurity.shared.updateJWT()
             }
         } else {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
