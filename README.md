@@ -7,6 +7,7 @@
 Make sure you have access to CordialSDK gitlab repo. We recommend adding your SSH key to Gitlab. After that specify CordialSDK in your Podfile:
 
 ```
+use_frameworks!
 pod 'CordialSDK', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'
 ```
 
