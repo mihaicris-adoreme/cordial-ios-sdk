@@ -77,14 +77,16 @@ class CoreDataManager {
     func deleteAllCoreDataByEntity(entityName: String) {
         let context = self.persistentContainer.viewContext
         
+        context.mergePolicy = NSMergePolicyType.overwriteMergePolicyType
+        
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         
         do {
             try context.execute(deleteRequest)
             try context.save()
-        } catch {
-            os_log("Delete CoreData by entity failed with error", log: OSLog.cordialError, type: .error)
+        } catch let error {
+            os_log("Delete CoreData by entity failed with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
         }
     }
     
