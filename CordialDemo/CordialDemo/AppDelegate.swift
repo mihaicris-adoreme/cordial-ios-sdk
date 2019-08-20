@@ -25,7 +25,7 @@ class AppDelegate: CordialAppDelegate {
         
         IQKeyboardManager.shared.enable = true
         
-        CordialApiConfiguration.shared.initialize(accountKey: "test_account_key", channelKey: "test_channel_key")
+        CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
