@@ -12,6 +12,8 @@ import os.log
 class SDKSecurityGetJWTURLSessionManager {
     
     func completionHandler(httpResponse: HTTPURLResponse, location: URL) {
+        SDKSecurity.shared.isCurrentlyFetchingJWT = false
+        
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
@@ -38,6 +40,8 @@ class SDKSecurityGetJWTURLSessionManager {
     }
     
     func errorHandler(error: Error) {
+        SDKSecurity.shared.isCurrentlyFetchingJWT = false
+        
         let responseError = ResponseError(message: error.localizedDescription, statusCode: nil, responseBody: nil, systemError: error)
         SDKSecurity.shared.errorHandler(error: responseError)
     }
