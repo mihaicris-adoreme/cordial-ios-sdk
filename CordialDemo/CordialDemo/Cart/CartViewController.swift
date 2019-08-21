@@ -35,7 +35,6 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.tableView.register(UINib(nibName: "CartTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: cartFooterCell)
         self.cartTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: cartFooterCell) as? CartTableFooterView
-        self.tableView.tableFooterView = self.cartTableFooterView
         self.cartTableFooterView.checkoutButton.addTarget(self, action: #selector(checkoutAction), for: .touchUpInside)
     }
     
@@ -115,6 +114,20 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         return cartItems
+    }
+    
+    // MARK: UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return self.cartTableFooterView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if products.count > 0 {
+            return self.cartTableFooterView.frame.size.height
+        }
+        
+        return 0
     }
     
     // MARK: UITableViewDataSource
