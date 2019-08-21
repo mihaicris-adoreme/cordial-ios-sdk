@@ -150,7 +150,7 @@ import os.log
     
     @objc public func registerForPushNotifications() {
         if CordialApiConfiguration.shared.pushNotificationHandler != nil {
-            CordialPushNotification().registerForPushNotifications()
+            CordialPushNotification.shared.registerForPushNotifications()
         } else {
             os_log("Register for push notifications failed. Error: [CordialPushNotificationHandler is not set]", log: OSLog.cordialPushNotification, type: .info)
         }

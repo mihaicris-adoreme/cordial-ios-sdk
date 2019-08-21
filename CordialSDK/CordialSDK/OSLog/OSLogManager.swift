@@ -26,3 +26,17 @@ extension OSLog {
     static let cordialSDKSecurity = OSLog(subsystem: subsystem, category: "CordialSDKSecurity")
     
 }
+
+enum osLogLevel {
+    
+}
+
+class OSLogManager {
+    
+    static let shared = OSLogManager()
+    
+    private init(){}
+    
+    
+    
+}

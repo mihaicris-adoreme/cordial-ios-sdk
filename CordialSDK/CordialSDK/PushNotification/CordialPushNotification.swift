@@ -13,6 +13,10 @@ import os.log
 
 class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     
+    static let shared = CordialPushNotification()
+    
+    private override init(){}
+    
     let cordialAPI = CordialAPI()
 
     func registerForPushNotifications() {

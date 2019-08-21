@@ -51,13 +51,13 @@ class NotificationManager {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        self.prepareCurrentSubscribeStatus()
+        self.prepareCurrentPushNotificationStatus()
         
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
         InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
     }
     
-    private func prepareCurrentSubscribeStatus() {
+    private func prepareCurrentPushNotificationStatus() {
         DispatchQueue.main.async {
             let current = UNUserNotificationCenter.current()
             
@@ -82,7 +82,7 @@ class NotificationManager {
         
         CordialApiConfiguration.shared.cordialSwizzler.swizzleAppDelegateMethods()
         
-        CordialApiConfiguration.shared.cordialPushNotification.getNotificationSettings()
+        CordialPushNotification.shared.getNotificationSettings()
     }
 
 }
