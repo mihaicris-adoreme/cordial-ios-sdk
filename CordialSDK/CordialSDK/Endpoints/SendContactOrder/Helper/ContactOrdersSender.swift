@@ -17,14 +17,14 @@ class ContactOrdersSender {
         } else {
             CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
             
-            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Sending contact order failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendContactOrders, type: .info)
             }
         }
     }
     
     func completionHandler(sendContactOrderRequests: [SendContactOrderRequest]) {
-        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+        if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Orders sent:", log: OSLog.cordialSendContactOrders, type: .info)
             sendContactOrderRequests.forEach({ sendContactOrderRequest in
                 os_log("Order ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
@@ -35,7 +35,7 @@ class ContactOrdersSender {
     func systemErrorHandler(sendContactOrderRequests: [SendContactOrderRequest], error: ResponseError) {
         CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
         
-        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+        if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Sending contact order failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, error.message)
         }
     }
@@ -43,7 +43,7 @@ class ContactOrdersSender {
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactOrdersLogicError, object: error)
         
-        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+        if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Sending contact order failed. Will not retry. For viewing exact error see .cordialSendContactOrdersLogicError notification in notification center.", log: OSLog.cordialSendContactOrders, type: .info)
         }
     }
@@ -52,7 +52,7 @@ class ContactOrdersSender {
         if CordialAPI().getContactPrimaryKey() != nil {
             let sendContactOrders = SendContactOrders()
             
-            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Sending contact orders:", log: OSLog.cordialSendContactOrders, type: .info)
                 sendContactOrderRequests.forEach({ sendContactOrderRequest in
                     os_log("Order ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
@@ -70,7 +70,7 @@ class ContactOrdersSender {
         } else {
             CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
             
-            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Sending contact order failed. Saved to retry later. Error: [primaryKey is nil]", log: OSLog.cordialSendContactOrders, type: .info)
             }
         }

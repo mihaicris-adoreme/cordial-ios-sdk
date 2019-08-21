@@ -17,7 +17,7 @@ import CoreLocation
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initNotificationManager = NotificationManager.shared
-    let initOSLogManager = OSLogManager.shared
+    let initCordialOSLogManager = CordialOSLogManager.shared
     
     @objc public var qtyCachedEventQueue = 1000
     

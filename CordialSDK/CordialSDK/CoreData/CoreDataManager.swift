@@ -60,7 +60,7 @@ class CoreDataManager {
         }
         
         guard let bundle = rawBundle else {
-            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Could not get bundle that contains the model", log: OSLog.cordialError, type: .error)
             }
             
@@ -70,7 +70,7 @@ class CoreDataManager {
         guard
             let modelURL = bundle.url(forResource: self.modelName, withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
-                if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                     os_log("Could not get bundle for managed object model", log: OSLog.cordialError, type: .error)
                 }
                 
@@ -92,7 +92,7 @@ class CoreDataManager {
             try context.execute(deleteRequest)
             try context.save()
         } catch let error {
-            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Delete CoreData by entity failed with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
             }
         }

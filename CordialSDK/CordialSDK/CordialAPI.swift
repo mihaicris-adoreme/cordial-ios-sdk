@@ -152,7 +152,7 @@ import os.log
         if CordialApiConfiguration.shared.pushNotificationHandler != nil {
             CordialPushNotification.shared.registerForPushNotifications()
         } else {
-            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Register for push notifications failed. Error: [CordialPushNotificationHandler is not set]", log: OSLog.cordialPushNotification, type: .info)
             }
         }

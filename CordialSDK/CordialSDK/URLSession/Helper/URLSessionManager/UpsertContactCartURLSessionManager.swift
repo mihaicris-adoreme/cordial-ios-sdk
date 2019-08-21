@@ -32,7 +32,7 @@ class UpsertContactCartURLSessionManager {
                 contactCartSender.logicErrorHandler(error: responseError)
             }
         } catch let error {
-            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .error, error.localizedDescription)
             }
         }

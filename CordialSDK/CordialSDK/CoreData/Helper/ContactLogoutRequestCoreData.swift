@@ -28,7 +28,7 @@ class ContactLogoutRequestCoreData {
                 
                 try context.save()
             } catch let error {
-                if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                     os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
                 }
             }
@@ -54,7 +54,7 @@ class ContactLogoutRequestCoreData {
                 }
             }
         } catch let error {
-            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
             }
         }
