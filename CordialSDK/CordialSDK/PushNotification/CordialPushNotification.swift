@@ -53,7 +53,9 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         // Called to let your app know which action was selected by the user for a given notification.
         let userInfo = response.notification.request.content.userInfo
         
-        os_log("Push notification payload: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, userInfo.description)
+        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Push notification payload: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, userInfo.description)
+        }
         
         if let mcID = userInfo["mcID"] as? String {
             InternalCordialAPI().setCurrentMcID(mcID: mcID)

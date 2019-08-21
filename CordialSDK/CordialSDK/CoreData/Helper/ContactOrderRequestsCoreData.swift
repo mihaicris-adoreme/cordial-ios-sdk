@@ -26,8 +26,10 @@ class ContactOrderRequestsCoreData {
                     newRow.setValue(sendContactOrderRequestData, forKey: "data")
                     
                     try context.save()
-                } catch {
-                    os_log("CoreData Error: Failed saving", log: OSLog.cordialError, type: .error)
+                } catch let error {
+                    if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                    }
                 }
             }
         }
@@ -50,8 +52,10 @@ class ContactOrderRequestsCoreData {
                     sendContactOrderRequests.append(sendContactOrderRequest)
                 }
             }
-        } catch let error as NSError {
-            os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+        } catch let error {
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            }
         }
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)

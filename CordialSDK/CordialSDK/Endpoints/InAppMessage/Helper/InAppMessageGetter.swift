@@ -13,7 +13,9 @@ class InAppMessageGetter {
     
     func fetchInAppMessage(mcID: String) {
         if ReachabilityManager.shared.isConnectedToInternet {
-            os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
+            }
             
             if InternalCordialAPI().getCurrentJWT() != nil {
                 InAppMessage().getInAppMessage(mcID: mcID)
@@ -25,7 +27,10 @@ class InAppMessageGetter {
             }
         } else {
             CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
-            os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialInAppMessage, type: .info)
+            
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialInAppMessage, type: .info)
+            }
         }
     }
     
@@ -35,28 +40,42 @@ class InAppMessageGetter {
                 switch inAppMessageData.displayType {
                 case InAppMessageDisplayType.displayOnAppOpenEvent:
                     CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-                    os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    
+                    if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    }
                 case InAppMessageDisplayType.displayImmediately:
                     if InAppMessageProcess.shared.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                         InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
                     } else {
-                       os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                            os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                        }
                     }
                 }
             } else {
                 CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-                os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                
+                if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                }
             }
         }
     }
     
     func systemErrorHandler(mcID: String, error: ResponseError) {
         CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
-        os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, error.message)
+        
+        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, error.message)
+        }
     }
     
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
-        os_log("Fetching IAM failed. Will not retry. For viewing exact error see .cordialInAppMessageLogicError notification in notification center.", log: OSLog.cordialInAppMessage, type: .info)
+        
+        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Fetching IAM failed. Will not retry. For viewing exact error see .cordialInAppMessageLogicError notification in notification center.", log: OSLog.cordialInAppMessage, type: .info)
+        }
     }
 }

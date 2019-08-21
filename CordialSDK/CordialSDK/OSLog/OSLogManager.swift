@@ -27,16 +27,83 @@ extension OSLog {
     
 }
 
-enum osLogLevel {
-    
+@objc public enum logLevel: Int {
+    case none = 1
+    case all = 2
+    case error = 3
+    case info = 4
 }
 
-class OSLogManager {
+public enum osLogLevel: String {
+    case none = "none"
+    case all = "all"
+    case error = "error"
+    case info = "info"
+}
+
+@objc public class OSLogManager: NSObject {
     
-    static let shared = OSLogManager()
+    @objc public static let shared = OSLogManager()
     
-    private init(){}
+    private override init(){}
     
+    var currentOSLogLevel = osLogLevel.info
     
+    @objc public func setLogLevel(logLevel: logLevel) {
+        switch logLevel {
+        case .none:
+            self.setOSLogLevel(osLogLevel: osLogLevel.none)
+        case .all:
+            self.setOSLogLevel(osLogLevel: osLogLevel.all)
+        case .error:
+            self.setOSLogLevel(osLogLevel: osLogLevel.error)
+        case .info:
+            self.setOSLogLevel(osLogLevel: osLogLevel.info)
+        }
+    }
     
+    public func setOSLogLevel(osLogLevel: osLogLevel) {
+        switch osLogLevel {
+        case .none:
+            self.currentOSLogLevel = .none
+        case .all:
+            self.currentOSLogLevel = .all
+        case .error:
+            self.currentOSLogLevel = .error
+        case .info:
+            self.currentOSLogLevel = .info
+        }
+    }
+    
+    func isAvailableOsLogLevelForPrint(osLogLevel: osLogLevel) -> Bool {
+        switch osLogLevel {
+        case .error:
+            switch self.currentOSLogLevel {
+            case .none:
+                return false
+            case .all:
+                return true
+            default: break
+            }
+            
+            if self.currentOSLogLevel == .error {
+                return true
+            }
+        case .info:
+            switch self.currentOSLogLevel {
+            case .none:
+                return false
+            case .all:
+                return true
+            default: break
+            }
+            
+            if self.currentOSLogLevel == .info {
+                return true
+            }
+        default: break
+        }
+        
+        return false
+    }
 }

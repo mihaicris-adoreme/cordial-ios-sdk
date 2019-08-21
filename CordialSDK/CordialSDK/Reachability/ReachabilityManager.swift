@@ -24,8 +24,10 @@ class ReachabilityManager {
         
         do {
             try reachability.startNotifier()
-        } catch {
-            os_log("ReachabilityManager: Could not start reachability notifier", log: OSLog.cordialError, type: .error)
+        } catch let error {
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Could not start reachability notifier. Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            }
         }
     }
     

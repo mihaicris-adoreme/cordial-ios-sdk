@@ -115,8 +115,10 @@ class FetchInAppMessageURLSessionManager {
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 self.inAppMessageGetter.logicErrorHandler(error: responseError)
             }
-        } catch {
-            os_log("Failed decode response data", log: OSLog.cordialInAppMessage, type: .error)
+        } catch let error {
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, error.localizedDescription)
+            }
         }
     }
     

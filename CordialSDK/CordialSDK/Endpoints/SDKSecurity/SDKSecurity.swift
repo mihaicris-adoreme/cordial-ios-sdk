@@ -23,7 +23,9 @@ class SDKSecurity {
     func updateJWT() {
         if !isCurrentlyFetchingJWT {
             if let url = URL(string: self.getSDKSecurityURL()) {
-                os_log("Fetching JWT", log: OSLog.cordialSDKSecurity, type: .info)
+                if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    os_log("Fetching JWT", log: OSLog.cordialSDKSecurity, type: .info)
+                }
                 
                 let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
                 
@@ -37,7 +39,9 @@ class SDKSecurity {
                 sdkSecurityGetJWTDownloadTask.resume()
             }
         } else {
-            os_log("JWT is currently fetching", log: OSLog.cordialSDKSecurity, type: .info)
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("JWT is currently fetching", log: OSLog.cordialSDKSecurity, type: .info)
+            }
         }
     }
     
@@ -58,10 +62,14 @@ class SDKSecurity {
     func completionHandler(JWT: String) {
         InternalCordialAPI().setCurrentJWT(JWT: JWT)
         
-        os_log("JWT has been received successfully", log: OSLog.cordialSDKSecurity, type: .info)
+        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("JWT has been received successfully", log: OSLog.cordialSDKSecurity, type: .info)
+        }
     }
     
     func errorHandler(error: ResponseError) {
-        os_log("Getting JWT failed. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .info, error.message)
+        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Getting JWT failed. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .info, error.message)
+        }
     }
 }

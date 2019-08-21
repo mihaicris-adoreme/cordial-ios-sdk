@@ -31,8 +31,10 @@ class SendContactLogoutURLSessionManager {
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 contactLogoutSender.logicErrorHandler(error: responseError)
             }
-        } catch {
-            os_log("Failed decode response data", log: OSLog.cordialSendContactLogout, type: .error)
+        } catch let error {
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .error, error.localizedDescription)
+            }
         }
     }
     

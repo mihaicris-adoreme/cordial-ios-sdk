@@ -109,7 +109,9 @@ class CordialSwizzler {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         
-        os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
+        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
+        }
         
         if token != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN) {
             let upsertContactRequest = UpsertContactRequest(token: token)
@@ -118,11 +120,15 @@ class CordialSwizzler {
     }
     
     @objc func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        os_log("RegisterForRemoteNotifications fail with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            os_log("RegisterForRemoteNotifications fail with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+        }
     }
     
     @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        os_log("Silent push notification received", log: OSLog.cordialPushNotification, type: .info)
+        if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Silent push notification received", log: OSLog.cordialPushNotification, type: .info)
+        }
         
         if let mcID = userInfo["mcID"] as? String {
             InternalCordialAPI().setCurrentMcID(mcID: mcID)

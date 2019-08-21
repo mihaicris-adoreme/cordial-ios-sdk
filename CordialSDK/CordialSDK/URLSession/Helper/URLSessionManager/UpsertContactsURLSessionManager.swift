@@ -32,8 +32,10 @@ class UpsertContactsURLSessionManager {
                 
                 self.contactsSender.logicErrorHandler(error: responseError)
             }
-        } catch {
-            os_log("Failed decode response data", log: OSLog.cordialUpsertContacts, type: .error)
+        } catch let error {
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .error, error.localizedDescription)
+            }
         }
     }
     

@@ -112,7 +112,10 @@ class InAppMessageProcess {
             if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
             } else {
-                os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    os_log("Not showing %{public}@ IAM with mcID: [%{public}@]. Reason: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                }
+                
                 self.showInAppMessageIfExistAndAvailable()
             }
         }
@@ -123,7 +126,10 @@ class InAppMessageProcess {
             if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
             } else {
-                os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                }
+
                 self.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
             }
         }
@@ -153,7 +159,9 @@ class InAppMessageProcess {
                     
                     self.isPresentedInAppMessage = true
                     
-                    os_log("Showing %{public}@ IAM modal with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Showing %{public}@ IAM modal with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    }
                     
                     let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
                     self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
@@ -161,7 +169,10 @@ class InAppMessageProcess {
             }
         } else {
             CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-            os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+            
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+            }
         }
     }
     
@@ -192,7 +203,9 @@ class InAppMessageProcess {
                     
                     self.isPresentedInAppMessage = true
                     
-                    os_log("Showing %{public}@ IAM banner with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Showing %{public}@ IAM banner with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    }
                     
                     let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
                     self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
@@ -200,7 +213,10 @@ class InAppMessageProcess {
             }
         } else {
             CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-            os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+            
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+            }
         }
     }
 }

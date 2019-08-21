@@ -28,6 +28,7 @@ class AppDelegate: CordialAppDelegate {
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
+        OSLogManager.shared.setOSLogLevel(osLogLevel: .all)
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
         CordialApiConfiguration.shared.continueRestorationHandler = continueRestorationHandler
         CordialApiConfiguration.shared.openOptionsHandler = openOptionsHandler

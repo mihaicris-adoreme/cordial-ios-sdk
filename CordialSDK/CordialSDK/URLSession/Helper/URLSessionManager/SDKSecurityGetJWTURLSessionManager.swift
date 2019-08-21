@@ -34,8 +34,10 @@ class SDKSecurityGetJWTURLSessionManager {
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 SDKSecurity.shared.errorHandler(error: responseError)
             }
-        } catch {
-            os_log("Failed decode response data", log: OSLog.cordialSDKSecurity, type: .error)
+        } catch let error {
+            if OSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.localizedDescription)
+            }
         }
     }
     
