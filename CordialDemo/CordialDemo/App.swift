@@ -50,7 +50,7 @@ extension AppDelegate {
         
         notificationCenter.removeObserver(self, name: .cordialSendContactLogoutLogicError, object: nil)
         notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialSendContactLogoutLogicError, object: nil)
-
+        
         notificationCenter.removeObserver(self, name: .cordialInAppMessageLogicError, object: nil)
         notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialInAppMessageLogicError, object: nil)
         
@@ -85,3 +85,4 @@ func popupSimpleNoteAlert(title: String?, message: String?, controller: UIViewCo
         controller.present(alertController, animated: true, completion: nil)
     }
 }
+

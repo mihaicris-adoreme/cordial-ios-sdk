@@ -121,9 +121,9 @@ import os.log
     @objc public func upsertContact(upsertContactRequest: UpsertContactRequest) -> Void {
         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
-
+    
     // MARK: Send Custom Event
-        
+    
     @objc public func sendCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
         if self.getContactPrimaryKey() != nil {
             CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
@@ -158,3 +158,4 @@ import os.log
         }
     }
 }
+
