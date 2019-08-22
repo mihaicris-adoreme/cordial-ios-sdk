@@ -8,14 +8,18 @@
 
 import Foundation
 
-struct ResponseError {
+@objc public class ResponseError: NSObject {
     
-    let message: String
-    let statusCode: Int?
-    let responseBody: String?
-    let systemError: Error?
+    @objc public let message: String
+    public let statusCode: Int?
+    @objc public let responseBody: String?
+    @objc public let systemError: Error?
     
-    init(message: String, statusCode: Int?, responseBody: String?, systemError: Error?) {
+    @objc public convenience init(message: String, statusCodeNumber: NSNumber?, responseBody: String?, systemError: Error?) {
+        self.init(message: message, statusCode: statusCodeNumber?.intValue, responseBody: responseBody, systemError: systemError)
+    }
+    
+    public init(message: String, statusCode: Int?, responseBody: String?, systemError: Error?) {
         self.message = message
         self.statusCode = statusCode
         self.responseBody = responseBody

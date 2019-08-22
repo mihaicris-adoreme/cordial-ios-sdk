@@ -35,6 +35,8 @@ class AppDelegate: CordialAppDelegate {
             self.window?.rootViewController = catalogNavigationController
         }
         
+        self.setupCordialSDKLogicErrorHandler()
+        
         return true
     }
 
