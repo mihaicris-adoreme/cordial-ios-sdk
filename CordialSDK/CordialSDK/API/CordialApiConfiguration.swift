@@ -13,7 +13,6 @@ import CoreLocation
     
     @objc public static let shared = CordialApiConfiguration()
     
-    let initCordialPushNotification = CordialPushNotification.shared
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initNotificationManager = NotificationManager.shared
@@ -26,6 +25,7 @@ import CoreLocation
     var baseURL = String()
     
     let cordialSwizzler = CordialSwizzler()
+    let cordialPushNotification = CordialPushNotification()
     
     @objc public var continueRestorationHandler: CordialContinueRestorationDelegate?
     @objc public var openOptionsHandler: CordialOpenOptionsDelegate?

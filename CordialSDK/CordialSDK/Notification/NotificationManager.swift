@@ -82,7 +82,7 @@ class NotificationManager {
         
         CordialApiConfiguration.shared.cordialSwizzler.swizzleAppDelegateMethods()
         
-        CordialPushNotification.shared.getNotificationSettings()
+        CordialApiConfiguration.shared.cordialPushNotification.getNotificationSettings()
     }
 
 }
