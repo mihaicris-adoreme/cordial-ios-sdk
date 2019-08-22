@@ -16,7 +16,6 @@ import CoreLocation
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initNotificationManager = NotificationManager.shared
-    let initCordialOSLogManager = CordialOSLogManager.shared
     
     @objc public var qtyCachedEventQueue = 1000
     
@@ -26,6 +25,7 @@ import CoreLocation
     
     let cordialSwizzler = CordialSwizzler()
     let cordialPushNotification = CordialPushNotification()
+    @objc public let osLogManager = CordialOSLogManager()
     
     @objc public var continueRestorationHandler: CordialContinueRestorationDelegate?
     @objc public var openOptionsHandler: CordialOpenOptionsDelegate?

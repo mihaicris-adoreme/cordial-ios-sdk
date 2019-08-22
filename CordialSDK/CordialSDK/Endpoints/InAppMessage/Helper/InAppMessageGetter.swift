@@ -13,7 +13,7 @@ class InAppMessageGetter {
     
     func fetchInAppMessage(mcID: String) {
         if ReachabilityManager.shared.isConnectedToInternet {
-            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
             }
             
@@ -28,7 +28,7 @@ class InAppMessageGetter {
         } else {
             CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
             
-            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialInAppMessage, type: .info)
             }
         }
@@ -41,14 +41,14 @@ class InAppMessageGetter {
                 case InAppMessageDisplayType.displayOnAppOpenEvent:
                     CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
                     
-                    if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                         os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                     }
                 case InAppMessageDisplayType.displayImmediately:
                     if InAppMessageProcess.shared.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                         InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
                     } else {
-                        if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                             os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                         }
                     }
@@ -56,7 +56,7 @@ class InAppMessageGetter {
             } else {
                 CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
                 
-                if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                 }
             }
@@ -66,7 +66,7 @@ class InAppMessageGetter {
     func systemErrorHandler(mcID: String, error: ResponseError) {
         CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
         
-        if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, error.message)
         }
     }
@@ -74,7 +74,7 @@ class InAppMessageGetter {
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
         
-        if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Fetching IAM failed. Will not retry. For viewing exact error see .cordialInAppMessageLogicError notification in notification center.", log: OSLog.cordialInAppMessage, type: .info)
         }
     }

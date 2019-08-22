@@ -26,7 +26,7 @@ class InAppMessagesQueueCoreData {
                 
                 try context.save()
             } catch let error {
-                if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                     os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
                 }
             }
@@ -51,7 +51,7 @@ class InAppMessagesQueueCoreData {
                 mcIDs.append(mcID)
             }
         } catch let error {
-            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
             }
         }

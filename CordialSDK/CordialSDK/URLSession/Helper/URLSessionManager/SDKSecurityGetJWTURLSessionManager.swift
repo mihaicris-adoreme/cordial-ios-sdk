@@ -35,7 +35,7 @@ class SDKSecurityGetJWTURLSessionManager {
                 SDKSecurity.shared.errorHandler(error: responseError)
             }
         } catch let error {
-            if CordialOSLogManager.shared.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.localizedDescription)
             }
         }
