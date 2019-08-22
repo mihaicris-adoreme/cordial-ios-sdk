@@ -23,12 +23,11 @@ import UserNotifications
     var baseURL = String()
     
     let cordialSwizzler = CordialSwizzler()
+    let cordialPushNotification = CordialPushNotification()
     
     @objc public var continueRestorationHandler: CordialContinueRestorationDelegate?
     @objc public var openOptionsHandler: CordialOpenOptionsDelegate?
     @objc public var pushNotificationHandler: CordialPushNotificationDelegate?
-    
-    let cordialPushNotification = CordialPushNotification()
     
     private override init(){}
     
