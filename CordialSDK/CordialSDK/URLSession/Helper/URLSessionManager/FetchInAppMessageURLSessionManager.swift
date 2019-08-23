@@ -18,15 +18,7 @@ class FetchInAppMessageURLSessionManager {
             let responseBody = try String(contentsOfFile: location.path)
             
             switch httpResponse.statusCode {
-            case 200:
-                break
-            case 401:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                self.inAppMessageGetter.systemErrorHandler(mcID: inAppMessageURLSessionData.mcID, error: responseError)
-                
-                SDKSecurity.shared.updateJWT()
-            case 500: // tmp logic
+            case 200: // tmp logic
                 let html = "<html>" +
                     "<head>" +
                     "<style>" +
@@ -110,6 +102,12 @@ class FetchInAppMessageURLSessionManager {
                 let inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: InternalCordialAPI().getDateFromTimestamp(timestamp: expirationTime))
                 
                 self.inAppMessageGetter.completionHandler(inAppMessageData: inAppMessageData)
+            case 401:
+                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
+                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                self.inAppMessageGetter.systemErrorHandler(mcID: inAppMessageURLSessionData.mcID, error: responseError)
+                
+                SDKSecurity.shared.updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
