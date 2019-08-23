@@ -27,7 +27,7 @@ class UpsertContactCart {
         }
     }
     
-    private func getUpsertContactCartJSON(upsertContactCartRequest: UpsertContactCartRequest) -> String {
+    func getUpsertContactCartJSON(upsertContactCartRequest: UpsertContactCartRequest) -> String {
         let cartItemsJSON = self.getCartItemsJSON(cartItems: upsertContactCartRequest.cartItems)
         
         var rootContainer  = [

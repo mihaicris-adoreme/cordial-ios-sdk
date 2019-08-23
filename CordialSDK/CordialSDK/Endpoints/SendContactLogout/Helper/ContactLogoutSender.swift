@@ -11,10 +11,13 @@ import os.log
 
 class ContactLogoutSender {
     
+    let sendContactLogout = SendContactLogout()
+    
     func sendContactLogout(sendContactLogoutRequest: SendContactLogoutRequest) {
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact logout. Device ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.deviceID)
+                let payload = self.sendContactLogout.getSendContactLogoutJSON(sendContactLogoutRequest: sendContactLogoutRequest)
+                os_log("Sending contact logout. Payload: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, payload)
             }
             
             if InternalCordialAPI().getCurrentJWT() != nil {
@@ -36,7 +39,7 @@ class ContactLogoutSender {
     
     func completionHandler(sendContactLogoutRequest: SendContactLogoutRequest) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Contact logout sent. Device ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.deviceID)
+            os_log("Contact logout has been sent. Device ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.deviceID)
         }
     }
     

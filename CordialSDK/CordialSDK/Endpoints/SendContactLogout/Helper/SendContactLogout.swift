@@ -26,7 +26,7 @@ class SendContactLogout {
         }
     }
     
-    private func getSendContactLogoutJSON(sendContactLogoutRequest: SendContactLogoutRequest) -> String {
+    func getSendContactLogoutJSON(sendContactLogoutRequest: SendContactLogoutRequest) -> String {
         let rootContainer  = [
             "\"deviceId\": \"\(sendContactLogoutRequest.deviceID)\"",
             "\"primaryKey\": \"\(sendContactLogoutRequest.primaryKey)\""

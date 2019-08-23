@@ -11,6 +11,8 @@ import os.log
 
 class CustomEventsSender {
     
+    let sendCustomEvents = SendCustomEvents()
+    
     func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
         if ReachabilityManager.shared.isConnectedToInternet {
             self.sendCustomEventsIfUserLoggedIn(sendCustomEventRequests: sendCustomEventRequests)
@@ -25,9 +27,8 @@ class CustomEventsSender {
     
     func completionHandler(sendCustomEventRequests: [SendCustomEventRequest]) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Events sent:", log: OSLog.cordialSendCustomEvents, type: .info)
             sendCustomEventRequests.forEach({ sendCustomEventRequest in
-                os_log("[%{public}@]: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
+                os_log("Event [%{public}@] has been sent", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName)
             })
         }
     }
@@ -62,9 +63,11 @@ class CustomEventsSender {
     private func sendCustomEventsIfUserLoggedIn(sendCustomEventRequests: [SendCustomEventRequest]) {
         if CordialAPI().getContactPrimaryKey() != nil {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending custom events:", log: OSLog.cordialSendCustomEvents, type: .info)
+                let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
+                os_log("Sending custom events payload: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, payload)
+                
                 sendCustomEventRequests.forEach({ sendCustomEventRequest in
-                    os_log("[%{public}@]: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.timestamp, sendCustomEventRequest.eventName)
+                    os_log("Sending custom event [%{public}@].", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName)
                 })
             }
             

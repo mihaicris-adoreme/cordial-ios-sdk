@@ -36,7 +36,7 @@ import CoreLocation
     @objc public func initialize(accountKey: String, channelKey: String) {
         self.accountKey = accountKey
         self.channelKey = channelKey
-        self.baseURL = "https://events-stream-svc.cordial-core.ticket-5667.cordialdev.com/"
+        self.baseURL = "https://events-stream-svc.cordial-core.mobile-sdk-1-4.cordialdev.com/"
         
 //        CoreDataManager.shared.deleteAllCoreData()
         

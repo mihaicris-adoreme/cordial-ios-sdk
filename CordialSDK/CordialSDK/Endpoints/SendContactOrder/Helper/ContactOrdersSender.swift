@@ -11,6 +11,8 @@ import os.log
 
 class ContactOrdersSender {
     
+    let sendContactOrders = SendContactOrders()
+    
     func sendContactOrders(sendContactOrderRequests: [SendContactOrderRequest]) {
         if ReachabilityManager.shared.isConnectedToInternet {
             self.sendContactOrdersIfUserLoggedIn(sendContactOrderRequests: sendContactOrderRequests)
@@ -25,9 +27,8 @@ class ContactOrdersSender {
     
     func completionHandler(sendContactOrderRequests: [SendContactOrderRequest]) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Orders sent:", log: OSLog.cordialSendContactOrders, type: .info)
             sendContactOrderRequests.forEach({ sendContactOrderRequest in
-                os_log("Order ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                os_log("Order ID [%{public}@] has been sent", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
             })
         }
     }
@@ -53,9 +54,11 @@ class ContactOrdersSender {
             let sendContactOrders = SendContactOrders()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact orders:", log: OSLog.cordialSendContactOrders, type: .info)
+                let payload = self.sendContactOrders.getSendContactOrderRequestsJSON(sendContactOrderRequests: sendContactOrderRequests)
+                os_log("Sending contact orders payload: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, payload)
+                
                 sendContactOrderRequests.forEach({ sendContactOrderRequest in
-                    os_log("Order ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                    os_log("Sending contact Order ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
                 })
             }
             

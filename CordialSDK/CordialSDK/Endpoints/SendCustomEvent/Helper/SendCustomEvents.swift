@@ -29,7 +29,7 @@ class SendCustomEvents {
         }
     }
     
-    private func getSendCustomEventsJSON(sendCustomEventRequests: [SendCustomEventRequest]) -> String {
+    func getSendCustomEventsJSON(sendCustomEventRequests: [SendCustomEventRequest]) -> String {
         var sendCustomEventsArrayJSON = [String]()
         
         sendCustomEventRequests.forEach { sendCustomEventRequest in

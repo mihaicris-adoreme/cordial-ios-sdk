@@ -27,7 +27,7 @@ class SendContactOrders {
         }
     }
     
-    private func getSendContactOrderRequestsJSON(sendContactOrderRequests: [SendContactOrderRequest]) -> String {
+    func getSendContactOrderRequestsJSON(sendContactOrderRequests: [SendContactOrderRequest]) -> String {
         var sendContactOrdersArrayJSON = [String]()
         
         sendContactOrderRequests.forEach { sendContactOrderRequest in

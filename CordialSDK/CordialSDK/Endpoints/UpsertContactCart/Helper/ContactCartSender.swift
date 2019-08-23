@@ -11,6 +11,8 @@ import os.log
 
 class ContactCartSender {
     
+    let upsertContactCart = UpsertContactCart()
+    
     func upsertContactCart(upsertContactCartRequest: UpsertContactCartRequest) {
         if ReachabilityManager.shared.isConnectedToInternet {
             self.upsertContactCartIfUserLoggedIn(upsertContactCartRequest: upsertContactCartRequest)
@@ -25,7 +27,7 @@ class ContactCartSender {
     
     func completionHandler(upsertContactCartRequest: UpsertContactCartRequest) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Contact cart sent. Device ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
+            os_log("Contact cart has been sent. Device ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
         }
     }
     
@@ -50,7 +52,8 @@ class ContactCartSender {
             let upsertContactCart = UpsertContactCart()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact cart. Device ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, String(upsertContactCartRequest.deviceID))
+                let payload = self.upsertContactCart.getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
+                os_log("Sending contact cart. Payload: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, payload)
             }
             
             if InternalCordialAPI().getCurrentJWT() != nil {

@@ -27,9 +27,9 @@ class ContactsSender {
         
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contacts:", log: OSLog.cordialUpsertContacts, type: .info)
                 upsertContactRequests.forEach({ upsertContactRequest in
-                    os_log("Device ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.deviceID)
+                    let payload = self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest)
+                    os_log("Sending contact payload: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, payload)
                 })
             }
         
@@ -52,9 +52,8 @@ class ContactsSender {
     
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Contacts sent:", log: OSLog.cordialUpsertContacts, type: .info)
             upsertContactRequests.forEach({ upsertContactRequest in
-                os_log("Contact payload: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest))
+                os_log("Contact has been sent. Device ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.deviceID)
             })
         }
         
