@@ -43,8 +43,8 @@ class CustomEventsSender {
     func logicErrorHandler(sendCustomEventRequests: [SendCustomEventRequest], error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendCustomEventsLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending some custom events failed. Will not retry. For viewing exact error see .cordialSendCustomEventsLogicError notification in notification center.", log: OSLog.cordialSendCustomEvents, type: .info)
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            os_log("Sending some custom events failed. Will not retry. For viewing exact error see .cordialSendCustomEventsLogicError notification in notification center.", log: OSLog.cordialSendCustomEvents, type: .error)
         }
         
         if let responseBody = error.responseBody {

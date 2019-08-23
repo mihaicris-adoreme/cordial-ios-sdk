@@ -78,8 +78,8 @@ class ContactsSender {
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialUpsertContactsLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending contact failed. Will not retry. For viewing exact error see .cordialUpsertContactsLogicError notification in notification center.", log: OSLog.cordialUpsertContacts, type: .info)
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            os_log("Sending contact failed. Will not retry. For viewing exact error see .cordialUpsertContactsLogicError notification in notification center.", log: OSLog.cordialUpsertContacts, type: .error)
         }
     }
 }

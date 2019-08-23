@@ -40,8 +40,8 @@ class ContactCartSender {
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialUpsertContactCartLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending contact cart failed. Will not retry. For viewing exact error see .cordialUpsertContactCartLogicError notification in notification center.", log: OSLog.cordialUpsertContactCart, type: .info)
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            os_log("Sending contact cart failed. Will not retry. For viewing exact error see .cordialUpsertContactCartLogicError notification in notification center.", log: OSLog.cordialUpsertContactCart, type: .error)
         }
     }
     

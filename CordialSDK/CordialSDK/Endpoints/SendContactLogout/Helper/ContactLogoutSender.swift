@@ -51,8 +51,8 @@ class ContactLogoutSender {
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactLogoutLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending contact logout failed. Will not retry. For viewing exact error see .cordialSendContactLogoutLogicError notification in notification center.", log: OSLog.cordialSendContactLogout, type: .info)
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            os_log("Sending contact logout failed. Will not retry. For viewing exact error see .cordialSendContactLogoutLogicError notification in notification center.", log: OSLog.cordialSendContactLogout, type: .error)
         }
     }
 }

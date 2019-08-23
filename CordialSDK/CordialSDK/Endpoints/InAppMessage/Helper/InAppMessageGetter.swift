@@ -74,8 +74,8 @@ class InAppMessageGetter {
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Fetching IAM failed. Will not retry. For viewing exact error see .cordialInAppMessageLogicError notification in notification center.", log: OSLog.cordialInAppMessage, type: .info)
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            os_log("Fetching IAM failed. Will not retry. For viewing exact error see .cordialInAppMessageLogicError notification in notification center.", log: OSLog.cordialInAppMessage, type: .error)
         }
     }
 }

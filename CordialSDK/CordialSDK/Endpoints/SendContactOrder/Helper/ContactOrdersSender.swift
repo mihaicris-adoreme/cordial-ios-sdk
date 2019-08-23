@@ -43,8 +43,8 @@ class ContactOrdersSender {
     func logicErrorHandler(error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactOrdersLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending contact order failed. Will not retry. For viewing exact error see .cordialSendContactOrdersLogicError notification in notification center.", log: OSLog.cordialSendContactOrders, type: .info)
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            os_log("Sending contact order failed. Will not retry. For viewing exact error see .cordialSendContactOrdersLogicError notification in notification center.", log: OSLog.cordialSendContactOrders, type: .error)
         }
     }
     
