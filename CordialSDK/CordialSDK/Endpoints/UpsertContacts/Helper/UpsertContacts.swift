@@ -61,10 +61,6 @@ class UpsertContacts {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         
-        if let subscribeStatus = upsertContactRequest.subscribeStatus {
-            rootContainer.append("\"subscribeStatus\": \"\(subscribeStatus)\"")
-        }
-        
         if let attributes = upsertContactRequest.attributes {
             rootContainer.append("\"attributes\": \(API.getDictionaryJSON(stringDictionary: attributes))")
         }

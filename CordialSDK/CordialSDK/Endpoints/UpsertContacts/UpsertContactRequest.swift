@@ -13,17 +13,11 @@ import Foundation
     let deviceID: String
     let token: String?
     let primaryKey: String?
-    public var subscribeStatus: SubscribeStatus?
     let status: String
     let attributes: Dictionary<String, String>?
     
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
-    
-    public enum SubscribeStatus: String {
-        case subscribed = "subscribed"
-        case unsubscribed = "unsubscribed"
-    }
     
     enum Key: String {
         case token = "token"
