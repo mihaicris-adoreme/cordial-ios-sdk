@@ -11,7 +11,7 @@ import Foundation
 class UpsertContactCart {
     
     func upsertContactCart(upsertContactCartRequest: UpsertContactCartRequest) {
-        if let url = URL(string: CordialApiEndpoints().getСontactСartURL()) {
+        if let url = URL(string: CordialApiEndpoints().getContactCartURL()) {
             var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
             
             let upsertContactCartJSON = getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)

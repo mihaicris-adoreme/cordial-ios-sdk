@@ -30,7 +30,7 @@ class CordialApiEndpoints {
         return "\(baseURL)mobile/contact/logout"
     }
     
-    func getСontactСartURL() -> String {
+    func getContactCartURL() -> String {
         let baseURL = cordialAPI.getBaseURL()
         
         return "\(baseURL)mobile/contact/cart"

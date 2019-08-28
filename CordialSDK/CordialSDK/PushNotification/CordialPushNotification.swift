@@ -50,7 +50,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Push notification payload: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, userInfo.description)
+            os_log("Push notification app open via tap. Payload: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, userInfo)
         }
         
         if let mcID = userInfo["mcID"] as? String {
