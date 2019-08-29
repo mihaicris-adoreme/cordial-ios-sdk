@@ -135,6 +135,8 @@ class CordialSwizzler {
             
             if let inApp = userInfo["in-app"] as? Bool, inApp {
                 InAppMessageGetter().fetchInAppMessage(mcID: mcID)
+            } else if let inApp = userInfo["in-app"] as? String, inApp == "true" {
+                InAppMessageGetter().fetchInAppMessage(mcID: mcID)
             }
         }
         
