@@ -23,8 +23,15 @@ class ContactLogoutRequestCoreData {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                let sendContactLogoutRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactLogoutRequest, requiringSecureCoding: false)
-                newRow.setValue(sendContactLogoutRequestData, forKey: "data")
+                if #available(iOS 11.0, *) {
+                    let sendContactLogoutRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactLogoutRequest, requiringSecureCoding: false)
+                    
+                    newRow.setValue(sendContactLogoutRequestData, forKey: "data")
+                } else {
+                    let sendContactLogoutRequestData = NSKeyedArchiver.archivedData(withRootObject: sendContactLogoutRequest)
+                    
+                    newRow.setValue(sendContactLogoutRequestData, forKey: "data")
+                }
                 
                 try context.save()
             } catch let error {

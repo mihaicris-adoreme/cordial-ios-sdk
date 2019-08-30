@@ -178,11 +178,13 @@ class InAppMessageProcess {
     
     private func addDismissButtonToModalInAppMessageViewController(modalWebViewController: InAppMessageViewController) {
         var safeAreaTop = CGFloat()
-        if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
-            if UIScreen.main.bounds.height - safeAreaInsetsTop < modalWebViewController.webView.frame.height {
-                safeAreaTop = safeAreaInsetsTop
+        if #available(iOS 11.0, *) {
+            if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
+                if UIScreen.main.bounds.height - safeAreaInsetsTop < modalWebViewController.webView.frame.height {
+                    safeAreaTop = safeAreaInsetsTop
+                }
             }
-        }
+        } 
         
         let closeButton = UIButton(frame: CGRect(x: modalWebViewController.webView.frame.width - 50, y: safeAreaTop, width: 50, height: 50))
         closeButton.setTitle("✖️", for: .normal)

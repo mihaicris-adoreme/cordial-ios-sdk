@@ -21,10 +21,19 @@ class InAppMessagesCacheCoreData {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
-                newRow.setValue(inAppMessageArchivedData, forKey: "data")
-                newRow.setValue(NSDate(), forKey: "date")
-                newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
+                if #available(iOS 11.0, *) {
+                    let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
+                    
+                    newRow.setValue(inAppMessageArchivedData, forKey: "data")
+                    newRow.setValue(NSDate(), forKey: "date")
+                    newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
+                } else {
+                    let inAppMessageArchivedData = NSKeyedArchiver.archivedData(withRootObject: inAppMessageData)
+                    
+                    newRow.setValue(inAppMessageArchivedData, forKey: "data")
+                    newRow.setValue(NSDate(), forKey: "date")
+                    newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
+                }
                 
                 try context.save()
             } catch let error {

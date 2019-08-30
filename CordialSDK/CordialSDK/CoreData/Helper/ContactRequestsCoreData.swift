@@ -22,8 +22,15 @@ class ContactRequestsCoreData {
                 let newRow = NSManagedObject(entity: entity, insertInto: context)
                 
                 do {
-                    let upsertContactRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactRequest, requiringSecureCoding: false)
-                    newRow.setValue(upsertContactRequestData, forKey: "data")
+                    if #available(iOS 11.0, *) {
+                        let upsertContactRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactRequest, requiringSecureCoding: false)
+                        
+                        newRow.setValue(upsertContactRequestData, forKey: "data")
+                    } else {
+                        let upsertContactRequestData = NSKeyedArchiver.archivedData(withRootObject: upsertContactRequest)
+                        
+                        newRow.setValue(upsertContactRequestData, forKey: "data")
+                    }
                     
                     try context.save()
                 } catch let error {

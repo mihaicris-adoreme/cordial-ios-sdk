@@ -23,8 +23,15 @@ class ContactCartRequestCoreData {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                let upsertContactCartRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest, requiringSecureCoding: false)
-                newRow.setValue(upsertContactCartRequestData, forKey: "data")
+                if #available(iOS 11.0, *) {
+                    let upsertContactCartRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest, requiringSecureCoding: false)
+                    
+                    newRow.setValue(upsertContactCartRequestData, forKey: "data")
+                } else {
+                    let upsertContactCartRequestData = NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest)
+                    
+                    newRow.setValue(upsertContactCartRequestData, forKey: "data")
+                }
                 
                 try context.save()
             } catch let error {

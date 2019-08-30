@@ -26,10 +26,19 @@ class AppDataManager {
                 let newRow = NSManagedObject(entity: entity, insertInto: context)
                 
                 do {
-                    let productData = try NSKeyedArchiver.archivedData(withRootObject: product, requiringSecureCoding: false)
-                    newRow.setValue(productData, forKey: "product")
-                    newRow.setValue(product.sku, forKey: "sku")
-                    newRow.setValue(1, forKey: "qty")
+                    if #available(iOS 11.0, *) {
+                        let productData = try NSKeyedArchiver.archivedData(withRootObject: product, requiringSecureCoding: false)
+                        
+                        newRow.setValue(productData, forKey: "product")
+                        newRow.setValue(product.sku, forKey: "sku")
+                        newRow.setValue(1, forKey: "qty")
+                    } else {
+                        let productData = NSKeyedArchiver.archivedData(withRootObject: product)
+                        
+                        newRow.setValue(productData, forKey: "product")
+                        newRow.setValue(product.sku, forKey: "sku")
+                        newRow.setValue(1, forKey: "qty")
+                    }
                     
                     try context.save()
                 } catch {

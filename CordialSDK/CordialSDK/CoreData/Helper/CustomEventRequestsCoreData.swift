@@ -35,8 +35,15 @@ class CustomEventRequestsCoreData {
                 let newRow = NSManagedObject(entity: entity, insertInto: context)
 
                 do {
-                    let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: false)
-                    newRow.setValue(sendCustomEventRequestData, forKey: "data")
+                    if #available(iOS 11.0, *) {
+                        let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: false)
+                        
+                        newRow.setValue(sendCustomEventRequestData, forKey: "data")
+                    } else {
+                        let sendCustomEventRequestData = NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest)
+                        
+                        newRow.setValue(sendCustomEventRequestData, forKey: "data")
+                    }
 
                     try context.save()
                 } catch let error {
