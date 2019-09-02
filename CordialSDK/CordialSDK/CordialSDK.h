@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CordialSDK/CordialObjcAppDelegate.h"
 
 //! Project version number for CordialSDK.
 FOUNDATION_EXPORT double CordialSDKVersionNumber;

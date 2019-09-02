@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -513,18 +513,11 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/CordialSDK/CordialSDK.framework",
-				"${BUILT_PRODUCTS_DIR}/CordialAppExtensions_Objective-C/CordialAppExtensions_Objective_C.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CordialSDK.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CordialAppExtensions_Objective_C.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

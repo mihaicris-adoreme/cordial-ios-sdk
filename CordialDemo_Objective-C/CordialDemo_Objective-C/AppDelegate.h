@@ -9,18 +9,18 @@
 #import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CordialSDK/CordialSDK-Swift.h>
+#import "CordialSDK/CordialObjcAppDelegate.h"
 #import "CordialPushNotificationHandler.h"
 #import "CordialContinueRestorationHandler.h"
 #import "CordialOpenOptionsHandler.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : CordialObjcAppDelegate
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 
 - (void)saveContext;
-
 
 @end
 

@@ -15,6 +15,8 @@
 		9E126DB422F8661700A74143 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E126DB322F8661700A74143 /* MD5.swift */; };
 		9E12EA4322CCD42200C2DED4 /* InAppMessageGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */; };
 		9E12EA4522CCD45100C2DED4 /* InAppMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12EA4422CCD45100C2DED4 /* InAppMessage.swift */; };
+		9E169A68231D59610039CC00 /* CordialObjcAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E169A66231D59610039CC00 /* CordialObjcAppDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9E169A69231D59610039CC00 /* CordialObjcAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E169A67231D59610039CC00 /* CordialObjcAppDelegate.m */; };
 		9E189E0722CB7D790031C427 /* InAppMessageProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */; };
 		9E1D8CC922D7656F00CD9CDD /* InAppMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */; };
 		9E31E78222CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E31E77E22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift */; };
@@ -121,6 +123,8 @@
 		9E126DB322F8661700A74143 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageGetter.swift; sourceTree = "<group>"; };
 		9E12EA4422CCD45100C2DED4 /* InAppMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessage.swift; sourceTree = "<group>"; };
+		9E169A66231D59610039CC00 /* CordialObjcAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CordialObjcAppDelegate.h; sourceTree = "<group>"; };
+		9E169A67231D59610039CC00 /* CordialObjcAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialObjcAppDelegate.m; sourceTree = "<group>"; };
 		9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageProcess.swift; sourceTree = "<group>"; };
 		9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageType.swift; sourceTree = "<group>"; };
 		9E31E77E22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesQueue+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -254,6 +258,23 @@
 				9ED621DD22CE089600A55DB2 /* InAppMessageData.swift */,
 			);
 			path = InAppMessage;
+			sourceTree = "<group>";
+		};
+		9E169A64231D59290039CC00 /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				9ECA135722C39B2300DE96DF /* CordialAppDelegate.swift */,
+			);
+			path = Swift;
+			sourceTree = "<group>";
+		};
+		9E169A65231D593C0039CC00 /* Objective-C */ = {
+			isa = PBXGroup;
+			children = (
+				9E169A66231D59610039CC00 /* CordialObjcAppDelegate.h */,
+				9E169A67231D59610039CC00 /* CordialObjcAppDelegate.m */,
+			);
+			path = "Objective-C";
 			sourceTree = "<group>";
 		};
 		9E2C646E2260B77C002C6605 /* Helper */ = {
@@ -524,8 +545,9 @@
 		9ECF6B6722982E7300E6E88F /* Swizzler */ = {
 			isa = PBXGroup;
 			children = (
+				9E169A65231D593C0039CC00 /* Objective-C */,
+				9E169A64231D59290039CC00 /* Swift */,
 				9EBF4AA32252559900CA24C7 /* CordialSwizzler.swift */,
-				9ECA135722C39B2300DE96DF /* CordialAppDelegate.swift */,
 			);
 			path = Swizzler;
 			sourceTree = "<group>";
@@ -629,6 +651,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E7A5A50222EB54E0020054F /* CordialSDK.h in Headers */,
+				9E169A68231D59610039CC00 /* CordialObjcAppDelegate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,6 +757,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EBE676122731FA10065AA06 /* ContactCartRequestCoreData.swift in Sources */,
+				9E169A69231D59610039CC00 /* CordialObjcAppDelegate.m in Sources */,
 				9E97DEF7226F381700856341 /* SendContactOrderRequest.swift in Sources */,
 				9E806DAC2271E05200A15F8E /* ReachabilitySender.swift in Sources */,
 				9EBE675A22731C030065AA06 /* ContactOrdersSender.swift in Sources */,
@@ -969,6 +993,7 @@
 		9E7A5A54222EB54E0020054F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -998,6 +1023,7 @@
 		9E7A5A55222EB54E0020054F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;

@@ -12,13 +12,15 @@
 @end
 
 @implementation AppDelegate
-
+    
+@dynamic window; 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [[CordialApiConfiguration shared] initializeWithAccountKey:@"test_account_key" channelKey:@"test_channel_key"];
     [[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
     [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
+    [[[CordialApiConfiguration shared] osLogManager] setOSLogLevel: logLevelAll];
     [CordialApiConfiguration shared].pushNotificationHandler = [[CordialPushNotificationHandler alloc] init];
     [CordialApiConfiguration shared].continueRestorationHandler = [[CordialContinueRestorationHandler alloc] init];
     [CordialApiConfiguration shared].openOptionsHandler = [[CordialOpenOptionsHandler alloc] init];
@@ -101,38 +103,6 @@
         NSLog(@"Unresolved error %@, %@", error, error.userInfo);
         abort();
     }
-}
-
-// MARK: - Handle remote notification registration.
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    
-}
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    
-}
-    
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
-}
-
-// MARK: Handle universal links
-
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
-    return NO;
-}
-
-// MARK: Handle URL schemes
-
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    return NO;
-}
-    
-// MARK: Handle background URLSession.
-    
-- (void)application:(UIApplication *)application handleEventsForBackgroundURLSession:(NSString *)identifier completionHandler:(void (^)(void))completionHandler {
-    
 }
 
 @end
