@@ -230,7 +230,7 @@ ___
 ```
 
 ## Push notifications
-The application must use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to handle have push notification delivered and handle taps on them, the code needs to do 3 things:
+The application should use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to handle push notification delivered and handle taps on them, the code needs to do 3 things:
 1. Provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. Do so in `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
@@ -246,8 +246,40 @@ YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationO
 [CordialApiConfiguration shared].pushNotificationHandler = pushNotificationHandler;
 ```
 
-2. For Swift inherit `AppDelegate` from `CordialAppDelegate`. <br />For Objective-C make sure to provide default (empty) implementations of the following methods:<br /> 
-`didRegisterForRemoteNotificationsWithDeviceToken` and <br /> `didFailToRegisterForRemoteNotificationsWithError`
+2. Inherit `AppDelegate` from `CordialAppDelegate` for Swift or from `CordialObjcAppDelegate` if you need Objective-C implementation:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+class AppDelegate: CordialAppDelegate {
+
+var window: UIWindow?
+
+...
+
+}
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+//  AppDelegate.h
+
+@interface AppDelegate : CordialObjcAppDelegate
+
+...
+
+@end
+
+//  AppDelegate.m
+
+@implementation AppDelegate
+
+@dynamic window; 
+
+...
+
+@end
+```
 
 3. To register for receiving push notifications in your application call:
 
