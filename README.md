@@ -264,6 +264,9 @@ ___
 ```
 //  AppDelegate.h
 
+#import <CordialSDK/CordialSDK-Swift.h>
+#import "CordialSDK/CordialObjcAppDelegate.h"
+
 @interface AppDelegate : CordialObjcAppDelegate
 
 ...
