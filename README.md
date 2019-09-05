@@ -38,7 +38,7 @@ target "<The name of the new Notification Service Extension target>" do
 end
 ```
 
-Delete the code that your IDE generated for you for the new extension and inherit it from `CordialNotificationServiceExtension`:  
+Make sure that your new target "Notification Service Extension" bundle identifier is prefixed with your app bundle identifier, for example: `yourAppBundleIdentifier.NotificationServiceExtension`. Delete the code that your IDE generated for you for the new extension and inherit it from `CordialNotificationServiceExtension`:  
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
