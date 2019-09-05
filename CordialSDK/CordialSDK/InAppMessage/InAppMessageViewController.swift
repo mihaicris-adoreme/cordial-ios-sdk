@@ -21,6 +21,13 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var zoomScale = CGFloat()
     var isBannerAvailable = false
     
+    override func viewDidLoad() {
+        self.webView.uiDelegate = self
+        self.webView.navigationDelegate = self
+        self.webView.scrollView.delegate = self
+        self.webView.scrollView.isScrollEnabled = false
+    }
+    
     override func loadView() {
         self.webView.loadHTMLString(self.inAppMessageData.html, baseURL: nil)
         
@@ -78,10 +85,6 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         }
 
         self.webView = WKWebView(frame: webViewSize, configuration: webConfiguration)
-        self.webView.uiDelegate = self
-        self.webView.navigationDelegate = self
-        self.webView.scrollView.delegate = self
-        self.webView.scrollView.isScrollEnabled = false
     
         if self.isBanner {
             self.inAppMessageView = InAppMessageBannerView(frame: self.webView.frame)
