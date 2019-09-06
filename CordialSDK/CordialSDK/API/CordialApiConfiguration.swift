@@ -16,6 +16,7 @@ import CoreLocation
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initNotificationManager = NotificationManager.shared
+    let initInAppMessageProcess = InAppMessageProcess.shared
     
     @objc public var qtyCachedEventQueue = 1000
     

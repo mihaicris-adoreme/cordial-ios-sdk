@@ -18,6 +18,8 @@ class InAppMessageProcess {
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
+    let inAppMessageManager = InAppMessageManager()
+    
     var isPresentedInAppMessage = false
     
     let bannerAnimationDuration = 1.0
@@ -151,7 +153,7 @@ class InAppMessageProcess {
         if !self.isPresentedInAppMessage {
             DispatchQueue.main.async {
                 if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-                    let modalWebViewController = InAppMessageManager().getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                    let modalWebViewController = self.inAppMessageManager.getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                     
                     self.addDismissButtonToModalInAppMessageViewController(modalWebViewController: modalWebViewController)
                     
@@ -199,7 +201,7 @@ class InAppMessageProcess {
         if !self.isPresentedInAppMessage {
             DispatchQueue.main.async {
                 if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-                    let bannerWebViewController = InAppMessageManager().getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                    let bannerWebViewController = self.inAppMessageManager.getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                     
                     self.addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: bannerWebViewController, activeViewController: activeViewController)
                     
