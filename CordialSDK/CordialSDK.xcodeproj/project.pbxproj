@@ -153,7 +153,6 @@
 		9E565B94225B9E47005EC4AF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		9E565B9B225BC09A005EC4AF /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		9E565B9E225BD1A4005EC4AF /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
-		9E565B9F225BD1A4005EC4AF /* CordialCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CordialCoreData.xcdatamodel; sourceTree = "<group>"; };
 		9E57744E229C1A9600869F02 /* CordialOpenOptionsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialOpenOptionsDelegate.swift; sourceTree = "<group>"; };
 		9E7037A1226882F4000C3582 /* UpsertContactCartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactCartRequest.swift; sourceTree = "<group>"; };
 		9E7037A6226885E4000C3582 /* CartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
@@ -1124,7 +1123,6 @@
 			isa = XCVersionGroup;
 			children = (
 				9E565B9E225BD1A4005EC4AF /* CoreDataModel.xcdatamodel */,
-				9E565B9F225BD1A4005EC4AF /* CordialCoreData.xcdatamodel */,
 			);
 			currentVersion = 9E565B9E225BD1A4005EC4AF /* CoreDataModel.xcdatamodel */;
 			path = CoreDataModel.xcdatamodeld;
