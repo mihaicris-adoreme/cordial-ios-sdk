@@ -11,6 +11,7 @@
 #import "CordialPushNotificationHandler.h"
 #import "CordialContinueRestorationHandler.h"
 #import "CordialOpenOptionsHandler.h"
+#import "NotificationManager.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
