@@ -31,7 +31,7 @@ class ContactOrdersSender {
                     os_log("Sending contact order failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, error.message)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .cordialSendContactOrdersLogicError, object: error)
-                    os_log("Sending contact order failed. Will not retry. For viewing exact error see .sendContactOrdersLogicError notification in notification center.", log: OSLog.cordialSendContactOrders, type: .info)
+                    os_log("Sending contact order failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, error.message)
                 }
             )
         } else {

@@ -27,7 +27,7 @@ class ContactLogoutSender {
                     os_log("Sending contact logout failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, error.message)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .cordialSendContactLogoutLogicError, object: error)
-                    os_log("Sending contact logout failed. Will not retry. For viewing exact error see .sendContactLogoutLogicError notification in notification center.", log: OSLog.cordialSendContactLogout, type: .info)
+                    os_log("Sending contact logout failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, error.message)
                 }
             )
         } else {

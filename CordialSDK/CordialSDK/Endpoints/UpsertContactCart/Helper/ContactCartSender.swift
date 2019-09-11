@@ -25,7 +25,7 @@ class ContactCartSender {
                     os_log("Sending contact cart failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, error.message)
                 }, logicError: { error in
                     NotificationCenter.default.post(name: .cordialUpsertContactCartLogicError, object: error)
-                    os_log("Sending contact cart failed. Will not retry. For viewing exact error see .upsertContactCartLogicError notification in notification center.", log: OSLog.cordialUpsertContactCart, type: .info)
+                    os_log("Sending contact cart failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, error.message)
                 }
             )
         } else {
