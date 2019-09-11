@@ -20,25 +20,27 @@ class InAppMessagesCacheCoreData {
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
-            do {
-                if #available(iOS 11.0, *) {
-                    let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
+            if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: inAppMessageData.mcID) {
+                do {
+                    if #available(iOS 11.0, *) {
+                        let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
+                        
+                        newRow.setValue(inAppMessageArchivedData, forKey: "data")
+                        newRow.setValue(date, forKey: "date")
+                        newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
+                    } else {
+                        let inAppMessageArchivedData = NSKeyedArchiver.archivedData(withRootObject: inAppMessageData)
+                        
+                        newRow.setValue(inAppMessageArchivedData, forKey: "data")
+                        newRow.setValue(date, forKey: "date")
+                        newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
+                    }
                     
-                    newRow.setValue(inAppMessageArchivedData, forKey: "data")
-                    newRow.setValue(NSDate(), forKey: "date")
-                    newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
-                } else {
-                    let inAppMessageArchivedData = NSKeyedArchiver.archivedData(withRootObject: inAppMessageData)
-                    
-                    newRow.setValue(inAppMessageArchivedData, forKey: "data")
-                    newRow.setValue(NSDate(), forKey: "date")
-                    newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
-                }
-                
-                try context.save()
-            } catch let error {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                    try context.save()
+                } catch let error {
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                    }
                 }
             }
         }

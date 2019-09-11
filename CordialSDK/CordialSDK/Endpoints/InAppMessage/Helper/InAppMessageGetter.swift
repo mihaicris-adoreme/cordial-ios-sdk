@@ -11,6 +11,13 @@ import os.log
 
 class InAppMessageGetter {
     
+    func startFetchInAppMessage(mcID: String) {
+        let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date())
+        CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessageParams: inAppMessageParams)
+        
+        self.fetchInAppMessage(mcID: mcID)
+    }
+    
     func fetchInAppMessage(mcID: String) {
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {

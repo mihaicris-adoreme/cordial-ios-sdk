@@ -26,6 +26,7 @@ class CoreDataManager {
     let contactLogoutRequest = ContactLogoutRequestCoreData()
     let inAppMessagesCache = InAppMessagesCacheCoreData()
     let inAppMessagesQueue = InAppMessagesQueueCoreData()
+    let inAppMessagesParam = InAppMessagesParamCoreData()
     
     lazy var persistentContainer: NSPersistentContainer = {
     
@@ -106,6 +107,7 @@ class CoreDataManager {
         self.deleteAllCoreDataByEntity(entityName: self.contactLogoutRequest.entityName)
         self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
         self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
+        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)
     }
     
 }

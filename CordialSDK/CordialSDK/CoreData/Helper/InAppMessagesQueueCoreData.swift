@@ -20,14 +20,16 @@ class InAppMessagesQueueCoreData {
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
-            do {
-                newRow.setValue(mcID, forKey: "mcID")
-                newRow.setValue(NSDate(), forKey: "date")
-                
-                try context.save()
-            } catch let error {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
+                do {
+                    newRow.setValue(mcID, forKey: "mcID")
+                    newRow.setValue(date, forKey: "date")
+                    
+                    try context.save()
+                } catch let error {
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                    }
                 }
             }
         }
