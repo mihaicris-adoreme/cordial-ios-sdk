@@ -75,6 +75,8 @@ class FetchInAppMessageURLSessionManager {
                         let message = "Failed to parse IAM response."
                         let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                         self.inAppMessageGetter.logicErrorHandler(error: responseError)
+                        
+                        CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: inAppMessageURLSessionData.mcID)
                     }
                 }
             case 401:
@@ -87,6 +89,8 @@ class FetchInAppMessageURLSessionManager {
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 self.inAppMessageGetter.logicErrorHandler(error: responseError)
+                
+                CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: inAppMessageURLSessionData.mcID)
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
