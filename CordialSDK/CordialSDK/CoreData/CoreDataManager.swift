@@ -51,11 +51,15 @@ class CoreDataManager {
             let dictionary = Bundle(for: type(of: self)).infoDictionary!
             let frameworkName = dictionary["CFBundleName"] as! String
             
-            guard
-                let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: frameworkName, withExtension: "bundle"),
-                let resourceBundle = Bundle(url: resourceBundleURL) else {
-                    return nil
-                }
+            guard let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: frameworkName, withExtension: "bundle") else {
+                os_log("resourceBundleURL is nil. frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, frameworkName)
+                return nil
+            }
+            
+            guard let resourceBundle = Bundle(url: resourceBundleURL) else {
+                os_log("resourceBundle is nil. resourceBundleURL: [%{public}@] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, resourceBundleURL.absoluteString, frameworkName)
+                return nil
+            }
             
             return resourceBundle
         }

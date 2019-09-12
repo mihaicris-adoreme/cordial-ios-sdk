@@ -27,6 +27,8 @@
     
     [[[CordialAPI alloc] init] registerForPushNotifications];
     
+    [[NotificationManager shared] setupCordialSDKLogicErrorHandler];
+    
     return YES;
 }
 

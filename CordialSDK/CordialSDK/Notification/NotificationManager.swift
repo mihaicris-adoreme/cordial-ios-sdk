@@ -23,6 +23,17 @@ public extension Notification.Name {
     
 }
 
+@objc public extension NSNotification {
+    static let connectedToInternet = Notification.Name.connectedToInternet
+    static let notConnectedToInternet = Notification.Name.notConnectedToInternet
+    
+    static let cordialSendCustomEventsLogicError = Notification.Name.cordialSendCustomEventsLogicError
+    static let cordialUpsertContactCartLogicError = Notification.Name.cordialUpsertContactCartLogicError
+    static let cordialSendContactOrdersLogicError = Notification.Name.cordialSendContactOrdersLogicError
+    static let cordialUpsertContactsLogicError = Notification.Name.cordialUpsertContactsLogicError
+    static let cordialSendContactLogoutLogicError = Notification.Name.cordialSendContactLogoutLogicError
+}
+
 class NotificationManager {
     
     static let shared = NotificationManager()
