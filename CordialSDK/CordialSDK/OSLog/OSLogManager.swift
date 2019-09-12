@@ -15,6 +15,8 @@ extension OSLog {
     
     static let cordialPushNotification = OSLog(subsystem: subsystem, category: "CordialSDKPushNotification")
     
+    static let cordialError = OSLog(subsystem: subsystem, category: "CordialSDKError")
+    
     static let cordialSendCustomEvents = OSLog(subsystem: subsystem, category: "CordialSDKSendCustomEvents")
     static let cordialUpsertContactCart = OSLog(subsystem: subsystem, category: "CordialSDKUpsertContactCart")
     static let cordialSendContactOrders = OSLog(subsystem: subsystem, category: "CordialSDKSendContactOrders")
