@@ -19,7 +19,7 @@ public extension Notification.Name {
     static let cordialSendContactOrdersLogicError = Notification.Name("CordialSendContactOrdersLogicError")
     static let cordialUpsertContactsLogicError = Notification.Name("CordialUpsertContactsLogicError")
     static let cordialSendContactLogoutLogicError = Notification.Name("CordialSendContactLogoutLogicError")
-    static let cordialInAppMessageLogicError = Notification.Name("CordialInAppMessageLogicErrorr")
+    static let cordialInAppMessageLogicError = Notification.Name("CordialInAppMessageLogicError")
     
 }
 
@@ -32,6 +32,7 @@ public extension Notification.Name {
     static let cordialSendContactOrdersLogicError = Notification.Name.cordialSendContactOrdersLogicError
     static let cordialUpsertContactsLogicError = Notification.Name.cordialUpsertContactsLogicError
     static let cordialSendContactLogoutLogicError = Notification.Name.cordialSendContactLogoutLogicError
+    static let cordialInAppMessageLogicError = Notification.Name.cordialInAppMessageLogicError
 }
 
 class NotificationManager {

@@ -50,6 +50,9 @@ static NotificationManager *singletonObject = nil;
     
     [notificationCenter removeObserver:self name:NSNotification.cordialSendContactLogoutLogicError object:nil];
     [notificationCenter addObserver:self selector:@selector(cordialNotificationErrorHandler:) name:NSNotification.cordialSendContactLogoutLogicError object:nil];
+
+    [notificationCenter removeObserver:self name:NSNotification.cordialInAppMessageLogicError object:nil];
+    [notificationCenter addObserver:self selector:@selector(cordialNotificationErrorHandler:) name:NSNotification.cordialInAppMessageLogicError object:nil];
 }
 
 - (void)cordialNotificationErrorHandler:(NSNotification*)notification {
