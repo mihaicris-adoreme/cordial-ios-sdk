@@ -45,7 +45,7 @@ class ContactOrdersSender {
         NotificationCenter.default.post(name: .cordialSendContactOrdersLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending contact order failed. Will not retry. For viewing exact error see .cordialSendContactOrdersLogicError notification in notification center.", log: OSLog.cordialSendContactOrders, type: .error)
+            os_log("Sending contact order failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .error, error.message)
         }
     }
     

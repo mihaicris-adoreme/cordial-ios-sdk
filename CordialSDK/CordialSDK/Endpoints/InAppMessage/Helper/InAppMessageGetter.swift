@@ -82,7 +82,7 @@ class InAppMessageGetter {
         NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Fetching IAM failed. Will not retry. For viewing exact error see .cordialInAppMessageLogicError notification in notification center.", log: OSLog.cordialInAppMessage, type: .error)
+            os_log("Fetching IAM failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, error.message)
         }
     }
 }

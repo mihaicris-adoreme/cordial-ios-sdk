@@ -45,7 +45,7 @@ class CustomEventsSender {
         NotificationCenter.default.post(name: .cordialSendCustomEventsLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending some custom events failed. Will not retry. For viewing exact error see .cordialSendCustomEventsLogicError notification in notification center.", log: OSLog.cordialSendCustomEvents, type: .error)
+            os_log("Sending some custom events failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, error.message)
         }
         
         if let responseBody = error.responseBody {

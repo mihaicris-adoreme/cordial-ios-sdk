@@ -43,7 +43,7 @@ class ContactCartSender {
         NotificationCenter.default.post(name: .cordialUpsertContactCartLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending contact cart failed. Will not retry. For viewing exact error see .cordialUpsertContactCartLogicError notification in notification center.", log: OSLog.cordialUpsertContactCart, type: .error)
+            os_log("Sending contact cart failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .error, error.message)
         }
     }
     

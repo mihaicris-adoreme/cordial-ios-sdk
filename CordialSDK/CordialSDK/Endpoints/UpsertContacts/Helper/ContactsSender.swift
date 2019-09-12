@@ -78,7 +78,7 @@ class ContactsSender {
         NotificationCenter.default.post(name: .cordialUpsertContactsLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending contact failed. Will not retry. For viewing exact error see .cordialUpsertContactsLogicError notification in notification center.", log: OSLog.cordialUpsertContacts, type: .error)
+            os_log("Sending contact failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .error, error.message)
         }
     }
 }
