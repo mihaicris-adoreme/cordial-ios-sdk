@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		018B03AC43DEF16C2BB1A20F /* Pods_CordialDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3762E8A3327E5F75DD8CEF4E /* Pods_CordialDemoUITests.framework */; };
+		374539233E61127C54D6917A /* Pods_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28065BF02D0EA7C8CCB88A28 /* Pods_NotificationServiceExtension.framework */; };
 		6C102E85A5A269BAD6F316DB /* Pods_CordialDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67DA66C3AD068AE05F0FAEEB /* Pods_CordialDemo.framework */; };
-		7128F28F0A5EEC33B0FD78A4 /* Pods_CordialDemo_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A97206FA92CB1BAD2D9232C9 /* Pods_CordialDemo_NotificationServiceExtension.framework */; };
 		9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00ED3C227084E400684F40 /* CartTableFooterView.swift */; };
 		9E00ED3F227084ED00684F40 /* CartTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E00ED3E227084ED00684F40 /* CartTableFooterView.xib */; };
 		9E45FE7622537648006A5A6B /* CordialPushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E45FE7522537648006A5A6B /* CordialPushNotificationHandler.swift */; };
@@ -88,8 +88,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		28065BF02D0EA7C8CCB88A28 /* Pods_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30765362F40E7BA857A3829A /* Pods-CordialDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemoUITests.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemoUITests/Pods-CordialDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3762E8A3327E5F75DD8CEF4E /* Pods_CordialDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		481FAE7E08AC6C95F580CD21 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		4A8DE7A872AAAB391A676024 /* Pods-CordialDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo/Pods-CordialDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		67DA66C3AD068AE05F0FAEEB /* Pods_CordialDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A06271AD144F249C7762904 /* Pods-CordialDemo-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo-NotificationServiceExtension/Pods-CordialDemo-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
@@ -129,8 +131,8 @@
 		9EF7B20A2266259B003B223D /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		9EF7B20C22662A79003B223D /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		9EF7B20E2266340F003B223D /* AppDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataManager.swift; sourceTree = "<group>"; };
-		A97206FA92CB1BAD2D9232C9 /* Pods_CordialDemo_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2FE42956EB12DCC62577EB /* Pods-CordialDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemoTests/Pods-CordialDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B19CB31C2836719E0B87934D /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		B8C85829F588056C5B383F41 /* Pods-CordialDemo-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo-NotificationServiceExtension/Pods-CordialDemo-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		C55B4DCB063238775E83EC27 /* Pods_CordialDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E98625E452DF05D5A0616FF0 /* Pods-CordialDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo/Pods-CordialDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -141,7 +143,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7128F28F0A5EEC33B0FD78A4 /* Pods_CordialDemo_NotificationServiceExtension.framework in Frameworks */,
+				374539233E61127C54D6917A /* Pods_NotificationServiceExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +185,8 @@
 				7F2F03229D5BE89064B778E1 /* Pods-CordialDemoUITests.release.xcconfig */,
 				B8C85829F588056C5B383F41 /* Pods-CordialDemo-NotificationServiceExtension.debug.xcconfig */,
 				6A06271AD144F249C7762904 /* Pods-CordialDemo-NotificationServiceExtension.release.xcconfig */,
+				B19CB31C2836719E0B87934D /* Pods-NotificationServiceExtension.debug.xcconfig */,
+				481FAE7E08AC6C95F580CD21 /* Pods-NotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -277,7 +281,7 @@
 				67DA66C3AD068AE05F0FAEEB /* Pods_CordialDemo.framework */,
 				C55B4DCB063238775E83EC27 /* Pods_CordialDemoTests.framework */,
 				3762E8A3327E5F75DD8CEF4E /* Pods_CordialDemoUITests.framework */,
-				A97206FA92CB1BAD2D9232C9 /* Pods_CordialDemo_NotificationServiceExtension.framework */,
+				28065BF02D0EA7C8CCB88A28 /* Pods_NotificationServiceExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -645,7 +649,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CordialDemo-NotificationServiceExtension-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-NotificationServiceExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -746,7 +750,7 @@
 /* Begin XCBuildConfiguration section */
 		9E77897222878C090089C986 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B8C85829F588056C5B383F41 /* Pods-CordialDemo-NotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = B19CB31C2836719E0B87934D /* Pods-NotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -768,7 +772,7 @@
 		};
 		9E77897322878C090089C986 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6A06271AD144F249C7762904 /* Pods-CordialDemo-NotificationServiceExtension.release.xcconfig */;
+			baseConfigurationReference = 481FAE7E08AC6C95F580CD21 /* Pods-NotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
