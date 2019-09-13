@@ -110,6 +110,20 @@ ___
 CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 ```
 
+## Setting a SDK log level
+You can choose one of four levels of SDK logs: "none", "all", "error", "info". By it is set to "error". If you need you can change logs level on the SDK initialization step in the following way:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.osLogManager.setOSLogLevel(osLogLevel: .all)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[[CordialApiConfiguration shared] osLogManager] setOSLogLevel: logLevelAll];
+```
+
 ## Setting a contact
 
 Every app is assumed to be operating on behalf of a specific contact. Contact is a user of the client application. For example, if Amazon is a client, each user of the Amazon who logs in is a contact. Every contact must have a primary key. Naturally that when the app is installed, the is no contact associated with the app as the user might not have logged in yet. In this case identifying a contact is done via device id, which is a unique identifier of the iOS device the app is running on. Every piece of information (internal or custom events, updating a contact etc) that is passed by SDK to Cordial backend has a device id automatically associated with it. Later, when the user logs into the app and his primary key becomes known, the client application must pass that primary key to the backend via calling the `setContact` method. When the backend receives a contact update with the primary key it associates the device id with the primary key of a contact. That association is crucial to make effective use of Cordial.
@@ -180,6 +194,23 @@ SendCustomEventRequest *request = [[SendCustomEventRequest alloc] initWithEventN
 ```
 
 `properties` - is a dictionary of string keys and string values that can be attached to the event. Can be nil.
+
+## Configuring SDK to track location updates
+You can expand custom events data by adding geo locations to each custom event. To enable this feature set SDK location manager through these two steps:
+1. Add `NSLocationAlwaysAndWhenInUseUsageDescription` and/or `NSLocationWhenInUseUsageDescription` properties to your project `Info.plist` file.
+2. Initialize SDK location manager by adding the following to the end of  `AppDelegate.didFinishLaunchingWithOptions`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
+```
+Example above has configured location manager for maximum geo accuracy. To increase phone battery life you can configure SDK location manager by changing `desiredAccuracy`, `distanceFilter`, `untilTraveled`, `timeout` properties.
 
 ## Post an order
 When an order is posted in client application, the app should notify Cordial about that. In order to post an order to Cordial, use the `CordialApi.sendOrder` method:
