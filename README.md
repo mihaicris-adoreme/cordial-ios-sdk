@@ -19,7 +19,7 @@ pod install
 
 This will add the the latest version of CordialSDK to your project.
 
-Additionally, in order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. In order to do that create "Notification Service Extension" target and add CordialAppExtensions to it:
+Additionally, in order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. In order to do that create `Notification Service Extension` target and add CordialAppExtensions to it:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -38,7 +38,7 @@ target "<The name of the new Notification Service Extension target>" do
 end
 ```
 
-Make sure that your new target "Notification Service Extension" bundle identifier is prefixed with your app bundle identifier, for example: `yourAppBundleIdentifier.NotificationServiceExtension`. Delete the code that your IDE generated for you for the new extension and inherit it from `CordialNotificationServiceExtension`:  
+Make sure that your new target `Notification Service Extension` bundle identifier is prefixed with your app bundle identifier, for example: `yourAppBundleIdentifier.NotificationServiceExtension`. Delete the code that your IDE generated for you for the new extension and inherit it from `CordialNotificationServiceExtension`:  
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -111,7 +111,7 @@ CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 ```
 
 ## Setting a SDK log level
-You can choose one of four levels of SDK logs: "none", "all", "error", "info". By it is set to "error". If you need you can change logs level on the SDK initialization step in the following way:
+You can choose one of four levels of SDK logs: `none`, `all`, `error`, `info`. By default it is set to `error`. If you need you can change logs level on the SDK initialization step in the following way:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
