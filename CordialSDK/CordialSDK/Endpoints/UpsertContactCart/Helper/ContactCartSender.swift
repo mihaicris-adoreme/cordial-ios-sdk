@@ -15,7 +15,21 @@ class ContactCartSender {
     
     func upsertContactCart(upsertContactCartRequest: UpsertContactCartRequest) {
         if ReachabilityManager.shared.isConnectedToInternet {
-            self.upsertContactCartIfUserLoggedIn(upsertContactCartRequest: upsertContactCartRequest)
+            let upsertContactCart = UpsertContactCart()
+            
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                let payload = self.upsertContactCart.getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
+                os_log("Sending contact cart. Payload: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, payload)
+            }
+            
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(upsertContactCartRequest: upsertContactCartRequest, error: responseError)
+                
+                SDKSecurity.shared.updateJWT()
+            }
         } else {
             CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
             
@@ -47,29 +61,4 @@ class ContactCartSender {
         }
     }
     
-    private func upsertContactCartIfUserLoggedIn(upsertContactCartRequest: UpsertContactCartRequest) {
-        if CordialAPI().getContactPrimaryKey() != nil {
-            let upsertContactCart = UpsertContactCart()
-            
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                let payload = self.upsertContactCart.getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
-                os_log("Sending contact cart. Payload: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, payload)
-            }
-            
-            if InternalCordialAPI().getCurrentJWT() != nil {
-                upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
-            } else {
-                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                self.systemErrorHandler(upsertContactCartRequest: upsertContactCartRequest, error: responseError)
-                
-                SDKSecurity.shared.updateJWT()
-            }
-        } else {
-            CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
-            
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact cart failed. Saved to retry later. Error: [primaryKey is nil]", log: OSLog.cordialUpsertContactCart, type: .info)
-            }
-        }
-    }
 }
