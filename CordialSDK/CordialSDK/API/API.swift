@@ -38,7 +38,7 @@ struct API {
     static let EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND = "notification_delivered_in_foreground"
     static let EVENT_NAME_PUSH_NOTIFICATION_APP_OPEN_VIA_TAP = "app_open_via_notification_tap"
     static let EVENT_NAME_DEEP_LINKS_APP_OPEN_VIA_DEEP_LINK = "app_open_via_deep_link"
-    static let EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN = "in_app_message_has_been_shown"
+    static let EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN = "in_app_message_shown"
     static let EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE = "in_app_message_auto_dismiss"
     static let EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE = "in_app_message_manual_dismiss"
     
