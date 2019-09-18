@@ -125,11 +125,7 @@ import os.log
     // MARK: Send Custom Event
     
     @objc public func sendCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        if self.getContactPrimaryKey() != nil {
-            CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
-        } else {
-            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
-        }
+        CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
     }
     
     // MARK: Upsert Contact Cart
