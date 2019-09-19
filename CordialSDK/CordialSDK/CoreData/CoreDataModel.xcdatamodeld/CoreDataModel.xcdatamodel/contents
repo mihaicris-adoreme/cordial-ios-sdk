@@ -21,8 +21,16 @@
         <attribute name="displayType" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="InAppMessagesParam" representedClassName="InAppMessagesParam" syncable="YES">
+        <attribute name="bottom" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="displayType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expirationTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="left" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mcID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="right" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="top" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="InAppMessagesQueue" representedClassName="InAppMessagesQueue" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -35,7 +43,7 @@
         <element name="ContactRequest" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="CustomEventRequest" positionX="-45" positionY="0" width="128" height="60"/>
         <element name="InAppMessagesCache" positionX="-45" positionY="9" width="128" height="90"/>
+        <element name="InAppMessagesParam" positionX="-36" positionY="27" width="128" height="30"/>
         <element name="InAppMessagesQueue" positionX="-36" positionY="18" width="128" height="75"/>
-        <element name="InAppMessagesParam" positionX="-36" positionY="27" width="128" height="75"/>
     </elements>
 </model>
