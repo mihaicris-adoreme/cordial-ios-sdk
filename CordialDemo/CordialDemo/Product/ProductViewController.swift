@@ -70,7 +70,7 @@ class ProductViewController: UIViewController {
     
     func sendCustomEvent(eventName: String, productName: String) {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: ["productName": productName])
-        cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     @objc func cartButtonAction() {

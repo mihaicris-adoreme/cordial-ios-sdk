@@ -58,7 +58,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     func sendBrowseCategoryCustomEvent() {
         let eventName = "browse_category"
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: ["catalogName": catalogName])
-        cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     @objc func cartButtonAction() {
@@ -70,7 +70,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     }
     
     @IBAction func logoutButtonAction(_ sender: UIBarButtonItem) {
-        cordialAPI.unsetContact()
+        self.cordialAPI.unsetContact()
         
         App.userLogOut()
         
