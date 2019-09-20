@@ -75,6 +75,8 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         App.userLogOut()
         
         let loginNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginNavigationController")
+        loginNavigationController.modalPresentationStyle = .fullScreen
+        
         self.present(loginNavigationController, animated: true, completion: nil)
     }
     
