@@ -14,6 +14,7 @@ import os.log
 class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     
     let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
 
     func registerForPushNotifications() {
         let notificationCenter = UNUserNotificationCenter.current()
@@ -54,12 +55,12 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         }
         
         if let mcID = userInfo["mcID"] as? String {
-            InternalCordialAPI().setCurrentMcID(mcID: mcID)
+            self.internalCordialAPI.setCurrentMcID(mcID: mcID)
         }
         
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_APP_OPEN_VIA_TAP
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-        cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
             pushNotificationHandler.appOpenViaNotificationTap(notificationContent: userInfo) {
@@ -74,7 +75,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-        cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
             pushNotificationHandler.notificationDeliveredInForeground(notificationContent: userInfo) {

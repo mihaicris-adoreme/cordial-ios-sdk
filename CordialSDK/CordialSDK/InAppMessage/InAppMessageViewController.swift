@@ -17,6 +17,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var inAppMessageData: InAppMessageData!
     
     let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
     
     var zoomScale = CGFloat()
     var isBannerAvailable = false
@@ -117,7 +118,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             if let eventName = eventName {
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
             
             InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -128,7 +129,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     @objc func dismissModalInAppMessage() {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, properties: nil)
-        self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         self.removeModalFromSuperviewWithoutAnimation()
     }

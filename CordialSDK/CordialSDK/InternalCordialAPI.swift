@@ -50,6 +50,12 @@ class InternalCordialAPI {
         return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
     
+    // MARK: Send System Event
+    
+    func sendSystemEvent(sendCustomEventRequest: SendCustomEventRequest) {
+        CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
+    }
+    
     // MARK: Send cache from CoreData
     
     func sendCacheFromCoreData() {
@@ -108,7 +114,7 @@ class InternalCordialAPI {
         if firstLaunch.isFirstLaunch {
             let eventName = API.EVENT_NAME_FIRST_LAUNCH
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-            CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            self.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         }
     }
     
