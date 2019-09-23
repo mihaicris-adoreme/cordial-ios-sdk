@@ -38,8 +38,7 @@ class UserAgentBuilder {
     func nameAndVersion() -> String {
         let dictionary = Bundle(for: type(of: self)).infoDictionary!
         let version = dictionary["CFBundleShortVersionString"] as! String
-        let name = dictionary["CFBundleName"] as! String
-        return "\(name)/\(version)"
+        return "CordialSDK/\(version)"
     }
     
     // "CordialSDK/1.0 iPhone11,2 iOS/12.2 CFNetwork/978.0.7 Darwin/18.5.0"

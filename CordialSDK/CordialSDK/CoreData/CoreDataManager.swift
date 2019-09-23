@@ -17,6 +17,7 @@ class CoreDataManager {
     private init(){}
     
     let frameworkIdentifier = "io.cordial.sdk"
+    let frameworkName = "CordialSDK"
     let modelName = "CoreDataModel"
     
     let customEventRequests = CustomEventRequestsCoreData()
@@ -48,10 +49,8 @@ class CoreDataManager {
                 return bundle
             }
             
-            let dictionary = Bundle(for: type(of: self)).infoDictionary!
-            let frameworkName = dictionary["CFBundleName"] as! String
-            
-            guard let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: frameworkName, withExtension: "bundle") else {
+
+            guard let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: self.frameworkName, withExtension: "bundle") else {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                     os_log("CoreData Error: [resourceBundleURL is nil] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, frameworkName)
                 }
