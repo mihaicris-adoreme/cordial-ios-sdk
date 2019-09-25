@@ -27,15 +27,20 @@ class LoginViewController: UIViewController {
     @IBAction func loginAction(_ sender: UIButton) {
         self.deleteAllCartItems()
         
-        if let primaryKey = self.primaryKeyTextFeild.text, !primaryKey.isEmpty {
-            self.cordialAPI.setContact(primaryKey: primaryKey)
+        if var primaryKey = self.primaryKeyTextFeild.text {
+            primaryKey = primaryKey.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            self.cordialAPI.registerForPushNotifications()
-            
-            App.userLogIn()
-            
-            self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
-            
+            if !primaryKey.isEmpty {
+                self.cordialAPI.setContact(primaryKey: primaryKey)
+                
+                self.cordialAPI.registerForPushNotifications()
+                
+                App.userLogIn()
+                
+                self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
+            } else {
+                self.primaryKeyTextFeild.setBottomBorder(color: UIColor.red)
+            }
         } else {
             self.primaryKeyTextFeild.setBottomBorder(color: UIColor.red)
         }
