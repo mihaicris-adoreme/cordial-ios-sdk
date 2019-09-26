@@ -56,6 +56,21 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         if let mcID = userInfo["mcID"] as? String {
             self.internalCordialAPI.setCurrentMcID(mcID: mcID)
+            
+            if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
+                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
+                    DispatchQueue.main.async {
+                        if !(UIApplication.shared.applicationState == .active) {
+                            CoreDataManager.shared.inAppMessagesCache.deleteInAppMessageDataByMcID(mcID: mcID)
+                            CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
+                            
+                            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                                os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, mcID)
+                            }
+                        }
+                    }
+                }
+            }
         }
         
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_APP_OPEN_VIA_TAP

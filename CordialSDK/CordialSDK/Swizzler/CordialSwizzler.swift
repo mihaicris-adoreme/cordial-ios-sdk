@@ -133,9 +133,7 @@ class CordialSwizzler {
         if let mcID = userInfo["mcID"] as? String {
             InternalCordialAPI().setCurrentMcID(mcID: mcID)
             
-            if let inApp = userInfo["in-app"] as? Bool, inApp {
-                InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
-            } else if let inApp = userInfo["in-app"] as? String, inApp == "true" {
+            if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
                 InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
             }
         }

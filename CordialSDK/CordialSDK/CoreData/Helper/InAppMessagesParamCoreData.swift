@@ -31,6 +31,7 @@ class InAppMessagesParamCoreData {
                 newRow.setValue(inAppMessageParams.left, forKey: "left")
                 newRow.setValue(inAppMessageParams.displayType.rawValue, forKey: "displayType")
                 newRow.setValue(inAppMessageParams.expirationTime, forKey: "expirationTime")
+                newRow.setValue(inAppMessageParams.inactiveSessionDisplay.rawValue, forKey: "inactiveSessionDisplay")
                 
                 try context.save()
             } catch let error {
@@ -112,7 +113,11 @@ class InAppMessagesParamCoreData {
                 let managedObjectExpirationTime = managedObject.value(forKey: "expirationTime") 
                 let expirationTime = managedObjectExpirationTime as? Date
 
-                let inAppMessageParams = InAppMessageParams(mcID: mcID, date: date, type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime)
+                guard let managedObjectInactiveSessionDisplay = managedObject.value(forKey: "inactiveSessionDisplay") else { continue }
+                let inactiveSessionDisplayString = managedObjectInactiveSessionDisplay as! String
+                let inactiveSessionDisplay = inAppMessageGetter.getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
+                
+                let inAppMessageParams = InAppMessageParams(mcID: mcID, date: date, type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
                 
                 return inAppMessageParams
             }

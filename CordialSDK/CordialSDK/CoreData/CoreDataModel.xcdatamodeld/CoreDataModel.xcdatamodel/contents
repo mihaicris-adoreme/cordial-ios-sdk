@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ContactCartRequest" representedClassName="ContactCartRequest" syncable="YES">
-        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="data" optional="YES" attributeType="Binary"/>
     </entity>
     <entity name="ContactLogout" representedClassName="ContactLogout" syncable="YES">
-        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="data" optional="YES" attributeType="Binary"/>
     </entity>
     <entity name="ContactOrderRequest" representedClassName="ContactOrderRequest" syncable="YES">
-        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="data" optional="YES" attributeType="Binary"/>
     </entity>
     <entity name="ContactRequest" representedClassName="ContactRequest" syncable="YES">
-        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="data" optional="YES" attributeType="Binary"/>
     </entity>
     <entity name="CustomEventRequest" representedClassName="CustomEventRequest" syncable="YES">
-        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="data" optional="YES" attributeType="Binary"/>
     </entity>
     <entity name="InAppMessagesCache" representedClassName="InAppMessagesCache" syncable="YES">
-        <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="displayType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="displayType" optional="YES" attributeType="String"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
     </entity>
     <entity name="InAppMessagesParam" representedClassName="InAppMessagesParam" syncable="YES">
-        <attribute name="bottom" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="displayType" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="expirationTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="height" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="left" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="mcID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="right" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="top" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bottom" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="displayType" optional="YES" attributeType="String"/>
+        <attribute name="expirationTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="height" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="inactiveSessionDisplay" optional="YES" attributeType="String"/>
+        <attribute name="left" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+        <attribute name="right" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="top" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
     </entity>
     <entity name="InAppMessagesQueue" representedClassName="InAppMessagesQueue" syncable="YES">
-        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="mcID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="ContactCartRequest" positionX="-45" positionY="9" width="128" height="60"/>
@@ -42,8 +44,8 @@
         <element name="ContactOrderRequest" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="ContactRequest" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="CustomEventRequest" positionX="-45" positionY="0" width="128" height="60"/>
-        <element name="InAppMessagesCache" positionX="-45" positionY="9" width="128" height="90"/>
-        <element name="InAppMessagesParam" positionX="-36" positionY="27" width="128" height="30"/>
+        <element name="InAppMessagesCache" positionX="-45" positionY="9" width="128" height="103"/>
+        <element name="InAppMessagesParam" positionX="-36" positionY="27" width="128" height="208"/>
         <element name="InAppMessagesQueue" positionX="-36" positionY="18" width="128" height="75"/>
     </elements>
 </model>

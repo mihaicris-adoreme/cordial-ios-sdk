@@ -15,13 +15,16 @@ class InAppMessageGetter {
         if let mcID = userInfo["mcID"] as? String {
             let typeString = userInfo["type"] as? String
             let displayTypeString = userInfo["displayType"] as? String
+            let inactiveSessionDisplayString = userInfo["inactiveSessionDisplay"] as? String
             
             let type = self.getInAppMessageType(typeString: typeString)
             let displayType = self.getInAppMessageDisplayType(displayTypeString: displayTypeString)
             
             let (height, top, right, bottom, left, expirationTime) = self.InAppMessageOptionalParams(userInfo: userInfo)
             
-            let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime)
+            let inactiveSessionDisplay = self.getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
+            
+            let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
             CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessageParams: inAppMessageParams)
             
             self.fetchInAppMessage(mcID: mcID)
@@ -51,6 +54,17 @@ class InAppMessageGetter {
             return InAppMessageDisplayType.displayOnAppOpenEvent
         default:
             return InAppMessageDisplayType.displayImmediately
+        }
+    }
+    
+    func getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: String?) -> InAppMessageInactiveSessionDisplayType {
+        switch inactiveSessionDisplayString {
+        case InAppMessageInactiveSessionDisplayType.shownInAppMessage.rawValue:
+            return InAppMessageInactiveSessionDisplayType.shownInAppMessage
+        case InAppMessageInactiveSessionDisplayType.hideInAppMessage.rawValue:
+            return InAppMessageInactiveSessionDisplayType.hideInAppMessage
+        default:
+            return InAppMessageInactiveSessionDisplayType.shownInAppMessage
         }
     }
     
