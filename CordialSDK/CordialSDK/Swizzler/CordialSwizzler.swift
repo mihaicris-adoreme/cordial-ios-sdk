@@ -32,74 +32,86 @@ class CordialSwizzler {
     // MARK: - Swizzle AppDelegate remote notification registration methods.
     
     private func swizzleDidRegisterForRemoteNotificationsWithDeviceToken() {
-        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didRegisterForRemoteNotificationsWithDeviceToken:))) else { return }
         
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         let applicationSelector = #selector(UIApplicationDelegate.application(_:didRegisterForRemoteNotificationsWithDeviceToken:))
         
-        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didRegisterForRemoteNotificationsWithDeviceToken:))) {
-                method_exchangeImplementations(originalMethod, swizzleMethod)
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector) {
+            method_exchangeImplementations(originalMethod, swizzleMethod)
+        } else {
+            class_addMethod(delegateClass, applicationSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod))
         }
     }
     
     private func swizzleDidFailToRegisterForRemoteNotificationsWithError() {
-        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didFailToRegisterForRemoteNotificationsWithError:))) else { return }
         
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         let applicationSelector = #selector(UIApplicationDelegate.application(_:didFailToRegisterForRemoteNotificationsWithError:))
         
-        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didFailToRegisterForRemoteNotificationsWithError:))) {
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector) {
             method_exchangeImplementations(originalMethod, swizzleMethod)
+        } else {
+            class_addMethod(delegateClass, applicationSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod))
         }
     }
     
     private func swizzleDidReceiveRemoteNotificationfetchCompletionHandler() {
-        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didReceiveRemoteNotification:fetchCompletionHandler:))) else { return }
         
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         let applicationSelector = #selector(UIApplicationDelegate.application(_:didReceiveRemoteNotification:fetchCompletionHandler:))
         
-        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didReceiveRemoteNotification:fetchCompletionHandler:))) {
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector) {
             method_exchangeImplementations(originalMethod, swizzleMethod)
+        } else {
+            class_addMethod(delegateClass, applicationSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod))
         }
     }
     
     // MARK: Swizzle AppDelegate universal links method.
     
     private func swizzleContinueRestorationHandler() {
-        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:continue:restorationHandler:))) else { return }
         
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         let applicationSelector = #selector(UIApplicationDelegate.application(_:continue:restorationHandler:))
         
-        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:continue:restorationHandler:))) {
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector) {
             method_exchangeImplementations(originalMethod, swizzleMethod)
+        } else {
+            class_addMethod(delegateClass, applicationSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod))
         }
     }
     
     // MARK: Swizzle AppDelegate URL schemes method.
     
     private func swizzleOpenOptions() {
-        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:open:options:))) else { return }
         
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         let applicationSelector = #selector(UIApplicationDelegate.application(_:open:options:))
         
-        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:open:options:))) {
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector) {
             method_exchangeImplementations(originalMethod, swizzleMethod)
+        } else {
+            class_addMethod(delegateClass, applicationSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod))
         }
     }
     
     // MARK: Swizzle AppDelegate background URLSession method.
     
     private func swizzleHandleEventsForBackgroundURLSessionCompletionHandler() {
-        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:handleEventsForBackgroundURLSession:completionHandler:))) else { return }
         
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         let applicationSelector = #selector(UIApplicationDelegate.application(_:handleEventsForBackgroundURLSession:completionHandler:))
         
-        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector),
-            let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:handleEventsForBackgroundURLSession:completionHandler:))) {
+        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector) {
             method_exchangeImplementations(originalMethod, swizzleMethod)
+        } else {
+            class_addMethod(delegateClass, applicationSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod))
         }
     }
     

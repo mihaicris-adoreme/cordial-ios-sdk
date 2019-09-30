@@ -13,7 +13,7 @@ import IQKeyboardManagerSwift
 import CordialSDK
 
 @UIApplicationMain
-class AppDelegate: CordialAppDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 

@@ -12,8 +12,6 @@
 @end
 
 @implementation AppDelegate
-    
-@dynamic window; 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     

@@ -9,13 +9,12 @@
 #import <CoreData/CoreData.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CordialSDK/CordialSDK-Swift.h>
-#import "CordialSDK/CordialObjcAppDelegate.h"
 #import "CordialPushNotificationHandler.h"
 #import "CordialContinueRestorationHandler.h"
 #import "CordialOpenOptionsHandler.h"
 #import "NotificationManager.h"
 
-@interface AppDelegate : CordialObjcAppDelegate
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

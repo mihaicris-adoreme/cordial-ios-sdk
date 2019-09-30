@@ -261,7 +261,7 @@ ___
 ```
 
 ## Push notifications
-The application should use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to handle push notification delivered and handle taps on them, the code needs to do 3 things:
+The application should use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to handle push notification delivered and handle taps on them, the code needs to do two things:
 1. Provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. Do so in `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
@@ -277,45 +277,7 @@ YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationO
 [CordialApiConfiguration shared].pushNotificationHandler = pushNotificationHandler;
 ```
 
-2. Inherit `AppDelegate` from `CordialAppDelegate` for Swift or from `CordialObjcAppDelegate` if you need Objective-C implementation:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-class AppDelegate: CordialAppDelegate {
-
-var window: UIWindow?
-
-...
-
-}
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-//  AppDelegate.h
-
-#import <CordialSDK/CordialSDK-Swift.h>
-#import "CordialSDK/CordialObjcAppDelegate.h"
-
-@interface AppDelegate : CordialObjcAppDelegate
-
-...
-
-@end
-
-//  AppDelegate.m
-
-@implementation AppDelegate
-
-@dynamic window; 
-
-...
-
-@end
-```
-
-3. To register for receiving push notifications in your application call:
+2. To register for receiving push notifications in your application call:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -332,7 +294,7 @@ ___
 The SDK allows to track opening deep links. Two types of deep links are supported: universal links and URL scheme links. 
 In order to allow the SDK to track opening deep links make sure to implement any of the two or both protocols, each for corresponding type of deep links: `CordialContinueRestorationDelegate` for universal links and `CordialOpenOptionsDelegate` for URL scheme deep links. The protocols contain callbacks that will be called once the app gets a chance of opening a deep link.
 
-1. In the body of function `AppDelegate.didFinishLaunchingWithOptions` provide implementation for one or both protocols:
+In the body of function `AppDelegate.didFinishLaunchingWithOptions` provide implementation for one or both protocols:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -352,5 +314,3 @@ YourImplementationOfCordialOpenOptionsHandler *openOptionsHandler = [[YourImplem
 [CordialApiConfiguration shared].continueRestorationHandler = continueRestorationHandler;
 [CordialApiConfiguration shared].openOptionsHandler = openOptionsHandler;
 ```
-
-2. Inherit  `AppDelegate` from `CordialAppDelegate` for Swift or from `CordialObjcAppDelegate` for Objective-C. See details in Push Notification section above.
