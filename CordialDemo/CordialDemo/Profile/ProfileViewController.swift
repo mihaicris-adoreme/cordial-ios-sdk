@@ -11,37 +11,37 @@ import CordialSDK
 
 class ProfileViewController: UIViewController {
 
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var primaryKeyTextField: UITextField!
     
     let cordialAPI = CordialAPI()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        emailTextField.setBottomBorder(color: UIColor.black)
+        self.primaryKeyTextField.setBottomBorder(color: UIColor.black)
         
         self.title = "Profile"
         
-        if let primaryKey = cordialAPI.getContactPrimaryKey() {
-            emailTextField.text = primaryKey
+        if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
+            self.primaryKeyTextField.text = primaryKey
         }
     }
 
     @IBAction func updateProfileButtonAction(_ sender: UIButton) {
-        if let email = emailTextField.text, !email.isEmpty {
-            if let primaryKey = cordialAPI.getContactPrimaryKey() {
-                if primaryKey != email {
-                    cordialAPI.setContact(primaryKey: email)
+        if let newPrimaryKey = self.primaryKeyTextField.text, !newPrimaryKey.isEmpty {
+            if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
+                if primaryKey != newPrimaryKey {
+                    self.cordialAPI.setContact(primaryKey: newPrimaryKey)
                 }
             }
             
             let upsertContactRequest = UpsertContactRequest(attributes: nil)
-            cordialAPI.upsertContact(upsertContactRequest: upsertContactRequest)
+            self.cordialAPI.upsertContact(upsertContactRequest: upsertContactRequest)
             
             popupSimpleNoteAlert(title: "PROFILE", message: "UPDATED", controller: self)
             
         } else {
-            emailTextField.setBottomBorder(color: UIColor.red)
+            self.primaryKeyTextField.setBottomBorder(color: UIColor.red)
         }
     }
     

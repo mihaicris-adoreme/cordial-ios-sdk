@@ -11,7 +11,7 @@ import CordialSDK
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var primaryKeyTextFeild: UITextField!
     
     let cordialAPI = CordialAPI()
     
@@ -21,23 +21,28 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        emailTextField.setBottomBorder(color: UIColor.black)
+        self.primaryKeyTextFeild.setBottomBorder(color: UIColor.black)
     }
     
     @IBAction func loginAction(_ sender: UIButton) {
         self.deleteAllCartItems()
         
-        if let email = emailTextField.text, !email.isEmpty {
-            cordialAPI.setContact(primaryKey: email)
+        if var primaryKey = self.primaryKeyTextFeild.text {
+            primaryKey = primaryKey.trimmingCharacters(in: .whitespacesAndNewlines)
             
-            cordialAPI.registerForPushNotifications()
-            
-            App.userLogIn()
-            
-            self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
-            
+            if !primaryKey.isEmpty {
+                self.cordialAPI.setContact(primaryKey: primaryKey)
+                
+                self.cordialAPI.registerForPushNotifications()
+                
+                App.userLogIn()
+                
+                self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
+            } else {
+                self.primaryKeyTextFeild.setBottomBorder(color: UIColor.red)
+            }
         } else {
-            emailTextField.setBottomBorder(color: UIColor.red)
+            self.primaryKeyTextFeild.setBottomBorder(color: UIColor.red)
         }
     }
     

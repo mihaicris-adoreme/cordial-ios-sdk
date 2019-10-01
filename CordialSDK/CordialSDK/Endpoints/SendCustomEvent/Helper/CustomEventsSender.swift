@@ -15,7 +15,23 @@ class CustomEventsSender {
     
     func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
         if ReachabilityManager.shared.isConnectedToInternet {
-            self.sendCustomEventsIfUserLoggedIn(sendCustomEventRequests: sendCustomEventRequests)
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
+                os_log("Sending custom events payload: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, payload)
+                
+                sendCustomEventRequests.forEach({ sendCustomEventRequest in
+                    os_log("Sending custom event [%{public}@].", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName)
+                })
+            }
+            
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
+                
+                SDKSecurity.shared.updateJWT()
+            }
         } else {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
             
@@ -56,34 +72,6 @@ class CustomEventsSender {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     os_log("Saved valid events to retry later", log: OSLog.cordialSendCustomEvents, type: .info)
                 }
-            }
-        }
-    }
-    
-    private func sendCustomEventsIfUserLoggedIn(sendCustomEventRequests: [SendCustomEventRequest]) {
-        if CordialAPI().getContactPrimaryKey() != nil {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
-                os_log("Sending custom events payload: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, payload)
-                
-                sendCustomEventRequests.forEach({ sendCustomEventRequest in
-                    os_log("Sending custom event [%{public}@].", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName)
-                })
-            }
-            
-            if InternalCordialAPI().getCurrentJWT() != nil {
-                SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
-            } else {
-                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
-                
-                SDKSecurity.shared.updateJWT()
-            }
-        } else {
-            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
-            
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending custom events failed. Saved to retry later. Error: [primaryKey is nil]", log: OSLog.cordialSendCustomEvents, type: .info)
             }
         }
     }

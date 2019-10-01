@@ -28,9 +28,9 @@ class SettingsViewController: UIViewController {
         channelKeyTextField.setBottomBorder(color: UIColor.black)
         qtyCachedEventQueueTextField.setBottomBorder(color: UIColor.black)
         
-        baseURLTextField.text = cordialAPI.getBaseURL()
-        accountKeyTextField.text = cordialAPI.getAccountKey()
-        channelKeyTextField.text = cordialAPI.getChannelKey()
+        baseURLTextField.text = self.cordialAPI.getBaseURL()
+        accountKeyTextField.text = self.cordialAPI.getAccountKey()
+        channelKeyTextField.text = self.cordialAPI.getChannelKey()
         qtyCachedEventQueueTextField.text = String(CordialApiConfiguration.shared.qtyCachedEventQueue)
     }
     
@@ -40,9 +40,9 @@ class SettingsViewController: UIViewController {
 
     func saveTestInitData() {
         if let baseURL = self.baseURLTextField.text, let accountKey = self.accountKeyTextField.text, let channelKey = self.channelKeyTextField.text, let qtyCachedEventQueueString = self.qtyCachedEventQueueTextField.text, let qtyCachedEventQueue = Int(qtyCachedEventQueueString) {
-            cordialAPI.setBaseURL(baseURL: baseURL)
-            cordialAPI.setAccountKey(accountKey: accountKey)
-            cordialAPI.setChannelKey(channelKey: channelKey)
+            self.cordialAPI.setBaseURL(baseURL: baseURL)
+            self.cordialAPI.setAccountKey(accountKey: accountKey)
+            self.cordialAPI.setChannelKey(channelKey: channelKey)
             CordialApiConfiguration.shared.qtyCachedEventQueue = qtyCachedEventQueue
         }
     }

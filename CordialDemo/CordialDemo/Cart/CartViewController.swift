@@ -92,6 +92,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             self.tableView.tableFooterView = UIView(frame: .zero)
         }
+        
+        tableView.reloadData()
     }
     
     func upsertContactCart() {
@@ -164,9 +166,10 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             AppDataManager.shared.deleteCartItemBySKU(appDelegate: appDelegate, sku: products[indexPath.row].sku)
             
             products.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            
             self.upsertContactCart()
             self.upsertCartTableFooterView()
-            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }
 }

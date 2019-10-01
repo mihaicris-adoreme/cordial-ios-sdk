@@ -59,20 +59,18 @@ class InternalCordialAPI {
     // MARK: Send cache from CoreData
     
     func sendCacheFromCoreData() {
-        if cordialAPI.getContactPrimaryKey() != nil {
-            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
-            if customEventRequests.count > 0 {
-                CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
-            }
-            
-            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
-                ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
-            }
-            
-            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-            if sendContactOrderRequests.count > 0 {
-                ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
-            }
+        let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
+        if customEventRequests.count > 0 {
+            CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
+        }
+        
+        if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
+            ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+        }
+        
+        let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
+        if sendContactOrderRequests.count > 0 {
+            ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
         }
         
         let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
