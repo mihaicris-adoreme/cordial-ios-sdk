@@ -42,6 +42,10 @@ class SendContactOrders {
                 rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
             }
             
+            if let mcID = sendContactOrderRequest.mcID {
+                rootContainer.append("\"mcID\": \"\(mcID)\"")
+            }
+            
             let rootContainerString = rootContainer.joined(separator: ", ")
             
             let stringJSON = "{ \(rootContainerString) }"

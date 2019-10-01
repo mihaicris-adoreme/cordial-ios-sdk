@@ -36,7 +36,7 @@ import Foundation
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.eventName = eventName
         self.timestamp = internalCordialAPI.getCurrentTimestamp()
-        self.mcID = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+        self.mcID = cordialAPI.getCurrentMcID()
         self.latitude = UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
         self.longitude = UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
         self.properties = properties
