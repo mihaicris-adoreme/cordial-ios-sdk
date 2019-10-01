@@ -11,11 +11,96 @@ import os.log
 
 class InAppMessageGetter {
     
-    func startFetchInAppMessage(mcID: String) {
-        let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date())
-        CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessageParams: inAppMessageParams)
+    func startFetchInAppMessage(userInfo: [AnyHashable : Any]) {
+        if let mcID = userInfo["mcID"] as? String {
+            let typeString = userInfo["type"] as? String
+            let displayTypeString = userInfo["displayType"] as? String
+            let inactiveSessionDisplayString = userInfo["inactiveSessionDisplay"] as? String
+            
+            let type = self.getInAppMessageType(typeString: typeString)
+            let displayType = self.getInAppMessageDisplayType(displayTypeString: displayTypeString)
+            
+            let (height, top, right, bottom, left, expirationTime) = self.InAppMessageOptionalParams(userInfo: userInfo)
+            
+            let inactiveSessionDisplay = self.getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
+            
+            let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
+            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessageParams: inAppMessageParams)
+            
+            self.fetchInAppMessage(mcID: mcID)
+        }
+    }
+    
+    func getInAppMessageType(typeString: String?) -> InAppMessageType {
+        switch typeString {
+        case InAppMessageType.modal.rawValue:
+            return InAppMessageType.modal
+        case InAppMessageType.fullscreen.rawValue:
+            return InAppMessageType.fullscreen
+        case InAppMessageType.banner_up.rawValue:
+            return InAppMessageType.banner_up
+        case InAppMessageType.banner_bottom.rawValue:
+            return InAppMessageType.banner_bottom
+        default:
+            return InAppMessageType.modal
+        }
+    }
+    
+    func getInAppMessageDisplayType(displayTypeString: String?) -> InAppMessageDisplayType {
+        switch displayTypeString {
+        case InAppMessageDisplayType.displayImmediately.rawValue:
+            return InAppMessageDisplayType.displayImmediately
+        case InAppMessageDisplayType.displayOnAppOpenEvent.rawValue:
+            return InAppMessageDisplayType.displayOnAppOpenEvent
+        default:
+            return InAppMessageDisplayType.displayImmediately
+        }
+    }
+    
+    func getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: String?) -> InAppMessageInactiveSessionDisplayType {
+        switch inactiveSessionDisplayString {
+        case InAppMessageInactiveSessionDisplayType.shownInAppMessage.rawValue:
+            return InAppMessageInactiveSessionDisplayType.shownInAppMessage
+        case InAppMessageInactiveSessionDisplayType.hideInAppMessage.rawValue:
+            return InAppMessageInactiveSessionDisplayType.hideInAppMessage
+        default:
+            return InAppMessageInactiveSessionDisplayType.shownInAppMessage
+        }
+    }
+    
+    private func InAppMessageOptionalParams(userInfo: [AnyHashable : Any]) -> (Int16, Int16, Int16, Int16, Int16, Date?) {
+        var height = Int16(20)
+        var top = Int16(15)
+        var right = Int16(10)
+        var bottom = Int16(20)
+        var left = Int16(10)
+        var expirationTime: Date?
         
-        self.fetchInAppMessage(mcID: mcID)
+        if let userInfoHeight = userInfo["height"] as? Int16 {
+            height = userInfoHeight
+        }
+        
+        if let userInfoTop = userInfo["top"] as? Int16 {
+            top = userInfoTop
+        }
+        
+        if let userInfoRight = userInfo["right"] as? Int16 {
+            right = userInfoRight
+        }
+        
+        if let userInfoBottom = userInfo["bottom"] as? Int16 {
+            bottom = userInfoBottom
+        }
+        
+        if let userInfoLeft = userInfo["left"] as? Int16 {
+            left = userInfoLeft
+        }
+        
+        if let timestamp = userInfo["expirationTime"] as? String {
+            expirationTime = InternalCordialAPI().getDateFromTimestamp(timestamp: timestamp)
+        }
+        
+        return (height, top, right, bottom, left, expirationTime)
     }
     
     func fetchInAppMessage(mcID: String) {

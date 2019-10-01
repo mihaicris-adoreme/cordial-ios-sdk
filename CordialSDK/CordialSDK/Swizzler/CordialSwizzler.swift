@@ -145,10 +145,8 @@ class CordialSwizzler {
         if let mcID = userInfo["mcID"] as? String {
             InternalCordialAPI().setCurrentMcID(mcID: mcID)
             
-            if let inApp = userInfo["in-app"] as? Bool, inApp {
-                InAppMessageGetter().startFetchInAppMessage(mcID: mcID)
-            } else if let inApp = userInfo["in-app"] as? String, inApp == "true" {
-                InAppMessageGetter().startFetchInAppMessage(mcID: mcID)
+            if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
+                InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
             }
         }
         
@@ -162,7 +160,7 @@ class CordialSwizzler {
         if let continueRestorationHandler = CordialApiConfiguration.shared.continueRestorationHandler {
             let eventName = API.EVENT_NAME_DEEP_LINKS_APP_OPEN_VIA_DEEP_LINK
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-            CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             
             return continueRestorationHandler.appOpenViaUniversalLink(application, continue: userActivity, restorationHandler: restorationHandler)
         }
@@ -177,7 +175,7 @@ class CordialSwizzler {
         if let openOptionsHandler = CordialApiConfiguration.shared.openOptionsHandler {
             let eventName = API.EVENT_NAME_DEEP_LINKS_APP_OPEN_VIA_DEEP_LINK
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-            CordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             
             return openOptionsHandler.appOpenViaUrlScheme(app, open: url, options: options)
         }

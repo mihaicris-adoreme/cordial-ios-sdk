@@ -17,6 +17,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var inAppMessageData: InAppMessageData!
     
     let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
     
     var zoomScale = CGFloat()
     var isBannerAvailable = false
@@ -37,7 +38,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func removeInAppMessageBannerWithDelay() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
             if self.isBannerAvailable {
-                self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE_BANNER)
+                self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE)
             }
         })
     }
@@ -55,13 +56,13 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     @objc func swipeUpGestureRecognizer() {
         if self.inAppMessageData.type == InAppMessageType.banner_up {
-            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE_BANNER)
+            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
         }
     }
     
     @objc func swipeDownGestureRecognizer() {
         if self.inAppMessageData.type == InAppMessageType.banner_bottom {
-            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE_BANNER)
+            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
         }
     }
     
@@ -117,7 +118,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             if let eventName = eventName {
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
             
             InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -127,8 +128,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     @objc func dismissModalInAppMessage() {
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE_MODAL, properties: nil)
-        self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, properties: nil)
+        self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         self.removeModalFromSuperviewWithoutAnimation()
     }

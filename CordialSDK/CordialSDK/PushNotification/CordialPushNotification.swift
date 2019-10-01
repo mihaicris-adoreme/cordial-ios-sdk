@@ -14,6 +14,7 @@ import os.log
 class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     
     let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
 
     func registerForPushNotifications() {
         let notificationCenter = UNUserNotificationCenter.current()
@@ -54,12 +55,27 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         }
         
         if let mcID = userInfo["mcID"] as? String {
-            InternalCordialAPI().setCurrentMcID(mcID: mcID)
+            self.internalCordialAPI.setCurrentMcID(mcID: mcID)
+            
+            if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
+                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
+                    DispatchQueue.main.async {
+                        if !(UIApplication.shared.applicationState == .active) {
+                            CoreDataManager.shared.inAppMessagesCache.deleteInAppMessageDataByMcID(mcID: mcID)
+                            CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
+                            
+                            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                                os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, mcID)
+                            }
+                        }
+                    }
+                }
+            }
         }
         
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_APP_OPEN_VIA_TAP
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-        cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
             pushNotificationHandler.appOpenViaNotificationTap(notificationContent: userInfo) {
@@ -74,7 +90,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-        cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
             pushNotificationHandler.notificationDeliveredInForeground(notificationContent: userInfo) {

@@ -2,7 +2,7 @@
 //  InAppMessagesParam+CoreDataClass.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 9/10/19.
+//  Created by Yan Malinovsky on 9/26/19.
 //  Copyright © 2019 cordial.io. All rights reserved.
 //
 //

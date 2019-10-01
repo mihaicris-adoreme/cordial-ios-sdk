@@ -2,7 +2,7 @@
 //  InAppMessagesCache+CoreDataProperties.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 7/25/19.
+//  Created by Yan Malinovsky on 9/26/19.
 //  Copyright © 2019 cordial.io. All rights reserved.
 //
 //
@@ -17,8 +17,9 @@ extension InAppMessagesCache {
         return NSFetchRequest<InAppMessagesCache>(entityName: "InAppMessagesCache")
     }
 
-    @NSManaged public var data: NSData?
-    @NSManaged public var date: NSDate?
+    @NSManaged public var data: Data?
+    @NSManaged public var date: Date?
     @NSManaged public var displayType: String?
+    @NSManaged public var mcID: String?
 
 }

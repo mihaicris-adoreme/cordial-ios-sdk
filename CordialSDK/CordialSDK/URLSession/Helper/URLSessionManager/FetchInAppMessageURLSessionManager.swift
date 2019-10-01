@@ -21,56 +21,54 @@ class FetchInAppMessageURLSessionManager {
             case 200:
                 if let responseBodyData = responseBody.data(using: .utf8) {
                     let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as! [String: AnyObject]
-                    if let html = responseBodyJSON["content"] as? String {
-                        var top = 15
-                        var right = 10
-                        var bottom = 20
-                        var left = 10
+                    
+                    let mcID = inAppMessageURLSessionData.mcID
+                    
+                    if let html = responseBodyJSON["content"] as? String, let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
+                        let type = inAppMessageParams.type
+                        let displayType = inAppMessageParams.displayType
+                        let expirationTime = inAppMessageParams.expirationTime
                         
-                        var type: InAppMessageType
-                        var displayType: InAppMessageDisplayType
-                        let expirationTime = "2020-07-25T13:58:01Z"
+                        var inAppMessageData: InAppMessageData?
                         
-                        switch inAppMessageURLSessionData.mcID {
-                        case "test_modal":
-                            type = InAppMessageType.modal
-                            displayType = InAppMessageDisplayType.displayOnAppOpenEvent
-                        case "test_fullscreen":
-                            type = InAppMessageType.fullscreen
-                            displayType = InAppMessageDisplayType.displayOnAppOpenEvent
+                        switch type {
+                        case InAppMessageType.modal:
+                            let top = Int(inAppMessageParams.top)
+                            let right = Int(inAppMessageParams.right)
+                            let bottom = Int(inAppMessageParams.bottom)
+                            let left = Int(inAppMessageParams.left)
                             
-                            top = 0
-                            right = 0
-                            bottom = 0
-                            left = 0
-                        case "test_banner_up":
-                            type = InAppMessageType.banner_up
-                            displayType = InAppMessageDisplayType.displayImmediately
+                            inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
+                        case InAppMessageType.fullscreen:
+                            let top = 0
+                            let right = 0
+                            let bottom = 0
+                            let left = 0
                             
-                            let height = 20
+                            inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
+                        case InAppMessageType.banner_up:
+                            let height = inAppMessageParams.height
                             
-                            top = 5
-                            right = 5
-                            bottom = Int(100 - Double(height) / 100.0 * 100)
-                            left = 5
-                        case "test_banner_bottom":
-                            type = InAppMessageType.banner_bottom
-                            displayType = InAppMessageDisplayType.displayImmediately
+                            let top = 5
+                            let right = 5
+                            let bottom = Int(100 - Double(height) / 100.0 * 100)
+                            let left = 5
                             
-                            let height = 20
+                            inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
+                        case InAppMessageType.banner_bottom:
+                            let height = inAppMessageParams.height
                             
-                            top = Int(100 - Double(height) / 100.0 * 100)
-                            right = 5
-                            bottom = 5
-                            left = 5
-                        default:
-                            type = InAppMessageType.modal
-                            displayType = InAppMessageDisplayType.displayOnAppOpenEvent
+                            let top = Int(100 - Double(height) / 100.0 * 100)
+                            let right = 5
+                            let bottom = 5
+                            let left = 5
+                            
+                            inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
                         }
                         
-                        let inAppMessageData = InAppMessageData(mcID: inAppMessageURLSessionData.mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: InternalCordialAPI().getDateFromTimestamp(timestamp: expirationTime))
-                        
-                        self.inAppMessageGetter.completionHandler(inAppMessageData: inAppMessageData)
+                        if let inAppMessageData = inAppMessageData {
+                            self.inAppMessageGetter.completionHandler(inAppMessageData: inAppMessageData)
+                        }
                     } else {
                         let message = "Failed to parse IAM response."
                         let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)

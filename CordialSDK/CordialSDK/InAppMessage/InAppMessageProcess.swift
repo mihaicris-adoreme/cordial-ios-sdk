@@ -175,7 +175,7 @@ class InAppMessageProcess {
                 }
                 
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
-                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
         }
     }
@@ -213,7 +213,7 @@ class InAppMessageProcess {
                 }
                 
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, properties: nil)
-                self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
         }
     }

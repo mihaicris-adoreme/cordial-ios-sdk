@@ -20,17 +20,21 @@ class InAppMessagesCacheCoreData {
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
-            if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: inAppMessageData.mcID) {
+            let mcID = inAppMessageData.mcID
+            
+            if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
                 do {
                     if #available(iOS 11.0, *) {
                         let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
                         
+                        newRow.setValue(mcID, forKey: "mcID")
                         newRow.setValue(inAppMessageArchivedData, forKey: "data")
                         newRow.setValue(date, forKey: "date")
                         newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
                     } else {
                         let inAppMessageArchivedData = NSKeyedArchiver.archivedData(withRootObject: inAppMessageData)
                         
+                        newRow.setValue(mcID, forKey: "mcID")
                         newRow.setValue(inAppMessageArchivedData, forKey: "data")
                         newRow.setValue(date, forKey: "date")
                         newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
@@ -103,5 +107,28 @@ class InAppMessagesCacheCoreData {
         }
         
         return nil
+    }
+    
+    func deleteInAppMessageDataByMcID(mcID: String) {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        request.fetchLimit = 1
+        
+        request.predicate = NSPredicate(format: "mcID = %@", mcID)
+        
+        do {
+            let result = try context.fetch(request)
+            for managedObject in result as! [NSManagedObject] {
+                context.delete(managedObject)
+                try context.save()
+            }
+        } catch let error {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            }
+        }
     }
 }

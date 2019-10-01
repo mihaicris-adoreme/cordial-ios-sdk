@@ -23,6 +23,15 @@ class InAppMessagesParamCoreData {
             do {
                 newRow.setValue(inAppMessageParams.mcID, forKey: "mcID")
                 newRow.setValue(inAppMessageParams.date, forKey: "date")
+                newRow.setValue(inAppMessageParams.type.rawValue, forKey: "type")
+                newRow.setValue(inAppMessageParams.height, forKey: "height")
+                newRow.setValue(inAppMessageParams.top, forKey: "top")
+                newRow.setValue(inAppMessageParams.right, forKey: "right")
+                newRow.setValue(inAppMessageParams.bottom, forKey: "bottom")
+                newRow.setValue(inAppMessageParams.left, forKey: "left")
+                newRow.setValue(inAppMessageParams.displayType.rawValue, forKey: "displayType")
+                newRow.setValue(inAppMessageParams.expirationTime, forKey: "expirationTime")
+                newRow.setValue(inAppMessageParams.inactiveSessionDisplay.rawValue, forKey: "inactiveSessionDisplay")
                 
                 try context.save()
             } catch let error {
@@ -75,8 +84,40 @@ class InAppMessagesParamCoreData {
             for managedObject in result as! [NSManagedObject] {                
                 guard let managedObjectDate = managedObject.value(forKey: "date") else { continue }
                 let date = managedObjectDate as! Date
+                
+                let inAppMessageGetter = InAppMessageGetter()
+                
+                guard let managedObjectType = managedObject.value(forKey: "type") else { continue }
+                let typeString = managedObjectType as! String
+                let type = inAppMessageGetter.getInAppMessageType(typeString: typeString)
+                
+                guard let managedObjectHeight = managedObject.value(forKey: "height") else { continue }
+                let height = managedObjectHeight as! Int16
+                
+                guard let managedObjectTop = managedObject.value(forKey: "top") else { continue }
+                let top = managedObjectTop as! Int16
+                
+                guard let managedObjectRight = managedObject.value(forKey: "right") else { continue }
+                let right = managedObjectRight as! Int16
+                
+                guard let managedObjectBottom = managedObject.value(forKey: "bottom") else { continue }
+                let bottom = managedObjectBottom as! Int16
+                
+                guard let managedObjectLeft = managedObject.value(forKey: "left") else { continue }
+                let left = managedObjectLeft as! Int16
+                
+                guard let managedObjectDisplayType = managedObject.value(forKey: "displayType") else { continue }
+                let displayTypeString = managedObjectDisplayType as! String
+                let displayType = inAppMessageGetter.getInAppMessageDisplayType(displayTypeString: displayTypeString)
+                
+                let managedObjectExpirationTime = managedObject.value(forKey: "expirationTime") 
+                let expirationTime = managedObjectExpirationTime as? Date
 
-                let inAppMessageParams = InAppMessageParams(mcID: mcID, date: date)
+                guard let managedObjectInactiveSessionDisplay = managedObject.value(forKey: "inactiveSessionDisplay") else { continue }
+                let inactiveSessionDisplayString = managedObjectInactiveSessionDisplay as! String
+                let inactiveSessionDisplay = inAppMessageGetter.getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
+                
+                let inAppMessageParams = InAppMessageParams(mcID: mcID, date: date, type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
                 
                 return inAppMessageParams
             }
