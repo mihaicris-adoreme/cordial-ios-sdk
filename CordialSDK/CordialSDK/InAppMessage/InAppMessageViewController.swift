@@ -83,6 +83,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         self.webView.navigationDelegate = self
         self.webView.scrollView.delegate = self
         self.webView.scrollView.isScrollEnabled = false
+        self.webView.allowsLinkPreview = false
     
         if self.isBanner {
             self.inAppMessageView = InAppMessageBannerView(frame: self.webView.frame)
