@@ -15,7 +15,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [[CordialApiConfiguration shared] initializeWithAccountKey:@"test_account_key" channelKey:@"test_channel_key"];
+    [[CordialApiConfiguration shared] initializeWithAccountKey:@"qc-all-channels" channelKey:@"push"];
     [[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
     [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
     [[[CordialApiConfiguration shared] osLogManager] setOSLogLevel: logLevelAll];
