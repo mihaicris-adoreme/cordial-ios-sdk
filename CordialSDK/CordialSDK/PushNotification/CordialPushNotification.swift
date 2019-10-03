@@ -77,9 +77,16 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        if let deepLink = userInfo["deepLink"] as? String, let deepLinkData = deepLink.data(using: .utf8), let deepLinkJSON = try? JSONSerialization.jsonObject(with: deepLinkData, options: []) as? [String: AnyObject] {
-            if let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString) {
-                self.internalCordialAPI.openDeepLink(url: deepLinkURL)
+        do {
+            if let deepLink = userInfo["deepLink"] as? String, let deepLinkData = deepLink.data(using: .utf8) {
+                let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkData, options: []) as! [String: AnyObject]
+                if let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString) {
+                    self.internalCordialAPI.openDeepLink(url: deepLinkURL)
+                }
+            }
+        } catch let error {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Failed decode notification payload. Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
             }
         }
         
