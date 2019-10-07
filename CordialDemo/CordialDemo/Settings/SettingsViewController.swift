@@ -37,7 +37,33 @@ class SettingsViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         self.saveTestInitData()
     }
+    
+    @IBAction func choosePresetAction(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Settings", message: "Choose Preset", preferredStyle: .actionSheet)
 
+        let oneAction = UIAlertAction(title: "Production", style: .default) { action in
+            
+        }
+        
+        let twoAction = UIAlertAction(title: "Development", style: .default) { action in
+            
+        }
+        
+        let threeAction = UIAlertAction(title: "Custom", style: .default) { action in
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        alertController.addAction(oneAction)
+        alertController.addAction(twoAction)
+        alertController.addAction(threeAction)
+        alertController.addAction(cancelAction)
+
+        self.present(alertController, animated: true, completion: nil)
+
+    }
+    
     func saveTestInitData() {
         if let baseURL = self.baseURLTextField.text, let accountKey = self.accountKeyTextField.text, let channelKey = self.channelKeyTextField.text, let qtyCachedEventQueueString = self.qtyCachedEventQueueTextField.text, let qtyCachedEventQueue = Int(qtyCachedEventQueueString) {
             self.cordialAPI.setBaseURL(baseURL: baseURL)
