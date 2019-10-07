@@ -73,7 +73,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
             }
         }
         
-        let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_APP_OPEN_VIA_TAP
+        let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_TAP
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
         self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
