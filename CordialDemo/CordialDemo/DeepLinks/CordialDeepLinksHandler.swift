@@ -1,22 +1,19 @@
 //
-//  CordialContinueRestorationHandler.swift
+//  CordialDeepLinksHandler.swift
 //  CordialDemo
 //
-//  Created by Yan Malinovsky on 5/24/19.
+//  Created by Yan Malinovsky on 09.10.2019.
 //  Copyright © 2019 cordial.io. All rights reserved.
 //
 
 import Foundation
 import CordialSDK
 
-class CordialContinueRestorationHandler: CordialContinueRestorationDelegate {
+class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     
-    func appOpenViaUniversalLink(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-
-        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-            let url = userActivity.webpageURL, let host = url.host,
-            let products = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
-                return false
+    func openDeepLink(url: URL) {
+        guard let host = url.host, let products = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            return
         }
         
         if let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
@@ -32,15 +29,15 @@ class CordialContinueRestorationHandler: CordialContinueRestorationDelegate {
                 appDelegate.window?.rootViewController = catalogNavigationController
             }
             
-            return true
+            return
         }
         
         if let webpageUrl = URL(string: "https://\(host)/") {
-            application.open(webpageUrl)
-            return false
+            UIApplication.shared.open(webpageUrl)
+            return
         }
         
-        return false
+        return
     }
-
+    
 }

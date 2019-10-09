@@ -15,8 +15,8 @@
 		9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */; };
 		9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */; };
 		9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */; };
-		9E577451229C217200869F02 /* CordialOpenOptionsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E577450229C217200869F02 /* CordialOpenOptionsHandler.swift */; };
 		9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E602D09226744CC00197CBD /* CartTableViewCell.swift */; };
+		9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */; };
 		9E77896C22878C090089C986 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E77896B22878C090089C986 /* NotificationService.swift */; };
 		9E77897022878C090089C986 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9E77896922878C090089C986 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9E7A5A6A222EB64B0020054F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A69222EB64B0020054F /* AppDelegate.swift */; };
@@ -29,7 +29,6 @@
 		9E7A5A8D222EB64C0020054F /* CordialDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */; };
 		9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */; };
 		9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB260CA229FF489005786BD /* SettingsViewController.swift */; };
-		9ECF6B7C2298500A00E6E88F /* CordialContinueRestorationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECF6B7B2298500A00E6E88F /* CordialContinueRestorationHandler.swift */; };
 		9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECF6B7F229855F500E6E88F /* ProductHandler.swift */; };
 		9EDC7E402242912000BF8FB0 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC7E3F2242912000BF8FB0 /* App.swift */; };
 		9EF7B20B2266259B003B223D /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF7B20A2266259B003B223D /* Product.swift */; };
@@ -104,8 +103,8 @@
 		9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewController.swift; sourceTree = "<group>"; };
 		9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
-		9E577450229C217200869F02 /* CordialOpenOptionsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialOpenOptionsHandler.swift; sourceTree = "<group>"; };
 		9E602D09226744CC00197CBD /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
+		9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksHandler.swift; sourceTree = "<group>"; };
 		9E77896922878C090089C986 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E77896B22878C090089C986 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		9E77896D22878C090089C986 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -125,7 +124,6 @@
 		9E7A5A8E222EB64C0020054F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9EB260CA229FF489005786BD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		9ECF6B7B2298500A00E6E88F /* CordialContinueRestorationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialContinueRestorationHandler.swift; sourceTree = "<group>"; };
 		9ECF6B7F229855F500E6E88F /* ProductHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHandler.swift; sourceTree = "<group>"; };
 		9EDC7E3F2242912000BF8FB0 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		9EF7B20A2266259B003B223D /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -305,8 +303,7 @@
 		9ECF6B7A22984FEA00E6E88F /* DeepLinks */ = {
 			isa = PBXGroup;
 			children = (
-				9ECF6B7B2298500A00E6E88F /* CordialContinueRestorationHandler.swift */,
-				9E577450229C217200869F02 /* CordialOpenOptionsHandler.swift */,
+				9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */,
 			);
 			path = DeepLinks;
 			sourceTree = "<group>";
@@ -675,8 +672,8 @@
 				9EDC7E402242912000BF8FB0 /* App.swift in Sources */,
 				9EF7B20D22662A79003B223D /* CartViewController.swift in Sources */,
 				9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */,
-				9ECF6B7C2298500A00E6E88F /* CordialContinueRestorationHandler.swift in Sources */,
 				9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */,
+				9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */,
 				9EF7B20B2266259B003B223D /* Product.swift in Sources */,
 				9EF7B20F2266340F003B223D /* AppDataManager.swift in Sources */,
 				9E7A5A6C222EB64B0020054F /* LoginViewController.swift in Sources */,
@@ -685,7 +682,6 @@
 				9E45FE7622537648006A5A6B /* CordialPushNotificationHandler.swift in Sources */,
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,
 				9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */,
-				9E577451229C217200869F02 /* CordialOpenOptionsHandler.swift in Sources */,
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
 				9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */,

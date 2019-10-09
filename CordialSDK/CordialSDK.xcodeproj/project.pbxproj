@@ -43,9 +43,9 @@
 		9E565B95225B9E47005EC4AF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E565B94225B9E47005EC4AF /* CoreDataManager.swift */; };
 		9E565B9C225BC09A005EC4AF /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E565B9B225BC09A005EC4AF /* ReachabilityManager.swift */; };
 		9E565BA0225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E565B9D225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld */; };
-		9E57744F229C1A9600869F02 /* CordialOpenOptionsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E57744E229C1A9600869F02 /* CordialOpenOptionsDelegate.swift */; };
 		9E65C1D3233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */; };
 		9E65C1D4233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */; };
+		9E6DB89B234E168700711A2A /* CordialDeepLinksDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */; };
 		9E7037A2226882F4000C3582 /* UpsertContactCartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A1226882F4000C3582 /* UpsertContactCartRequest.swift */; };
 		9E7037A7226885E4000C3582 /* CartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A6226885E4000C3582 /* CartItem.swift */; };
 		9E7037A922688EC9000C3582 /* UpsertContactCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A822688EC9000C3582 /* UpsertContactCart.swift */; };
@@ -88,7 +88,6 @@
 		9EC0ACDC2327C76A002545D8 /* InAppMessageParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC0ACDB2327C76A002545D8 /* InAppMessageParams.swift */; };
 		9EC86A5D22DDCA1A00ACF996 /* CordialURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC86A5C22DDCA1A00ACF996 /* CordialURLSession.swift */; };
 		9EC9F80E2243BC8E00D7E3C5 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9F80D2243BC8E00D7E3C5 /* ResponseError.swift */; };
-		9ECF6B792298371200E6E88F /* CordialContinueRestorationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECF6B782298371200E6E88F /* CordialContinueRestorationDelegate.swift */; };
 		9ED26372224CFAF300BD9BB3 /* CordialFirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED26371224CFAF300BD9BB3 /* CordialFirstLaunch.swift */; };
 		9ED621DB22CE017E00A55DB2 /* InAppMessagesCacheCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621DA22CE017E00A55DB2 /* InAppMessagesCacheCoreData.swift */; };
 		9ED621DE22CE089600A55DB2 /* InAppMessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621DD22CE089600A55DB2 /* InAppMessageData.swift */; };
@@ -153,9 +152,9 @@
 		9E565B94225B9E47005EC4AF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		9E565B9B225BC09A005EC4AF /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		9E565B9E225BD1A4005EC4AF /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
-		9E57744E229C1A9600869F02 /* CordialOpenOptionsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialOpenOptionsDelegate.swift; sourceTree = "<group>"; };
 		9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksDelegate.swift; sourceTree = "<group>"; };
 		9E7037A1226882F4000C3582 /* UpsertContactCartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactCartRequest.swift; sourceTree = "<group>"; };
 		9E7037A6226885E4000C3582 /* CartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
 		9E7037A822688EC9000C3582 /* UpsertContactCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactCart.swift; sourceTree = "<group>"; };
@@ -201,7 +200,6 @@
 		9EC0ACDB2327C76A002545D8 /* InAppMessageParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageParams.swift; sourceTree = "<group>"; };
 		9EC86A5C22DDCA1A00ACF996 /* CordialURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialURLSession.swift; sourceTree = "<group>"; };
 		9EC9F80D2243BC8E00D7E3C5 /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
-		9ECF6B782298371200E6E88F /* CordialContinueRestorationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialContinueRestorationDelegate.swift; sourceTree = "<group>"; };
 		9ED26371224CFAF300BD9BB3 /* CordialFirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialFirstLaunch.swift; sourceTree = "<group>"; };
 		9ED621DA22CE017E00A55DB2 /* InAppMessagesCacheCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessagesCacheCoreData.swift; sourceTree = "<group>"; };
 		9ED621DD22CE089600A55DB2 /* InAppMessageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageData.swift; sourceTree = "<group>"; };
@@ -562,8 +560,7 @@
 		9ECF6B77229836E700E6E88F /* DeepLinks */ = {
 			isa = PBXGroup;
 			children = (
-				9ECF6B782298371200E6E88F /* CordialContinueRestorationDelegate.swift */,
-				9E57744E229C1A9600869F02 /* CordialOpenOptionsDelegate.swift */,
+				9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */,
 			);
 			path = DeepLinks;
 			sourceTree = "<group>";
@@ -751,7 +748,6 @@
 				9E65C1D4233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift in Sources */,
 				9E806DAC2271E05200A15F8E /* ReachabilitySender.swift in Sources */,
 				9EBE675A22731C030065AA06 /* ContactOrdersSender.swift in Sources */,
-				9ECF6B792298371200E6E88F /* CordialContinueRestorationDelegate.swift in Sources */,
 				9E5392F2222EE4BA0043F5E6 /* API.swift in Sources */,
 				9E92D3D2228EF26500D8AFE0 /* SendContactLogoutRequest.swift in Sources */,
 				9E0813842274523500BD1412 /* ContactsSender.swift in Sources */,
@@ -766,7 +762,7 @@
 				9E565B8E225B7198005EC4AF /* SendCustomEvents.swift in Sources */,
 				9EB17AC622930D7B00EEAB7D /* CustomEventRequest+CoreDataProperties.swift in Sources */,
 				9E565B95225B9E47005EC4AF /* CoreDataManager.swift in Sources */,
-				9E57744F229C1A9600869F02 /* CordialOpenOptionsDelegate.swift in Sources */,
+				9E6DB89B234E168700711A2A /* CordialDeepLinksDelegate.swift in Sources */,
 				9E5147CA22FC4DFD00977278 /* SendContactLogoutURLSessionManager.swift in Sources */,
 				9EC86A5D22DDCA1A00ACF996 /* CordialURLSession.swift in Sources */,
 				9EEC9D8022896F9900B40FFB /* UserAgentBuilder.swift in Sources */,
