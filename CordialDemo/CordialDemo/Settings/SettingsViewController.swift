@@ -20,12 +20,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.baseURLTextField.setBottomBorder(color: UIColor.black)
-        self.accountKeyTextField.setBottomBorder(color: UIColor.black)
-        self.channelKeyTextField.setBottomBorder(color: UIColor.black)
-        self.qtyCachedEventQueueTextField.setBottomBorder(color: UIColor.black)
-        
+                
         self.baseURLTextField.text = self.cordialAPI.getBaseURL()
         self.accountKeyTextField.text = self.cordialAPI.getAccountKey()
         self.channelKeyTextField.text = self.cordialAPI.getChannelKey()
@@ -98,10 +93,7 @@ class SettingsViewController: UIViewController {
             self.channelKeyTextField.text = qcSettings.channelKey
             self.qtyCachedEventQueueTextField.text = String(qcSettings.qtyCachedEventQueue)
             
-            self.baseURLTextField.isUserInteractionEnabled = false
-            self.accountKeyTextField.isUserInteractionEnabled = false
-            self.channelKeyTextField.isUserInteractionEnabled = false
-            self.qtyCachedEventQueueTextField.isUserInteractionEnabled = false
+            self.disableEditing()
         case Settings.staging.rawValue:
             self.title = Settings.staging.rawValue
             
@@ -112,10 +104,7 @@ class SettingsViewController: UIViewController {
             self.channelKeyTextField.text = stagingSettings.channelKey
             self.qtyCachedEventQueueTextField.text = String(stagingSettings.qtyCachedEventQueue)
             
-            self.baseURLTextField.isUserInteractionEnabled = false
-            self.accountKeyTextField.isUserInteractionEnabled = false
-            self.channelKeyTextField.isUserInteractionEnabled = false
-            self.qtyCachedEventQueueTextField.isUserInteractionEnabled = false
+            self.disableEditing()
         case Settings.production.rawValue:
             self.title = Settings.production.rawValue
             
@@ -126,17 +115,11 @@ class SettingsViewController: UIViewController {
             self.channelKeyTextField.text = productionSettings.channelKey
             self.qtyCachedEventQueueTextField.text = String(productionSettings.qtyCachedEventQueue)
             
-            self.baseURLTextField.isUserInteractionEnabled = false
-            self.accountKeyTextField.isUserInteractionEnabled = false
-            self.channelKeyTextField.isUserInteractionEnabled = false
-            self.qtyCachedEventQueueTextField.isUserInteractionEnabled = false
+            self.disableEditing()
         default:
             self.title = Settings.custom.rawValue
             
-            self.baseURLTextField.isUserInteractionEnabled = true
-            self.accountKeyTextField.isUserInteractionEnabled = true
-            self.channelKeyTextField.isUserInteractionEnabled = true
-            self.qtyCachedEventQueueTextField.isUserInteractionEnabled = true
+            self.enableEditing()
         }
     }
     
@@ -165,5 +148,40 @@ class SettingsViewController: UIViewController {
         let qtyCachedEventQueue = 100
         
         return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey, qtyCachedEventQueue: qtyCachedEventQueue)
+    }
+    
+    func enableEditing() {
+        self.baseURLTextField.isUserInteractionEnabled = true
+        self.accountKeyTextField.isUserInteractionEnabled = true
+        self.channelKeyTextField.isUserInteractionEnabled = true
+        self.qtyCachedEventQueueTextField.isUserInteractionEnabled = true
+        
+        self.baseURLTextField.textColor = .darkGray
+        self.accountKeyTextField.textColor = .darkGray
+        self.channelKeyTextField.textColor = .darkGray
+        self.qtyCachedEventQueueTextField.textColor = .darkGray
+        
+        self.baseURLTextField.setBottomBorder(color: .black)
+        self.accountKeyTextField.setBottomBorder(color: .black)
+        self.channelKeyTextField.setBottomBorder(color: .black)
+        self.qtyCachedEventQueueTextField.setBottomBorder(color: .black)
+    }
+    
+    func disableEditing() {
+        self.baseURLTextField.isUserInteractionEnabled = false
+        self.accountKeyTextField.isUserInteractionEnabled = false
+        self.channelKeyTextField.isUserInteractionEnabled = false
+        self.qtyCachedEventQueueTextField.isUserInteractionEnabled = false
+        
+        
+        self.baseURLTextField.textColor = .lightGray
+        self.accountKeyTextField.textColor = .lightGray
+        self.channelKeyTextField.textColor = .lightGray
+        self.qtyCachedEventQueueTextField.textColor = .lightGray
+        
+        self.baseURLTextField.setBottomBorder(color: .lightGray)
+        self.accountKeyTextField.setBottomBorder(color: .lightGray)
+        self.channelKeyTextField.setBottomBorder(color: .lightGray)
+        self.qtyCachedEventQueueTextField.setBottomBorder(color: .lightGray)
     }
 }
