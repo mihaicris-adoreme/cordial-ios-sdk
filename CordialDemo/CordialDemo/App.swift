@@ -13,6 +13,7 @@ import CordialSDK
 struct App {
     
     static private let USER_DEFAULTS_KEY_FOR_IS_GUEST_USER = "USER_DEFAULTS_KEY_FOR_IS_GUEST_USER"
+    static private let USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE = "USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE"
     
     static func isGuestUser() -> Bool {
         if UserDefaults.standard.object(forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER) == nil {
@@ -28,6 +29,25 @@ struct App {
     
     static func userLogOut() {
         UserDefaults.standard.set(true, forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER)
+    }
+    
+    static func setSavedSettingsType(settingsType: String) {
+        UserDefaults.standard.set(settingsType, forKey: USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE)
+    }
+    
+    static func getSavedSettingsType() -> String {
+        switch UserDefaults.standard.string(forKey: USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE) {
+        case Settings.qc.rawValue:
+            return Settings.qc.rawValue
+        case Settings.staging.rawValue:
+            return Settings.staging.rawValue
+        case Settings.production.rawValue:
+            return Settings.production.rawValue
+        case Settings.custom.rawValue:
+            return Settings.custom.rawValue
+        default:
+            return Settings.custom.rawValue
+        }
     }
 }
 

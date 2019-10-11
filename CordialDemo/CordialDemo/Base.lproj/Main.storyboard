@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgU-rg-A1D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgU-rg-A1D">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -120,52 +120,52 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BF4-SP-GVS">
-                                <rect key="frame" x="0.0" y="44" width="414" height="692"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="658"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HiI-Dr-GUO">
-                                        <rect key="frame" x="16" y="16" width="382" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HiI-Dr-GUO">
+                                        <rect key="frame" x="16" y="15.999999999999998" width="382" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Host" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZvR-1i-86o">
-                                        <rect key="frame" x="16" y="45" width="382" height="17"/>
+                                        <rect key="frame" x="16" y="44.333333333333329" width="382" height="17"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFa-Cn-36j">
-                                        <rect key="frame" x="16" y="94" width="382" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account key" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFa-Cn-36j">
+                                        <rect key="frame" x="16" y="93.333333333333343" width="382" height="20.333333333333329"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Account key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hs-dC-qKU">
-                                        <rect key="frame" x="16" y="123" width="382" height="17"/>
+                                        <rect key="frame" x="16" y="121.66666666666666" width="382" height="17"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGs-ke-oVI">
-                                        <rect key="frame" x="16" y="172" width="382" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel key" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGs-ke-oVI">
+                                        <rect key="frame" x="16" y="170.66666666666666" width="382" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Channel key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HSW-rz-9bB">
-                                        <rect key="frame" x="16" y="201" width="382" height="17"/>
+                                        <rect key="frame" x="16" y="199" width="382" height="17"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qty cached event queue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQp-Ij-iuB">
-                                        <rect key="frame" x="16" y="250" width="382" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qty cached event queue" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQp-Ij-iuB">
+                                        <rect key="frame" x="16" y="248.00000000000003" width="382" height="20.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Qty cached event queue" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="trI-V3-xbA">
-                                        <rect key="frame" x="16" y="279" width="382" height="17"/>
+                                        <rect key="frame" x="16" y="276.33333333333331" width="382" height="17"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -200,11 +200,29 @@
                                     <constraint firstItem="zGs-ke-oVI" firstAttribute="top" secondItem="9hs-dC-qKU" secondAttribute="bottom" constant="32" id="zxM-jZ-x4W"/>
                                 </constraints>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QOd-gh-tbv">
+                                <rect key="frame" x="0.0" y="702" width="414" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                                <state key="normal" title="Choose Preset"/>
+                                <connections>
+                                    <action selector="choosePresetAction:" destination="tGs-OP-bC2" eventType="touchUpInside" id="Jyw-SI-vyt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="BF4-SP-GVS" firstAttribute="bottom" secondItem="IWa-pk-kkl" secondAttribute="bottom" id="I79-D1-2fU"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="centerX" secondItem="IWa-pk-kkl" secondAttribute="centerX" id="3zS-zC-ViX"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="bottom" secondItem="IWa-pk-kkl" secondAttribute="bottom" id="6mK-4e-A4J"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="leading" secondItem="IWa-pk-kkl" secondAttribute="leading" id="7b3-Y6-Fcn"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="bottom" secondItem="IWa-pk-kkl" secondAttribute="bottom" id="8vk-ve-aee"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="bottom" secondItem="IWa-pk-kkl" secondAttribute="bottom" id="91l-qK-aja"/>
                             <constraint firstItem="BF4-SP-GVS" firstAttribute="trailing" secondItem="IWa-pk-kkl" secondAttribute="trailing" id="SM1-BN-ry4"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="trailing" secondItem="IWa-pk-kkl" secondAttribute="trailing" id="SzZ-DX-9WX"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="trailing" secondItem="IWa-pk-kkl" secondAttribute="trailing" id="Xo6-yL-Bc5"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="leading" secondItem="IWa-pk-kkl" secondAttribute="leading" id="c6O-5Z-RNt"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="leading" secondItem="IWa-pk-kkl" secondAttribute="leading" id="epu-Yq-BNe"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="trailing" secondItem="IWa-pk-kkl" secondAttribute="trailing" id="p9g-jy-tgy"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="top" secondItem="BF4-SP-GVS" secondAttribute="bottom" id="t3v-ML-jwe"/>
                             <constraint firstItem="BF4-SP-GVS" firstAttribute="leading" secondItem="IWa-pk-kkl" secondAttribute="leading" id="vpx-g4-gAO"/>
                             <constraint firstItem="BF4-SP-GVS" firstAttribute="top" secondItem="IWa-pk-kkl" secondAttribute="top" id="yvn-wZ-Iwf"/>
                         </constraints>
