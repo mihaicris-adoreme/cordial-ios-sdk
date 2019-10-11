@@ -292,25 +292,19 @@ ___
 
 ##  Deep links 
 The SDK allows to track opening deep links. Two types of deep links are supported: universal links and URL scheme links. 
-In order to allow the SDK to track opening deep links make sure to implement any of the two or both protocols, each for corresponding type of deep links: `CordialContinueRestorationDelegate` for universal links and `CordialOpenOptionsDelegate` for URL scheme deep links. The protocols contain callbacks that will be called once the app gets a chance of opening a deep link.
+In order to allow the SDK to track opening deep links make sure to implement protocol `CordialDeepLinksDelegate`. The protocol contain callback that will be called once the app gets a chance of opening a deep link.
 
-In the body of function `AppDelegate.didFinishLaunchingWithOptions` provide implementation for one or both protocols:
+In the body of function `AppDelegate.didFinishLaunchingWithOptions` provide the following implementation:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let continueRestorationHandler = YourImplementationOfCordialContinueRestorationHandler()
-let openOptionsHandler = YourImplementationOfCordialOpenOptionsHandler()
-
-CordialApiConfiguration.shared.continueRestorationHandler = continueRestorationHandler
-CordialApiConfiguration.shared.openOptionsHandler = openOptionsHandler
+let cordialDeepLinksHandler = YourImplementationOfCordialDeepLinksHandler()
+CordialApiConfiguration.shared.cordialDeepLinksHandler = cordialDeepLinksHandler
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-YourImplementationOfCordialContinueRestorationHandler *continueRestorationHandler = [[YourImplementationOfCordialContinueRestorationHandler alloc] init];
-YourImplementationOfCordialOpenOptionsHandler *openOptionsHandler = [[YourImplementationOfCordialOpenOptionsHandler alloc] init];
-
-[CordialApiConfiguration shared].continueRestorationHandler = continueRestorationHandler;
-[CordialApiConfiguration shared].openOptionsHandler = openOptionsHandler;
+YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImplementationOfCordialDeepLinksHandler alloc] init];
+[CordialApiConfiguration shared].cordialDeepLinksHandler = cordialDeepLinksHandler;
 ```
