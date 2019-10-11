@@ -20,8 +20,7 @@
     [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
     [[[CordialApiConfiguration shared] osLogManager] setOSLogLevel: logLevelAll];
     [CordialApiConfiguration shared].pushNotificationHandler = [[CordialPushNotificationHandler alloc] init];
-    [CordialApiConfiguration shared].continueRestorationHandler = [[CordialContinueRestorationHandler alloc] init];
-    [CordialApiConfiguration shared].openOptionsHandler = [[CordialOpenOptionsHandler alloc] init];
+    [CordialApiConfiguration shared].cordialDeepLinksHandler = [[CordialDeepLinksHandler alloc] init];
     
     [[[CordialAPI alloc] init] registerForPushNotifications];
     

@@ -1,8 +1,8 @@
 //
-//  CordialOpenOptionsHandler.h
+//  CordialDeepLinksHandler.h
 //  CordialDemo_Objective-C
 //
-//  Created by Yan Malinovsky on 7/29/19.
+//  Created by Yan Malinovsky on 11.10.2019.
 //
 
 #import <UIKit/UIKit.h>
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CordialOpenOptionsHandler : NSObject<CordialOpenOptionsDelegate>
+@interface CordialDeepLinksHandler : NSObject<CordialDeepLinksDelegate>
 
 @end
 

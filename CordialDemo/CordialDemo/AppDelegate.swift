@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     let pushNotificationHandler = CordialPushNotificationHandler()
-    let continueRestorationHandler = CordialContinueRestorationHandler()
-    let openOptionsHandler = CordialOpenOptionsHandler()
+    let cordialDeepLinksHandler = CordialDeepLinksHandler()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -30,8 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(osLogLevel: .all)
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
-        CordialApiConfiguration.shared.continueRestorationHandler = continueRestorationHandler
-        CordialApiConfiguration.shared.openOptionsHandler = openOptionsHandler
+        CordialApiConfiguration.shared.cordialDeepLinksHandler = cordialDeepLinksHandler
         
         if CordialAPI().getContactPrimaryKey() != nil {
             let catalogNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
