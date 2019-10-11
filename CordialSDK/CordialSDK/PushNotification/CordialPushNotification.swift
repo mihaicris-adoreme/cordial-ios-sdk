@@ -81,6 +81,11 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
             if let deepLink = userInfo["deepLink"] as? String, let deepLinkData = deepLink.data(using: .utf8) {
                 let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkData, options: []) as! [String: AnyObject]
                 if let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString), let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
+                    
+                    let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+                    self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+                    
                     if let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
                         cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL) 
                     } else {
