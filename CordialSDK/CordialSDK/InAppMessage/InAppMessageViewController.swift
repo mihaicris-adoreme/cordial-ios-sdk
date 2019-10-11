@@ -161,7 +161,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         if message.name == "action" {
             if let dict = message.body as? NSDictionary {
                 if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
-                    InAppMessageProcess.shared.openDeepLink(url: url)
+                    self.internalCordialAPI.openDeepLink(url: url)
                 }
                 
                 if let eventName = dict["eventName"] as? String {

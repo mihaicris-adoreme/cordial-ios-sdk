@@ -28,8 +28,7 @@ import CoreLocation
     let cordialPushNotification = CordialPushNotification()
     @objc public let osLogManager = CordialOSLogManager()
     
-    @objc public var continueRestorationHandler: CordialContinueRestorationDelegate?
-    @objc public var openOptionsHandler: CordialOpenOptionsDelegate?
+    @objc public var cordialDeepLinksHandler: CordialDeepLinksDelegate?
     @objc public var pushNotificationHandler: CordialPushNotificationDelegate?
     
     private override init(){}

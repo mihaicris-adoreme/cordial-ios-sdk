@@ -38,16 +38,6 @@ class InAppMessageProcess {
         return nil
     }
     
-    func openDeepLink(url: URL) {
-        if let scheme = url.scheme, scheme.contains("http") {
-            let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
-            userActivity.webpageURL = url
-            let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
-        } else {
-            UIApplication.shared.open(url, options:[:], completionHandler: nil)
-        }
-    }
-    
     func showInAppMessage(inAppMessageData: InAppMessageData) {
         if !self.isPresentedInAppMessage {
             switch inAppMessageData.type {

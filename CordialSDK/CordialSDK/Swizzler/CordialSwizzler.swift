@@ -17,12 +17,9 @@ class CordialSwizzler {
             self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
             self.swizzleDidReceiveRemoteNotificationfetchCompletionHandler()
         }
-        
-        if CordialApiConfiguration.shared.continueRestorationHandler != nil {
+                
+        if CordialApiConfiguration.shared.cordialDeepLinksHandler != nil {
             self.swizzleContinueRestorationHandler()
-        }
-        
-        if CordialApiConfiguration.shared.openOptionsHandler != nil {
             self.swizzleOpenOptions()
         }
         
@@ -157,12 +154,18 @@ class CordialSwizzler {
     
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         
-        if let continueRestorationHandler = CordialApiConfiguration.shared.continueRestorationHandler {
+        if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
             let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
             InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            return continueRestorationHandler.appOpenViaUniversalLink(application, continue: userActivity, restorationHandler: restorationHandler)
+            guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
+                return false
+            }
+            
+            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil)
+            
+            return true
         }
         
         return false
@@ -172,12 +175,14 @@ class CordialSwizzler {
     
     @objc func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        if let openOptionsHandler = CordialApiConfiguration.shared.openOptionsHandler {
+        if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
             let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
             InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            return openOptionsHandler.appOpenViaUrlScheme(app, open: url, options: options)
+            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil)
+            
+            return true
         }
         
         return false
