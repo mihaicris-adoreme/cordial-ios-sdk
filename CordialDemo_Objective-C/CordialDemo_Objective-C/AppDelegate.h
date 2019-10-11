@@ -10,8 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CordialSDK/CordialSDK-Swift.h>
 #import "CordialPushNotificationHandler.h"
-#import "CordialContinueRestorationHandler.h"
-#import "CordialOpenOptionsHandler.h"
+#import "CordialDeepLinksHandler.h"
 #import "NotificationManager.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
