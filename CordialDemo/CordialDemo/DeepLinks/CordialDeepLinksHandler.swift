@@ -11,7 +11,7 @@ import CordialSDK
 
 class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     
-    func openDeepLink(url: URL) {
+    func openDeepLink(url: URL, fallbackURL: URL?) {
         guard let host = url.host, let products = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             return
         }

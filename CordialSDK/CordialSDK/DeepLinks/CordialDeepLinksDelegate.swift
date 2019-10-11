@@ -10,6 +10,6 @@ import Foundation
 
 @objc public protocol CordialDeepLinksDelegate {
     
-    @objc func openDeepLink(url: URL)
+    @objc func openDeepLink(url: URL, fallbackURL: URL?)
     
 }

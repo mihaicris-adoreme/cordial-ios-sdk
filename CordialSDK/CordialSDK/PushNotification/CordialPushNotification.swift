@@ -80,8 +80,12 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         do {
             if let deepLink = userInfo["deepLink"] as? String, let deepLinkData = deepLink.data(using: .utf8) {
                 let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkData, options: []) as! [String: AnyObject]
-                if let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString) {
-                    self.internalCordialAPI.openDeepLink(url: deepLinkURL)
+                if let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString), let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
+                    if let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
+                        cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL) 
+                    } else {
+                        cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: nil)
+                    }
                 }
             }
         } catch let error {

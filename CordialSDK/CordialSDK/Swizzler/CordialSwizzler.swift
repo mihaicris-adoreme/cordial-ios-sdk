@@ -163,7 +163,7 @@ class CordialSwizzler {
                 return false
             }
             
-            cordialDeepLinksHandler.openDeepLink(url: url)
+            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil)
             
             return true
         }
@@ -180,7 +180,7 @@ class CordialSwizzler {
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
             InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            cordialDeepLinksHandler.openDeepLink(url: url)
+            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil)
             
             return true
         }
