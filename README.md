@@ -1,17 +1,32 @@
 # iOS Cordial SDK Documentation
+## Contents
+
+[Installation](#installation)<br>
+[Initialize the SDK](#initialize-the-sdk)<br>
+[Setting Message Logging Level](#setting-message-logging-level)<br>
+[Configuring Location Tracking Updates](#configuring-location-tracking-updates)<br>
+[Sending Custom Events](#sending-custom-events)<br>
+[Setting a Contact](#setting-a-contact)<br>
+[Unsetting a Contact](#unsetting-a-contact)<br>
+[Upserting a Contact](#upserting-a-contact)<br>
+[Post an Order](#post-an-order)<br>
+[Post to Cart](#post-to-cart)<br>
+[Event Caching](#event-caching)<br>
+[Push Notificatrions](#push-notifications)<br>
+[Deep Links](#deep-links)<br>
 
 ## Installation
 
 ### Cocoapods
 
-Make sure you have access to CordialSDK gitlab repo. We recommend adding your SSH key to Gitlab. After that specify CordialSDK in your Podfile:
+Make sure you have access to CordialSDK gitlab repo. We recommend adding your SSH key to Gitlab. After that, specify CordialSDK in your Podfile:
 
 ```
 use_frameworks!
 pod 'CordialSDK', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'
 ```
 
-And after that run:
+Now you can run:
 
 ```
 pod install
@@ -19,12 +34,14 @@ pod install
 
 This will add the the latest version of CordialSDK to your project.
 
-Additionally, in order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. In order to do that create `Notification Service Extension` target and add CordialAppExtensions to it:
+This will add the latest version of CordialSDK to your project.
+
+Additionally, in order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. In order to do that, create the **Notification Service Extension** target and add `CordialAppExtensions` to it:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-target "<The name of the new Notification Service Extension target>" do  
+target "The name of the new Notification Service Extension target" do  
     use_frameworks!
     pod 'CordialAppExtensions', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
 end
@@ -32,21 +49,19 @@ end
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-target "<The name of the new Notification Service Extension target>" do  
+target "Name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
+    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'  
 end
 ```
 
-Make sure that your new target `Notification Service Extension` bundle identifier is prefixed with your app bundle identifier, for example: `yourAppBundleIdentifier.NotificationServiceExtension`. Delete the code that your IDE generated for you for the new extension and inherit it from `CordialNotificationServiceExtension`:  
+Ensure that your new target **Notification Service Extension** bundle identifier is prefixed with your app bundle identifier, for example: `yourAppBundleIdentifier.NotificationServiceExtension`. Delete the code that your IDE generated for the new extension and inherit it from `CordialNotificationServiceExtension`:  
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
 import CordialAppExtensions  
-  
 class NotificationService: CordialNotificationServiceExtension {  
-  
 }
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
@@ -72,32 +87,34 @@ ___
 
 ```
 
-## Initialize SDK
+## Initialize the SDK
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initialize` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-CordialApiConfiguration.shared.initialize(accountKey: "<your_account_key>", channelKey: "<your_channel_key>")
+CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key")
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
 [[CordialApiConfiguration shared] initializeWithAccountKey:@"test_account_key" channelKey:@"test_channel_key"];
 ```
-After initialized the SDK will automatically start tracking internal events as they occur in the application. Those events are:
-- track application opens and closes
-- track installs
-- app opened via tapping the push notification
-- push notification received while app in the foreground
+**Note**: The maximum number of cached events can be set during the initialization step. If not stated, the default limit will be set to 1,000 cached events.
 
-Besides automatic events tracking, the SDK allows developers to make Cordial specific actions which are typical for client applications. Those actions are:
-- updating a contact
-- posting a cart
-- posting an order
-- sending a custom event
+After initializing, the SDK will automatically start tracking internal events as they occur in the application. Those events are:
+- App opens and closes
+- App installs
+- App opened via notification taps
+- Receipt of push notification while app is in the foreground
 
-The access point for every action above is the `CordialAPI` class. You can either have a global reference to the object of the class or create an object for every action - that choice is left to an application.
+Besides automatic events tracking, the SDK allows developers to call Cordial specific actions, which are typical for client applications. Those actions are:
+- Updating a contact
+- Posting a cart
+- Posting an order
+- Sending a custom event
+
+The access point for every action above is the `CordialAPI` class. You can either have a global reference to the object of the class or create an object for every action - that choice is left to the client application.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -110,8 +127,8 @@ ___
 CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 ```
 
-## Setting a SDK log level
-You can choose one of four levels of SDK logs: `none`, `all`, `error`, `info`. By default it is set to `error`. If you need you can change logs level on the SDK initialization step in the following way:
+## Setting Message Logging Level
+You can choose one of four message logging levels: `none`, `all`, `error`, `info`. The logging level is set to `error` by default. Yo can change the logging level during SDK initialization:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -124,13 +141,75 @@ ___
 [[[CordialApiConfiguration shared] osLogManager] setOSLogLevel: logLevelAll];
 ```
 
-## Setting a contact
+## Configuring Location Tracking Updates
+You can expand custom events data by adding geo locations to each custom event. To enable the delivery of location-related events to your app, simply complete these two steps:
+1. Add `NSLocationAlwaysAndWhenInUseUsageDescription` and/or `NSLocationWhenInUseUsageDescription` properties to your project `Info.plist` file.
+2. Initialize SDK location manager by adding the following to the end of  `AppDelegate.didFinishLaunchingWithOptions`:
 
-Every app is assumed to be operating on behalf of a specific contact. Contact is a user of the client application. For example, if Amazon is a client, each user of the Amazon who logs in is a contact. Every contact must have a primary key. Naturally that when the app is installed, the is no contact associated with the app as the user might not have logged in yet. In this case identifying a contact is done via device id, which is a unique identifier of the iOS device the app is running on. Every piece of information (internal or custom events, updating a contact etc) that is passed by SDK to Cordial backend has a device id automatically associated with it. Later, when the user logs into the app and his primary key becomes known, the client application must pass that primary key to the backend via calling the `setContact` method. When the backend receives a contact update with the primary key it associates the device id with the primary key of a contact. That association is crucial to make effective use of Cordial.
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
+```
+The above example configures the location manager for maximum geo accuracy. To increase phone battery life, you can configure SDK location manager by changing the `desiredAccuracy`, `distanceFilter`, `untilTraveled`, and `timeout` properties.
 
-When there is no contact associated with the SDK, all requests that the SDK makes to Cordial are cached until the contact becomes known (that is until `setContact` method is called).
+## Sending Custom Events
+Aside from internal events, the SDK allows sending of custom events specific to each app. Those may be, for example, user logged in, discount applied or app preferences updated to name a few. To send a custom event, use the `CordialApi.sendCustomEvent` method:
 
-setContact usage:
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let request = SendCustomEventRequest(eventName: "{custom_event_name}", properties: ["<property_name>": "<property_value>"])  
+cordialApi.sendCustomEvent(sendCustomEventRequest: request)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+SendCustomEventRequest *request = [[SendCustomEventRequest alloc] initWithEventName:@"{custom_event_name}" properties:@{ @"<property_name>" :@"<property_value>" }];
+[cordialAPI sendCustomEventWithSendCustomEventRequest:request];
+```
+
+`properties` - is a dictionary of string keys and string values that can be attached to the event. Can be null.
+
+Example of sending a product browse event:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+```
+let properties = ["productName": "Back Off Polo", "SKU": "polo543"]
+let sendEventRequest = SendCustomEventRequest(eventName: "browse_product", properties: properties)
+cordialAPI.sendCustomEvent(sendCustomEventRequest: sendEventRequest)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+```
+NSDictionary *properties = @{ @"productName" :@"Back Off Polo", @"SKU" :@"polo543" };
+SendCustomEventRequest *sendEventRequest = [[SendCustomEventRequest alloc] initWithEventName:@"browse_product" properties:properties];
+[cordialAPI sendCustomEventWithSendCustomEventRequest:sendEventRequest];
+```
+Example of sending a category browse event:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+```
+let sendCustomEventRequest = SendCustomEventRequest(eventName: "browse_category", properties: ["categoryName": "Men's"])
+cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+```
+SendCustomEventRequest *sendCustomEventRequest = [[SendCustomEventRequest alloc] initWithEventName:@"browse_category" properties:@{ @"categoryName" :@"Men's" }]; 
+cordialAPI sendCustomEventWithSendCustomEventRequest:sendCustomEventRequest];
+```
+
+## Setting a Contact
+
+Every app is assumed to be operating on behalf of a specific contact. Contact is a user of the client application. For example, if Amazon is the client, each user of Amazon who logs in is a contact. Every contact must have a primary key. Naturally, when the app is installed, there is no contact associated with the app as the user might not have logged in yet. In this case, identifying a contact is done via device ID, which is a unique identifier of the iOS device the app is running on.
+
+Every piece of information (internal or custom events, updating a contact, etc.) that is passed by SDK to Cordial backend, has a device ID automatically associated with it. Later, when the user logs into the app and their primary key becomes known, the client application must pass that primary key to the backend by calling the `setContact` method. When the backend receives a contact update with the primary key, it associates the device ID with the primary key of that contact. That association is crucial for effectively using Cordial.
+
+In the event the contact's primary key is unknown, all requests associated with the device ID will be cached until the contact is identified using `setContact`.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -143,9 +222,9 @@ ___
 [cordialAPI setContactWithPrimaryKey:email];
 ```
 
-## Unsetting a contact
+## Unsetting a Contact
 
-Whenever a contact is disassociated with the application, which typically happens on user log out, the SDK should be told so so that it stops associating all client generated events with the contact who is no logged in. This is done via `unsetContact` method:
+Whenever a contact is disassociated with the application, typically due to a logout event, the Cordial SDK should be notified so that contact generated events are no longer associated with their profile. This is done by calling the `unsetContact` method.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -158,9 +237,9 @@ ___
 [cordialAPI unsetContact];
 ```
 
-## Upserting a contact
+## Upserting a Contact
 
-Each contact has a set of attributes associated with it. To update values of the attributes of the set contact, `upsertContact` method should be used. For example, if there are `firstName` and `lastName` attributes updating their values will be done in the following way:
+Contact attributes such as name, age, date of birth, etc. can be updated using the `upsertContact` method. This is an example of updating an already identified contact's `firstName` and `lastName` attributes:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -176,44 +255,10 @@ NSDictionary *attributes = @{ @"firstName" :@"John", @"lastName" :@"Doe" };
 UpsertContactRequest *upsertContactRequest = [[UpsertContactRequest alloc] initWithAttributes:attributes];
 [cordialAPI upsertContactWithUpsertContactRequest:upsertContactRequest];
 ```
+`attributes` - dictionary of string keys and strings values attributes that can be attached to a contact. Can be null.
 
-## Send custom events
-Besides internal events, the SDK allows to send custom events specific to each app. Those may be, for example, user logged in, discount applied or app preferences updated to name a few. To send custom event, use the `CordialApi.sendCustomEvent` method:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-let request = SendCustomEventRequest(eventName: "{custom_event_name}", properties: ["<property_name>": "<property_value>"])  
-cordialApi.sendCustomEvent(sendCustomEventRequest: request)
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-SendCustomEventRequest *request = [[SendCustomEventRequest alloc] initWithEventName:@"{custom_event_name}" properties:@{ @"<property_name>" :@"<property_value>" }];
-[cordialAPI sendCustomEventWithSendCustomEventRequest:request];
-```
-
-`properties` - is a dictionary of string keys and string values that can be attached to the event. Can be nil.
-
-## Configuring SDK to track location updates
-You can expand custom events data by adding geo locations to each custom event. To enable this feature set SDK location manager through these two steps:
-1. Add `NSLocationAlwaysAndWhenInUseUsageDescription` and/or `NSLocationWhenInUseUsageDescription` properties to your project `Info.plist` file.
-2. Initialize SDK location manager by adding the following to the end of  `AppDelegate.didFinishLaunchingWithOptions`:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-[[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
-```
-Example above has configured location manager for maximum geo accuracy. To increase phone battery life you can configure SDK location manager by changing `desiredAccuracy`, `distanceFilter`, `untilTraveled`, `timeout` properties.
-
-## Post an order
-When an order is posted in client application, the app should notify Cordial about that. In order to post an order to Cordial, use the `CordialApi.sendOrder` method:
+## Post an Order
+The orders collection can be updated any time the contact places an order via the app. In order to post an order to Cordial, use the `CordialApi.sendOrder` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -225,11 +270,10 @@ ___
 ```
 [cordialAPI sendContactOrderWithOrder:order];
 ```
+`order`- used to specify order parameters such as orderID, storeID, customerID, billing and shipping addresses, etc.
 
-The `order` object specifies things like orderId, storeId, customerId, billing and shipping addresses. 
-
-## Post a cart
-When a user updates the cart, the app should notify the Cordial backed by calling the `CordialApi.upsertCart` method:
+## Post to Cart
+Updates to contact's cart can be sent to Cordial by calling the `CordialApi.upsertCart` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -242,12 +286,12 @@ ___
 [cordialAPI upsertContactCartWithCartItems:items];
 ```
 
-`items` is an array of, well, cart items. Each items has items sku, quantity, price and other cart item specific attributes.
+`items` - an array of cart items. Each item is assigned attributes such as SKU, quantity, price and other cart item specific attributes.
 
-## Caching
-Every request described above is cached in case of its failure. For example, if internet is down on the device and an event failed to be delivered to Cordial, the event would be cached by the SDK and its delivery would be retried once internet connection is up again. 
+## Event Caching
+Every request described above is cached in case of failure to post. For example, if the internet is down on the device and an event failed to be delivered to Cordial, the event would be cached by the SDK and its delivery would be retried once the connection is up again.
 
-Events cache has quantity limits of cached events. By default this value is equal to 1000. If you want you can change cached events quantity limit to any value on the SDK initialization step in the following way:
+Cordial SDK limits the number of events that may be cached at any given time. When the limit of cached events is reached, the oldest events are removed and replaced by the incoming events, and will not be resent. By default, the cache limit is set to 1,000 events. Use the following method to modify the default cache limit:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -260,9 +304,10 @@ ___
 [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
 ```
 
-## Push notifications
-The application should use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to handle push notification delivered and handle taps on them, the code needs to do two things:
-1. Provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. Do so in `AppDelegate.didFinishLaunchingWithOptions`:
+## Push Notifications
+Your application must use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to enable push notification delivery and handle notification taps, the code needs the following:
+
+1. Provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. This should be done in `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -277,7 +322,7 @@ YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationO
 [CordialApiConfiguration shared].pushNotificationHandler = pushNotificationHandler;
 ```
 
-2. To register for receiving push notifications in your application call:
+2. To register for receiving push notifications, simply call:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -290,11 +335,10 @@ ___
 [cordialAPI registerForPushNotifications];
 ```
 
-##  Deep links 
-The SDK allows to track opening deep links. Two types of deep links are supported: universal links and URL scheme links. 
-In order to allow the SDK to track opening deep links make sure to implement protocol `CordialDeepLinksDelegate`. The protocol contain callback that will be called once the app gets a chance of opening a deep link.
+##  Deep Links 
+Cordial SDK allows you to track deep link open events. Two types of deep links are supported: universal links and URL scheme links. In order to allow the SDK to track deep links, make sure to implement the `CordialDeepLinksDelegate` protocol. The protocol contains callbacks that will be called once the app gets the chance to open a deep link.
 
-In the body of function `AppDelegate.didFinishLaunchingWithOptions` provide the following implementation:
+In the body of the `AppDelegate.didFinishLaunchingWithOptions` function, provide the following implementation:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -308,3 +352,5 @@ ___
 YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImplementationOfCordialDeepLinksHandler alloc] init];
 [CordialApiConfiguration shared].cordialDeepLinksHandler = cordialDeepLinksHandler;
 ```
+
+[Top](#contents)
