@@ -29,8 +29,8 @@
 - (void)setContact {
     CordialAPI *cordialAPI = [[CordialAPI alloc] init];
     
-    NSString *email = @"yan.malinovsky@gmail.com";
-    [cordialAPI setContactWithPrimaryKey:email];
+    NSString *primaryKey = @"TEST_PRIMARY_KEY";
+    [cordialAPI setContactWithPrimaryKey:primaryKey];
 }
 
 - (void)sendBrowseCategoryCustomEvent {
