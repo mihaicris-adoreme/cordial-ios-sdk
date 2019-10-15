@@ -17,19 +17,21 @@ class SendContactLogoutURLSessionManager {
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
+            let sendContactLogoutRequest = sendContactLogoutURLSessionData.sendContactLogoutRequest
+            
             switch httpResponse.statusCode {
             case 200:
-                contactLogoutSender.completionHandler(sendContactLogoutRequest: sendContactLogoutURLSessionData.sendContactLogoutRequest)
+                contactLogoutSender.completionHandler(sendContactLogoutRequest: sendContactLogoutRequest)
             case 401:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                contactLogoutSender.systemErrorHandler(sendContactLogoutRequest: sendContactLogoutURLSessionData.sendContactLogoutRequest, error: responseError)
+                contactLogoutSender.systemErrorHandler(sendContactLogoutRequest: sendContactLogoutRequest, error: responseError)
                 
                 SDKSecurity.shared.updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                contactLogoutSender.logicErrorHandler(error: responseError)
+                contactLogoutSender.logicErrorHandler(sendContactLogoutRequest: sendContactLogoutRequest, error: responseError)
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {

@@ -17,7 +17,7 @@ class ContactLogoutSender {
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 let payload = self.sendContactLogout.getSendContactLogoutJSON(sendContactLogoutRequest: sendContactLogoutRequest)
-                os_log("Sending contact logout. Payload: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, payload)
+                os_log("Sending contact logout. Request ID: [%{public}@] Payload: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID, payload)
             }
             
             if InternalCordialAPI().getCurrentJWT() != nil {
@@ -32,14 +32,14 @@ class ContactLogoutSender {
             CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact logout failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendContactLogout, type: .info)
+                os_log("Sending contact logout failed. Saved to retry later. Request ID: [%{public}@] Error: [No Internet connection]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
             }
         }
     }
     
     func completionHandler(sendContactLogoutRequest: SendContactLogoutRequest) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Contact logout has been sent. Device ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.deviceID)
+            os_log("Contact logout has been sent. Request ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
         }
     }
     
@@ -47,15 +47,15 @@ class ContactLogoutSender {
         CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending contact logout failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, error.message)
+            os_log("Sending contact logout failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID, error.message)
         }
     }
     
-    func logicErrorHandler(error: ResponseError) {
+    func logicErrorHandler(sendContactLogoutRequest: SendContactLogoutRequest, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactLogoutLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending contact logout failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .error, error.message)
+            os_log("Sending contact logout failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .error, sendContactLogoutRequest.requestID, error.message)
         }
     }
 }
