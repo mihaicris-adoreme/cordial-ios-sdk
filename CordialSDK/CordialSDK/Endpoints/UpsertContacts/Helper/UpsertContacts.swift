@@ -46,7 +46,7 @@ class UpsertContacts {
         return upsertContactsJSON
     }
     
-    func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest) -> String {
+    internal func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest) -> String {
         
         var rootContainer  = [
             "\"deviceId\": \"\(upsertContactRequest.deviceID)\"",

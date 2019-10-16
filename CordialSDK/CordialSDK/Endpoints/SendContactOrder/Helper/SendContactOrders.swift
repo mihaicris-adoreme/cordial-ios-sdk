@@ -27,30 +27,13 @@ class SendContactOrders {
         }
     }
     
-    func getSendContactOrderRequestsJSON(sendContactOrderRequests: [SendContactOrderRequest]) -> String {
+    private func getSendContactOrderRequestsJSON(sendContactOrderRequests: [SendContactOrderRequest]) -> String {
         var sendContactOrdersArrayJSON = [String]()
         
         sendContactOrderRequests.forEach { sendContactOrderRequest in
-            let orderJSON = self.getOrderJSON(order: sendContactOrderRequest.order)
+            let sendContactOrderJSON = self.getSendContactOrderRequestJSON(sendContactOrderRequest: sendContactOrderRequest)
             
-            var rootContainer  = [
-                "\"deviceId\": \"\(sendContactOrderRequest.deviceID)\"",
-                "\"order\": \(orderJSON)"
-            ]
-            
-            if let primaryKey = sendContactOrderRequest.primaryKey {
-                rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
-            }
-            
-            if let mcID = sendContactOrderRequest.mcID {
-                rootContainer.append("\"mcID\": \"\(mcID)\"")
-            }
-            
-            let rootContainerString = rootContainer.joined(separator: ", ")
-            
-            let stringJSON = "{ \(rootContainerString) }"
-            
-            sendContactOrdersArrayJSON.append(stringJSON)
+            sendContactOrdersArrayJSON.append(sendContactOrderJSON)
         }
         
         let sendContactOrdersStringJSON = sendContactOrdersArrayJSON.joined(separator: ", ")
@@ -60,6 +43,27 @@ class SendContactOrders {
         return sendContactOrderJSON
     }
 
+    internal func getSendContactOrderRequestJSON(sendContactOrderRequest: SendContactOrderRequest) -> String {
+        let orderJSON = self.getOrderJSON(order: sendContactOrderRequest.order)
+        
+        var rootContainer  = [
+            "\"deviceId\": \"\(sendContactOrderRequest.deviceID)\"",
+            "\"order\": \(orderJSON)"
+        ]
+        
+        if let primaryKey = sendContactOrderRequest.primaryKey {
+            rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
+        }
+        
+        if let mcID = sendContactOrderRequest.mcID {
+            rootContainer.append("\"mcID\": \"\(mcID)\"")
+        }
+        
+        let rootContainerString = rootContainer.joined(separator: ", ")
+        
+        return "{ \(rootContainerString) }"
+    }
+    
     private func getOrderJSON(order: Order) -> String {
         
         var orderContainer  = [

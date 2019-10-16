@@ -117,7 +117,7 @@ class CustomEventsSender {
     internal func getEventNamesAndRequestIDs(sendCustomEventRequests: [SendCustomEventRequest]) -> String {
         var eventNamesAndRequestIDsContainer = [String]()
         sendCustomEventRequests.forEach({ sendCustomEventRequest in
-            eventNamesAndRequestIDsContainer.append("[eventName: \(sendCustomEventRequest.eventName), eventID: \(sendCustomEventRequest.requestID)]")
+            eventNamesAndRequestIDsContainer.append("[ eventName: \(sendCustomEventRequest.eventName), eventID: \(sendCustomEventRequest.requestID) ]")
         })
         let eventNamesAndRequestIDs = eventNamesAndRequestIDsContainer.joined(separator: ", ")
         

@@ -14,26 +14,30 @@ class SendContactOrdersURLSessionManager {
     let contactOrdersSender = ContactOrdersSender()
     
     func completionHandler(sendContactOrdersURLSessionData: SendContactOrdersURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+        let sendContactOrderRequests = sendContactOrdersURLSessionData.sendContactOrderRequests
+        
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
             switch httpResponse.statusCode {
             case 200:
-                contactOrdersSender.completionHandler(sendContactOrderRequests: sendContactOrdersURLSessionData.sendContactOrderRequests)
+                contactOrdersSender.completionHandler(sendContactOrderRequests: sendContactOrderRequests)
             case 401:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                contactOrdersSender.systemErrorHandler(sendContactOrderRequests: sendContactOrdersURLSessionData.sendContactOrderRequests, error: responseError)
+                contactOrdersSender.systemErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
                 
                 SDKSecurity.shared.updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                contactOrdersSender.logicErrorHandler(error: responseError)
+                contactOrdersSender.logicErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .error, error.localizedDescription)
+                sendContactOrderRequests.forEach({ sendContactOrderRequest in
+                    os_log("Failed decode contact orders response data. Order ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .error, sendContactOrderRequest.order.orderID, error.localizedDescription)
+                })
             }
         }
     }
