@@ -37,7 +37,7 @@ class UpsertContactsURLSessionManager {
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 upsertContactRequests.forEach({ upsertContactRequest in
-                    os_log("Failed decode response data. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .error, upsertContactRequest.requestID, error.localizedDescription)
+                    os_log("Failed decode upsert contacts response data. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .error, upsertContactRequest.requestID, error.localizedDescription)
                 })
             }
         }

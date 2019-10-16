@@ -20,7 +20,7 @@ class CustomEventsSender {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
                 os_log("Sending custom events: { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
-                os_log("Custom events payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
+                os_log("Payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
             }
             
             if InternalCordialAPI().getCurrentJWT() != nil {
