@@ -28,8 +28,10 @@ class ContactsSender {
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 upsertContactRequests.forEach({ upsertContactRequest in
+                    os_log("Sending contact. Request ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
+                    
                     let payload = self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest)
-                    os_log("Sending contact. Request ID: [%{public}@] Payload: %{public}@", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID, payload)
+                    os_log("Payload: %{public}@", log: OSLog.cordialUpsertContacts, type: .info, payload)
                 })
             }
         

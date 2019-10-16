@@ -18,8 +18,10 @@ class ContactCartSender {
             let upsertContactCart = UpsertContactCart()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Sending contact cart. Request ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID)
+                
                 let payload = self.upsertContactCart.getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
-                os_log("Sending contact cart. Request ID: [%{public}@] Payload: %{public}@", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID, payload)
+                os_log("Payload: %{public}@", log: OSLog.cordialUpsertContactCart, type: .info, payload)
             }
             
             if InternalCordialAPI().getCurrentJWT() != nil {

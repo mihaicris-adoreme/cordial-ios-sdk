@@ -18,8 +18,9 @@ class CustomEventsSender {
         
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
                 os_log("Sending custom events: { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
+                
+                let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
                 os_log("Payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
             }
             
