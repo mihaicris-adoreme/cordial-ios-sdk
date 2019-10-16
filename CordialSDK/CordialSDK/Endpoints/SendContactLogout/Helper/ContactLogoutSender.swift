@@ -17,7 +17,7 @@ class ContactLogoutSender {
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 let payload = self.sendContactLogout.getSendContactLogoutJSON(sendContactLogoutRequest: sendContactLogoutRequest)
-                os_log("Sending contact logout. Request ID: [%{public}@] Payload: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID, payload)
+                os_log("Sending contact logout. Request ID: [%{public}@] Payload: %{public}@", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID, payload)
             }
             
             if InternalCordialAPI().getCurrentJWT() != nil {

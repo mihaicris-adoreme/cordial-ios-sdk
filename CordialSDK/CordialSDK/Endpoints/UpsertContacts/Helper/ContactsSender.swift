@@ -29,7 +29,7 @@ class ContactsSender {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 upsertContactRequests.forEach({ upsertContactRequest in
                     let payload = self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest)
-                    os_log("Sending contact. Request ID: [%{public}@] Payload: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID, payload)
+                    os_log("Sending contact. Request ID: [%{public}@] Payload: %{public}@", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID, payload)
                 })
             }
         

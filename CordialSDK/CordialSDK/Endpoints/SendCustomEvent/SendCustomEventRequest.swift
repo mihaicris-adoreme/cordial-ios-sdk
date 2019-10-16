@@ -10,6 +10,7 @@ import Foundation
 
 @objc public class SendCustomEventRequest: NSObject, NSCoding {
     
+    let requestID: String
     let deviceID: String
     let primaryKey: String?
     let eventName: String
@@ -23,6 +24,7 @@ import Foundation
     let internalCordialAPI = InternalCordialAPI()
     
     enum Key: String {
+        case requestID = "requestID"
         case eventName = "eventName"
         case timestamp = "timestamp"
         case mcID = "mcID"
@@ -32,6 +34,7 @@ import Foundation
     }
     
     @objc public init(eventName: String, properties: Dictionary<String, String>?) {
+        self.requestID = UUID().uuidString
         self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.eventName = eventName
@@ -42,7 +45,8 @@ import Foundation
         self.properties = properties
     }
     
-    private init(eventName: String, timestamp: String, mcID: String?, latitude: Double?, longitude: Double?, properties: Dictionary<String, String>?) {
+    private init(requestID: String, eventName: String, timestamp: String, mcID: String?, latitude: Double?, longitude: Double?, properties: Dictionary<String, String>?) {
+        self.requestID = requestID
         self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.eventName = eventName
@@ -54,6 +58,7 @@ import Foundation
     }
     
     @objc public func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
         aCoder.encode(self.eventName, forKey: Key.eventName.rawValue)
         aCoder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
         aCoder.encode(self.mcID, forKey: Key.mcID.rawValue)
@@ -63,6 +68,7 @@ import Foundation
     }
     
     @objc public required convenience init?(coder aDecoder: NSCoder) {
+        let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
         let eventName = aDecoder.decodeObject(forKey: Key.eventName.rawValue) as! String
         let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as! String
         let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as! String?
@@ -79,7 +85,7 @@ import Foundation
         
         let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, String>?
         
-        self.init(eventName: eventName, timestamp: timestamp, mcID: mcID, latitude: latitude, longitude: longitude, properties: properties)
+        self.init(requestID: requestID, eventName: eventName, timestamp: timestamp, mcID: mcID, latitude: latitude, longitude: longitude, properties: properties)
     }
     
 }
