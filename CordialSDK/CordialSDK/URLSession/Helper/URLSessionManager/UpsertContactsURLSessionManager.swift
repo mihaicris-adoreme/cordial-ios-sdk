@@ -14,27 +14,31 @@ class UpsertContactsURLSessionManager {
     let contactsSender = ContactsSender()
     
     func completionHandler(upsertContactsURLSessionData: UpsertContactsURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+        let upsertContactRequests = upsertContactsURLSessionData.upsertContactRequests
+        
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
             switch httpResponse.statusCode {
             case 200:
-                self.contactsSender.completionHandler(upsertContactRequests: upsertContactsURLSessionData.upsertContactRequests)
+                self.contactsSender.completionHandler(upsertContactRequests: upsertContactRequests)
             case 401:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                self.contactsSender.systemErrorHandler(upsertContactRequests: upsertContactsURLSessionData.upsertContactRequests, error: responseError)
+                self.contactsSender.systemErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)
                 
                 SDKSecurity.shared.updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 
-                self.contactsSender.logicErrorHandler(error: responseError)
+                self.contactsSender.logicErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .error, error.localizedDescription)
+                upsertContactRequests.forEach({ upsertContactRequest in
+                    os_log("Failed decode response data. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .error, upsertContactRequest.requestID, error.localizedDescription)
+                })
             }
         }
     }
