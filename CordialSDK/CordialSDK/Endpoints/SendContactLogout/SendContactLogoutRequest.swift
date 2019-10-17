@@ -11,10 +11,7 @@ import Foundation
 @objc public class SendContactLogoutRequest: NSObject, NSCoding {
     
     let requestID: String
-    let deviceID: String
     let primaryKey: String
-    
-    let internalCordialAPI = InternalCordialAPI()
     
     enum Key: String {
         case requestID = "requestID"
@@ -23,13 +20,11 @@ import Foundation
     
     @objc public init(primaryKey: String) {
         self.requestID = UUID().uuidString
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = primaryKey
     }
     
     private init(requestID: String, primaryKey: String) {
         self.requestID = requestID
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = primaryKey
     }
     
