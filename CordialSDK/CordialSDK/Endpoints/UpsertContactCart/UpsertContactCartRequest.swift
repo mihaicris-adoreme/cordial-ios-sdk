@@ -11,12 +11,10 @@ import Foundation
 @objc public class UpsertContactCartRequest: NSObject, NSCoding {
 
     let requestID: String
-    let deviceID: String
     var primaryKey: String?
     let cartItems: [CartItem]
     
     let cordialAPI = CordialAPI()
-    let internalCordialAPI = InternalCordialAPI()
     
     enum Key: String {
         case requestID = "requestID"
@@ -25,14 +23,12 @@ import Foundation
     
     @objc public init(cartItems: [CartItem]) {
         self.requestID = UUID().uuidString
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.cartItems = cartItems
     }
     
     private init(requestID: String, cartItems: [CartItem]) {
         self.requestID = requestID
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.cartItems = cartItems
     }

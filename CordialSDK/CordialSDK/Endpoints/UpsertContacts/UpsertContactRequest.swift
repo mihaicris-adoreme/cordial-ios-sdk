@@ -17,7 +17,6 @@ import Foundation
     let attributes: Dictionary<String, String>?
     
     let cordialAPI = CordialAPI()
-    let internalCordialAPI = InternalCordialAPI()
     
     enum Key: String {
         case requestID = "requestID"
