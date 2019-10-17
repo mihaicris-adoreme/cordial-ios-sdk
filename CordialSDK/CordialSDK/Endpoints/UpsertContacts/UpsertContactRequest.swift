@@ -11,7 +11,6 @@ import Foundation
 @objc public class UpsertContactRequest: NSObject, NSCoding {
     
     let requestID: String
-    let deviceID: String
     let token: String?
     let primaryKey: String?
     let status: String
@@ -29,7 +28,6 @@ import Foundation
     
     @objc public init(attributes: Dictionary<String, String>?) {
         self.requestID = UUID().uuidString
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.status = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
@@ -40,7 +38,6 @@ import Foundation
         UserDefaults.standard.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
         
         self.requestID = UUID().uuidString
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.token = token
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.status = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
@@ -51,7 +48,6 @@ import Foundation
         UserDefaults.standard.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
         
         self.requestID = UUID().uuidString
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.status = status
@@ -60,7 +56,6 @@ import Foundation
     
     internal init(primaryKey: String?) {
         self.requestID = UUID().uuidString
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
         self.primaryKey = primaryKey
         self.status = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
@@ -69,7 +64,6 @@ import Foundation
     
     private init(requestID: String, token: String?, primaryKey: String?, attributes: Dictionary<String, String>?) {
         self.requestID = requestID
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.token = token
         self.primaryKey = primaryKey
         self.status = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
