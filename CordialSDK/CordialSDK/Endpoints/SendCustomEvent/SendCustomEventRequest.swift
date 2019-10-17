@@ -11,7 +11,6 @@ import Foundation
 @objc public class SendCustomEventRequest: NSObject, NSCoding {
     
     let requestID: String
-    let deviceID: String
     let primaryKey: String?
     let eventName: String
     let timestamp: String
@@ -35,7 +34,6 @@ import Foundation
     
     @objc public init(eventName: String, properties: Dictionary<String, String>?) {
         self.requestID = UUID().uuidString
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.eventName = eventName
         self.timestamp = internalCordialAPI.getCurrentTimestamp()
@@ -47,7 +45,6 @@ import Foundation
     
     private init(requestID: String, eventName: String, timestamp: String, mcID: String?, latitude: Double?, longitude: Double?, properties: Dictionary<String, String>?) {
         self.requestID = requestID
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.eventName = eventName
         self.timestamp = timestamp
