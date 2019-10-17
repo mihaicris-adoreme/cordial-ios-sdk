@@ -10,6 +10,8 @@ import Foundation
 
 class SendContactOrders {
     
+    let internalCordialAPI = InternalCordialAPI()
+    
     func sendContactOrders(sendContactOrderRequests: [SendContactOrderRequest]) {
         if let url = URL(string: CordialApiEndpoints().getOrdersURL()) {
             var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
@@ -47,7 +49,7 @@ class SendContactOrders {
         let orderJSON = self.getOrderJSON(order: sendContactOrderRequest.order)
         
         var rootContainer  = [
-            "\"deviceId\": \"\(sendContactOrderRequest.deviceID)\"",
+            "\"deviceId\": \"\(internalCordialAPI.getDeviceIdentifier())\"",
             "\"order\": \(orderJSON)"
         ]
         

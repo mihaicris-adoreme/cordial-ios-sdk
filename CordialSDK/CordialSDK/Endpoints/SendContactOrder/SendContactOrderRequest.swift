@@ -10,13 +10,11 @@ import Foundation
 
 @objc public class SendContactOrderRequest: NSObject, NSCoding {
 
-    let deviceID: String
     var primaryKey: String?
     let mcID: String?
     let order: Order
     
     let cordialAPI = CordialAPI()
-    let internalCordialAPI = InternalCordialAPI()
     
     enum Key: String {
         case mcID = "mcID"
@@ -24,14 +22,12 @@ import Foundation
     }
     
     @objc public init(order: Order) {
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.mcID = cordialAPI.getCurrentMcID()
         self.order = order
     }
     
     private init(order: Order, mcID: String?) {
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.mcID = mcID
         self.order = order
