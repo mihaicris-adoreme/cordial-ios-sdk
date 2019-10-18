@@ -16,8 +16,6 @@ class UpsertContactRequest: NSObject, NSCoding {
     let status: String
     let attributes: Dictionary<String, String>?
     
-    let cordialAPI = CordialAPI()
-    
     enum Key: String {
         case requestID = "requestID"
         case token = "token"
@@ -26,20 +24,12 @@ class UpsertContactRequest: NSObject, NSCoding {
         case attributes = "attributes"
     }
     
-    init(token: String?, status: String, attributes: Dictionary<String, String>?) {
+    init(token: String?, primaryKey: String?, status: String, attributes: Dictionary<String, String>?) {
         self.requestID = UUID().uuidString
         self.token = token
-        self.primaryKey = cordialAPI.getContactPrimaryKey()
-        self.status = status
-        self.attributes = attributes
-    }
-    
-    internal init(primaryKey: String?, status: String) {
-        self.requestID = UUID().uuidString
-        self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
         self.primaryKey = primaryKey
         self.status = status
-        self.attributes = nil
+        self.attributes = attributes
     }
     
     private init(requestID: String, token: String?, primaryKey: String?, status: String, attributes: Dictionary<String, String>?) {

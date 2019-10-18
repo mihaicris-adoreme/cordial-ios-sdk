@@ -100,9 +100,12 @@ import os.log
     @objc public func setContact(primaryKey: String) {
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
         
-        let status = InternalCordialAPI().getPushNotificationStatus()
+        let internalCordialAPI = InternalCordialAPI()
         
-        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey, status: status)
+        let token = internalCordialAPI.getPushNotificationToken()
+        let status = internalCordialAPI.getPushNotificationStatus()
+        
+        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
@@ -124,9 +127,10 @@ import os.log
         let internalCordialAPI = InternalCordialAPI()
         
         let token = internalCordialAPI.getPushNotificationToken()
+        let primaryKey = CordialAPI().getContactPrimaryKey()
         let status = internalCordialAPI.getPushNotificationStatus()
         
-        let upsertContactRequest = UpsertContactRequest(token: token, status: status, attributes: attributes)
+        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: attributes)
         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
