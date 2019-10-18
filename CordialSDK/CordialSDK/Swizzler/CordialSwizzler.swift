@@ -122,11 +122,15 @@ class CordialSwizzler {
             os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
         }
         
-        if token != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN) {
-            let status = InternalCordialAPI().getPushNotificationAuthorizationStatus()
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if token != internalCordialAPI.getPushNotificationToken() {
+            let status = internalCordialAPI.getPushNotificationStatus()
             
-            let upsertContactRequest = UpsertContactRequest(token: token, status: status)
+            let upsertContactRequest = UpsertContactRequest(token: token, status: status, attributes: nil)
             ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+            
+            internalCordialAPI.setPushNotificationToken(token: token)
         }
     }
     

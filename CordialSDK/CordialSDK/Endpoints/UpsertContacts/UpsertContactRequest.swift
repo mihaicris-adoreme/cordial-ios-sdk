@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class UpsertContactRequest: NSObject, NSCoding {
+class UpsertContactRequest: NSObject, NSCoding {
     
     let requestID: String
     let token: String?
@@ -26,22 +26,12 @@ import Foundation
         case attributes = "attributes"
     }
     
-    @objc public init(status: String, attributes: Dictionary<String, String>?) {
-        self.requestID = UUID().uuidString
-        self.token = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
-        self.primaryKey = cordialAPI.getContactPrimaryKey()
-        self.status = status
-        self.attributes = attributes
-    }
-    
-    internal init(token: String?, status: String) {
-        UserDefaults.standard.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
-        
+    init(token: String?, status: String, attributes: Dictionary<String, String>?) {
         self.requestID = UUID().uuidString
         self.token = token
         self.primaryKey = cordialAPI.getContactPrimaryKey()
         self.status = status
-        self.attributes = nil
+        self.attributes = attributes
     }
     
     internal init(primaryKey: String?, status: String) {
@@ -60,7 +50,7 @@ import Foundation
         self.attributes = attributes
     }
     
-    @objc public func encode(with aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
         aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
         aCoder.encode(self.token, forKey: Key.token.rawValue)
         aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
@@ -68,7 +58,7 @@ import Foundation
         aCoder.encode(self.attributes, forKey: Key.attributes.rawValue)
     }
     
-    @objc public required convenience init?(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
         let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
         let token = aDecoder.decodeObject(forKey: Key.token.rawValue) as! String?
         let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?

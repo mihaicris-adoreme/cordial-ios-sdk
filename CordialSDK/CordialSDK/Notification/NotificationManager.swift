@@ -74,17 +74,28 @@ class NotificationManager {
             let current = UNUserNotificationCenter.current()
             
             current.getNotificationSettings(completionHandler: { (settings) in
+                let cordialAPI = CordialAPI()
+                let internalCordialAPI = InternalCordialAPI()
+                
                 if settings.authorizationStatus == .authorized {
                     if API.PUSH_NOTIFICATION_STATUS_ALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                        let primaryKey = CordialAPI().getContactPrimaryKey()
-                        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey, status: API.PUSH_NOTIFICATION_STATUS_ALLOW)
+                        let primaryKey = cordialAPI.getContactPrimaryKey()
+                        let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
+                        
+                        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey, status: status)
                         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+                        
+                        internalCordialAPI.setPushNotificationStatus(status: status)
                     }
                 } else {
                     if API.PUSH_NOTIFICATION_STATUS_DISALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                        let primaryKey = CordialAPI().getContactPrimaryKey()
-                        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey, status: API.PUSH_NOTIFICATION_STATUS_DISALLOW)
+                        let primaryKey = cordialAPI.getContactPrimaryKey()
+                        let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+                        
+                        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey, status: status)
                         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+                        
+                        internalCordialAPI.setPushNotificationStatus(status: status)
                     }
                 }
             })
