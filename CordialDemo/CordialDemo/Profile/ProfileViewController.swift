@@ -29,14 +29,17 @@ class ProfileViewController: UIViewController {
 
     @IBAction func updateProfileButtonAction(_ sender: UIButton) {
         if let newPrimaryKey = self.primaryKeyTextField.text, !newPrimaryKey.isEmpty {
+            
+            // Update primary key if it has changed.
             if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
                 if primaryKey != newPrimaryKey {
                     self.cordialAPI.setContact(primaryKey: newPrimaryKey)
                 }
             }
             
-            let upsertContactRequest = UpsertContactRequest(attributes: nil)
-            self.cordialAPI.upsertContact(upsertContactRequest: upsertContactRequest)
+            // Test call upsertContact below just for case if some attributes are exist on the profile page.
+            // Demo app did not have any attributes on the test profile page.
+            self.cordialAPI.upsertContact(attributes: nil)
             
             popupSimpleNoteAlert(title: "PROFILE", message: "UPDATED", controller: self)
             

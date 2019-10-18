@@ -76,13 +76,15 @@ class NotificationManager {
             current.getNotificationSettings(completionHandler: { (settings) in
                 if settings.authorizationStatus == .authorized {
                     if API.PUSH_NOTIFICATION_STATUS_ALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                        let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_ALLOW)
-                        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+                        let primaryKey = CordialAPI().getContactPrimaryKey()
+                        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey, status: API.PUSH_NOTIFICATION_STATUS_ALLOW)
+                        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
                     }
                 } else {
                     if API.PUSH_NOTIFICATION_STATUS_DISALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                        let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_DISALLOW)
-                        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+                        let primaryKey = CordialAPI().getContactPrimaryKey()
+                        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey, status: API.PUSH_NOTIFICATION_STATUS_DISALLOW)
+                        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
                     }
                 }
             })

@@ -137,4 +137,16 @@ class InternalCordialAPI {
             UIApplication.shared.open(url, options:[:], completionHandler: nil)
         }
     }
+    
+    // MARK: Get push notification authorization status
+    
+    func getPushNotificationAuthorizationStatus() -> String {
+        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
+    }
+    
+    // MARK: Get push notification token
+    
+    func getPushNotificationToken() -> String? {
+        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
+    }
 }

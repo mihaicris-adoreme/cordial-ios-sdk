@@ -123,8 +123,10 @@ class CordialSwizzler {
         }
         
         if token != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN) {
-            let upsertContactRequest = UpsertContactRequest(token: token)
-            CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+            let status = InternalCordialAPI().getPushNotificationAuthorizationStatus()
+            
+            let upsertContactRequest = UpsertContactRequest(token: token, status: status)
+            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
         }
     }
     

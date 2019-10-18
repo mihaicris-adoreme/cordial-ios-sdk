@@ -100,8 +100,10 @@ import os.log
     @objc public func setContact(primaryKey: String) {
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
         
-        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey)
-        self.upsertContact(upsertContactRequest: upsertContactRequest)
+        let status = InternalCordialAPI().getPushNotificationAuthorizationStatus()
+        
+        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey, status: status)
+        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
     // MARK: Unset Contact
@@ -118,7 +120,10 @@ import os.log
     
     // MARK: Upsert Contact
     
-    @objc public func upsertContact(upsertContactRequest: UpsertContactRequest) -> Void {
+    @objc public func upsertContact(attributes: Dictionary<String, String>?) -> Void {
+        let status = InternalCordialAPI().getPushNotificationAuthorizationStatus()
+        
+        let upsertContactRequest = UpsertContactRequest(status: status, attributes: attributes)
         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
