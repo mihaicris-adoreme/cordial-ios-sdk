@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class SendContactLogoutRequest: NSObject, NSCoding {
+class SendContactLogoutRequest: NSObject, NSCoding {
     
     let requestID: String
     let primaryKey: String
@@ -18,7 +18,7 @@ import Foundation
         case primaryKey = "primaryKey"
     }
     
-    @objc public init(primaryKey: String) {
+    init(primaryKey: String) {
         self.requestID = UUID().uuidString
         self.primaryKey = primaryKey
     }
@@ -28,12 +28,12 @@ import Foundation
         self.primaryKey = primaryKey
     }
     
-    @objc public func encode(with aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
         aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
         aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
     }
     
-    @objc public required convenience init?(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
         let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
         let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String
         
