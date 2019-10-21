@@ -10,6 +10,7 @@ import Foundation
 
 class UpsertContactCart {
     
+    let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
     func upsertContactCart(upsertContactCartRequest: UpsertContactCartRequest) {
@@ -37,7 +38,7 @@ class UpsertContactCart {
             "\"cartitems\": \(cartItemsJSON)"
         ]
         
-        if let primaryKey = upsertContactCartRequest.primaryKey {
+        if let primaryKey = cordialAPI.getContactPrimaryKey() {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         
