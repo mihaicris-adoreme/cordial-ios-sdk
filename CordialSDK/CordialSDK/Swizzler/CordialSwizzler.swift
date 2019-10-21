@@ -162,14 +162,14 @@ class CordialSwizzler {
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         
         if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
+            guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
+                return false
+            }
+            
             let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
             let mcID = CordialAPI().getCurrentMcID()
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
             InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
-            
-            guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
-                return false
-            }
             
             cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil)
             
