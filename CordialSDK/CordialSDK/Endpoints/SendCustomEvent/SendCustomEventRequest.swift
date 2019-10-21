@@ -17,9 +17,7 @@ class SendCustomEventRequest: NSObject, NSCoding {
     let latitude: Double?
     let longitude: Double?
     let properties: Dictionary<String, String>?
-    
-    let cordialAPI = CordialAPI()
-    
+        
     enum Key: String {
         case requestID = "requestID"
         case eventName = "eventName"
@@ -30,13 +28,13 @@ class SendCustomEventRequest: NSObject, NSCoding {
         case properties = "properties"
     }
     
-    init(eventName: String, properties: Dictionary<String, String>?) {
+    init(eventName: String, mcID: String?, properties: Dictionary<String, String>?) {
         self.requestID = UUID().uuidString
         self.eventName = eventName
         self.timestamp = DateFormatter().getCurrentTimestamp()
-        self.mcID = cordialAPI.getCurrentMcID()
-        self.latitude = UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
-        self.longitude = UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
+        self.mcID = mcID
+        self.latitude = CordialLocationManager.shared.getLatitude()
+        self.longitude = CordialLocationManager.shared.getLongitude()
         self.properties = properties
     }
     

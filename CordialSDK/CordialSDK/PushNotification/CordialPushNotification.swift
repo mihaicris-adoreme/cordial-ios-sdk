@@ -73,8 +73,8 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
             }
         }
         
-        let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_TAP
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+        let mcID = self.cordialAPI.getCurrentMcID()
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: nil)
         self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         do {
@@ -82,8 +82,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
                 let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkData, options: []) as! [String: AnyObject]
                 if let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString), let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
                     
-                    let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
-                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_DEEP_LINK_OPEN, mcID: mcID, properties: nil)
                     self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
                     
                     if let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
@@ -111,7 +110,8 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         let userInfo = notification.request.content.userInfo
         
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+        let mcID = self.cordialAPI.getCurrentMcID()
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
         self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {

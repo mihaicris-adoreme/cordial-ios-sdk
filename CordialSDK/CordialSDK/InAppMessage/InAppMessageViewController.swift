@@ -16,6 +16,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var isBanner: Bool!
     var inAppMessageData: InAppMessageData!
     
+    let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
     var zoomScale = CGFloat()
@@ -117,7 +118,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             self.isBannerAvailable = false
             
             if let eventName = eventName {
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+                let mcID = self.cordialAPI.getCurrentMcID()
+                let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
                 self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
             
@@ -128,7 +130,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     @objc func dismissModalInAppMessage() {
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, properties: nil)
+        let mcID = self.cordialAPI.getCurrentMcID()
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, mcID: mcID, properties: nil)
         self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         self.removeModalFromSuperviewWithoutAnimation()
@@ -165,7 +168,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 }
                 
                 if let eventName = dict["eventName"] as? String {
-                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+                    let mcID = self.cordialAPI.getCurrentMcID()
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
                     self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 }
             }

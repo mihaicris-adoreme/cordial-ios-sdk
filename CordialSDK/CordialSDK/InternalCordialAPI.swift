@@ -105,7 +105,8 @@ class InternalCordialAPI {
         let firstLaunch = CordialFirstLaunch(userDefaults: .standard, key: API.USER_DEFAULTS_KEY_FOR_FIRST_LAUNCH)
         if firstLaunch.isFirstLaunch {
             let eventName = API.EVENT_NAME_FIRST_LAUNCH
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
             self.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         }
     }

@@ -163,7 +163,8 @@ class CordialSwizzler {
         
         if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
             let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
             InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             
             guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
@@ -184,7 +185,8 @@ class CordialSwizzler {
         
         if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
             let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
             InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             
             cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil)
