@@ -165,16 +165,14 @@ Each contact has a set of attributes associated with it. To update values of the
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let attributes = ["firstName":"John", "lastName":"Doe"]
-let upsertContactRequest = UpsertContactRequest(attributes: attributes)
-cordialAPI.upsertContact(upsertContactRequest: upsertContactRequest)
+let attributes = ["firstName": "John", "lastName": "Doe"]
+cordialAPI.upsertContact(attributes: attributes)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-NSDictionary *attributes = @{ @"firstName" :@"John", @"lastName" :@"Doe" };
-UpsertContactRequest *upsertContactRequest = [[UpsertContactRequest alloc] initWithAttributes:attributes];
-[cordialAPI upsertContactWithUpsertContactRequest:upsertContactRequest];
+NSDictionary *attributes = @{ @"firstName":@"John", @"lastName":@"Doe" };
+[cordialAPI upsertContactWithAttributes:attributes];
 ```
 
 ## Send custom events
@@ -183,14 +181,14 @@ Besides internal events, the SDK allows to send custom events specific to each a
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let request = SendCustomEventRequest(eventName: "{custom_event_name}", properties: ["<property_name>": "<property_value>"])  
-cordialApi.sendCustomEvent(sendCustomEventRequest: request)
+let properties = ["<property_name>": "<property_value>"]
+cordialAPI.sendCustomEvent(eventName: "{custom_event_name}", properties: properties)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-SendCustomEventRequest *request = [[SendCustomEventRequest alloc] initWithEventName:@"{custom_event_name}" properties:@{ @"<property_name>" :@"<property_value>" }];
-[cordialAPI sendCustomEventWithSendCustomEventRequest:request];
+NSDictionary *properties = @{ @"<property_name>":@"<property_value>" };
+[cordialAPI sendCustomEventWithEventName:@"{custom_event_name}" properties:properties];
 ```
 
 `properties` - is a dictionary of string keys and string values that can be attached to the event. Can be nil.
