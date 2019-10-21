@@ -40,8 +40,7 @@
     
     NSDictionary *properties = @{ @"catalogName" :@"Mens" };
     
-    SendCustomEventRequest *sendCustomEventRequest = [[SendCustomEventRequest alloc] initWithEventName:eventName properties:properties];
-    [cordialAPI sendCustomEventWithSendCustomEventRequest:sendCustomEventRequest];
+    [cordialAPI sendCustomEventWithEventName:eventName properties:properties];
 }
 
 - (void)upsertContactCart {
