@@ -11,21 +11,6 @@ import Foundation
 class InternalCordialAPI {
     
     let cordialAPI = CordialAPI()
-    let dateFormatter = ISO8601DateFormatter()
-    
-    // MARK: Get current timestamp
-    
-    func getCurrentTimestamp() -> String {
-        let date = Date()
-        
-        return dateFormatter.string(from: date)
-    }
-    
-    // MARK: Get date from timestamp
-    
-    func getDateFromTimestamp(timestamp: String) -> Date? {
-        return dateFormatter.date(from: timestamp)
-    }
     
     // MARK: Get device identifier
     

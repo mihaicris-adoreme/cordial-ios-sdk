@@ -10,6 +10,7 @@ import Foundation
 
 class SendCustomEvents {
     
+    let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
     func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
@@ -42,7 +43,7 @@ class SendCustomEvents {
                 "\"timestamp\": \"\(sendCustomEventRequest.timestamp)\""
             ]
             
-            if let primaryKey = sendCustomEventRequest.primaryKey {
+            if let primaryKey = cordialAPI.getContactPrimaryKey() {
                 rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
             }
             

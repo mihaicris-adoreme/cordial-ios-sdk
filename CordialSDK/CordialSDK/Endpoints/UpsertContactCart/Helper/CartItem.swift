@@ -23,9 +23,7 @@ import Foundation
     let attr: Dictionary<String, String>?
     let images: [String]?
     let properties: Dictionary<String, String>?
-    
-    let internalCordialAPI = InternalCordialAPI()
-    
+        
     enum Key: String {
         case productID = "productID"
         case name = "name"
@@ -56,7 +54,7 @@ import Foundation
         self.qty = qty
         self.itemPrice = itemPrice
         self.salePrice = salePrice
-        self.timestamp = internalCordialAPI.getCurrentTimestamp()
+        self.timestamp = DateFormatter().getCurrentTimestamp()
         self.attr = attr
         self.images = images
         self.properties = properties

@@ -97,7 +97,7 @@ class InAppMessageGetter {
         }
         
         if let timestamp = userInfo["expirationTime"] as? String {
-            expirationTime = InternalCordialAPI().getDateFromTimestamp(timestamp: timestamp)
+            expirationTime = DateFormatter().getDateFromTimestamp(timestamp: timestamp)
         }
         
         return (height, top, right, bottom, left, expirationTime)
