@@ -136,13 +136,9 @@ import os.log
     
     // MARK: Send Custom Event
         
-    @objc public func sendCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        if !sendCustomEventRequest.eventName.hasPrefix(API.SYSTEM_EVENT_PREFIX) {
-            CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
-        } else {
-            let responseError = ResponseError(message: "Event name has system prefix", statusCode: nil, responseBody: nil, systemError: nil)
-            CustomEventsSender().logicErrorHandler(sendCustomEventRequests: [sendCustomEventRequest], error: responseError)
-        }
+    @objc public func sendCustomEvent(eventName: String, properties: Dictionary<String, String>?) {
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: properties)
+        InternalCordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     // MARK: Upsert Contact Cart

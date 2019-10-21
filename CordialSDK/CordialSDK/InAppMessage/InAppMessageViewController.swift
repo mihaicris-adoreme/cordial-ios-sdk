@@ -16,7 +16,6 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var isBanner: Bool!
     var inAppMessageData: InAppMessageData!
     
-    let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
     var zoomScale = CGFloat()
@@ -167,7 +166,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 
                 if let eventName = dict["eventName"] as? String {
                     let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-                    self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                    self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 }
             }
             

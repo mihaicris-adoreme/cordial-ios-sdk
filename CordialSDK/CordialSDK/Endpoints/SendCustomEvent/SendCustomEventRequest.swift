@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class SendCustomEventRequest: NSObject, NSCoding {
+class SendCustomEventRequest: NSObject, NSCoding {
     
     let requestID: String
     let eventName: String
@@ -30,7 +30,7 @@ import Foundation
         case properties = "properties"
     }
     
-    @objc public init(eventName: String, properties: Dictionary<String, String>?) {
+    init(eventName: String, properties: Dictionary<String, String>?) {
         self.requestID = UUID().uuidString
         self.eventName = eventName
         self.timestamp = DateFormatter().getCurrentTimestamp()
@@ -50,7 +50,7 @@ import Foundation
         self.properties = properties
     }
     
-    @objc public func encode(with aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
         aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
         aCoder.encode(self.eventName, forKey: Key.eventName.rawValue)
         aCoder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
@@ -60,7 +60,7 @@ import Foundation
         aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
-    @objc public required convenience init?(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
         let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
         let eventName = aDecoder.decodeObject(forKey: Key.eventName.rawValue) as! String
         let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as! String

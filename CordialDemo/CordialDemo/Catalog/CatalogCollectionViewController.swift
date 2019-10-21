@@ -57,8 +57,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     
     func sendBrowseCategoryCustomEvent() {
         let eventName = "browse_category"
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: ["catalogName": catalogName])
-        self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.cordialAPI.sendCustomEvent(eventName: eventName, properties: ["catalogName": catalogName])
     }
     
     @objc func cartButtonAction() {

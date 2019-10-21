@@ -10,8 +10,6 @@ import Foundation
 
 class InternalCordialAPI {
     
-    let cordialAPI = CordialAPI()
-    
     // MARK: Get device identifier
     
     func getDeviceIdentifier() -> String {
@@ -39,6 +37,17 @@ class InternalCordialAPI {
     
     func sendSystemEvent(sendCustomEventRequest: SendCustomEventRequest) {
         CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
+    }
+    
+    // MARK: Send Custom Event
+    
+    func sendCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
+        if !sendCustomEventRequest.eventName.hasPrefix(API.SYSTEM_EVENT_PREFIX) {
+            CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
+        } else {
+            let responseError = ResponseError(message: "Event name has system prefix", statusCode: nil, responseBody: nil, systemError: nil)
+            CustomEventsSender().logicErrorHandler(sendCustomEventRequests: [sendCustomEventRequest], error: responseError)
+        }
     }
     
     // MARK: Send cache from CoreData
