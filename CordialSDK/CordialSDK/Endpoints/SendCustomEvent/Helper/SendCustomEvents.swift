@@ -38,12 +38,12 @@ class SendCustomEvents {
         sendCustomEventRequests.forEach { sendCustomEventRequest in
             
             var rootContainer  = [
-                "\"deviceId\": \"\(internalCordialAPI.getDeviceIdentifier())\"",
+                "\"deviceId\": \"\(self.internalCordialAPI.getDeviceIdentifier())\"",
                 "\"event\": \"\(sendCustomEventRequest.eventName)\"",
                 "\"timestamp\": \"\(sendCustomEventRequest.timestamp)\""
             ]
             
-            if let primaryKey = cordialAPI.getContactPrimaryKey() {
+            if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
                 rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
             }
             

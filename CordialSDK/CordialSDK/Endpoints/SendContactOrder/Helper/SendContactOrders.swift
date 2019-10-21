@@ -10,6 +10,7 @@ import Foundation
 
 class SendContactOrders {
     
+    let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
     func sendContactOrders(sendContactOrderRequests: [SendContactOrderRequest]) {
@@ -53,7 +54,7 @@ class SendContactOrders {
             "\"order\": \(orderJSON)"
         ]
         
-        if let primaryKey = sendContactOrderRequest.primaryKey {
+        if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         

@@ -34,11 +34,11 @@ class UpsertContactCart {
         let cartItemsJSON = self.getCartItemsJSON(cartItems: upsertContactCartRequest.cartItems)
         
         var rootContainer  = [
-            "\"deviceId\": \"\(internalCordialAPI.getDeviceIdentifier())\"",
+            "\"deviceId\": \"\(self.internalCordialAPI.getDeviceIdentifier())\"",
             "\"cartitems\": \(cartItemsJSON)"
         ]
         
-        if let primaryKey = cordialAPI.getContactPrimaryKey() {
+        if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         

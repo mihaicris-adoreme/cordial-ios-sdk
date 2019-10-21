@@ -152,7 +152,8 @@ import os.log
     // MARK: Send Order
     
     @objc public func sendContactOrder(order: Order) {
-        let sendContactOrderRequest = SendContactOrderRequest(order: order)
+        let mcID = self.getCurrentMcID()
+        let sendContactOrderRequest = SendContactOrderRequest(mcID: mcID, order: order)
         ContactOrdersSender().sendContactOrders(sendContactOrderRequests: [sendContactOrderRequest])
     }
     
