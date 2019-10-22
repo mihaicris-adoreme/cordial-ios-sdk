@@ -8,21 +8,18 @@
 
 import Foundation
 
-@objc public class SendCustomEventRequest: NSObject, NSCoding {
+class SendCustomEventRequest: NSObject, NSCoding {
     
-    let deviceID: String
-    let primaryKey: String?
+    let requestID: String
     let eventName: String
     let timestamp: String
     let mcID: String?
     let latitude: Double?
     let longitude: Double?
     let properties: Dictionary<String, String>?
-    
-    let cordialAPI = CordialAPI()
-    let internalCordialAPI = InternalCordialAPI()
-    
+        
     enum Key: String {
+        case requestID = "requestID"
         case eventName = "eventName"
         case timestamp = "timestamp"
         case mcID = "mcID"
@@ -31,20 +28,18 @@ import Foundation
         case properties = "properties"
     }
     
-    @objc public init(eventName: String, properties: Dictionary<String, String>?) {
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
-        self.primaryKey = cordialAPI.getContactPrimaryKey()
+    init(eventName: String, mcID: String?, properties: Dictionary<String, String>?) {
+        self.requestID = UUID().uuidString
         self.eventName = eventName
-        self.timestamp = internalCordialAPI.getCurrentTimestamp()
-        self.mcID = cordialAPI.getCurrentMcID()
-        self.latitude = UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
-        self.longitude = UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
+        self.timestamp = DateFormatter().getCurrentTimestamp()
+        self.mcID = mcID
+        self.latitude = CordialLocationManager.shared.getLatitude()
+        self.longitude = CordialLocationManager.shared.getLongitude()
         self.properties = properties
     }
     
-    private init(eventName: String, timestamp: String, mcID: String?, latitude: Double?, longitude: Double?, properties: Dictionary<String, String>?) {
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
-        self.primaryKey = cordialAPI.getContactPrimaryKey()
+    private init(requestID: String, eventName: String, timestamp: String, mcID: String?, latitude: Double?, longitude: Double?, properties: Dictionary<String, String>?) {
+        self.requestID = requestID
         self.eventName = eventName
         self.timestamp = timestamp
         self.mcID = mcID
@@ -53,7 +48,8 @@ import Foundation
         self.properties = properties
     }
     
-    @objc public func encode(with aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
         aCoder.encode(self.eventName, forKey: Key.eventName.rawValue)
         aCoder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
         aCoder.encode(self.mcID, forKey: Key.mcID.rawValue)
@@ -62,7 +58,8 @@ import Foundation
         aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
-    @objc public required convenience init?(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
+        let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
         let eventName = aDecoder.decodeObject(forKey: Key.eventName.rawValue) as! String
         let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as! String
         let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as! String?
@@ -79,7 +76,7 @@ import Foundation
         
         let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, String>?
         
-        self.init(eventName: eventName, timestamp: timestamp, mcID: mcID, latitude: latitude, longitude: longitude, properties: properties)
+        self.init(requestID: requestID, eventName: eventName, timestamp: timestamp, mcID: mcID, latitude: latitude, longitude: longitude, properties: properties)
     }
     
 }

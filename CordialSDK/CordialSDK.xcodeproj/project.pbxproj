@@ -96,6 +96,7 @@
 		9ED9266A22CB5BDF00809EC0 /* InAppMessage.js in Resources */ = {isa = PBXBuildFile; fileRef = 9ED9266922CB5BDF00809EC0 /* InAppMessage.js */; };
 		9EE29BE722F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */; };
 		9EE29BE922F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */; };
+		9EE8C5F3235DAE3E0045347B /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8C5F2235DAE3E0045347B /* DateFormatter.swift */; };
 		9EE94E29233CF07B009651DF /* InAppMessagesParam+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE94E27233CF07B009651DF /* InAppMessagesParam+CoreDataClass.swift */; };
 		9EE94E2A233CF07B009651DF /* InAppMessagesParam+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE94E28233CF07B009651DF /* InAppMessagesParam+CoreDataProperties.swift */; };
 		9EE94E2D233CF8C9009651DF /* InAppMessageInactiveSessionDisplayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE94E2C233CF8C9009651DF /* InAppMessageInactiveSessionDisplayType.swift */; };
@@ -208,6 +209,7 @@
 		9ED9266922CB5BDF00809EC0 /* InAppMessage.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = InAppMessage.js; sourceTree = "<group>"; };
 		9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInAppMessageURLSessionManager.swift; sourceTree = "<group>"; };
 		9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKSecurityGetJWTURLSessionManager.swift; sourceTree = "<group>"; };
+		9EE8C5F2235DAE3E0045347B /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		9EE94E27233CF07B009651DF /* InAppMessagesParam+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesParam+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9EE94E28233CF07B009651DF /* InAppMessagesParam+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesParam+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9EE94E2C233CF8C9009651DF /* InAppMessageInactiveSessionDisplayType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageInactiveSessionDisplayType.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 		9E7A5A41222EB54D0020054F /* CordialSDK */ = {
 			isa = PBXGroup;
 			children = (
+				9EE8C5F1235DAE1F0045347B /* DateFormatter */,
 				9E126DB222F865F600A74143 /* MD5 */,
 				9EC86A5B22DDC99600ACF996 /* URLSession */,
 				9EA2EFA422C4F0290047314C /* InAppMessage */,
@@ -612,6 +615,14 @@
 			path = URLSessionManager;
 			sourceTree = "<group>";
 		};
+		9EE8C5F1235DAE1F0045347B /* DateFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				9EE8C5F2235DAE3E0045347B /* DateFormatter.swift */,
+			);
+			path = DateFormatter;
+			sourceTree = "<group>";
+		};
 		9EEC9D7E22896F6A00B40FFB /* UserAgent */ = {
 			isa = PBXGroup;
 			children = (
@@ -762,6 +773,7 @@
 				9E565B8E225B7198005EC4AF /* SendCustomEvents.swift in Sources */,
 				9EB17AC622930D7B00EEAB7D /* CustomEventRequest+CoreDataProperties.swift in Sources */,
 				9E565B95225B9E47005EC4AF /* CoreDataManager.swift in Sources */,
+				9EE8C5F3235DAE3E0045347B /* DateFormatter.swift in Sources */,
 				9E6DB89B234E168700711A2A /* CordialDeepLinksDelegate.swift in Sources */,
 				9E5147CA22FC4DFD00977278 /* SendContactLogoutURLSessionManager.swift in Sources */,
 				9EC86A5D22DDCA1A00ACF996 /* CordialURLSession.swift in Sources */,

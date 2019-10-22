@@ -10,23 +10,6 @@ import Foundation
 
 class InternalCordialAPI {
     
-    let cordialAPI = CordialAPI()
-    let dateFormatter = ISO8601DateFormatter()
-    
-    // MARK: Get current timestamp
-    
-    func getCurrentTimestamp() -> String {
-        let date = Date()
-        
-        return dateFormatter.string(from: date)
-    }
-    
-    // MARK: Get date from timestamp
-    
-    func getDateFromTimestamp(timestamp: String) -> Date? {
-        return dateFormatter.date(from: timestamp)
-    }
-    
     // MARK: Get device identifier
     
     func getDeviceIdentifier() -> String {
@@ -54,6 +37,17 @@ class InternalCordialAPI {
     
     func sendSystemEvent(sendCustomEventRequest: SendCustomEventRequest) {
         CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
+    }
+    
+    // MARK: Send Custom Event
+    
+    func sendCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
+        if !sendCustomEventRequest.eventName.hasPrefix(API.SYSTEM_EVENT_PREFIX) {
+            CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
+        } else {
+            let responseError = ResponseError(message: "Event name has system prefix", statusCode: nil, responseBody: nil, systemError: nil)
+            CustomEventsSender().logicErrorHandler(sendCustomEventRequests: [sendCustomEventRequest], error: responseError)
+        }
     }
     
     // MARK: Send cache from CoreData
@@ -88,18 +82,12 @@ class InternalCordialAPI {
     // MARK: Get active view controller
     
     func getActiveViewController() -> UIViewController? {
-        if var currentVC = UIApplication.shared.keyWindow?.rootViewController {
-            while let presentedVC = currentVC.presentedViewController {
-                if let navVC = (presentedVC as? UINavigationController)?.viewControllers.last {
-                    currentVC = navVC
-                } else if let tabVC = (presentedVC as? UITabBarController)?.selectedViewController {
-                    currentVC = tabVC
-                } else {
-                    currentVC = presentedVC
-                }
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
             }
-            
-            return currentVC
+
+            return topController
         }
         
         return nil
@@ -111,7 +99,8 @@ class InternalCordialAPI {
         let firstLaunch = CordialFirstLaunch(userDefaults: .standard, key: API.USER_DEFAULTS_KEY_FOR_FIRST_LAUNCH)
         if firstLaunch.isFirstLaunch {
             let eventName = API.EVENT_NAME_FIRST_LAUNCH
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
             self.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         }
     }
@@ -136,5 +125,29 @@ class InternalCordialAPI {
         } else {
             UIApplication.shared.open(url, options:[:], completionHandler: nil)
         }
+    }
+    
+    // MARK: Get push notification authorization status
+    
+    func getPushNotificationStatus() -> String {
+        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
+    }
+     
+    // MARK: Set push notification authorization status
+    
+    func setPushNotificationStatus(status: String) {
+        UserDefaults.standard.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
+    }
+    
+    // MARK: Get push notification token
+    
+    func getPushNotificationToken() -> String? {
+        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
+    }
+    
+    // MARK: Set push notification token
+    
+    func setPushNotificationToken(token: String) {
+        UserDefaults.standard.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
     }
 }

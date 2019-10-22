@@ -10,6 +10,9 @@ import Foundation
 
 class UpsertContactCart {
     
+    let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
+    
     func upsertContactCart(upsertContactCartRequest: UpsertContactCartRequest) {
         if let url = URL(string: CordialApiEndpoints().getContactCartURL()) {
             var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
@@ -31,11 +34,11 @@ class UpsertContactCart {
         let cartItemsJSON = self.getCartItemsJSON(cartItems: upsertContactCartRequest.cartItems)
         
         var rootContainer  = [
-            "\"deviceId\": \"\(upsertContactCartRequest.deviceID)\"",
+            "\"deviceId\": \"\(self.internalCordialAPI.getDeviceIdentifier())\"",
             "\"cartitems\": \(cartItemsJSON)"
         ]
         
-        if let primaryKey = upsertContactCartRequest.primaryKey {
+        if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         

@@ -10,6 +10,9 @@ import Foundation
 
 class SendCustomEvents {
     
+    let cordialAPI = CordialAPI()
+    let internalCordialAPI = InternalCordialAPI()
+    
     func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
         
         if let url = URL(string: CordialApiEndpoints().getCustomEventsURL()) {
@@ -35,12 +38,12 @@ class SendCustomEvents {
         sendCustomEventRequests.forEach { sendCustomEventRequest in
             
             var rootContainer  = [
-                "\"deviceId\": \"\(sendCustomEventRequest.deviceID)\"",
+                "\"deviceId\": \"\(self.internalCordialAPI.getDeviceIdentifier())\"",
                 "\"event\": \"\(sendCustomEventRequest.eventName)\"",
                 "\"timestamp\": \"\(sendCustomEventRequest.timestamp)\""
             ]
             
-            if let primaryKey = sendCustomEventRequest.primaryKey {
+            if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
                 rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
             }
             

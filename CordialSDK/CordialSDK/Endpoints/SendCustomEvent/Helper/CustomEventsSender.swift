@@ -14,14 +14,14 @@ class CustomEventsSender {
     let sendCustomEvents = SendCustomEvents()
     
     func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
+        let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
+        
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
-                os_log("Sending custom events payload: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, payload)
+                os_log("Sending custom events: { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
                 
-                sendCustomEventRequests.forEach({ sendCustomEventRequest in
-                    os_log("Sending custom event [%{public}@].", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName)
-                })
+                let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
+                os_log("Payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
             }
             
             if InternalCordialAPI().getCurrentJWT() != nil {
@@ -36,16 +36,15 @@ class CustomEventsSender {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending custom events failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendCustomEvents, type: .info)
+                os_log("Sending custom events { %{public}@ } failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
             }
         }
     }
     
     func completionHandler(sendCustomEventRequests: [SendCustomEventRequest]) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            sendCustomEventRequests.forEach({ sendCustomEventRequest in
-                os_log("Event [%{public}@] has been sent", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName)
-            })
+            let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
+            os_log("Custom events { %{public}@ } have been sent", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
         }
     }
     
@@ -53,7 +52,8 @@ class CustomEventsSender {
         CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending custom events failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, error.message)
+            let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
+            os_log("Sending custom events { %{public}@ } failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs, error.message)
         }
     }
     
@@ -61,7 +61,8 @@ class CustomEventsSender {
         NotificationCenter.default.post(name: .cordialSendCustomEventsLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending some custom events failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, error.message)
+            let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
+            os_log("Sending some custom events { %{public}@ } failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, eventNamesAndRequestIDs, error.message)
         }
         
         if let responseBody = error.responseBody {
@@ -70,7 +71,8 @@ class CustomEventsSender {
                 CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
                 
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Saved valid events to retry later", log: OSLog.cordialSendCustomEvents, type: .info)
+                    let eventNamesAndRequestIDsWithoutBrokenEvents = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
+                    os_log("Saved valid events { %{public}@ } to retry later", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDsWithoutBrokenEvents)
                 }
             }
         }
@@ -110,5 +112,15 @@ class CustomEventsSender {
         }
         
         return errorIDs
+    }
+    
+    internal func getEventNamesAndRequestIDs(sendCustomEventRequests: [SendCustomEventRequest]) -> String {
+        var eventNamesAndRequestIDsContainer = [String]()
+        sendCustomEventRequests.forEach({ sendCustomEventRequest in
+            eventNamesAndRequestIDsContainer.append("[ eventName: \(sendCustomEventRequest.eventName), eventID: \(sendCustomEventRequest.requestID) ]")
+        })
+        let eventNamesAndRequestIDs = eventNamesAndRequestIDsContainer.joined(separator: ", ")
+        
+        return eventNamesAndRequestIDs
     }
 }

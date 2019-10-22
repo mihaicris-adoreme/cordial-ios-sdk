@@ -9,6 +9,9 @@
 import Foundation
 
 class SendContactLogout {
+    
+    let internalCordialAPI = InternalCordialAPI()
+    
     func sendContactLogout(sendContactLogoutRequest: SendContactLogoutRequest) {
         if let url = URL(string: CordialApiEndpoints().getContactLogoutURL()) {
             var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
@@ -28,7 +31,7 @@ class SendContactLogout {
     
     func getSendContactLogoutJSON(sendContactLogoutRequest: SendContactLogoutRequest) -> String {
         let rootContainer  = [
-            "\"deviceId\": \"\(sendContactLogoutRequest.deviceID)\"",
+            "\"deviceId\": \"\(internalCordialAPI.getDeviceIdentifier())\"",
             "\"primaryKey\": \"\(sendContactLogoutRequest.primaryKey)\""
         ]
         

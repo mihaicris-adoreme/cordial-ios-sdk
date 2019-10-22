@@ -18,11 +18,11 @@ class ContactOrdersSender {
             let sendContactOrders = SendContactOrders()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                let payload = self.sendContactOrders.getSendContactOrderRequestsJSON(sendContactOrderRequests: sendContactOrderRequests)
-                os_log("Sending contact orders payload: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, payload)
-                
                 sendContactOrderRequests.forEach({ sendContactOrderRequest in
-                    os_log("Sending contact Order ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                    os_log("Sending contact order. Request ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                    
+                    let payload = self.sendContactOrders.getSendContactOrderRequestJSON(sendContactOrderRequest: sendContactOrderRequest)
+                    os_log("Payload: %{public}@", log: OSLog.cordialSendContactOrders, type: .info, payload)
                 })
             }
             
@@ -38,7 +38,9 @@ class ContactOrdersSender {
             CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact order failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendContactOrders, type: .info)
+                sendContactOrderRequests.forEach({ sendContactOrderRequest in
+                    os_log("Sending contact order failed. Saved to retry later. Request ID: [%{public}@] Error: [No Internet connection]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                })
             }
         }
     }
@@ -46,7 +48,7 @@ class ContactOrdersSender {
     func completionHandler(sendContactOrderRequests: [SendContactOrderRequest]) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             sendContactOrderRequests.forEach({ sendContactOrderRequest in
-                os_log("Order ID [%{public}@] has been sent", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                os_log("Order has been sent. Request ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
             })
         }
     }
@@ -55,15 +57,19 @@ class ContactOrdersSender {
         CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending contact order failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, error.message)
+            sendContactOrderRequests.forEach({ sendContactOrderRequest in
+                os_log("Sending contact order failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID, error.message)
+            })
         }
     }
     
-    func logicErrorHandler(error: ResponseError) {
+    func logicErrorHandler(sendContactOrderRequests: [SendContactOrderRequest], error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactOrdersLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending contact order failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .error, error.message)
+            sendContactOrderRequests.forEach({ sendContactOrderRequest in
+                os_log("Sending contact order failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .error, sendContactOrderRequest.order.orderID, error.message)
+            })
         }
     }
     

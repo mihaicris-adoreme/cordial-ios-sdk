@@ -14,26 +14,29 @@ class SendCustomEventsURLSessionManager {
     let customEventsSender = CustomEventsSender()
     
     func completionHandler(sendCustomEventsURLSessionData: SendCustomEventsURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+        let sendCustomEventRequests = sendCustomEventsURLSessionData.sendCustomEventRequests
+        
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
             switch httpResponse.statusCode {
             case 200:
-                self.customEventsSender.completionHandler(sendCustomEventRequests: sendCustomEventsURLSessionData.sendCustomEventRequests)
+                self.customEventsSender.completionHandler(sendCustomEventRequests: sendCustomEventRequests)
             case 401:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                self.customEventsSender.systemErrorHandler(sendCustomEventRequests: sendCustomEventsURLSessionData.sendCustomEventRequests, error: responseError)
+                self.customEventsSender.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
                 
                 SDKSecurity.shared.updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                self.customEventsSender.logicErrorHandler(sendCustomEventRequests: sendCustomEventsURLSessionData.sendCustomEventRequests, error: responseError)
+                self.customEventsSender.logicErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, error.localizedDescription)
+                let eventNamesAndRequestIDs = customEventsSender.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
+                os_log("Failed decode send custom events response data. Events { %{public}@ } Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, eventNamesAndRequestIDs, error.localizedDescription)
             }
         }
     }

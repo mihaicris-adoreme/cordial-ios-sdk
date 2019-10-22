@@ -8,32 +8,35 @@
 
 import Foundation
 
-@objc public class UpsertContactCartRequest: NSObject, NSCoding {
+class UpsertContactCartRequest: NSObject, NSCoding {
 
-    let deviceID: String
-    var primaryKey: String?
+    let requestID: String
     let cartItems: [CartItem]
     
-    let cordialAPI = CordialAPI()
-    let internalCordialAPI = InternalCordialAPI()
-    
     enum Key: String {
+        case requestID = "requestID"
         case cartItems = "cartItems"
     }
     
-    @objc public init(cartItems: [CartItem]) {
-        self.deviceID = internalCordialAPI.getDeviceIdentifier()
-        self.primaryKey = cordialAPI.getContactPrimaryKey()
+    init(cartItems: [CartItem]) {
+        self.requestID = UUID().uuidString
         self.cartItems = cartItems
     }
     
-    @objc public func encode(with aCoder: NSCoder) {
+    private init(requestID: String, cartItems: [CartItem]) {
+        self.requestID = requestID
+        self.cartItems = cartItems
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
         aCoder.encode(self.cartItems, forKey: Key.cartItems.rawValue)
     }
     
-    @objc public required convenience init?(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
+        let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
         let cartItems = aDecoder.decodeObject(forKey: Key.cartItems.rawValue) as! [CartItem]
         
-        self.init(cartItems: cartItems)
+        self.init(requestID: requestID, cartItems: cartItems)
     }
 }

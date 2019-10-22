@@ -100,8 +100,13 @@ import os.log
     @objc public func setContact(primaryKey: String) {
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
         
-        let upsertContactRequest = UpsertContactRequest(primaryKey: primaryKey)
-        self.upsertContact(upsertContactRequest: upsertContactRequest)
+        let internalCordialAPI = InternalCordialAPI()
+        
+        let token = internalCordialAPI.getPushNotificationToken()
+        let status = internalCordialAPI.getPushNotificationStatus()
+        
+        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
     // MARK: Unset Contact
@@ -118,19 +123,23 @@ import os.log
     
     // MARK: Upsert Contact
     
-    @objc public func upsertContact(upsertContactRequest: UpsertContactRequest) -> Void {
+    @objc public func upsertContact(attributes: Dictionary<String, String>?) -> Void {
+        let internalCordialAPI = InternalCordialAPI()
+        
+        let token = internalCordialAPI.getPushNotificationToken()
+        let primaryKey = CordialAPI().getContactPrimaryKey()
+        let status = internalCordialAPI.getPushNotificationStatus()
+        
+        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: attributes)
         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
     // MARK: Send Custom Event
         
-    @objc public func sendCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        if !sendCustomEventRequest.eventName.hasPrefix(API.SYSTEM_EVENT_PREFIX) {
-            CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
-        } else {
-            let responseError = ResponseError(message: "Event name has system prefix", statusCode: nil, responseBody: nil, systemError: nil)
-            CustomEventsSender().logicErrorHandler(sendCustomEventRequests: [sendCustomEventRequest], error: responseError)
-        }
+    @objc public func sendCustomEvent(eventName: String, properties: Dictionary<String, String>?) {
+        let mcID = self.getCurrentMcID()
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
+        InternalCordialAPI().sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     // MARK: Upsert Contact Cart
@@ -143,7 +152,8 @@ import os.log
     // MARK: Send Order
     
     @objc public func sendContactOrder(order: Order) {
-        let sendContactOrderRequest = SendContactOrderRequest(order: order)
+        let mcID = self.getCurrentMcID()
+        let sendContactOrderRequest = SendContactOrderRequest(mcID: mcID, order: order)
         ContactOrdersSender().sendContactOrders(sendContactOrderRequests: [sendContactOrderRequest])
     }
     

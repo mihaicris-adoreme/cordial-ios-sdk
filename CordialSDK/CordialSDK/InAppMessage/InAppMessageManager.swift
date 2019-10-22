@@ -40,7 +40,7 @@ class InAppMessageManager {
         
         let inAppMessageSize = CGRect(origin: origin, size: size)
         
-        self.inAppMessageViewController.initWebView(webViewSize: inAppMessageSize)
+        self.inAppMessageViewController.initWebView(webViewSize: inAppMessageSize, mcID: inAppMessageData.mcID)
         
         self.inAppMessageViewController.view.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
     }
@@ -81,7 +81,7 @@ class InAppMessageManager {
         
         let inAppMessageSize = CGRect(origin: origin, size: size)
         
-        self.inAppMessageViewController.initWebView(webViewSize: inAppMessageSize)
+        self.inAppMessageViewController.initWebView(webViewSize: inAppMessageSize, mcID: inAppMessageData.mcID)
         
         self.inAppMessageViewController.view.layer.shadowColor = UIColor.gray.cgColor
         self.inAppMessageViewController.view.layer.shadowOpacity = 1

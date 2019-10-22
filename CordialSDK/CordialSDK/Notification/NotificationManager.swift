@@ -54,13 +54,15 @@ class NotificationManager {
     
     @objc func appMovedToBackground() {
         let eventName = API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+        let mcID = CordialAPI().getCurrentMcID()
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
         InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     @objc func appMovedFromBackground() {
         let eventName = API.EVENT_NAME_APP_MOVED_FROM_BACKGROUND
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+        let mcID = CordialAPI().getCurrentMcID()
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
         InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         self.prepareCurrentPushNotificationStatus()
@@ -74,15 +76,28 @@ class NotificationManager {
             let current = UNUserNotificationCenter.current()
             
             current.getNotificationSettings(completionHandler: { (settings) in
+                let internalCordialAPI = InternalCordialAPI()
+                
+                let token = internalCordialAPI.getPushNotificationToken()
+                let primaryKey = CordialAPI().getContactPrimaryKey()
+                
                 if settings.authorizationStatus == .authorized {
                     if API.PUSH_NOTIFICATION_STATUS_ALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                        let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_ALLOW)
-                        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+                        let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
+                        
+                        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+                        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+                        
+                        internalCordialAPI.setPushNotificationStatus(status: status)
                     }
                 } else {
                     if API.PUSH_NOTIFICATION_STATUS_DISALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
-                        let upsertContactRequest = UpsertContactRequest(status: API.PUSH_NOTIFICATION_STATUS_DISALLOW)
-                        CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+                        let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+                        
+                        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+                        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+                        
+                        internalCordialAPI.setPushNotificationStatus(status: status)
                     }
                 }
             })

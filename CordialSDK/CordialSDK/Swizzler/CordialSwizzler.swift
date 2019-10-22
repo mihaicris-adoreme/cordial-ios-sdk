@@ -122,9 +122,16 @@ class CordialSwizzler {
             os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
         }
         
-        if token != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN) {
-            let upsertContactRequest = UpsertContactRequest(token: token)
-            CordialAPI().upsertContact(upsertContactRequest: upsertContactRequest)
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if token != internalCordialAPI.getPushNotificationToken() {
+            let primaryKey = CordialAPI().getContactPrimaryKey()
+            let status = internalCordialAPI.getPushNotificationStatus()
+            
+            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+            
+            internalCordialAPI.setPushNotificationToken(token: token)
         }
     }
     
@@ -139,12 +146,8 @@ class CordialSwizzler {
             os_log("Silent push notification received. Payload: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, userInfo)
         }
         
-        if let mcID = userInfo["mcID"] as? String {
-            InternalCordialAPI().setCurrentMcID(mcID: mcID)
-            
-            if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
-                InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
-            }
+        if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
+            InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
         }
         
         completionHandler(.noData)
@@ -155,13 +158,14 @@ class CordialSwizzler {
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         
         if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
-            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-            InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
-            
             guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
                 return false
             }
+            
+            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+            InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             
             cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil)
             
@@ -177,7 +181,8 @@ class CordialSwizzler {
         
         if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
             let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
             InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             
             cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil)

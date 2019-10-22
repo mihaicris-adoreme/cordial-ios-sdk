@@ -51,7 +51,7 @@ ___
 ```
 target "Name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:CordialExperiences/mobile/ios-sdk.git'  
+    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
 end
 ```
 
@@ -164,14 +164,16 @@ Aside from internal events, the SDK allows sending of custom events specific to 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let request = SendCustomEventRequest(eventName: "{custom_event_name}", properties: ["<property_name>": "<property_value>"])  
-cordialApi.sendCustomEvent(sendCustomEventRequest: request)
+let properties = ["<property_name>": "<property_value>"]
+cordialAPI.sendCustomEvent(eventName: "{custom_event_name}", properties: properties)
+
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-SendCustomEventRequest *request = [[SendCustomEventRequest alloc] initWithEventName:@"{custom_event_name}" properties:@{ @"<property_name>" :@"<property_value>" }];
-[cordialAPI sendCustomEventWithSendCustomEventRequest:request];
+NSDictionary *properties = @{ @"<property_name>":@"<property_value>" };
+[cordialAPI sendCustomEventWithEventName:@"{custom_event_name}" properties:properties];
+
 ```
 
 `properties` - is a dictionary of string keys and string values that can be attached to the event. Can be null.
@@ -181,26 +183,25 @@ Example of sending a product browse event:
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ```
 let properties = ["productName": "Back Off Polo", "SKU": "polo543"]
-let sendEventRequest = SendCustomEventRequest(eventName: "browse_product", properties: properties)
-cordialAPI.sendCustomEvent(sendCustomEventRequest: sendEventRequest)
+cordialAPI.sendCustomEvent(eventName: "browse_product", properties: properties)
+
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ```
 NSDictionary *properties = @{ @"productName" :@"Back Off Polo", @"SKU" :@"polo543" };
-SendCustomEventRequest *sendEventRequest = [[SendCustomEventRequest alloc] initWithEventName:@"browse_product" properties:properties];
-[cordialAPI sendCustomEventWithSendCustomEventRequest:sendEventRequest];
+[cordialAPI sendCustomEventWithEventName:@"browse_product" properties:properties];
 ```
 Example of sending a category browse event:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ```
-let sendCustomEventRequest = SendCustomEventRequest(eventName: "browse_category", properties: ["categoryName": "Men's"])
-cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+let properties = ["categoryName": "Men's"]
+cordialAPI.sendCustomEvent(eventName: "browse_category", properties: properties)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ```
-SendCustomEventRequest *sendCustomEventRequest = [[SendCustomEventRequest alloc] initWithEventName:@"browse_category" properties:@{ @"categoryName" :@"Men's" }]; 
-cordialAPI sendCustomEventWithSendCustomEventRequest:sendCustomEventRequest];
+NSDictionary *properties = @{ @"categoryName" :@"Men's" };
+[cordialAPI sendCustomEventWithEventName:@"browse_category" properties:properties];
 ```
 
 ## Setting a Contact
@@ -244,16 +245,14 @@ Contact attributes such as name, age, date of birth, etc. can be updated using t
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let attributes = ["firstName":"John", "lastName":"Doe"]
-let upsertContactRequest = UpsertContactRequest(attributes: attributes)
-cordialAPI.upsertContact(upsertContactRequest: upsertContactRequest)
+let attributes = ["firstName": "John", "lastName": "Doe"]
+cordialAPI.upsertContact(attributes: attributes)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-NSDictionary *attributes = @{ @"firstName" :@"John", @"lastName" :@"Doe" };
-UpsertContactRequest *upsertContactRequest = [[UpsertContactRequest alloc] initWithAttributes:attributes];
-[cordialAPI upsertContactWithUpsertContactRequest:upsertContactRequest];
+NSDictionary *attributes = @{ @"firstName":@"John", @"lastName":@"Doe" };
+[cordialAPI upsertContactWithAttributes:attributes];
 ```
 `attributes` - dictionary of string keys and strings values attributes that can be attached to a contact. Can be null.
 

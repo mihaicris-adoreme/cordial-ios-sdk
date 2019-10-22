@@ -97,7 +97,7 @@ class InAppMessageGetter {
         }
         
         if let timestamp = userInfo["expirationTime"] as? String {
-            expirationTime = InternalCordialAPI().getDateFromTimestamp(timestamp: timestamp)
+            expirationTime = DateFormatter().getDateFromTimestamp(timestamp: timestamp)
         }
         
         return (height, top, right, bottom, left, expirationTime)
@@ -121,7 +121,7 @@ class InAppMessageGetter {
             CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Fetching IAM failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialInAppMessage, type: .info)
+                os_log("Fetching IAM failed. Saved to retry later. mcID: [%{public}@] Error: [No Internet connection]", log: OSLog.cordialInAppMessage, type: .info, mcID)
             }
         }
     }
@@ -159,15 +159,15 @@ class InAppMessageGetter {
         CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Fetching IAM failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, error.message)
+            os_log("Fetching IAM failed. Saved to retry later. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID, error.message)
         }
     }
     
-    func logicErrorHandler(error: ResponseError) {
+    func logicErrorHandler(mcID: String, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Fetching IAM failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, error.message)
+            os_log("Fetching IAM failed. Will not retry. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, mcID, error.message)
         }
     }
 }

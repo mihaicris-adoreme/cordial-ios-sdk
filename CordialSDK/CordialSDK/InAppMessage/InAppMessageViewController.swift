@@ -66,15 +66,20 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         }
     }
     
-    func initWebView(webViewSize: CGRect) {
+    func initWebView(webViewSize: CGRect, mcID: String) {
         let webConfiguration = WKWebViewConfiguration()
         
         if let inAppMessageJS = InAppMessageProcess.shared.getInAppMessageJS() {
-            let userScript = WKUserScript(source: inAppMessageJS, injectionTime: WKUserScriptInjectionTime.atDocumentEnd, forMainFrameOnly: false)
-            
             let contentController = WKUserContentController()
-            contentController.addUserScript(userScript)
+            
+            let staticUserScript = WKUserScript(source: inAppMessageJS, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+            contentController.addUserScript(staticUserScript)
+            
+            let dynamicUserScript = self.getDynamicUserScript(mcID: mcID)
+            contentController.addUserScript(dynamicUserScript)
+            
             contentController.add(self, name: "action")
+            
             webConfiguration.userContentController = contentController
         }
 
@@ -92,6 +97,24 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             self.inAppMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissModalInAppMessage)))
         }
 
+    }
+    
+    func getDynamicUserScript(mcID: String) -> WKUserScript {
+        let script = """
+                     function action(deepLink = null, eventName = null, mcID = "\(mcID)") {
+                        try {
+                            webkit.messageHandlers.action.postMessage({
+                                mcID: mcID,
+                                deepLink: deepLink,
+                                eventName: eventName
+                            });
+                        } catch (error) {
+                            console.error(error);
+                        }
+                     }
+                     """
+        
+        return WKUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
     }
     
     func removeBannerFromSuperviewWithAnimation(eventName: String?) {
@@ -118,7 +141,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             self.isBannerAvailable = false
             
             if let eventName = eventName {
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
+                let mcID = self.cordialAPI.getCurrentMcID()
+                let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
                 self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
             
@@ -129,7 +153,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     @objc func dismissModalInAppMessage() {
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, properties: nil)
+        let mcID = self.cordialAPI.getCurrentMcID()
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, mcID: mcID, properties: nil)
         self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         self.removeModalFromSuperviewWithoutAnimation()
@@ -161,13 +186,15 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "action" {
             if let dict = message.body as? NSDictionary {
-                if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
+                if let mcID = dict["mcID"] as? String, let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
+                    self.internalCordialAPI.setCurrentMcID(mcID: mcID)
                     self.internalCordialAPI.openDeepLink(url: url)
                 }
                 
                 if let eventName = dict["eventName"] as? String {
-                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, properties: nil)
-                    self.cordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                    let mcID = self.cordialAPI.getCurrentMcID()
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+                    self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 }
             }
             
