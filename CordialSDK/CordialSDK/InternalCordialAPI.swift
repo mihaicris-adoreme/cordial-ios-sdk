@@ -82,18 +82,12 @@ class InternalCordialAPI {
     // MARK: Get active view controller
     
     func getActiveViewController() -> UIViewController? {
-        if var currentVC = UIApplication.shared.keyWindow?.rootViewController {
-            while let presentedVC = currentVC.presentedViewController {
-                if let navVC = (presentedVC as? UINavigationController)?.viewControllers.last {
-                    currentVC = navVC
-                } else if let tabVC = (presentedVC as? UITabBarController)?.selectedViewController {
-                    currentVC = tabVC
-                } else {
-                    currentVC = presentedVC
-                }
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
             }
-            
-            return currentVC
+
+            return topController
         }
         
         return nil
