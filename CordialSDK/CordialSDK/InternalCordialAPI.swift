@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class InternalCordialAPI {
     
@@ -38,6 +39,10 @@ class InternalCordialAPI {
     
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
         CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
+        
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Event [eventName: %{public}@, eventID: %{public}@] added to cache", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
+        }
         
         if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.qtyCachedEventsBox {
             CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests()
