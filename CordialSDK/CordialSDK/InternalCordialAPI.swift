@@ -39,7 +39,7 @@ class InternalCordialAPI {
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
         CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
         
-        if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() > CordialApiConfiguration.shared.qtyCachedEventsBox {
+        if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.qtyCachedEventsBox {
             CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests()
         }
     }
