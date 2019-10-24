@@ -21,10 +21,9 @@ class ReachabilitySender {
     }
     
     @objc private func makeAllNeededHTTPCalls() {
-        let internalCordialAPI = InternalCordialAPI()
-        
-        internalCordialAPI.sendFirstLaunchCustomEvent()
-        internalCordialAPI.sendCacheFromCoreData()
+        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequestsScheduledTimer()
+        InternalCordialAPI().sendFirstLaunchCustomEvent()
+        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
     }
     
 }

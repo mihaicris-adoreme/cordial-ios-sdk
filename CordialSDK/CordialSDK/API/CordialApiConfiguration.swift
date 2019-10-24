@@ -17,8 +17,11 @@ import CoreLocation
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initNotificationManager = NotificationManager.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
+    let initCoreDataManager = CoreDataManager.shared
     
     @objc public var qtyCachedEventQueue = 1000
+    @objc public var qtyCachedEventsBox = 5
+    @objc public var timeCachedEventsBox: TimeInterval = 30
     
     var accountKey = String()
     var channelKey = String()

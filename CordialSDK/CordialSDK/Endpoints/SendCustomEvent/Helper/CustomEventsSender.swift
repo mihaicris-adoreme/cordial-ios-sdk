@@ -123,4 +123,8 @@ class CustomEventsSender {
         
         return eventNamesAndRequestIDs
     }
+    
+    internal func isEventNameHaveSystemPrefix(sendCustomEventRequest: SendCustomEventRequest) -> Bool {
+        return sendCustomEventRequest.eventName.hasPrefix(API.SYSTEM_EVENT_PREFIX)
+    }
 }

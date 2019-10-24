@@ -67,7 +67,7 @@ class ContactsSender {
             }
         })
         
-        InternalCordialAPI().sendCacheFromCoreData()
+        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
     }
     
     func systemErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {
