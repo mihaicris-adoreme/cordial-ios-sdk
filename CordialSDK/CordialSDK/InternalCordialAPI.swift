@@ -41,11 +41,11 @@ class InternalCordialAPI {
         CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Event [eventName: %{public}@, eventID: %{public}@] added to cache", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
+            os_log("Event [eventName: %{public}@, eventID: %{public}@] added to bulk", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
         }
         
-        if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.qtyCachedEventsBox {
-            CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests()
+        if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.bulkSize {
+            CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Full bulk size")
         }
     }
     

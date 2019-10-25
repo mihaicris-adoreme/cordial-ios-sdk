@@ -58,7 +58,7 @@ class NotificationManager {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
         InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests()
+        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "App moved to background")
     }
     
     @objc func appMovedFromBackground() {

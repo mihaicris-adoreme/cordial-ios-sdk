@@ -7,13 +7,14 @@
 //
 
 import Foundation
+import os.log
 
 class CoreDataSender {
     
     // MARK: Send cache from CoreData
     
     func sendCacheFromCoreData() {
-        self.sendCachedCustomEventRequests()
+        self.sendCachedCustomEventRequests(reason: nil)
         
         self.sendCachedUpsertContactCartRequest()
         
@@ -26,16 +27,20 @@ class CoreDataSender {
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
     }
     
-    func sendCachedCustomEventRequests() {
+    func sendCachedCustomEventRequests(reason: String?) {
         let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
         if customEventRequests.count > 0 {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info), let reason = reason {
+                os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
+            }
+            
             CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
         }
     }
     
     func sendCachedCustomEventRequestsScheduledTimer() {
-        Timer.scheduledTimer(withTimeInterval: CordialApiConfiguration.shared.timeCachedEventsBox, repeats: true) { timer in
-            self.sendCachedCustomEventRequests()
+        Timer.scheduledTimer(withTimeInterval: CordialApiConfiguration.shared.bulkUploadInterval, repeats: true) { timer in
+            self.sendCachedCustomEventRequests(reason: "Scheduled timer")
         }
     }
     
