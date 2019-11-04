@@ -66,8 +66,6 @@ class ContactsSender {
                 UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
             }
         })
-        
-        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
     }
     
     func systemErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {
