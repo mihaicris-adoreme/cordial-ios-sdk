@@ -39,7 +39,14 @@ class CoreDataSender {
             }
             
             CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
+            
+            self.restartSendCachedCustomEventRequestsScheduledTimer()
         }
+    }
+    
+    private func restartSendCachedCustomEventRequestsScheduledTimer() {
+        self.canBeStartedCachedEventsScheduledTimer = true
+        self.startSendCachedCustomEventRequestsScheduledTimer()
     }
     
     func startSendCachedCustomEventRequestsScheduledTimer() {
