@@ -33,8 +33,7 @@ class CoreDataSender {
         let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
         if customEventRequests.count > 0 {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                let eventsBulkSize = abs(CordialApiConfiguration.shared.eventsBulkSize)
-                if eventsBulkSize != 1 {
+                if CordialApiConfiguration.shared.eventsBulkSize != 1 {
                     os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
                 }
             }
@@ -44,21 +43,19 @@ class CoreDataSender {
     }
     
     func startSendCachedCustomEventRequestsScheduledTimer() {
+        let eventsBulkSize = CordialApiConfiguration.shared.eventsBulkSize
+        if eventsBulkSize < 1 {
+            CordialApiConfiguration.shared.eventsBulkSize = 1
+        }
+        
+        let eventsBulkUploadInterval = CordialApiConfiguration.shared.eventsBulkUploadInterval
+        if eventsBulkUploadInterval < 3 {
+            CordialApiConfiguration.shared.eventsBulkUploadInterval = 3
+        }
+        
         if self.canBeStartedCachedEventsScheduledTimer {
             self.canBeStartedCachedEventsScheduledTimer = false
             self.sendCachedCustomEventsScheduledTimer?.invalidate()
-            
-            let eventsBulkSize = abs(CordialApiConfiguration.shared.eventsBulkSize)
-            if eventsBulkSize < 1 {
-                CordialApiConfiguration.shared.eventsBulkSize = 1
-                return
-            }
-            
-            let eventsBulkUploadInterval = abs(CordialApiConfiguration.shared.eventsBulkUploadInterval)
-            if eventsBulkUploadInterval < 3 {
-                CordialApiConfiguration.shared.eventsBulkUploadInterval = 3
-                return
-            }
             
             if eventsBulkSize > 1 {
                 self.sendCachedCustomEventsScheduledTimer = Timer.scheduledTimer(withTimeInterval: eventsBulkUploadInterval, repeats: true) { timer in

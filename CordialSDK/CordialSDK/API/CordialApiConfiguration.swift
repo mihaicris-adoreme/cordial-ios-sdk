@@ -38,7 +38,7 @@ import CoreLocation
             CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         }
         willSet(newEventsBulkSize) {
-            if abs(eventsBulkSize) != abs(newEventsBulkSize) {
+            if eventsBulkSize != newEventsBulkSize && newEventsBulkSize.signum() == 1 {
                 CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
             }
         }
@@ -49,7 +49,7 @@ import CoreLocation
             CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         }
         willSet(newEventsBulkUploadInterval) {
-            if abs(eventsBulkUploadInterval) != abs(newEventsBulkUploadInterval) {
+            if eventsBulkUploadInterval != newEventsBulkUploadInterval && Int(newEventsBulkUploadInterval).signum() == 1 {
                 CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
             }
         }
