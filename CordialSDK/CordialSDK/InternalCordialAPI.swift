@@ -44,7 +44,7 @@ class InternalCordialAPI {
             os_log("Event [eventName: %{public}@, eventID: %{public}@] added to bulk", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
         }
         
-        if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.bulkSize {
+        if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.eventsBulkSize {
             CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Full bulk size")
         }
     }

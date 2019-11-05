@@ -20,8 +20,8 @@ import CoreLocation
     let initCoreDataManager = CoreDataManager.shared
     
     @objc public var qtyCachedEventQueue = 1000
-    @objc public var bulkSize = 5
-    @objc public var bulkUploadInterval: TimeInterval = 30
+    @objc public var eventsBulkSize = 5
+    @objc public var eventsBulkUploadInterval: TimeInterval = 30
     
     var accountKey = String()
     var channelKey = String()

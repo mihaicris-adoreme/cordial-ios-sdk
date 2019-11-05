@@ -11,7 +11,7 @@ import os.log
 
 class CoreDataSender {
     
-    // MARK: Send cache from CoreData
+    var isActiveScheduledTimer = false
     
     func sendCacheFromCoreData() {
         self.sendCachedCustomEventRequests(reason: "System sending all cached events")
@@ -39,8 +39,12 @@ class CoreDataSender {
     }
     
     func sendCachedCustomEventRequestsScheduledTimer() {
-        Timer.scheduledTimer(withTimeInterval: CordialApiConfiguration.shared.bulkUploadInterval, repeats: true) { timer in
-            self.sendCachedCustomEventRequests(reason: "Scheduled timer")
+        if !isActiveScheduledTimer && CordialApiConfiguration.shared.eventsBulkSize > 1 && CordialApiConfiguration.shared.eventsBulkUploadInterval > 1 {
+            isActiveScheduledTimer = true
+            
+            Timer.scheduledTimer(withTimeInterval: CordialApiConfiguration.shared.eventsBulkUploadInterval, repeats: true) { timer in
+                self.sendCachedCustomEventRequests(reason: "Scheduled timer")
+            }
         }
     }
     
