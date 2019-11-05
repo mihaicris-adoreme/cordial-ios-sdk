@@ -19,20 +19,41 @@ import CoreLocation
     let initInAppMessageProcess = InAppMessageProcess.shared
     let initCoreDataManager = CoreDataManager.shared
     
-    @objc public var qtyCachedEventQueue = 1000
-    @objc public var eventsBulkSize = 5
-    @objc public var eventsBulkUploadInterval: TimeInterval = 30
-    
     var accountKey = String()
     var channelKey = String()
     var baseURL = String()
     
     let cordialSwizzler = CordialSwizzler()
     let cordialPushNotification = CordialPushNotification()
+    
     @objc public let osLogManager = CordialOSLogManager()
     
     @objc public var cordialDeepLinksHandler: CordialDeepLinksDelegate?
     @objc public var pushNotificationHandler: CordialPushNotificationDelegate?
+    
+    @objc public var qtyCachedEventQueue = 1000
+    
+    @objc public var eventsBulkSize: Int = 5 {
+        didSet {
+            CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
+        }
+        willSet(newEventsBulkSize) {
+            if abs(eventsBulkSize) != abs(newEventsBulkSize) {
+                CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
+            }
+        }
+    }
+    
+    @objc public var eventsBulkUploadInterval: TimeInterval = 30 {
+        didSet {
+            CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
+        }
+        willSet(newEventsBulkUploadInterval) {
+            if abs(eventsBulkUploadInterval) != abs(newEventsBulkUploadInterval) {
+                CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
+            }
+        }
+    }
     
     private override init(){}
     

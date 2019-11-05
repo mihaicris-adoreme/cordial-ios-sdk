@@ -11,7 +11,9 @@ import os.log
 
 class CoreDataSender {
     
-    var isActiveScheduledTimer = false
+    var canBeStartedCachedEventsScheduledTimer = true
+    
+    var sendCachedCustomEventsScheduledTimer: Timer?
     
     func sendCacheFromCoreData() {
         self.sendCachedCustomEventRequests(reason: "System sending all cached events")
@@ -31,20 +33,29 @@ class CoreDataSender {
         let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
         if customEventRequests.count > 0 {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
+                let eventsBulkSize = abs(CordialApiConfiguration.shared.eventsBulkSize)
+                if eventsBulkSize != 1 {
+                    os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
+                }
             }
             
             CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
         }
     }
     
-    func sendCachedCustomEventRequestsScheduledTimer() {
-        if !isActiveScheduledTimer && CordialApiConfiguration.shared.eventsBulkSize > 1 && CordialApiConfiguration.shared.eventsBulkUploadInterval > 1 {
-            isActiveScheduledTimer = true
+    func startSendCachedCustomEventRequestsScheduledTimer() {
+        if self.canBeStartedCachedEventsScheduledTimer {
+            self.canBeStartedCachedEventsScheduledTimer = false
+            self.sendCachedCustomEventsScheduledTimer?.invalidate()
             
-            Timer.scheduledTimer(withTimeInterval: CordialApiConfiguration.shared.eventsBulkUploadInterval, repeats: true) { timer in
-                self.sendCachedCustomEventRequests(reason: "Scheduled timer")
-            }
+            let eventsBulkSize = abs(CordialApiConfiguration.shared.eventsBulkSize)
+            let eventsBulkUploadInterval = abs(CordialApiConfiguration.shared.eventsBulkUploadInterval)
+            
+            if eventsBulkSize > 1 {
+                self.sendCachedCustomEventsScheduledTimer = Timer.scheduledTimer(withTimeInterval: eventsBulkUploadInterval, repeats: true) { timer in
+                    self.sendCachedCustomEventRequests(reason: "Scheduled timer")
+                }
+            } 
         }
     }
     
