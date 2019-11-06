@@ -301,6 +301,27 @@ ___
 [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
 ```
 
+## Events Bulking
+
+In order to optimize devices resource usage, Cordial SDK groups events into bulks and upload them in one request. Each event happened on a device will be added to bulk. The SDK sends a bulk of events in 3 cases:
+
+1. Events limit in bulk is reached. The bulk size is configured via `eventsBulkSize`. Set to 5 by default.
+2. The bulk has not been sent for specified time interval. Even if a bulk is not fully populated with events it will be sent every `eventsBulkUploadInterval` in seconds. Bulk upload interval is configured via `eventsBulkUploadInterval`. Set to 30 seconds by default.
+3. The application is closed.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.eventsBulkSize = 3
+CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].eventsBulkSize = 3;
+[CordialApiConfiguration shared].eventsBulkUploadInterval = 15;
+```
+
 ## Push Notifications
 Your application must use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to enable push notification delivery and handle notification taps, the code needs the following:
 

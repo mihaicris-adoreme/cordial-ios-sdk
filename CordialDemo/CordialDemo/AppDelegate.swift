@@ -27,10 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
-        
         CordialApiConfiguration.shared.eventsBulkSize = 3
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
-        
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(osLogLevel: .all)
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
         CordialApiConfiguration.shared.cordialDeepLinksHandler = cordialDeepLinksHandler
