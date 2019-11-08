@@ -31,6 +31,8 @@ import CoreLocation
     @objc public var cordialDeepLinksHandler: CordialDeepLinksDelegate?
     @objc public var pushNotificationHandler: CordialPushNotificationDelegate?
     
+    @objc public var automaticDisallowedControllers = [AnyObject.Type]()
+    
     private override init(){}
     
     @objc public func initialize(accountKey: String, channelKey: String) {

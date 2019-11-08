@@ -88,4 +88,30 @@ class InAppMessageManager {
         self.inAppMessageViewController.view.layer.shadowOffset = .zero
         self.inAppMessageViewController.view.layer.shadowRadius = 10
     }
+    
+    func isActiveViewControllerTypeNotExistInListOfExcludedToPresentInAppMessage(activeViewController: UIViewController?) -> Bool {
+        var topViewController: UIViewController?
+        
+        switch activeViewController {
+        case is UINavigationController:
+            let navigationController = activeViewController as! UINavigationController
+            topViewController = navigationController.viewControllers.last!
+        case is UITabBarController:
+            let tabBarController = activeViewController as! UITabBarController
+            topViewController = tabBarController.selectedViewController
+        default:
+            topViewController = activeViewController
+        }
+        
+        if let topViewController = topViewController {
+            for controllerType in CordialApiConfiguration.shared.automaticDisallowedControllers {
+                
+                if type(of: topViewController) === controllerType {
+                    return false
+                }
+            }
+        }
+        
+        return true
+    }
 }

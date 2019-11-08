@@ -50,8 +50,6 @@ class InAppMessageProcess {
             case InAppMessageType.banner_bottom:
                 self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
             }
-            
-            CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: inAppMessageData.mcID)
         } else {
             CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
             
@@ -152,21 +150,31 @@ class InAppMessageProcess {
     func showModalInAppMessage(inAppMessageData: InAppMessageData) {
         DispatchQueue.main.async {
             if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-                let modalWebViewController = self.inAppMessageManager.getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
-                
-                self.addDismissButtonToModalInAppMessageViewController(modalWebViewController: modalWebViewController)
-                
-                activeViewController.view.addSubview(modalWebViewController.view)
-                
-                self.isPresentedInAppMessage = true
-                
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Showing %{public}@ IAM modal with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                if self.inAppMessageManager.isActiveViewControllerTypeNotExistInListOfExcludedToPresentInAppMessage(activeViewController: activeViewController) {
+                    let modalWebViewController = self.inAppMessageManager.getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                    
+                    self.addDismissButtonToModalInAppMessageViewController(modalWebViewController: modalWebViewController)
+                    
+                    activeViewController.view.addSubview(modalWebViewController.view)
+                    
+                    self.isPresentedInAppMessage = true
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Showing %{public}@ IAM modal with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    }
+                    
+                    let mcID = self.cordialAPI.getCurrentMcID()
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: nil)
+                    self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+                    
+                    CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: inAppMessageData.mcID)
+                } else {
+                    CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. ViewController exist in the list of excluded to present IAM. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    }
                 }
-                
-                let mcID = self.cordialAPI.getCurrentMcID()
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: nil)
-                self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
         }
     }
@@ -193,19 +201,29 @@ class InAppMessageProcess {
     func showBannerInAppMessage(inAppMessageData: InAppMessageData) {
         DispatchQueue.main.async {
             if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-                let bannerWebViewController = self.inAppMessageManager.getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
-                
-                self.addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: bannerWebViewController, activeViewController: activeViewController)
-                
-                self.isPresentedInAppMessage = true
-                
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Showing %{public}@ IAM banner with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                if self.inAppMessageManager.isActiveViewControllerTypeNotExistInListOfExcludedToPresentInAppMessage(activeViewController: activeViewController) {
+                    let bannerWebViewController = self.inAppMessageManager.getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+                    
+                    self.addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: bannerWebViewController, activeViewController: activeViewController)
+                    
+                    self.isPresentedInAppMessage = true
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Showing %{public}@ IAM banner with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    }
+                    
+                    let mcID = self.cordialAPI.getCurrentMcID()
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: nil)
+                    self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+                    
+                    CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: inAppMessageData.mcID)
+                } else {
+                    CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. ViewController exist in the list of excluded to present IAM. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                    }
                 }
-                
-                let mcID = self.cordialAPI.getCurrentMcID()
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: nil)
-                self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
         }
     }
