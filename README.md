@@ -67,8 +67,7 @@ ___
 ```
 // NotificationService.h
 
-#import <CordialAppExtensions_Objective_C.h>
-#import <CordialAppExtensions_Objective_C/CordialNotificationServiceExtension.h>
+#import <CordialAppExtensions_Objective_C/CordialAppExtensions_Objective_C.h>
 
 @interface NotificationService : CordialNotificationServiceExtension
 @end

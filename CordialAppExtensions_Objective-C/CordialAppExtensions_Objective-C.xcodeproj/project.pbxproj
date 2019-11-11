@@ -10,7 +10,7 @@
 		9E4631BB22F0832C0081E8CE /* CordialAppExtensions_Objective_C.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4631B122F0832C0081E8CE /* CordialAppExtensions_Objective_C.framework */; };
 		9E4631C022F0832C0081E8CE /* CordialAppExtensions_Objective_CTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E4631BF22F0832C0081E8CE /* CordialAppExtensions_Objective_CTests.m */; };
 		9E4631C222F0832C0081E8CE /* CordialAppExtensions_Objective_C.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E4631B422F0832C0081E8CE /* CordialAppExtensions_Objective_C.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9E46321F22F084C40081E8CE /* CordialNotificationServiceExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E46321D22F084C40081E8CE /* CordialNotificationServiceExtension.h */; };
+		9E46321F22F084C40081E8CE /* CordialNotificationServiceExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E46321D22F084C40081E8CE /* CordialNotificationServiceExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9E46322022F084C40081E8CE /* CordialNotificationServiceExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E46321E22F084C40081E8CE /* CordialNotificationServiceExtension.m */; };
 /* End PBXBuildFile section */
 
