@@ -31,7 +31,7 @@ import CoreLocation
     @objc public var cordialDeepLinksHandler: CordialDeepLinksDelegate?
     @objc public var pushNotificationHandler: CordialPushNotificationDelegate?
     
-    @objc public var automaticDisallowedControllers = [AnyObject.Type]()
+    @objc public let inAppMessageDelayModes = InAppMessageDelayModes()
     
     private override init(){}
     

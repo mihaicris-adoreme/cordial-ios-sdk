@@ -150,7 +150,7 @@ class InAppMessageProcess {
     func showModalInAppMessage(inAppMessageData: InAppMessageData) {
         DispatchQueue.main.async {
             if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-                if self.inAppMessageManager.isActiveViewControllerTypeNotExistInListOfExcludedToPresentInAppMessage(activeViewController: activeViewController) {
+                if self.inAppMessageManager.isActiveViewControllerCanPresentInAppMessage(activeViewController: activeViewController) {
                     let modalWebViewController = self.inAppMessageManager.getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                     
                     self.addDismissButtonToModalInAppMessageViewController(modalWebViewController: modalWebViewController)
@@ -172,7 +172,7 @@ class InAppMessageProcess {
                     CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
                     
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. ViewController exist in the list of excluded to present IAM. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                        os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                     }
                 }
             }
@@ -201,7 +201,7 @@ class InAppMessageProcess {
     func showBannerInAppMessage(inAppMessageData: InAppMessageData) {
         DispatchQueue.main.async {
             if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-                if self.inAppMessageManager.isActiveViewControllerTypeNotExistInListOfExcludedToPresentInAppMessage(activeViewController: activeViewController) {
+                if self.inAppMessageManager.isActiveViewControllerCanPresentInAppMessage(activeViewController: activeViewController) {
                     let bannerWebViewController = self.inAppMessageManager.getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                     
                     self.addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: bannerWebViewController, activeViewController: activeViewController)
@@ -221,7 +221,7 @@ class InAppMessageProcess {
                     CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
                     
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. ViewController exist in the list of excluded to present IAM. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                        os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                     }
                 }
             }

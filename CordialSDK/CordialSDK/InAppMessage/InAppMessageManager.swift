@@ -89,7 +89,7 @@ class InAppMessageManager {
         self.inAppMessageViewController.view.layer.shadowRadius = 10
     }
     
-    func isActiveViewControllerTypeNotExistInListOfExcludedToPresentInAppMessage(activeViewController: UIViewController?) -> Bool {
+    func isActiveViewControllerCanPresentInAppMessage(activeViewController: UIViewController?) -> Bool {
         var topViewController: UIViewController?
         
         switch activeViewController {
@@ -104,10 +104,16 @@ class InAppMessageManager {
         }
         
         if let topViewController = topViewController {
-            for controllerType in CordialApiConfiguration.shared.automaticDisallowedControllers {
-                
-                if type(of: topViewController) === controllerType {
-                    return false
+            switch CordialApiConfiguration.shared.inAppMessageDelayModes.currentMode {
+            case InAppMessageDelayType.show:
+                return true
+            case InAppMessageDelayType.delayedShow:
+                return false
+            case InAppMessageDelayType.disallowedControllers:
+                for controllerType in CordialApiConfiguration.shared.inAppMessageDelayModes.disallowedControllersType {
+                    if type(of: topViewController) === controllerType {
+                        return false
+                    }
                 }
             }
         }
