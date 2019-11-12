@@ -130,12 +130,12 @@ You can choose one of four message logging levels: `none`, `all`, `error`, `info
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-CordialApiConfiguration.shared.osLogManager.setOSLogLevel(osLogLevel: .all)
+CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[[CordialApiConfiguration shared] osLogManager] setOSLogLevel: logLevelAll];
+[[[CordialApiConfiguration shared] osLogManager] setLogLevel:logLevelAll];
 ```
 
 ## Configuring Location Tracking Updates

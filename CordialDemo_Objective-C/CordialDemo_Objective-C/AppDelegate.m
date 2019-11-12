@@ -18,7 +18,7 @@
     [[CordialApiConfiguration shared] initializeWithAccountKey:@"qc-all-channels" channelKey:@"push"];
     [[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
     [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
-    [[[CordialApiConfiguration shared] osLogManager] setOSLogLevel: logLevelAll];
+    [[[CordialApiConfiguration shared] osLogManager] setLogLevel:logLevelAll];
     [CordialApiConfiguration shared].pushNotificationHandler = [[CordialPushNotificationHandler alloc] init];
     [CordialApiConfiguration shared].cordialDeepLinksHandler = [[CordialDeepLinksHandler alloc] init];
     
