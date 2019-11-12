@@ -350,4 +350,29 @@ YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImp
 [CordialApiConfiguration shared].cordialDeepLinksHandler = cordialDeepLinksHandler;
 ```
 
+## Delaying In-App Messages
+
+Cordial SDK allows application developers to delay displaying of in-app messages. In case if in-app message is delayed it will be displayed the next time the application is opened. There are 3 delay modes in the SDK to control in-app messages display:
+
+1. Show. In-app messages are displayed without delay, which is the default behavior.
+2. Delayed Show. Displaying in-app messages is delayed until Delayed Show mode is turned off.
+3. Disallowed Controllers. Displaying in-app messages is not allowed on certain screens, which are determined by the application developer.
+
+To switch between modes, call corresponding methods in the CordialApiConfiguration class:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.inAppMessageDelayModes.show()
+CordialApiConfiguration.shared.inAppMessageDelayModes.delayedShow()
+CordialApiConfiguration.shared.inAppMessageDelayModes.disallowedControllers([ClassName.self])
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[[CordialApiConfiguration shared] inAppMessageDelayModes] show];
+[[[CordialApiConfiguration shared] inAppMessageDelayModes] delayedShow];
+[[[CordialApiConfiguration shared] inAppMessageDelayModes] disallowedControllers:@[[ClassName class]]];
+```
+
 [Top](#contents)
