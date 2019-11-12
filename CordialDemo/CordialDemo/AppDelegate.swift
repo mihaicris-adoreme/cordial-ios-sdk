@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.eventsBulkSize = 3
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
-        CordialApiConfiguration.shared.osLogManager.setOSLogLevel(osLogLevel: .all)
+        CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
         CordialApiConfiguration.shared.cordialDeepLinksHandler = cordialDeepLinksHandler
         
