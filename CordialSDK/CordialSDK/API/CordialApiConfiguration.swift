@@ -55,7 +55,7 @@ import CoreLocation
         }
     }
 
-    @objc public let inAppMessageDelayModes = InAppMessageDelayModes()
+    @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
     private override init(){}
     

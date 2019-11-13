@@ -1,5 +1,5 @@
 //
-//  InAppMessageDelayModes.swift
+//  InAppMessageDelayMode.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 11.11.2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class InAppMessageDelayModes: NSObject {
+@objc public class InAppMessageDelayMode: NSObject {
     
     var disallowedControllersType = [AnyObject.Type]()
     
