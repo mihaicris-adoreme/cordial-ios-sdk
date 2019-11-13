@@ -363,16 +363,16 @@ To switch between modes, call corresponding methods in the CordialApiConfigurati
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-CordialApiConfiguration.shared.inAppMessageDelayModes.show()
-CordialApiConfiguration.shared.inAppMessageDelayModes.delayedShow()
-CordialApiConfiguration.shared.inAppMessageDelayModes.disallowedControllers([ClassName.self])
+CordialApiConfiguration.shared.inAppMessageDelayMode.show()
+CordialApiConfiguration.shared.inAppMessageDelayMode.delayedShow()
+CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ClassName.self])
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[[CordialApiConfiguration shared] inAppMessageDelayModes] show];
-[[[CordialApiConfiguration shared] inAppMessageDelayModes] delayedShow];
-[[[CordialApiConfiguration shared] inAppMessageDelayModes] disallowedControllers:@[[ClassName class]]];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] delayedShow];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] disallowedControllers:@[[ClassName class]]];
 ```
 
 [Top](#contents)

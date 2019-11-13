@@ -16,7 +16,7 @@
 		9E12EA4322CCD42200C2DED4 /* InAppMessageGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */; };
 		9E12EA4522CCD45100C2DED4 /* InAppMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12EA4422CCD45100C2DED4 /* InAppMessage.swift */; };
 		9E189E0722CB7D790031C427 /* InAppMessageProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */; };
-		9E1B0D2D2379C1520010B86E /* InAppMessageDelayModes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B0D2C2379C1520010B86E /* InAppMessageDelayModes.swift */; };
+		9E1B0D2D2379C1520010B86E /* InAppMessageDelayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */; };
 		9E1B0D2F2379CE510010B86E /* InAppMessageDelayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B0D2E2379CE510010B86E /* InAppMessageDelayType.swift */; };
 		9E1D8CC922D7656F00CD9CDD /* InAppMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */; };
 		9E31E78222CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E31E77E22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift */; };
@@ -128,7 +128,7 @@
 		9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageGetter.swift; sourceTree = "<group>"; };
 		9E12EA4422CCD45100C2DED4 /* InAppMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessage.swift; sourceTree = "<group>"; };
 		9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageProcess.swift; sourceTree = "<group>"; };
-		9E1B0D2C2379C1520010B86E /* InAppMessageDelayModes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDelayModes.swift; sourceTree = "<group>"; };
+		9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDelayMode.swift; sourceTree = "<group>"; };
 		9E1B0D2E2379CE510010B86E /* InAppMessageDelayType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDelayType.swift; sourceTree = "<group>"; };
 		9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageType.swift; sourceTree = "<group>"; };
 		9E31E77E22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesQueue+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -487,7 +487,7 @@
 				9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */,
 				9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */,
 				9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */,
-				9E1B0D2C2379C1520010B86E /* InAppMessageDelayModes.swift */,
+				9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */,
 				9EE94E2C233CF8C9009651DF /* InAppMessageInactiveSessionDisplayType.swift */,
 				9EB448B522E9B6160043C256 /* InAppMessageDisplayType.swift */,
 				9E1B0D2E2379CE510010B86E /* InAppMessageDelayType.swift */,
@@ -778,7 +778,7 @@
 				9EB17AC522930D7B00EEAB7D /* CustomEventRequest+CoreDataClass.swift in Sources */,
 				9E565B8E225B7198005EC4AF /* SendCustomEvents.swift in Sources */,
 				9EB17AC622930D7B00EEAB7D /* CustomEventRequest+CoreDataProperties.swift in Sources */,
-				9E1B0D2D2379C1520010B86E /* InAppMessageDelayModes.swift in Sources */,
+				9E1B0D2D2379C1520010B86E /* InAppMessageDelayMode.swift in Sources */,
 				9E565B95225B9E47005EC4AF /* CoreDataManager.swift in Sources */,
 				9EE8C5F3235DAE3E0045347B /* DateFormatter.swift in Sources */,
 				9E6DB89B234E168700711A2A /* CordialDeepLinksDelegate.swift in Sources */,

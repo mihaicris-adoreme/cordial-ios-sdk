@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(osLogLevel: .all)
-        CordialApiConfiguration.shared.inAppMessageDelayModes.disallowedControllers([ProductViewController.self, CartViewController.self])
+        CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ProductViewController.self, CartViewController.self])
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
         CordialApiConfiguration.shared.cordialDeepLinksHandler = cordialDeepLinksHandler
         

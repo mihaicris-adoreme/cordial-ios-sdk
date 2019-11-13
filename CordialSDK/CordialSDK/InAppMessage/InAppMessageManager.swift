@@ -104,13 +104,13 @@ class InAppMessageManager {
         }
         
         if let topViewController = topViewController {
-            switch CordialApiConfiguration.shared.inAppMessageDelayModes.currentMode {
+            switch CordialApiConfiguration.shared.inAppMessageDelayMode.currentMode {
             case InAppMessageDelayType.show:
                 return true
             case InAppMessageDelayType.delayedShow:
                 return false
             case InAppMessageDelayType.disallowedControllers:
-                for controllerType in CordialApiConfiguration.shared.inAppMessageDelayModes.disallowedControllersType {
+                for controllerType in CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllersType {
                     if type(of: topViewController) === controllerType {
                         return false
                     }
