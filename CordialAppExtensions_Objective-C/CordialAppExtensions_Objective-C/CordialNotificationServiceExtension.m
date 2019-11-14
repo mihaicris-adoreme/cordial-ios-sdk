@@ -48,7 +48,7 @@
     
     @try {
         NSError *error = nil;
-        NSString *fileIdentifier = @"image";
+        NSString *fileIdentifier = @"image.gif";
         [fileManager createDirectoryAtURL:folderURL withIntermediateDirectories:YES attributes:nil error:&error];
         NSURL *fileURL = [folderURL URLByAppendingPathComponent:fileIdentifier];
         [imageData writeToURL:fileURL options:NSDataWritingAtomic error:&error];
