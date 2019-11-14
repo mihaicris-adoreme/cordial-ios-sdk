@@ -12,32 +12,30 @@ import CordialSDK
 class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     
     func openDeepLink(url: URL, fallbackURL: URL?) {
-        guard let host = url.host, let products = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+        guard let host = url.host else {
             return
         }
         
-        if let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                
-                let productViewController = storyboard.instantiateViewController(withIdentifier: "ProductViewController") as! ProductViewController
-                productViewController.product = product
-                
-                let catalogNavigationController = storyboard.instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
-                catalogNavigationController.pushViewController(productViewController, animated: false)
-                
-                appDelegate.window?.rootViewController = catalogNavigationController
-            }
-            
-            return
-        }
-        
-        if let webpageUrl = URL(string: "https://\(host)/") {
+        if let products = URLComponents(url: url, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+            self.showDeepLink(product: product)
+        } else if let fallbackURL = fallbackURL, let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+            self.showDeepLink(product: product)
+        } else if let webpageUrl = URL(string: "https://\(host)/") {
             UIApplication.shared.open(webpageUrl)
-            return
         }
-        
-        return
     }
     
+    private func showDeepLink(product: Product) {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let productViewController = storyboard.instantiateViewController(withIdentifier: "ProductViewController") as! ProductViewController
+            productViewController.product = product
+            
+            let catalogNavigationController = storyboard.instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
+            catalogNavigationController.pushViewController(productViewController, animated: false)
+            
+            appDelegate.window?.rootViewController = catalogNavigationController
+        }
+    }
 }
