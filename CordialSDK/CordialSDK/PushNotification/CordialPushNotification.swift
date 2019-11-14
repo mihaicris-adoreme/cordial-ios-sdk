@@ -77,26 +77,19 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: nil)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        do {
-            if let deepLink = userInfo["deepLink"] as? String, let deepLinkData = deepLink.data(using: .utf8) {
-                let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkData, options: []) as! [String: AnyObject]
-                if let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString), let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
-                    
-                    InAppMessageProcess.shared.isPresentedInAppMessage = false
-                    
-                    let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_DEEP_LINK_OPEN, mcID: mcID, properties: nil)
-                    self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-                    
-                    if let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
-                        cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL) 
-                    } else {
-                        cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: nil)
-                    }
+        if let deepLinkJSON = userInfo["deepLink"] as? [String: AnyObject] {
+            if let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString), let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
+                
+                InAppMessageProcess.shared.isPresentedInAppMessage = false
+                
+                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_DEEP_LINK_OPEN, mcID: mcID, properties: nil)
+                self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                
+                if let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
+                    cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
+                } else {
+                    cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: nil)
                 }
-            }
-        } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Failed decode notification payload. Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
             }
         }
         
