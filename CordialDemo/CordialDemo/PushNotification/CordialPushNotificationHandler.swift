@@ -11,6 +11,9 @@ import CordialSDK
 
 class CordialPushNotificationHandler: CordialPushNotificationDelegate {
     
+    func apnsTokenReceived(token: String) {
+    }
+    
     func appOpenViaNotificationTap(notificationContent: [AnyHashable : Any], completionHandler: @escaping () -> Void) {
         completionHandler()
     }
