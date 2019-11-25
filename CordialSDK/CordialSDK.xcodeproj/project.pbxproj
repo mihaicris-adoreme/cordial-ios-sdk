@@ -63,6 +63,7 @@
 		9E97DEF5226F307E00856341 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E97DEF4226F307E00856341 /* Order.swift */; };
 		9E97DEF7226F381700856341 /* SendContactOrderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E97DEF6226F381700856341 /* SendContactOrderRequest.swift */; };
 		9E97DEFB226F413300856341 /* SendContactOrders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E97DEFA226F413300856341 /* SendContactOrders.swift */; };
+		9E9F2FDF238BF6CC0034F811 /* InAppMessageDelayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F2FDE238BF6CC0034F811 /* InAppMessageDelayViewController.swift */; };
 		9EA2EFA622C4F0700047314C /* InAppMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */; };
 		9EA2EFA822C4F4670047314C /* InAppMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */; };
 		9EA31A302292D5E80037B786 /* ContactLogoutRequestCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */; };
@@ -178,6 +179,7 @@
 		9E97DEF4226F307E00856341 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		9E97DEF6226F381700856341 /* SendContactOrderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactOrderRequest.swift; sourceTree = "<group>"; };
 		9E97DEFA226F413300856341 /* SendContactOrders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactOrders.swift; sourceTree = "<group>"; };
+		9E9F2FDE238BF6CC0034F811 /* InAppMessageDelayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDelayViewController.swift; sourceTree = "<group>"; };
 		9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageManager.swift; sourceTree = "<group>"; };
 		9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageViewController.swift; sourceTree = "<group>"; };
 		9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLogoutRequestCoreData.swift; sourceTree = "<group>"; };
@@ -485,6 +487,7 @@
 			children = (
 				9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */,
 				9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */,
+				9E9F2FDE238BF6CC0034F811 /* InAppMessageDelayViewController.swift */,
 				9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */,
 				9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */,
 				9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */,
@@ -801,6 +804,7 @@
 				9E343A8122DF61BF000D39A3 /* InAppMessageURLSessionData.swift in Sources */,
 				9E1B0D2F2379CE510010B86E /* InAppMessageDelayType.swift in Sources */,
 				9E081386227458C800BD1412 /* UpsertContacts.swift in Sources */,
+				9E9F2FDF238BF6CC0034F811 /* InAppMessageDelayViewController.swift in Sources */,
 				9ED621F522CE587400A55DB2 /* InAppMessagesQueueManager.swift in Sources */,
 				9ED621DE22CE089600A55DB2 /* InAppMessageData.swift in Sources */,
 				9EE29BE722F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift in Sources */,

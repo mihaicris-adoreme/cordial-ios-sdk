@@ -9,7 +9,7 @@
 import UIKit
 import CordialSDK
 
-class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
