@@ -154,6 +154,8 @@ class InAppMessageProcess {
             if let activeViewController = self.internalCordialAPI.getActiveViewController() {
                 let modalWebViewController = self.inAppMessageManager.getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
                 
+                self.addSafeAreaInsetsTopMarginToModalInAppMessageViewController(modalWebViewController: modalWebViewController)
+                
                 self.addDismissButtonToModalInAppMessageViewController(modalWebViewController: modalWebViewController)
                 
                 activeViewController.view.addSubview(modalWebViewController.view)
@@ -171,17 +173,19 @@ class InAppMessageProcess {
         }
     }
     
-    private func addDismissButtonToModalInAppMessageViewController(modalWebViewController: InAppMessageViewController) {
-        var safeAreaTop = CGFloat()
+    private func addSafeAreaInsetsTopMarginToModalInAppMessageViewController(modalWebViewController: InAppMessageViewController) {
         if #available(iOS 11.0, *) {
             if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
                 if UIScreen.main.bounds.height - safeAreaInsetsTop < modalWebViewController.webView.frame.height {
-                    safeAreaTop = safeAreaInsetsTop
+                    modalWebViewController.view.frame.origin.y = safeAreaInsetsTop
+                    modalWebViewController.view.frame.size.height -= safeAreaInsetsTop
                 }
             }
-        } 
-        
-        let closeButton = UIButton(frame: CGRect(x: modalWebViewController.webView.frame.width - 50, y: safeAreaTop, width: 50, height: 50))
+        }
+    }
+    
+    private func addDismissButtonToModalInAppMessageViewController(modalWebViewController: InAppMessageViewController) {
+        let closeButton = UIButton(frame: CGRect(x: modalWebViewController.webView.frame.width - 50, y: 0, width: 50, height: 50))
         closeButton.setTitle("✖️", for: .normal)
         
         closeButton.addTarget(modalWebViewController, action: #selector(modalWebViewController.dismissModalInAppMessage), for: .touchUpInside)
