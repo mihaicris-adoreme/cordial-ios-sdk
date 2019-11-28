@@ -35,7 +35,7 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
                     contentHandler(bestAttemptContent)
                     return
                 }
-                guard let attachment = UNNotificationAttachment.saveImageToDisk(fileIdentifier: "image.jpg", data: imageData, options: nil) else {
+                guard let attachment = UNNotificationAttachment.saveImageToDisk(fileIdentifier: "image.gif", data: imageData, options: nil) else {
                     print("error in UNNotificationAttachment.saveImageToDisk()")
                     contentHandler(bestAttemptContent)
                     return
