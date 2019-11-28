@@ -118,6 +118,10 @@ class CordialSwizzler {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         
+        if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
+            pushNotificationHandler.apnsTokenReceived(token: token)
+        }
+        
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
         }
