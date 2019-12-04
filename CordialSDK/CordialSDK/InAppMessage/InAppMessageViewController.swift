@@ -141,19 +141,17 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             self.isBannerAvailable = false
             
             if let eventName = eventName {
-                let mcID = self.cordialAPI.getCurrentMcID()
+                let mcID = self.inAppMessageData.mcID
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
                 self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
             
-            InAppMessageProcess.shared.isPresentedInAppMessage = false
-            self.view.removeFromSuperview()
-            InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
+            self.removeModalFromSuperviewWithoutAnimation()
         })
     }
     
     @objc func dismissModalInAppMessage() {
-        let mcID = self.cordialAPI.getCurrentMcID()
+        let mcID = self.inAppMessageData.mcID
         let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, mcID: mcID, properties: nil)
         self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
         
@@ -163,6 +161,10 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func removeModalFromSuperviewWithoutAnimation() {
         InAppMessageProcess.shared.isPresentedInAppMessage = false
         self.view.removeFromSuperview()
+        
+        let mcID = self.inAppMessageData.mcID
+        InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
+        
         InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
     }
     
@@ -191,8 +193,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                     self.internalCordialAPI.openDeepLink(url: url)
                 }
                 
-                if let eventName = dict["eventName"] as? String {
-                    let mcID = self.cordialAPI.getCurrentMcID()
+                if let mcID = dict["mcID"] as? String, let eventName = dict["eventName"] as? String {
                     let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
                     self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 }
