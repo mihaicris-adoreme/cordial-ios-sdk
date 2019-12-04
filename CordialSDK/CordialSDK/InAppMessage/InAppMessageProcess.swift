@@ -40,15 +40,17 @@ class InAppMessageProcess {
     
     func showInAppMessage(inAppMessageData: InAppMessageData) {
         if !self.isPresentedInAppMessage {
-            switch inAppMessageData.type {
-            case InAppMessageType.modal:
-                self.showModalInAppMessage(inAppMessageData: inAppMessageData)
-            case InAppMessageType.fullscreen:
-                self.showModalInAppMessage(inAppMessageData: inAppMessageData)
-            case InAppMessageType.banner_up:
-                self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
-            case InAppMessageType.banner_bottom:
-                self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                switch inAppMessageData.type {
+                case InAppMessageType.modal:
+                    self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+                case InAppMessageType.fullscreen:
+                    self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+                case InAppMessageType.banner_up:
+                    self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+                case InAppMessageType.banner_bottom:
+                    self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+                }
             }
         } else {
             CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
