@@ -62,6 +62,7 @@ class InAppMessageProcess {
     func deleteInAppMessageFromCoreDataByMcID(mcID: String) {
         CoreDataManager.shared.inAppMessagesCache.deleteInAppMessageDataByMcID(mcID: mcID)
         CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
+        CoreDataManager.shared.inAppMessagesShown.deleteInAppMessagesShownStatusByMcID(mcID: mcID)
     }
     
     func addAnimationSubviewInAppMessageBanner(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, activeViewController: UIViewController) {
@@ -171,9 +172,12 @@ class InAppMessageProcess {
                     }
                     
                     let mcID = inAppMessageData.mcID
-                    let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: nil)
-                    self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
-                    
+                    if !CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID) {
+                        CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
+                        
+                        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: nil)
+                        self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+                    }
                 } else {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                         os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
@@ -219,9 +223,12 @@ class InAppMessageProcess {
                     }
                     
                     let mcID = inAppMessageData.mcID
-                    let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: nil)
-                    self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
-                    
+                    if !CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID) {
+                        CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
+                        
+                        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: nil)
+                        self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+                    }
                 } else {                    
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                         os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)

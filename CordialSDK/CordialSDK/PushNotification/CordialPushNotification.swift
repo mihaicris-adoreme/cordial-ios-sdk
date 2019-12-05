@@ -57,6 +57,10 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         if let mcID = userInfo["mcID"] as? String {
             self.internalCordialAPI.setCurrentMcID(mcID: mcID)
             
+            if CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID) {
+                InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
+            }
+            
             if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
                 if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     DispatchQueue.main.async {
