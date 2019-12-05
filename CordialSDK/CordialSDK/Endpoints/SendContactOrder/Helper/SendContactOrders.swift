@@ -58,8 +58,9 @@ class SendContactOrders {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         
-        if let mcID = sendContactOrderRequest.mcID {
+        if let mcID = sendContactOrderRequest.mcID, let mcTapTime = self.internalCordialAPI.getMcTapTime() {
             rootContainer.append("\"mcID\": \"\(mcID)\"")
+            rootContainer.append("\"mcTapTime\": \"\(mcTapTime)\"")
         }
         
         let rootContainerString = rootContainer.joined(separator: ", ")

@@ -9,7 +9,7 @@
 import UIKit
 import CordialSDK
 
-class ProductViewController: UIViewController {
+class ProductViewController: InAppMessageDelayViewController {
     
     @IBOutlet weak var productImageView: UIImageView!
     @IBOutlet weak var brandLabel: UILabel!
