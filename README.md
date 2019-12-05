@@ -302,7 +302,7 @@ ___
 ```
 
 ## Push Notifications
-Your application must use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to enable push notification delivery and handle notification taps, the code needs the following:
+Your application must use Cordial SDK to configure push notifications. Make sure to add `Remote notifications` background mode and `Push Notifications` capability. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to enable push notification delivery and handle notification taps, the code needs the following:
 
 1. Provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. This should be done in `AppDelegate.didFinishLaunchingWithOptions`:
 
