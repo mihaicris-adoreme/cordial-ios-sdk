@@ -47,9 +47,14 @@ class NotificationManager {
         
         notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
-        
-        notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(handleAppDidFinishLaunchingNotification), name: UIApplication.didFinishLaunchingNotification, object: nil)
+                
+        if #available(iOS 13.0, *) {
+            notificationCenter.removeObserver(self, name: UIScene.willConnectNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(handleAppDidFinishLaunchingNotification), name: UIScene.willConnectNotification, object: nil)
+        } else {
+            notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(handleAppDidFinishLaunchingNotification), name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
     }
     
     @objc func appMovedToBackground() {
