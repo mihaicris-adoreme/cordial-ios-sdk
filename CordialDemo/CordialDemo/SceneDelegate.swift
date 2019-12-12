@@ -51,11 +51,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
-    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        print("scene(_:openURLContexts:)")
-    }
-    
-    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        print("scene(_:continue:)")
-    }
 }
