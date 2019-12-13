@@ -25,6 +25,7 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
         }
     }
     
+    @available(iOS 13.0, *)
     func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene) {
         // If app uses scenes this method will be called instead `openDeepLink(url: URL, fallbackURL: URL?)`
     }

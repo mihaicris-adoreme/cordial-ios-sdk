@@ -36,7 +36,6 @@
 		9EF7B20B2266259B003B223D /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF7B20A2266259B003B223D /* Product.swift */; };
 		9EF7B20D22662A79003B223D /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF7B20C22662A79003B223D /* CartViewController.swift */; };
 		9EF7B20F2266340F003B223D /* AppDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF7B20E2266340F003B223D /* AppDataManager.swift */; };
-		9EFB5C71239E94D700549B4A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB5C70239E94D700549B4A /* SceneDelegate.swift */; };
 		A7B03A8A755E9708AB7AE220 /* Pods_CordialDemoTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C55B4DCB063238775E83EC27 /* Pods_CordialDemoTests.framework */; };
 		BDFA1E44368741184475A4F4 /* Pods_CordialDemo_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B95E99EA1BA7F9716146A3E /* Pods_CordialDemo_NotificationServiceExtension.framework */; };
 /* End PBXBuildFile section */
@@ -134,7 +133,6 @@
 		9EF7B20A2266259B003B223D /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		9EF7B20C22662A79003B223D /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		9EF7B20E2266340F003B223D /* AppDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDataManager.swift; sourceTree = "<group>"; };
-		9EFB5C70239E94D700549B4A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		AF2FE42956EB12DCC62577EB /* Pods-CordialDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemoTests.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemoTests/Pods-CordialDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B19CB31C2836719E0B87934D /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		B8C85829F588056C5B383F41 /* Pods-CordialDemo-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo-NotificationServiceExtension/Pods-CordialDemo-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -257,7 +255,6 @@
 				9E7A5A75222EB64C0020054F /* LaunchScreen.storyboard */,
 				9E7A5A78222EB64C0020054F /* Info.plist */,
 				9EDC7E3F2242912000BF8FB0 /* App.swift */,
-				9EFB5C70239E94D700549B4A /* SceneDelegate.swift */,
 			);
 			path = CordialDemo;
 			sourceTree = "<group>";
@@ -692,7 +689,6 @@
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,
 				9EDAEA0B234CCBFB008A7B2F /* Credentials.swift in Sources */,
 				9EDAEA0D234CD23F008A7B2F /* Settings.swift in Sources */,
-				9EFB5C71239E94D700549B4A /* SceneDelegate.swift in Sources */,
 				9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */,
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
@@ -933,7 +929,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
 				INFOPLIST_FILE = CordialDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -960,7 +956,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
 				INFOPLIST_FILE = CordialDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
