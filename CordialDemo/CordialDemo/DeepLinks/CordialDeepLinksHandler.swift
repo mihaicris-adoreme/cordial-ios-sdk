@@ -25,6 +25,10 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
         }
     }
     
+    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene) {
+        // If app uses scenes this method will be called instead `openDeepLink(url: URL, fallbackURL: URL?)`
+    }
+    
     private func showDeepLink(product: Product) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

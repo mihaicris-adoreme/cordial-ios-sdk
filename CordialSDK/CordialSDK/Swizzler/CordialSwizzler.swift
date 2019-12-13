@@ -224,7 +224,18 @@ class CordialSwizzler {
     
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        print("SceneDelegate universal links method")
+        if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
+            guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
+                return
+            }
+            
+            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+            InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+            
+            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+        }
     }
     
     // MARK: Swizzled AppDelegate URL schemes method.
@@ -249,7 +260,15 @@ class CordialSwizzler {
     
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        print("SceneDelegate URL schemes method")
+        
+        if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler, let url = URLContexts.first?.url {
+            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+            InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+            
+            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+        }
     }
     
     // MARK: Swizzled AppDelegate background URLSession method.
