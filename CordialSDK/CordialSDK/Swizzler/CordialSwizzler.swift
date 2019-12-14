@@ -19,7 +19,7 @@ class CordialSwizzler {
         }
                 
         if CordialApiConfiguration.shared.cordialDeepLinksHandler != nil {
-            if #available(iOS 13.0, *), UIApplication.shared.connectedScenes.count > 0 {
+            if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
                 self.swizzleSceneContinue()
                 self.swizzleSceneOpenURLContexts()
             } else {

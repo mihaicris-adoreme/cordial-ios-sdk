@@ -10,6 +10,32 @@ import Foundation
 
 class InternalCordialAPI {
     
+    // MARK: Checking app for use scenes
+    
+    func isAppUseScenes() -> Bool {
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        
+        var methodCount: UInt32 = 0
+        let methodList = class_copyMethodList(delegateClass, &methodCount)
+        
+        if var methodList = methodList, methodCount > 0 {
+            for _ in 0..<methodCount {
+                let method = methodList.pointee
+                
+                let selector = method_getName(method)
+                let name = String(cString: sel_getName(selector))
+                
+                if name.contains("configurationForConnectingSceneSession") {
+                    return true
+                }
+                
+                methodList = methodList.successor()
+            }
+        }
+        
+        return false
+    }
+        
     // MARK: Get device identifier
     
     func getDeviceIdentifier() -> String {

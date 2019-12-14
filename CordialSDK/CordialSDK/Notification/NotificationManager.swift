@@ -113,7 +113,7 @@ class NotificationManager {
             notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
         }
         
-        if #available(iOS 13.0, *), UIApplication.shared.connectedScenes.count > 0 {
+        if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
             notificationCenter.removeObserver(self, name: UIScene.didEnterBackgroundNotification, object: nil)
             notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIScene.didEnterBackgroundNotification, object: nil)
             
