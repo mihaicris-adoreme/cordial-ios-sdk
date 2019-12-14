@@ -23,9 +23,11 @@ class InternalCordialAPI {
                 let method = methodList.pointee
                 
                 let selector = method_getName(method)
-                let name = String(cString: sel_getName(selector))
+                let selectorName = String(cString: sel_getName(selector))
                 
-                if name.contains("configurationForConnectingSceneSession") {
+                let connectingSceneSessionSelectorName = "application:configurationForConnectingSceneSession:options:"
+                
+                if selectorName == connectingSceneSessionSelectorName {
                     return true
                 }
                 
