@@ -12,7 +12,7 @@ class InternalCordialAPI {
     
     // MARK: Checking app for use scenes
     
-    func isAppUseScenes() -> Bool {
+    func doesAppUseScenes() -> Bool {
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         
         var methodCount: UInt32 = 0
