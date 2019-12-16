@@ -252,12 +252,12 @@
 				9EF7B21022663864003B223D /* CoreData */,
 				9E115532224E541A00CEF9FB /* CordialDemo.entitlements */,
 				9E7A5A69222EB64B0020054F /* AppDelegate.swift */,
+				9E8B95A923A53A1300936630 /* SceneDelegate.swift */,
 				9E7A5A6D222EB64B0020054F /* Main.storyboard */,
 				9E7A5A73222EB64C0020054F /* Assets.xcassets */,
 				9E7A5A75222EB64C0020054F /* LaunchScreen.storyboard */,
 				9E7A5A78222EB64C0020054F /* Info.plist */,
 				9EDC7E3F2242912000BF8FB0 /* App.swift */,
-				9E8B95A923A53A1300936630 /* SceneDelegate.swift */,
 			);
 			path = CordialDemo;
 			sourceTree = "<group>";
@@ -933,7 +933,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
 				INFOPLIST_FILE = CordialDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -960,7 +960,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
 				INFOPLIST_FILE = CordialDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
