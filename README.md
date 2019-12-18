@@ -41,7 +41,7 @@ ___
 ```
 target "The name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
+    pod 'CordialAppExtensions-Swift', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
 end
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
@@ -49,7 +49,7 @@ ___
 ```
 target "Name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
+    pod 'CordialAppExtensions-Objective-C', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
 end
 ```
 
@@ -58,7 +58,7 @@ Ensure that your new target **Notification Service Extension** bundle identifier
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-import CordialAppExtensions  
+import CordialAppExtensions_Swift
 class NotificationService: CordialNotificationServiceExtension {  
 }
 ```

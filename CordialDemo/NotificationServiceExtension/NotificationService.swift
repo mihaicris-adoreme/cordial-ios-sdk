@@ -6,7 +6,7 @@
 //  Copyright © 2019 cordial.io. All rights reserved.
 //
 
-import CordialAppExtensions
+import CordialAppExtensions_Swift
 
 class NotificationService: CordialNotificationServiceExtension {
 
