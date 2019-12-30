@@ -12,5 +12,6 @@ import Foundation
     
     @objc func appOpenViaNotificationTap(notificationContent: [AnyHashable : Any], completionHandler: @escaping () -> Void)
     @objc func notificationDeliveredInForeground(notificationContent: [AnyHashable : Any], completionHandler: @escaping () -> Void)
+    @objc func apnsTokenReceived(token: String)
     
 }

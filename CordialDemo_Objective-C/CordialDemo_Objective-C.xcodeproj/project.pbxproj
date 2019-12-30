@@ -315,7 +315,7 @@
 				9E65C8EB22EF1A1200E30F53 /* Resources */,
 				9EEFA9EB22EF1B1E004CBE8C /* Embed Frameworks */,
 				9E46318E22F0582E0081E8CE /* Embed App Extensions */,
-				723AD340E6CE9788B3CDB17A /* [CP] Embed Pods Frameworks */,
+				741494586FF2FF96BE9E4592 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -475,7 +475,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		723AD340E6CE9788B3CDB17A /* [CP] Embed Pods Frameworks */ = {
+		741494586FF2FF96BE9E4592 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -644,6 +644,7 @@
 			baseConfigurationReference = C0C993F51578BBFDB97E80EC /* Pods-CordialDemo_Objective-C-NotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -652,6 +653,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.cordial.sdk.demo.app.objective-c.CordialDemo-Objective-C.NotificationServiceExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -664,6 +666,7 @@
 			baseConfigurationReference = DA197B04BA00254ED8B6DE08 /* Pods-CordialDemo_Objective-C-NotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -672,6 +675,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.cordial.sdk.demo.app.objective-c.CordialDemo-Objective-C.NotificationServiceExtension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -799,6 +803,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "CordialDemo_Objective-C/CordialDemo_Objective-C.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
 				INFOPLIST_FILE = "CordialDemo_Objective-C/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -806,6 +811,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.cordial.sdk.demo.app.objective-c.CordialDemo-Objective-C";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -820,6 +826,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "CordialDemo_Objective-C/CordialDemo_Objective-C.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
 				INFOPLIST_FILE = "CordialDemo_Objective-C/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -827,6 +834,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.cordial.sdk.demo.app.objective-c.CordialDemo-Objective-C";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -21,6 +21,13 @@ class InternalCordialAPI {
     
     func setCurrentMcID(mcID: String) {
         UserDefaults.standard.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+        UserDefaults.standard.set(DateFormatter().getCurrentTimestamp(), forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
+    }
+    
+    // MARK: Get mc tap time
+    
+    func getMcTapTime() -> String? {
+        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
     }
     
     // MARK: JSON Web Token

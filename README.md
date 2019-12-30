@@ -41,7 +41,7 @@ ___
 ```
 target "The name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
+    pod 'CordialAppExtensions-Swift', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
 end
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
@@ -49,7 +49,7 @@ ___
 ```
 target "Name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions_Objective-C', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
+    pod 'CordialAppExtensions-Objective-C', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
 end
 ```
 
@@ -58,7 +58,7 @@ Ensure that your new target **Notification Service Extension** bundle identifier
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-import CordialAppExtensions  
+import CordialAppExtensions_Swift
 class NotificationService: CordialNotificationServiceExtension {  
 }
 ```
@@ -322,7 +322,7 @@ ___
 ```
 
 ## Push Notifications
-Your application must use Cordial SDK to configure push notifications. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to enable push notification delivery and handle notification taps, the code needs the following:
+Your application must use Cordial SDK to configure push notifications. Make sure to add `Remote notifications` background mode and `Push Notifications` capability. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to enable push notification delivery and handle notification taps, the code needs the following:
 
 1. Provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. This should be done in `AppDelegate.didFinishLaunchingWithOptions`:
 
