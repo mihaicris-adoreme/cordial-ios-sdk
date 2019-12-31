@@ -97,7 +97,12 @@ import os.log
     
     // MARK: Set Contact
     
-    @objc public func setContact(primaryKey: String) {
+    @objc public func setContact(primaryKey: String?) {
+        if let previousPrimaryKey = self.getContactPrimaryKey() {
+            UserDefaults.standard.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+            UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+        }
+        
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
         
         let internalCordialAPI = InternalCordialAPI()
@@ -112,6 +117,8 @@ import os.log
     // MARK: Unset Contact
     
     @objc public func unsetContact() {
+        UserDefaults.standard.set(false, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+        
         if let primaryKey = self.getContactPrimaryKey() {
             let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
@@ -124,14 +131,15 @@ import os.log
     // MARK: Upsert Contact
     
     @objc public func upsertContact(attributes: Dictionary<String, String>?) -> Void {
-        let internalCordialAPI = InternalCordialAPI()
-        
-        let token = internalCordialAPI.getPushNotificationToken()
-        let primaryKey = CordialAPI().getContactPrimaryKey()
-        let status = internalCordialAPI.getPushNotificationStatus()
-        
-        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: attributes)
-        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+        if let primaryKey = self.getContactPrimaryKey() {
+            let internalCordialAPI = InternalCordialAPI()
+            
+            let token = internalCordialAPI.getPushNotificationToken()
+            let status = internalCordialAPI.getPushNotificationStatus()
+            
+            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: attributes)
+            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+        }
     }
     
     // MARK: Send Custom Event

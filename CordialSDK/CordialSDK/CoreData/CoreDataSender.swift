@@ -30,17 +30,19 @@ class CoreDataSender {
     }
     
     func sendCachedCustomEventRequests(reason: String) {
-        let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
-        if customEventRequests.count > 0 {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                if CordialApiConfiguration.shared.eventsBulkSize != 1 {
-                    os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
+        if InternalCordialAPI().isUserLogin() {
+            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
+            if customEventRequests.count > 0 {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    if CordialApiConfiguration.shared.eventsBulkSize != 1 {
+                        os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
+                    }
                 }
+                
+                CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
+                
+                self.restartSendCachedCustomEventRequestsScheduledTimer()
             }
-            
-            CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
-            
-            self.restartSendCachedCustomEventRequestsScheduledTimer()
         }
     }
     
@@ -73,15 +75,19 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactCartRequest() {
-        if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
-            ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+        if InternalCordialAPI().isUserLogin() {
+            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
+                ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+            }
         }
     }
     
     private func sendCachedContactOrderRequests() {
-        let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-        if sendContactOrderRequests.count > 0 {
-            ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
+        if InternalCordialAPI().isUserLogin() {
+            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
+            if sendContactOrderRequests.count > 0 {
+                ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
+            }
         }
     }
     

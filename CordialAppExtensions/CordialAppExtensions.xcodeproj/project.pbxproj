@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */; };
-		9EBD746A2287884700EC93EF /* CordialAppExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD74602287884600EC93EF /* CordialAppExtensions.framework */; };
+		9EBD746A2287884700EC93EF /* CordialAppExtensions-Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD74602287884600EC93EF /* CordialAppExtensions-Swift.framework */; };
 		9EBD746F2287884700EC93EF /* CordialAppExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD746E2287884700EC93EF /* CordialAppExtensionsTests.swift */; };
 		9EBD74712287884700EC93EF /* CordialAppExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EBD74632287884600EC93EF /* CordialAppExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -25,7 +25,7 @@
 
 /* Begin PBXFileReference section */
 		9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialNotificationServiceExtension.swift; sourceTree = "<group>"; };
-		9EBD74602287884600EC93EF /* CordialAppExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CordialAppExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EBD74602287884600EC93EF /* CordialAppExtensions-Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "CordialAppExtensions-Swift.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBD74632287884600EC93EF /* CordialAppExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CordialAppExtensions.h; sourceTree = "<group>"; };
 		9EBD74642287884600EC93EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EBD74692287884700EC93EF /* CordialAppExtensionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CordialAppExtensionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,7 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EBD746A2287884700EC93EF /* CordialAppExtensions.framework in Frameworks */,
+				9EBD746A2287884700EC93EF /* CordialAppExtensions-Swift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,7 +72,7 @@
 		9EBD74612287884600EC93EF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9EBD74602287884600EC93EF /* CordialAppExtensions.framework */,
+				9EBD74602287884600EC93EF /* CordialAppExtensions-Swift.framework */,
 				9EBD74692287884700EC93EF /* CordialAppExtensionsTests.xctest */,
 			);
 			name = Products;
@@ -126,7 +126,7 @@
 			);
 			name = CordialAppExtensions;
 			productName = CordialAppExtensions;
-			productReference = 9EBD74602287884600EC93EF /* CordialAppExtensions.framework */;
+			productReference = 9EBD74602287884600EC93EF /* CordialAppExtensions-Swift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		9EBD74682287884700EC93EF /* CordialAppExtensionsTests */ = {
@@ -373,7 +373,7 @@
 				);
 				MARKETING_VERSION = 0.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk.CordialAppExtensions;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "CordialAppExtensions-Swift";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -402,7 +402,7 @@
 				);
 				MARKETING_VERSION = 0.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk.CordialAppExtensions;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = "CordialAppExtensions-Swift";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
