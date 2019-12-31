@@ -20,7 +20,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
     
     lazy var backgroundURLSession: URLSession = {
         let config = URLSessionConfiguration.background(withIdentifier: "CordialBackgroundURLSession")
-        config.isDiscretionary = true
+        config.isDiscretionary = false
         config.sessionSendsLaunchEvents = true
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()

@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
 
-  spec.name          = "CordialAppExtensions_Objective-C"
-  spec.version       = "0.4.3"
-  spec.summary       = "CordialSDK extensions."
+  spec.name          = "CordialAppExtensions-Swift"
+  spec.version       = "0.4.4"
+  spec.summary       = "CordialAppExtensions"
 
   spec.description   = <<-DESC
-	CordialAppExtensions_Objective-C
+	CordialAppExtensions-Swift
   DESC
 
   spec.homepage      = "https://gitlab.com/cordialinc/mobile-sdk/ios-sdk"
@@ -20,7 +20,7 @@ Pod::Spec.new do |spec|
 
   spec.source        = { :git => "https://gitlab.com/cordialinc/mobile-sdk/ios-sdk.git", :tag => "#{spec.version}" }
 
-  spec.source_files  = "CordialAppExtensions_Objective-C", "CordialAppExtensions_Objective-C/CordialAppExtensions_Objective-C/**/*.{h,m}"
+  spec.source_files  = "CordialAppExtensions", "CordialAppExtensions/CordialAppExtensions/**/*.{swift}"
 
   spec.requires_arc  = true
 

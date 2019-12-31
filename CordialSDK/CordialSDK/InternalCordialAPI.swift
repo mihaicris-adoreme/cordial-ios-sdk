@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class InternalCordialAPI {
     
@@ -61,57 +62,45 @@ class InternalCordialAPI {
     
     func setCurrentJWT(JWT: String) {
         UserDefaults.standard.set(JWT, forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
-        self.sendCacheFromCoreData()
+        
+        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
     }
     
     func getCurrentJWT() -> String? {
         return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
     
-    // MARK: Send System Event
+    func isUserLogin() -> Bool {
+        return UserDefaults.standard.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+    }
     
-    func sendSystemEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
+    // MARK: Send Any Custom Event
+    
+    func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
+        CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
+        
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            if CordialApiConfiguration.shared.eventsBulkSize != 1 {
+                os_log("Event [eventName: %{public}@, eventID: %{public}@] added to bulk", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
+            }
+        }
+        
+        if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.eventsBulkSize {
+            CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
+        }
     }
     
     // MARK: Send Custom Event
     
     func sendCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        if !sendCustomEventRequest.eventName.hasPrefix(API.SYSTEM_EVENT_PREFIX) {
-            CustomEventsSender().sendCustomEvents(sendCustomEventRequests: [sendCustomEventRequest])
-        } else {
+        let customEventsSender = CustomEventsSender()
+        
+        if customEventsSender.isEventNameHaveSystemPrefix(sendCustomEventRequest: sendCustomEventRequest) {
             let responseError = ResponseError(message: "Event name has system prefix", statusCode: nil, responseBody: nil, systemError: nil)
-            CustomEventsSender().logicErrorHandler(sendCustomEventRequests: [sendCustomEventRequest], error: responseError)
+            customEventsSender.logicErrorHandler(sendCustomEventRequests: [sendCustomEventRequest], error: responseError)
+        } else {
+            self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         }
-    }
-    
-    // MARK: Send cache from CoreData
-    
-    func sendCacheFromCoreData() {
-        let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
-        if customEventRequests.count > 0 {
-            CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
-        }
-        
-        if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
-            ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
-        }
-        
-        let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-        if sendContactOrderRequests.count > 0 {
-            ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
-        }
-        
-        let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
-        if upsertContactRequests.count > 0 {
-            ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
-        }
-        
-        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
-            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
-        }
-        
-        InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
     }
     
     // MARK: Get active view controller
@@ -136,7 +125,7 @@ class InternalCordialAPI {
             let eventName = API.EVENT_NAME_FIRST_LAUNCH
             let mcID = CordialAPI().getCurrentMcID()
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
-            self.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+            self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         }
     }
     

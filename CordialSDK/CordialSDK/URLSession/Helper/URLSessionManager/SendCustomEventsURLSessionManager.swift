@@ -36,7 +36,7 @@ class SendCustomEventsURLSessionManager {
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 let eventNamesAndRequestIDs = customEventsSender.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
-                os_log("Failed decode send custom events response data. Events { %{public}@ } Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, eventNamesAndRequestIDs, error.localizedDescription)
+                os_log("Failed decode send events response data. Events { %{public}@ } Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, eventNamesAndRequestIDs, error.localizedDescription)
             }
         }
     }

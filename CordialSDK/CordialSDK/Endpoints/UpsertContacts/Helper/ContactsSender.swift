@@ -55,6 +55,10 @@ class ContactsSender {
     }
     
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
+        UserDefaults.standard.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+        
+        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
+        
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             upsertContactRequests.forEach({ upsertContactRequest in
                 os_log("Contact has been sent. Request ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
@@ -66,8 +70,6 @@ class ContactsSender {
                 UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
             }
         })
-        
-        InternalCordialAPI().sendCacheFromCoreData()
     }
     
     func systemErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {

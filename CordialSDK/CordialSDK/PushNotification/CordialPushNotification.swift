@@ -75,7 +75,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         let mcID = self.cordialAPI.getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: nil)
-        self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         if let deepLinkJSON = userInfo["deepLink"] as? [String: AnyObject] {
             if let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString), let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
@@ -83,7 +83,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
                 InAppMessageProcess.shared.isPresentedInAppMessage = false
                 
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_DEEP_LINK_OPEN, mcID: mcID, properties: nil)
-                self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+                self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 
                 if let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
                     cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
@@ -107,7 +107,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
         let mcID = self.cordialAPI.getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
-        self.internalCordialAPI.sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
             pushNotificationHandler.notificationDeliveredInForeground(notificationContent: userInfo) {

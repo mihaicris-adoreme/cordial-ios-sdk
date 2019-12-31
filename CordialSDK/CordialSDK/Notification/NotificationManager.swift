@@ -56,14 +56,16 @@ class NotificationManager {
         let eventName = API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
-        InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+        InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        
+        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "App moved to background")
     }
     
     @objc func appMovedFromBackground() {
         let eventName = API.EVENT_NAME_APP_MOVED_FROM_BACKGROUND
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
-        InternalCordialAPI().sendSystemEvent(sendCustomEventRequest: sendCustomEventRequest)
+        InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         self.prepareCurrentPushNotificationStatus()
         

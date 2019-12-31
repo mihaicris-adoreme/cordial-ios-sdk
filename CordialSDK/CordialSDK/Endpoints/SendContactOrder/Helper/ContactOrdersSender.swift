@@ -14,32 +14,44 @@ class ContactOrdersSender {
     let sendContactOrders = SendContactOrders()
     
     func sendContactOrders(sendContactOrderRequests: [SendContactOrderRequest]) {
-        if ReachabilityManager.shared.isConnectedToInternet {
-            let sendContactOrders = SendContactOrders()
-            
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                sendContactOrderRequests.forEach({ sendContactOrderRequest in
-                    os_log("Sending contact order. Request ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
-                    
-                    let payload = self.sendContactOrders.getSendContactOrderRequestJSON(sendContactOrderRequest: sendContactOrderRequest)
-                    os_log("Payload: %{public}@", log: OSLog.cordialSendContactOrders, type: .info, payload)
-                })
-            }
-            
-            if InternalCordialAPI().getCurrentJWT() != nil {
-                sendContactOrders.sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
-            } else {
-                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                self.systemErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
+        
+        let internalCordialAPI = InternalCordialAPI()
+        if internalCordialAPI.isUserLogin() {
+            if ReachabilityManager.shared.isConnectedToInternet {
+                let sendContactOrders = SendContactOrders()
                 
-                SDKSecurity.shared.updateJWT()
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    sendContactOrderRequests.forEach({ sendContactOrderRequest in
+                        os_log("Sending contact order. Request ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                        
+                        let payload = self.sendContactOrders.getSendContactOrderRequestJSON(sendContactOrderRequest: sendContactOrderRequest)
+                        os_log("Payload: %{public}@", log: OSLog.cordialSendContactOrders, type: .info, payload)
+                    })
+                }
+                
+                if internalCordialAPI.getCurrentJWT() != nil {
+                    sendContactOrders.sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
+                } else {
+                    let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                    self.systemErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
+                    
+                    SDKSecurity.shared.updateJWT()
+                }
+            } else {
+                CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
+                
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    sendContactOrderRequests.forEach({ sendContactOrderRequest in
+                        os_log("Sending contact order failed. Saved to retry later. Request ID: [%{public}@] Error: [No Internet connection]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                    })
+                }
             }
         } else {
             CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 sendContactOrderRequests.forEach({ sendContactOrderRequest in
-                    os_log("Sending contact order failed. Saved to retry later. Request ID: [%{public}@] Error: [No Internet connection]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
+                    os_log("Sending contact order failed. Saved to retry later. Request ID: [%{public}@] Error: [User no login]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
                 })
             }
         }

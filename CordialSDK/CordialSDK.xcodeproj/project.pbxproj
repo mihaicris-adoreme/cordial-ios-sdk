@@ -16,6 +16,8 @@
 		9E12EA4322CCD42200C2DED4 /* InAppMessageGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */; };
 		9E12EA4522CCD45100C2DED4 /* InAppMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12EA4422CCD45100C2DED4 /* InAppMessage.swift */; };
 		9E189E0722CB7D790031C427 /* InAppMessageProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */; };
+		9E1B0D2D2379C1520010B86E /* InAppMessageDelayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */; };
+		9E1B0D2F2379CE510010B86E /* InAppMessageDelayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B0D2E2379CE510010B86E /* InAppMessageDelayType.swift */; };
 		9E1D8CC922D7656F00CD9CDD /* InAppMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */; };
 		9E31E78222CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E31E77E22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift */; };
 		9E31E78322CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E31E77F22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift */; };
@@ -103,6 +105,7 @@
 		9EEC9D8022896F9900B40FFB /* UserAgentBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEC9D7F22896F9900B40FFB /* UserAgentBuilder.swift */; };
 		9EEE941122E099A200A61FD3 /* InAppMessageBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */; };
 		9EEE995522412C160041D8AE /* SendCustomEventRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE995422412C160041D8AE /* SendCustomEventRequest.swift */; };
+		9EF0B3482361C7CD00641411 /* CoreDataSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF0B3472361C7CD00641411 /* CoreDataSender.swift */; };
 		9EFCA9DA225F8C8B005A8AC8 /* CordialApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFCA9D9225F8C8B005A8AC8 /* CordialApiEndpoints.swift */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +129,8 @@
 		9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageGetter.swift; sourceTree = "<group>"; };
 		9E12EA4422CCD45100C2DED4 /* InAppMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessage.swift; sourceTree = "<group>"; };
 		9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageProcess.swift; sourceTree = "<group>"; };
+		9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDelayMode.swift; sourceTree = "<group>"; };
+		9E1B0D2E2379CE510010B86E /* InAppMessageDelayType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDelayType.swift; sourceTree = "<group>"; };
 		9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageType.swift; sourceTree = "<group>"; };
 		9E31E77E22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesQueue+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9E31E77F22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesQueue+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -216,6 +221,7 @@
 		9EEC9D7F22896F9900B40FFB /* UserAgentBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgentBuilder.swift; sourceTree = "<group>"; };
 		9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageBannerView.swift; sourceTree = "<group>"; };
 		9EEE995422412C160041D8AE /* SendCustomEventRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCustomEventRequest.swift; sourceTree = "<group>"; };
+		9EF0B3472361C7CD00641411 /* CoreDataSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSender.swift; sourceTree = "<group>"; };
 		9EFCA9D9225F8C8B005A8AC8 /* CordialApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialApiEndpoints.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -346,6 +352,7 @@
 				9EDB6DF82289D4C300A77BBE /* ManagedObjects */,
 				9EBE675B22731E920065AA06 /* Helper */,
 				9E565B94225B9E47005EC4AF /* CoreDataManager.swift */,
+				9EF0B3472361C7CD00641411 /* CoreDataSender.swift */,
 				9E565B9D225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld */,
 			);
 			path = CoreData;
@@ -483,8 +490,10 @@
 				9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */,
 				9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */,
 				9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */,
+				9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */,
 				9EE94E2C233CF8C9009651DF /* InAppMessageInactiveSessionDisplayType.swift */,
 				9EB448B522E9B6160043C256 /* InAppMessageDisplayType.swift */,
+				9E1B0D2E2379CE510010B86E /* InAppMessageDelayType.swift */,
 				9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */,
 				9ED9266922CB5BDF00809EC0 /* InAppMessage.js */,
 			);
@@ -765,6 +774,7 @@
 				9E45FE7B22538194006A5A6B /* CordialPushNotification.swift in Sources */,
 				9E5147C822FC4D9B00977278 /* SendContactLogoutURLSessionData.swift in Sources */,
 				9E7037A2226882F4000C3582 /* UpsertContactCartRequest.swift in Sources */,
+				9EF0B3482361C7CD00641411 /* CoreDataSender.swift in Sources */,
 				9E5147E822FC5DCB00977278 /* UpsertContactCartURLSessionManager.swift in Sources */,
 				9EB17AC022930D7B00EEAB7D /* ContactOrderRequest+CoreDataProperties.swift in Sources */,
 				9ED621DB22CE017E00A55DB2 /* InAppMessagesCacheCoreData.swift in Sources */,
@@ -772,6 +782,7 @@
 				9EB17AC522930D7B00EEAB7D /* CustomEventRequest+CoreDataClass.swift in Sources */,
 				9E565B8E225B7198005EC4AF /* SendCustomEvents.swift in Sources */,
 				9EB17AC622930D7B00EEAB7D /* CustomEventRequest+CoreDataProperties.swift in Sources */,
+				9E1B0D2D2379C1520010B86E /* InAppMessageDelayMode.swift in Sources */,
 				9E565B95225B9E47005EC4AF /* CoreDataManager.swift in Sources */,
 				9EE8C5F3235DAE3E0045347B /* DateFormatter.swift in Sources */,
 				9E6DB89B234E168700711A2A /* CordialDeepLinksDelegate.swift in Sources */,
@@ -792,6 +803,7 @@
 				9EB17ABE22930D7B00EEAB7D /* ContactRequest+CoreDataProperties.swift in Sources */,
 				9E7037A922688EC9000C3582 /* UpsertContactCart.swift in Sources */,
 				9E343A8122DF61BF000D39A3 /* InAppMessageURLSessionData.swift in Sources */,
+				9E1B0D2F2379CE510010B86E /* InAppMessageDelayType.swift in Sources */,
 				9E081386227458C800BD1412 /* UpsertContacts.swift in Sources */,
 				9ED621F522CE587400A55DB2 /* InAppMessagesQueueManager.swift in Sources */,
 				9ED621DE22CE089600A55DB2 /* InAppMessageData.swift in Sources */,
@@ -1009,7 +1021,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.3;
+				MARKETING_VERSION = 0.4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1040,7 +1052,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.3;
+				MARKETING_VERSION = 0.4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

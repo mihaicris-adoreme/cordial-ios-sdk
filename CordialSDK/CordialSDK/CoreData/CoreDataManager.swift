@@ -16,6 +16,8 @@ class CoreDataManager {
     
     private init(){}
     
+    let coreDataSender = CoreDataSender()
+    
     let frameworkIdentifier = "io.cordial.sdk"
     let frameworkName = "CordialSDK"
     let modelName = "CoreDataModel"
