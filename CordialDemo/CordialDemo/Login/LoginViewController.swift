@@ -49,6 +49,10 @@ class LoginViewController: UIViewController {
     @IBAction func guestAction(_ sender: UIButton) {
         self.deleteAllCartItems()
         
+        self.cordialAPI.registerForPushNotifications()
+        
+        self.cordialAPI.setContact(primaryKey: nil)
+        
         self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
     }
     

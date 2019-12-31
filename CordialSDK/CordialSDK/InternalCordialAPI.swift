@@ -42,6 +42,10 @@ class InternalCordialAPI {
         return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
     
+    func isUserLogin() -> Bool {
+        return UserDefaults.standard.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+    }
+    
     // MARK: Send Any Custom Event
     
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
