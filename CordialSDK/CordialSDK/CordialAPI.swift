@@ -119,13 +119,13 @@ import os.log
     @objc public func unsetContact() {
         UserDefaults.standard.set(false, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         
-        if let primaryKey = self.getContactPrimaryKey() {
-            let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
-            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
-            
-            UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
-            UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
-        }
+        let primaryKey = self.getContactPrimaryKey()
+        
+        let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
+        ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
+        
+        UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+        UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
     // MARK: Upsert Contact

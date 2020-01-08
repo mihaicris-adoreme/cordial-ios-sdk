@@ -19,7 +19,6 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToProfileIdentifier = "segueToProfile"
     
     @IBOutlet weak var profileButtonItem: UIBarButtonItem!
-    @IBOutlet weak var logoutButtonItem: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     
     let catalogName = "Mens"
@@ -50,8 +49,6 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     func prerareProfileAndLogoutButtons() {
         if App.isGuestUser() {
             self.profileButtonItem.isEnabled = false
-            self.logoutButtonItem.title = "Log in"
-            
         }
     }
     

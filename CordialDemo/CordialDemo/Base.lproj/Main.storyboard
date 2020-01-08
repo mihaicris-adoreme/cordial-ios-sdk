@@ -404,7 +404,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="l5m-0j-xFg" id="Kjk-Pa-IgS"/>
-                        <outlet property="logoutButtonItem" destination="NYu-Fo-CMp" id="Mwt-IS-15Y"/>
                         <outlet property="profileButtonItem" destination="zLJ-1g-5Xf" id="gnR-jD-xfl"/>
                         <segue destination="wpv-91-zrT" kind="show" identifier="segueToCart" id="AlP-xG-MIL"/>
                         <segue destination="xoO-vV-374" kind="show" identifier="segueToProfile" id="g1h-zg-9TE"/>

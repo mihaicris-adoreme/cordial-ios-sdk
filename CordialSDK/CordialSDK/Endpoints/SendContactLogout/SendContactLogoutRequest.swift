@@ -11,19 +11,19 @@ import Foundation
 class SendContactLogoutRequest: NSObject, NSCoding {
     
     let requestID: String
-    let primaryKey: String
+    let primaryKey: String?
     
     enum Key: String {
         case requestID = "requestID"
         case primaryKey = "primaryKey"
     }
     
-    init(primaryKey: String) {
+    init(primaryKey: String?) {
         self.requestID = UUID().uuidString
         self.primaryKey = primaryKey
     }
     
-    private init(requestID: String, primaryKey: String) {
+    private init(requestID: String, primaryKey: String?) {
         self.requestID = requestID
         self.primaryKey = primaryKey
     }
@@ -35,7 +35,7 @@ class SendContactLogoutRequest: NSObject, NSCoding {
     
     required convenience init?(coder aDecoder: NSCoder) {
         let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
-        let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String
+        let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
         
         self.init(requestID: requestID, primaryKey: primaryKey)
     }
