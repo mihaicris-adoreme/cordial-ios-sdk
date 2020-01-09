@@ -12,15 +12,7 @@ struct CordialUserDefaults {
     
     private static let cordialUserDefaults = UserDefaults.init(suiteName: "io.cordial.sdk.UserDefaults")
 
-    static func set(_ value: String, forKey key: String) {
-        cordialUserDefaults?.set(value, forKey: key)
-    }
-    
-    static func set(_ value: Bool, forKey key: String) {
-        cordialUserDefaults?.set(value, forKey: key)
-    }
-    
-    static func set(_ value: Double, forKey key: String) {
+    static func set(_ value: Any?, forKey key: String) {
         cordialUserDefaults?.set(value, forKey: key)
     }
     
