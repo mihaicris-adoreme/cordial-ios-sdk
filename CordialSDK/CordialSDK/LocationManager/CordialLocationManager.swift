@@ -40,19 +40,19 @@ class CordialLocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func setLatitude(latitude: Double) {
-        UserDefaults.standard.set(latitude, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
+        CordialUserDefaults.set(latitude, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
     }
     
     func getLatitude() -> Double? {
-        return UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
+        return CordialUserDefaults.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
     }
     
     func setLongitude(longitude: Double) {
-        UserDefaults.standard.set(longitude, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
+        CordialUserDefaults.set(longitude, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
     }
     
     func getLongitude() -> Double? {
-        return UserDefaults.standard.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
+        return CordialUserDefaults.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
     }
     
     // MARK: CLLocationManagerDelegate
