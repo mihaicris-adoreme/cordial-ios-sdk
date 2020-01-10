@@ -22,6 +22,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var zoomScale = CGFloat()
     var isBannerAvailable = false
     
+    var bannerCenterY = CGFloat(0)
+    
     override func loadView() {
         self.webView.loadHTMLString(self.inAppMessageData.html, baseURL: nil)
         
@@ -30,6 +32,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         
         if self.isBanner {
             self.isBannerAvailable = true
+            self.bannerCenterY = self.view.center.y
             self.addInAppMessageBannerGesturesRecognizer()
             self.removeInAppMessageBannerWithDelay()
         }
@@ -43,26 +46,47 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         })
     }
     
-    func addInAppMessageBannerGesturesRecognizer(){
-        let swipeUpGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeUpGestureRecognizer))
-        swipeUpGesture.direction = .up
-        
-        let swipeDownGesture = UISwipeGestureRecognizer(target: self, action: #selector(swipeDownGestureRecognizer))
-        swipeDownGesture.direction = .down
-        
-        self.view.addGestureRecognizer(swipeUpGesture)
-        self.view.addGestureRecognizer(swipeDownGesture)
+    func addInAppMessageBannerGesturesRecognizer() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(self.draggedBannerView(_:)))
+        self.webView.addGestureRecognizer(panGesture)
     }
     
-    @objc func swipeUpGestureRecognizer() {
-        if self.inAppMessageData.type == InAppMessageType.banner_up {
-            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
-        }
-    }
-    
-    @objc func swipeDownGestureRecognizer() {
-        if self.inAppMessageData.type == InAppMessageType.banner_bottom {
-            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+    @objc func draggedBannerView(_ sender: UIPanGestureRecognizer) {
+        let yVelocity = sender.velocity(in: self.webView).y
+        let translation = sender.translation(in: self.webView)
+        
+        if abs(yVelocity) < 1200 {
+            let y = self.webView.center.y + translation.y
+            
+            switch self.inAppMessageData.type {
+            case InAppMessageType.banner_up:
+                if self.bannerCenterY > y {
+                    self.webView.bringSubviewToFront(self.webView)
+                    self.webView.center = CGPoint(x: self.webView.center.x, y: y)
+                    sender.setTranslation(CGPoint.zero, in: self.webView)
+                }
+            case InAppMessageType.banner_bottom:
+                if self.bannerCenterY < y {
+                    self.webView.bringSubviewToFront(self.webView)
+                    self.webView.center = CGPoint(x: self.webView.center.x, y: y)
+                    sender.setTranslation(CGPoint.zero, in: self.webView)
+                }
+            default:
+                break
+            }
+        } else if sender.state == .ended {
+            switch self.inAppMessageData.type {
+            case InAppMessageType.banner_up:
+                if Int(yVelocity).signum() == -1 {
+                    self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+                }
+            case InAppMessageType.banner_bottom:
+                if Int(yVelocity).signum() == 1 {
+                    self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+                }
+            default:
+                break
+            }
         }
     }
     
@@ -119,21 +143,22 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     func removeBannerFromSuperviewWithAnimation(eventName: String?) {
         UIView.animate(withDuration: InAppMessageProcess.shared.bannerAnimationDuration, animations: {
+            let x = self.webView.frame.origin.x
+            var y = self.webView.frame.origin.y + self.webView.frame.size.height
+            
+            if #available(iOS 11.0, *), let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top, let safeAreaInsetsBottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+                y += safeAreaInsetsTop
+                y += safeAreaInsetsBottom
+            }
+            
+            let width = self.webView.frame.size.width
+            let height = self.webView.frame.size.height
+            
             switch self.inAppMessageData.type {
             case InAppMessageType.banner_up:
-                let x = self.view.frame.origin.x
-                let y = self.view.frame.origin.y + self.view.frame.size.height
-                let width = self.view.frame.size.width
-                let height = self.view.frame.size.height
-                
-                self.view.frame = CGRect(x: x, y: -y, width: width, height: height)
+                self.webView.frame = CGRect(x: x, y: -y, width: width, height: height)
             case InAppMessageType.banner_bottom:
-                let x = self.view.frame.origin.x
-                let y = self.view.frame.origin.y + self.view.frame.size.height
-                let width = self.view.frame.size.width
-                let height = self.view.frame.size.height
-                
-                self.view.frame = CGRect(x: x, y: y, width: width, height: height)
+                self.webView.frame = CGRect(x: x, y: y, width: width, height: height)
             default: break
             }
             
