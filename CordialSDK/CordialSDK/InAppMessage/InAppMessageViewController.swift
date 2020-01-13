@@ -22,7 +22,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var zoomScale = CGFloat()
     var isBannerAvailable = false
     
-    var bannerCenterY = CGFloat(0)
+    var bannerCenterY = CGFloat()
+    var isBannerRemovingWithAnimation = false
     
     override func loadView() {
         self.webView.loadHTMLString(self.inAppMessageData.html, baseURL: nil)
@@ -52,46 +53,56 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     @objc func draggedBannerView(_ sender: UIPanGestureRecognizer) {
-        let yVelocity = sender.velocity(in: self.webView).y
-        let translation = sender.translation(in: self.webView)
-                
-        if abs(yVelocity) < 1200 { // average swipe speed
-            if sender.state == .ended {
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.webView.center = CGPoint(x: self.webView.center.x, y: self.bannerCenterY)
-                })
-            } else {
-                let y = self.webView.center.y + translation.y
-                
+        if !self.isBannerRemovingWithAnimation {
+            let yVelocity = sender.velocity(in: self.webView).y
+            let translation = sender.translation(in: self.webView)
+                    
+            if abs(yVelocity) < 1000 { // average swipe speed
+                if sender.state == .ended {
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.webView.center = CGPoint(x: self.webView.center.x, y: self.bannerCenterY)
+                    })
+                } else {
+                    let y = self.webView.center.y + translation.y
+                    
+                    switch self.inAppMessageData.type {
+                    case InAppMessageType.banner_up:
+                        if self.bannerCenterY > y {
+                            self.webView.bringSubviewToFront(self.webView)
+                            self.webView.center = CGPoint(x: self.webView.center.x, y: y)
+                            sender.setTranslation(CGPoint.zero, in: self.webView)
+                        }
+                        
+                        if abs(y - self.bannerCenterY) > self.webView.frame.height / 2 {
+                            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+                        }
+                    case InAppMessageType.banner_bottom:
+                        if self.bannerCenterY < y {
+                            self.webView.bringSubviewToFront(self.webView)
+                            self.webView.center = CGPoint(x: self.webView.center.x, y: y)
+                            sender.setTranslation(CGPoint.zero, in: self.webView)
+                        }
+                        
+                        if y - self.bannerCenterY > self.webView.frame.height / 2 {
+                            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+                        }
+                    default:
+                        break
+                    }
+                }
+            } else if sender.state == .ended {
                 switch self.inAppMessageData.type {
                 case InAppMessageType.banner_up:
-                    if self.bannerCenterY > y {
-                        self.webView.bringSubviewToFront(self.webView)
-                        self.webView.center = CGPoint(x: self.webView.center.x, y: y)
-                        sender.setTranslation(CGPoint.zero, in: self.webView)
+                    if Int(yVelocity).signum() == -1 {
+                        self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
                     }
                 case InAppMessageType.banner_bottom:
-                    if self.bannerCenterY < y {
-                        self.webView.bringSubviewToFront(self.webView)
-                        self.webView.center = CGPoint(x: self.webView.center.x, y: y)
-                        sender.setTranslation(CGPoint.zero, in: self.webView)
+                    if Int(yVelocity).signum() == 1 {
+                        self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
                     }
                 default:
                     break
                 }
-            }
-        } else if sender.state == .ended {
-            switch self.inAppMessageData.type {
-            case InAppMessageType.banner_up:
-                if Int(yVelocity).signum() == -1 {
-                    self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
-                }
-            case InAppMessageType.banner_bottom:
-                if Int(yVelocity).signum() == 1 {
-                    self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
-                }
-            default:
-                break
             }
         }
     }
@@ -148,6 +159,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     func removeBannerFromSuperviewWithAnimation(eventName: String?) {
+        self.isBannerRemovingWithAnimation = true
+        
         UIView.animate(withDuration: InAppMessageProcess.shared.bannerAnimationDuration, animations: {
             let x = self.webView.frame.origin.x
             var y = self.webView.frame.origin.y + self.webView.frame.size.height
