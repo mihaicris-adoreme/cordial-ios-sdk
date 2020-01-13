@@ -57,14 +57,31 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             let yVelocity = sender.velocity(in: self.webView).y
             let translation = sender.translation(in: self.webView)
                     
+            let y = self.webView.center.y + translation.y
+            
             if abs(yVelocity) < 1000 { // average swipe speed
                 if sender.state == .ended {
-                    UIView.animate(withDuration: 0.5, animations: {
-                        self.webView.center = CGPoint(x: self.webView.center.x, y: self.bannerCenterY)
-                    })
+                    switch self.inAppMessageData.type {
+                    case InAppMessageType.banner_up:
+                        if abs(y - self.bannerCenterY) > self.webView.frame.height / 2 {
+                            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+                        } else {
+                            UIView.animate(withDuration: 0.3, animations: {
+                                self.webView.center = CGPoint(x: self.webView.center.x, y: self.bannerCenterY)
+                            })
+                        }
+                    case InAppMessageType.banner_bottom:
+                        if y - self.bannerCenterY > self.webView.frame.height / 2 {
+                            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+                        } else {
+                            UIView.animate(withDuration: 0.3, animations: {
+                                self.webView.center = CGPoint(x: self.webView.center.x, y: self.bannerCenterY)
+                            })
+                        }
+                    default:
+                        break
+                    }
                 } else {
-                    let y = self.webView.center.y + translation.y
-                    
                     switch self.inAppMessageData.type {
                     case InAppMessageType.banner_up:
                         if self.bannerCenterY > y {
@@ -72,19 +89,11 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                             self.webView.center = CGPoint(x: self.webView.center.x, y: y)
                             sender.setTranslation(CGPoint.zero, in: self.webView)
                         }
-                        
-                        if abs(y - self.bannerCenterY) > self.webView.frame.height / 2 {
-                            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
-                        }
                     case InAppMessageType.banner_bottom:
                         if self.bannerCenterY < y {
                             self.webView.bringSubviewToFront(self.webView)
                             self.webView.center = CGPoint(x: self.webView.center.x, y: y)
                             sender.setTranslation(CGPoint.zero, in: self.webView)
-                        }
-                        
-                        if y - self.bannerCenterY > self.webView.frame.height / 2 {
-                            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
                         }
                     default:
                         break
