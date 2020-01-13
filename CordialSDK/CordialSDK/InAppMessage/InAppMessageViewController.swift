@@ -54,25 +54,31 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     @objc func draggedBannerView(_ sender: UIPanGestureRecognizer) {
         let yVelocity = sender.velocity(in: self.webView).y
         let translation = sender.translation(in: self.webView)
-        
-        if abs(yVelocity) < 1200 {
-            let y = self.webView.center.y + translation.y
-            
-            switch self.inAppMessageData.type {
-            case InAppMessageType.banner_up:
-                if self.bannerCenterY > y {
-                    self.webView.bringSubviewToFront(self.webView)
-                    self.webView.center = CGPoint(x: self.webView.center.x, y: y)
-                    sender.setTranslation(CGPoint.zero, in: self.webView)
+                
+        if abs(yVelocity) < 1200 { // average swipe speed
+            if sender.state == .ended {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.webView.center = CGPoint(x: self.webView.center.x, y: self.bannerCenterY)
+                })
+            } else {
+                let y = self.webView.center.y + translation.y
+                
+                switch self.inAppMessageData.type {
+                case InAppMessageType.banner_up:
+                    if self.bannerCenterY > y {
+                        self.webView.bringSubviewToFront(self.webView)
+                        self.webView.center = CGPoint(x: self.webView.center.x, y: y)
+                        sender.setTranslation(CGPoint.zero, in: self.webView)
+                    }
+                case InAppMessageType.banner_bottom:
+                    if self.bannerCenterY < y {
+                        self.webView.bringSubviewToFront(self.webView)
+                        self.webView.center = CGPoint(x: self.webView.center.x, y: y)
+                        sender.setTranslation(CGPoint.zero, in: self.webView)
+                    }
+                default:
+                    break
                 }
-            case InAppMessageType.banner_bottom:
-                if self.bannerCenterY < y {
-                    self.webView.bringSubviewToFront(self.webView)
-                    self.webView.center = CGPoint(x: self.webView.center.x, y: y)
-                    sender.setTranslation(CGPoint.zero, in: self.webView)
-                }
-            default:
-                break
             }
         } else if sender.state == .ended {
             switch self.inAppMessageData.type {
