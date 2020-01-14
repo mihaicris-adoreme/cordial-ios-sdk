@@ -42,7 +42,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func removeInAppMessageBannerWithDelay() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
             if self.isBannerAvailable {
-                self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE)
+                self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
             }
         })
     }
@@ -61,20 +61,23 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             if abs(yVelocity) < 1000 { // average swipe speed
                 if sender.state == .ended {
+                    let offset = abs(y - self.bannerCenterY)
+                    let duration = TimeInterval(offset / self.webView.frame.height)
+                    
                     switch self.inAppMessageData.type {
                     case InAppMessageType.banner_up:
-                        if abs(y - self.bannerCenterY) > self.webView.frame.height / 2 {
-                            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+                        if offset > self.webView.frame.height / 2 {
+                            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: duration)
                         } else {
-                            UIView.animate(withDuration: 0.3, animations: {
+                            UIView.animate(withDuration: duration, animations: {
                                 self.webView.center = CGPoint(x: self.webView.center.x, y: self.bannerCenterY)
                             })
                         }
                     case InAppMessageType.banner_bottom:
-                        if y - self.bannerCenterY > self.webView.frame.height / 2 {
-                            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+                        if offset > self.webView.frame.height / 2 {
+                            self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: duration)
                         } else {
-                            UIView.animate(withDuration: 0.3, animations: {
+                            UIView.animate(withDuration: duration, animations: {
                                 self.webView.center = CGPoint(x: self.webView.center.x, y: self.bannerCenterY)
                             })
                         }
@@ -103,11 +106,11 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 switch self.inAppMessageData.type {
                 case InAppMessageType.banner_up:
                     if Int(yVelocity).signum() == -1 {
-                        self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+                        self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
                     }
                 case InAppMessageType.banner_bottom:
                     if Int(yVelocity).signum() == 1 {
-                        self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE)
+                        self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
                     }
                 default:
                     break
@@ -167,10 +170,10 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         return WKUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
     }
     
-    func removeBannerFromSuperviewWithAnimation(eventName: String?) {
+    func removeBannerFromSuperviewWithAnimation(eventName: String?, duration: TimeInterval) {
         self.isBannerRemovingWithAnimation = true
         
-        UIView.animate(withDuration: InAppMessageProcess.shared.bannerAnimationDuration, animations: {
+        UIView.animate(withDuration: duration, animations: {
             let x = self.webView.frame.origin.x
             var y = self.webView.frame.origin.y + self.webView.frame.size.height
             
@@ -252,7 +255,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             }
             
             if self.isBanner {
-                self.removeBannerFromSuperviewWithAnimation(eventName: nil)
+                self.removeBannerFromSuperviewWithAnimation(eventName: nil, duration: InAppMessageProcess.shared.bannerAnimationDuration)
             } else {
                 self.removeModalFromSuperviewWithoutAnimation()
             }
