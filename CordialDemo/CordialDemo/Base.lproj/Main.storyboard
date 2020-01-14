@@ -395,15 +395,16 @@
                                     <action selector="profileButtonAction:" destination="27a-yX-dEo" id="VD7-ak-A8n"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Log out" id="NYu-Fo-CMp">
+                            <barButtonItem title="Log in" id="FEZ-v5-Z6s">
                                 <connections>
-                                    <action selector="logoutButtonAction:" destination="27a-yX-dEo" id="tel-ij-3UW"/>
+                                    <action selector="loginButtonAction:" destination="27a-yX-dEo" id="JIx-RX-qL8"/>
                                 </connections>
                             </barButtonItem>
                         </leftBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="l5m-0j-xFg" id="Kjk-Pa-IgS"/>
+                        <outlet property="loginButtonItem" destination="FEZ-v5-Z6s" id="qHg-Y5-fIj"/>
                         <outlet property="profileButtonItem" destination="zLJ-1g-5Xf" id="gnR-jD-xfl"/>
                         <segue destination="wpv-91-zrT" kind="show" identifier="segueToCart" id="AlP-xG-MIL"/>
                         <segue destination="xoO-vV-374" kind="show" identifier="segueToProfile" id="g1h-zg-9TE"/>
