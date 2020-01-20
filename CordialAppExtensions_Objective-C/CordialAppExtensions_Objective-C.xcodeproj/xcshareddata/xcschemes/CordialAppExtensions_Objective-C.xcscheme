@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9E4631B022F0832C0081E8CE"
-               BuildableName = "CordialAppExtensions-Objective-C.framework"
+               BuildableName = "CordialAppExtensions_Objective-C.framework"
                BlueprintName = "CordialAppExtensions_Objective-C"
                ReferencedContainer = "container:CordialAppExtensions_Objective-C.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9E4631B022F0832C0081E8CE"
-            BuildableName = "CordialAppExtensions-Objective-C.framework"
+            BuildableName = "CordialAppExtensions_Objective-C.framework"
             BlueprintName = "CordialAppExtensions_Objective-C"
             ReferencedContainer = "container:CordialAppExtensions_Objective-C.xcodeproj">
          </BuildableReference>
