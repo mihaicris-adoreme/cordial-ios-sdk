@@ -38,18 +38,18 @@ public extension Notification.Name {
 class NotificationManager {
     
     static let shared = NotificationManager()
+    
+    var isNotificationManagerHasNotBeenSettedUp = true
 
     private init() {
         let notificationCenter = NotificationCenter.default
         
-        notificationCenter.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-        
-        notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
-        
-        notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(handleAppDidFinishLaunchingNotification), name: UIApplication.didFinishLaunchingNotification, object: nil)
+        if self.isNotificationManagerHasNotBeenSettedUp {
+            self.isNotificationManagerHasNotBeenSettedUp = false
+            
+            notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(handleDidFinishLaunch), name: UIApplication.didBecomeActiveNotification, object: nil)
+        } 
     }
     
     @objc func appMovedToBackground() {
@@ -106,8 +106,28 @@ class NotificationManager {
         }
     }
     
-    @objc func handleAppDidFinishLaunchingNotification(notification: NSNotification) {
+    @objc func handleDidFinishLaunch(notification: NSNotification) {
         // This code will be called immediately after application:didFinishLaunchingWithOptions:
+        
+        let notificationCenter = NotificationCenter.default
+        
+        if !self.isNotificationManagerHasNotBeenSettedUp {
+            notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
+        
+        if #available(iOS 13.0, *), InternalCordialAPI().doesAppUseScenes() {
+            notificationCenter.removeObserver(self, name: UIScene.didEnterBackgroundNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIScene.didEnterBackgroundNotification, object: nil)
+            
+            notificationCenter.removeObserver(self, name: UIScene.willEnterForegroundNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIScene.willEnterForegroundNotification, object: nil)
+        } else {
+            notificationCenter.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+            
+            notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
         
         CordialApiConfiguration.shared.cordialSwizzler.swizzleAppDelegateMethods()
         

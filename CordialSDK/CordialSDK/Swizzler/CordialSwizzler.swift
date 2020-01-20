@@ -19,8 +19,13 @@ class CordialSwizzler {
         }
                 
         if CordialApiConfiguration.shared.cordialDeepLinksHandler != nil {
-            self.swizzleContinueRestorationHandler()
-            self.swizzleOpenOptions()
+            if #available(iOS 13.0, *), InternalCordialAPI().doesAppUseScenes() {
+                self.swizzleSceneContinue()
+                self.swizzleSceneOpenURLContexts()
+            } else {
+                self.swizzleContinueRestorationHandler()
+                self.swizzleOpenOptions()
+            }
         }
         
         self.swizzleHandleEventsForBackgroundURLSessionCompletionHandler()
@@ -82,6 +87,24 @@ class CordialSwizzler {
         }
     }
     
+    // MARK: Swizzle SceneDelegate universal links method.
+    
+    @available(iOS 13.0, *)
+    private func swizzleSceneContinue() {
+        guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.scene(_:continue:))) else { return }
+        
+        UIApplication.shared.connectedScenes.forEach { scene in
+            let delegateClass: AnyClass! = object_getClass(scene.delegate)
+            let sceneSelector = #selector(UISceneDelegate.scene(_:continue:))
+            
+            if let originalMethod = class_getInstanceMethod(delegateClass, sceneSelector) {
+                method_exchangeImplementations(originalMethod, swizzleMethod)
+            } else {
+                class_addMethod(delegateClass, sceneSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod))
+            }
+        }
+    }
+    
     // MARK: Swizzle AppDelegate URL schemes method.
     
     private func swizzleOpenOptions() {
@@ -94,6 +117,24 @@ class CordialSwizzler {
             method_exchangeImplementations(originalMethod, swizzleMethod)
         } else {
             class_addMethod(delegateClass, applicationSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod))
+        }
+    }
+    
+    // MARK: Swizzle SceneDelegate URL schemes method.
+    
+    @available(iOS 13.0, *)
+    private func swizzleSceneOpenURLContexts() {
+        guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.scene(_:openURLContexts:))) else { return }
+        
+        UIApplication.shared.connectedScenes.forEach { scene in
+            let delegateClass: AnyClass! = object_getClass(scene.delegate)
+            let sceneSelector = #selector(UISceneDelegate.scene(_:openURLContexts:))
+            
+            if let originalMethod = class_getInstanceMethod(delegateClass, sceneSelector) {
+                method_exchangeImplementations(originalMethod, swizzleMethod)
+            } else {
+                class_addMethod(delegateClass, sceneSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod))
+            }
         }
     }
     
@@ -179,6 +220,24 @@ class CordialSwizzler {
         return false
     }
     
+    // MARK: Swizzled SceneDelegate universal links method.
+    
+    @available(iOS 13.0, *)
+    @objc func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
+            guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
+                return
+            }
+            
+            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+            InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            
+            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+        }
+    }
+    
     // MARK: Swizzled AppDelegate URL schemes method.
     
     @objc func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
@@ -195,6 +254,21 @@ class CordialSwizzler {
         }
         
         return false
+    }
+    
+    // MARK: Swizzle SceneDelegate URL schemes method.
+    
+    @available(iOS 13.0, *)
+    @objc func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        
+        if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler, let url = URLContexts.first?.url {
+            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+            InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            
+            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+        }
     }
     
     // MARK: Swizzled AppDelegate background URLSession method.
