@@ -86,9 +86,17 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
                 self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 
                 if let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
-                    cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
+                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                        cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, scene: scene)
+                    } else {
+                        cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
+                    }
                 } else {
-                    cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: nil)
+                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                        cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: nil, scene: scene)
+                    } else {
+                        cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: nil)
+                    }
                 }
             }
         }

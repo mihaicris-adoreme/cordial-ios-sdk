@@ -149,7 +149,12 @@ class InternalCordialAPI {
         if let scheme = url.scheme, scheme.contains("http") {
             let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
             userActivity.webpageURL = url
-            let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+            
+            if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                scene.delegate?.scene?(scene, continue: userActivity)
+            } else {
+                let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+            }
         } else {
             UIApplication.shared.open(url, options:[:], completionHandler: nil)
         }
