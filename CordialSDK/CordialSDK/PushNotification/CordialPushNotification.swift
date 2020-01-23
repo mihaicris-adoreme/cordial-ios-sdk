@@ -47,8 +47,14 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     private func getDeepLinkURL(userInfo: [AnyHashable : Any]) -> URL? {
         if let deepLinkJSON = userInfo["deepLink"] as? [String: AnyObject], let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString) {
             return deepLinkURL
-        } else if let deepLinkJSONString = userInfo["deepLink"] as? String, let deepLinkJSONData = deepLinkJSONString.data(using: .utf8), let deepLinkJSON = try? JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject], let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString) {
-            return deepLinkURL
+        } else if let deepLinkJSONString = userInfo["deepLink"] as? String, let deepLinkJSONData = deepLinkJSONString.data(using: .utf8) {
+            let deepLinkJSON = try? JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject]
+            
+            if let deepLinkURLString = deepLinkJSON?["url"] as? String {
+                let deepLinkURL = URL(string: deepLinkURLString)
+                
+                return deepLinkURL
+            }
         }
         
         return nil
@@ -57,8 +63,14 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     private func getDeepLinkFallbackURL(userInfo: [AnyHashable : Any]) -> URL? {
         if let deepLinkJSON = userInfo["deepLink"] as? [String: AnyObject], let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
             return fallbackURL
-        } else if let deepLinkJSONString = userInfo["deepLink"] as? String, let deepLinkJSONData = deepLinkJSONString.data(using: .utf8), let deepLinkJSON = try? JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject], let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
-            return fallbackURL
+        } else if let deepLinkJSONString = userInfo["deepLink"] as? String, let deepLinkJSONData = deepLinkJSONString.data(using: .utf8) {
+            let deepLinkJSON = try? JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject]
+            
+            if let fallbackURLString = deepLinkJSON?["fallbackUrl"] as? String {
+                let fallbackURL = URL(string: fallbackURLString)
+                
+                return fallbackURL
+            }
         }
         
         return nil
