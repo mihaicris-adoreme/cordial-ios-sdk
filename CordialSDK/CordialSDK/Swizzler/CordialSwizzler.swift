@@ -188,7 +188,7 @@ class CordialSwizzler {
     
     @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Silent push notification received. Payload: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, userInfo)
+            os_log("Silent push notification received. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
         }
         
         if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
