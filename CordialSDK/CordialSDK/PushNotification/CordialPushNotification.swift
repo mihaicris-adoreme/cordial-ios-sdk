@@ -48,12 +48,16 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         if let deepLinkJSON = userInfo["deepLink"] as? [String: AnyObject], let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString) {
             return deepLinkURL
         } else if let deepLinkJSONString = userInfo["deepLink"] as? String, let deepLinkJSONData = deepLinkJSONString.data(using: .utf8) {
-            let deepLinkJSON = try? JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject]
-            
-            if let deepLinkURLString = deepLinkJSON?["url"] as? String {
-                let deepLinkURL = URL(string: deepLinkURLString)
-                
-                return deepLinkURL
+            do {
+                if let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject], let deepLinkURLString = deepLinkJSON["url"] as? String {
+                    let deepLinkURL = URL(string: deepLinkURLString)
+                    
+                    return deepLinkURL
+                }
+            } catch let error {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                    os_log("Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                }
             }
         }
         
@@ -64,12 +68,16 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         if let deepLinkJSON = userInfo["deepLink"] as? [String: AnyObject], let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
             return fallbackURL
         } else if let deepLinkJSONString = userInfo["deepLink"] as? String, let deepLinkJSONData = deepLinkJSONString.data(using: .utf8) {
-            let deepLinkJSON = try? JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject]
-            
-            if let fallbackURLString = deepLinkJSON?["fallbackUrl"] as? String {
-                let fallbackURL = URL(string: fallbackURLString)
-                
-                return fallbackURL
+            do {
+                if let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject], let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String {
+                    let fallbackURL = URL(string: fallbackURLString)
+                    
+                    return fallbackURL
+                }
+            } catch let error {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                    os_log("Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                }
             }
         }
         
