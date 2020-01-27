@@ -57,7 +57,9 @@ import CoreLocation
 
     @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
-    private override init(){}
+    private override init(){
+        self.cordialPushNotification.getNotificationSettings()
+    }
     
     @objc public func initialize(accountKey: String, channelKey: String) {
         self.accountKey = accountKey
