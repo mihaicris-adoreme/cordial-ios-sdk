@@ -11,6 +11,34 @@ import os.log
 
 class InternalCordialAPI {
     
+    // MARK: Checking app for use scenes
+    
+    func doesAppUseScenes() -> Bool {
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        
+        var methodCount: UInt32 = 0
+        let methodList = class_copyMethodList(delegateClass, &methodCount)
+        
+        if var methodList = methodList, methodCount > 0 {
+            for _ in 0..<methodCount {
+                let method = methodList.pointee
+                
+                let selector = method_getName(method)
+                let selectorName = String(cString: sel_getName(selector))
+                
+                let connectingSceneSessionSelectorName = "application:configurationForConnectingSceneSession:options:"
+                
+                if selectorName == connectingSceneSessionSelectorName {
+                    return true
+                }
+                
+                methodList = methodList.successor()
+            }
+        }
+        
+        return false
+    }
+        
     // MARK: Get device identifier
     
     func getDeviceIdentifier() -> String {
@@ -121,7 +149,12 @@ class InternalCordialAPI {
         if let scheme = url.scheme, scheme.contains("http") {
             let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
             userActivity.webpageURL = url
-            let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+            
+            if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                scene.delegate?.scene?(scene, continue: userActivity)
+            } else {
+                let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+            }
         } else {
             UIApplication.shared.open(url, options:[:], completionHandler: nil)
         }

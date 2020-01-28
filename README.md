@@ -12,7 +12,7 @@
 [Post an Order](#post-an-order)<br>
 [Post to Cart](#post-to-cart)<br>
 [Event Caching](#event-caching)<br>
-[Push Notificatrions](#push-notifications)<br>
+[Push Notifications](#push-notifications)<br>
 [Deep Links](#deep-links)<br>
 
 ## Installation
