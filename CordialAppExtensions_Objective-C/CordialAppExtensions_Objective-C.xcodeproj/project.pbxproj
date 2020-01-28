@@ -358,7 +358,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.7;
+				MARKETING_VERSION = 0.4.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.cordial.sdk.CordialAppExtensions-Objective-C.CordialAppExtensions-Objective-C";
 				PRODUCT_NAME = "CordialAppExtensions_Objective-C";
 				SKIP_INSTALL = YES;
@@ -384,7 +384,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.7;
+				MARKETING_VERSION = 0.4.8;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.cordial.sdk.CordialAppExtensions-Objective-C.CordialAppExtensions-Objective-C";
 				PRODUCT_NAME = "CordialAppExtensions_Objective-C";
 				SKIP_INSTALL = YES;
