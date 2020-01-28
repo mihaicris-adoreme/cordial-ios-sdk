@@ -16,10 +16,10 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
 
-    func registerForPushNotifications() {
+    func registerForPushNotifications(options: UNAuthorizationOptions) {
         let notificationCenter = UNUserNotificationCenter.current()
         
-        notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+        notificationCenter.requestAuthorization(options: options) { granted, error in
             guard error == nil else { return }
             
             DispatchQueue.main.async {
@@ -157,7 +157,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
             pushNotificationHandler.notificationDeliveredInForeground(notificationContent: userInfo) {
-                completionHandler([.alert, .badge])
+                completionHandler([.alert])
             }
         }
     }
