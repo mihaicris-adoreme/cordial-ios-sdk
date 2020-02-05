@@ -36,7 +36,7 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
         
         if let products = URLComponents(url: url, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
             self.showSceneDelegateDeepLink(product: product, scene: scene)
-        } else if let fallbackURL = URL(string: (fallbackURL?.absoluteString.removingPercentEncoding)!), let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+        } else if fallbackURL != nil, let fallbackURL = URL(string: (fallbackURL?.absoluteString.removingPercentEncoding)!), let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
             self.showSceneDelegateDeepLink(product: product, scene: scene)
         } else if let webpageUrl = URL(string: "https://\(host)/") {
             UIApplication.shared.open(webpageUrl)
