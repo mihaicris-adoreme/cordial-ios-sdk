@@ -13,6 +13,8 @@ class UpsertContactCartRequest: NSObject, NSCoding {
     let requestID: String
     let cartItems: [CartItem]
     
+    var isError = false
+    
     enum Key: String {
         case requestID = "requestID"
         case cartItems = "cartItems"
@@ -34,9 +36,12 @@ class UpsertContactCartRequest: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
-        let cartItems = aDecoder.decodeObject(forKey: Key.cartItems.rawValue) as! [CartItem]
-        
-        self.init(requestID: requestID, cartItems: cartItems)
+        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String, let cartItems = aDecoder.decodeObject(forKey: Key.cartItems.rawValue) as? [CartItem] {
+            self.init(requestID: requestID, cartItems: cartItems)
+        } else {
+            self.init(requestID: String(), cartItems: [CartItem]())
+            
+            self.isError = true
+        }
     }
 }

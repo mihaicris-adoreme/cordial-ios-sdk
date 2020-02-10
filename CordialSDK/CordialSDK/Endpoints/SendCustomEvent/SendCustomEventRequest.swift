@@ -17,6 +17,8 @@ class SendCustomEventRequest: NSObject, NSCoding {
     let latitude: Double?
     let longitude: Double?
     let properties: Dictionary<String, String>?
+    
+    var isError = false
         
     enum Key: String {
         case requestID = "requestID"
@@ -59,24 +61,27 @@ class SendCustomEventRequest: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
-        let eventName = aDecoder.decodeObject(forKey: Key.eventName.rawValue) as! String
-        let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as! String
-        let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as! String?
-        
-        var latitude: Double?
-        if let decodedLatitudeNumber = aDecoder.decodeObject(forKey: Key.latitude.rawValue) as? NSNumber {
-            latitude = decodedLatitudeNumber.doubleValue
+        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String, let eventName = aDecoder.decodeObject(forKey: Key.eventName.rawValue) as? String, let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as? String {
+            let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as! String?
+            
+            var latitude: Double?
+            if let decodedLatitudeNumber = aDecoder.decodeObject(forKey: Key.latitude.rawValue) as? NSNumber {
+                latitude = decodedLatitudeNumber.doubleValue
+            }
+            
+            var longitude: Double?
+            if let decodedLongitudeNumber = aDecoder.decodeObject(forKey: Key.longitude.rawValue) as? NSNumber {
+                longitude = decodedLongitudeNumber.doubleValue
+            }
+            
+            let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, String>?
+            
+            self.init(requestID: requestID, eventName: eventName, timestamp: timestamp, mcID: mcID, latitude: latitude, longitude: longitude, properties: properties)
+        } else {
+            self.init(requestID: String(), eventName: String(), timestamp: String(), mcID: nil, latitude: nil, longitude: nil, properties: nil)
+            
+            self.isError = true
         }
-        
-        var longitude: Double?
-        if let decodedLongitudeNumber = aDecoder.decodeObject(forKey: Key.longitude.rawValue) as? NSNumber {
-            longitude = decodedLongitudeNumber.doubleValue
-        }
-        
-        let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, String>?
-        
-        self.init(requestID: requestID, eventName: eventName, timestamp: timestamp, mcID: mcID, latitude: latitude, longitude: longitude, properties: properties)
     }
     
 }

@@ -51,12 +51,15 @@ class ContactOrderRequestsCoreData {
         var sendContactOrderRequests = [SendContactOrderRequest]()
         do {
             let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                guard let anyData = data.value(forKey: "data") else { continue }
+            for managedObject in result as! [NSManagedObject] {
+                guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let sendContactOrderRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendContactOrderRequest {
+                if let sendContactOrderRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendContactOrderRequest, !sendContactOrderRequest.isError {
                     sendContactOrderRequests.append(sendContactOrderRequest)
+                } else {
+                    context.delete(managedObject)
+                    try context.save()
                 }
             }
         } catch let error {

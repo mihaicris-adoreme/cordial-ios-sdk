@@ -50,14 +50,17 @@ class ContactLogoutRequestCoreData {
         
         do {
             let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                guard let anyData = data.value(forKey: "data") else { continue }
+            for managedObject in result as! [NSManagedObject] {
+                guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let sendContactLogoutRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendContactLogoutRequest {
+                if let sendContactLogoutRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendContactLogoutRequest, !sendContactLogoutRequest.isError {
                     CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
                     
                     return sendContactLogoutRequest
+                } else {
+                    context.delete(managedObject)
+                    try context.save()
                 }
             }
         } catch let error {
