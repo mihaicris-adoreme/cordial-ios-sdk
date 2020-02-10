@@ -60,6 +60,10 @@ class ContactRequestsCoreData {
                 } else {
                     context.delete(managedObject)
                     try context.save()
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Failed unarchiving UpsertContactRequest", log: OSLog.cordialError, type: .error)
+                    }
                 }
             }
         } catch let error {

@@ -101,6 +101,10 @@ class InAppMessagesCacheCoreData {
                 } else {
                     context.delete(managedObject)
                     try context.save()
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Failed unarchiving InAppMessageData", log: OSLog.cordialError, type: .error)
+                    }
                 }
             }
         } catch let error {
