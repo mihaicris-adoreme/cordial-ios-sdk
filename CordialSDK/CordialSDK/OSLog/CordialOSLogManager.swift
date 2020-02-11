@@ -45,20 +45,20 @@ public enum osLogLevel: String {
         
     var currentOSLogLevel = osLogLevel.error
     
-    @objc public func setOSLogLevel(_ oslogLevel: logLevel) {
-        switch oslogLevel {
+    @objc public func setLogLevel(_ logLevel: logLevel) {
+        switch logLevel {
         case .none:
-            self.setOSLogLevel(osLogLevel: osLogLevel.none)
+            self.setOSLogLevel(osLogLevel.none)
         case .all:
-            self.setOSLogLevel(osLogLevel: osLogLevel.all)
+            self.setOSLogLevel(osLogLevel.all)
         case .error:
-            self.setOSLogLevel(osLogLevel: osLogLevel.error)
+            self.setOSLogLevel(osLogLevel.error)
         case .info:
-            self.setOSLogLevel(osLogLevel: osLogLevel.info)
+            self.setOSLogLevel(osLogLevel.info)
         }
     }
     
-    public func setOSLogLevel(osLogLevel: osLogLevel) {
+    public func setOSLogLevel(_ osLogLevel: osLogLevel) {
         switch osLogLevel {
         case .none:
             self.currentOSLogLevel = .none

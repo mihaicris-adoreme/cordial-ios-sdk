@@ -17,8 +17,7 @@ import CoreLocation
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initNotificationManager = NotificationManager.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
-    
-    @objc public var qtyCachedEventQueue = 1000
+    let initCoreDataManager = CoreDataManager.shared
     
     var accountKey = String()
     var channelKey = String()
@@ -26,12 +25,41 @@ import CoreLocation
     
     let cordialSwizzler = CordialSwizzler()
     let cordialPushNotification = CordialPushNotification()
+    
     @objc public let osLogManager = CordialOSLogManager()
     
     @objc public var cordialDeepLinksHandler: CordialDeepLinksDelegate?
     @objc public var pushNotificationHandler: CordialPushNotificationDelegate?
     
-    private override init(){}
+    @objc public var qtyCachedEventQueue = 1000
+    
+    @objc public var eventsBulkSize: Int = 5 {
+        didSet {
+            CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
+        }
+        willSet(newEventsBulkSize) {
+            if eventsBulkSize != newEventsBulkSize && newEventsBulkSize.signum() == 1 {
+                CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
+            }
+        }
+    }
+    
+    @objc public var eventsBulkUploadInterval: TimeInterval = 30 {
+        didSet {
+            CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
+        }
+        willSet(newEventsBulkUploadInterval) {
+            if eventsBulkUploadInterval != newEventsBulkUploadInterval && Int(newEventsBulkUploadInterval).signum() == 1 {
+                CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
+            }
+        }
+    }
+
+    @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
+    
+    private override init(){
+        self.cordialPushNotification.getNotificationSettings()
+    }
     
     @objc public func initialize(accountKey: String, channelKey: String) {
         self.accountKey = accountKey

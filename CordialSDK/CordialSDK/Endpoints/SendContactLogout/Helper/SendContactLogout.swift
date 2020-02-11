@@ -23,7 +23,7 @@ class SendContactLogout {
             
             let sendContactLogoutURLSessionData = SendContactLogoutURLSessionData(sendContactLogoutRequest: sendContactLogoutRequest)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT, taskData: sendContactLogoutURLSessionData)
-            CordialURLSession.shared.operations[sendContactLogoutDownloadTask.taskIdentifier] = cordialURLSessionData
+            CordialURLSession.shared.setOperation(taskIdentifier: sendContactLogoutDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
             sendContactLogoutDownloadTask.resume()
         }

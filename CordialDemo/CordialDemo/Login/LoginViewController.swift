@@ -33,7 +33,7 @@ class LoginViewController: UIViewController {
             if !primaryKey.isEmpty {
                 self.cordialAPI.setContact(primaryKey: primaryKey)
                 
-                self.cordialAPI.registerForPushNotifications()
+                self.cordialAPI.registerForPushNotifications(options: [.alert, .sound])
                 
                 App.userLogIn()
                 
@@ -48,6 +48,10 @@ class LoginViewController: UIViewController {
     
     @IBAction func guestAction(_ sender: UIButton) {
         self.deleteAllCartItems()
+        
+        self.cordialAPI.registerForPushNotifications(options: [.alert, .sound])
+        
+        self.cordialAPI.setContact(primaryKey: nil)
         
         self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
     }

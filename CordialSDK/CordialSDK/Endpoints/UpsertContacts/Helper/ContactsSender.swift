@@ -15,12 +15,11 @@ class ContactsSender {
     
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
         
-        // Remove all cache data if had exist previously primary key equal to current setting primary key
-        if let previousPrimaryKey = UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY) {
+        if let previousPrimaryKey = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY) {
             upsertContactRequests.forEach { upsertContactRequest in
                 if upsertContactRequest.primaryKey != previousPrimaryKey {
                     CoreDataManager.shared.deleteAllCoreData()
-                    UserDefaults.standard.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+                    CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
                 }
             }
         }
@@ -55,6 +54,10 @@ class ContactsSender {
     }
     
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
+        CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+        
+        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
+        
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             upsertContactRequests.forEach({ upsertContactRequest in
                 os_log("Contact has been sent. Request ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
@@ -63,11 +66,9 @@ class ContactsSender {
         
         upsertContactRequests.forEach({ upsertContactRequest in
             if let primaryKey = upsertContactRequest.primaryKey {
-                UserDefaults.standard.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+                CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
             }
         })
-        
-        InternalCordialAPI().sendCacheFromCoreData()
     }
     
     func systemErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {

@@ -27,16 +27,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
-        CordialApiConfiguration.shared.osLogManager.setOSLogLevel(osLogLevel: .all)
+        CordialApiConfiguration.shared.eventsBulkSize = 3
+        CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
+        CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
+        CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ProductViewController.self, CartViewController.self])
         CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
         CordialApiConfiguration.shared.cordialDeepLinksHandler = cordialDeepLinksHandler
-        
-        if CordialAPI().getContactPrimaryKey() != nil {
-            let catalogNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
-            self.window?.rootViewController = catalogNavigationController
-        }
-        
+                
         self.setupCordialSDKLogicErrorHandler()
+        
+        guard #available(iOS 13.0, *) else {
+            if CordialAPI().getContactPrimaryKey() != nil {
+                let catalogNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
+                self.window?.rootViewController = catalogNavigationController
+            }
+            
+            return true
+        }
         
         return true
     }
@@ -63,6 +70,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    
+    // MARK: UISceneSession Lifecycle
+
+    @available(iOS 13.0, *)
+    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+        // Called when a new scene session is being created.
+        // Use this method to select a configuration to create the new scene with.
+        return UISceneConfiguration(name: "Default", sessionRole: connectingSceneSession.role)
+    }
+
+    @available(iOS 13.0, *)
+    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+        // Called when the user discards a scene session.
+        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
+        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
     // MARK: - Core Data stack

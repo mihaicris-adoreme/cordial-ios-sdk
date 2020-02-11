@@ -12,7 +12,7 @@
 [Post an Order](#post-an-order)<br>
 [Post to Cart](#post-to-cart)<br>
 [Event Caching](#event-caching)<br>
-[Push Notificatrions](#push-notifications)<br>
+[Push Notifications](#push-notifications)<br>
 [Deep Links](#deep-links)<br>
 
 ## Installation
@@ -23,7 +23,7 @@ Make sure you have access to CordialSDK gitlab repo. We recommend adding your SS
 
 ```
 use_frameworks!
-pod 'CordialSDK', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'
+pod 'CordialSDK'
 ```
 
 Now you can run:
@@ -41,7 +41,7 @@ ___
 ```
 target "The name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions-Swift', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
+    pod 'CordialAppExtensions-Swift'  
 end
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
@@ -49,7 +49,7 @@ ___
 ```
 target "Name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions-Objective-C', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
+    pod 'CordialAppExtensions-Objective-C'  
 end
 ```
 
@@ -130,12 +130,12 @@ You can choose one of four message logging levels: `none`, `all`, `error`, `info
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-CordialApiConfiguration.shared.osLogManager.setOSLogLevel(osLogLevel: .all)
+CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[[CordialApiConfiguration shared] osLogManager] setOSLogLevel: logLevelAll];
+[[[CordialApiConfiguration shared] osLogManager] setLogLevel:logLevelAll];
 ```
 
 ## Configuring Location Tracking Updates
@@ -300,6 +300,27 @@ ___
 [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
 ```
 
+## Events Bulking
+
+In order to optimize devices resource usage, Cordial SDK groups events into bulks and upload them in one request. Each event happened on a device will be added to bulk. The SDK sends a bulk of events in 3 cases:
+
+1. Events limit in bulk is reached. The bulk size is configured via `eventsBulkSize`. Set to 5 by default.
+2. The bulk has not been sent for specified time interval. Even if a bulk is not fully populated with events it will be sent every `eventsBulkUploadInterval` in seconds. Bulk upload interval is configured via `eventsBulkUploadInterval`. Set to 30 seconds by default.
+3. The application is closed.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.eventsBulkSize = 3
+CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].eventsBulkSize = 3;
+[CordialApiConfiguration shared].eventsBulkUploadInterval = 15;
+```
+
 ## Push Notifications
 Your application must use Cordial SDK to configure push notifications. Make sure to add `Remote notifications` background mode and `Push Notifications` capability. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to enable push notification delivery and handle notification taps, the code needs the following:
 
@@ -323,12 +344,14 @@ YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationO
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-cordialAPI.registerForPushNotifications()
+cordialAPI.registerForPushNotifications(options: [.alert, .sound, .badge])
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[cordialAPI registerForPushNotifications];
+#import <UserNotifications/UserNotifications.h>
+
+[cordialAPI registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound|UNAuthorizationOptionBadge];
 ```
 
 ##  Deep Links 
@@ -347,6 +370,31 @@ ___
 ```
 YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImplementationOfCordialDeepLinksHandler alloc] init];
 [CordialApiConfiguration shared].cordialDeepLinksHandler = cordialDeepLinksHandler;
+```
+
+## Delaying In-App Messages
+
+Cordial SDK allows application developers to delay displaying of in-app messages. In case if in-app message is delayed it will be displayed the next time the application is opened. There are 3 delay modes in the SDK to control in-app messages display:
+
+1. Show. In-app messages are displayed without delay, which is the default behavior.
+2. Delayed Show. Displaying in-app messages is delayed until Delayed Show mode is turned off.
+3. Disallowed Controllers. Displaying in-app messages is not allowed on certain screens, which are determined by the application developer.
+
+To switch between modes, call corresponding methods in the CordialApiConfiguration class:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.inAppMessageDelayMode.show()
+CordialApiConfiguration.shared.inAppMessageDelayMode.delayedShow()
+CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ClassName.self])
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] delayedShow];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] disallowedControllers:@[[ClassName class]]];
 ```
 
 [Top](#contents)

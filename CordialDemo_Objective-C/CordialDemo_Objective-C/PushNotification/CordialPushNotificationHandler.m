@@ -17,4 +17,9 @@
     completionHandler();
 }
 
+- (void)apnsTokenReceivedWithToken:(NSString * _Nonnull)token {
+    
+}
+
+
 @end

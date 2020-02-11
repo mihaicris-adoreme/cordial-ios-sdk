@@ -16,6 +16,8 @@ class UpsertContactRequest: NSObject, NSCoding {
     let status: String
     let attributes: Dictionary<String, String>?
     
+    var isError = false
+    
     enum Key: String {
         case requestID = "requestID"
         case token = "token"
@@ -49,12 +51,17 @@ class UpsertContactRequest: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
-        let token = aDecoder.decodeObject(forKey: Key.token.rawValue) as! String?
-        let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
-        let status = aDecoder.decodeObject(forKey: Key.status.rawValue) as! String
-        let attributes = aDecoder.decodeObject(forKey: Key.attributes.rawValue) as! Dictionary<String, String>?
-        
-        self.init(requestID: requestID, token: token, primaryKey: primaryKey, status: status, attributes: attributes)
+        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String, let status = aDecoder.decodeObject(forKey: Key.status.rawValue) as? String {
+            let token = aDecoder.decodeObject(forKey: Key.token.rawValue) as! String?
+            let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
+            
+            let attributes = aDecoder.decodeObject(forKey: Key.attributes.rawValue) as! Dictionary<String, String>?
+            
+            self.init(requestID: requestID, token: token, primaryKey: primaryKey, status: status, attributes: attributes)
+        } else {
+            self.init(requestID: String(), token: nil, primaryKey: nil, status: String(), attributes: nil)
+            
+            self.isError = true
+        }
     }
 }

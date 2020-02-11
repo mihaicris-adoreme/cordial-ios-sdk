@@ -15,6 +15,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var accountKeyTextField: UITextField!
     @IBOutlet weak var channelKeyTextField: UITextField!
     @IBOutlet weak var qtyCachedEventQueueTextField: UITextField!
+    @IBOutlet weak var eventsBulkSizeTextField: UITextField!
+    @IBOutlet weak var eventsBulkUploadIntervalTextField: UITextField!
     
     let cordialAPI = CordialAPI()
     
@@ -25,6 +27,8 @@ class SettingsViewController: UIViewController {
         self.accountKeyTextField.text = self.cordialAPI.getAccountKey()
         self.channelKeyTextField.text = self.cordialAPI.getChannelKey()
         self.qtyCachedEventQueueTextField.text = String(CordialApiConfiguration.shared.qtyCachedEventQueue)
+        self.eventsBulkSizeTextField.text = String(CordialApiConfiguration.shared.eventsBulkSize)
+        self.eventsBulkUploadIntervalTextField.text = String(Int(CordialApiConfiguration.shared.eventsBulkUploadInterval))
         
         self.updateSettingsPage()
     }
@@ -73,11 +77,13 @@ class SettingsViewController: UIViewController {
     }
     
     func saveTestInitData() {
-        if let baseURL = self.baseURLTextField.text, let accountKey = self.accountKeyTextField.text, let channelKey = self.channelKeyTextField.text, let qtyCachedEventQueueString = self.qtyCachedEventQueueTextField.text, let qtyCachedEventQueue = Int(qtyCachedEventQueueString) {
+        if let baseURL = self.baseURLTextField.text, let accountKey = self.accountKeyTextField.text, let channelKey = self.channelKeyTextField.text, let qtyCachedEventQueueString = self.qtyCachedEventQueueTextField.text, let qtyCachedEventQueue = Int(qtyCachedEventQueueString), let eventsBulkSizeString = self.eventsBulkSizeTextField.text, let eventsBulkSize = Int(eventsBulkSizeString), let eventsBulkUploadIntervalString = self.eventsBulkUploadIntervalTextField.text, let eventsBulkUploadInterval = TimeInterval(eventsBulkUploadIntervalString) {
             self.cordialAPI.setBaseURL(baseURL: baseURL)
             self.cordialAPI.setAccountKey(accountKey: accountKey)
             self.cordialAPI.setChannelKey(channelKey: channelKey)
             CordialApiConfiguration.shared.qtyCachedEventQueue = qtyCachedEventQueue
+            CordialApiConfiguration.shared.eventsBulkSize = eventsBulkSize
+            CordialApiConfiguration.shared.eventsBulkUploadInterval = eventsBulkUploadInterval
         }
     }
     
@@ -91,7 +97,6 @@ class SettingsViewController: UIViewController {
             self.baseURLTextField.text = qcSettings.baseURL
             self.accountKeyTextField.text = qcSettings.accountKey
             self.channelKeyTextField.text = qcSettings.channelKey
-            self.qtyCachedEventQueueTextField.text = String(qcSettings.qtyCachedEventQueue)
             
             self.disableEditing()
         case Settings.staging.rawValue:
@@ -102,7 +107,6 @@ class SettingsViewController: UIViewController {
             self.baseURLTextField.text = stagingSettings.baseURL
             self.accountKeyTextField.text = stagingSettings.accountKey
             self.channelKeyTextField.text = stagingSettings.channelKey
-            self.qtyCachedEventQueueTextField.text = String(stagingSettings.qtyCachedEventQueue)
             
             self.disableEditing()
         case Settings.production.rawValue:
@@ -113,7 +117,6 @@ class SettingsViewController: UIViewController {
             self.baseURLTextField.text = productionSettings.baseURL
             self.accountKeyTextField.text = productionSettings.accountKey
             self.channelKeyTextField.text = productionSettings.channelKey
-            self.qtyCachedEventQueueTextField.text = String(productionSettings.qtyCachedEventQueue)
             
             self.disableEditing()
         default:
@@ -127,27 +130,24 @@ class SettingsViewController: UIViewController {
         let baseURL = "https://events-stream-svc.cordial-core.mobile-sdk-1-5.cordialdev.com/"
         let accountKey = "qc-all-channels"
         let channelKey = "push"
-        let qtyCachedEventQueue = 100
         
-        return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey, qtyCachedEventQueue: qtyCachedEventQueue)
+        return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey)
     }
     
     func getStagingSettings() -> Credentials {
         let baseURL = "https://events-stream-svc.stg.cordialdev.com/"
         let accountKey = "stgtaras"
         let channelKey = "sdk"
-        let qtyCachedEventQueue = 100
         
-        return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey, qtyCachedEventQueue: qtyCachedEventQueue)
+        return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey)
     }
     
     func getProductionSettings() -> Credentials {
         let baseURL = "https://events-stream-svc.cordial.com/"
         let accountKey = "cordialdev"
         let channelKey = "push"
-        let qtyCachedEventQueue = 100
         
-        return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey, qtyCachedEventQueue: qtyCachedEventQueue)
+        return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey)
     }
     
     func enableEditing() {
@@ -155,16 +155,22 @@ class SettingsViewController: UIViewController {
         self.accountKeyTextField.isUserInteractionEnabled = true
         self.channelKeyTextField.isUserInteractionEnabled = true
         self.qtyCachedEventQueueTextField.isUserInteractionEnabled = true
+        self.eventsBulkSizeTextField.isUserInteractionEnabled = true
+        self.eventsBulkUploadIntervalTextField.isUserInteractionEnabled = true
         
         self.baseURLTextField.textColor = .darkGray
         self.accountKeyTextField.textColor = .darkGray
         self.channelKeyTextField.textColor = .darkGray
         self.qtyCachedEventQueueTextField.textColor = .darkGray
+        self.eventsBulkSizeTextField.textColor = .darkGray
+        self.eventsBulkUploadIntervalTextField.textColor = .darkGray
         
         self.baseURLTextField.setBottomBorder(color: .black)
         self.accountKeyTextField.setBottomBorder(color: .black)
         self.channelKeyTextField.setBottomBorder(color: .black)
         self.qtyCachedEventQueueTextField.setBottomBorder(color: .black)
+        self.eventsBulkSizeTextField.setBottomBorder(color: .black)
+        self.eventsBulkUploadIntervalTextField.setBottomBorder(color: .black)
     }
     
     func disableEditing() {
@@ -172,16 +178,21 @@ class SettingsViewController: UIViewController {
         self.accountKeyTextField.isUserInteractionEnabled = false
         self.channelKeyTextField.isUserInteractionEnabled = false
         self.qtyCachedEventQueueTextField.isUserInteractionEnabled = false
-        
+        self.eventsBulkSizeTextField.isUserInteractionEnabled = false
+        self.eventsBulkUploadIntervalTextField.isUserInteractionEnabled = false
         
         self.baseURLTextField.textColor = .lightGray
         self.accountKeyTextField.textColor = .lightGray
         self.channelKeyTextField.textColor = .lightGray
         self.qtyCachedEventQueueTextField.textColor = .lightGray
+        self.eventsBulkSizeTextField.textColor = .lightGray
+        self.eventsBulkUploadIntervalTextField.textColor = .lightGray
         
         self.baseURLTextField.setBottomBorder(color: .lightGray)
         self.accountKeyTextField.setBottomBorder(color: .lightGray)
         self.channelKeyTextField.setBottomBorder(color: .lightGray)
         self.qtyCachedEventQueueTextField.setBottomBorder(color: .lightGray)
+        self.eventsBulkSizeTextField.setBottomBorder(color: .lightGray)
+        self.eventsBulkUploadIntervalTextField.setBottomBorder(color: .lightGray)
     }
 }

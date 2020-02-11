@@ -27,7 +27,7 @@ class CustomEventRequestsCoreData {
         self.setCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
     }
     
-    func setCustomEventRequestsToCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
+    private func setCustomEventRequestsToCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
 
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
@@ -55,7 +55,7 @@ class CustomEventRequestsCoreData {
         }
     }
     
-    func removeFirstCustomEventRequestsFromCoreData(removeTo id: Int){
+    private func removeFirstCustomEventRequestsFromCoreData(removeTo id: Int){
         var sendCustomEventRequests = self.getCustomEventRequestsFromCoreData()
         if sendCustomEventRequests.count > 0 {
             sendCustomEventRequests.removeFirst(id)
@@ -65,7 +65,7 @@ class CustomEventRequestsCoreData {
         }
     }
     
-    func getCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
+    private func getCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
         let context = CoreDataManager.shared.persistentContainer.viewContext
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -74,12 +74,19 @@ class CustomEventRequestsCoreData {
         var sendCustomEventRequests = [SendCustomEventRequest]()
         do {
             let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                guard let anyData = data.value(forKey: "data") else { continue }
+            for managedObject in result as! [NSManagedObject] {
+                guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
 
-                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendCustomEventRequest {
+                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendCustomEventRequest, !sendCustomEventRequest.isError {
                     sendCustomEventRequests.append(sendCustomEventRequest)
+                } else {
+                    context.delete(managedObject)
+                    try context.save()
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Failed unarchiving SendCustomEventRequest", log: OSLog.cordialError, type: .error)
+                    }
                 }
             }
         } catch let error {
@@ -99,4 +106,9 @@ class CustomEventRequestsCoreData {
         return sendCustomEventRequests
     }
 
+    func getQtyCachedCustomEventRequests() -> Int {
+        let sendCustomEventRequests = self.getCustomEventRequestsFromCoreData()
+        
+        return sendCustomEventRequests.count
+    }
 }

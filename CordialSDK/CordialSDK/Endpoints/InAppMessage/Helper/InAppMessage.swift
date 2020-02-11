@@ -18,7 +18,7 @@ class InAppMessage {
             
             let inAppMessageURLSessionData = InAppMessageURLSessionData(mcID: mcID)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE, taskData: inAppMessageURLSessionData)
-            CordialURLSession.shared.operations[inAppMessageDownloadTask.taskIdentifier] = cordialURLSessionData
+            CordialURLSession.shared.setOperation(taskIdentifier: inAppMessageDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
             inAppMessageDownloadTask.resume()
         }
