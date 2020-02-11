@@ -16,7 +16,9 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
     
     var backgroundCompletionHandler: (() -> Void)?
     
-    var operations = [Int: CordialURLSessionData]()
+    private var operations = [Int: CordialURLSessionData]()
+    
+    private let queue = DispatchQueue(label: "CordialBackgroundURLSessionThreadQueue", attributes: .concurrent)
     
     lazy var backgroundURLSession: URLSession = {
         let config = URLSessionConfiguration.background(withIdentifier: "CordialBackgroundURLSession")
@@ -24,6 +26,26 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
         config.sessionSendsLaunchEvents = true
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
+    
+    // MARK: Background URL session thread queue
+    
+    func setOperation(taskIdentifier: Int, data: CordialURLSessionData) {
+        self.queue.sync(flags: .barrier) {
+            self.operations[taskIdentifier] = data
+        }
+    }
+    
+    func removeOperation(taskIdentifier: Int) {
+        self.queue.sync(flags: .barrier) {
+            let _ = self.operations.removeValue(forKey: taskIdentifier)
+        }
+    }
+    
+    func getOperation(taskIdentifier: Int) -> CordialURLSessionData? {
+        self.queue.sync() {
+            return self.operations[taskIdentifier]
+        }
+    }
     
     // MARK: URLSessionDelegate
     
@@ -35,7 +57,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        if let error = error, let operation = self.operations[task.taskIdentifier] {
+        if let error = error, let operation = self.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
                 if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
@@ -67,7 +89,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
             }
         }
         
-        self.operations.removeValue(forKey: task.taskIdentifier)
+        self.removeOperation(taskIdentifier: task.taskIdentifier)
     }
     
     // MARK: URLSessionDownloadDelegate
@@ -75,7 +97,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         guard let httpResponse = downloadTask.response as? HTTPURLResponse else { return }
         
-        if let operation = self.operations[downloadTask.taskIdentifier] {
+        if let operation = self.getOperation(taskIdentifier: downloadTask.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
                 if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
@@ -106,6 +128,8 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
             default: break
             }
         }
+        
+        self.removeOperation(taskIdentifier: downloadTask.taskIdentifier)
     }
 
 }

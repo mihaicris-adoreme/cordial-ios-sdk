@@ -13,6 +13,8 @@ class SendContactLogoutRequest: NSObject, NSCoding {
     let requestID: String
     let primaryKey: String
     
+    var isError = false
+    
     enum Key: String {
         case requestID = "requestID"
         case primaryKey = "primaryKey"
@@ -34,9 +36,12 @@ class SendContactLogoutRequest: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as! String
-        let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String
-        
-        self.init(requestID: requestID, primaryKey: primaryKey)
+        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String, let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String {
+            self.init(requestID: requestID, primaryKey: primaryKey)
+        } else {
+            self.init(requestID: String(), primaryKey: String())
+            
+            self.isError = true
+        }
     }
 }

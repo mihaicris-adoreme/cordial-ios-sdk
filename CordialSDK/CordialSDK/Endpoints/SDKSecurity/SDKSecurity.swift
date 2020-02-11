@@ -32,8 +32,7 @@ class SDKSecurity {
                 let sdkSecurityGetJWTDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
                 
                 let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT, taskData: nil)
-                CordialURLSession.shared.operations[sdkSecurityGetJWTDownloadTask.taskIdentifier] = cordialURLSessionData
-                
+                CordialURLSession.shared.setOperation(taskIdentifier: sdkSecurityGetJWTDownloadTask.taskIdentifier, data: cordialURLSessionData)
                 self.isCurrentlyFetchingJWT = true
                 
                 sdkSecurityGetJWTDownloadTask.resume()
