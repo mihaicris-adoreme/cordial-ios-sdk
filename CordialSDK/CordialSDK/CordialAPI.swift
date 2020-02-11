@@ -175,9 +175,9 @@ import os.log
     
     // MARK: Register for push notifications
     
-    @objc public func registerForPushNotifications() {
+    @objc public func registerForPushNotifications(options: UNAuthorizationOptions) {
         if CordialApiConfiguration.shared.pushNotificationHandler != nil {
-            CordialApiConfiguration.shared.cordialPushNotification.registerForPushNotifications()
+            CordialApiConfiguration.shared.cordialPushNotification.registerForPushNotifications(options: options)
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Register for push notifications failed. Error: [CordialPushNotificationHandler is not set]", log: OSLog.cordialPushNotification, type: .info)

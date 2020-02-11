@@ -20,6 +20,8 @@ class InAppMessageData: NSObject, NSCoding {
     let left: Int
     let expirationTime: Date?
     
+    var isError = false
+    
     enum Key: String {
         case mcID = "mcID"
         case html = "html"
@@ -57,16 +59,19 @@ class InAppMessageData: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as! String
-        let html = aDecoder.decodeObject(forKey: Key.html.rawValue) as! String
-        let type = InAppMessageType(rawValue: aDecoder.decodeObject(forKey: Key.type.rawValue) as! String)!
-        let displayType = InAppMessageDisplayType(rawValue: aDecoder.decodeObject(forKey: Key.displayType.rawValue) as! String)!
-        let top = Int(aDecoder.decodeInt32(forKey: Key.top.rawValue))
-        let right = Int(aDecoder.decodeInt32(forKey: Key.right.rawValue))
-        let bottom = Int(aDecoder.decodeInt32(forKey: Key.bottom.rawValue))
-        let left = Int(aDecoder.decodeInt32(forKey: Key.left.rawValue))
-        let expirationTime = aDecoder.decodeObject(forKey: Key.expirationTime.rawValue) as? Date
-        
-        self.init(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
+        if let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as? String, let html = aDecoder.decodeObject(forKey: Key.html.rawValue) as? String, let InAppMessageTypeString = aDecoder.decodeObject(forKey: Key.type.rawValue) as? String, let type = InAppMessageType(rawValue: InAppMessageTypeString), let displayTypeString = aDecoder.decodeObject(forKey: Key.displayType.rawValue) as? String, let displayType = InAppMessageDisplayType(rawValue: displayTypeString) {
+            
+            let top = Int(aDecoder.decodeInt32(forKey: Key.top.rawValue))
+            let right = Int(aDecoder.decodeInt32(forKey: Key.right.rawValue))
+            let bottom = Int(aDecoder.decodeInt32(forKey: Key.bottom.rawValue))
+            let left = Int(aDecoder.decodeInt32(forKey: Key.left.rawValue))
+            let expirationTime = aDecoder.decodeObject(forKey: Key.expirationTime.rawValue) as? Date
+            
+            self.init(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
+        } else {
+            self.init(mcID: String(), html: String(), type: InAppMessageType.modal, displayType: InAppMessageDisplayType.displayImmediately, top: 0, right: 0, bottom: 0, left: 0, expirationTime: nil)
+            
+            self.isError = true
+        }
     }
 }

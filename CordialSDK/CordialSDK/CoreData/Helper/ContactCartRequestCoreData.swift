@@ -50,14 +50,21 @@ class ContactCartRequestCoreData {
         
         do {
             let result = try context.fetch(request)
-            for data in result as! [NSManagedObject] {
-                guard let anyData = data.value(forKey: "data") else { continue }
+            for managedObject in result as! [NSManagedObject] {
+                guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UpsertContactCartRequest {
+                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UpsertContactCartRequest, !sendCustomEventRequest.isError {
                     CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
                     
                     return sendCustomEventRequest
+                } else {
+                    context.delete(managedObject)
+                    try context.save()
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Failed unarchiving UpsertContactCartRequest", log: OSLog.cordialError, type: .error)
+                    }
                 }
             }
         } catch let error {
