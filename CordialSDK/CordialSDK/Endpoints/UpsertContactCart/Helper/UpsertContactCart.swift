@@ -24,7 +24,7 @@ class UpsertContactCart {
             
             let upsertContactCartURLSessionData = UpsertContactCartURLSessionData(upsertContactCartRequest: upsertContactCartRequest)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART, taskData: upsertContactCartURLSessionData)
-            CordialURLSession.shared.operations[upsertContactCartDownloadTask.taskIdentifier] = cordialURLSessionData
+            CordialURLSession.shared.setOperation(taskIdentifier: upsertContactCartDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
             upsertContactCartDownloadTask.resume()
         }
