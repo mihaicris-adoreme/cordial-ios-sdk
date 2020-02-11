@@ -12,4 +12,7 @@ import Foundation
     
     @objc func openDeepLink(url: URL, fallbackURL: URL?)
     
+    @available(iOS 13.0, *)
+    @objc func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene)
+    
 }

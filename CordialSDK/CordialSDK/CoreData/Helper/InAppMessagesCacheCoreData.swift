@@ -93,8 +93,18 @@ class InAppMessagesCacheCoreData {
                 guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let inAppMessageData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InAppMessageData {                    
+                if let inAppMessageData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InAppMessageData, !inAppMessageData.isError {
+                    context.delete(managedObject)
+                    try context.save()
+                    
                     return inAppMessageData
+                } else {
+                    context.delete(managedObject)
+                    try context.save()
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Failed unarchiving InAppMessageData", log: OSLog.cordialError, type: .error)
+                    }
                 }
             }
         } catch let error {

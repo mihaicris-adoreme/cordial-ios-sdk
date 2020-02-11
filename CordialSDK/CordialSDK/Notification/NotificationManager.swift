@@ -38,18 +38,18 @@ public extension Notification.Name {
 class NotificationManager {
     
     static let shared = NotificationManager()
+    
+    var isNotificationManagerHasNotBeenSettedUp = true
 
     private init() {
         let notificationCenter = NotificationCenter.default
         
-        notificationCenter.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-        
-        notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
-        
-        notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(handleAppDidFinishLaunchingNotification), name: UIApplication.didFinishLaunchingNotification, object: nil)
+        if self.isNotificationManagerHasNotBeenSettedUp {
+            self.isNotificationManagerHasNotBeenSettedUp = false
+            
+            notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(handleDidFinishLaunch), name: UIApplication.didBecomeActiveNotification, object: nil)
+        } 
     }
     
     @objc func appMovedToBackground() {
@@ -84,7 +84,7 @@ class NotificationManager {
                 let primaryKey = CordialAPI().getContactPrimaryKey()
                 
                 if settings.authorizationStatus == .authorized {
-                    if API.PUSH_NOTIFICATION_STATUS_ALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
                         let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
                         
                         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
@@ -93,7 +93,7 @@ class NotificationManager {
                         internalCordialAPI.setPushNotificationStatus(status: status)
                     }
                 } else {
-                    if API.PUSH_NOTIFICATION_STATUS_DISALLOW != UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
                         let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                         
                         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
@@ -106,12 +106,30 @@ class NotificationManager {
         }
     }
     
-    @objc func handleAppDidFinishLaunchingNotification(notification: NSNotification) {
+    @objc func handleDidFinishLaunch(notification: NSNotification) {
         // This code will be called immediately after application:didFinishLaunchingWithOptions:
         
-        CordialApiConfiguration.shared.cordialSwizzler.swizzleAppDelegateMethods()
+        let notificationCenter = NotificationCenter.default
         
-        CordialApiConfiguration.shared.cordialPushNotification.getNotificationSettings()
+        if !self.isNotificationManagerHasNotBeenSettedUp {
+            notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
+        
+        if #available(iOS 13.0, *), InternalCordialAPI().doesAppUseScenes() {
+            notificationCenter.removeObserver(self, name: UIScene.didEnterBackgroundNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIScene.didEnterBackgroundNotification, object: nil)
+            
+            notificationCenter.removeObserver(self, name: UIScene.willEnterForegroundNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIScene.willEnterForegroundNotification, object: nil)
+        } else {
+            notificationCenter.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+            
+            notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
+        
+        CordialApiConfiguration.shared.cordialSwizzler.swizzleAppDelegateMethods()
     }
 
 }

@@ -13,4 +13,9 @@
     
 }
 
+- (void)openDeepLinkWithUrl:(NSURL * _Nonnull)url fallbackURL:(NSURL * _Nullable)fallbackURL scene:(UIScene * _Nonnull)scene  API_AVAILABLE(ios(13.0)){
+    
+}
+
+
 @end
