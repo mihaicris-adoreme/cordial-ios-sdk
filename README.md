@@ -12,7 +12,7 @@
 [Post an Order](#post-an-order)<br>
 [Post to Cart](#post-to-cart)<br>
 [Event Caching](#event-caching)<br>
-[Push Notificatrions](#push-notifications)<br>
+[Push Notifications](#push-notifications)<br>
 [Deep Links](#deep-links)<br>
 
 ## Installation
@@ -23,7 +23,7 @@ Make sure you have access to CordialSDK gitlab repo. We recommend adding your SS
 
 ```
 use_frameworks!
-pod 'CordialSDK', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'
+pod 'CordialSDK'
 ```
 
 Now you can run:
@@ -41,7 +41,7 @@ ___
 ```
 target "The name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions-Swift', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
+    pod 'CordialAppExtensions-Swift'  
 end
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
@@ -49,7 +49,7 @@ ___
 ```
 target "Name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions-Objective-C', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'  
+    pod 'CordialAppExtensions-Objective-C'  
 end
 ```
 
@@ -344,12 +344,14 @@ YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationO
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-cordialAPI.registerForPushNotifications()
+cordialAPI.registerForPushNotifications(options: [.alert, .sound, .badge])
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[cordialAPI registerForPushNotifications];
+#import <UserNotifications/UserNotifications.h>
+
+[cordialAPI registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound|UNAuthorizationOptionBadge];
 ```
 
 ##  Deep Links 

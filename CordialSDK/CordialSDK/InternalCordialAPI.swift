@@ -11,39 +11,71 @@ import os.log
 
 class InternalCordialAPI {
     
+    // MARK: Checking app for use scenes
+    
+    func doesAppUseScenes() -> Bool {
+        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
+        
+        var methodCount: UInt32 = 0
+        let methodList = class_copyMethodList(delegateClass, &methodCount)
+        
+        if var methodList = methodList, methodCount > 0 {
+            for _ in 0..<methodCount {
+                let method = methodList.pointee
+                
+                let selector = method_getName(method)
+                let selectorName = String(cString: sel_getName(selector))
+                
+                let connectingSceneSessionSelectorName = "application:configurationForConnectingSceneSession:options:"
+                
+                if selectorName == connectingSceneSessionSelectorName {
+                    return true
+                }
+                
+                methodList = methodList.successor()
+            }
+        }
+        
+        return false
+    }
+        
     // MARK: Get device identifier
     
     func getDeviceIdentifier() -> String {
-        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)!
+        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)!
     }
     
     // MARK: Set current mcID
     
     func setCurrentMcID(mcID: String) {
-        UserDefaults.standard.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
-        UserDefaults.standard.set(DateFormatter().getCurrentTimestamp(), forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
+        CordialUserDefaults.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+        CordialUserDefaults.set(DateFormatter().getCurrentTimestamp(), forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
     }
     
     // MARK: Get mc tap time
     
     func getMcTapTime() -> String? {
-        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
+        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
     }
     
     // MARK: JSON Web Token
     
     func setCurrentJWT(JWT: String) {
-        UserDefaults.standard.set(JWT, forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
+        CordialUserDefaults.set(JWT, forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
         
         CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
     }
     
     func getCurrentJWT() -> String? {
-        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
+        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
     
     func isUserLogin() -> Bool {
-        return UserDefaults.standard.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+        if let isUserLogin = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) {
+            return isUserLogin
+        }
+        
+        return false
     }
     
     // MARK: Send Any Custom Event
@@ -105,9 +137,9 @@ class InternalCordialAPI {
     
     func prepareDeviceIdentifier() {
         if let deviceID = UIDevice.current.identifierForVendor?.uuidString {
-            UserDefaults.standard.set(deviceID, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
+            CordialUserDefaults.set(deviceID, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
         } else {
-            UserDefaults.standard.set(UUID().uuidString, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
+            CordialUserDefaults.set(UUID().uuidString, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
         }
     }
     
@@ -117,7 +149,12 @@ class InternalCordialAPI {
         if let scheme = url.scheme, scheme.contains("http") {
             let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
             userActivity.webpageURL = url
-            let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+            
+            if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                scene.delegate?.scene?(scene, continue: userActivity)
+            } else {
+                let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+            }
         } else {
             UIApplication.shared.open(url, options:[:], completionHandler: nil)
         }
@@ -126,24 +163,24 @@ class InternalCordialAPI {
     // MARK: Get push notification authorization status
     
     func getPushNotificationStatus() -> String {
-        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
+        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
     }
      
     // MARK: Set push notification authorization status
     
     func setPushNotificationStatus(status: String) {
-        UserDefaults.standard.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
+        CordialUserDefaults.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
     }
     
     // MARK: Get push notification token
     
     func getPushNotificationToken() -> String? {
-        return UserDefaults.standard.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
+        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
     }
     
     // MARK: Set push notification token
     
     func setPushNotificationToken(token: String) {
-        UserDefaults.standard.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
+        CordialUserDefaults.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
     }
 }

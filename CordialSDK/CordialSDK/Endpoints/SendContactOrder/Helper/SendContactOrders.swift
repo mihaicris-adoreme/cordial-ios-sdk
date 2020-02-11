@@ -24,7 +24,7 @@ class SendContactOrders {
             
             let sendContactOrdersURLSessionData = SendContactOrdersURLSessionData(sendContactOrderRequests: sendContactOrderRequests)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS, taskData: sendContactOrdersURLSessionData)
-            CordialURLSession.shared.operations[sendContactOrdersDownloadTask.taskIdentifier] = cordialURLSessionData
+            CordialURLSession.shared.setOperation(taskIdentifier: sendContactOrdersDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
             sendContactOrdersDownloadTask.resume()
         }

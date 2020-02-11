@@ -25,7 +25,7 @@
     [CordialApiConfiguration shared].pushNotificationHandler = [[CordialPushNotificationHandler alloc] init];
     [CordialApiConfiguration shared].cordialDeepLinksHandler = [[CordialDeepLinksHandler alloc] init];
     
-    [[[CordialAPI alloc] init] registerForPushNotifications];
+    [[[CordialAPI alloc] init] registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound];
     
     [[NotificationManager shared] setupCordialSDKLogicErrorHandler];
     

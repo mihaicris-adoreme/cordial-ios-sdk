@@ -25,7 +25,7 @@ class UpsertContacts {
             
             let upsertContactsURLSessionData = UpsertContactsURLSessionData(upsertContactRequests: upsertContactRequests)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS, taskData: upsertContactsURLSessionData)
-            CordialURLSession.shared.operations[upsertContactsDownloadTask.taskIdentifier] = cordialURLSessionData
+            CordialURLSession.shared.setOperation(taskIdentifier: upsertContactsDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
             upsertContactsDownloadTask.resume()
         }

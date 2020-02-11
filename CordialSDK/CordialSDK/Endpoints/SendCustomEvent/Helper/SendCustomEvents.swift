@@ -26,7 +26,7 @@ class SendCustomEvents {
             
             let sendCustomEventsURLSessionData = SendCustomEventsURLSessionData(sendCustomEventRequests: sendCustomEventRequests)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS, taskData: sendCustomEventsURLSessionData)
-            CordialURLSession.shared.operations[sendCustomEventsDownloadTask.taskIdentifier] = cordialURLSessionData
+            CordialURLSession.shared.setOperation(taskIdentifier: sendCustomEventsDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
             sendCustomEventsDownloadTask.resume()
         }
