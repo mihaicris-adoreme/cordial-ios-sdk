@@ -155,7 +155,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
+        if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler, !InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
             pushNotificationHandler.notificationDeliveredInForeground(notificationContent: userInfo) {
                 completionHandler([.alert])
             }
