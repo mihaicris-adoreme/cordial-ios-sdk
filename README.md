@@ -14,6 +14,7 @@
 [Event Caching](#event-caching)<br>
 [Push Notifications](#push-notifications)<br>
 [Deep Links](#deep-links)<br>
+[Delaying In-App Messages](#delaying-in-app-messages)<br>
 
 ## Installation
 
@@ -396,5 +397,7 @@ ___
 [[[CordialApiConfiguration shared] inAppMessageDelayMode] delayedShow];
 [[[CordialApiConfiguration shared] inAppMessageDelayMode] disallowedControllers:@[[ClassName class]]];
 ```
+
+Note, disallowed ViewControllers should inherit from the `InAppMessageDelayViewController` class or otherwise delayed in-app message will be attempted to be shown on next app open.
 
 [Top](#contents)
