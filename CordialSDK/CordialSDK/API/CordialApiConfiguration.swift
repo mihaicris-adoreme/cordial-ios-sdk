@@ -33,7 +33,7 @@ import CoreLocation
     
     @objc public var qtyCachedEventQueue = 1000
     
-    @objc public var eventsBulkSize: Int = 5 {
+    @objc public var eventsBulkSize: Int = 1 {
         didSet {
             CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         }
