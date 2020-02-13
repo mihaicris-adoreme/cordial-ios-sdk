@@ -95,6 +95,13 @@ import os.log
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
     }
     
+    // MARK: Remove current mcID
+    
+    @objc public func removeCurrentMcID() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
+    }
+    
     // MARK: Set Contact
     
     @objc public func setContact(primaryKey: String?) {
@@ -120,6 +127,10 @@ import os.log
         CordialUserDefaults.set(false, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         
         let primaryKey = self.getContactPrimaryKey()
+        
+        if primaryKey == nil {
+            CordialAPI().removeCurrentMcID()
+        }
         
         let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
         ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
