@@ -19,7 +19,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToProfileIdentifier = "segueToProfile"
     
     @IBOutlet weak var profileButtonItem: UIBarButtonItem!
-    @IBOutlet weak var logoutButtonItem: UIBarButtonItem!
+    @IBOutlet weak var loginButtonItem: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     
     let catalogName = "Mens"
@@ -34,7 +34,9 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "cart"), style: .plain, target: self, action: #selector(cartButtonAction))
+        let cartButton = UIBarButtonItem(image: UIImage(named: "cart"), style: .plain, target: self, action: #selector(cartButtonAction))
+        let logoutButton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logoutButtonAction))
+        navigationItem.rightBarButtonItems = [cartButton, logoutButton]
         
         self.title = catalogName
         
@@ -50,8 +52,9 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     func prerareProfileAndLogoutButtons() {
         if App.isGuestUser() {
             self.profileButtonItem.isEnabled = false
-            self.logoutButtonItem.title = "Log in"
-            
+        } else {
+            self.loginButtonItem.isEnabled = false
+            self.loginButtonItem.tintColor = UIColor.clear
         }
     }
     
@@ -68,11 +71,19 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         self.performSegue(withIdentifier: self.segueToProfileIdentifier, sender: self)
     }
     
-    @IBAction func logoutButtonAction(_ sender: UIBarButtonItem) {
+    @IBAction func loginButtonAction(_ sender: UIBarButtonItem) {
+        self.presentLoginNavigationController()
+    }
+    
+    @objc func logoutButtonAction() {
         self.cordialAPI.unsetContact()
         
         App.userLogOut()
         
+        self.presentLoginNavigationController()
+    }
+    
+    func presentLoginNavigationController() {
         let loginNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginNavigationController")
         loginNavigationController.modalPresentationStyle = .fullScreen
         

@@ -30,10 +30,13 @@ class SendContactLogout {
     }
     
     func getSendContactLogoutJSON(sendContactLogoutRequest: SendContactLogoutRequest) -> String {
-        let rootContainer  = [
-            "\"deviceId\": \"\(internalCordialAPI.getDeviceIdentifier())\"",
-            "\"primaryKey\": \"\(sendContactLogoutRequest.primaryKey)\""
+        var rootContainer  = [
+            "\"deviceId\": \"\(internalCordialAPI.getDeviceIdentifier())\""
         ]
+        
+        if let primaryKey = sendContactLogoutRequest.primaryKey {
+            rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
+        }
         
         let rootContainerString = rootContainer.joined(separator: ", ")
         

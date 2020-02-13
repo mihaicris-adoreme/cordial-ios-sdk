@@ -11,7 +11,7 @@ import Foundation
 class SendContactLogoutRequest: NSObject, NSCoding {
     
     let requestID: String
-    let primaryKey: String
+    let primaryKey: String?
     
     var isError = false
     
@@ -20,12 +20,12 @@ class SendContactLogoutRequest: NSObject, NSCoding {
         case primaryKey = "primaryKey"
     }
     
-    init(primaryKey: String) {
+    init(primaryKey: String?) {
         self.requestID = UUID().uuidString
         self.primaryKey = primaryKey
     }
     
-    private init(requestID: String, primaryKey: String) {
+    private init(requestID: String, primaryKey: String?) {
         self.requestID = requestID
         self.primaryKey = primaryKey
     }
