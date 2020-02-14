@@ -77,7 +77,7 @@ class NotificationManager {
         InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
     }
     
-    @objc func appSettingsHasBeenChangeHandler() {
+    @objc func connectionSettingsHasBeenChangeHandler() {
         InternalCordialAPI().removeCurrentMcID()
     }
     
@@ -138,7 +138,7 @@ class NotificationManager {
         }
         
         notificationCenter.removeObserver(self, name: .cordialConnectionSettingsHasBeenChange, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(appSettingsHasBeenChangeHandler), name: .cordialConnectionSettingsHasBeenChange, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(connectionSettingsHasBeenChangeHandler), name: .cordialConnectionSettingsHasBeenChange, object: nil)
         
         CordialApiConfiguration.shared.cordialSwizzler.swizzleAppDelegateMethods()
     }
