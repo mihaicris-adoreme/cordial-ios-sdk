@@ -20,12 +20,8 @@ class SettingsViewController: UIViewController {
     
     let cordialAPI = CordialAPI()
     
-    var previousSettingsType = String()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        self.previousSettingsType = App.getSavedSettingsType()
         
         self.baseURLTextField.text = self.cordialAPI.getBaseURL()
         self.accountKeyTextField.text = self.cordialAPI.getAccountKey()
@@ -88,10 +84,6 @@ class SettingsViewController: UIViewController {
             CordialApiConfiguration.shared.qtyCachedEventQueue = qtyCachedEventQueue
             CordialApiConfiguration.shared.eventsBulkSize = eventsBulkSize
             CordialApiConfiguration.shared.eventsBulkUploadInterval = eventsBulkUploadInterval
-            
-            if self.previousSettingsType != App.getSavedSettingsType() {
-                CordialAPI().removeCurrentMcID()
-            }
         }
     }
     

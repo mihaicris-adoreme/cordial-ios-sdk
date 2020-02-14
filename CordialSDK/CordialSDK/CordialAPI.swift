@@ -26,6 +26,8 @@ import os.log
     @objc public func setAccountKey(accountKey: String) {
         if accountKey != self.getAccountKey() {
             CordialUserDefaults.set(accountKey, forKey: API.USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY)
+            
+            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
         }
     }
     
@@ -44,13 +46,15 @@ import os.log
     @objc public func setChannelKey(channelKey: String) {
         if channelKey != self.getChannelKey() {
             CordialUserDefaults.set(channelKey, forKey: API.USER_DEFAULTS_KEY_FOR_CHANNEL_KEY)
+            
+            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
         }
     }
     
     // MARK: Get base URL
     
     @objc public func getBaseURL() -> String {
-        if let baseURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL) {
+        if let baseURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL) {
             return baseURL
         }
         
@@ -62,10 +66,12 @@ import os.log
     @objc public func setBaseURL(baseURL: String) {
         if baseURL != self.getBaseURL() {
             if baseURL.last != "/" {
-                CordialUserDefaults.set("\(baseURL)/", forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
+                CordialUserDefaults.set("\(baseURL)/", forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL)
             } else {
-                CordialUserDefaults.set(baseURL, forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
+                CordialUserDefaults.set(baseURL, forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL)
             }
+            
+            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
         }
     }
     
@@ -95,13 +101,6 @@ import os.log
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
     }
     
-    // MARK: Remove current mcID
-    
-    @objc public func removeCurrentMcID() {
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
-    }
-    
     // MARK: Set Contact
     
     @objc public func setContact(primaryKey: String?) {
@@ -129,7 +128,7 @@ import os.log
         let primaryKey = self.getContactPrimaryKey()
         
         if primaryKey == nil {
-            CordialAPI().removeCurrentMcID()
+            InternalCordialAPI().removeCurrentMcID()
         }
         
         let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)

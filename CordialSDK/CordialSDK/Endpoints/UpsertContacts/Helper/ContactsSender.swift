@@ -19,7 +19,7 @@ class ContactsSender {
             upsertContactRequests.forEach { upsertContactRequest in
                 if upsertContactRequest.primaryKey != previousPrimaryKey {
                     CoreDataManager.shared.deleteAllCoreData()
-                    CordialAPI().removeCurrentMcID()
+                    InternalCordialAPI().removeCurrentMcID()
                 }
             }
         }
