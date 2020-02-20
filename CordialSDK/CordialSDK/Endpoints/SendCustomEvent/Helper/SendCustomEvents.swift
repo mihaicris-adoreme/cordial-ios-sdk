@@ -51,7 +51,7 @@ class SendCustomEvents {
                 rootContainer.append("\"mcID\": \"\(mcID)\"")
             }
             
-            if let latitude = sendCustomEventRequest.latitude, let longitude = sendCustomEventRequest.longitude, longitude != 0.0, latitude != 0.0 {
+            if let latitude = sendCustomEventRequest.latitude, latitude != 0.0, let longitude = sendCustomEventRequest.longitude, longitude != 0.0 {
                 rootContainer.append("\"lat\": \(latitude)")
                 rootContainer.append("\"lon\": \(longitude)")
             }
