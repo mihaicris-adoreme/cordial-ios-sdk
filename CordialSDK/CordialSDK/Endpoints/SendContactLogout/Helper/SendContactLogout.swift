@@ -12,6 +12,8 @@ class SendContactLogout {
     
     let internalCordialAPI = InternalCordialAPI()
     
+    let requestSender = DependencyConfiguration.shared.requestSender
+    
     func sendContactLogout(sendContactLogoutRequest: SendContactLogoutRequest) {
         if let url = URL(string: CordialApiEndpoints().getContactLogoutURL()) {
             var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
@@ -25,7 +27,7 @@ class SendContactLogout {
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT, taskData: sendContactLogoutURLSessionData)
             CordialURLSession.shared.setOperation(taskIdentifier: sendContactLogoutDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            sendContactLogoutDownloadTask.resume()
+            self.requestSender.sendRequest(task: sendContactLogoutDownloadTask)
         }
     }
     

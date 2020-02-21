@@ -10,6 +10,8 @@ import Foundation
 
 class InAppMessage {
     
+    let requestSender = DependencyConfiguration.shared.requestSender
+    
     func getInAppMessage(mcID: String) {
         if let url = URL(string: CordialApiEndpoints().getInAppMessageURL(mcID: mcID)) {
             let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .GET)
@@ -20,7 +22,7 @@ class InAppMessage {
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE, taskData: inAppMessageURLSessionData)
             CordialURLSession.shared.setOperation(taskIdentifier: inAppMessageDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            inAppMessageDownloadTask.resume()
+            self.requestSender.sendRequest(task: inAppMessageDownloadTask)
         }
     }
     

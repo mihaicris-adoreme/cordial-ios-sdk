@@ -45,6 +45,20 @@ class InternalCordialAPI {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)!
     }
     
+    // MARK: Get prepared remote notifications device token
+    
+    func getPreparedRemoteNotificationsDeviceToken(deviceToken: Data) -> String {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        
+        return tokenParts.joined()
+    }
+    
+    // MARK: Set primary key
+    
+    func setContactPrimaryKey(primaryKey: String) {
+        CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+    }
+    
     // MARK: Set current mcID
     
     func setCurrentMcID(mcID: String) {

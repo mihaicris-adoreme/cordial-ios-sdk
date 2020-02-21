@@ -18,6 +18,8 @@ class SDKSecurity {
     
     let cordialAPI = CordialAPI()
     
+    let requestSender = DependencyConfiguration.shared.requestSender
+    
     var isCurrentlyFetchingJWT = false
     
     func updateJWT() {
@@ -35,7 +37,7 @@ class SDKSecurity {
                 CordialURLSession.shared.setOperation(taskIdentifier: sdkSecurityGetJWTDownloadTask.taskIdentifier, data: cordialURLSessionData)
                 self.isCurrentlyFetchingJWT = true
                 
-                sdkSecurityGetJWTDownloadTask.resume()
+                self.requestSender.sendRequest(task: sdkSecurityGetJWTDownloadTask)
             }
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
