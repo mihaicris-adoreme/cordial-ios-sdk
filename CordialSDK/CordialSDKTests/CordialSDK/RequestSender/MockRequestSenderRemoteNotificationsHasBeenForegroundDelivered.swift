@@ -1,5 +1,5 @@
 //
-//  MockRequestSenderRemoteNotificationsHasBeenTapped.swift
+//  MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered.swift
 //  CordialSDKTests
 //
 //  Created by Yan Malinovsky on 21.02.2020.
@@ -9,7 +9,7 @@
 import XCTest
 import CordialSDK
 
-class MockRequestSenderRemoteNotificationsHasBeenTapped: RequestSender {
+class MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered: RequestSender {
     
     var isVerified = false
     
@@ -24,7 +24,7 @@ class MockRequestSenderRemoteNotificationsHasBeenTapped: RequestSender {
                         return
                     }
                     
-                    if let eventName = json["event"] as? String, eventName != self.sdkTests.testCase.getEventNamePushNotificationTap(), let mcID = json["mcID"] as? String, mcID != self.sdkTests.testMcId {
+                    if let eventName = json["event"] as? String, eventName != self.sdkTests.testCase.getEventNamePushNotificationForegroundDelivered(), let mcID = json["mcID"] as? String, mcID != self.sdkTests.testMcId {
                         XCTAssert(false)
                     }
                 }

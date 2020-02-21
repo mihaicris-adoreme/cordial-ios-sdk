@@ -65,6 +65,21 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
+    func testRemoteNotificationsHasBeenForegroundDelivered() {
+        let mock = MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT()
+        self.testCase.markUserAsLoggedIn()
+
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
+        }
+
+        XCTAssert(mock.isVerified)
+    }
+    
     func testSetContact() {
         let mock = MockRequestSenderSetContact()
 

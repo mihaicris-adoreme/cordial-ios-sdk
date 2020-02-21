@@ -39,6 +39,10 @@ import Foundation
         return API.EVENT_NAME_PUSH_NOTIFICATION_TAP
     }
     
+    @objc public func getEventNamePushNotificationForegroundDelivered() -> String {
+        return API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
+    }
+    
     @objc public func getDeviceIdentifier() -> String {
         return InternalCordialAPI().getDeviceIdentifier()
     }

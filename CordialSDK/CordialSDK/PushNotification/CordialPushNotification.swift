@@ -62,7 +62,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         // Called when notification is delivered to a foreground app.
         let userInfo = notification.request.content.userInfo
         
-        self.pushNotificationHelper.pushNotificationHasBeenDeliveredToTheForegroundApp(userInfo: userInfo)
+        self.pushNotificationHelper.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
         
         if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler, !InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
             pushNotificationHandler.notificationDeliveredInForeground(notificationContent: userInfo) {

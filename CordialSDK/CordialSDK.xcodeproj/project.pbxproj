@@ -99,6 +99,7 @@
 		9EBA1B1F23FFEC5500005054 /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1B1E23FFEC5500005054 /* TestCase.swift */; };
 		9EBA1B2123FFED3300005054 /* CordialPushNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1B2023FFED3300005054 /* CordialPushNotificationHelper.swift */; };
 		9EBA1B2623FFF0BD00005054 /* PushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1B2523FFF0BD00005054 /* PushNotificationHandler.swift */; };
+		9EBA1B2823FFF97B00005054 /* MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBA1B2723FFF97B00005054 /* MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered.swift */; };
 		9EBE675A22731C030065AA06 /* ContactOrdersSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBE675922731C030065AA06 /* ContactOrdersSender.swift */; };
 		9EBE675F22731EB70065AA06 /* CustomEventRequestsCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBE675E22731EB70065AA06 /* CustomEventRequestsCoreData.swift */; };
 		9EBE676122731FA10065AA06 /* ContactCartRequestCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBE676022731FA10065AA06 /* ContactCartRequestCoreData.swift */; };
@@ -244,6 +245,7 @@
 		9EBA1B1E23FFEC5500005054 /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		9EBA1B2023FFED3300005054 /* CordialPushNotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationHelper.swift; sourceTree = "<group>"; };
 		9EBA1B2523FFF0BD00005054 /* PushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationHandler.swift; sourceTree = "<group>"; };
+		9EBA1B2723FFF97B00005054 /* MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered.swift; sourceTree = "<group>"; };
 		9EBE675922731C030065AA06 /* ContactOrdersSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactOrdersSender.swift; sourceTree = "<group>"; };
 		9EBE675E22731EB70065AA06 /* CustomEventRequestsCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventRequestsCoreData.swift; sourceTree = "<group>"; };
 		9EBE676022731FA10065AA06 /* ContactCartRequestCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCartRequestCoreData.swift; sourceTree = "<group>"; };
@@ -601,6 +603,7 @@
 			children = (
 				9EBA1B0F23FFE2C300005054 /* MockRequestSenderRemoteNotificationsDeviceToken.swift */,
 				9EBA1B1123FFE2D600005054 /* MockRequestSenderRemoteNotificationsHasBeenTapped.swift */,
+				9EBA1B2723FFF97B00005054 /* MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered.swift */,
 				9EBA1B1323FFE2E600005054 /* MockRequestSenderSetContact.swift */,
 				9EBA1B1523FFE2F500005054 /* MockRequestSenderUpsertContact.swift */,
 			);
@@ -1051,6 +1054,7 @@
 				9EBA1B1423FFE2E600005054 /* MockRequestSenderSetContact.swift in Sources */,
 				9EBA1B1223FFE2D600005054 /* MockRequestSenderRemoteNotificationsHasBeenTapped.swift in Sources */,
 				9EBA1B1623FFE2F500005054 /* MockRequestSenderUpsertContact.swift in Sources */,
+				9EBA1B2823FFF97B00005054 /* MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered.swift in Sources */,
 				9E7A5A4E222EB54E0020054F /* CordialSDKTests.swift in Sources */,
 				9EBA1B1023FFE2C300005054 /* MockRequestSenderRemoteNotificationsDeviceToken.swift in Sources */,
 			);
