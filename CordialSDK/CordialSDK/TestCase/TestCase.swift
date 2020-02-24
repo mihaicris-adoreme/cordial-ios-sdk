@@ -56,6 +56,9 @@ import Foundation
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
                 self.setTestJWT(token: "testJWT-2")
+                
+                SDKSecurity.shared.isCurrentlyFetchingJWT = false
+                
             case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS:
                 if let upsertContactsURLSessionData = operation.taskData as? UpsertContactsURLSessionData, let request = task.originalRequest, let url = request.url, let headerFields = request.allHTTPHeaderFields, let httpResponse = HTTPURLResponse(url: url, statusCode: 401, httpVersion: "HTTP/1.1", headerFields: headerFields), let httpBody = request.httpBody {
                     
