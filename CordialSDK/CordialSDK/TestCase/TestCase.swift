@@ -51,19 +51,25 @@ import Foundation
         return InternalCordialAPI().getDeviceIdentifier()
     }
 
-    @objc public func emulateUpsertContacts401Status(task: URLSessionDownloadTask) {
-        if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier), let upsertContactsURLSessionData = operation.taskData as? UpsertContactsURLSessionData, let request = task.originalRequest, let url = request.url, let headerFields = request.allHTTPHeaderFields, let httpResponse = HTTPURLResponse(url: url, statusCode: 401, httpVersion: "HTTP/1.1", headerFields: headerFields), let httpBody = request.httpBody {
-            
-            let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
-            do {
-                try httpBody.write(to: location, options: .atomic)
-                
-                UpsertContactsURLSessionManager().completionHandler(upsertContactsURLSessionData: upsertContactsURLSessionData, httpResponse: httpResponse, location: location)
-            } catch let error {
-                print(error.localizedDescription)
+    @objc public func notValidJWT(task: URLSessionDownloadTask) {
+        if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
+            switch operation.taskName {
+            case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
+                self.setTestJWT(token: "testJWT-2")
+            case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS:
+                if let upsertContactsURLSessionData = operation.taskData as? UpsertContactsURLSessionData, let request = task.originalRequest, let url = request.url, let headerFields = request.allHTTPHeaderFields, let httpResponse = HTTPURLResponse(url: url, statusCode: 401, httpVersion: "HTTP/1.1", headerFields: headerFields), let httpBody = request.httpBody {
+                    
+                    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
+                    do {
+                        try httpBody.write(to: location, options: .atomic)
+                        
+                        UpsertContactsURLSessionManager().completionHandler(upsertContactsURLSessionData: upsertContactsURLSessionData, httpResponse: httpResponse, location: location)
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                }
+            default: break
             }
-        } else {
-            self.setTestJWT(token: "testJWT-2")
         }
     }
 }

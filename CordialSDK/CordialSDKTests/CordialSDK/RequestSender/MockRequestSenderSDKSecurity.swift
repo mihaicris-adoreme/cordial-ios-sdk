@@ -17,11 +17,13 @@ class MockRequestSenderSDKSecurity: RequestSender {
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        if self.sdkTests.testCase.getCurrentJWT() == self.sdkTests.testJWT { // emulate 401 status behaivor
-            self.sdkTests.testCase.emulateUpsertContacts401Status(task: task)
-        } else if let httpBody = task.originalRequest?.httpBody {
+        if self.sdkTests.testCase.getCurrentJWT() != self.sdkTests.testJWT, let httpBody = task.originalRequest?.httpBody {
             CordialSDKTestsHelper().setContactValidation(httpBody: httpBody)
+            
             self.isVerified = true
+            
+        } else {
+            self.sdkTests.testCase.notValidJWT(task: task)
         }
     }
     
