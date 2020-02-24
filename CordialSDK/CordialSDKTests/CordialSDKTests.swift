@@ -16,6 +16,7 @@ class CordialSDKTests: XCTestCase {
     
     let testDeviceToken = "ffa29a48a76025c0ff73a2cb2a6ad50266114c03b3f612e824d61be7c9a0f4cb"
     let testPrimaryKey = "test_primary_key@gmail.com"
+    let testJWT = "testJWT"
     let testMcId = "test_mc_id"
     let testContactAttributes = ["firstName": "John", "lastName": "Doe"]
     var testPushNotification = String()
@@ -41,7 +42,7 @@ class CordialSDKTests: XCTestCase {
         
         DependencyConfiguration.shared.requestSender = mock
         
-        self.testCase.setTestJWT()
+        self.testCase.setTestJWT(token: self.testJWT)
         
         if let deviceToken = Data(base64Encoded: self.testDeviceToken) {
             UIApplication.shared.delegate?.application?(UIApplication.shared, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
@@ -55,7 +56,7 @@ class CordialSDKTests: XCTestCase {
         
         DependencyConfiguration.shared.requestSender = mock
         
-        self.testCase.setTestJWT()
+        self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
@@ -70,7 +71,7 @@ class CordialSDKTests: XCTestCase {
 
         DependencyConfiguration.shared.requestSender = mock
 
-        self.testCase.setTestJWT()
+        self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
 
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
@@ -85,7 +86,7 @@ class CordialSDKTests: XCTestCase {
 
         DependencyConfiguration.shared.requestSender = mock
 
-        self.testCase.setTestJWT()
+        self.testCase.setTestJWT(token: self.testJWT)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
@@ -97,10 +98,22 @@ class CordialSDKTests: XCTestCase {
 
         DependencyConfiguration.shared.requestSender = mock
 
-        self.testCase.setTestJWT()
+        self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         
         self.cordialAPI.upsertContact(attributes: self.testContactAttributes)
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testSDKSecurity() {
+        let mock = MockRequestSenderSDKSecurity()
+
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        
+        self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
         XCTAssert(mock.isVerified)
     }
