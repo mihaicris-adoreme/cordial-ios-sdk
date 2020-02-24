@@ -28,12 +28,12 @@ class CordialSDKTests: XCTestCase {
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.none)
         
         self.testPushNotification = """
-        {
-             "aps":{
-                "alert":"Text push notification message."
-             },
-        "mcID": "\(self.testMcId)"
-          }
+            {
+                "aps":{
+                    "alert":"Text push notification message."
+                },
+                "mcID": "\(self.testMcId)"
+            }
         """
     }
     
