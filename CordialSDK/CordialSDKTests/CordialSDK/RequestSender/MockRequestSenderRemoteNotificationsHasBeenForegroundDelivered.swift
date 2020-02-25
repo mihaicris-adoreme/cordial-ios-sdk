@@ -16,19 +16,13 @@ class MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered: RequestSen
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        if let request = task.originalRequest, let httpBody = request.httpBody {
+        let httpBody = task.originalRequest!.httpBody!
+        
+        if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+            let json = jsonArray.first! as! [String: AnyObject]
             
-            if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
-                jsonArray.forEach { jsonObject in
-                    guard let json = jsonObject as? [String: AnyObject] else {
-                        return
-                    }
-                    
-                    if let eventName = json["event"] as? String, eventName != self.sdkTests.testCase.getEventNamePushNotificationForegroundDelivered(), let mcID = json["mcID"] as? String, mcID != self.sdkTests.testMcId {
-                        XCTAssert(false)
-                    }
-                }
-            }
+            XCTAssertEqual(json["event"] as! String, self.sdkTests.testCase.getEventNamePushNotificationForegroundDelivered(), "Events don't match")
+//                XCTAssertEqual(json["mcID"] as! String, self.sdkTests.testMcId, "mcIDs don't match") // TMP COMMENT NEED TOP DELETE AFTER MERGE BRANCH TO MASTER `remove_mcID_refactoring`
             
             self.isVerified = true
         }

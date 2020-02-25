@@ -16,30 +16,23 @@ class MockRequestSenderUpsertContact: RequestSender {
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        if let request = task.originalRequest, let httpBody = request.httpBody {
+        let httpBody = task.originalRequest!.httpBody!
+        
+        if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+            let json = jsonArray.first! as! [String: AnyObject]
             
-            if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
-                jsonArray.forEach { jsonObject in
-                    guard let json = jsonObject as? [String: AnyObject] else {
-                        return
-                    }
-                    
-                    if let attributesJSON = json["attributes"] as? [String: AnyObject] {
-                        let attributesKeys = self.sdkTests.testContactAttributes.keys
-                        
-                        var testCount = 0
-                        attributesKeys.forEach { key in
-                            if let attribute = attributesJSON[key] as? String, attribute == self.sdkTests.testContactAttributes[key] {
-                                testCount+=1
-                            }
-                        }
-                        
-                        if self.sdkTests.testContactAttributes.count != testCount {
-                            XCTAssert(false)
-                        }
-                    }
+            let attributesJSON = json["attributes"] as! [String: AnyObject]
+            
+            let attributesKeys = self.sdkTests.testContactAttributes.keys
+            
+            var testCount = 0
+            attributesKeys.forEach { key in
+                if let attribute = attributesJSON[key] as? String, attribute == self.sdkTests.testContactAttributes[key] {
+                    testCount+=1
                 }
             }
+            
+            XCTAssertEqual(self.sdkTests.testContactAttributes.count, testCount, "Contact attributes don't match")
             
             self.isVerified = true
         }
