@@ -1,3 +1,15 @@
+// Action function for user interaction with app
+function action(deepLink = null, eventName = null) {
+   try {
+       webkit.messageHandlers.action.postMessage({
+           deepLink: deepLink,
+           eventName: eventName
+       });
+   } catch (error) {
+       console.error(error);
+   }
+}
+
 // Init head variable
 var head = document.head || document.getElementsByTagName('head')[0];
 
