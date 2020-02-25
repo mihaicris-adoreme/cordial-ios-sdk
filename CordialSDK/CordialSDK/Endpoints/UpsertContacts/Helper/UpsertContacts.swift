@@ -12,6 +12,8 @@ class UpsertContacts {
     
     let internalCordialAPI = InternalCordialAPI()
     
+    let requestSender = DependencyConfiguration.shared.requestSender
+    
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
     
         if let url = URL(string: CordialApiEndpoints().getContactsURL()) {
@@ -27,7 +29,7 @@ class UpsertContacts {
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS, taskData: upsertContactsURLSessionData)
             CordialURLSession.shared.setOperation(taskIdentifier: upsertContactsDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            upsertContactsDownloadTask.resume()
+            self.requestSender.sendRequest(task: upsertContactsDownloadTask)
         }
     }
     

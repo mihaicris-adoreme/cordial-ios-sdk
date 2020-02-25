@@ -31,4 +31,11 @@ struct CordialUserDefaults {
     static func double(forKey key: String) -> Double? {
         return cordialUserDefaults?.double(forKey: key)
     }
+    
+    static func removeAllData() {
+        let dictionary = cordialUserDefaults?.dictionaryRepresentation()
+        dictionary?.keys.forEach { key in
+            cordialUserDefaults?.removeObject(forKey: key)
+        }
+    }
 }
