@@ -104,10 +104,10 @@ import os.log
     // MARK: Set Contact
     
     @objc public func setContact(primaryKey: String?) {
-        if let previousPrimaryKey = self.getContactPrimaryKey() {
-            CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
-            CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
-        }
+        let previousPrimaryKey = self.getContactPrimaryKey()
+        
+        CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
         
@@ -126,10 +126,6 @@ import os.log
         CordialUserDefaults.set(false, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         
         let primaryKey = self.getContactPrimaryKey()
-        
-        if primaryKey == nil {
-            InternalCordialAPI().removeCurrentMcID()
-        }
         
         let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
         ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
