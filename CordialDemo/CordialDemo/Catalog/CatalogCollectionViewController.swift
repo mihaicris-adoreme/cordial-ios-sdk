@@ -68,6 +68,8 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     }
     
     @IBAction func loginButtonAction(_ sender: UIBarButtonItem) {
+        App.userLogOut()
+        
         self.presentLoginNavigationController(.formSheet)
     }
     
