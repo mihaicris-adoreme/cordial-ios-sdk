@@ -136,10 +136,12 @@ class InternalCordialAPI {
     // MARK: Prepare device identifier
     
     func prepareDeviceIdentifier() {
-        if let deviceID = UIDevice.current.identifierForVendor?.uuidString {
-            CordialUserDefaults.set(deviceID, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
-        } else {
-            CordialUserDefaults.set(UUID().uuidString, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
+        if CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID) == nil {
+            if let deviceID = UIDevice.current.identifierForVendor?.uuidString {
+                CordialUserDefaults.set(deviceID, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
+            } else {
+                CordialUserDefaults.set(UUID().uuidString, forKey: API.USER_DEFAULTS_KEY_FOR_DEVICE_ID)
+            }
         }
     }
     
