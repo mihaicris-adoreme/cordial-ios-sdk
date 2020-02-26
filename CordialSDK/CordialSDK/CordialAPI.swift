@@ -127,10 +127,6 @@ import os.log
         
         let primaryKey = self.getContactPrimaryKey()
         
-        if primaryKey == nil {
-            InternalCordialAPI().removeCurrentMcID()
-        }
-        
         let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
         ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         

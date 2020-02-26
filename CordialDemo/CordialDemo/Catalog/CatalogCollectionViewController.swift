@@ -19,7 +19,6 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToProfileIdentifier = "segueToProfile"
     
     @IBOutlet weak var profileButtonItem: UIBarButtonItem!
-    @IBOutlet weak var loginButtonItem: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     
     let catalogName = "Mens"
@@ -52,10 +51,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     func prerareProfileAndLogoutButtons() {
         if App.isGuestUser() {
             self.profileButtonItem.isEnabled = false
-        } else {
-            self.loginButtonItem.isEnabled = false
-            self.loginButtonItem.tintColor = UIColor.clear
-        }
+        } 
     }
     
     func sendBrowseCategoryCustomEvent() {
@@ -72,7 +68,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     }
     
     @IBAction func loginButtonAction(_ sender: UIBarButtonItem) {
-        self.presentLoginNavigationController()
+        self.presentLoginNavigationController(.formSheet)
     }
     
     @objc func logoutButtonAction() {
@@ -80,12 +76,12 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         
         App.userLogOut()
         
-        self.presentLoginNavigationController()
+        self.presentLoginNavigationController(.fullScreen)
     }
     
-    func presentLoginNavigationController() {
+    func presentLoginNavigationController(_ modalPresentationStyle: UIModalPresentationStyle) {
         let loginNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginNavigationController")
-        loginNavigationController.modalPresentationStyle = .fullScreen
+        loginNavigationController.modalPresentationStyle = modalPresentationStyle
         
         self.present(loginNavigationController, animated: true, completion: nil)
     }
