@@ -14,10 +14,8 @@ class ContactLogoutSender {
     let sendContactLogout = SendContactLogout()
     
     func sendContactLogout(sendContactLogoutRequest: SendContactLogoutRequest) {
-        
-        if sendContactLogoutRequest.primaryKey == nil {
-            InternalCordialAPI().removeCurrentMcID()
-        }
+    
+        InternalCordialAPI().removeCurrentMcID()
         
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
