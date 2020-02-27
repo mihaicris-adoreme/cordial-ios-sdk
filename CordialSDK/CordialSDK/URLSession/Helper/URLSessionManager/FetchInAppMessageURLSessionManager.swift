@@ -21,10 +21,9 @@ class FetchInAppMessageURLSessionManager {
             
             switch httpResponse.statusCode {
             case 200:
-                if let responseBodyData = responseBody.data(using: .utf8) {
-                    let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as! [String: AnyObject]
-                    
-                    if let html = responseBodyJSON["content"] as? String, let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
+                do {
+                    if let responseBodyData = responseBody.data(using: .utf8), let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject], let html = responseBodyJSON["content"] as? String, let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
+                        
                         let type = inAppMessageParams.type
                         let displayType = inAppMessageParams.displayType
                         let expirationTime = inAppMessageParams.expirationTime
@@ -75,6 +74,10 @@ class FetchInAppMessageURLSessionManager {
                         self.inAppMessageGetter.logicErrorHandler(mcID: mcID, error: responseError)
                         
                         CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
+                    }
+                } catch let error {
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Failed decode response data. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, mcID, error.localizedDescription)
                     }
                 }
             case 401:
