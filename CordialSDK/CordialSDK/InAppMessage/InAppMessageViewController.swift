@@ -185,7 +185,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
             
-            self.removeModalFromSuperviewWithoutAnimation()
+            self.removeInAppMessageFromSuperview()
         })
     }
     
@@ -194,10 +194,10 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, mcID: mcID, properties: nil)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        self.removeModalFromSuperviewWithoutAnimation()
+        self.removeInAppMessageFromSuperview()
     }
     
-    func removeModalFromSuperviewWithoutAnimation() {
+    func removeInAppMessageFromSuperview() {
         InAppMessageProcess.shared.isPresentedInAppMessage = false
         self.view.removeFromSuperview()
         
@@ -241,7 +241,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             if self.isBanner {
                 self.removeBannerFromSuperviewWithAnimation(eventName: nil, duration: InAppMessageProcess.shared.bannerAnimationDuration)
             } else {
-                self.removeModalFromSuperviewWithoutAnimation()
+                self.removeInAppMessageFromSuperview()
             }
         }
     }

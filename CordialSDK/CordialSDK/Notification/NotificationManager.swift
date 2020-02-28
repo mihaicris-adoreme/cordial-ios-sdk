@@ -113,6 +113,8 @@ class NotificationManager {
         
         if !self.isNotificationManagerHasNotBeenSettedUp {
             notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+            
+            self.appMovedFromBackground()
         }
         
         if #available(iOS 13.0, *), InternalCordialAPI().doesAppUseScenes() {
