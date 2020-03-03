@@ -20,6 +20,8 @@ class CordialSDKTests: XCTestCase {
     let testMcId = "test_mc_id"
     let testContactAttributes = ["firstName": "John", "lastName": "Doe"]
     var testPushNotification = String()
+    let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
+    let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
     
     override func setUp() {
         self.testCase.clearAllTestCaseData()
@@ -32,7 +34,11 @@ class CordialSDKTests: XCTestCase {
                 "aps":{
                     "alert":"Text push notification message."
                 },
-                "mcID": "\(self.testMcId)"
+                "mcID": "\(self.testMcId)",
+                "deepLink": {
+                    "url": "\(self.testDeepLinkURL)",
+                    "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
+                }
             }
         """
     }
@@ -81,6 +87,21 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
+    func testRemoteNotificationsHasBeenTappedWithDeepLink() {
+        let mock = MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
+        }
+        
+        XCTAssert(mock.isVerified)
+    }
+    
     func testSetContact() {
         let mock = MockRequestSenderSetContact()
 
@@ -102,6 +123,19 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         
         self.cordialAPI.upsertContact(attributes: self.testContactAttributes)
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testUnsetContact() {
+        let mock = MockRequestSenderUnsetContact()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        
+         self.cordialAPI.unsetContact()
         
         XCTAssert(mock.isVerified)
     }
