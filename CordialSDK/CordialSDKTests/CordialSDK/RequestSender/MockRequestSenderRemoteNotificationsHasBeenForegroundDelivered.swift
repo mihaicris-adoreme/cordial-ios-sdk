@@ -22,7 +22,7 @@ class MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered: RequestSen
             let json = jsonArray.first! as! [String: AnyObject]
             
             XCTAssertEqual(json["event"] as! String, self.sdkTests.testCase.getEventNamePushNotificationForegroundDelivered(), "Events don't match")
-//                XCTAssertEqual(json["mcID"] as! String, self.sdkTests.testMcId, "mcIDs don't match") // TMP COMMENT NEED TOP DELETE AFTER MERGE BRANCH TO MASTER `remove_mcID_refactoring`
+//            XCTAssertEqual(json["mcID"] as! String, self.sdkTests.testMcId, "mcIDs don't match") // TMP COMMENT NEED TO UNCOMMENT AFTER MERGE BRANCH TO `remove_mcID_refactoring`
             
             self.isVerified = true
         }

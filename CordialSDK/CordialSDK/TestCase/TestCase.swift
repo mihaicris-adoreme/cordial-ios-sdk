@@ -47,6 +47,10 @@ import Foundation
         return API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
     }
     
+    @objc public func getEventNameDeepLinkOpen() -> String {
+        return API.EVENT_NAME_DEEP_LINK_OPEN
+    }
+    
     @objc public func getDeviceIdentifier() -> String {
         return InternalCordialAPI().getDeviceIdentifier()
     }

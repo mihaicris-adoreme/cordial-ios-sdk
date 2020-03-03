@@ -21,10 +21,16 @@ class MockRequestSenderRemoteNotificationsHasBeenTapped: RequestSender {
         if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
             let json = jsonArray.first! as! [String: AnyObject]
             
-            XCTAssertEqual(json["event"] as! String, self.sdkTests.testCase.getEventNamePushNotificationTap(), "Events don't match")
-            XCTAssertEqual(json["mcID"] as! String, self.sdkTests.testMcId, "mcIDs don't match")
-            
-            self.isVerified = true
+            switch json["event"] as! String {
+            case self.sdkTests.testCase.getEventNamePushNotificationTap():
+                XCTAssertEqual(json["mcID"] as! String, self.sdkTests.testMcId, "mcIDs don't match")
+            case self.sdkTests.testCase.getEventNameDeepLinkOpen():
+                XCTAssertEqual(json["mcID"] as! String, self.sdkTests.testMcId, "mcIDs don't match")
+                
+                self.isVerified = true
+            default:
+                XCTAssert(false, "Events don't match")
+            }
         }
     }
     

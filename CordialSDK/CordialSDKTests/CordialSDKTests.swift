@@ -20,6 +20,8 @@ class CordialSDKTests: XCTestCase {
     let testMcId = "test_mc_id"
     let testContactAttributes = ["firstName": "John", "lastName": "Doe"]
     var testPushNotification = String()
+    let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
+    let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
     
     override func setUp() {
         self.testCase.clearAllTestCaseData()
@@ -32,7 +34,11 @@ class CordialSDKTests: XCTestCase {
                 "aps":{
                     "alert":"Text push notification message."
                 },
-                "mcID": "\(self.testMcId)"
+                "mcID": "\(self.testMcId)",
+                "deepLink": {
+                    "url": "\(self.testDeepLinkURL)",
+                    "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
+                }
             }
         """
     }
