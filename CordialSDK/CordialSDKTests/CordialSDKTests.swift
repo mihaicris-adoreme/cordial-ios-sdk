@@ -112,6 +112,19 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
+    func testUnsetContact() {
+        let mock = MockRequestSenderUnsetContact()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        
+         self.cordialAPI.unsetContact()
+        
+        XCTAssert(mock.isVerified)
+    }
+    
     func testSDKSecurityAbsentJWT() {
         let mock = MockRequestSenderSDKSecurity()
 

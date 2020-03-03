@@ -133,6 +133,7 @@
 		9EF039D024041E9700668C47 /* CordialSDKTestsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF039CF24041E9700668C47 /* CordialSDKTestsHelper.swift */; };
 		9EF0B3482361C7CD00641411 /* CoreDataSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF0B3472361C7CD00641411 /* CoreDataSender.swift */; };
 		9EFCA9DA225F8C8B005A8AC8 /* CordialApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFCA9D9225F8C8B005A8AC8 /* CordialApiEndpoints.swift */; };
+		9EFD2F87240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD2F86240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -303,6 +304,7 @@
 		9EF039CF24041E9700668C47 /* CordialSDKTestsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialSDKTestsHelper.swift; sourceTree = "<group>"; };
 		9EF0B3472361C7CD00641411 /* CoreDataSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSender.swift; sourceTree = "<group>"; };
 		9EFCA9D9225F8C8B005A8AC8 /* CordialApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialApiEndpoints.swift; sourceTree = "<group>"; };
+		9EFD2F86240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUnsetContact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -640,6 +642,7 @@
 				9EBA1B1323FFE2E600005054 /* MockRequestSenderSetContact.swift */,
 				9EBA1B1523FFE2F500005054 /* MockRequestSenderUpsertContact.swift */,
 				9EBA1B3C2400221000005054 /* MockRequestSenderSDKSecurity.swift */,
+				9EFD2F86240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift */,
 			);
 			path = RequestSender;
 			sourceTree = "<group>";
@@ -1106,6 +1109,7 @@
 				9EF039D024041E9700668C47 /* CordialSDKTestsHelper.swift in Sources */,
 				9EBA1B1223FFE2D600005054 /* MockRequestSenderRemoteNotificationsHasBeenTapped.swift in Sources */,
 				9EBA1B1623FFE2F500005054 /* MockRequestSenderUpsertContact.swift in Sources */,
+				9EFD2F87240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift in Sources */,
 				9EBA1B2823FFF97B00005054 /* MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered.swift in Sources */,
 				9E7A5A4E222EB54E0020054F /* CordialSDKTests.swift in Sources */,
 				9EBA1B3D2400221000005054 /* MockRequestSenderSDKSecurity.swift in Sources */,

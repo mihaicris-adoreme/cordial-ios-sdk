@@ -20,7 +20,8 @@ class CordialSDKTestsHelper {
             XCTAssertEqual(json["primaryKey"] as! String, self.sdkTests.testPrimaryKey, "Primary keys don't match")
             XCTAssertEqual(json["deviceId"] as! String, self.sdkTests.testCase.getDeviceIdentifier(), "Device ids don't match")
             XCTAssertEqual(json["status"] as! String, self.sdkTests.testCase.getPushNotificationDisallowStatus(), "Statuses keys don't match")
-            
+        } else {
+            XCTAssert(false, "httpBody don't array json")
         }
     }
     
