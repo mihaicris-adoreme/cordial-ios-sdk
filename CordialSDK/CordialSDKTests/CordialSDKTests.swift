@@ -28,7 +28,7 @@ class CordialSDKTests: XCTestCase {
         
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.none)
-        
+        CordialApiConfiguration.shared.pushNotificationHandler = PushNotificationHandler()
         CordialApiConfiguration.shared.cordialDeepLinksHandler = DeepLinksHandler()
         
         self.testPushNotification = """
@@ -53,7 +53,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         
         if let deviceToken = Data(base64Encoded: self.testDeviceToken) {
-            UIApplication.shared.delegate?.application?(UIApplication.shared, didRegisterForRemoteNotificationsWithDeviceToken: deviceToken)
+            CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
         }
         
         XCTAssert(mock.isVerified)

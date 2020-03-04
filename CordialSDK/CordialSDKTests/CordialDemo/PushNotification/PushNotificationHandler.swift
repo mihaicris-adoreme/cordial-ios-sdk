@@ -1,5 +1,5 @@
 //
-//  MockPushNotificationHandler.swift
+//  PushNotificationHandler.swift
 //  CordialSDKTests
 //
 //  Created by Yan Malinovsky on 04.03.2020.
@@ -9,7 +9,7 @@
 import Foundation
 import CordialSDK
 
-class MockPushNotificationHandler: CordialPushNotificationDelegate {
+class PushNotificationHandler: CordialPushNotificationDelegate {
     
     func appOpenViaNotificationTap(notificationContent: [AnyHashable : Any], completionHandler: @escaping () -> Void) {
         completionHandler()
