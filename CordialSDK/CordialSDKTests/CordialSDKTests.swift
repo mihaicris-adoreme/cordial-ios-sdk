@@ -29,6 +29,8 @@ class CordialSDKTests: XCTestCase {
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.none)
         
+        CordialApiConfiguration.shared.cordialDeepLinksHandler = MockDeepLinksHandler()
+        
         self.testPushNotification = """
             {
                 "aps":{
@@ -41,6 +43,7 @@ class CordialSDKTests: XCTestCase {
                 }
             }
         """
+//        "deepLink":"{\"url\":\"\(self.testDeepLinkURL)\",\"fallbackUrl\":\"\(self.testDeepLinkFallbackURL)\"}"
     }
     
     func testAPNsToken() {
@@ -97,6 +100,23 @@ class CordialSDKTests: XCTestCase {
         
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
+        }
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testDeepLinkDelegate() {
+        let mock = MockPushNotificationHandlerDeepLinkDelegate()
+        
+        CordialApiConfiguration.shared.cordialDeepLinksHandler = mock
+        
+        let url = URL(string: self.testDeepLinkURL)!
+        let fallbackURL = URL(string: self.testDeepLinkFallbackURL)!
+        
+        if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+            CordialApiConfiguration.shared.cordialDeepLinksHandler!.openDeepLink(url: url, fallbackURL: fallbackURL, scene: scene)
+        } else {
+            CordialApiConfiguration.shared.cordialDeepLinksHandler!.openDeepLink(url: url, fallbackURL: fallbackURL)
         }
         
         XCTAssert(mock.isVerified)

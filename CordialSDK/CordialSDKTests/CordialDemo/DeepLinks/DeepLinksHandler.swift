@@ -1,8 +1,8 @@
 //
 //  DeepLinksHandler.swift
-//  CordialSDKTestsHost
+//  CordialSDKTests
 //
-//  Created by Yan Malinovsky on 03.03.2020.
+//  Created by Yan Malinovsky on 04.03.2020.
 //  Copyright © 2020 cordial.io. All rights reserved.
 //
 
