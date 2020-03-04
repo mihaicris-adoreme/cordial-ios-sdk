@@ -29,7 +29,7 @@ class CordialSDKTests: XCTestCase {
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.none)
         
-        CordialApiConfiguration.shared.cordialDeepLinksHandler = MockDeepLinksHandler()
+        CordialApiConfiguration.shared.cordialDeepLinksHandler = DeepLinksHandler()
         
         self.testPushNotification = """
             {
@@ -43,7 +43,6 @@ class CordialSDKTests: XCTestCase {
                 }
             }
         """
-//        "deepLink":"{\"url\":\"\(self.testDeepLinkURL)\",\"fallbackUrl\":\"\(self.testDeepLinkFallbackURL)\"}"
     }
     
     func testAPNsToken() {
