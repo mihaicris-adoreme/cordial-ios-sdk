@@ -104,6 +104,21 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
+    func testRemoteNotificationsHasBeenTappedWithMcId() {
+        let mock = MockRequestSenderRemoteNotificationsHasBeenTappedWithMcId()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
+        }
+        
+        XCTAssert(mock.isVerified)
+    }
+    
     func testDeepLinkDelegate() {
         let mock = MockPushNotificationHandlerDeepLinkDelegate()
         
