@@ -260,4 +260,21 @@ class CordialSDKTests: XCTestCase {
         
         XCTAssert(mock.isVerified)
     }
+    
+    // PK -> PK && PK != PK
+    func testClearMcIdIfLoginWithNotTheSamePrimaryKeyInLoginMode() {
+        let mock = MockRequestSenderNotSaveMcIdAfterSetContact()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        
+        self.cordialAPI.setContact(primaryKey: "new_\(self.testPrimaryKey)")
+        
+        XCTAssert(mock.isVerified)
+    }
 }
