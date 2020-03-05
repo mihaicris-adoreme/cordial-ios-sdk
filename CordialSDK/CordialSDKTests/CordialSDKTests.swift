@@ -123,14 +123,13 @@ class CordialSDKTests: XCTestCase {
         let mock = MockPushNotificationHandlerDeepLinkDelegate()
         
         CordialApiConfiguration.shared.cordialDeepLinksHandler = mock
+        DependencyConfiguration.shared.requestSender = EmptyMockRequestSender()
         
-        let url = URL(string: self.testDeepLinkURL)!
-        let fallbackURL = URL(string: self.testDeepLinkFallbackURL)!
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
         
-        if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-            CordialApiConfiguration.shared.cordialDeepLinksHandler!.openDeepLink(url: url, fallbackURL: fallbackURL, scene: scene)
-        } else {
-            CordialApiConfiguration.shared.cordialDeepLinksHandler!.openDeepLink(url: url, fallbackURL: fallbackURL)
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
         XCTAssert(mock.isVerified)

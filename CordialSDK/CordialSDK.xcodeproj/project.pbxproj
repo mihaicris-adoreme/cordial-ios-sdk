@@ -26,6 +26,7 @@
 		9E3EA04522B2805900EDBF93 /* CordialLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3EA04422B2805900EDBF93 /* CordialLocationManager.swift */; };
 		9E3EA62522579FBA00ECE52E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3EA62422579FBA00ECE52E /* Reachability.swift */; };
 		9E3EA6272257A02400ECE52E /* CustomEventsSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3EA6262257A02400ECE52E /* CustomEventsSender.swift */; };
+		9E411E042411308900D850B0 /* EmptyMockRequestSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E411E032411308900D850B0 /* EmptyMockRequestSender.swift */; };
 		9E41A8F1240FE1D100C9F8B6 /* DeepLinksHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E41A8F0240FE1D100C9F8B6 /* DeepLinksHandler.swift */; };
 		9E41A8F4240FE24600C9F8B6 /* PushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E41A8F3240FE24600C9F8B6 /* PushNotificationHandler.swift */; };
 		9E41A8F7240FEC1D00C9F8B6 /* MockPushNotificationHandlerDeepLinkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E41A8F6240FEC1D00C9F8B6 /* MockPushNotificationHandlerDeepLinkDelegate.swift */; };
@@ -198,6 +199,7 @@
 		9E3EA04422B2805900EDBF93 /* CordialLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialLocationManager.swift; sourceTree = "<group>"; };
 		9E3EA62422579FBA00ECE52E /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		9E3EA6262257A02400ECE52E /* CustomEventsSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventsSender.swift; sourceTree = "<group>"; };
+		9E411E032411308900D850B0 /* EmptyMockRequestSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyMockRequestSender.swift; sourceTree = "<group>"; };
 		9E41A8F0240FE1D100C9F8B6 /* DeepLinksHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinksHandler.swift; sourceTree = "<group>"; };
 		9E41A8F3240FE24600C9F8B6 /* PushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationHandler.swift; sourceTree = "<group>"; };
 		9E41A8F6240FEC1D00C9F8B6 /* MockPushNotificationHandlerDeepLinkDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPushNotificationHandlerDeepLinkDelegate.swift; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 		9EBA1B0E23FFE2AE00005054 /* RequestSender */ = {
 			isa = PBXGroup;
 			children = (
+				9E411E032411308900D850B0 /* EmptyMockRequestSender.swift */,
 				9EBA1B0F23FFE2C300005054 /* MockRequestSenderRemoteNotificationsDeviceToken.swift */,
 				9EBA1B1123FFE2D600005054 /* MockRequestSenderRemoteNotificationsHasBeenTapped.swift */,
 				9EFD2F88240EB41A000AFE18 /* MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink.swift */,
@@ -1135,6 +1138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EBA1B1423FFE2E600005054 /* MockRequestSenderSetContact.swift in Sources */,
+				9E411E042411308900D850B0 /* EmptyMockRequestSender.swift in Sources */,
 				9E41A8F4240FE24600C9F8B6 /* PushNotificationHandler.swift in Sources */,
 				9EF039D024041E9700668C47 /* CordialSDKTestsHelper.swift in Sources */,
 				9EBA1B1223FFE2D600005054 /* MockRequestSenderRemoteNotificationsHasBeenTapped.swift in Sources */,
