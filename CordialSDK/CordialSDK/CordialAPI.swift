@@ -26,6 +26,8 @@ import os.log
     @objc public func setAccountKey(accountKey: String) {
         if accountKey != self.getAccountKey() {
             CordialUserDefaults.set(accountKey, forKey: API.USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY)
+            
+            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
         }
     }
     
@@ -44,13 +46,15 @@ import os.log
     @objc public func setChannelKey(channelKey: String) {
         if channelKey != self.getChannelKey() {
             CordialUserDefaults.set(channelKey, forKey: API.USER_DEFAULTS_KEY_FOR_CHANNEL_KEY)
+            
+            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
         }
     }
     
     // MARK: Get base URL
     
     @objc public func getBaseURL() -> String {
-        if let baseURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL) {
+        if let baseURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL) {
             return baseURL
         }
         
@@ -62,10 +66,12 @@ import os.log
     @objc public func setBaseURL(baseURL: String) {
         if baseURL != self.getBaseURL() {
             if baseURL.last != "/" {
-                CordialUserDefaults.set("\(baseURL)/", forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
+                CordialUserDefaults.set("\(baseURL)/", forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL)
             } else {
-                CordialUserDefaults.set(baseURL, forKey: API.USER_DEFAULTS_KEY_FOR_BASR_URL)
+                CordialUserDefaults.set(baseURL, forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL)
             }
+            
+            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
         }
     }
     
@@ -98,10 +104,10 @@ import os.log
     // MARK: Set Contact
     
     @objc public func setContact(primaryKey: String?) {
-        if let previousPrimaryKey = self.getContactPrimaryKey() {
-            CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
-            CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
-        }
+        let previousPrimaryKey = self.getContactPrimaryKey()
+        
+        CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
         

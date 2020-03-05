@@ -14,6 +14,8 @@ public extension Notification.Name {
     static let connectedToInternet = Notification.Name("ConnectedToInternet")
     static let notConnectedToInternet = Notification.Name("NotConnectedToInternet")
     
+    static let cordialConnectionSettingsHasBeenChange = Notification.Name("CordialConnectionSettingsHasBeenChange")
+    
     static let cordialSendCustomEventsLogicError = Notification.Name("CordialSendCustomEventsLogicError")
     static let cordialUpsertContactCartLogicError = Notification.Name("CordialUpsertContactCartLogicError")
     static let cordialSendContactOrdersLogicError = Notification.Name("CordialSendContactOrdersLogicError")
@@ -26,6 +28,8 @@ public extension Notification.Name {
 @objc public extension NSNotification {
     static let connectedToInternet = Notification.Name.connectedToInternet
     static let notConnectedToInternet = Notification.Name.notConnectedToInternet
+    
+    static let cordialConnectionSettingsHasBeenChange = Notification.Name.cordialConnectionSettingsHasBeenChange
     
     static let cordialSendCustomEventsLogicError = Notification.Name.cordialSendCustomEventsLogicError
     static let cordialUpsertContactCartLogicError = Notification.Name.cordialUpsertContactCartLogicError
@@ -71,6 +75,10 @@ class NotificationManager {
         
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
         InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
+    }
+    
+    @objc func connectionSettingsHasBeenChangeHandler() {
+        InternalCordialAPI().removeCurrentMcID()
     }
     
     private func prepareCurrentPushNotificationStatus() {
@@ -128,6 +136,9 @@ class NotificationManager {
             notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
             notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
         }
+        
+        notificationCenter.removeObserver(self, name: .cordialConnectionSettingsHasBeenChange, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(connectionSettingsHasBeenChangeHandler), name: .cordialConnectionSettingsHasBeenChange, object: nil)
         
         CordialApiConfiguration.shared.cordialSwizzler.swizzleAppDelegateMethods()
     }

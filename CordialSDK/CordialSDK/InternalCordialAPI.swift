@@ -66,6 +66,13 @@ class InternalCordialAPI {
         CordialUserDefaults.set(DateFormatter().getCurrentTimestamp(), forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
     }
     
+    // MARK: Remove current mcID
+    
+    @objc public func removeCurrentMcID() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
+    }
+    
     // MARK: Get mc tap time
     
     func getMcTapTime() -> String? {

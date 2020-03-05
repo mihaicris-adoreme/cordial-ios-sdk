@@ -110,7 +110,7 @@ class CordialPushNotificationHelper {
     
     func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
-        let mcID = self.cordialAPI.getCurrentMcID()
+        let mcID = userInfo["mcID"] as? String
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }

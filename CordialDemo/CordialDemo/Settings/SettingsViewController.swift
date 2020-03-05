@@ -22,7 +22,7 @@ class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         self.baseURLTextField.text = self.cordialAPI.getBaseURL()
         self.accountKeyTextField.text = self.cordialAPI.getAccountKey()
         self.channelKeyTextField.text = self.cordialAPI.getChannelKey()
