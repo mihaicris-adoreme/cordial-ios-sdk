@@ -1,5 +1,5 @@
 //
-//  MockRequestSenderSaveMcIdIfLoginWithPrimaryKeyInGuestMode.swift
+//  MockRequestSenderSaveMcIdAfterSetContact.swift
 //  CordialSDKTests
 //
 //  Created by Yan Malinovsky on 05.03.2020.
@@ -9,7 +9,7 @@
 import XCTest
 import CordialSDK
 
-class MockRequestSenderSaveMcIdIfLoginWithPrimaryKeyInGuestMode: RequestSender {
+class MockRequestSenderSaveMcIdAfterSetContact: RequestSender {
     
     var isVerified = false
     
