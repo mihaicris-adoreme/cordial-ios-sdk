@@ -195,13 +195,13 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testMcIdNotClearedIfLoginWithPrimaryKeyInGuestMode() {
+    func testNotClearedMcIdIfLoginWithPrimaryKeyInGuestMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
-        
+        self.testCase.markUserAsLoggedIn()
         InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
@@ -209,16 +209,31 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testMcIdNotClearedIfLoginWithoutPrimaryKeyInGuestMode() {
+    func testNotClearedMcIdIfLoginWithoutPrimaryKeyInGuestMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
-        
+        self.testCase.markUserAsLoggedIn()
         InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
         
         self.cordialAPI.setContact(primaryKey: nil)
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testNotClearedMcIdIfLoginWithTheSamePrimaryKeyInLoginMode() {
+        let mock = MockRequestSenderSaveMcIdAfterSetContact()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        
+        self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
         XCTAssert(mock.isVerified)
     }
