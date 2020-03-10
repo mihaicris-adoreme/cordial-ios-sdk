@@ -102,7 +102,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         }
     }
     
-    func initWebView(webViewSize: CGRect, mcID: String) {
+    func initWebView(webViewSize: CGRect, inAppMessageData: InAppMessageData) {
+        self.inAppMessageData = inAppMessageData
+        
         let webConfiguration = WKWebViewConfiguration()
         
         if let inAppMessageJS = InAppMessageProcess.shared.getInAppMessageJS() {
@@ -110,9 +112,6 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             let staticUserScript = WKUserScript(source: inAppMessageJS, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
             contentController.addUserScript(staticUserScript)
-            
-            let dynamicUserScript = self.getDynamicUserScript(mcID: mcID)
-            contentController.addUserScript(dynamicUserScript)
             
             contentController.add(self, name: "action")
             
@@ -133,24 +132,6 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             self.inAppMessageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissModalInAppMessage)))
         }
 
-    }
-    
-    func getDynamicUserScript(mcID: String) -> WKUserScript {
-        let script = """
-                     function action(deepLink = null, eventName = null, mcID = "\(mcID)") {
-                        try {
-                            webkit.messageHandlers.action.postMessage({
-                                mcID: mcID,
-                                deepLink: deepLink,
-                                eventName: eventName
-                            });
-                        } catch (error) {
-                            console.error(error);
-                        }
-                     }
-                     """
-        
-        return WKUserScript(source: script, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
     }
     
     func removeBannerFromSuperviewWithAnimation(eventName: String?, duration: TimeInterval) {
@@ -227,12 +208,14 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "action" {
             if let dict = message.body as? NSDictionary {
-                if let mcID = dict["mcID"] as? String, let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
+                if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
+                    let mcID = self.inAppMessageData.mcID
                     self.internalCordialAPI.setCurrentMcID(mcID: mcID)
                     self.internalCordialAPI.openDeepLink(url: url)
                 }
                 
-                if let mcID = dict["mcID"] as? String, let eventName = dict["eventName"] as? String {
+                if let eventName = dict["eventName"] as? String {
+                    let mcID = self.inAppMessageData.mcID
                     let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
                     self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 }

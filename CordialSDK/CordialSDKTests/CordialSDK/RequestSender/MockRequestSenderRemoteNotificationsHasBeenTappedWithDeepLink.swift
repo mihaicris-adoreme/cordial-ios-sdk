@@ -1,0 +1,32 @@
+//
+//  MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink.swift
+//  CordialSDKTests
+//
+//  Created by Yan Malinovsky on 03.03.2020.
+//  Copyright © 2020 cordial.io. All rights reserved.
+//
+
+import XCTest
+import CordialSDK
+
+class MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink: RequestSender {
+    
+    var isVerified = false
+    
+    let sdkTests = CordialSDKTests()
+    
+    override func sendRequest(task: URLSessionDownloadTask) {
+        let httpBody = task.originalRequest!.httpBody!
+        
+        if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+            let json = jsonArray.first! as! [String: AnyObject]
+             
+            if json["event"] as! String == self.sdkTests.testCase.getEventNameDeepLinkOpen() {
+                XCTAssertEqual(json["mcID"] as! String, self.sdkTests.testMcId, "mcIDs don't match")
+                
+                self.isVerified = true
+            }
+        }
+    }
+    
+}

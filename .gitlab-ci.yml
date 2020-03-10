@@ -10,3 +10,5 @@ build_project:
     - xcodebuild test -project CordialAppExtensions/CordialAppExtensions.xcodeproj -scheme CordialAppExtensions -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty -s
     - xcodebuild clean -project CordialAppExtensions_Objective-C/CordialAppExtensions_Objective-C.xcodeproj -scheme CordialAppExtensions_Objective-C | xcpretty
     - xcodebuild test -project CordialAppExtensions_Objective-C/CordialAppExtensions_Objective-C.xcodeproj -scheme CordialAppExtensions_Objective-C -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty -s
+  tags:
+    - ios

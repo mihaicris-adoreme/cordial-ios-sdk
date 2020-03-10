@@ -156,28 +156,7 @@ class CordialSwizzler {
     // MARK: Swizzled AppDelegate remote notification registration methods.
     
     @objc func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
-        let token = tokenParts.joined()
-        
-        if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
-            pushNotificationHandler.apnsTokenReceived(token: token)
-        }
-        
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
-        }
-        
-        let internalCordialAPI = InternalCordialAPI()
-        
-        if token != internalCordialAPI.getPushNotificationToken() {
-            let primaryKey = CordialAPI().getContactPrimaryKey()
-            let status = internalCordialAPI.getPushNotificationStatus()
-            
-            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
-            
-            internalCordialAPI.setPushNotificationToken(token: token)
-        }
+        CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
     }
     
     @objc func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

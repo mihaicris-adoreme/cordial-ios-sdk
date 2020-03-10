@@ -13,6 +13,8 @@ class SendCustomEvents {
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
+    let requestSender = DependencyConfiguration.shared.requestSender
+    
     func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
         
         if let url = URL(string: CordialApiEndpoints().getCustomEventsURL()) {
@@ -28,7 +30,7 @@ class SendCustomEvents {
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS, taskData: sendCustomEventsURLSessionData)
             CordialURLSession.shared.setOperation(taskIdentifier: sendCustomEventsDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            sendCustomEventsDownloadTask.resume()
+            self.requestSender.sendRequest(task: sendCustomEventsDownloadTask)
         }
     }
     

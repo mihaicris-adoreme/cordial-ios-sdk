@@ -13,6 +13,8 @@ class SendContactOrders {
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
+    let requestSender = DependencyConfiguration.shared.requestSender
+    
     func sendContactOrders(sendContactOrderRequests: [SendContactOrderRequest]) {
         if let url = URL(string: CordialApiEndpoints().getOrdersURL()) {
             var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
@@ -26,7 +28,7 @@ class SendContactOrders {
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS, taskData: sendContactOrdersURLSessionData)
             CordialURLSession.shared.setOperation(taskIdentifier: sendContactOrdersDownloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            sendContactOrdersDownloadTask.resume()
+            self.requestSender.sendRequest(task: sendContactOrdersDownloadTask)
         }
     }
     
