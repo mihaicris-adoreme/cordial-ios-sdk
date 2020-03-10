@@ -103,8 +103,7 @@ class CustomEventsSender {
         var errorIDs = [Int]()
         
         do {
-            if let responseBodyData = responseBody.data(using: .utf8) {
-                let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as! [String: AnyObject]
+            if let responseBodyData = responseBody.data(using: .utf8), let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject] {
                 if let errorsJSON = responseBodyJSON["error"]?["errors"] as? [String: AnyObject] {
                     let errors = errorsJSON.keys.map { $0 }
                     errors.forEach { error in
@@ -112,6 +111,10 @@ class CustomEventsSender {
                             errorIDs.append(intID)
                         }
                     }
+                }
+            } else {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                    os_log("Failed decode response.", log: OSLog.cordialSDKSecurity, type: .error)
                 }
             }
         } catch let error {

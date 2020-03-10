@@ -19,14 +19,23 @@ class SDKSecurityGetJWTURLSessionManager {
             
             switch httpResponse.statusCode {
             case 200:
-                if let responseBodyData = responseBody.data(using: .utf8) {
-                    let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as! [String: AnyObject]
-                    if let JWT = responseBodyJSON["token"] as? String {
-                        SDKSecurity.shared.completionHandler(JWT: JWT)
+                do {
+                    if let responseBodyData = responseBody.data(using: .utf8), let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject] {
+                        if let JWT = responseBodyJSON["token"] as? String {
+                            SDKSecurity.shared.completionHandler(JWT: JWT)
+                        } else {
+                            let message = "JWT is absent"
+                            let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                            SDKSecurity.shared.errorHandler(error: responseError)
+                        }
                     } else {
-                        let message = "JWT is absent"
-                        let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                        SDKSecurity.shared.errorHandler(error: responseError)
+                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                            os_log("Failed decode response data.", log: OSLog.cordialSDKSecurity, type: .error)
+                        }
+                    }
+                } catch let error {
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.localizedDescription)
                     }
                 }
             default:
