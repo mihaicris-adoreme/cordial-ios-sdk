@@ -39,7 +39,15 @@ class ProfileViewController: UIViewController {
             
             // Test call upsertContact below just for case if some attributes are exist on the profile page.
             // Demo app did not have any attributes on the test profile page.
-            self.cordialAPI.upsertContact(attributes: nil)
+            
+            let attributes = ["key": ArrayValue(["q", "w", "e"])]
+//            let attributes = ["key": StringValue("TEST")]
+//            let attributes = ["key": BooleanValue(true)]
+//            let attributes = ["key": NumericValue(1.0)]
+//            let attributes = ["key": NumericValue(1)]
+            
+            
+            self.cordialAPI.upsertContact(attributes: attributes)
             
             popupSimpleNoteAlert(title: "PROFILE", message: "UPDATED", controller: self)
             

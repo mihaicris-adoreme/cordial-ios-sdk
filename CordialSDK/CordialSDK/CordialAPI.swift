@@ -136,7 +136,21 @@ import os.log
     
     // MARK: Upsert Contact
     
-    @objc public func upsertContact(attributes: Dictionary<String, String>?) -> Void {
+//    @objc public func upsertContact(attributes: Dictionary<String, String>?) -> Void {
+//        if let primaryKey = self.getContactPrimaryKey() {
+//            let internalCordialAPI = InternalCordialAPI()
+//
+//            let token = internalCordialAPI.getPushNotificationToken()
+//            let status = internalCordialAPI.getPushNotificationStatus()
+//
+//            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: attributes)
+//            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+//        }
+//    }
+    
+    // MARK: Upsert Contact
+    
+    @objc public func upsertContact(attributes: Dictionary<String, AttributeValue>?) -> Void {
         if let primaryKey = self.getContactPrimaryKey() {
             let internalCordialAPI = InternalCordialAPI()
             

@@ -65,9 +65,9 @@ class UpsertContacts {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         
-        if let attributes = upsertContactRequest.attributes {
-            rootContainer.append("\"attributes\": \(API.getDictionaryJSON(stringDictionary: attributes))")
-        }
+//        if let attributes = upsertContactRequest.attributes {
+//            rootContainer.append("\"attributes\": \(API.getDictionaryJSON(stringDictionary: attributes))")
+//        }
         
         let rootContainerString = rootContainer.joined(separator: ", ")
         
