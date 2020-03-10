@@ -36,6 +36,11 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         self.tableView.register(UINib(nibName: "CartTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: cartFooterCell)
         self.cartTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: cartFooterCell) as? CartTableFooterView
         self.cartTableFooterView.checkoutButton.addTarget(self, action: #selector(checkoutAction), for: .touchUpInside)
+        
+        self.cartTableFooterView.layer.shadowColor = UIColor.gray.cgColor
+        self.cartTableFooterView.layer.shadowOpacity = 1
+        self.cartTableFooterView.layer.shadowOffset = .zero
+        self.cartTableFooterView.layer.shadowRadius = 10
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,10 +79,10 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     }
     
     func upsertCartTableFooterView() {
-        if products.count > 0 {
+        if self.products.count > 0 {
             var totalQty: Int64 = 0
             var totalPrice: Double = 0
-            products.forEach { product in
+            self.products.forEach { product in
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.getCartItemQtyBySKU(appDelegate: appDelegate, sku: product.sku) {
                     totalQty += qty
                     totalPrice += product.price * Double(qty)
@@ -93,7 +98,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
             self.tableView.tableFooterView = UIView(frame: .zero)
         }
         
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     func upsertContactCart() {
@@ -126,7 +131,15 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if products.count > 0 {
-            return self.cartTableFooterView.frame.size.height
+            let productHeight = self.tableView.frame.size.height / 3
+            let productsHeight = productHeight * CGFloat(self.products.count)
+            let calculatedHeightForFooter = self.tableView.frame.size.height - productsHeight
+            
+            if calculatedHeightForFooter > self.cartTableFooterView.frame.size.height {
+                return calculatedHeightForFooter
+            } else {
+                return self.cartTableFooterView.frame.size.height
+            }
         }
         
         return 0
