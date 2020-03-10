@@ -62,8 +62,8 @@ struct API {
     
     static func getStringArrayJSON(stringArray: [String]) -> String {
         var stringArrayContainer = [String]()
-        stringArray.forEach({ image in
-            stringArrayContainer.append(image)
+        stringArray.forEach({ string in
+            stringArrayContainer.append("\"\(string)\"")
         })
         
         let stringContainer = stringArrayContainer.joined(separator: ", ")

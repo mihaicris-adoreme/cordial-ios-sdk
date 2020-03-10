@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController {
             let attributes = ["key": ArrayValue(["q", "w", "e"])]
 //            let attributes = ["key": StringValue("TEST")]
 //            let attributes = ["key": BooleanValue(true)]
-//            let attributes = ["key": NumericValue(1.0)]
+//            let attributes = ["key": NumericValue(1.3)]
 //            let attributes = ["key": NumericValue(1)]
             
             
