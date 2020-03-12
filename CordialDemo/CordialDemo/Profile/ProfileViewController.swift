@@ -11,7 +11,7 @@ import CordialSDK
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    @IBOutlet weak var primaryKeyTextField: UITextField!
+    @IBOutlet weak var primaryKeyLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
     let profileCell = "profileTableCell"
@@ -24,32 +24,21 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.primaryKeyTextField.setBottomBorder(color: UIColor.black)
-        
         self.title = "Profile"
         
         if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
-            self.primaryKeyTextField.text = primaryKey
+            self.primaryKeyLabel.text = primaryKey
         }
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.tableView.register(UINib(nibName: "ProfileTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: profileFooterCell)
-        self.profileTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: profileFooterCell) as? ProfileTableFooterView
+        self.tableView.register(UINib(nibName: "ProfileTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: self.profileFooterCell)
+        self.profileTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: self.profileFooterCell) as? ProfileTableFooterView
         self.profileTableFooterView.updateProfileButton.addTarget(self, action: #selector(updateProfileButtonAction), for: .touchUpInside)
     }
 
     @objc func updateProfileButtonAction() {
-        if let newPrimaryKey = self.primaryKeyTextField.text, !newPrimaryKey.isEmpty {
-            
-            // Update primary key if it has changed.
-            if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
-                if primaryKey != newPrimaryKey {
-                    self.cordialAPI.setContact(primaryKey: newPrimaryKey)
-                }
-            }
-            
             // Test call upsertContact below just for case if some attributes are exist on the profile page.
             // Demo app did not have any attributes on the test profile page.
             
@@ -63,10 +52,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.cordialAPI.upsertContact(attributes: attributes)
             
             popupSimpleNoteAlert(title: "PROFILE", message: "UPDATED", controller: self)
-            
-        } else {
-            self.primaryKeyTextField.setBottomBorder(color: UIColor.red)
-        }
     }
     
     
