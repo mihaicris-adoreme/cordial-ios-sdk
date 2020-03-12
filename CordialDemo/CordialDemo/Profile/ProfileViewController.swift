@@ -9,9 +9,15 @@
 import UIKit
 import CordialSDK
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var primaryKeyTextField: UITextField!
+    @IBOutlet weak var tableView: UITableView!
+    
+    let profileCell = "profileTableCell"
+    let profileFooterCell = "profileTableFooterCell"
+    
+    var profileTableFooterView: ProfileTableFooterView!
     
     let cordialAPI = CordialAPI()
     
@@ -25,9 +31,16 @@ class ProfileViewController: UIViewController {
         if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
             self.primaryKeyTextField.text = primaryKey
         }
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        self.tableView.register(UINib(nibName: "ProfileTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: profileFooterCell)
+        self.profileTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: profileFooterCell) as? ProfileTableFooterView
+        self.profileTableFooterView.updateProfileButton.addTarget(self, action: #selector(updateProfileButtonAction), for: .touchUpInside)
     }
 
-    @IBAction func updateProfileButtonAction(_ sender: UIButton) {
+    @objc func updateProfileButtonAction() {
         if let newPrimaryKey = self.primaryKeyTextField.text, !newPrimaryKey.isEmpty {
             
             // Update primary key if it has changed.
@@ -56,4 +69,42 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    
+    // MARK: UITableViewDelegate
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return self.tableView.dequeueReusableHeaderFooterView(withIdentifier: profileFooterCell)
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return self.profileTableFooterView.frame.size.height
+    }
+
+    // MARK: UITableViewDataSource
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: profileCell, for: indexPath)
+
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return self.tableView.frame.size.height / 5
+    }
+
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == UITableViewCell.EditingStyle.delete, let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+//            AppDataManager.shared.deleteCartItemBySKU(appDelegate: appDelegate, sku: products[indexPath.row].sku)
+//
+//            products.remove(at: indexPath.row)
+//            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+//
+//            self.upsertContactCart()
+//            self.upsertCartTableFooterView()
+//        }
+//    }
 }

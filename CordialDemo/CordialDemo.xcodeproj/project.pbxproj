@@ -28,6 +28,8 @@
 		9E7A5A82222EB64C0020054F /* CordialDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A81222EB64C0020054F /* CordialDemoTests.swift */; };
 		9E7A5A8D222EB64C0020054F /* CordialDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */; };
 		9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */; };
+		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
+		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
 		9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B95A923A53A1300936630 /* SceneDelegate.swift */; };
 		9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB260CA229FF489005786BD /* SettingsViewController.swift */; };
 		9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECF6B7F229855F500E6E88F /* ProductHandler.swift */; };
@@ -126,6 +128,8 @@
 		9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemoUITests.swift; sourceTree = "<group>"; };
 		9E7A5A8E222EB64C0020054F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
+		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
 		9E8B95A923A53A1300936630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9EB260CA229FF489005786BD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9ECF6B7F229855F500E6E88F /* ProductHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHandler.swift; sourceTree = "<group>"; };
@@ -294,9 +298,19 @@
 		9E7BD8C7228DADDC004B4EB9 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				9E80E35D24194E1400EE5852 /* Footer */,
 				9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		9E80E35D24194E1400EE5852 /* Footer */ = {
+			isa = PBXGroup;
+			children = (
+				9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */,
+				9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */,
+			);
+			path = Footer;
 			sourceTree = "<group>";
 		};
 		9EB260C8229FF475005786BD /* Settings */ = {
@@ -537,6 +551,7 @@
 				9E7A5A77222EB64C0020054F /* LaunchScreen.storyboard in Resources */,
 				9E7A5A74222EB64C0020054F /* Assets.xcassets in Resources */,
 				9E7A5A6F222EB64B0020054F /* Main.storyboard in Resources */,
+				9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +696,7 @@
 				9EDC7E402242912000BF8FB0 /* App.swift in Sources */,
 				9EF7B20D22662A79003B223D /* CartViewController.swift in Sources */,
 				9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */,
+				9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */,
 				9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */,
 				9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */,
 				9EF7B20B2266259B003B223D /* Product.swift in Sources */,
