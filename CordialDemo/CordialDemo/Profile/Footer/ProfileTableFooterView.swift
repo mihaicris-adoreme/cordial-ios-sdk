@@ -7,9 +7,21 @@
 //
 
 import UIKit
+import CordialSDK
 
 class ProfileTableFooterView: UITableViewHeaderFooterView {
     
-    @IBOutlet weak var updateProfileButton: UIButton!
-    
+    @IBAction func updateProfileAction(_ sender: UIButton) {
+        let attributes = ["key": ArrayValue(["q", "w", "e"])]
+//            let attributes = ["key": StringValue("TEST")]
+//            let attributes = ["key": BooleanValue(true)]
+//            let attributes = ["key": NumericValue(1.3)]
+//            let attributes = ["key": NumericValue(1)]
+
+        CordialAPI().upsertContact(attributes: attributes)
+
+        if let controller = getActiveViewController() {
+            popupSimpleNoteAlert(title: "PROFILE", message: "UPDATED", controller: controller)
+        }
+    }    
 }

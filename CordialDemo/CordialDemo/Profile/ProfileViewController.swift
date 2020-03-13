@@ -24,36 +24,19 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
         self.title = "Profile"
         
         if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
             self.primaryKeyLabel.text = primaryKey
         }
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.tableView.register(UINib(nibName: "ProfileTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: profileFooterCell)
+        self.profileTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: profileFooterCell) as? ProfileTableFooterView
         
-        self.tableView.register(UINib(nibName: "ProfileTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: self.profileFooterCell)
-        self.profileTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: self.profileFooterCell) as? ProfileTableFooterView
-        self.profileTableFooterView.updateProfileButton.addTarget(self, action: #selector(updateProfileButtonAction), for: .touchUpInside)
     }
-
-    @objc func updateProfileButtonAction() {
-            // Test call upsertContact below just for case if some attributes are exist on the profile page.
-            // Demo app did not have any attributes on the test profile page.
-            
-            let attributes = ["key": ArrayValue(["q", "w", "e"])]
-//            let attributes = ["key": StringValue("TEST")]
-//            let attributes = ["key": BooleanValue(true)]
-//            let attributes = ["key": NumericValue(1.3)]
-//            let attributes = ["key": NumericValue(1)]
-            
-            
-            self.cordialAPI.upsertContact(attributes: attributes)
-            
-            popupSimpleNoteAlert(title: "PROFILE", message: "UPDATED", controller: self)
-    }
-    
     
     // MARK: UITableViewDelegate
 
