@@ -20,9 +20,8 @@ class ProfileAttributesViewController: UIViewController, UIPickerViewDelegate, U
         self.pickerView.delegate = self
         self.pickerView.dataSource = self
         
-        pickerData = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6"]
-        
-        
+        pickerData = ["String", "Boolean", "Numeric", "Array"]
+         
     }
 
     /*
