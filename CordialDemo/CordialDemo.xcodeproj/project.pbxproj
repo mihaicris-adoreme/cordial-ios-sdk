@@ -11,7 +11,8 @@
 		6C102E85A5A269BAD6F316DB /* Pods_CordialDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67DA66C3AD068AE05F0FAEEB /* Pods_CordialDemo.framework */; };
 		9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00ED3C227084E400684F40 /* CartTableFooterView.swift */; };
 		9E00ED3F227084ED00684F40 /* CartTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E00ED3E227084ED00684F40 /* CartTableFooterView.xib */; };
-		9E3DD4CF241BC066004C3918 /* ProfileAttributesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3DD4CE241BC066004C3918 /* ProfileAttributesViewController.swift */; };
+		9E1EB37C241DACDA004CAD90 /* CartCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB37B241DACDA004CAD90 /* CartCoreData.swift */; };
+		9E3DD4CF241BC066004C3918 /* AttributesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3DD4CE241BC066004C3918 /* AttributesViewController.swift */; };
 		9E45FE7622537648006A5A6B /* CordialPushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E45FE7522537648006A5A6B /* CordialPushNotificationHandler.swift */; };
 		9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */; };
 		9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */; };
@@ -105,7 +106,8 @@
 		9E00ED3C227084E400684F40 /* CartTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableFooterView.swift; sourceTree = "<group>"; };
 		9E00ED3E227084ED00684F40 /* CartTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartTableFooterView.xib; sourceTree = "<group>"; };
 		9E115532224E541A00CEF9FB /* CordialDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CordialDemo.entitlements; sourceTree = "<group>"; };
-		9E3DD4CE241BC066004C3918 /* ProfileAttributesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAttributesViewController.swift; sourceTree = "<group>"; };
+		9E1EB37B241DACDA004CAD90 /* CartCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCoreData.swift; sourceTree = "<group>"; };
+		9E3DD4CE241BC066004C3918 /* AttributesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesViewController.swift; sourceTree = "<group>"; };
 		9E45FE7522537648006A5A6B /* CordialPushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationHandler.swift; sourceTree = "<group>"; };
 		9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewController.swift; sourceTree = "<group>"; };
 		9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -210,12 +212,20 @@
 			path = Footer;
 			sourceTree = "<group>";
 		};
-		9E3DD4CA241BC01F004C3918 /* ProfileAttributes */ = {
+		9E1EB37A241DACB5004CAD90 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				9E3DD4CE241BC066004C3918 /* ProfileAttributesViewController.swift */,
+				9E1EB37B241DACDA004CAD90 /* CartCoreData.swift */,
 			);
-			path = ProfileAttributes;
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		9E3DD4CA241BC01F004C3918 /* Attributes */ = {
+			isa = PBXGroup;
+			children = (
+				9E3DD4CE241BC066004C3918 /* AttributesViewController.swift */,
+			);
+			path = Attributes;
 			sourceTree = "<group>";
 		};
 		9E77896A22878C090089C986 /* NotificationServiceExtension */ = {
@@ -260,7 +270,7 @@
 				9EF7B21422666102003B223D /* PushNotification */,
 				9EF7B213226660D0003B223D /* Login */,
 				9E7BD8C7228DADDC004B4EB9 /* Profile */,
-				9E3DD4CA241BC01F004C3918 /* ProfileAttributes */,
+				9E3DD4CA241BC01F004C3918 /* Attributes */,
 				9EF7B2112266609A003B223D /* Catalog */,
 				9EF7B212226660B1003B223D /* Product */,
 				9EF7B21522666111003B223D /* Cart */,
@@ -353,6 +363,7 @@
 		9EF7B21022663864003B223D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				9E1EB37A241DACB5004CAD90 /* Helper */,
 				9E7A5A70222EB64B0020054F /* CordialDemo.xcdatamodeld */,
 				9EF7B20E2266340F003B223D /* AppDataManager.swift */,
 			);
@@ -714,7 +725,8 @@
 				9EF7B20F2266340F003B223D /* AppDataManager.swift in Sources */,
 				9E7A5A6C222EB64B0020054F /* LoginViewController.swift in Sources */,
 				9E7A5A6A222EB64B0020054F /* AppDelegate.swift in Sources */,
-				9E3DD4CF241BC066004C3918 /* ProfileAttributesViewController.swift in Sources */,
+				9E3DD4CF241BC066004C3918 /* AttributesViewController.swift in Sources */,
+				9E1EB37C241DACDA004CAD90 /* CartCoreData.swift in Sources */,
 				9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */,
 				9E45FE7622537648006A5A6B /* CordialPushNotificationHandler.swift in Sources */,
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,

@@ -58,7 +58,7 @@ class LoginViewController: UIViewController {
     
     func deleteAllCartItems() {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let entityName = AppDataManager.shared.cartEntityName
+            let entityName = AppDataManager.shared.cart.cartEntityName
             AppDataManager.shared.deleteAllCoreDataByEntity(appDelegate: appDelegate, entityName: entityName)
         }
     }

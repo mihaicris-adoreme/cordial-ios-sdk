@@ -1,5 +1,5 @@
 //
-//  ProfileAttributesViewController.swift
+//  AttributesViewController.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 13.03.2020.
@@ -8,9 +8,11 @@
 
 import UIKit
 
-class ProfileAttributesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var keyTextField: UITextField!
+    @IBOutlet weak var valueTextField: UITextField!
     
     var pickerData: [String] = [String]()
     
@@ -20,10 +22,18 @@ class ProfileAttributesViewController: UIViewController, UIPickerViewDelegate, U
         self.pickerView.delegate = self
         self.pickerView.dataSource = self
         
-        pickerData = ["String", "Boolean", "Numeric", "Array"]
-         
+        self.title = "Attribute"
+        
+        self.keyTextField.setBottomBorder(color: UIColor.lightGray)
+        self.valueTextField.setBottomBorder(color: UIColor.lightGray)
+        
+        self.pickerData = ["String", "Boolean", "Numeric", "Array"]
     }
-
+    
+    @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 

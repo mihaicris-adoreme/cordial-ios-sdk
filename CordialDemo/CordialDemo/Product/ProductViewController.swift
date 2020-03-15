@@ -52,11 +52,11 @@ class ProductViewController: InAppMessageDelayViewController {
         if let cartViewController = segue.destination as? CartViewController, let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             switch segue.identifier {
             case self.segueAddToCartIdentifier:
-                AppDataManager.shared.setCartProductToCoreData(appDelegate: appDelegate, product: product)
+                AppDataManager.shared.cart.setCartProductToCoreData(appDelegate: appDelegate, product: product)
                 
                 self.sendCustomEvent(eventName: "add_to_cart", productName: product.name)
                 
-                cartViewController.products = AppDataManager.shared.getCartItemsFromCoreData(appDelegate: appDelegate)
+                cartViewController.products = AppDataManager.shared.cart.getCartItemsFromCoreData(appDelegate: appDelegate)
                 cartViewController.upsertContactCart()
             default:
                 break

@@ -30,7 +30,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         self.title = "Cart"
         
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            products = AppDataManager.shared.getCartItemsFromCoreData(appDelegate: appDelegate)
+            products = AppDataManager.shared.cart.getCartItemsFromCoreData(appDelegate: appDelegate)
         }
         
         self.tableView.register(UINib(nibName: "CartTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: cartFooterCell)
@@ -67,7 +67,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     
     func deleteAllCartItems() {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let entityName = AppDataManager.shared.cartEntityName
+            let entityName = AppDataManager.shared.cart.cartEntityName
             AppDataManager.shared.deleteAllCoreDataByEntity(appDelegate: appDelegate, entityName: entityName)
             
             products.removeAll()
@@ -83,7 +83,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
             var totalQty: Int64 = 0
             var totalPrice: Double = 0
             self.products.forEach { product in
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.getCartItemQtyBySKU(appDelegate: appDelegate, sku: product.sku) {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.cart.getCartItemQtyBySKU(appDelegate: appDelegate, sku: product.sku) {
                     totalQty += qty
                     totalPrice += product.price * Double(qty)
                 }
@@ -111,7 +111,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         var cartItems = [CartItem]()
         
         products.forEach { product in
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.getCartItemQtyBySKU(appDelegate: appDelegate, sku: product.sku) {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.cart.getCartItemQtyBySKU(appDelegate: appDelegate, sku: product.sku) {
                 
                 let categoryName = "Mens" // tmp value, must be not required.
                 let cartItem = CartItem(productID: product.id, name: product.name, sku: product.sku, category: categoryName, url: nil, itemDescription: nil, qty: qty, itemPrice: product.price, salePrice: product.price, attr: nil, images: nil, properties: nil)
@@ -158,7 +158,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         cell.brandLabel.text = products[indexPath.row].brand
         cell.priceLabel.text = "$ \(products[indexPath.row].price)"
         
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.getCartItemQtyBySKU(appDelegate: appDelegate, sku: products[indexPath.row].sku) {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.cart.getCartItemQtyBySKU(appDelegate: appDelegate, sku: products[indexPath.row].sku) {
             cell.qtyLabel.text = String(qty)
         }
         
@@ -176,7 +176,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete, let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            AppDataManager.shared.deleteCartItemBySKU(appDelegate: appDelegate, sku: products[indexPath.row].sku)
+            AppDataManager.shared.cart.deleteCartItemBySKU(appDelegate: appDelegate, sku: products[indexPath.row].sku)
             
             products.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
