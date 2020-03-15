@@ -11,12 +11,19 @@ import Foundation
 class Attribute {
 
     let key: String
-    let type: String
+    let type: AttributeType
     let value: String
     
-    init(key: String, type: String, value: String) {
+    init(key: String, type: AttributeType, value: String) {
         self.key = key
         self.type = type
         self.value = value
     }
+}
+
+enum AttributeType: String {
+    case string = "string"
+    case boolean = "boolean"
+    case numeric = "numeric"
+    case array = "array"
 }

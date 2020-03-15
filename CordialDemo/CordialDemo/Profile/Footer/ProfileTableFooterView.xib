@@ -18,11 +18,8 @@
                     <rect key="frame" x="0.0" y="0.0" width="385" height="112"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j52-pG-J6O">
-                            <rect key="frame" x="16" y="32" width="353" height="50"/>
+                            <rect key="frame" x="16" y="30" width="353" height="52"/>
                             <color key="backgroundColor" red="0.99589020009999996" green="0.7934958339" blue="0.46328103539999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="av5-hG-Ger"/>
-                            </constraints>
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <state key="normal" title="UPDATE">
                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -34,18 +31,20 @@
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="j52-pG-J6O" secondAttribute="trailing" constant="16" id="4tY-ej-dls"/>
-                        <constraint firstAttribute="bottom" secondItem="j52-pG-J6O" secondAttribute="bottom" constant="30" id="UrS-yk-7dG"/>
-                        <constraint firstItem="j52-pG-J6O" firstAttribute="leading" secondItem="GiU-OP-Q6S" secondAttribute="leading" constant="16" id="v1R-Mx-5xI"/>
+                        <constraint firstAttribute="trailing" secondItem="j52-pG-J6O" secondAttribute="trailing" constant="16" id="7Kt-n3-axA"/>
+                        <constraint firstItem="j52-pG-J6O" firstAttribute="top" secondItem="GiU-OP-Q6S" secondAttribute="top" constant="30" id="CfT-fH-joA"/>
+                        <constraint firstAttribute="bottom" secondItem="j52-pG-J6O" secondAttribute="bottom" constant="30" id="YmD-zv-hpp"/>
+                        <constraint firstItem="j52-pG-J6O" firstAttribute="leading" secondItem="GiU-OP-Q6S" secondAttribute="leading" constant="16" id="h2V-mE-1d9"/>
+                        <constraint firstAttribute="height" constant="112" id="twm-Zd-UMq"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="GiU-OP-Q6S" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Izm-aN-5O0"/>
-                <constraint firstItem="GiU-OP-Q6S" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="XRL-gI-C5R"/>
-                <constraint firstItem="GiU-OP-Q6S" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="bsO-Ou-cSh"/>
-                <constraint firstItem="GiU-OP-Q6S" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="qaX-Iw-EO5"/>
+                <constraint firstItem="GiU-OP-Q6S" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="1AA-6a-tCz"/>
+                <constraint firstItem="GiU-OP-Q6S" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="FV6-3E-xhS"/>
+                <constraint firstItem="GiU-OP-Q6S" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="N8e-YB-fjk"/>
+                <constraint firstItem="GiU-OP-Q6S" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Rt9-gF-SXY"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

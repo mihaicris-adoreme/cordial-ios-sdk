@@ -21,6 +21,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     let cordialAPI = CordialAPI()
     
+    var attributes = [Attribute]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +37,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.tableView.register(UINib(nibName: "ProfileTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: profileFooterCell)
         self.profileTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: profileFooterCell) as? ProfileTableFooterView
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            self.attributes = AppDataManager.shared.attributes.getAttributesFromCoreData(appDelegate: appDelegate)
+            self.tableView.reloadData()
+        }
     }
     
     // MARK: UITableViewDelegate
@@ -45,34 +53,54 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return self.profileTableFooterView.frame.size.height
+        
+        if self.attributes.count > 0 {
+            let attributeHeight = self.tableView.frame.size.height / 5
+            let attributesHeight = attributeHeight * CGFloat(self.attributes.count)
+            let calculatedHeightForFooter = self.tableView.frame.size.height - attributesHeight
+            
+            if calculatedHeightForFooter > self.profileTableFooterView.frame.size.height {
+                return calculatedHeightForFooter
+            } else {
+                return self.profileTableFooterView.frame.size.height
+            }
+        }
+        
+        return 0
     }
 
     // MARK: UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return self.attributes.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: profileCell, for: indexPath)
 
+        let attribute = self.attributes[indexPath.row]
+        
+        cell.textLabel?.text = attribute.key
+        cell.detailTextLabel?.text = attribute.value
+        
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.tableView.frame.size.height / 5
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete, let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            
+            let attribute = self.attributes[indexPath.row]
+            
+            AppDataManager.shared.attributes.deleteAttributeByKey(appDelegate: appDelegate, key: attribute.key)
+            
+            self.attributes.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
 
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == UITableViewCell.EditingStyle.delete, let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-//            AppDataManager.shared.deleteCartItemBySKU(appDelegate: appDelegate, sku: products[indexPath.row].sku)
-//
-//            products.remove(at: indexPath.row)
-//            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-//
-//            self.upsertContactCart()
-//            self.upsertCartTableFooterView()
-//        }
-//    }
+    }
+    
 }

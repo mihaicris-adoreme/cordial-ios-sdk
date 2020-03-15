@@ -13,7 +13,7 @@ class AttributesCoreData {
     
     let entityName = "Attributes"
     
-    func setAttributeToCoreData(appDelegate: AppDelegate, attribute: Attribute) {
+    func putAttributeToCoreData(appDelegate: AppDelegate, attribute: Attribute) {
         let context = appDelegate.persistentContainer.viewContext
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
@@ -21,7 +21,7 @@ class AttributesCoreData {
             
             do {
                 newRow.setValue(attribute.key, forKey: "key")
-                newRow.setValue(attribute.type, forKey: "type")
+                newRow.setValue(attribute.type.rawValue, forKey: "type")
                 newRow.setValue(attribute.value, forKey: "value")
                 
                 try context.save()
@@ -43,9 +43,22 @@ class AttributesCoreData {
             for data in result as! [NSManagedObject] {
                 if let key = data.value(forKey: "key") as? String, let type = data.value(forKey: "type") as? String, let value = data.value(forKey: "value") as? String {
                     
-                    let attribute = Attribute(key: key, type: type, value: value)
-                    
-                    attributes.append(attribute)
+                    switch type {
+                    case AttributeType.string.rawValue:
+                        let attribute = Attribute(key: key, type: AttributeType.string, value: value)
+                        attributes.append(attribute)
+                    case AttributeType.boolean.rawValue:
+                        let attribute = Attribute(key: key, type: AttributeType.boolean, value: value)
+                        attributes.append(attribute)
+                    case AttributeType.numeric.rawValue:
+                        let attribute = Attribute(key: key, type: AttributeType.numeric, value: value)
+                        attributes.append(attribute)
+                    case AttributeType.array.rawValue:
+                        let attribute = Attribute(key: key, type: AttributeType.array, value: value)
+                        attributes.append(attribute)
+                    default:
+                        break
+                    }
                 }
             }
         } catch let error as NSError {
@@ -53,5 +66,20 @@ class AttributesCoreData {
         }
         
         return attributes
+    }
+    
+    func deleteAttributeByKey(appDelegate: AppDelegate, key: String) {
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        deleteFetch.predicate = NSPredicate(format: "key == %@", key)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        } catch {
+            print ("There was an error")
+        }
     }
 }

@@ -16,6 +16,8 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     var pickerData: [String] = [String]()
     
+    var type = AttributeType.string
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,18 +33,14 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
+        if let key = self.keyTextField.text, let value = self.valueTextField.text, let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            
+            let attribute = Attribute(key: key, type: self.type, value: value)
+            AppDataManager.shared.attributes.putAttributeToCoreData(appDelegate: appDelegate, attribute: attribute)
+        }
+        
         self.navigationController?.popViewController(animated: true)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UIPickerViewDelegate
     
@@ -61,6 +59,19 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        switch self.pickerData[row].lowercased() {
+        case AttributeType.string.rawValue:
+            self.type = AttributeType.string
+        case AttributeType.boolean.rawValue:
+            self.type = AttributeType.boolean
+        case AttributeType.numeric.rawValue:
+            self.type = AttributeType.numeric
+        case AttributeType.array.rawValue:
+            self.type = AttributeType.array
+        default:
+            break
+        }
         
     }
 }
