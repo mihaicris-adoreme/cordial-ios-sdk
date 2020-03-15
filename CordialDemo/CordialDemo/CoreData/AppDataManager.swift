@@ -14,6 +14,7 @@ class AppDataManager {
     public static let shared = AppDataManager()
     
     let cart = CartCoreData()
+    let attributes = AttributesCoreData()
     
     private init(){}
     

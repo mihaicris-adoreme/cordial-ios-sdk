@@ -18,6 +18,17 @@ class Product: NSObject, NSCoding {
     let sku: String
     let shortDescription: String
     let path: String
+        
+    init(id: String, img: String, brand: String, name: String, price: Double, sku: String, shortDescription: String, path: String) {
+        self.id = id
+        self.img = img
+        self.brand = brand
+        self.name = name
+        self.price = price
+        self.sku = sku
+        self.shortDescription = shortDescription
+        self.path = path
+    }
     
     enum Key: String {
         case id = "id"
@@ -29,17 +40,7 @@ class Product: NSObject, NSCoding {
         case shortDescription = "shortDescription"
         case path = "path"
     }
-    
-    init(id: String, img: String, brand: String, name: String, price: Double, sku: String, shortDescription: String, path: String) {
-        self.id = id
-        self.img = img
-        self.brand = brand
-        self.name = name
-        self.price = price
-        self.sku = sku
-        self.shortDescription = shortDescription
-        self.path = path
-    }
+
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.id, forKey: Key.id.rawValue)
