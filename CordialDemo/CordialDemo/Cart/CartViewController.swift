@@ -67,7 +67,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     
     func deleteAllCartItems() {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let entityName = AppDataManager.shared.cart.cartEntityName
+            let entityName = AppDataManager.shared.cart.entityName
             AppDataManager.shared.deleteAllCoreDataByEntity(appDelegate: appDelegate, entityName: entityName)
             
             products.removeAll()

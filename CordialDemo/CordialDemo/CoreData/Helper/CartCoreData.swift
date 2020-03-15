@@ -11,14 +11,14 @@ import CoreData
 
 class CartCoreData {
     
-    let cartEntityName = "Cart"
+    let entityName = "Cart"
     
     func setCartProductToCoreData(appDelegate: AppDelegate, product: Product) {
         let context = appDelegate.persistentContainer.viewContext
         
         if !self.isProductInCart(appDelegate: appDelegate, sku: product.sku) {
             // Add one new product to cart cache
-            if let entity = NSEntityDescription.entity(forEntityName: self.cartEntityName, in: context) {
+            if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
                 let newRow = NSManagedObject(entity: entity, insertInto: context)
                 
                 do {
@@ -43,7 +43,7 @@ class CartCoreData {
             }
         } else {
             // Increase cart product cache qty by one
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.cartEntityName)
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
             request.predicate = NSPredicate(format: "sku == %@", product.sku)
             request.returnsObjectsAsFaults = false
             
@@ -66,7 +66,7 @@ class CartCoreData {
     func getCartItemsFromCoreData(appDelegate: AppDelegate) -> [Product] {
         let context = appDelegate.persistentContainer.viewContext
         
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.cartEntityName)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         
         var products = [Product]()
@@ -90,7 +90,7 @@ class CartCoreData {
     func deleteCartItemBySKU(appDelegate: AppDelegate, sku: String) {
         let context = appDelegate.persistentContainer.viewContext
         
-        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: self.cartEntityName)
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         deleteFetch.predicate = NSPredicate(format: "sku == %@", sku)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         
@@ -104,7 +104,7 @@ class CartCoreData {
     
     func getCartItemQtyBySKU(appDelegate: AppDelegate, sku: String) -> Int64? {
         let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.cartEntityName)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.predicate = NSPredicate(format: "sku == %@", sku)
         request.returnsObjectsAsFaults = false
         
@@ -125,7 +125,7 @@ class CartCoreData {
     
     func isProductInCart(appDelegate: AppDelegate, sku: String) -> Bool {
         let context = appDelegate.persistentContainer.viewContext
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.cartEntityName)
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.predicate = NSPredicate(format: "sku == %@", sku)
         request.returnsObjectsAsFaults = false
         
