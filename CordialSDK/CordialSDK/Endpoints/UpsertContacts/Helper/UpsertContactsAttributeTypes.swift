@@ -16,11 +16,11 @@ import Foundation
     
     let value: Double
     
-    @objc public init(_ value: Double) {
+    public init(_ value: Double) {
         self.value = value
     }
     
-    init(_ value: Int) {
+    public init(_ value: Int) {
         self.value = Double(value)
     }
     
@@ -30,7 +30,7 @@ import Foundation
     
     let value: Bool
     
-    @objc public init(_ value: Bool) {
+    public init(_ value: Bool) {
         self.value = value
     }
     
@@ -40,7 +40,7 @@ import Foundation
     
     let value: [String]
     
-    @objc public init(_ value: [String]) {
+    public init(_ value: [String]) {
         self.value = value
     }
 }
@@ -49,7 +49,7 @@ import Foundation
     
     let value: String
     
-    @objc public init(_ value: String) {
+    public init(_ value: String) {
         self.value = value
     }
 }
