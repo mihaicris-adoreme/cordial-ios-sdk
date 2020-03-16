@@ -14,6 +14,14 @@ class AttributesCoreData {
     let entityName = "Attributes"
     
     func putAttributeToCoreData(appDelegate: AppDelegate, attribute: Attribute) {
+        if self.isExistedAttributeWithKey(appDelegate: appDelegate, key: attribute.key) {
+            self.modifyExistingAttribute(appDelegate: appDelegate, attribute: attribute)
+        } else {
+            self.addNewAttributeToCoreData(appDelegate: appDelegate, attribute: attribute)
+        }
+    }
+    
+    private func addNewAttributeToCoreData(appDelegate: AppDelegate, attribute: Attribute) {
         let context = appDelegate.persistentContainer.viewContext
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
@@ -28,6 +36,27 @@ class AttributesCoreData {
             } catch {
                 print("Failed saving")
             }
+        }
+    }
+    
+    private func modifyExistingAttribute(appDelegate: AppDelegate, attribute: Attribute) {
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.predicate = NSPredicate(format: "key == %@", attribute.key)
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let result = try context.fetch(request)
+            if result.count == 1 {
+                let attributeData = result.first as! NSManagedObject
+                attributeData.setValue(attribute.type.rawValue, forKey: "type")
+                attributeData.setValue(Attribute.performArrayToStringSeparatedByComma(attribute.value), forKey: "value")
+                
+                try context.save()
+            }
+        } catch let error as NSError {
+            print("Failed: \(error) \(error.userInfo)")
         }
     }
     
@@ -66,6 +95,25 @@ class AttributesCoreData {
         }
         
         return attributes
+    }
+    
+    func isExistedAttributeWithKey(appDelegate: AppDelegate, key: String) -> Bool {
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.predicate = NSPredicate(format: "key == %@", key)
+        request.returnsObjectsAsFaults = false
+        
+        do {
+            let result = try context.fetch(request)
+            if result.count > 0 {
+                return true
+            }
+        } catch let error as NSError {
+            print("Failed: \(error) \(error.userInfo)")
+        }
+        
+        return false
     }
     
     func deleteAttributeByKey(appDelegate: AppDelegate, key: String) {
