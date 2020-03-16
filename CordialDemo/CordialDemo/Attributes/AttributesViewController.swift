@@ -12,7 +12,9 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var keyTextField: UITextField!
+    @IBOutlet weak var keyInfoLabel: UILabel!
     @IBOutlet weak var valueTextField: UITextField!
+    @IBOutlet weak var valueInfoLabel: UILabel!
     
     var pickerData: [String] = [String]()
     
@@ -33,13 +35,46 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
-        if let key = self.keyTextField.text, let value = self.valueTextField.text, let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+        if let key = self.keyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let value = self.valueTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             
-            let attribute = Attribute(key: key, type: self.type, value: value)
-            AppDataManager.shared.attributes.putAttributeToCoreData(appDelegate: appDelegate, attribute: attribute)
+            var isKeyValidated = false
+            var isValueValidated = false
+            
+            if key.isEmpty {
+                self.keyInfoLabel.text = "* Key cannot be empty."
+                self.keyTextField.setBottomBorder(color: UIColor.red)
+            } else {
+                self.keyInfoLabel.text = String()
+                self.keyTextField.setBottomBorder(color: UIColor.lightGray)
+                
+                isKeyValidated = true
+            }
+            
+            switch self.type {
+            case AttributeType.string:
+                isValueValidated  = true
+            case AttributeType.boolean:
+                if value.lowercased() == "true" || value.lowercased() == "false" {
+                    self.valueTextField.setBottomBorder(color: UIColor.lightGray)
+                    self.valueInfoLabel.text = String()
+                    
+                    isValueValidated = true
+                } else {
+                    self.valueTextField.setBottomBorder(color: UIColor.red)
+                }
+            case AttributeType.numeric:
+                isValueValidated = true
+            case AttributeType.array:
+                isValueValidated = false
+            }
+            
+            if isKeyValidated && isValueValidated  {
+                let attribute = Attribute(key: key, type: self.type, value: value)
+                AppDataManager.shared.attributes.putAttributeToCoreData(appDelegate: appDelegate, attribute: attribute)
+                
+                self.navigationController?.popViewController(animated: true)
+            }
         }
-        
-        self.navigationController?.popViewController(animated: true)
     }
 
     // MARK: UIPickerViewDelegate
@@ -60,15 +95,30 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        self.keyTextField.setBottomBorder(color: UIColor.lightGray)
+        self.keyTextField.resignFirstResponder()
+        
+        self.valueTextField.text = String()
+        self.valueTextField.setBottomBorder(color: UIColor.lightGray)
+        self.valueTextField.resignFirstResponder()
+        
         switch self.pickerData[row].lowercased() {
         case AttributeType.string.rawValue:
             self.type = AttributeType.string
+            self.valueTextField.keyboardType = .asciiCapable
+            self.valueInfoLabel.text = String()
         case AttributeType.boolean.rawValue:
             self.type = AttributeType.boolean
+            self.valueTextField.keyboardType = .asciiCapable
+            self.valueInfoLabel.text = "* Please write word TRUE or FALSE."
         case AttributeType.numeric.rawValue:
             self.type = AttributeType.numeric
+            self.valueTextField.keyboardType = .decimalPad
+            self.valueInfoLabel.text = String()
         case AttributeType.array.rawValue:
             self.type = AttributeType.array
+            self.valueTextField.keyboardType = .asciiCapable
+            self.valueInfoLabel.text = "* Please use comma as separator."
         default:
             break
         }
