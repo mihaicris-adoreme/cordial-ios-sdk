@@ -63,8 +63,18 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     value = "false"
                 }
             case AttributeType.numeric:
-                value = value.replacingOccurrences(of: ",", with: ".")
-                isValueValidated = true
+                if value.isEmpty {
+                    self.valueInfoLabel.text = "* Numeric value cannot be empty."
+                    self.valueTextField.setBottomBorder(color: UIColor.red)
+                    
+                    isValueValidated = false
+                } else {
+                    self.valueInfoLabel.text = String()
+                    self.valueTextField.setBottomBorder(color: UIColor.lightGray)
+                    
+                    value = value.replacingOccurrences(of: ",", with: ".")
+                    isValueValidated = true
+                }
             case AttributeType.array:
                 isValueValidated = true
             }

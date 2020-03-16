@@ -692,6 +692,7 @@
                                                 <constraint firstItem="Mko-jP-1hd" firstAttribute="baseline" secondItem="sHZ-PH-OBz" secondAttribute="baseline" id="KZB-fs-e4e"/>
                                                 <constraint firstItem="zcj-x4-BuS" firstAttribute="centerX" secondItem="tBC-FM-7YD" secondAttribute="centerX" id="Kkm-dU-Tsb"/>
                                                 <constraint firstItem="zcj-x4-BuS" firstAttribute="top" secondItem="awu-za-5rE" secondAttribute="top" id="Q4L-94-k7a"/>
+                                                <constraint firstItem="JGc-fC-ad6" firstAttribute="top" secondItem="Mko-jP-1hd" secondAttribute="bottom" id="Qt7-Xs-q0w"/>
                                                 <constraint firstItem="wcQ-if-6Eh" firstAttribute="centerY" secondItem="Ifu-ql-8Hu" secondAttribute="centerY" id="SSO-x8-bjL"/>
                                                 <constraint firstItem="sHZ-PH-OBz" firstAttribute="leading" secondItem="Ifu-ql-8Hu" secondAttribute="trailing" constant="6" id="T12-dE-ZAT"/>
                                                 <constraint firstItem="wcQ-if-6Eh" firstAttribute="top" secondItem="tBC-FM-7YD" secondAttribute="topMargin" id="Wax-Tv-lfa"/>
@@ -789,13 +790,13 @@
                                     <constraint firstAttribute="width" secondItem="6aZ-qI-rlA" secondAttribute="height" multiplier="72:25" id="2yq-kc-dpP"/>
                                 </constraints>
                             </pickerView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FwQ-CT-CUC">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Key" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FwQ-CT-CUC">
                                 <rect key="frame" x="20" y="169" width="131" height="21"/>
                                 <color key="textColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Value" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NZg-ZZ-3xA">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Value" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NZg-ZZ-3xA">
                                 <rect key="frame" x="169" y="169" width="131" height="21"/>
                                 <color key="textColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
