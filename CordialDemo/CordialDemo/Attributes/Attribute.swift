@@ -12,12 +12,26 @@ class Attribute {
 
     let key: String
     let type: AttributeType
-    let value: String
+    let value: [String]
     
     init(key: String, type: AttributeType, value: String) {
         self.key = key
         self.type = type
-        self.value = value
+        self.value = Attribute.performStringSeparatedByCommaToArray(value)
+    }
+    
+    static func performStringSeparatedByCommaToArray(_ string: String) -> [String] {
+        var values = [String]()
+        
+        string.components(separatedBy: ",").forEach { value in
+            values.append(value.trimmingCharacters(in: .whitespacesAndNewlines))
+        }
+        
+        return values
+    }
+    
+    static func performArrayToStringSeparatedByComma(_ values: [String]) -> String {
+        return values.joined(separator: ", ")
     }
 }
 

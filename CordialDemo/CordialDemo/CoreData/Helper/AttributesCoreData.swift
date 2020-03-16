@@ -22,7 +22,7 @@ class AttributesCoreData {
             do {
                 newRow.setValue(attribute.key, forKey: "key")
                 newRow.setValue(attribute.type.rawValue, forKey: "type")
-                newRow.setValue(attribute.value, forKey: "value")
+                newRow.setValue(Attribute.performArrayToStringSeparatedByComma(attribute.value), forKey: "value")
                 
                 try context.save()
             } catch {

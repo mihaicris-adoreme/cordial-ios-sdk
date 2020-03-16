@@ -35,7 +35,7 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
-        if let key = self.keyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let value = self.valueTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+        if let key = self.keyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), var value = self.valueTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             
             var isKeyValidated = false
             var isValueValidated = false
@@ -63,9 +63,10 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
                     self.valueTextField.setBottomBorder(color: UIColor.red)
                 }
             case AttributeType.numeric:
+                value = value.replacingOccurrences(of: ",", with: ".")
                 isValueValidated = true
             case AttributeType.array:
-                isValueValidated = false
+                isValueValidated = true
             }
             
             if isKeyValidated && isValueValidated  {

@@ -76,12 +76,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: profileCell, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: profileCell, for: indexPath) as! ProfileTableViewCell
 
         let attribute = self.attributes[indexPath.row]
         
-        cell.textLabel?.text = attribute.key
-        cell.detailTextLabel?.text = attribute.value
+        cell.typeLabel.text = attribute.type.rawValue.capitalized
+        cell.keyLabel.text = attribute.key
+        cell.valueLabel.text = Attribute.performArrayToStringSeparatedByComma(attribute.value)
         
         return cell
     }
