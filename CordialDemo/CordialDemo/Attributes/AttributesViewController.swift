@@ -15,6 +15,7 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var keyInfoLabel: UILabel!
     @IBOutlet weak var valueTextField: UITextField!
     @IBOutlet weak var valueInfoLabel: UILabel!
+    @IBOutlet weak var booleanSwitch: UISwitch!
     
     var pickerData: [String] = [String]()
     
@@ -34,7 +35,7 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.pickerData = ["String", "Boolean", "Numeric", "Array"]
     }
     
-    @IBAction func addButtonAction(_ sender: UIBarButtonItem) {
+    @IBAction func addAttributeAction(_ sender: UIBarButtonItem) {
         if let key = self.keyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), var value = self.valueTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             
             var isKeyValidated = false
@@ -54,13 +55,12 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
             case AttributeType.string:
                 isValueValidated  = true
             case AttributeType.boolean:
-                if value.lowercased() == "true" || value.lowercased() == "false" {
-                    self.valueTextField.setBottomBorder(color: UIColor.lightGray)
-                    self.valueInfoLabel.text = String()
-                    
-                    isValueValidated = true
+                isValueValidated = true
+                
+                if self.booleanSwitch.isOn {
+                    value = "true"
                 } else {
-                    self.valueTextField.setBottomBorder(color: UIColor.red)
+                    value = "false"
                 }
             case AttributeType.numeric:
                 value = value.replacingOccurrences(of: ",", with: ".")
@@ -77,7 +77,19 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
             }
         }
     }
-
+    
+    @IBAction func booleanSwitchAction(_ sender: UISwitch) {
+        self.valueInfoLabel.textAlignment = .right
+        
+        if self.booleanSwitch.isOn {
+            self.booleanSwitch.setOn(true, animated: true)
+            self.valueInfoLabel.text = "TRUE"
+        } else {
+            self.booleanSwitch.setOn(false, animated: true)
+            self.valueInfoLabel.text = "FALSE"
+        }
+    }
+    
     // MARK: UIPickerViewDelegate
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -107,19 +119,35 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
         case AttributeType.string.rawValue:
             self.type = AttributeType.string
             self.valueTextField.keyboardType = .asciiCapable
+            self.valueInfoLabel.textAlignment = .left
             self.valueInfoLabel.text = String()
+            self.valueTextField.isHidden = false
+            self.booleanSwitch.isHidden = true
         case AttributeType.boolean.rawValue:
             self.type = AttributeType.boolean
             self.valueTextField.keyboardType = .asciiCapable
-            self.valueInfoLabel.text = "* Please write word TRUE or FALSE."
+            self.valueInfoLabel.textAlignment = .right
+            if self.booleanSwitch.isOn {
+                self.valueInfoLabel.text = "TRUE"
+            } else {
+                self.valueInfoLabel.text = "FALSE"
+            }
+            self.valueTextField.isHidden = true
+            self.booleanSwitch.isHidden = false
         case AttributeType.numeric.rawValue:
             self.type = AttributeType.numeric
             self.valueTextField.keyboardType = .decimalPad
+            self.valueInfoLabel.textAlignment = .left
             self.valueInfoLabel.text = String()
+            self.valueTextField.isHidden = false
+            self.booleanSwitch.isHidden = true
         case AttributeType.array.rawValue:
             self.type = AttributeType.array
             self.valueTextField.keyboardType = .asciiCapable
+            self.valueInfoLabel.textAlignment = .left
             self.valueInfoLabel.text = "* Please use comma as separator."
+            self.valueTextField.isHidden = false
+            self.booleanSwitch.isHidden = true
         default:
             break
         }
