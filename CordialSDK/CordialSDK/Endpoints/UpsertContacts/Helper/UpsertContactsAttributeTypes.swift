@@ -14,7 +14,7 @@ import Foundation
 
 @objc public class NumericValue: NSObject, AttributeValue {
     
-    let value: Double
+    public let value: Double
     
     public init(_ value: Double) {
         self.value = value
@@ -28,7 +28,7 @@ import Foundation
 
 @objc public class BooleanValue: NSObject, AttributeValue {
     
-    let value: Bool
+    public let value: Bool
     
     public init(_ value: Bool) {
         self.value = value
@@ -38,7 +38,7 @@ import Foundation
 
 @objc public class ArrayValue: NSObject, AttributeValue {
     
-    let value: [String]
+    public let value: [String]
     
     public init(_ value: [String]) {
         self.value = value
@@ -47,7 +47,7 @@ import Foundation
 
 @objc public class StringValue: NSObject, AttributeValue {
     
-    let value: String
+    public let value: String
     
     public init(_ value: String) {
         self.value = value

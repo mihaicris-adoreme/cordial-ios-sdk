@@ -18,7 +18,7 @@ class CordialSDKTests: XCTestCase {
     let testPrimaryKey = "test_primary_key@gmail.com"
     let testJWT = "testJWT"
     let testMcId = "test_mc_id"
-    let testContactAttributes = ["firstName": "John", "lastName": "Doe"]
+    var testContactAttributes = Dictionary<String, AttributeValue>()
     var testPushNotification = String()
     let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
     let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
@@ -43,6 +43,11 @@ class CordialSDKTests: XCTestCase {
                 }
             }
         """
+        
+        self.testContactAttributes["StringValue"] = StringValue("StringValue")
+        self.testContactAttributes["BooleanValue"] = BooleanValue(false)
+        self.testContactAttributes["NumericValue"] = NumericValue(1.2)
+        self.testContactAttributes["ArrayValue"] = ArrayValue(["1", "2", "3"])
     }
     
     func testAPNsToken() {
@@ -149,6 +154,8 @@ class CordialSDKTests: XCTestCase {
 
     func testUpsertContact() {
         let mock = MockRequestSenderUpsertContact()
+        
+        mock.testContactAttributes = self.testContactAttributes
 
         DependencyConfiguration.shared.requestSender = mock
 
