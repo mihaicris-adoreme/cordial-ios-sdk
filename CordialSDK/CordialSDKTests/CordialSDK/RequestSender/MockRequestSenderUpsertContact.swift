@@ -35,10 +35,10 @@ class MockRequestSenderUpsertContact: RequestSender {
             let numericValueContactAttributes = self.testContactAttributes["NumericValue"] as! NumericValue
             let arrayValueContactAttributes = self.testContactAttributes["ArrayValue"] as! ArrayValue
             
-            XCTAssertEqual(stringValueAttributes, stringValueContactAttributes.value, "Contact attributes don't match")
-            XCTAssertEqual(booleanValueAttributes, booleanValueContactAttributes.value, "Contact attributes don't match")
-            XCTAssertEqual(numericValueAttributes, numericValueContactAttributes.value, "Contact attributes don't match")
-            XCTAssertEqual(arrayValueAttributes, arrayValueContactAttributes.value, "Contact attributes don't match")
+            XCTAssertEqual(stringValueAttributes, stringValueContactAttributes.value, "String value is invalid")
+            XCTAssertEqual(booleanValueAttributes, booleanValueContactAttributes.value, "Boolean value is invalid")
+            XCTAssertEqual(numericValueAttributes, numericValueContactAttributes.value, "Numeric value is invalid")
+            XCTAssertEqual(arrayValueAttributes, arrayValueContactAttributes.value, "Array value is invalid")
             
             self.isVerified = true
         }

@@ -155,7 +155,7 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.type = AttributeType.array
             self.valueTextField.keyboardType = .asciiCapable
             self.valueInfoLabel.textAlignment = .left
-            self.valueInfoLabel.text = "* Please use comma as separator."
+            self.valueInfoLabel.text = "* Сomma separated values."
             self.valueTextField.isHidden = false
             self.booleanSwitch.isHidden = true
         default:
