@@ -8,21 +8,21 @@
 
 import Foundation
 
-class DateFormatter {
+@objc public class DateFormatter: NSObject {
     
     let dateFormatter = ISO8601DateFormatter()
 
-    func getCurrentTimestamp() -> String {
+    @objc public func getCurrentTimestamp() -> String {
         let date = Date()
         
         return self.getTimestampFromDate(date: date)
     }
 
-    func getDateFromTimestamp(timestamp: String) -> Date? {
+    @objc public func getDateFromTimestamp(timestamp: String) -> Date? {
         return self.dateFormatter.date(from: timestamp)
     }
     
-    func getTimestampFromDate(date: Date) -> String {
+    @objc public func getTimestampFromDate(date: Date) -> String {
         return self.dateFormatter.string(from: date)
     }
 }

@@ -25,20 +25,23 @@ class MockRequestSenderUpsertContact: RequestSender {
             
             let attributesJSON = json["attributes"] as! [String: AnyObject]
             
-            let stringValueAttributes = attributesJSON["StringValue"] as! String
-            let booleanValueAttributes = attributesJSON["BooleanValue"] as! Bool
-            let numericValueAttributes = attributesJSON["NumericValue"] as! Double
-            let arrayValueAttributes = attributesJSON["ArrayValue"] as! [String]
+            let stringValueFromJSON = attributesJSON["StringValue"] as! String
+            let booleanValueFromJSON = attributesJSON["BooleanValue"] as! Bool
+            let numericValueFromJSON = attributesJSON["NumericValue"] as! Double
+            let arrayValueFromJSON = attributesJSON["ArrayValue"] as! [String]
+            let dateValueFromJSON = DateFormatter().getDateFromTimestamp(timestamp: attributesJSON["DateValue"] as! String)!
             
-            let stringValueContactAttributes = self.testContactAttributes["StringValue"] as! StringValue
-            let booleanValueContactAttributes = self.testContactAttributes["BooleanValue"] as! BooleanValue
-            let numericValueContactAttributes = self.testContactAttributes["NumericValue"] as! NumericValue
-            let arrayValueContactAttributes = self.testContactAttributes["ArrayValue"] as! ArrayValue
+            let stringValue = self.testContactAttributes["StringValue"] as! StringValue
+            let booleanValue = self.testContactAttributes["BooleanValue"] as! BooleanValue
+            let numericValue = self.testContactAttributes["NumericValue"] as! NumericValue
+            let arrayValue = self.testContactAttributes["ArrayValue"] as! ArrayValue
+            let dateValue = self.testContactAttributes["DateValue"] as! DateValue
             
-            XCTAssertEqual(stringValueAttributes, stringValueContactAttributes.value, "String value is invalid")
-            XCTAssertEqual(booleanValueAttributes, booleanValueContactAttributes.value, "Boolean value is invalid")
-            XCTAssertEqual(numericValueAttributes, numericValueContactAttributes.value, "Numeric value is invalid")
-            XCTAssertEqual(arrayValueAttributes, arrayValueContactAttributes.value, "Array value is invalid")
+            XCTAssertEqual(stringValueFromJSON, stringValue.value, "String value is invalid")
+            XCTAssertEqual(booleanValueFromJSON, booleanValue.value, "Boolean value is invalid")
+            XCTAssertEqual(numericValueFromJSON, numericValue.value, "Numeric value is invalid")
+            XCTAssertEqual(arrayValueFromJSON, arrayValue.value, "Array value is invalid")
+            XCTAssertEqual(Int(dateValueFromJSON.timeIntervalSince1970), Int(dateValue.value.timeIntervalSince1970), "Date value is invalid")
             
             self.isVerified = true
         }

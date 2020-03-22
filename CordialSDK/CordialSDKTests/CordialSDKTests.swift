@@ -48,6 +48,7 @@ class CordialSDKTests: XCTestCase {
         self.testContactAttributes["BooleanValue"] = BooleanValue(false)
         self.testContactAttributes["NumericValue"] = NumericValue(1.2)
         self.testContactAttributes["ArrayValue"] = ArrayValue(["1", "2", "3"])
+        self.testContactAttributes["DateValue"] = DateValue(Date())
     }
     
     func testAPNsToken() {
