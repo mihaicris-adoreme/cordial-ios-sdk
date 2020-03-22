@@ -53,3 +53,13 @@ import Foundation
         self.value = value
     }
 }
+
+@objc public class DateValue: NSObject, AttributeValue {
+    
+    public let value: Date
+    
+    public init(_ value: Date) {
+        self.value = value
+    }
+    
+}

@@ -15,10 +15,14 @@ class DateFormatter {
     func getCurrentTimestamp() -> String {
         let date = Date()
         
-        return self.dateFormatter.string(from: date)
+        return self.getTimestampFromDate(date: date)
     }
 
     func getDateFromTimestamp(timestamp: String) -> Date? {
         return self.dateFormatter.date(from: timestamp)
+    }
+    
+    func getTimestampFromDate(date: Date) -> String {
+        return self.dateFormatter.string(from: date)
     }
 }
