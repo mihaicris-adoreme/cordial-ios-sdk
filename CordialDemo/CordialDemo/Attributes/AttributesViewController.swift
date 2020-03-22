@@ -7,32 +7,31 @@
 //
 
 import UIKit
+import CordialSDK
 
 class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var keyTextField: UITextField!
     @IBOutlet weak var keyInfoLabel: UILabel!
     @IBOutlet weak var valueTextField: UITextField!
     @IBOutlet weak var valueInfoLabel: UILabel!
     @IBOutlet weak var booleanSwitch: UISwitch!
+    @IBOutlet weak var attributeDatePicker: UIDatePicker!
     
     var pickerData: [String] = [String]()
     
-    var type = AttributeType.string
+    var attributeType = AttributeType.string
+    var attributeDate: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.pickerView.delegate = self
-        self.pickerView.dataSource = self
         
         self.title = "Attribute"
         
         self.keyTextField.setBottomBorder(color: UIColor.lightGray)
         self.valueTextField.setBottomBorder(color: UIColor.lightGray)
         
-        self.pickerData = ["String", "Boolean", "Numeric", "Array"]
+        self.pickerData = ["String", "Boolean", "Numeric", "Array", "Date"]
     }
     
     @IBAction func addAttributeAction(_ sender: UIBarButtonItem) {
@@ -51,7 +50,7 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 isKeyValidated = true
             }
             
-            switch self.type {
+            switch self.attributeType {
             case AttributeType.string:
                 isValueValidated  = true
             case AttributeType.boolean:
@@ -77,10 +76,14 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 }
             case AttributeType.array:
                 isValueValidated = true
+            case AttributeType.date:
+                let date = AppDateFormatter().getDateFromTimestamp(timestamp: value)!
+                value = CordialDateFormatter().getTimestampFromDate(date: date)
+                isValueValidated = true
             }
             
             if isKeyValidated && isValueValidated  {
-                let attribute = Attribute(key: key, type: self.type, value: value)
+                let attribute = Attribute(key: key, type: self.attributeType, value: value)
                 AppDataManager.shared.attributes.putAttributeToCoreData(appDelegate: appDelegate, attribute: attribute)
                 
                 self.navigationController?.popViewController(animated: true)
@@ -98,6 +101,11 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.booleanSwitch.setOn(false, animated: true)
             self.valueInfoLabel.text = "FALSE"
         }
+    }
+    
+    @IBAction func attributeDatePickerAction(_ sender: UIDatePicker) {
+        self.attributeDate = sender.date
+        self.valueTextField.text = AppDateFormatter().getTimestampFromDate(date: sender.date)
     }
     
     // MARK: UIPickerViewDelegate
@@ -127,14 +135,16 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         switch self.pickerData[row].lowercased() {
         case AttributeType.string.rawValue:
-            self.type = AttributeType.string
+            self.attributeType = AttributeType.string
             self.valueTextField.keyboardType = .asciiCapable
             self.valueInfoLabel.textAlignment = .left
             self.valueInfoLabel.text = String()
             self.valueTextField.isHidden = false
+            self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = true
+            self.attributeDatePicker.isHidden = true
         case AttributeType.boolean.rawValue:
-            self.type = AttributeType.boolean
+            self.attributeType = AttributeType.boolean
             self.valueTextField.keyboardType = .asciiCapable
             self.valueInfoLabel.textAlignment = .right
             if self.booleanSwitch.isOn {
@@ -143,21 +153,41 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 self.valueInfoLabel.text = "FALSE"
             }
             self.valueTextField.isHidden = true
+            self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = false
+            self.attributeDatePicker.isHidden = true
         case AttributeType.numeric.rawValue:
-            self.type = AttributeType.numeric
+            self.attributeType = AttributeType.numeric
             self.valueTextField.keyboardType = .decimalPad
             self.valueInfoLabel.textAlignment = .left
             self.valueInfoLabel.text = String()
             self.valueTextField.isHidden = false
+            self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = true
+            self.attributeDatePicker.isHidden = true
         case AttributeType.array.rawValue:
-            self.type = AttributeType.array
+            self.attributeType = AttributeType.array
             self.valueTextField.keyboardType = .asciiCapable
             self.valueInfoLabel.textAlignment = .left
             self.valueInfoLabel.text = "* Сomma separated values."
             self.valueTextField.isHidden = false
+            self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = true
+            self.attributeDatePicker.isHidden = true
+        case AttributeType.date.rawValue:
+            self.attributeType = AttributeType.date
+            self.valueTextField.keyboardType = .asciiCapable
+            self.valueInfoLabel.textAlignment = .left
+            self.valueInfoLabel.text = String()
+            self.valueTextField.isHidden = false
+            self.valueTextField.isUserInteractionEnabled = false
+            self.booleanSwitch.isHidden = true
+            self.attributeDatePicker.isHidden = false
+            if let date = self.attributeDate {
+                self.valueTextField.text = AppDateFormatter().getTimestampFromDate(date: date)
+            } else {
+                self.valueTextField.text = AppDateFormatter().getTimestampFromDate(date: Date())
+            }
         default:
             break
         }

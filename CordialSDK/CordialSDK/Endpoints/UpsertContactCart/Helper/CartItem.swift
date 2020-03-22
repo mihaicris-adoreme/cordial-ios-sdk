@@ -54,7 +54,7 @@ import Foundation
         self.qty = qty
         self.itemPrice = itemPrice
         self.salePrice = salePrice
-        self.timestamp = DateFormatter().getCurrentTimestamp()
+        self.timestamp = CordialDateFormatter().getCurrentTimestamp()
         self.attr = attr
         self.images = images
         self.properties = properties

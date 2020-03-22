@@ -85,6 +85,9 @@ class AttributesCoreData {
                     case AttributeType.array.rawValue:
                         let attribute = Attribute(key: key, type: AttributeType.array, value: value)
                         attributes.append(attribute)
+                    case AttributeType.date.rawValue:
+                        let attribute = Attribute(key: key, type: AttributeType.date, value: value)
+                        attributes.append(attribute)
                     default:
                         break
                     }

@@ -1,5 +1,5 @@
 //
-//  DateFormatter.swift
+//  CordialDateFormatter.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 21.10.2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class DateFormatter: NSObject {
+@objc public class CordialDateFormatter: NSObject {
     
     let dateFormatter = ISO8601DateFormatter()
 

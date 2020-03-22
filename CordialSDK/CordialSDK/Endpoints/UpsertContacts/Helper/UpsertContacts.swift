@@ -95,7 +95,7 @@ class UpsertContacts {
                 dictionaryContainer.append("\"\(key)\": \"\(stringValue.value)\"")
             case is DateValue:
                 let dateValue = value as! DateValue
-                dictionaryContainer.append("\"\(key)\": \"\(DateFormatter().getTimestampFromDate(date: dateValue.value))\"")
+                dictionaryContainer.append("\"\(key)\": \"\(CordialDateFormatter().getTimestampFromDate(date: dateValue.value))\"")
             default:
                 break
             }

@@ -33,7 +33,7 @@ class SendCustomEventRequest: NSObject, NSCoding {
     init(eventName: String, mcID: String?, properties: Dictionary<String, String>?) {
         self.requestID = UUID().uuidString
         self.eventName = eventName
-        self.timestamp = DateFormatter().getCurrentTimestamp()
+        self.timestamp = CordialDateFormatter().getCurrentTimestamp()
         self.mcID = mcID
         self.latitude = CordialLocationManager.shared.getLatitude()
         self.longitude = CordialLocationManager.shared.getLongitude()

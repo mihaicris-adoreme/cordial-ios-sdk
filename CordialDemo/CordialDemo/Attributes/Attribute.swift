@@ -17,7 +17,12 @@ class Attribute {
     init(key: String, type: AttributeType, value: String) {
         self.key = key
         self.type = type
-        self.value = Attribute.performStringSeparatedByCommaToArray(value)
+        
+        if type == AttributeType.array {
+            self.value = Attribute.performStringSeparatedByCommaToArray(value)
+        } else {
+            self.value = [value]
+        }
     }
     
     static func performStringSeparatedByCommaToArray(_ string: String) -> [String] {
@@ -40,4 +45,5 @@ enum AttributeType: String {
     case boolean = "boolean"
     case numeric = "numeric"
     case array = "array"
+    case date = "date"
 }

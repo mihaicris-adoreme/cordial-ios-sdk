@@ -82,7 +82,15 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.typeLabel.text = attribute.type.rawValue.capitalized
         cell.keyLabel.text = attribute.key
-        cell.valueLabel.text = Attribute.performArrayToStringSeparatedByComma(attribute.value)
+        
+        var value = Attribute.performArrayToStringSeparatedByComma(attribute.value)
+        
+        if attribute.type == AttributeType.date {
+            let date = CordialDateFormatter().getDateFromTimestamp(timestamp: value)!
+            value = AppDateFormatter().getTimestampFromDate(date: date)
+        }
+        
+        cell.valueLabel.text = value
         
         return cell
     }

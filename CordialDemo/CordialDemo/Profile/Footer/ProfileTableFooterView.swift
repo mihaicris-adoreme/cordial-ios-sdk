@@ -43,6 +43,10 @@ class ProfileTableFooterView: UITableViewHeaderFooterView {
                 let value = attribute.value
                 let arrayValue = ArrayValue(value)
                 attributesDictionary[key] = arrayValue
+            case AttributeType.date:
+                let value = CordialDateFormatter().getDateFromTimestamp(timestamp: Attribute.performArrayToStringSeparatedByComma(attribute.value))!
+                let dateValue = DateValue(value)
+                attributesDictionary[key] = dateValue
             }
         }
         

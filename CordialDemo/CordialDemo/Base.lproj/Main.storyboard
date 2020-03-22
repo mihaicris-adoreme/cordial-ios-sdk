@@ -789,6 +789,10 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="6aZ-qI-rlA" secondAttribute="height" multiplier="72:25" id="2yq-kc-dpP"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="dtq-PR-neg" id="gVO-bL-t2T"/>
+                                    <outlet property="delegate" destination="dtq-PR-neg" id="qxQ-dl-JfR"/>
+                                </connections>
                             </pickerView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Key" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FwQ-CT-CUC">
                                 <rect key="frame" x="20" y="169" width="131" height="21"/>
@@ -827,11 +831,21 @@
                                     <action selector="booleanSwitchAction:" destination="dtq-PR-neg" eventType="valueChanged" id="ndh-Su-fpZ"/>
                                 </connections>
                             </switch>
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="BLq-V4-PjV">
+                                <rect key="frame" x="0.0" y="216" width="320" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="BLq-V4-PjV" secondAttribute="height" multiplier="160:81" id="8KK-ER-qA5"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="attributeDatePickerAction:" destination="dtq-PR-neg" eventType="valueChanged" id="8aa-sa-Teh"/>
+                                </connections>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="SMP-WP-a05" firstAttribute="top" secondItem="FwQ-CT-CUC" secondAttribute="top" id="24p-RC-mnV"/>
                             <constraint firstItem="gjg-Rg-qfl" firstAttribute="top" secondItem="FwQ-CT-CUC" secondAttribute="bottom" constant="8" id="3Eu-Lv-oze"/>
+                            <constraint firstItem="BLq-V4-PjV" firstAttribute="top" secondItem="EJI-Og-xnc" secondAttribute="bottom" constant="8" id="DKh-ko-FjC"/>
                             <constraint firstItem="SMP-WP-a05" firstAttribute="top" secondItem="6aZ-qI-rlA" secondAttribute="bottom" constant="25" id="F9C-v9-kfl"/>
                             <constraint firstItem="SMP-WP-a05" firstAttribute="leading" secondItem="gjg-Rg-qfl" secondAttribute="trailing" constant="5" id="JQv-oH-xsi"/>
                             <constraint firstItem="F0R-4d-mHu" firstAttribute="centerY" secondItem="NZg-ZZ-3xA" secondAttribute="centerY" id="K7c-gV-t4a"/>
@@ -840,6 +854,8 @@
                             <constraint firstItem="SMP-WP-a05" firstAttribute="centerX" secondItem="6aZ-qI-rlA" secondAttribute="centerX" id="Qmg-ua-qMA"/>
                             <constraint firstItem="6aZ-qI-rlA" firstAttribute="leading" secondItem="Rb2-vi-lZ6" secondAttribute="leading" constant="16" id="Vt1-pI-80t"/>
                             <constraint firstItem="gjg-Rg-qfl" firstAttribute="leading" secondItem="Rb2-vi-lZ6" secondAttribute="leading" constant="20" id="Y8a-om-cEZ"/>
+                            <constraint firstItem="BLq-V4-PjV" firstAttribute="leading" secondItem="Rb2-vi-lZ6" secondAttribute="leading" id="bi6-g8-TvI"/>
+                            <constraint firstItem="BLq-V4-PjV" firstAttribute="trailing" secondItem="Rb2-vi-lZ6" secondAttribute="trailing" id="c63-le-dZ2"/>
                             <constraint firstItem="Rb2-vi-lZ6" firstAttribute="trailing" secondItem="EJI-Og-xnc" secondAttribute="trailing" constant="20" id="dFC-vf-nd1"/>
                             <constraint firstItem="6aZ-qI-rlA" firstAttribute="top" secondItem="Rb2-vi-lZ6" secondAttribute="top" id="iqx-aw-lmt"/>
                             <constraint firstItem="NZg-ZZ-3xA" firstAttribute="leading" secondItem="SMP-WP-a05" secondAttribute="trailing" constant="5" id="jG5-xd-ptl"/>
@@ -862,17 +878,17 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="attributeDatePicker" destination="BLq-V4-PjV" id="ogd-Fg-u33"/>
                         <outlet property="booleanSwitch" destination="F0R-4d-mHu" id="Tvu-L8-q5O"/>
                         <outlet property="keyInfoLabel" destination="gjg-Rg-qfl" id="GFw-Ey-EEy"/>
                         <outlet property="keyTextField" destination="FwQ-CT-CUC" id="d9o-ES-brN"/>
-                        <outlet property="pickerView" destination="6aZ-qI-rlA" id="8vZ-eW-qjz"/>
                         <outlet property="valueInfoLabel" destination="EJI-Og-xnc" id="Jyq-L6-qjT"/>
                         <outlet property="valueTextField" destination="NZg-ZZ-3xA" id="JKK-ho-8Wq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qi-gx-aH6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3481.875" y="-629.57746478873241"/>
+            <point key="canvasLocation" x="3364" y="-732"/>
         </scene>
     </scenes>
     <resources>

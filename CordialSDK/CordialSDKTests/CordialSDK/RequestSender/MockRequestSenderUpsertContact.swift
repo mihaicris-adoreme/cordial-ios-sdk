@@ -29,7 +29,7 @@ class MockRequestSenderUpsertContact: RequestSender {
             let booleanValueFromJSON = attributesJSON["BooleanValue"] as! Bool
             let numericValueFromJSON = attributesJSON["NumericValue"] as! Double
             let arrayValueFromJSON = attributesJSON["ArrayValue"] as! [String]
-            let dateValueFromJSON = DateFormatter().getDateFromTimestamp(timestamp: attributesJSON["DateValue"] as! String)!
+            let dateValueFromJSON = CordialDateFormatter().getDateFromTimestamp(timestamp: attributesJSON["DateValue"] as! String)!
             
             let stringValue = self.testContactAttributes["StringValue"] as! StringValue
             let booleanValue = self.testContactAttributes["BooleanValue"] as! BooleanValue
