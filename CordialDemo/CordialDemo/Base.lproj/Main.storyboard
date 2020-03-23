@@ -884,11 +884,28 @@
                         <outlet property="keyTextField" destination="FwQ-CT-CUC" id="d9o-ES-brN"/>
                         <outlet property="valueInfoLabel" destination="EJI-Og-xnc" id="Jyq-L6-qjT"/>
                         <outlet property="valueTextField" destination="NZg-ZZ-3xA" id="JKK-ho-8Wq"/>
+                        <segue destination="6qb-do-RV2" kind="show" identifier="segueToGeo" id="fTL-NJ-7cD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qi-gx-aH6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3364" y="-732"/>
+            <point key="canvasLocation" x="3482" y="-630"/>
+        </scene>
+        <!--Geo View Controller-->
+        <scene sceneID="NHX-Wr-NKn">
+            <objects>
+                <viewController id="6qb-do-RV2" customClass="GeoViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GPD-c8-CQb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="y1D-Ch-HhR"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="lVR-aZ-6Hy"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="maa-aM-x2B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4279" y="-630"/>
         </scene>
     </scenes>
     <resources>

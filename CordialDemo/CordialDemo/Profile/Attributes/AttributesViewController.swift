@@ -18,6 +18,8 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var booleanSwitch: UISwitch!
     @IBOutlet weak var attributeDatePicker: UIDatePicker!
     
+    let segueToGeoIdentifier = "segueToGeo"
+    
     var pickerData: [String] = [String]()
     
     var attributeType = AttributeType.string
@@ -31,7 +33,7 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.keyTextField.setBottomBorder(color: UIColor.lightGray)
         self.valueTextField.setBottomBorder(color: UIColor.lightGray)
         
-        self.pickerData = ["String", "Boolean", "Numeric", "Array", "Date"]
+        self.pickerData = ["String", "Boolean", "Numeric", "Array", "Date", "Geo"]
     }
     
     @IBAction func addAttributeAction(_ sender: UIBarButtonItem) {
@@ -106,6 +108,19 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func attributeDatePickerAction(_ sender: UIDatePicker) {
         self.attributeDate = sender.date
         self.valueTextField.text = AppDateFormatter().getTimestampFromDate(date: sender.date)
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case self.segueToGeoIdentifier:
+            if let geoViewController = segue.destination as? GeoViewController {
+                geoViewController.attributesViewController = self
+            }
+        default:
+            break
+        }
     }
     
     // MARK: UIPickerViewDelegate
@@ -188,6 +203,10 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
             } else {
                 self.valueTextField.text = AppDateFormatter().getTimestampFromDate(date: Date())
             }
+//        case AttributeType.geo.rawValue:
+            case "geo":
+            self.performSegue(withIdentifier: self.segueToGeoIdentifier, sender: self)
+            break
         default:
             break
         }

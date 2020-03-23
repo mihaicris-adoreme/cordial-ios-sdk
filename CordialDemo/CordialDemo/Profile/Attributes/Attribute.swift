@@ -46,4 +46,5 @@ enum AttributeType: String {
     case numeric = "numeric"
     case array = "array"
     case date = "date"
+//    case geo = "geo"
 }
