@@ -63,3 +63,47 @@ import Foundation
     }
     
 }
+
+@objc public class GeoValue: NSObject, AttributeValue {
+    
+    let key: String
+    var city = String()
+    var country = String()
+    var postalCode = String()
+    var state = String()
+    var streetAdress = String()
+    var streetAdress2 = String()
+    var timeZone = String()
+    
+    public init(key: String) {
+        self.key = key
+    }
+    
+    public func setCity(_ city: String) {
+        self.city = city
+    }
+    
+    public func setCountry(_ country: String) {
+        self.country = country
+    }
+    
+    public func setPostalCode(_ postalCode: String) {
+        self.postalCode = postalCode
+    }
+    
+    public func setState(_ state: String) {
+        self.state = state
+    }
+    
+    public func setStreetAdress(_ streetAdress: String) {
+        self.streetAdress = streetAdress
+    }
+    
+    public func setStreetAdress2(_ streetAdress2: String) {
+        self.streetAdress2 = streetAdress2
+    }
+    
+    public func setTimeZone(_ timeZone: String) {
+        self.timeZone = timeZone
+    }
+}
