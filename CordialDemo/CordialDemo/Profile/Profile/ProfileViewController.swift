@@ -53,17 +53,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        
         if self.attributes.count > 0 {
-            let attributeHeight = self.tableView.frame.size.height / 5
-            let attributesHeight = attributeHeight * CGFloat(self.attributes.count)
-            let calculatedHeightForFooter = self.tableView.frame.size.height - attributesHeight
-            
-            if calculatedHeightForFooter > self.profileTableFooterView.frame.size.height {
-                return calculatedHeightForFooter
-            } else {
-                return self.profileTableFooterView.frame.size.height
-            }
+            return self.profileTableFooterView.frame.size.height
         }
         
         return 0
@@ -85,18 +76,21 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         var value = Attribute.performArrayToStringSeparatedByComma(attribute.value)
         
-        if attribute.type == AttributeType.date {
+        switch attribute.type {
+        case AttributeType.date:
             let date = CordialDateFormatter().getDateFromTimestamp(timestamp: value)!
             value = AppDateFormatter().getTimestampFromDate(date: date)
+        case AttributeType.geo:
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let geoAttribute = AppDataManager.shared.geoAttributes.getGeoAttributeFromCoreDataByKey(appDelegate: appDelegate, key: attribute.key) {
+                value = "City:\n\(geoAttribute.city)\nCountry:\n\(geoAttribute.country)\nPostal Code:\n\(geoAttribute.postalCode)\nState:\n\(geoAttribute.state)\nStreet Adress:\n\(geoAttribute.streetAdress)\nStreet Adress 2:\n\(geoAttribute.streetAdress2)\nTime Zone:\n\(geoAttribute.timeZone)"
+            }
+        default:
+            break
         }
         
         cell.valueLabel.text = value
         
         return cell
-    }
-
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return self.tableView.frame.size.height / 5
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -105,6 +99,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             let attribute = self.attributes[indexPath.row]
             
             AppDataManager.shared.attributes.deleteAttributeByKey(appDelegate: appDelegate, key: attribute.key)
+            
+            switch attribute.type {
+            case AttributeType.geo:
+                AppDataManager.shared.geoAttributes.deleteGeoAttributeByKey(appDelegate: appDelegate, key: attribute.key)
+            default:
+                break
+            }
+            
             
             self.attributes.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)

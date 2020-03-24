@@ -685,7 +685,6 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="JGc-fC-ad6" firstAttribute="firstBaseline" secondItem="awu-za-5rE" secondAttribute="baseline" id="1HA-8B-l9O"/>
                                                 <constraint firstItem="sHZ-PH-OBz" firstAttribute="trailing" secondItem="awu-za-5rE" secondAttribute="trailing" id="4le-Eh-7dh"/>
                                                 <constraint firstItem="Ifu-ql-8Hu" firstAttribute="baseline" secondItem="sHZ-PH-OBz" secondAttribute="baseline" id="99r-ZQ-jcF"/>
                                                 <constraint firstItem="JGc-fC-ad6" firstAttribute="leading" relation="lessThanOrEqual" secondItem="zcj-x4-BuS" secondAttribute="trailing" constant="8" symbolic="YES" id="9o9-7o-OUJ"/>
@@ -776,10 +775,10 @@
             </objects>
             <point key="canvasLocation" x="2643.75" y="-629.57746478873241"/>
         </scene>
-        <!--Attributes View Controller-->
+        <!--Attribute View Controller-->
         <scene sceneID="wBP-9T-FGF">
             <objects>
-                <viewController id="dtq-PR-neg" customClass="AttributesViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dtq-PR-neg" customClass="AttributeViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="BX9-Zd-qaU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -891,10 +890,10 @@
             </objects>
             <point key="canvasLocation" x="3482" y="-630"/>
         </scene>
-        <!--Geo View Controller-->
+        <!--Geo Attribute View Controller-->
         <scene sceneID="NHX-Wr-NKn">
             <objects>
-                <viewController id="6qb-do-RV2" customClass="GeoViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="6qb-do-RV2" customClass="GeoAttributeViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GPD-c8-CQb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="720"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -15,7 +15,7 @@ class AppDataManager {
     
     let cart = CartCoreData()
     let attributes = AttributesCoreData()
-    let geoAttribute = AttributeGeoCoreData()
+    let geoAttributes = AttributesGeoCoreData()
     
     private init(){}
     

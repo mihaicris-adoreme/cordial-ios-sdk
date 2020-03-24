@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		018B03AC43DEF16C2BB1A20F /* Pods_CordialDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3762E8A3327E5F75DD8CEF4E /* Pods_CordialDemoUITests.framework */; };
 		6C102E85A5A269BAD6F316DB /* Pods_CordialDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67DA66C3AD068AE05F0FAEEB /* Pods_CordialDemo.framework */; };
-		9E005F5924296DD500425C5B /* AttributeGeoCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E005F5824296DD500425C5B /* AttributeGeoCoreData.swift */; };
+		9E005F5924296DD500425C5B /* AttributesGeoCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E005F5824296DD500425C5B /* AttributesGeoCoreData.swift */; };
 		9E005F5D24297D1900425C5B /* GeoAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E005F5C24297D1900425C5B /* GeoAttribute.swift */; };
 		9E005F5F24297D2700425C5B /* AttributeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E005F5E24297D2700425C5B /* AttributeType.swift */; };
 		9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00ED3C227084E400684F40 /* CartTableFooterView.swift */; };
@@ -18,7 +18,7 @@
 		9E1EB39A241DC199004CAD90 /* AttributesCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB399241DC199004CAD90 /* AttributesCoreData.swift */; };
 		9E1EB39C241DC61E004CAD90 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB39B241DC61E004CAD90 /* Attribute.swift */; };
 		9E1EB3D6241F1700004CAD90 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB3D5241F1700004CAD90 /* ProfileTableViewCell.swift */; };
-		9E3DD4CF241BC066004C3918 /* AttributesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3DD4CE241BC066004C3918 /* AttributesViewController.swift */; };
+		9E3DD4CF241BC066004C3918 /* AttributeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */; };
 		9E45FE7622537648006A5A6B /* CordialPushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E45FE7522537648006A5A6B /* CordialPushNotificationHandler.swift */; };
 		9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */; };
 		9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */; };
@@ -36,7 +36,7 @@
 		9E7A5A82222EB64C0020054F /* CordialDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A81222EB64C0020054F /* CordialDemoTests.swift */; };
 		9E7A5A8D222EB64C0020054F /* CordialDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */; };
 		9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */; };
-		9E7CEC7D242857F800E054BF /* GeoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7CEC7C242857F800E054BF /* GeoViewController.swift */; };
+		9E7CEC7D242857F800E054BF /* GeoAttributeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */; };
 		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
 		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
 		9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B95A923A53A1300936630 /* SceneDelegate.swift */; };
@@ -111,7 +111,7 @@
 		6B95E99EA1BA7F9716146A3E /* Pods_CordialDemo_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F2F03229D5BE89064B778E1 /* Pods-CordialDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemoUITests/Pods-CordialDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8319981CCBB10233AA612DB8 /* Pods-CordialDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemoTests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemoTests/Pods-CordialDemoTests.release.xcconfig"; sourceTree = "<group>"; };
-		9E005F5824296DD500425C5B /* AttributeGeoCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeGeoCoreData.swift; sourceTree = "<group>"; };
+		9E005F5824296DD500425C5B /* AttributesGeoCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesGeoCoreData.swift; sourceTree = "<group>"; };
 		9E005F5C24297D1900425C5B /* GeoAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAttribute.swift; sourceTree = "<group>"; };
 		9E005F5E24297D2700425C5B /* AttributeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeType.swift; sourceTree = "<group>"; };
 		9E00ED3C227084E400684F40 /* CartTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableFooterView.swift; sourceTree = "<group>"; };
@@ -121,7 +121,7 @@
 		9E1EB399241DC199004CAD90 /* AttributesCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesCoreData.swift; sourceTree = "<group>"; };
 		9E1EB39B241DC61E004CAD90 /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		9E1EB3D5241F1700004CAD90 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
-		9E3DD4CE241BC066004C3918 /* AttributesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesViewController.swift; sourceTree = "<group>"; };
+		9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeViewController.swift; sourceTree = "<group>"; };
 		9E45FE7522537648006A5A6B /* CordialPushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationHandler.swift; sourceTree = "<group>"; };
 		9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewController.swift; sourceTree = "<group>"; };
 		9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemoUITests.swift; sourceTree = "<group>"; };
 		9E7A5A8E222EB64C0020054F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		9E7CEC7C242857F800E054BF /* GeoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoViewController.swift; sourceTree = "<group>"; };
+		9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAttributeViewController.swift; sourceTree = "<group>"; };
 		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
 		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
 		9E8B95A923A53A1300936630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 		9E1EB37A241DACB5004CAD90 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				9E005F5824296DD500425C5B /* AttributeGeoCoreData.swift */,
+				9E005F5824296DD500425C5B /* AttributesGeoCoreData.swift */,
 				9E1EB399241DC199004CAD90 /* AttributesCoreData.swift */,
 				9E1EB37B241DACDA004CAD90 /* CartCoreData.swift */,
 			);
@@ -241,12 +241,20 @@
 		9E3DD4CA241BC01F004C3918 /* Attributes */ = {
 			isa = PBXGroup;
 			children = (
-				9E3DD4CE241BC066004C3918 /* AttributesViewController.swift */,
-				9E1EB39B241DC61E004CAD90 /* Attribute.swift */,
-				9E005F5C24297D1900425C5B /* GeoAttribute.swift */,
+				9E64E81E24299FB500293BB1 /* Attribute */,
+				9E7CEC7B242857CB00E054BF /* GeoAttribute */,
 				9E005F5E24297D2700425C5B /* AttributeType.swift */,
 			);
 			path = Attributes;
+			sourceTree = "<group>";
+		};
+		9E64E81E24299FB500293BB1 /* Attribute */ = {
+			isa = PBXGroup;
+			children = (
+				9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */,
+				9E1EB39B241DC61E004CAD90 /* Attribute.swift */,
+			);
+			path = Attribute;
 			sourceTree = "<group>";
 		};
 		9E77896A22878C090089C986 /* NotificationServiceExtension */ = {
@@ -341,7 +349,6 @@
 			children = (
 				9E7CEC7A2428578E00E054BF /* Profile */,
 				9E3DD4CA241BC01F004C3918 /* Attributes */,
-				9E7CEC7B242857CB00E054BF /* Geo */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -356,12 +363,13 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
-		9E7CEC7B242857CB00E054BF /* Geo */ = {
+		9E7CEC7B242857CB00E054BF /* GeoAttribute */ = {
 			isa = PBXGroup;
 			children = (
-				9E7CEC7C242857F800E054BF /* GeoViewController.swift */,
+				9E005F5C24297D1900425C5B /* GeoAttribute.swift */,
+				9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */,
 			);
-			path = Geo;
+			path = GeoAttribute;
 			sourceTree = "<group>";
 		};
 		9E80E35D24194E1400EE5852 /* Footer */ = {
@@ -762,7 +770,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E7CEC7D242857F800E054BF /* GeoViewController.swift in Sources */,
+				9E7CEC7D242857F800E054BF /* GeoAttributeViewController.swift in Sources */,
 				9E7A5A72222EB64B0020054F /* CordialDemo.xcdatamodeld in Sources */,
 				9E005F5D24297D1900425C5B /* GeoAttribute.swift in Sources */,
 				9EDC7E402242912000BF8FB0 /* App.swift in Sources */,
@@ -779,10 +787,10 @@
 				9EF7B20F2266340F003B223D /* AppDataManager.swift in Sources */,
 				9E7A5A6C222EB64B0020054F /* LoginViewController.swift in Sources */,
 				9E7A5A6A222EB64B0020054F /* AppDelegate.swift in Sources */,
-				9E3DD4CF241BC066004C3918 /* AttributesViewController.swift in Sources */,
+				9E3DD4CF241BC066004C3918 /* AttributeViewController.swift in Sources */,
 				9E1EB37C241DACDA004CAD90 /* CartCoreData.swift in Sources */,
 				9E1EB39A241DC199004CAD90 /* AttributesCoreData.swift in Sources */,
-				9E005F5924296DD500425C5B /* AttributeGeoCoreData.swift in Sources */,
+				9E005F5924296DD500425C5B /* AttributesGeoCoreData.swift in Sources */,
 				9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */,
 				9E45FE7622537648006A5A6B /* CordialPushNotificationHandler.swift in Sources */,
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,

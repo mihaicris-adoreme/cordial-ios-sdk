@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class AttributeGeoCoreData {
+class AttributesGeoCoreData {
     
     let entityName = "AttributeGeo"
     
@@ -70,13 +70,13 @@ class AttributeGeoCoreData {
         }
     }
     
-    func getAttributesFromCoreData(appDelegate: AppDelegate) -> [GeoAttribute] {
+    func getGeoAttributeFromCoreDataByKey(appDelegate: AppDelegate, key: String) -> GeoAttribute? {
         let context = appDelegate.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.predicate = NSPredicate(format: "key == %@", key)
         request.returnsObjectsAsFaults = false
         
-        var geoAttributes = [GeoAttribute]()
         do {
             let result = try context.fetch(request)
             for data in result as! [NSManagedObject] {
@@ -91,17 +91,17 @@ class AttributeGeoCoreData {
                     
                     let geoAttribute = GeoAttribute(key: key, city: city, country: country, postalCode: postalCode, state: state, streetAdress: streetAdress, streetAdress2: streetAdress2, timeZone: timeZone)
                     
-                    geoAttributes.append(geoAttribute)
+                    return geoAttribute
                 }
             }
         } catch let error as NSError {
             print("Failed: \(error) \(error.userInfo)")
         }
         
-        return geoAttributes
+        return nil
     }
     
-    func isExistedGeoAttributeWithKey(appDelegate: AppDelegate, key: String) -> Bool {
+    private func isExistedGeoAttributeWithKey(appDelegate: AppDelegate, key: String) -> Bool {
         let context = appDelegate.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)

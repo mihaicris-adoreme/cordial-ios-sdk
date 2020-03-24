@@ -1,5 +1,5 @@
 //
-//  AttributesViewController.swift
+//  AttributeViewController.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 13.03.2020.
@@ -9,7 +9,7 @@
 import UIKit
 import CordialSDK
 
-class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var keyTextField: UITextField!
     @IBOutlet weak var keyInfoLabel: UILabel!
@@ -84,6 +84,8 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
                 let date = AppDateFormatter().getDateFromTimestamp(timestamp: value)!
                 value = CordialDateFormatter().getTimestampFromDate(date: date)
                 isValueValidated = true
+            case AttributeType.geo:
+                break
             }
             
             if isKeyValidated && isValueValidated  {
@@ -117,8 +119,8 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case self.segueToGeoIdentifier:
-            if let geoViewController = segue.destination as? GeoViewController {
-                geoViewController.attributesViewController = self
+            if let geoAttributeViewController = segue.destination as? GeoAttributeViewController {
+                geoAttributeViewController.attributeViewController = self
             }
         default:
             break
@@ -205,8 +207,7 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
             } else {
                 self.valueTextField.text = AppDateFormatter().getTimestampFromDate(date: Date())
             }
-//        case AttributeType.geo.rawValue:
-            case "geo":
+        case AttributeType.geo.rawValue:
             self.performSegue(withIdentifier: self.segueToGeoIdentifier, sender: self)
             break
         default:

@@ -18,9 +18,10 @@ class Attribute {
         self.key = key
         self.type = type
         
-        if type == AttributeType.array {
+        switch type {
+        case AttributeType.array:
             self.value = Attribute.performStringSeparatedByCommaToArray(value)
-        } else {
+        default:
             self.value = [value]
         }
     }

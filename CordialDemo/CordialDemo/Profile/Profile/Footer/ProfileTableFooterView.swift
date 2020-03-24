@@ -47,6 +47,8 @@ class ProfileTableFooterView: UITableViewHeaderFooterView {
                 let value = CordialDateFormatter().getDateFromTimestamp(timestamp: Attribute.performArrayToStringSeparatedByComma(attribute.value))!
                 let dateValue = DateValue(value)
                 attributesDictionary[key] = dateValue
+            case AttributeType.geo:
+                break
             }
         }
         
