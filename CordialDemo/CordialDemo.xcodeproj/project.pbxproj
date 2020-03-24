@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		018B03AC43DEF16C2BB1A20F /* Pods_CordialDemoUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3762E8A3327E5F75DD8CEF4E /* Pods_CordialDemoUITests.framework */; };
 		6C102E85A5A269BAD6F316DB /* Pods_CordialDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67DA66C3AD068AE05F0FAEEB /* Pods_CordialDemo.framework */; };
+		9E005F5924296DD500425C5B /* AttributeGeoCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E005F5824296DD500425C5B /* AttributeGeoCoreData.swift */; };
+		9E005F5D24297D1900425C5B /* GeoAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E005F5C24297D1900425C5B /* GeoAttribute.swift */; };
+		9E005F5F24297D2700425C5B /* AttributeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E005F5E24297D2700425C5B /* AttributeType.swift */; };
 		9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00ED3C227084E400684F40 /* CartTableFooterView.swift */; };
 		9E00ED3F227084ED00684F40 /* CartTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E00ED3E227084ED00684F40 /* CartTableFooterView.xib */; };
 		9E1EB37C241DACDA004CAD90 /* CartCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB37B241DACDA004CAD90 /* CartCoreData.swift */; };
@@ -108,6 +111,9 @@
 		6B95E99EA1BA7F9716146A3E /* Pods_CordialDemo_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F2F03229D5BE89064B778E1 /* Pods-CordialDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemoUITests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemoUITests/Pods-CordialDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8319981CCBB10233AA612DB8 /* Pods-CordialDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemoTests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemoTests/Pods-CordialDemoTests.release.xcconfig"; sourceTree = "<group>"; };
+		9E005F5824296DD500425C5B /* AttributeGeoCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeGeoCoreData.swift; sourceTree = "<group>"; };
+		9E005F5C24297D1900425C5B /* GeoAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAttribute.swift; sourceTree = "<group>"; };
+		9E005F5E24297D2700425C5B /* AttributeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeType.swift; sourceTree = "<group>"; };
 		9E00ED3C227084E400684F40 /* CartTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableFooterView.swift; sourceTree = "<group>"; };
 		9E00ED3E227084ED00684F40 /* CartTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartTableFooterView.xib; sourceTree = "<group>"; };
 		9E115532224E541A00CEF9FB /* CordialDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CordialDemo.entitlements; sourceTree = "<group>"; };
@@ -225,6 +231,7 @@
 		9E1EB37A241DACB5004CAD90 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				9E005F5824296DD500425C5B /* AttributeGeoCoreData.swift */,
 				9E1EB399241DC199004CAD90 /* AttributesCoreData.swift */,
 				9E1EB37B241DACDA004CAD90 /* CartCoreData.swift */,
 			);
@@ -236,6 +243,8 @@
 			children = (
 				9E3DD4CE241BC066004C3918 /* AttributesViewController.swift */,
 				9E1EB39B241DC61E004CAD90 /* Attribute.swift */,
+				9E005F5C24297D1900425C5B /* GeoAttribute.swift */,
+				9E005F5E24297D2700425C5B /* AttributeType.swift */,
 			);
 			path = Attributes;
 			sourceTree = "<group>";
@@ -755,12 +764,14 @@
 			files = (
 				9E7CEC7D242857F800E054BF /* GeoViewController.swift in Sources */,
 				9E7A5A72222EB64B0020054F /* CordialDemo.xcdatamodeld in Sources */,
+				9E005F5D24297D1900425C5B /* GeoAttribute.swift in Sources */,
 				9EDC7E402242912000BF8FB0 /* App.swift in Sources */,
 				9EF7B20D22662A79003B223D /* CartViewController.swift in Sources */,
 				9EAB97272427366900C5C5DA /* AppDateFormatter.swift in Sources */,
 				9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */,
 				9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */,
 				9E1EB39C241DC61E004CAD90 /* Attribute.swift in Sources */,
+				9E005F5F24297D2700425C5B /* AttributeType.swift in Sources */,
 				9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */,
 				9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */,
 				9EF7B20B2266259B003B223D /* Product.swift in Sources */,
@@ -771,6 +782,7 @@
 				9E3DD4CF241BC066004C3918 /* AttributesViewController.swift in Sources */,
 				9E1EB37C241DACDA004CAD90 /* CartCoreData.swift in Sources */,
 				9E1EB39A241DC199004CAD90 /* AttributesCoreData.swift in Sources */,
+				9E005F5924296DD500425C5B /* AttributeGeoCoreData.swift in Sources */,
 				9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */,
 				9E45FE7622537648006A5A6B /* CordialPushNotificationHandler.swift in Sources */,
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,

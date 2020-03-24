@@ -39,12 +39,3 @@ class Attribute {
         return values.joined(separator: ", ")
     }
 }
-
-enum AttributeType: String {
-    case string = "string"
-    case boolean = "boolean"
-    case numeric = "numeric"
-    case array = "array"
-    case date = "date"
-//    case geo = "geo"
-}

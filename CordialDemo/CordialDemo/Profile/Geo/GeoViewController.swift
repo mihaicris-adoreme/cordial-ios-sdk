@@ -12,6 +12,7 @@ class GeoViewController: UIViewController, UINavigationControllerDelegate {
     
     var attributesViewController: AttributesViewController?
     
+    @IBOutlet weak var keyTextField: UITextField!
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var postalCodeTextField: UITextField!
@@ -27,6 +28,7 @@ class GeoViewController: UIViewController, UINavigationControllerDelegate {
         
         self.navigationController?.delegate = self
         
+        self.keyTextField.setBottomBorder(color: UIColor.lightGray)
         self.cityTextField.setBottomBorder(color: UIColor.lightGray)
         self.countryTextField.setBottomBorder(color: UIColor.lightGray)
         self.postalCodeTextField.setBottomBorder(color: UIColor.lightGray)
@@ -38,8 +40,12 @@ class GeoViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     @IBAction func addGeoAttributeAction(_ sender: UIBarButtonItem) {
-        if let viewControllers = self.navigationController?.viewControllers, viewControllers.count > 3 {
-             self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
+        if let viewControllers = self.navigationController?.viewControllers, viewControllers.count > 3, let appDelegate = UIApplication.shared.delegate as? AppDelegate, let key = self.keyTextField.text, let city = self.cityTextField.text, let country = self.countryTextField.text, let postalCode = self.postalCodeTextField.text, let state = self.stateTextField.text, let streetAdress = self.streetAdressTextField.text, let streetAdress2 = self.streetAdress2TextField.text, let timeZone = self.timeZoneTextField.text {
+            
+            let geoAttribute = GeoAttribute(key: key, city: city, country: country, postalCode: postalCode, state: state, streetAdress: streetAdress, streetAdress2: streetAdress2, timeZone: timeZone)
+            AppDataManager.shared.geoAttribute.putGeoAttributeToCoreData(appDelegate: appDelegate, geoAttribute: geoAttribute)
+            
+            self.navigationController?.popToViewController(viewControllers[viewControllers.count - 3], animated: true)
          }
     }
     

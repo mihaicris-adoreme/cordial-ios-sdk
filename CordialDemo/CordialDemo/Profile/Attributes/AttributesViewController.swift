@@ -30,6 +30,8 @@ class AttributesViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         self.title = "Attribute"
         
+        self.attributeType = AttributeType.string
+        
         self.keyTextField.setBottomBorder(color: UIColor.lightGray)
         self.valueTextField.setBottomBorder(color: UIColor.lightGray)
         
