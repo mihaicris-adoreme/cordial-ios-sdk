@@ -651,7 +651,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awu-za-5rE">
-                                                    <rect key="frame" x="75" y="39.5" width="234" height="20"/>
+                                                    <rect key="frame" x="75" y="39.5" width="230" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -663,7 +663,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGc-fC-ad6">
-                                                    <rect key="frame" x="75" y="67.5" width="234" height="22.5"/>
+                                                    <rect key="frame" x="75" y="67.5" width="230" height="23.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -671,7 +671,6 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="252" text=" " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ifu-ql-8Hu">
                                                     <rect key="frame" x="75" y="11.5" width="230" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="230" id="KNh-l8-4OF"/>
                                                         <constraint firstAttribute="height" constant="20" id="pU0-My-aMb"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
@@ -690,14 +689,16 @@
                                                 <constraint firstItem="JGc-fC-ad6" firstAttribute="top" secondItem="awu-za-5rE" secondAttribute="bottom" constant="8" symbolic="YES" id="SPo-ld-D87"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="Mko-jP-1hd" secondAttribute="bottom" id="Tur-mR-F76"/>
                                                 <constraint firstItem="awu-za-5rE" firstAttribute="leading" secondItem="JGc-fC-ad6" secondAttribute="leading" id="VNb-oq-tVt"/>
-                                                <constraint firstItem="Mko-jP-1hd" firstAttribute="baseline" secondItem="JGc-fC-ad6" secondAttribute="baseline" id="Y2i-Jg-acA"/>
+                                                <constraint firstItem="Mko-jP-1hd" firstAttribute="baseline" secondItem="JGc-fC-ad6" secondAttribute="baseline" constant="-1" id="Y2i-Jg-acA"/>
                                                 <constraint firstItem="sHZ-PH-OBz" firstAttribute="trailing" secondItem="wcQ-if-6Eh" secondAttribute="trailing" id="bc6-sN-6yE"/>
                                                 <constraint firstItem="Ifu-ql-8Hu" firstAttribute="leading" secondItem="wcQ-if-6Eh" secondAttribute="trailing" constant="18" id="cSf-rF-9HV"/>
+                                                <constraint firstItem="Ifu-ql-8Hu" firstAttribute="trailing" secondItem="tBC-FM-7YD" secondAttribute="trailingMargin" id="e7g-6d-iI5"/>
                                                 <constraint firstItem="wcQ-if-6Eh" firstAttribute="baseline" secondItem="Ifu-ql-8Hu" secondAttribute="firstBaseline" id="eup-EJ-ejx"/>
                                                 <constraint firstItem="awu-za-5rE" firstAttribute="top" secondItem="Ifu-ql-8Hu" secondAttribute="bottom" constant="8" symbolic="YES" id="f4q-2j-FQi"/>
+                                                <constraint firstItem="Ifu-ql-8Hu" firstAttribute="trailing" secondItem="tBC-FM-7YD" secondAttribute="trailingMargin" id="gKY-4C-uTC"/>
                                                 <constraint firstItem="wcQ-if-6Eh" firstAttribute="leading" secondItem="sHZ-PH-OBz" secondAttribute="leading" id="lil-ra-SCS"/>
                                                 <constraint firstItem="wcQ-if-6Eh" firstAttribute="top" secondItem="tBC-FM-7YD" secondAttribute="topMargin" id="nAJ-SV-gYo"/>
-                                                <constraint firstItem="Ifu-ql-8Hu" firstAttribute="trailing" secondItem="awu-za-5rE" secondAttribute="trailing" constant="-4" id="oNl-5f-HmD"/>
+                                                <constraint firstItem="Ifu-ql-8Hu" firstAttribute="trailing" secondItem="awu-za-5rE" secondAttribute="trailing" id="oNl-5f-HmD"/>
                                                 <constraint firstItem="sHZ-PH-OBz" firstAttribute="top" secondItem="wcQ-if-6Eh" secondAttribute="bottom" constant="11" id="rPX-dj-il3"/>
                                             </constraints>
                                         </tableViewCellContentView>
