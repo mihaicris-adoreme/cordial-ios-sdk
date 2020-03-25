@@ -20,7 +20,7 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     let segueToGeoIdentifier = "segueToGeo"
     
-    var pickerData: [String] = [String]()
+    var pickerData = [String]()
     
     var attributeType = AttributeType.string
     var attributeDate: Date?
@@ -136,11 +136,11 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     // MARK: UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
+        return self.pickerData.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[row]
+        return self.pickerData[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -209,7 +209,6 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             }
         case AttributeType.geo.rawValue:
             self.performSegue(withIdentifier: self.segueToGeoIdentifier, sender: self)
-            break
         default:
             break
         }
