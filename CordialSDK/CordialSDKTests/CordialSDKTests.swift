@@ -49,6 +49,17 @@ class CordialSDKTests: XCTestCase {
         self.testContactAttributes["NumericValue"] = NumericValue(1.2)
         self.testContactAttributes["ArrayValue"] = ArrayValue(["1", "2", "3"])
         self.testContactAttributes["DateValue"] = DateValue(Date())
+        
+        let geoValue = GeoValue()
+        geoValue.setCity("San Diego")
+        geoValue.setCountry("United States of America")
+        geoValue.setPostalCode("90001")
+        geoValue.setState("California")
+        geoValue.setStreetAdress("402 West Broadway, Suite 700")
+        geoValue.setStreetAdress2("402 West Broadway, Suite 700")
+        geoValue.setTimeZone("America/Los_Angeles")
+        
+        self.testContactAttributes["GeoValue"] = geoValue
     }
     
     func testAPNsToken() {

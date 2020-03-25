@@ -30,18 +30,27 @@ class MockRequestSenderUpsertContact: RequestSender {
             let numericValueFromJSON = attributesJSON["NumericValue"] as! Double
             let arrayValueFromJSON = attributesJSON["ArrayValue"] as! [String]
             let dateValueFromJSON = CordialDateFormatter().getDateFromTimestamp(timestamp: attributesJSON["DateValue"] as! String)!
+            let geoValueFromJSON = attributesJSON["GeoValue"] as! [String: String]
             
             let stringValue = self.testContactAttributes["StringValue"] as! StringValue
             let booleanValue = self.testContactAttributes["BooleanValue"] as! BooleanValue
             let numericValue = self.testContactAttributes["NumericValue"] as! NumericValue
             let arrayValue = self.testContactAttributes["ArrayValue"] as! ArrayValue
             let dateValue = self.testContactAttributes["DateValue"] as! DateValue
+            let geoValue = self.testContactAttributes["GeoValue"] as! GeoValue
             
             XCTAssertEqual(stringValueFromJSON, stringValue.value, "String value is invalid")
             XCTAssertEqual(booleanValueFromJSON, booleanValue.value, "Boolean value is invalid")
             XCTAssertEqual(numericValueFromJSON, numericValue.value, "Numeric value is invalid")
             XCTAssertEqual(arrayValueFromJSON, arrayValue.value, "Array value is invalid")
             XCTAssertEqual(Int(dateValueFromJSON.timeIntervalSince1970), Int(dateValue.value.timeIntervalSince1970), "Date value is invalid")
+            XCTAssertEqual(geoValueFromJSON["city"], geoValue.getCity(), "Geo city value is invalid")
+            XCTAssertEqual(geoValueFromJSON["country"], geoValue.getCountry(), "Geo country value is invalid")
+            XCTAssertEqual(geoValueFromJSON["postal_code"], geoValue.getPostalCode(), "Geo postal code value is invalid")
+            XCTAssertEqual(geoValueFromJSON["state"], geoValue.getState(), "Geo state value is invalid")
+            XCTAssertEqual(geoValueFromJSON["street_adress"], geoValue.getStreetAdress(), "Geo street adress value is invalid")
+            XCTAssertEqual(geoValueFromJSON["street_adress2"], geoValue.getStreetAdress(), "Geo street adress 2 value is invalid")
+            XCTAssertEqual(geoValueFromJSON["tz"], geoValue.getTimeZone(), "Geo time zone value is invalid")
             
             self.isVerified = true
         }

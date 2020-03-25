@@ -66,7 +66,6 @@ import Foundation
 
 @objc public class GeoValue: NSObject, AttributeValue {
     
-    let key: String
     var city = String()
     var country = String()
     var postalCode = String()
@@ -74,10 +73,6 @@ import Foundation
     var streetAdress = String()
     var streetAdress2 = String()
     var timeZone = String()
-    
-    public init(key: String) {
-        self.key = key
-    }
     
     public func setCity(_ city: String) {
         self.city = city
@@ -105,5 +100,33 @@ import Foundation
     
     public func setTimeZone(_ timeZone: String) {
         self.timeZone = timeZone
+    }
+    
+    public func getCity() -> String {
+        return self.city
+    }
+    
+    public func getCountry() -> String {
+        return self.country
+    }
+    
+    public func getPostalCode() -> String {
+        return self.postalCode
+    }
+    
+    public func getState() -> String {
+        return self.state
+    }
+    
+    public func getStreetAdress() -> String {
+        return self.streetAdress
+    }
+    
+    public func getStreetAdress2() -> String {
+        return self.streetAdress2
+    }
+    
+    public func getTimeZone() -> String {
+        return self.timeZone
     }
 }
