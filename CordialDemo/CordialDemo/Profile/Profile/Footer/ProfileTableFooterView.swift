@@ -58,7 +58,7 @@ class ProfileTableFooterView: UITableViewHeaderFooterView {
                     let streetAdress2 = geoAttribute.streetAdress2
                     let timeZone = geoAttribute.timeZone
                     
-                    let geoValue = GeoValue(key: key)
+                    let geoValue = GeoValue()
                     
                     geoValue.setCity(city)
                     geoValue.setCountry(country)
