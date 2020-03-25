@@ -42,6 +42,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             self.attributes = AppDataManager.shared.attributes.getAttributesFromCoreData(appDelegate: appDelegate)
+            self.tableView.tableFooterView = UIView(frame: .zero)
             self.tableView.reloadData()
         }
     }
@@ -82,7 +83,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             value = AppDateFormatter().getTimestampFromDate(date: date)
         case AttributeType.geo:
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let geoAttribute = AppDataManager.shared.geoAttributes.getGeoAttributeFromCoreDataByKey(appDelegate: appDelegate, key: attribute.key) {
-                value = "City:\n\(geoAttribute.city)\nCountry:\n\(geoAttribute.country)\nPostal Code:\n\(geoAttribute.postalCode)\nState:\n\(geoAttribute.state)\nStreet Adress:\n\(geoAttribute.streetAdress)\nStreet Adress 2:\n\(geoAttribute.streetAdress2)\nTime Zone:\n\(geoAttribute.timeZone)"
+                value = "City:\t\t\t\t\(geoAttribute.city)\nCountry:\t\t\t\(geoAttribute.country)\nPostal Code:\t\t\(geoAttribute.postalCode)\nState:\t\t\t\t\(geoAttribute.state)\nStreet Adress:\t\t\(geoAttribute.streetAdress)\nStreet Adress 2:\t\(geoAttribute.streetAdress2)\nTime Zone:\t\t\t\(geoAttribute.timeZone)"
             }
         default:
             break
