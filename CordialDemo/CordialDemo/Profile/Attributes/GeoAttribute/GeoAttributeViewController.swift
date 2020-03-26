@@ -46,8 +46,8 @@ class GeoAttributeViewController: UIViewController, UINavigationControllerDelega
         self.streetAddress2TextField.setBottomBorder(color: UIColor.lightGray)
         self.timeZoneTextField.setBottomBorder(color: UIColor.lightGray)
         
-        self.countryPickerData = ["", "United States of America", "United Kingdom (Great Britain)", "Ukraine", "France", "Italy"]
-        self.timeZonePickerData = ["", "America/Los_Angeles", "Europe/London", "Europe/Kiev", "Europe/Paris", "Europe/Rome"]
+        self.countryPickerData = ["", "United States of America", "United Kingdom (Great Britain)", "France", "Italy"]
+        self.timeZonePickerData = ["", "America/Los_Angeles", "Europe/London", "Europe/Paris", "Europe/Rome"]
         
         self.addPickerToCountryTextField()
     }
