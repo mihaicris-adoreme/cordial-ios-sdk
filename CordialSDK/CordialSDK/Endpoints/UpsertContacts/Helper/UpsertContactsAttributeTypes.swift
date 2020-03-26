@@ -70,8 +70,8 @@ import Foundation
     var country = String()
     var postalCode = String()
     var state = String()
-    var streetAdress = String()
-    var streetAdress2 = String()
+    var streetAddress = String()
+    var streetAddress2 = String()
     var timeZone = String()
     
     public func setCity(_ city: String) {
@@ -90,12 +90,12 @@ import Foundation
         self.state = state
     }
     
-    public func setStreetAdress(_ streetAdress: String) {
-        self.streetAdress = streetAdress
+    public func setStreetAddress(_ streetAddress: String) {
+        self.streetAddress = streetAddress
     }
     
-    public func setStreetAdress2(_ streetAdress2: String) {
-        self.streetAdress2 = streetAdress2
+    public func setStreetAddress2(_ streetAddress2: String) {
+        self.streetAddress2 = streetAddress2
     }
     
     public func setTimeZone(_ timeZone: String) {
@@ -118,12 +118,12 @@ import Foundation
         return self.state
     }
     
-    public func getStreetAdress() -> String {
-        return self.streetAdress
+    public func getStreetAddress() -> String {
+        return self.streetAddress
     }
     
-    public func getStreetAdress2() -> String {
-        return self.streetAdress2
+    public func getStreetAddress2() -> String {
+        return self.streetAddress2
     }
     
     public func getTimeZone() -> String {

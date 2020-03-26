@@ -16,8 +16,8 @@ class GeoAttributeViewController: UIViewController, UINavigationControllerDelega
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var postalCodeTextField: UITextField!
     @IBOutlet weak var stateTextField: UITextField!
-    @IBOutlet weak var streetAdressTextField: UITextField!
-    @IBOutlet weak var streetAdress2TextField: UITextField!
+    @IBOutlet weak var streetAddressTextField: UITextField!
+    @IBOutlet weak var streetAddress2TextField: UITextField!
     @IBOutlet weak var timeZoneTextField: UITextField!
     
     var attributeViewController: AttributeViewController?
@@ -42,8 +42,8 @@ class GeoAttributeViewController: UIViewController, UINavigationControllerDelega
         self.countryTextField.setBottomBorder(color: UIColor.lightGray)
         self.postalCodeTextField.setBottomBorder(color: UIColor.lightGray)
         self.stateTextField.setBottomBorder(color: UIColor.lightGray)
-        self.streetAdressTextField.setBottomBorder(color: UIColor.lightGray)
-        self.streetAdress2TextField.setBottomBorder(color: UIColor.lightGray)
+        self.streetAddressTextField.setBottomBorder(color: UIColor.lightGray)
+        self.streetAddress2TextField.setBottomBorder(color: UIColor.lightGray)
         self.timeZoneTextField.setBottomBorder(color: UIColor.lightGray)
         
         self.countryPickerData = ["", "United States of America", "United Kingdom (Great Britain)", "Ukraine", "France", "Italy"]
@@ -65,9 +65,9 @@ class GeoAttributeViewController: UIViewController, UINavigationControllerDelega
     }
     
     private func addNewGeoAttributeAndNavigateToProfileViewController() {
-        if let viewControllers = self.navigationController?.viewControllers, viewControllers.count > 3, let appDelegate = UIApplication.shared.delegate as? AppDelegate, let key = self.keyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let city = self.cityTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let country = self.countryTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let postalCode = self.postalCodeTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let state = self.stateTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let streetAdress = self.streetAdressTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let streetAdress2 = self.streetAdress2TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let timeZone = self.timeZoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
+        if let viewControllers = self.navigationController?.viewControllers, viewControllers.count > 3, let appDelegate = UIApplication.shared.delegate as? AppDelegate, let key = self.keyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let city = self.cityTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let country = self.countryTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let postalCode = self.postalCodeTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let state = self.stateTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let streetAddress = self.streetAddressTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let streetAddress2 = self.streetAddress2TextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let timeZone = self.timeZoneTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
             
-            let geoAttribute = GeoAttribute(key: key, city: city, country: country, postalCode: postalCode, state: state, streetAdress: streetAdress, streetAdress2: streetAdress2, timeZone: timeZone)
+            let geoAttribute = GeoAttribute(key: key, city: city, country: country, postalCode: postalCode, state: state, streetAddress: streetAddress, streetAddress2: streetAddress2, timeZone: timeZone)
             AppDataManager.shared.geoAttributes.putGeoAttributeToCoreData(appDelegate: appDelegate, geoAttribute: geoAttribute)
             
             let attribute = Attribute(key: key, type: AttributeType.geo, value: String())

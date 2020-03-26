@@ -33,8 +33,8 @@ class AttributesGeoCoreData {
                 newRow.setValue(geoAttribute.country, forKey: "country")
                 newRow.setValue(geoAttribute.postalCode, forKey: "postalCode")
                 newRow.setValue(geoAttribute.state, forKey: "state")
-                newRow.setValue(geoAttribute.streetAdress, forKey: "streetAdress")
-                newRow.setValue(geoAttribute.streetAdress2, forKey: "streetAdress2")
+                newRow.setValue(geoAttribute.streetAddress, forKey: "streetAddress")
+                newRow.setValue(geoAttribute.streetAddress2, forKey: "streetAddress2")
                 newRow.setValue(geoAttribute.timeZone, forKey: "timeZone")
                 
                 try context.save()
@@ -59,8 +59,8 @@ class AttributesGeoCoreData {
                 geoAttributeData.setValue(geoAttribute.country, forKey: "country")
                 geoAttributeData.setValue(geoAttribute.postalCode, forKey: "postalCode")
                 geoAttributeData.setValue(geoAttribute.state, forKey: "state")
-                geoAttributeData.setValue(geoAttribute.streetAdress, forKey: "streetAdress")
-                geoAttributeData.setValue(geoAttribute.streetAdress2, forKey: "streetAdress2")
+                geoAttributeData.setValue(geoAttribute.streetAddress, forKey: "streetAddress")
+                geoAttributeData.setValue(geoAttribute.streetAddress2, forKey: "streetAddress2")
                 geoAttributeData.setValue(geoAttribute.timeZone, forKey: "timeZone")
                 
                 try context.save()
@@ -85,11 +85,11 @@ class AttributesGeoCoreData {
                     let country = data.value(forKey: "country") as? String,
                     let postalCode = data.value(forKey: "postalCode") as? String,
                     let state = data.value(forKey: "state") as? String,
-                    let streetAdress = data.value(forKey: "streetAdress") as? String,
-                    let streetAdress2 = data.value(forKey: "streetAdress2") as? String,
+                    let streetAddress = data.value(forKey: "streetAddress") as? String,
+                    let streetAddress2 = data.value(forKey: "streetAddress2") as? String,
                     let timeZone = data.value(forKey: "timeZone") as? String {
                     
-                    let geoAttribute = GeoAttribute(key: key, city: city, country: country, postalCode: postalCode, state: state, streetAdress: streetAdress, streetAdress2: streetAdress2, timeZone: timeZone)
+                    let geoAttribute = GeoAttribute(key: key, city: city, country: country, postalCode: postalCode, state: state, streetAddress: streetAddress, streetAddress2: streetAddress2, timeZone: timeZone)
                     
                     return geoAttribute
                 }

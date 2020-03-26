@@ -48,8 +48,8 @@ class MockRequestSenderUpsertContact: RequestSender {
             XCTAssertEqual(geoValueFromJSON["country"], geoValue.getCountry(), "Geo country value is invalid")
             XCTAssertEqual(geoValueFromJSON["postal_code"], geoValue.getPostalCode(), "Geo postal code value is invalid")
             XCTAssertEqual(geoValueFromJSON["state"], geoValue.getState(), "Geo state value is invalid")
-            XCTAssertEqual(geoValueFromJSON["street_adress"], geoValue.getStreetAdress(), "Geo street adress value is invalid")
-            XCTAssertEqual(geoValueFromJSON["street_adress2"], geoValue.getStreetAdress(), "Geo street adress 2 value is invalid")
+            XCTAssertEqual(geoValueFromJSON["street_address"], geoValue.getStreetAddress(), "Geo street address value is invalid")
+            XCTAssertEqual(geoValueFromJSON["street_address2"], geoValue.getStreetAddress(), "Geo street address 2 value is invalid")
             XCTAssertEqual(geoValueFromJSON["tz"], geoValue.getTimeZone(), "Geo time zone value is invalid")
             
             self.isVerified = true

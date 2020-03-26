@@ -15,18 +15,18 @@ class GeoAttribute {
     let country: String
     let postalCode: String
     let state: String
-    let streetAdress: String
-    let streetAdress2: String
+    let streetAddress: String
+    let streetAddress2: String
     let timeZone: String
     
-    init(key: String, city: String, country: String, postalCode: String, state: String, streetAdress: String, streetAdress2: String, timeZone: String) {
+    init(key: String, city: String, country: String, postalCode: String, state: String, streetAddress: String, streetAddress2: String, timeZone: String) {
         self.key = key
         self.city = city
         self.country = country
         self.postalCode = postalCode
         self.state = state
-        self.streetAdress = streetAdress
-        self.streetAdress2 = streetAdress2
+        self.streetAddress = streetAddress
+        self.streetAddress2 = streetAddress2
         self.timeZone = timeZone
     }
     

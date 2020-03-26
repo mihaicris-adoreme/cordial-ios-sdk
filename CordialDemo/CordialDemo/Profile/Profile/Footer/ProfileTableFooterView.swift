@@ -54,8 +54,8 @@ class ProfileTableFooterView: UITableViewHeaderFooterView {
                     let country = geoAttribute.country
                     let postalCode = geoAttribute.postalCode
                     let state = geoAttribute.state
-                    let streetAdress = geoAttribute.streetAdress
-                    let streetAdress2 = geoAttribute.streetAdress2
+                    let streetAddress = geoAttribute.streetAddress
+                    let streetAddress2 = geoAttribute.streetAddress2
                     let timeZone = geoAttribute.timeZone
                     
                     let geoValue = GeoValue()
@@ -64,8 +64,8 @@ class ProfileTableFooterView: UITableViewHeaderFooterView {
                     geoValue.setCountry(country)
                     geoValue.setPostalCode(postalCode)
                     geoValue.setState(state)
-                    geoValue.setStreetAdress(streetAdress)
-                    geoValue.setStreetAdress2(streetAdress2)
+                    geoValue.setStreetAddress(streetAddress)
+                    geoValue.setStreetAddress2(streetAddress2)
                     geoValue.setTimeZone(timeZone)
                     
                     attributesDictionary[key] = geoValue

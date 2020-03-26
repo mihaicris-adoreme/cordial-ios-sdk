@@ -111,6 +111,6 @@ class UpsertContacts {
     }
     
     private func getGeoAttributeJSON(geoValue: GeoValue) -> String {
-        return "{ \"city\": \"\(geoValue.city)\", \"country\": \"\(geoValue.country)\", \"postal_code\": \"\(geoValue.postalCode)\", \"state\": \"\(geoValue.state)\", \"street_adress\": \"\(geoValue.streetAdress)\", \"street_adress2\": \"\(geoValue.streetAdress2)\", \"tz\": \"\(geoValue.timeZone)\" }"
+        return "{ \"city\": \"\(geoValue.city)\", \"country\": \"\(geoValue.country)\", \"postal_code\": \"\(geoValue.postalCode)\", \"state\": \"\(geoValue.state)\", \"street_address\": \"\(geoValue.streetAddress)\", \"street_address2\": \"\(geoValue.streetAddress2)\", \"tz\": \"\(geoValue.timeZone)\" }"
     }
 }

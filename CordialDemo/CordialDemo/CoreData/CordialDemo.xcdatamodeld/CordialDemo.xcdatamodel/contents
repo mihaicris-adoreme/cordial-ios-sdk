@@ -6,8 +6,8 @@
         <attribute name="key" optional="YES" attributeType="String"/>
         <attribute name="postalCode" optional="YES" attributeType="String"/>
         <attribute name="state" optional="YES" attributeType="String"/>
-        <attribute name="streetAdress" optional="YES" attributeType="String"/>
-        <attribute name="streetAdress2" optional="YES" attributeType="String"/>
+        <attribute name="streetAddress" optional="YES" attributeType="String"/>
+        <attribute name="streetAddress2" optional="YES" attributeType="String"/>
         <attribute name="timeZone" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Attributes" representedClassName="Attributes" syncable="YES" codeGenerationType="class">

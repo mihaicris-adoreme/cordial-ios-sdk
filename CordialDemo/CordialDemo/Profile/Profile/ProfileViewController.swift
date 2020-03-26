@@ -96,16 +96,16 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 let countryTitle = NSAttributedString(string: "Country: ", attributes: titleAttributes)
                 let postalCodeTitle = NSAttributedString(string: "Postal Code: ", attributes: titleAttributes)
                 let stateTitle = NSAttributedString(string: "State: ", attributes: titleAttributes)
-                let streetAdressTitle = NSAttributedString(string: "Street Adress: ", attributes: titleAttributes)
-                let streetAdress2Title = NSAttributedString(string: "Street Adress 2: ", attributes: titleAttributes)
+                let streetAddressTitle = NSAttributedString(string: "Street Address: ", attributes: titleAttributes)
+                let streetAddress2Title = NSAttributedString(string: "Street Address 2: ", attributes: titleAttributes)
                 let timeZoneTitle = NSAttributedString(string: "Time Zone: ", attributes: titleAttributes)
                 
                 let cityValue = NSAttributedString(string: "\(geoAttribute.city)", attributes: valueAttributes)
                 let countryValue = NSAttributedString(string: "\(geoAttribute.country)", attributes: valueAttributes)
                 let postalCodeValue = NSAttributedString(string: "\(geoAttribute.postalCode)", attributes: valueAttributes)
                 let stateValue = NSAttributedString(string: "\(geoAttribute.state)", attributes: valueAttributes)
-                let streetAdressValue = NSAttributedString(string: "\(geoAttribute.streetAdress)", attributes: valueAttributes)
-                let streetAdress2Value = NSAttributedString(string: "\(geoAttribute.streetAdress2)", attributes: valueAttributes)
+                let streetAddressValue = NSAttributedString(string: "\(geoAttribute.streetAddress)", attributes: valueAttributes)
+                let streetAddress2Value = NSAttributedString(string: "\(geoAttribute.streetAddress2)", attributes: valueAttributes)
                 let timeZoneValue = NSAttributedString(string: "\(geoAttribute.timeZone)", attributes: valueAttributes)
                 
                 let newLine = NSAttributedString(string: "\n", attributes: titleAttributes)
@@ -131,13 +131,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
                 
                 geoValue.append(newLine)
                 
-                geoValue.append(streetAdressTitle)
-                geoValue.append(streetAdressValue)
+                geoValue.append(streetAddressTitle)
+                geoValue.append(streetAddressValue)
                 
                 geoValue.append(newLine)
                 
-                geoValue.append(streetAdress2Title)
-                geoValue.append(streetAdress2Value)
+                geoValue.append(streetAddress2Title)
+                geoValue.append(streetAddress2Value)
                 
                 geoValue.append(newLine)
                 
