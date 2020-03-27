@@ -24,13 +24,21 @@ import Foundation
         self.value = Double(value)
     }
     
+    @objc public init(doubleValue: Double) {
+        self.value = doubleValue
+    }
+    
+    @objc public init(intValue: Int) {
+        self.value = Double(intValue)
+    }
+    
 }
 
 @objc public class BooleanValue: NSObject, AttributeValue {
     
     public let value: Bool
     
-    public init(_ value: Bool) {
+    @objc public init(_ value: Bool) {
         self.value = value
     }
     
@@ -40,7 +48,7 @@ import Foundation
     
     public let value: [String]
     
-    public init(_ value: [String]) {
+    @objc public init(_ value: [String]) {
         self.value = value
     }
 }
@@ -49,7 +57,7 @@ import Foundation
     
     public let value: String
     
-    public init(_ value: String) {
+    @objc public init(_ value: String) {
         self.value = value
     }
 }
