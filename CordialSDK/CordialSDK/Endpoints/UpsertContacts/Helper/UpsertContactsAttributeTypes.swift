@@ -66,7 +66,7 @@ import Foundation
     
     public let value: Date
     
-    public init(_ value: Date) {
+    @objc public init(_ value: Date) {
         self.value = value
     }
     
@@ -82,31 +82,31 @@ import Foundation
     var streetAddress2 = String()
     var timeZone = String()
     
-    public func setCity(_ city: String) {
+    @objc public func setCity(_ city: String) {
         self.city = city
     }
     
-    public func setCountry(_ country: String) {
+    @objc public func setCountry(_ country: String) {
         self.country = country
     }
     
-    public func setPostalCode(_ postalCode: String) {
+    @objc public func setPostalCode(_ postalCode: String) {
         self.postalCode = postalCode
     }
     
-    public func setState(_ state: String) {
+    @objc public func setState(_ state: String) {
         self.state = state
     }
     
-    public func setStreetAddress(_ streetAddress: String) {
+    @objc public func setStreetAddress(_ streetAddress: String) {
         self.streetAddress = streetAddress
     }
     
-    public func setStreetAddress2(_ streetAddress2: String) {
+    @objc public func setStreetAddress2(_ streetAddress2: String) {
         self.streetAddress2 = streetAddress2
     }
     
-    public func setTimeZone(_ timeZone: String) {
+    @objc public func setTimeZone(_ timeZone: String) {
         self.timeZone = timeZone
     }
     
