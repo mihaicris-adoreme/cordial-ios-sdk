@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginAction(_ sender: UIButton) {
-        self.deleteAllCartItems()
+        self.deleteAppCoreData()
         
         if var primaryKey = self.primaryKeyTextFeild.text {
             primaryKey = primaryKey.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func guestAction(_ sender: UIButton) {
-        self.deleteAllCartItems()
+        self.deleteAppCoreData()
         
         self.cordialAPI.registerForPushNotifications(options: [.alert, .sound])
         
@@ -56,10 +56,10 @@ class LoginViewController: UIViewController {
         self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
     }
     
-    func deleteAllCartItems() {
+    func deleteAppCoreData() {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let entityName = AppDataManager.shared.cartEntityName
-            AppDataManager.shared.deleteAllCoreDataByEntity(appDelegate: appDelegate, entityName: entityName)
+            AppDataManager.shared.deleteAllCoreDataByEntity(appDelegate: appDelegate, entityName: AppDataManager.shared.cart.entityName)
+            AppDataManager.shared.deleteAllCoreDataByEntity(appDelegate: appDelegate, entityName: AppDataManager.shared.attributes.entityName)
         }
     }
     

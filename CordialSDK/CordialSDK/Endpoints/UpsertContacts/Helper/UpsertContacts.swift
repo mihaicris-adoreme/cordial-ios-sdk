@@ -66,7 +66,7 @@ class UpsertContacts {
         }
         
         if let attributes = upsertContactRequest.attributes {
-            rootContainer.append("\"attributes\": \(API.getDictionaryJSON(stringDictionary: attributes))")
+            rootContainer.append("\"attributes\": \(self.getAttributesJSON(attributes: attributes))")
         }
         
         let rootContainerString = rootContainer.joined(separator: ", ")
@@ -74,5 +74,33 @@ class UpsertContacts {
         let upsertContactJSON = "{ \(rootContainerString) }"
         
         return upsertContactJSON
+    }
+    
+    private func getAttributesJSON(attributes: Dictionary<String, AttributeValue>) -> String {
+        var dictionaryContainer = [String]()
+        
+        attributes.forEach { (key: String, value: AttributeValue) in
+            switch value {
+            case is NumericValue:
+                let numericValue = value as! NumericValue
+                dictionaryContainer.append("\"\(key)\": \(numericValue.value)")
+            case is BooleanValue:
+                let booleanValue = value as! BooleanValue
+                dictionaryContainer.append("\"\(key)\": \(booleanValue.value)")
+            case is ArrayValue:
+                let arrayValue = value as! ArrayValue
+                dictionaryContainer.append("\"\(key)\": \(API.getStringArrayJSON(stringArray: arrayValue.value))")
+            case is StringValue:
+                let stringValue = value as! StringValue
+                dictionaryContainer.append("\"\(key)\": \"\(stringValue.value)\"")
+            default:
+                break
+            }
+            
+        }
+        
+        let stringContainer = dictionaryContainer.joined(separator: ", ")
+        
+        return "{ \(stringContainer) }"
     }
 }

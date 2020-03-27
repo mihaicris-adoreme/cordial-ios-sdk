@@ -15,6 +15,8 @@ class MockRequestSenderUpsertContact: RequestSender {
     
     let sdkTests = CordialSDKTests()
     
+    var testContactAttributes = Dictionary<String, AttributeValue>()
+    
     override func sendRequest(task: URLSessionDownloadTask) {
         let httpBody = task.originalRequest!.httpBody!
         
@@ -23,16 +25,20 @@ class MockRequestSenderUpsertContact: RequestSender {
             
             let attributesJSON = json["attributes"] as! [String: AnyObject]
             
-            let attributesKeys = self.sdkTests.testContactAttributes.keys
+            let stringValueAttributes = attributesJSON["StringValue"] as! String
+            let booleanValueAttributes = attributesJSON["BooleanValue"] as! Bool
+            let numericValueAttributes = attributesJSON["NumericValue"] as! Double
+            let arrayValueAttributes = attributesJSON["ArrayValue"] as! [String]
             
-            var testCount = 0
-            attributesKeys.forEach { key in
-                if let attribute = attributesJSON[key] as? String, attribute == self.sdkTests.testContactAttributes[key] {
-                    testCount+=1
-                }
-            }
+            let stringValueContactAttributes = self.testContactAttributes["StringValue"] as! StringValue
+            let booleanValueContactAttributes = self.testContactAttributes["BooleanValue"] as! BooleanValue
+            let numericValueContactAttributes = self.testContactAttributes["NumericValue"] as! NumericValue
+            let arrayValueContactAttributes = self.testContactAttributes["ArrayValue"] as! ArrayValue
             
-            XCTAssertEqual(self.sdkTests.testContactAttributes.count, testCount, "Contact attributes don't match")
+            XCTAssertEqual(stringValueAttributes, stringValueContactAttributes.value, "String value is invalid")
+            XCTAssertEqual(booleanValueAttributes, booleanValueContactAttributes.value, "Boolean value is invalid")
+            XCTAssertEqual(numericValueAttributes, numericValueContactAttributes.value, "Numeric value is invalid")
+            XCTAssertEqual(arrayValueAttributes, arrayValueContactAttributes.value, "Array value is invalid")
             
             self.isVerified = true
         }

@@ -14,7 +14,7 @@ class UpsertContactRequest: NSObject, NSCoding {
     let token: String?
     let primaryKey: String?
     let status: String
-    let attributes: Dictionary<String, String>?
+    let attributes: Dictionary<String, AttributeValue>?
     
     var isError = false
     
@@ -26,7 +26,7 @@ class UpsertContactRequest: NSObject, NSCoding {
         case attributes = "attributes"
     }
     
-    init(token: String?, primaryKey: String?, status: String, attributes: Dictionary<String, String>?) {
+    init(token: String?, primaryKey: String?, status: String, attributes: Dictionary<String, AttributeValue>?) {
         self.requestID = UUID().uuidString
         self.token = token
         self.primaryKey = primaryKey
@@ -34,7 +34,7 @@ class UpsertContactRequest: NSObject, NSCoding {
         self.attributes = attributes
     }
     
-    private init(requestID: String, token: String?, primaryKey: String?, status: String, attributes: Dictionary<String, String>?) {
+    private init(requestID: String, token: String?, primaryKey: String?, status: String, attributes: Dictionary<String, AttributeValue>?) {
         self.requestID = requestID
         self.token = token
         self.primaryKey = primaryKey
@@ -55,7 +55,7 @@ class UpsertContactRequest: NSObject, NSCoding {
             let token = aDecoder.decodeObject(forKey: Key.token.rawValue) as! String?
             let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
             
-            let attributes = aDecoder.decodeObject(forKey: Key.attributes.rawValue) as! Dictionary<String, String>?
+            let attributes = aDecoder.decodeObject(forKey: Key.attributes.rawValue) as! Dictionary<String, AttributeValue>?
             
             self.init(requestID: requestID, token: token, primaryKey: primaryKey, status: status, attributes: attributes)
         } else {

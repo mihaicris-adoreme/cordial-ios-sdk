@@ -136,7 +136,7 @@ import os.log
     
     // MARK: Upsert Contact
     
-    @objc public func upsertContact(attributes: Dictionary<String, String>?) -> Void {
+    @objc public func upsertContact(attributes: Dictionary<String, AttributeValue>?) -> Void {
         if let primaryKey = self.getContactPrimaryKey() {
             let internalCordialAPI = InternalCordialAPI()
             

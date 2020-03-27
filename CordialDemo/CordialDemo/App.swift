@@ -106,3 +106,16 @@ func popupSimpleNoteAlert(title: String?, message: String?, controller: UIViewCo
     }
 }
 
+func getActiveViewController() -> UIViewController? {
+    if var topController = UIApplication.shared.keyWindow?.rootViewController {
+        while let presentedViewController = topController.presentedViewController {
+            topController = presentedViewController
+        }
+
+        return topController
+    }
+    
+    return nil
+}
+
+
