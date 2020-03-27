@@ -236,23 +236,58 @@ ___
 [cordialAPI unsetContact];
 ```
 
-## Upserting a Contact
-
-Contact attributes such as name, age, date of birth, etc. can be updated using the `upsertContact` method. This is an example of updating an already identified contact's `firstName` and `lastName` attributes:
+## Updating Attributes and Lists Memberships
+In order to udpate a contact's attributes, call the upsertContact method passing it new attributes values, for example:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let attributes = ["firstName": "John", "lastName": "Doe"]
+var attributes = Dictionary<String, AttributeValue>()
+
+attributes[“name”] = StringValue(“Jon Doe”)
+attributes[“employed”] = BooleanValue(true)
+attributes[“age”] = NumericValue(32)
+attributes[“children”] = ArrayValue([“Sofia", “Jack”])
+
 cordialAPI.upsertContact(attributes: attributes)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-NSDictionary *attributes = @{ @"firstName":@"John", @"lastName":@"Doe" };
+StringValue *name = [[StringValue alloc] init:@"Jon Doe"];
+BooleanValue *employed = [[BooleanValue alloc] init:TRUE];
+NumericValue *age = [[NumericValue alloc] initWithIntValue:32];
+ArrayValue *children = [[ArrayValue alloc] init:@[@"Sofia", @"Jack"]];
+
+NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+[attributes setObject:name forKey:@"name"];
+[attributes setObject:employed forKey:@"employed"];
+[attributes setObject:age forKey:@"age"];
+[attributes setObject:children forKey:@"children"];
+
 [cordialAPI upsertContactWithAttributes:attributes];
 ```
-`attributes` - dictionary of string keys and strings values attributes that can be attached to a contact. Can be null.
+Adding a contact to a list is done via passing an attribute update with list name as a key and boolean as a value. The boolean means if the contact is added to or removed from the list. The following code makes sure the contact is added to `list1` and removed from `list2`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let attributes = ["list1": BooleanValue(true), "list2": BooleanValue(false)]
+cordialAPI.upsertContact(attributes: attributes)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+BooleanValue *trueValue = [[BooleanValue alloc] init:TRUE];
+BooleanValue *falseValue = [[BooleanValue alloc] init:FALSE];
+
+NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+[attributes setObject:trueValue forKey:@"list1"];
+[attributes setObject:falseValue forKey:@"list2"];
+
+[cordialAPI upsertContactWithAttributes:attributes];
+```
+
 
 ## Post an Order
 The orders collection can be updated any time the contact places an order via the app. In order to post an order to Cordial, use the `CordialApi.sendOrder` method:
