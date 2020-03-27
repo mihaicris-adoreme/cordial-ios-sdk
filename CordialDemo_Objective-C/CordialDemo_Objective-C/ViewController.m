@@ -17,12 +17,16 @@
     [super viewDidLoad];
     
     [self setContact];
-    [self sendBrowseCategoryCustomEvent];
-    [self upsertContactCart];
-    [self sendContactOrder];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self sendContactLogout];
+        [self upsertContact];
+        [self sendBrowseCategoryCustomEvent];
+        [self upsertContactCart];
+        [self sendContactOrder];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self sendContactLogout];
+        });
     });
 }
 
@@ -31,6 +35,23 @@
     
     NSString *primaryKey = @"TEST_PRIMARY_KEY";
     [cordialAPI setContactWithPrimaryKey:primaryKey];
+}
+
+- (void)upsertContact {
+    CordialAPI *cordialAPI = [[CordialAPI alloc] init];
+
+    StringValue *name = [[StringValue alloc] init:@"Jon Doe"];
+    BooleanValue *employed = [[BooleanValue alloc] init:TRUE];
+    NumericValue *age = [[NumericValue alloc] initWithIntValue:32];
+    ArrayValue *children = [[ArrayValue alloc] init:@[@"Sofia", @"Jack"]];
+    
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    [attributes setObject:name forKey:@"name"];
+    [attributes setObject:employed forKey:@"employed"];
+    [attributes setObject:age forKey:@"age"];
+    [attributes setObject:children forKey:@"children"];
+    
+    [cordialAPI upsertContactWithAttributes:attributes];
 }
 
 - (void)sendBrowseCategoryCustomEvent {
