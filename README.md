@@ -8,7 +8,7 @@
 [Sending Custom Events](#sending-custom-events)<br>
 [Setting a Contact](#setting-a-contact)<br>
 [Unsetting a Contact](#unsetting-a-contact)<br>
-[Upserting a Contact](#upserting-a-contact)<br>
+[Updating Attributes and Lists Memberships](#updating-attributes-and-lists-memberships)<br>
 [Post an Order](#post-an-order)<br>
 [Post to Cart](#post-to-cart)<br>
 [Event Caching](#event-caching)<br>
