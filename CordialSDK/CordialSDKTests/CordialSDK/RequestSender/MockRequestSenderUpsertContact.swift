@@ -13,8 +13,6 @@ class MockRequestSenderUpsertContact: RequestSender {
     
     var isVerified = false
     
-    let sdkTests = CordialSDKTests()
-    
     var testContactAttributes = Dictionary<String, AttributeValue>()
     
     override func sendRequest(task: URLSessionDownloadTask) {
@@ -25,15 +23,15 @@ class MockRequestSenderUpsertContact: RequestSender {
             
             let attributesJSON = json["attributes"] as! [String: AnyObject]
             
-            let stringValueAttributes = attributesJSON["StringValue"] as! String
-            let booleanValueAttributes = attributesJSON["BooleanValue"] as! Bool
-            let numericValueAttributes = attributesJSON["NumericValue"] as! Double
-            let arrayValueAttributes = attributesJSON["ArrayValue"] as! [String]
+            let stringValueAttributes = attributesJSON["StringKey"] as! String
+            let booleanValueAttributes = attributesJSON["BooleanKey"] as! Bool
+            let numericValueAttributes = attributesJSON["NumericKey"] as! Double
+            let arrayValueAttributes = attributesJSON["ArrayKey"] as! [String]
             
-            let stringValueContactAttributes = self.testContactAttributes["StringValue"] as! StringValue
-            let booleanValueContactAttributes = self.testContactAttributes["BooleanValue"] as! BooleanValue
-            let numericValueContactAttributes = self.testContactAttributes["NumericValue"] as! NumericValue
-            let arrayValueContactAttributes = self.testContactAttributes["ArrayValue"] as! ArrayValue
+            let stringValueContactAttributes = self.testContactAttributes["StringKey"] as! StringValue
+            let booleanValueContactAttributes = self.testContactAttributes["BooleanKey"] as! BooleanValue
+            let numericValueContactAttributes = self.testContactAttributes["NumericKey"] as! NumericValue
+            let arrayValueContactAttributes = self.testContactAttributes["ArrayKey"] as! ArrayValue
             
             XCTAssertEqual(stringValueAttributes, stringValueContactAttributes.value, "String value is invalid")
             XCTAssertEqual(booleanValueAttributes, booleanValueContactAttributes.value, "Boolean value is invalid")

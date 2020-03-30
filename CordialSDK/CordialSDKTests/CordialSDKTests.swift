@@ -18,7 +18,6 @@ class CordialSDKTests: XCTestCase {
     let testPrimaryKey = "test_primary_key@gmail.com"
     let testJWT = "testJWT"
     let testMcId = "test_mc_id"
-    var testContactAttributes = Dictionary<String, AttributeValue>()
     var testPushNotification = String()
     let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
     let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
@@ -28,6 +27,7 @@ class CordialSDKTests: XCTestCase {
         
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.none)
+        CordialApiConfiguration.shared.eventsBulkSize = 1
         CordialApiConfiguration.shared.pushNotificationHandler = PushNotificationHandler()
         CordialApiConfiguration.shared.cordialDeepLinksHandler = DeepLinksHandler()
         
@@ -43,11 +43,6 @@ class CordialSDKTests: XCTestCase {
                 }
             }
         """
-        
-        self.testContactAttributes["StringValue"] = StringValue("StringValue")
-        self.testContactAttributes["BooleanValue"] = BooleanValue(false)
-        self.testContactAttributes["NumericValue"] = NumericValue(1.2)
-        self.testContactAttributes["ArrayValue"] = ArrayValue(["1", "2", "3"])
     }
     
     func testAPNsToken() {
@@ -155,14 +150,20 @@ class CordialSDKTests: XCTestCase {
     func testUpsertContact() {
         let mock = MockRequestSenderUpsertContact()
         
-        mock.testContactAttributes = self.testContactAttributes
+        var testContactAttributes = Dictionary<String, AttributeValue>()
+        testContactAttributes["StringKey"] = StringValue("StringValue")
+        testContactAttributes["BooleanKey"] = BooleanValue(false)
+        testContactAttributes["NumericKey"] = NumericValue(1.2)
+        testContactAttributes["ArrayKey"] = ArrayValue(["1", "2", "3"])
+        
+        mock.testContactAttributes = testContactAttributes
 
         DependencyConfiguration.shared.requestSender = mock
 
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         
-        self.cordialAPI.upsertContact(attributes: self.testContactAttributes)
+        self.cordialAPI.upsertContact(attributes: testContactAttributes)
         
         XCTAssert(mock.isVerified)
     }
@@ -281,6 +282,26 @@ class CordialSDKTests: XCTestCase {
         InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
         
         self.cordialAPI.setContact(primaryKey: "new_\(self.testPrimaryKey)")
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testBulkSizeCount() {
+        let mock = MockRequestSenderEventsBulkSizeCount()
+        
+        let events = ["test_custom_event_1", "test_custom_event_2", "test_custom_event_3"]
+        mock.events = events
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        CordialApiConfiguration.shared.eventsBulkSize = 3
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        events.forEach { event in
+            CordialAPI().sendCustomEvent(eventName: event, properties: nil)
+        }
         
         XCTAssert(mock.isVerified)
     }

@@ -13,8 +13,6 @@ class MockRequestSenderSetContact: RequestSender {
     
     var isVerified = false
     
-    let sdkTests = CordialSDKTests()
-    
     override func sendRequest(task: URLSessionDownloadTask) {
         if let request = task.originalRequest, let httpBody = request.httpBody {
             CordialSDKTestsHelper().setContactValidation(httpBody: httpBody)
