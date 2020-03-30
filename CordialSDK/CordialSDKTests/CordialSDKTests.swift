@@ -28,6 +28,7 @@ class CordialSDKTests: XCTestCase {
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.none)
         CordialApiConfiguration.shared.eventsBulkSize = 1
+        CordialApiConfiguration.shared.eventsBulkUploadInterval = 30
         CordialApiConfiguration.shared.pushNotificationHandler = PushNotificationHandler()
         CordialApiConfiguration.shared.cordialDeepLinksHandler = DeepLinksHandler()
         
@@ -304,5 +305,31 @@ class CordialSDKTests: XCTestCase {
         }
         
         XCTAssert(mock.isVerified)
+    }
+    
+    func testBulkSizeTimer() {
+        let mock = MockRequestSenderEventsBulkSizeTimer()
+        
+        let event = "test_custom_event_1"
+        mock.event = event
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        CordialApiConfiguration.shared.eventsBulkSize = 3
+        CordialApiConfiguration.shared.eventsBulkUploadInterval = 1
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        let expectation = XCTestExpectation(description: "Expectation for start scheduled timer")
+        
+        CordialAPI().sendCustomEvent(eventName: event, properties: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
 }
