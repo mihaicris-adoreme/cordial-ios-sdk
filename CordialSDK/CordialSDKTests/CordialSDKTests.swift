@@ -317,6 +317,7 @@ class CordialSDKTests: XCTestCase {
 
         CordialApiConfiguration.shared.eventsBulkSize = 3
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 1
+        
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
@@ -331,5 +332,17 @@ class CordialSDKTests: XCTestCase {
         }
         
         wait(for: [expectation], timeout: 3)
+    }
+    
+    func testBulkSizeAppClose() {
+        let mock = MockRequestSenderEventsBulkSizeAppClose()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        TestCase().appMovedToBackground()
     }
 }

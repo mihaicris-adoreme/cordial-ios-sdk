@@ -8,54 +8,58 @@
 
 import Foundation
 
-@objc public class TestCase: NSObject {
+public class TestCase: NSObject {
     
-    @objc public func clearAllTestCaseData() {
+    public func clearAllTestCaseData() {
         CoreDataManager.shared.deleteAllCoreData()
         CordialUserDefaults.removeAllData()
     }
     
-    @objc public func setTestJWT(token: String) {
+    public func setTestJWT(token: String) {
         InternalCordialAPI().setCurrentJWT(JWT: token)
     }
     
-    @objc public func getCurrentJWT() -> String? {
+    public func getCurrentJWT() -> String? {
         return InternalCordialAPI().getCurrentJWT()
     }
     
-    @objc public func getPreparedRemoteNotificationsDeviceToken(deviceToken: Data) -> String {
+    public func getPreparedRemoteNotificationsDeviceToken(deviceToken: Data) -> String {
         return InternalCordialAPI().getPreparedRemoteNotificationsDeviceToken(deviceToken: deviceToken)
     }
     
-    @objc public func setContactPrimaryKey(primaryKey: String) {
+    public func setContactPrimaryKey(primaryKey: String) {
         InternalCordialAPI().setContactPrimaryKey(primaryKey: primaryKey)
     }
     
-    @objc public func markUserAsLoggedIn() {
+    public func markUserAsLoggedIn() {
         CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
     }
     
-    @objc public func getPushNotificationDisallowStatus() -> String {
+    public func getPushNotificationDisallowStatus() -> String {
         return API.PUSH_NOTIFICATION_STATUS_DISALLOW
     }
     
-    @objc public func getEventNamePushNotificationTap() -> String {
+    public func getEventNamePushNotificationTap() -> String {
         return API.EVENT_NAME_PUSH_NOTIFICATION_TAP
     }
     
-    @objc public func getEventNamePushNotificationForegroundDelivered() -> String {
+    public func getEventNamePushNotificationForegroundDelivered() -> String {
         return API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
     }
     
-    @objc public func getEventNameDeepLinkOpen() -> String {
+    public func getEventNameDeepLinkOpen() -> String {
         return API.EVENT_NAME_DEEP_LINK_OPEN
     }
     
-    @objc public func getDeviceIdentifier() -> String {
+    public func getEventNameAppMovedToBackground() -> String {
+        return API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
+    }
+    
+    public func getDeviceIdentifier() -> String {
         return InternalCordialAPI().getDeviceIdentifier()
     }
 
-    @objc public func notValidJWT(task: URLSessionDownloadTask) {
+    public func notValidJWT(task: URLSessionDownloadTask) {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
@@ -78,5 +82,9 @@ import Foundation
             default: break
             }
         }
+    }
+    
+    public func appMovedToBackground() {
+        NotificationManager.shared.appMovedToBackground()
     }
 }
