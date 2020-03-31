@@ -20,7 +20,7 @@ class ReachabilitySender {
         notificationCenter.addObserver(self, selector: #selector(makeAllNeededHTTPCalls), name: .connectedToInternet, object: nil)
     }
     
-    @objc private func makeAllNeededHTTPCalls() {
+    @objc func makeAllNeededHTTPCalls() {
         CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         InternalCordialAPI().sendFirstLaunchCustomEvent()
         CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()

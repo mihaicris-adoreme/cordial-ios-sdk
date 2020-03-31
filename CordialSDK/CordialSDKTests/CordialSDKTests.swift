@@ -344,5 +344,27 @@ class CordialSDKTests: XCTestCase {
         self.testCase.markUserAsLoggedIn()
         
         TestCase().appMovedToBackground()
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testBulkSizeReachability() {
+        let mock = MockRequestSenderEventsBulkSizeReachability()
+        
+        let event = "test_custom_event_1"
+        mock.event = event
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        CordialApiConfiguration.shared.eventsBulkSize = 3
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        CordialAPI().sendCustomEvent(eventName: event, properties: nil)
+        
+        TestCase().reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        XCTAssert(mock.isVerified)
     }
 }
