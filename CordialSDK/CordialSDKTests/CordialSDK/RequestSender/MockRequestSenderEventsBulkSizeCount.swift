@@ -19,10 +19,12 @@ class MockRequestSenderEventsBulkSizeCount: RequestSender {
         let httpBody = task.originalRequest!.httpBody!
         
         if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
-            let json = jsonArray.first! as! [String: AnyObject]
-            
-            if !events.contains(json["event"] as! String) {
-                XCTAssert(false, "Event don't match")
+            jsonArray.forEach { jsonAnyObject in
+                let json = jsonAnyObject as! [String: AnyObject]
+                
+                if !events.contains(json["event"] as! String) {
+                    XCTAssert(false, "Event don't match")
+                }
             }
             
             self.isVerified = true
