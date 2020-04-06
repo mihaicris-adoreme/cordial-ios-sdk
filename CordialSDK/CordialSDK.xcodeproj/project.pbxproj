@@ -127,6 +127,10 @@
 		9ED621DE22CE089600A55DB2 /* InAppMessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621DD22CE089600A55DB2 /* InAppMessageData.swift */; };
 		9ED621F322CE388900A55DB2 /* InAppMessagesQueueCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621F222CE388900A55DB2 /* InAppMessagesQueueCoreData.swift */; };
 		9ED621F522CE587400A55DB2 /* InAppMessagesQueueManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621F422CE587400A55DB2 /* InAppMessagesQueueManager.swift */; };
+		9ED6F86724321DB80084824C /* MockRequestSenderEventsBulkSizeCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED6F86624321DB80084824C /* MockRequestSenderEventsBulkSizeCount.swift */; };
+		9ED6F869243276C70084824C /* MockRequestSenderEventsBulkSizeTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED6F868243276C70084824C /* MockRequestSenderEventsBulkSizeTimer.swift */; };
+		9ED6F86B2432B7640084824C /* MockRequestSenderEventsBulkSizeAppClose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED6F86A2432B7640084824C /* MockRequestSenderEventsBulkSizeAppClose.swift */; };
+		9ED6F86D2432E1750084824C /* MockRequestSenderEventsBulkSizeReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED6F86C2432E1750084824C /* MockRequestSenderEventsBulkSizeReachability.swift */; };
 		9ED9266A22CB5BDF00809EC0 /* InAppMessage.js in Resources */ = {isa = PBXBuildFile; fileRef = 9ED9266922CB5BDF00809EC0 /* InAppMessage.js */; };
 		9EE29BE722F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */; };
 		9EE29BE922F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */; };
@@ -306,6 +310,10 @@
 		9ED621DD22CE089600A55DB2 /* InAppMessageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageData.swift; sourceTree = "<group>"; };
 		9ED621F222CE388900A55DB2 /* InAppMessagesQueueCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessagesQueueCoreData.swift; sourceTree = "<group>"; };
 		9ED621F422CE587400A55DB2 /* InAppMessagesQueueManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessagesQueueManager.swift; sourceTree = "<group>"; };
+		9ED6F86624321DB80084824C /* MockRequestSenderEventsBulkSizeCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderEventsBulkSizeCount.swift; sourceTree = "<group>"; };
+		9ED6F868243276C70084824C /* MockRequestSenderEventsBulkSizeTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderEventsBulkSizeTimer.swift; sourceTree = "<group>"; };
+		9ED6F86A2432B7640084824C /* MockRequestSenderEventsBulkSizeAppClose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderEventsBulkSizeAppClose.swift; sourceTree = "<group>"; };
+		9ED6F86C2432E1750084824C /* MockRequestSenderEventsBulkSizeReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderEventsBulkSizeReachability.swift; sourceTree = "<group>"; };
 		9ED9266922CB5BDF00809EC0 /* InAppMessage.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = InAppMessage.js; sourceTree = "<group>"; };
 		9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInAppMessageURLSessionManager.swift; sourceTree = "<group>"; };
 		9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKSecurityGetJWTURLSessionManager.swift; sourceTree = "<group>"; };
@@ -698,6 +706,10 @@
 				9EFD2F86240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift */,
 				9E411E052411345000D850B0 /* MockRequestSenderSaveMcIdAfterSetContact.swift */,
 				9E411E09241152BD00D850B0 /* MockRequestSenderNotSaveMcIdAfterSetContact.swift */,
+				9ED6F86624321DB80084824C /* MockRequestSenderEventsBulkSizeCount.swift */,
+				9ED6F868243276C70084824C /* MockRequestSenderEventsBulkSizeTimer.swift */,
+				9ED6F86A2432B7640084824C /* MockRequestSenderEventsBulkSizeAppClose.swift */,
+				9ED6F86C2432E1750084824C /* MockRequestSenderEventsBulkSizeReachability.swift */,
 			);
 			path = RequestSender;
 			sourceTree = "<group>";
@@ -1150,15 +1162,19 @@
 				9EBA1B1423FFE2E600005054 /* MockRequestSenderSetContact.swift in Sources */,
 				9E411E042411308900D850B0 /* EmptyMockRequestSender.swift in Sources */,
 				9E41A8F4240FE24600C9F8B6 /* PushNotificationHandler.swift in Sources */,
+				9ED6F869243276C70084824C /* MockRequestSenderEventsBulkSizeTimer.swift in Sources */,
 				9EF039D024041E9700668C47 /* CordialSDKTestsHelper.swift in Sources */,
 				9EBA1B1223FFE2D600005054 /* MockRequestSenderRemoteNotificationsHasBeenTapped.swift in Sources */,
 				9EBA1B1623FFE2F500005054 /* MockRequestSenderUpsertContact.swift in Sources */,
 				9E41A8F7240FEC1D00C9F8B6 /* MockPushNotificationHandlerDeepLinkDelegate.swift in Sources */,
 				9EFD2F87240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift in Sources */,
+				9ED6F86D2432E1750084824C /* MockRequestSenderEventsBulkSizeReachability.swift in Sources */,
+				9ED6F86B2432B7640084824C /* MockRequestSenderEventsBulkSizeAppClose.swift in Sources */,
 				9EBA1B2823FFF97B00005054 /* MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered.swift in Sources */,
 				9EFD2F89240EB41A000AFE18 /* MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink.swift in Sources */,
 				9E7A5A4E222EB54E0020054F /* CordialSDKTests.swift in Sources */,
 				9EBA1B3D2400221000005054 /* MockRequestSenderSDKSecurity.swift in Sources */,
+				9ED6F86724321DB80084824C /* MockRequestSenderEventsBulkSizeCount.swift in Sources */,
 				9EBA1B1023FFE2C300005054 /* MockRequestSenderRemoteNotificationsDeviceToken.swift in Sources */,
 				9E41A8F1240FE1D100C9F8B6 /* DeepLinksHandler.swift in Sources */,
 				9E411E0A241152BD00D850B0 /* MockRequestSenderNotSaveMcIdAfterSetContact.swift in Sources */,
@@ -1359,7 +1375,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.12;
+				MARKETING_VERSION = 0.4.14;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1390,7 +1406,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.12;
+				MARKETING_VERSION = 0.4.14;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

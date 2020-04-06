@@ -13,8 +13,6 @@ class MockRequestSenderUpsertContact: RequestSender {
     
     var isVerified = false
     
-    let sdkTests = CordialSDKTests()
-    
     var testContactAttributes = Dictionary<String, AttributeValue>()
     
     override func sendRequest(task: URLSessionDownloadTask) {
@@ -25,19 +23,19 @@ class MockRequestSenderUpsertContact: RequestSender {
             
             let attributesJSON = json["attributes"] as! [String: AnyObject]
             
-            let stringValueFromJSON = attributesJSON["StringValue"] as! String
-            let booleanValueFromJSON = attributesJSON["BooleanValue"] as! Bool
-            let numericValueFromJSON = attributesJSON["NumericValue"] as! Double
-            let arrayValueFromJSON = attributesJSON["ArrayValue"] as! [String]
-            let dateValueFromJSON = CordialDateFormatter().getDateFromTimestamp(timestamp: attributesJSON["DateValue"] as! String)!
-            let geoValueFromJSON = attributesJSON["GeoValue"] as! [String: String]
+            let stringValueFromJSON = attributesJSON["StringKey"] as! String
+            let booleanValueFromJSON = attributesJSON["BooleanKey"] as! Bool
+            let numericValueFromJSON = attributesJSON["NumericKey"] as! Double
+            let arrayValueFromJSON = attributesJSON["ArrayKey"] as! [String]
+            let dateValueFromJSON = CordialDateFormatter().getDateFromTimestamp(timestamp: attributesJSON["DateKey"] as! String)!
+            let geoValueFromJSON = attributesJSON["GeoKey"] as! [String: String]
             
-            let stringValue = self.testContactAttributes["StringValue"] as! StringValue
-            let booleanValue = self.testContactAttributes["BooleanValue"] as! BooleanValue
-            let numericValue = self.testContactAttributes["NumericValue"] as! NumericValue
-            let arrayValue = self.testContactAttributes["ArrayValue"] as! ArrayValue
-            let dateValue = self.testContactAttributes["DateValue"] as! DateValue
-            let geoValue = self.testContactAttributes["GeoValue"] as! GeoValue
+            let stringValue = self.testContactAttributes["StringKey"] as! StringValue
+            let booleanValue = self.testContactAttributes["BooleanKey"] as! BooleanValue
+            let numericValue = self.testContactAttributes["NumericKey"] as! NumericValue
+            let arrayValue = self.testContactAttributes["ArrayKey"] as! ArrayValue
+            let dateValue = self.testContactAttributes["DateKey"] as! DateValue
+            let geoValue = self.testContactAttributes["GeoKey"] as! GeoValue
             
             XCTAssertEqual(stringValueFromJSON, stringValue.value, "String value is invalid")
             XCTAssertEqual(booleanValueFromJSON, booleanValue.value, "Boolean value is invalid")
