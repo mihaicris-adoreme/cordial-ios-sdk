@@ -399,13 +399,8 @@ class CordialSDKTests: XCTestCase {
             CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         }
         
-        let expectation = XCTestExpectation(description: "Expectation for preparing event queue")
+        TestCase().sendCachedCustomEventRequests(reason: "test qty cached events queue")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            XCTAssert(mock.isVerified)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 2)
+        XCTAssert(mock.isVerified)
     }
 }

@@ -91,4 +91,8 @@ public class TestCase: NSObject {
     public func reachabilitySenderMakeAllNeededHTTPCalls() {
         ReachabilitySender.shared.makeAllNeededHTTPCalls()
     }
+    
+    public func sendCachedCustomEventRequests(reason: String) {
+        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
+    }
 }
