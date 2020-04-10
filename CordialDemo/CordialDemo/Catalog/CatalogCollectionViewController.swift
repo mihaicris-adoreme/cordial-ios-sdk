@@ -88,7 +88,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         self.present(loginNavigationController, animated: true, completion: nil)
     }
     
-    // MARK: Prepare for segue
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {

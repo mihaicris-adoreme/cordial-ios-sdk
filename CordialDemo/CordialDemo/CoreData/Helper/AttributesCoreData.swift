@@ -85,6 +85,12 @@ class AttributesCoreData {
                     case AttributeType.array.rawValue:
                         let attribute = Attribute(key: key, type: AttributeType.array, value: value)
                         attributes.append(attribute)
+                    case AttributeType.date.rawValue:
+                        let attribute = Attribute(key: key, type: AttributeType.date, value: value)
+                        attributes.append(attribute)
+                    case AttributeType.geo.rawValue:
+                        let attribute = Attribute(key: key, type: AttributeType.geo, value: value)
+                        attributes.append(attribute)
                     default:
                         break
                     }
@@ -97,7 +103,7 @@ class AttributesCoreData {
         return attributes
     }
     
-    func isExistedAttributeWithKey(appDelegate: AppDelegate, key: String) -> Bool {
+    private func isExistedAttributeWithKey(appDelegate: AppDelegate, key: String) -> Bool {
         let context = appDelegate.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)

@@ -43,6 +43,33 @@ class ProfileTableFooterView: UITableViewHeaderFooterView {
                 let value = attribute.value
                 let arrayValue = ArrayValue(value)
                 attributesDictionary[key] = arrayValue
+            case AttributeType.date:
+                let value = CordialDateFormatter().getDateFromTimestamp(timestamp: Attribute.performArrayToStringSeparatedByComma(attribute.value))!
+                let dateValue = DateValue(value)
+                attributesDictionary[key] = dateValue
+            case AttributeType.geo:
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let geoAttribute = AppDataManager.shared.geoAttributes.getGeoAttributeFromCoreDataByKey(appDelegate: appDelegate, key: key) {
+                    
+                    let city = geoAttribute.city
+                    let country = geoAttribute.country
+                    let postalCode = geoAttribute.postalCode
+                    let state = geoAttribute.state
+                    let streetAddress = geoAttribute.streetAddress
+                    let streetAddress2 = geoAttribute.streetAddress2
+                    let timeZone = geoAttribute.timeZone
+                    
+                    let geoValue = GeoValue()
+                    
+                    geoValue.setCity(city)
+                    geoValue.setCountry(country)
+                    geoValue.setPostalCode(postalCode)
+                    geoValue.setState(state)
+                    geoValue.setStreetAddress(streetAddress)
+                    geoValue.setStreetAddress2(streetAddress2)
+                    geoValue.setTimeZone(timeZone)
+                    
+                    attributesDictionary[key] = geoValue
+                }
             }
         }
         

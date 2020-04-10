@@ -48,6 +48,20 @@ class ProductViewController: InAppMessageDelayViewController {
         self.sendCustomEvent(eventName: "browse_product", productName: product.name)
     }
     
+    @IBAction func addToCartAction(_ sender: UIButton) {
+        self.performSegue(withIdentifier: self.segueAddToCartIdentifier, sender: self)
+    }
+    
+    func sendCustomEvent(eventName: String, productName: String) {
+        self.cordialAPI.sendCustomEvent(eventName: eventName, properties: ["productName": productName])
+    }
+    
+    @objc func cartButtonAction() {
+        self.performSegue(withIdentifier: self.segueToCartIdentifier, sender: self)
+    }
+    
+    // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let cartViewController = segue.destination as? CartViewController, let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             switch segue.identifier {
@@ -62,17 +76,5 @@ class ProductViewController: InAppMessageDelayViewController {
                 break
             }
         }
-    }
-    
-    @IBAction func addToCartAction(_ sender: UIButton) {
-        self.performSegue(withIdentifier: self.segueAddToCartIdentifier, sender: self)
-    }
-    
-    func sendCustomEvent(eventName: String, productName: String) {
-        self.cordialAPI.sendCustomEvent(eventName: eventName, properties: ["productName": productName])
-    }
-    
-    @objc func cartButtonAction() {
-        self.performSegue(withIdentifier: self.segueToCartIdentifier, sender: self)
     }
 }

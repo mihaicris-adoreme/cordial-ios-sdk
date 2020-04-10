@@ -61,3 +61,80 @@ import Foundation
         self.value = value
     }
 }
+
+@objc public class DateValue: NSObject, AttributeValue {
+    
+    public let value: Date
+    
+    @objc public init(_ value: Date) {
+        self.value = value
+    }
+    
+}
+
+@objc public class GeoValue: NSObject, AttributeValue {
+    
+    var city = String()
+    var country = String()
+    var postalCode = String()
+    var state = String()
+    var streetAddress = String()
+    var streetAddress2 = String()
+    var timeZone = String()
+    
+    @objc public func setCity(_ city: String) {
+        self.city = city
+    }
+    
+    @objc public func setCountry(_ country: String) {
+        self.country = country
+    }
+    
+    @objc public func setPostalCode(_ postalCode: String) {
+        self.postalCode = postalCode
+    }
+    
+    @objc public func setState(_ state: String) {
+        self.state = state
+    }
+    
+    @objc public func setStreetAddress(_ streetAddress: String) {
+        self.streetAddress = streetAddress
+    }
+    
+    @objc public func setStreetAddress2(_ streetAddress2: String) {
+        self.streetAddress2 = streetAddress2
+    }
+    
+    @objc public func setTimeZone(_ timeZone: String) {
+        self.timeZone = timeZone
+    }
+    
+    public func getCity() -> String {
+        return self.city
+    }
+    
+    public func getCountry() -> String {
+        return self.country
+    }
+    
+    public func getPostalCode() -> String {
+        return self.postalCode
+    }
+    
+    public func getState() -> String {
+        return self.state
+    }
+    
+    public func getStreetAddress() -> String {
+        return self.streetAddress
+    }
+    
+    public func getStreetAddress2() -> String {
+        return self.streetAddress2
+    }
+    
+    public func getTimeZone() -> String {
+        return self.timeZone
+    }
+}

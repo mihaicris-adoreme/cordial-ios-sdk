@@ -77,30 +77,40 @@ class UpsertContacts {
     }
     
     private func getAttributesJSON(attributes: Dictionary<String, AttributeValue>) -> String {
-        var dictionaryContainer = [String]()
+        var container = [String]()
         
         attributes.forEach { (key: String, value: AttributeValue) in
             switch value {
             case is NumericValue:
                 let numericValue = value as! NumericValue
-                dictionaryContainer.append("\"\(key)\": \(numericValue.value)")
+                container.append("\"\(key)\": \(numericValue.value)")
             case is BooleanValue:
                 let booleanValue = value as! BooleanValue
-                dictionaryContainer.append("\"\(key)\": \(booleanValue.value)")
+                container.append("\"\(key)\": \(booleanValue.value)")
             case is ArrayValue:
                 let arrayValue = value as! ArrayValue
-                dictionaryContainer.append("\"\(key)\": \(API.getStringArrayJSON(stringArray: arrayValue.value))")
+                container.append("\"\(key)\": \(API.getStringArrayJSON(stringArray: arrayValue.value))")
             case is StringValue:
                 let stringValue = value as! StringValue
-                dictionaryContainer.append("\"\(key)\": \"\(stringValue.value)\"")
+                container.append("\"\(key)\": \"\(stringValue.value)\"")
+            case is DateValue:
+                let dateValue = value as! DateValue
+                container.append("\"\(key)\": \"\(CordialDateFormatter().getTimestampFromDate(date: dateValue.value))\"")
+            case is GeoValue:
+                let geoValue = value as! GeoValue
+                container.append("\"\(key)\": \(self.getGeoAttributeJSON(geoValue: geoValue))")
             default:
                 break
             }
             
         }
         
-        let stringContainer = dictionaryContainer.joined(separator: ", ")
+        let stringContainer = container.joined(separator: ", ")
         
         return "{ \(stringContainer) }"
+    }
+    
+    private func getGeoAttributeJSON(geoValue: GeoValue) -> String {
+        return "{ \"city\": \"\(geoValue.city)\", \"country\": \"\(geoValue.country)\", \"postal_code\": \"\(geoValue.postalCode)\", \"state\": \"\(geoValue.state)\", \"street_address\": \"\(geoValue.streetAddress)\", \"street_address2\": \"\(geoValue.streetAddress2)\", \"tz\": \"\(geoValue.timeZone)\" }"
     }
 }
