@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name          = "CordialAppExtensions-Objective-C"
-  spec.version       = "0.4.14"
+  spec.version       = "0.4.15"
   spec.summary       = "CordialAppExtensions"
 
   spec.description   = <<-DESC
