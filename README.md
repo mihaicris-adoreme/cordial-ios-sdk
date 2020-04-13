@@ -6,6 +6,7 @@
 [Setting Message Logging Level](#setting-message-logging-level)<br>
 [Configuring Location Tracking Updates](#configuring-location-tracking-updates)<br>
 [Sending Custom Events](#sending-custom-events)<br>
+[Tracking Internal Events](#tracking-internal-events)<br>
 [Setting a Contact](#setting-a-contact)<br>
 [Unsetting a Contact](#unsetting-a-contact)<br>
 [Updating Attributes and Lists Memberships](#updating-attributes-and-lists-memberships)<br>
@@ -186,7 +187,7 @@ cordialAPI.sendCustomEvent(eventName: "browse_product", properties: properties)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ```
-NSDictionary *properties = @{ @"productName" :@"Back Off Polo", @"SKU" :@"polo543" };
+NSDictionary *properties = @{ @"productName":@"Back Off Polo", @"SKU":@"polo543" };
 [cordialAPI sendCustomEventWithEventName:@"browse_product" properties:properties];
 ```
 Example of sending a category browse event:
@@ -198,8 +199,21 @@ cordialAPI.sendCustomEvent(eventName: "browse_category", properties: properties)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ```
-NSDictionary *properties = @{ @"categoryName" :@"Men's" };
+NSDictionary *properties = @{ @"categoryName":@"Men's" };
 [cordialAPI sendCustomEventWithEventName:@"browse_category" properties:properties];
+```
+
+### Tracking Internal Events
+
+To attached custom  `properties`  to internal system events set property `systemEventsProperties` after initialization CordilSDK at the end of  `AppDelegate.didFinishLaunchingWithOptions`.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+```
+CordialApiConfiguration.shared.systemEventsProperties = ["<property name>": "<property value>"]
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+```
+[CordialApiConfiguration shared].systemEventsProperties = @{ @"<property name>":@"<property value>" };
 ```
 
 ## Setting a Contact
