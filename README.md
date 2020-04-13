@@ -205,7 +205,7 @@ NSDictionary *properties = @{ @"categoryName":@"Men's" };
 
 ### Tracking Internal Events
 
-To attached custom  `properties`  to internal system events set property `systemEventsProperties` after initialization CordilSDK at the end of  `AppDelegate.didFinishLaunchingWithOptions`.
+To attached custom  `properties`  to internal system events set property `systemEventsProperties` after initialization CordilSDK.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ```
