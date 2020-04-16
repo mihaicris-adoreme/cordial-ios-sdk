@@ -403,4 +403,23 @@ class CordialSDKTests: XCTestCase {
         
         XCTAssert(mock.isVerified)
     }
+
+    func testSystemEventsProperties() {
+        let mock = MockRequestSenderSystemEventsProperties()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        let systemEventsProperties = ["systemEventsPropertiesKey": "systemEventsPropertiesValue"]
+        mock.systemEventsProperties = systemEventsProperties
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+            
+        CordialApiConfiguration.shared.eventsBulkSize = 1
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        TestCase().appMovedToBackground()
+        
+        XCTAssert(mock.isVerified)
+    }
+    
 }
