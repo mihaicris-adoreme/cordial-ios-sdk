@@ -299,7 +299,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testBulkSizeCount() {
+    func testEventsBulkSizeCount() {
         let mock = MockRequestSenderEventsBulkSizeCount()
         
         let events = ["test_custom_event_1", "test_custom_event_2", "test_custom_event_3"]
@@ -319,7 +319,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testBulkSizeTimer() {
+    func testEventsBulkSizeTimer() {
         let mock = MockRequestSenderEventsBulkSizeTimer()
         
         let event = "test_custom_event_1"
@@ -346,7 +346,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testBulkSizeAppClose() {
+    func testEventsBulkSizeAppClose() {
         let mock = MockRequestSenderEventsBulkSizeAppClose()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -360,7 +360,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testBulkSizeReachability() {
+    func testEventsBulkSizeReachability() {
         let mock = MockRequestSenderEventsBulkSizeReachability()
         
         let event = "test_custom_event_1"
@@ -376,6 +376,30 @@ class CordialSDKTests: XCTestCase {
         CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         
         TestCase().reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testEventsIfRequestHasInvalidEvent() {
+        let mock = MockRequestSenderIfEventRequestHasInvalidEvent()
+        
+        let validEventNames = ["test_valid_event_1", "test_valid_event_2"]
+        mock.validEventNames = validEventNames
+        
+        let invalidEventName = "test_invalid_event"
+        mock.invalidEventName = invalidEventName
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        CordialApiConfiguration.shared.eventsBulkSize = 2
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        CordialAPI().sendCustomEvent(eventName: invalidEventName, properties: nil)
+        validEventNames.forEach { validEventName in
+            CordialAPI().sendCustomEvent(eventName: validEventName, properties: nil)
+        }
         
         XCTAssert(mock.isVerified)
     }

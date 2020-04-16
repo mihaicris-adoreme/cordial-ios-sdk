@@ -22,7 +22,7 @@ class MockRequestSenderEventsBulkSizeCount: RequestSender {
             jsonArray.forEach { jsonAnyObject in
                 let json = jsonAnyObject as! [String: AnyObject]
                 
-                if !events.contains(json["event"] as! String) {
+                if !self.events.contains(json["event"] as! String) {
                     XCTAssert(false, "Event don't match")
                 }
             }

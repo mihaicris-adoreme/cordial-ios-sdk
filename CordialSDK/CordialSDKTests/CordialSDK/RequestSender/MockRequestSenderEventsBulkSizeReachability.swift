@@ -21,7 +21,7 @@ class MockRequestSenderEventsBulkSizeReachability: RequestSender {
         if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
             let json = jsonArray.first! as! [String: AnyObject]
             
-            XCTAssertEqual(event, json["event"] as! String, "Event don't match")
+            XCTAssertEqual(self.event, json["event"] as! String, "Event don't match")
             
             self.isVerified = true
         }
