@@ -27,6 +27,7 @@ class CordialSDKTests: XCTestCase {
         
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.none)
+        CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.eventsBulkSize = 1
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 30
         CordialApiConfiguration.shared.pushNotificationHandler = PushNotificationHandler()
@@ -376,6 +377,29 @@ class CordialSDKTests: XCTestCase {
         CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         
         TestCase().reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testQtyCachedEventQueue() {
+        let mock = MockRequestSenderQtyCachedEventQueue()
+        
+        let events = ["test_custom_event_1", "test_custom_event_2", "test_custom_event_3", "test_custom_event_4", "test_custom_event_5"]
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        CordialApiConfiguration.shared.qtyCachedEventQueue = 3
+        CordialApiConfiguration.shared.eventsBulkSize = 5
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        events.forEach { event in
+            CordialAPI().sendCustomEvent(eventName: event, properties: nil)
+        }
+        
+        TestCase().sendCachedCustomEventRequests(reason: "test qty cached events queue")
         
         XCTAssert(mock.isVerified)
     }
