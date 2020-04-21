@@ -382,22 +382,14 @@
                         <viewLayoutGuide key="safeArea" id="1J4-vE-SxX"/>
                     </view>
                     <navigationItem key="navigationItem" id="oph-LN-kyd">
-                        <leftBarButtonItems>
-                            <barButtonItem title="Profile" style="done" id="zLJ-1g-5Xf">
-                                <connections>
-                                    <action selector="profileButtonAction:" destination="27a-yX-dEo" id="VD7-ak-A8n"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Log in" id="FEZ-v5-Z6s">
-                                <connections>
-                                    <action selector="loginButtonAction:" destination="27a-yX-dEo" id="JIx-RX-qL8"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="FEZ-v5-Z6s">
+                            <connections>
+                                <action selector="menuButtonAction:" destination="27a-yX-dEo" id="IHb-F3-wlj"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="l5m-0j-xFg" id="Kjk-Pa-IgS"/>
-                        <outlet property="profileButtonItem" destination="zLJ-1g-5Xf" id="gnR-jD-xfl"/>
                         <segue destination="wpv-91-zrT" kind="show" identifier="segueToCart" id="AlP-xG-MIL"/>
                         <segue destination="xoO-vV-374" kind="show" identifier="segueToProfile" id="g1h-zg-9TE"/>
                     </connections>
@@ -1131,9 +1123,10 @@
     </scenes>
     <resources>
         <image name="logo" width="517.5" height="185"/>
+        <image name="menu" width="17" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KPT-34-jm2"/>
+        <segue reference="AlP-xG-MIL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.25567400455474854" green="0.42760902643203735" blue="0.56480115652084351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
