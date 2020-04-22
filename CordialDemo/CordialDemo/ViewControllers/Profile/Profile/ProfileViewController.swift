@@ -15,7 +15,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var tableView: UITableView!
     
     let profileCell = "profileTableCell"
-    let profileFooterCell = "profileTableFooterCell"
+    let profileFooterIdentifier = "profileTableFooter"
     
     var profileTableFooterView: ProfileTableFooterView!
     
@@ -35,8 +35,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             self.primaryKeyLabel.text = primaryKey
         }
         
-        self.tableView.register(UINib(nibName: "ProfileTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: profileFooterCell)
-        self.profileTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: profileFooterCell) as? ProfileTableFooterView
+        self.tableView.register(UINib(nibName: "ProfileTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: self.profileFooterIdentifier)
+        self.profileTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: self.profileFooterIdentifier) as? ProfileTableFooterView
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +50,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     // MARK: UITableViewDelegate
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return self.tableView.dequeueReusableHeaderFooterView(withIdentifier: profileFooterCell)
+        return self.tableView.dequeueReusableHeaderFooterView(withIdentifier: self.profileFooterIdentifier)
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

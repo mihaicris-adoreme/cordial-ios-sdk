@@ -41,11 +41,18 @@
 		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
 		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
 		9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B95A923A53A1300936630 /* SceneDelegate.swift */; };
+		9E96BA47244FB46500DB8BEC /* CustomEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA46244FB46500DB8BEC /* CustomEventViewController.swift */; };
+		9E96BA49244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA48244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift */; };
+		9E96BA4B244FCA6700DB8BEC /* CustomEventPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA4A244FCA6700DB8BEC /* CustomEventPropertyViewController.swift */; };
+		9E96BA4F244FD14100DB8BEC /* CustomEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA4E244FD14100DB8BEC /* CustomEventTableViewCell.swift */; };
 		9EA5F53A244F67A000BF685C /* CustomUIActivityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5F539244F67A000BF685C /* CustomUIActivityProfile.swift */; };
 		9EA5F53C244F6A8500BF685C /* CustomUIActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5F53B244F6A8500BF685C /* CustomUIActivityType.swift */; };
 		9EA5F540244F9D0E00BF685C /* CustomUIActivityLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */; };
 		9EAB97272427366900C5C5DA /* AppDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB97262427366900C5C5DA /* AppDateFormatter.swift */; };
 		9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB260CA229FF489005786BD /* SettingsViewController.swift */; };
+		9EC1E141245051E500A4C756 /* CustomEventProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E140245051E500A4C756 /* CustomEventProperty.swift */; };
+		9EC1E1472450891B00A4C756 /* CustomEventTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */; };
+		9EC1E1492450892F00A4C756 /* CustomEventTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */; };
 		9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECF6B7F229855F500E6E88F /* ProductHandler.swift */; };
 		9EDAEA0B234CCBFB008A7B2F /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAEA0A234CCBFB008A7B2F /* Credentials.swift */; };
 		9EDAEA0D234CD23F008A7B2F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAEA0C234CD23F008A7B2F /* Settings.swift */; };
@@ -155,11 +162,18 @@
 		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
 		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
 		9E8B95A923A53A1300936630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		9E96BA46244FB46500DB8BEC /* CustomEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventViewController.swift; sourceTree = "<group>"; };
+		9E96BA48244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityCustomEvent.swift; sourceTree = "<group>"; };
+		9E96BA4A244FCA6700DB8BEC /* CustomEventPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventPropertyViewController.swift; sourceTree = "<group>"; };
+		9E96BA4E244FD14100DB8BEC /* CustomEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventTableViewCell.swift; sourceTree = "<group>"; };
 		9EA5F539244F67A000BF685C /* CustomUIActivityProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityProfile.swift; sourceTree = "<group>"; };
 		9EA5F53B244F6A8500BF685C /* CustomUIActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityType.swift; sourceTree = "<group>"; };
 		9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityLogin.swift; sourceTree = "<group>"; };
 		9EAB97262427366900C5C5DA /* AppDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDateFormatter.swift; sourceTree = "<group>"; };
 		9EB260CA229FF489005786BD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		9EC1E140245051E500A4C756 /* CustomEventProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventProperty.swift; sourceTree = "<group>"; };
+		9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventTableFooterView.swift; sourceTree = "<group>"; };
+		9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomEventTableFooterView.xib; sourceTree = "<group>"; };
 		9ECF6B7F229855F500E6E88F /* ProductHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHandler.swift; sourceTree = "<group>"; };
 		9EDAEA0A234CCBFB008A7B2F /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		9EDAEA0C234CD23F008A7B2F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -252,6 +266,7 @@
 				9EA5F539244F67A000BF685C /* CustomUIActivityProfile.swift */,
 				9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */,
 				9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */,
+				9E96BA48244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift */,
 			);
 			path = Activities;
 			sourceTree = "<group>";
@@ -273,6 +288,20 @@
 				9E1EB39B241DC61E004CAD90 /* Attribute.swift */,
 			);
 			path = Attribute;
+			sourceTree = "<group>";
+		};
+		9E6A56CC244FB30700E6495A /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				9EF7B213226660D0003B223D /* Login */,
+				9EB260C8229FF475005786BD /* Settings */,
+				9E7BD8C7228DADDC004B4EB9 /* Profile */,
+				9EF7B2112266609A003B223D /* Catalog */,
+				9EF7B212226660B1003B223D /* Product */,
+				9EF7B21522666111003B223D /* Cart */,
+				9E96BA42244FB44700DB8BEC /* CustomEvent */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		9E77896A22878C090089C986 /* NotificationServiceExtension */ = {
@@ -311,18 +340,13 @@
 		9E7A5A68222EB64B0020054F /* CordialDemo */ = {
 			isa = PBXGroup;
 			children = (
-				9EA5F535244F677600BF685C /* CustomUIActivity */,
+				9E6A56CC244FB30700E6495A /* ViewControllers */,
 				9EAB97252427365500C5C5DA /* App */,
-				9EB260C8229FF475005786BD /* Settings */,
 				9ECF6B7D2298559300E6E88F /* ProductHandler */,
 				9ECF6B7A22984FEA00E6E88F /* DeepLinks */,
 				9EF7B21422666102003B223D /* PushNotification */,
-				9EF7B213226660D0003B223D /* Login */,
-				9E7BD8C7228DADDC004B4EB9 /* Profile */,
-				9EF7B2112266609A003B223D /* Catalog */,
-				9EF7B212226660B1003B223D /* Product */,
-				9EF7B21522666111003B223D /* Cart */,
 				9EF7B21022663864003B223D /* CoreData */,
+				9EA5F535244F677600BF685C /* CustomUIActivity */,
 				9E115532224E541A00CEF9FB /* CordialDemo.entitlements */,
 				9E7A5A69222EB64B0020054F /* AppDelegate.swift */,
 				9E8B95A923A53A1300936630 /* SceneDelegate.swift */,
@@ -400,6 +424,34 @@
 			path = Footer;
 			sourceTree = "<group>";
 		};
+		9E96BA42244FB44700DB8BEC /* CustomEvent */ = {
+			isa = PBXGroup;
+			children = (
+				9E96BA4C244FD0A400DB8BEC /* CustomEvent */,
+				9E96BA4D244FD0C200DB8BEC /* CustomEventProperty */,
+			);
+			path = CustomEvent;
+			sourceTree = "<group>";
+		};
+		9E96BA4C244FD0A400DB8BEC /* CustomEvent */ = {
+			isa = PBXGroup;
+			children = (
+				9EC1E1452450874C00A4C756 /* Footer */,
+				9E96BA46244FB46500DB8BEC /* CustomEventViewController.swift */,
+				9E96BA4E244FD14100DB8BEC /* CustomEventTableViewCell.swift */,
+			);
+			path = CustomEvent;
+			sourceTree = "<group>";
+		};
+		9E96BA4D244FD0C200DB8BEC /* CustomEventProperty */ = {
+			isa = PBXGroup;
+			children = (
+				9E96BA4A244FCA6700DB8BEC /* CustomEventPropertyViewController.swift */,
+				9EC1E140245051E500A4C756 /* CustomEventProperty.swift */,
+			);
+			path = CustomEventProperty;
+			sourceTree = "<group>";
+		};
 		9EA5F535244F677600BF685C /* CustomUIActivity */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,6 +478,15 @@
 				9EDAEA0C234CD23F008A7B2F /* Settings.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		9EC1E1452450874C00A4C756 /* Footer */ = {
+			isa = PBXGroup;
+			children = (
+				9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */,
+				9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */,
+			);
+			path = Footer;
 			sourceTree = "<group>";
 		};
 		9ECF6B7A22984FEA00E6E88F /* DeepLinks */ = {
@@ -655,6 +716,7 @@
 			files = (
 				9E00ED3F227084ED00684F40 /* CartTableFooterView.xib in Resources */,
 				9E7A5A77222EB64C0020054F /* LaunchScreen.storyboard in Resources */,
+				9EC1E1492450892F00A4C756 /* CustomEventTableFooterView.xib in Resources */,
 				9E7A5A74222EB64C0020054F /* Assets.xcassets in Resources */,
 				9E7A5A6F222EB64B0020054F /* Main.storyboard in Resources */,
 				9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */,
@@ -800,19 +862,25 @@
 			files = (
 				9E7CEC7D242857F800E054BF /* GeoAttributeViewController.swift in Sources */,
 				9E7A5A72222EB64B0020054F /* CordialDemo.xcdatamodeld in Sources */,
+				9E96BA4F244FD14100DB8BEC /* CustomEventTableViewCell.swift in Sources */,
 				9E005F5D24297D1900425C5B /* GeoAttribute.swift in Sources */,
 				9EA5F53C244F6A8500BF685C /* CustomUIActivityType.swift in Sources */,
 				9EDC7E402242912000BF8FB0 /* App.swift in Sources */,
 				9EF7B20D22662A79003B223D /* CartViewController.swift in Sources */,
+				9EC1E1472450891B00A4C756 /* CustomEventTableFooterView.swift in Sources */,
 				9EAB97272427366900C5C5DA /* AppDateFormatter.swift in Sources */,
 				9EA5F540244F9D0E00BF685C /* CustomUIActivityLogin.swift in Sources */,
+				9E96BA49244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift in Sources */,
 				9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */,
 				9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */,
 				9E30BDE9244FA6AA00040974 /* CustomUIActivityLogout.swift in Sources */,
 				9E1EB39C241DC61E004CAD90 /* Attribute.swift in Sources */,
+				9EC1E141245051E500A4C756 /* CustomEventProperty.swift in Sources */,
+				9E96BA47244FB46500DB8BEC /* CustomEventViewController.swift in Sources */,
 				9E005F5F24297D2700425C5B /* AttributeType.swift in Sources */,
 				9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */,
 				9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */,
+				9E96BA4B244FCA6700DB8BEC /* CustomEventPropertyViewController.swift in Sources */,
 				9EF7B20B2266259B003B223D /* Product.swift in Sources */,
 				9E1EB3D6241F1700004CAD90 /* ProfileTableViewCell.swift in Sources */,
 				9EF7B20F2266340F003B223D /* AppDataManager.swift in Sources */,

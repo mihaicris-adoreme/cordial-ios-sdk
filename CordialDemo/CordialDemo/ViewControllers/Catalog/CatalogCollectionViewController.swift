@@ -17,6 +17,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToProductIdentifier = "segueToProduct"
     let segueToCartIdentifier = "segueToCart"
     let segueToProfileIdentifier = "segueToProfile"
+    let segueToCustomEventIdentifier = "segueToCustomEvent"
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -56,6 +57,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     @IBAction func menuButtonAction(_ sender: UIBarButtonItem) {
         let activities: [UIActivity] = [
             CustomUIActivityProfile(sender: self),
+            CustomUIActivityCustomEvent(sender: self),
             CustomUIActivityLogin(sender: self),
             CustomUIActivityLogout(sender: self)
         ]
