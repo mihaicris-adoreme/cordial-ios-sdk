@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CordialSDK
 
 class CustomEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     

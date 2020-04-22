@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CordialSDK
 
 class CustomEventTableFooterView: UITableViewHeaderFooterView {
 
@@ -28,9 +29,25 @@ class CustomEventTableFooterView: UITableViewHeaderFooterView {
             }
             
             if isEventNameValidated {
-                // TODO
+                let properties = self.сustomEventViewController.properties
+                CordialAPI().sendCustomEvent(eventName: eventName, properties: self.getDictionaryProperties(properties: properties))
+                
+                popupSimpleNoteAlert(title: "SUCCESS", message: "Custom event has been sent", controller: сustomEventViewController)
             }
         }
     }
     
+    private func getDictionaryProperties(properties: [CustomEventProperty]) -> Dictionary<String, String>? {
+        var dictionaryProperties = Dictionary<String, String>()
+        
+        properties.forEach { property in
+            dictionaryProperties[property.key] = property.value
+        }
+        
+        if dictionaryProperties.count > 0 {
+            return dictionaryProperties
+        }
+        
+        return nil
+    }
 }
