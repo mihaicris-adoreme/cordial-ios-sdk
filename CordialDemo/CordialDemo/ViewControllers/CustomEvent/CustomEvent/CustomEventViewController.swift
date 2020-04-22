@@ -13,7 +13,8 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var eventNameTextField: UITextField!
-
+    @IBOutlet weak var eventNameInfoLabel: UILabel!
+    
     let customEventCell = "customEventTableCell"
     let customEventFooterIdentifier = "customEventTableFooter"
     
@@ -29,6 +30,8 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.tableView.register(UINib(nibName: "CustomEventTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: self.customEventFooterIdentifier)
         self.customEventTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: self.customEventFooterIdentifier) as? CustomEventTableFooterView
+        
+        self.customEventTableFooterView.сustomEventViewController = self
         
         self.eventNameTextField.setBottomBorder(color: UIColor.lightGray)
     }
@@ -46,11 +49,7 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if self.properties.count > 0 {
-            return self.customEventTableFooterView.frame.size.height
-        }
-        
-        return 0
+        return self.customEventTableFooterView.frame.size.height
     }
     
     // MARK: UITableViewDataSource

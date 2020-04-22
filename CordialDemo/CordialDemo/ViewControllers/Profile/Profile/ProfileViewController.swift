@@ -11,6 +11,7 @@ import CordialSDK
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var primaryKeyInfoLabel: UILabel!
     @IBOutlet weak var primaryKeyLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
@@ -33,6 +34,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
             self.primaryKeyLabel.text = primaryKey
+        } else {
+            self.primaryKeyInfoLabel.text = "Guest"
         }
         
         self.tableView.register(UINib(nibName: "ProfileTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: self.profileFooterIdentifier)
