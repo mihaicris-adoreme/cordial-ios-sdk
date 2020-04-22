@@ -38,33 +38,7 @@ class SendCustomEvents {
         var sendCustomEventsArrayJSON = [String]()
         
         sendCustomEventRequests.forEach { sendCustomEventRequest in
-            
-            var rootContainer  = [
-                "\"deviceId\": \"\(self.internalCordialAPI.getDeviceIdentifier())\"",
-                "\"event\": \"\(sendCustomEventRequest.eventName)\"",
-                "\"timestamp\": \"\(sendCustomEventRequest.timestamp)\""
-            ]
-            
-            if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
-                rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
-            }
-            
-            if let mcID = sendCustomEventRequest.mcID {
-                rootContainer.append("\"mcID\": \"\(mcID)\"")
-            }
-            
-            if let latitude = sendCustomEventRequest.latitude, latitude != 0.0, let longitude = sendCustomEventRequest.longitude, longitude != 0.0 {
-                rootContainer.append("\"lat\": \(latitude)")
-                rootContainer.append("\"lon\": \(longitude)")
-            }
-            
-            if let properties = sendCustomEventRequest.properties {
-                rootContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
-            }
-            
-            let rootContainerString = rootContainer.joined(separator: ", ")
-            
-            let stringJSON = "{ \(rootContainerString) }"
+            let stringJSON = self.getSendCustomEventJSON(sendCustomEventRequest: sendCustomEventRequest)
             
             sendCustomEventsArrayJSON.append(stringJSON)
         }
@@ -74,5 +48,35 @@ class SendCustomEvents {
         let sendCustomEventsJSON = "[ \(sendCustomEventsStringJSON) ]"
         
         return sendCustomEventsJSON
+    }
+    
+    func getSendCustomEventJSON(sendCustomEventRequest: SendCustomEventRequest) -> String {
+        
+        var rootContainer  = [
+            "\"deviceId\": \"\(self.internalCordialAPI.getDeviceIdentifier())\"",
+            "\"event\": \"\(sendCustomEventRequest.eventName)\"",
+            "\"timestamp\": \"\(sendCustomEventRequest.timestamp)\""
+        ]
+        
+        if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
+            rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
+        }
+        
+        if let mcID = sendCustomEventRequest.mcID {
+            rootContainer.append("\"mcID\": \"\(mcID)\"")
+        }
+        
+        if let latitude = sendCustomEventRequest.latitude, latitude != 0.0, let longitude = sendCustomEventRequest.longitude, longitude != 0.0 {
+            rootContainer.append("\"lat\": \(latitude)")
+            rootContainer.append("\"lon\": \(longitude)")
+        }
+        
+        if let properties = sendCustomEventRequest.properties {
+            rootContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
+        }
+        
+        let rootContainerString = rootContainer.joined(separator: ", ")
+        
+        return "{ \(rootContainerString) }"
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CordialSDK
 
 class CustomEventViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -16,6 +17,7 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
     
     let customEventCell = "customEventTableCell"
     let customEventFooterIdentifier = "customEventTableFooter"
+    let segueToImportCustomEventIdentifier = "segueToImportCustomEvent"
     
     var properties = [CustomEventProperty]()
     
@@ -39,6 +41,70 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
         self.eventNameTextField.resignFirstResponder()
         self.tableView.tableFooterView = UIView(frame: .zero)
         self.tableView.reloadData()
+    }
+    
+    @IBAction func exportCustomEventAction(_ sender: UIBarButtonItem) {
+        if let eventName = self.eventNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
+            
+            var isEventNameValidated = false
+            
+            if eventName.isEmpty {
+                self.eventNameInfoLabel.text = "* Event name cannot be empty."
+                self.eventNameTextField.setBottomBorder(color: UIColor.red)
+            } else {
+                self.eventNameInfoLabel.text = String()
+                self.eventNameTextField.setBottomBorder(color: UIColor.lightGray)
+                
+                isEventNameValidated = true
+            }
+            
+            if isEventNameValidated {
+                self.performSegue(withIdentifier: self.segueToImportCustomEventIdentifier, sender: self)
+            }
+        }
+    }
+    
+    func getDictionaryProperties(properties: [CustomEventProperty]) -> Dictionary<String, String>? {
+        var dictionaryProperties = Dictionary<String, String>()
+        
+        properties.forEach { property in
+            dictionaryProperties[property.key] = property.value
+        }
+        
+        if dictionaryProperties.count > 0 {
+            return dictionaryProperties
+        }
+        
+        return nil
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case self.segueToImportCustomEventIdentifier:
+            if let eventName = self.eventNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let importCustomEventViewController = segue.destination as? ImportCustomEventViewController {
+                
+                let properties = self.getDictionaryProperties(properties: self.properties)
+                
+                let customEventJSON = CordialAPI().getCustomEventJSON(eventName: eventName, properties: properties)
+                
+                do {
+                    if let customEventJSONData = customEventJSON.data(using: .utf8), let customEventJSONObject = try JSONSerialization.jsonObject(with: customEventJSONData, options : []) as? Dictionary<String, AnyObject> {
+                        
+                        let prettyCustomEventJSONData = try JSONSerialization.data(withJSONObject: customEventJSONObject, options: .prettyPrinted)
+        
+                        if let prettyCustomEventJSON = String(data: prettyCustomEventJSONData, encoding: .utf8) {
+                            importCustomEventViewController.customEventJSON = prettyCustomEventJSON
+                        }
+                    }
+                } catch let error {
+                    popupSimpleNoteAlert(title: "ERROR", message: error.localizedDescription, controller: self)
+                }
+            }
+        default:
+            break
+        }
     }
 
     // MARK: UITableViewDelegate
