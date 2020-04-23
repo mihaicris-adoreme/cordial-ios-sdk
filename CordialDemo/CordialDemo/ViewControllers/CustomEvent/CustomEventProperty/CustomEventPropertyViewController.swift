@@ -53,7 +53,6 @@ class CustomEventPropertyViewController: UIViewController {
                 isValueValidated = true
             }
             
-            
             if isKeyValidated, isValueValidated, let viewControllers = self.navigationController?.viewControllers, viewControllers.count > 2, let customEventViewController = viewControllers[viewControllers.count - 2] as? CustomEventViewController {
                 
                 let customEventProperty = CustomEventProperty(key: key, value: value)

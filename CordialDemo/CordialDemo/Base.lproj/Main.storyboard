@@ -1205,7 +1205,7 @@
                                     <constraint firstAttribute="width" constant="24.5" id="3hK-2F-Swh"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="gJG-f9-gxu" kind="show" id="d4D-Ll-1ip"/>
+                                    <action selector="customEventPropertyAction:" destination="VjT-ne-evL" eventType="touchUpInside" id="w28-Cq-kAV"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Event name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bUO-Ch-cXa">
@@ -1253,6 +1253,7 @@
                         <outlet property="eventNameTextField" destination="bUO-Ch-cXa" id="bOd-zu-q5R"/>
                         <outlet property="tableView" destination="Why-kP-Xg6" id="IG6-SO-Vwd"/>
                         <segue destination="7I4-G3-fFZ" kind="show" identifier="segueToImportCustomEvent" id="s1H-tS-ptH"/>
+                        <segue destination="gJG-f9-gxu" kind="show" identifier="segueToCustomEventProperty" id="OSw-sK-z1c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5rn-79-Cjz" sceneMemberID="firstResponder"/>

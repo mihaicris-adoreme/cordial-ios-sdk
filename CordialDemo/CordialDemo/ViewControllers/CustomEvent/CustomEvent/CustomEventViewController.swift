@@ -18,6 +18,7 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
     let customEventCell = "customEventTableCell"
     let customEventFooterIdentifier = "customEventTableFooter"
     let segueToImportCustomEventIdentifier = "segueToImportCustomEvent"
+    let segueToCustomEventPropertyIdentifier = "segueToCustomEventProperty"
     
     var properties = [CustomEventProperty]()
     
@@ -43,6 +44,11 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.reloadData()
     }
     
+    @IBAction func customEventPropertyAction(_ sender: UIButton) {
+        self.eventNameTextField.resignFirstResponder()
+        self.performSegue(withIdentifier: self.segueToCustomEventPropertyIdentifier, sender: self)
+    }
+    
     @IBAction func exportCustomEventAction(_ sender: UIBarButtonItem) {
         if let eventName = self.eventNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
             
@@ -59,6 +65,7 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
             }
             
             if isEventNameValidated {
+                self.eventNameTextField.resignFirstResponder()
                 self.performSegue(withIdentifier: self.segueToImportCustomEventIdentifier, sender: self)
             }
         }
