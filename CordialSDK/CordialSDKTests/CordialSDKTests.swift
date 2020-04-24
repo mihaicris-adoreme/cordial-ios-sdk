@@ -57,7 +57,14 @@ class CordialSDKTests: XCTestCase {
             CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
         }
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for ending token preparing")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     func testRemoteNotificationsHasBeenTapped() {
@@ -338,12 +345,12 @@ class CordialSDKTests: XCTestCase {
         
         CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             XCTAssert(mock.isVerified)
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 5)
     }
     
     func testBulkSizeAppClose() {
