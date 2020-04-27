@@ -27,6 +27,10 @@ public class TestCase: NSObject {
         return InternalCordialAPI().getPreparedRemoteNotificationsDeviceToken(deviceToken: deviceToken)
     }
     
+    public func getPushNotificationStatus() -> String? {
+        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
+    }
+    
     public func setContactPrimaryKey(primaryKey: String) {
         InternalCordialAPI().setContactPrimaryKey(primaryKey: primaryKey)
     }

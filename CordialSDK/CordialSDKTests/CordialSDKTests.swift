@@ -67,6 +67,27 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
+    func testRemoteNotificationStatus() {
+        let mock = MockRequestSenderRemoteNotificationStatus()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        
+        if let deviceToken = Data(base64Encoded: self.testDeviceToken) {
+            CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
+        }
+        
+        let expectation = XCTestExpectation(description: "Expectation for ending token preparing")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
+    
     func testRemoteNotificationsHasBeenTapped() {
         let mock = MockRequestSenderRemoteNotificationsHasBeenTapped()
         
