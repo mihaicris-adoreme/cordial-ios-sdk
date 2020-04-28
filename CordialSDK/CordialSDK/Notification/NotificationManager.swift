@@ -44,6 +44,9 @@ class NotificationManager {
     static let shared = NotificationManager()
     
     var isNotificationManagerHasNotBeenSettedUp = true
+    
+    var appMovedToBackgroundTimer: Timer?
+    var appMovedFromBackgroundTimer: Timer?
 
     private init() {
         let notificationCenter = NotificationCenter.default
@@ -57,6 +60,11 @@ class NotificationManager {
     }
     
     @objc func appMovedToBackground() {
+        appMovedToBackgroundTimer?.invalidate()
+        appMovedToBackgroundTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(appMovedToBackgroundProceed), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func appMovedToBackgroundProceed() {
         let eventName = API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
@@ -66,6 +74,11 @@ class NotificationManager {
     }
     
     @objc func appMovedFromBackground() {
+        appMovedFromBackgroundTimer?.invalidate()
+        appMovedFromBackgroundTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(appMovedFromBackgroundProceed), userInfo: nil, repeats: false)
+    }
+    
+    @objc private func appMovedFromBackgroundProceed() {
         let eventName = API.EVENT_NAME_APP_MOVED_FROM_BACKGROUND
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
