@@ -1,19 +1,19 @@
 //
-//  MockRequestSenderEventsBulkSizeCount.swift
+//  MockRequestSenderQtyCachedEventQueue.swift
 //  CordialSDKTests
 //
-//  Created by Yan Malinovsky on 30.03.2020.
+//  Created by Yan Malinovsky on 08.04.2020.
 //  Copyright © 2020 cordial.io. All rights reserved.
 //
 
 import XCTest
 import CordialSDK
 
-class MockRequestSenderEventsBulkSizeCount: RequestSender {
+class MockRequestSenderQtyCachedEventQueue: RequestSender {
     
     var isVerified = false
     
-    var events = [String]()
+    let events = ["test_custom_event_3", "test_custom_event_4", "test_custom_event_5"]
     
     override func sendRequest(task: URLSessionDownloadTask) {
         let httpBody = task.originalRequest!.httpBody!
@@ -22,7 +22,7 @@ class MockRequestSenderEventsBulkSizeCount: RequestSender {
             jsonArray.forEach { jsonAnyObject in
                 let json = jsonAnyObject as! [String: AnyObject]
                 
-                if !self.events.contains(json["event"] as! String) {
+                if !events.contains(json["event"] as! String) {
                     XCTAssert(false, "Event don't match")
                 }
             }
@@ -30,5 +30,4 @@ class MockRequestSenderEventsBulkSizeCount: RequestSender {
             self.isVerified = true
         }
     }
-    
 }

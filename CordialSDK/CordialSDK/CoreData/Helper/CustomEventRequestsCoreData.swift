@@ -15,9 +15,9 @@ class CustomEventRequestsCoreData {
     let entityName = "CustomEventRequest"
     
     func putCustomEventRequestsToCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
-        let cachedSendCustomEventRequests = self.getCustomEventRequestsFromCoreData()
+        let qtyCachedCustomEventRequests = self.getQtyCachedCustomEventRequests()
         
-        let sendCustomEventRequestsQty = cachedSendCustomEventRequests.count + sendCustomEventRequests.count
+        let sendCustomEventRequestsQty = qtyCachedCustomEventRequests + sendCustomEventRequests.count
         
         if sendCustomEventRequestsQty > CordialApiConfiguration.shared.qtyCachedEventQueue {
             let removeID = sendCustomEventRequestsQty - CordialApiConfiguration.shared.qtyCachedEventQueue
@@ -55,13 +55,30 @@ class CustomEventRequestsCoreData {
         }
     }
     
-    private func removeFirstCustomEventRequestsFromCoreData(removeTo id: Int){
-        var sendCustomEventRequests = self.getCustomEventRequestsFromCoreData()
-        if sendCustomEventRequests.count > 0 {
-            sendCustomEventRequests.removeFirst(id)
+    private func removeFirstCustomEventRequestsFromCoreData(removeTo id: Int){        
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+
+        do {
+            let result = try context.fetch(request)
             
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
-            self.setCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
+            var countId = 0
+            for managedObject in result as! [NSManagedObject] {
+                if id > countId {
+                    countId+=1
+                    
+                    context.delete(managedObject)
+                    try context.save()
+                } else {
+                    break
+                }
+            }
+        } catch let error {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            }
         }
     }
     
@@ -107,8 +124,22 @@ class CustomEventRequestsCoreData {
     }
 
     func getQtyCachedCustomEventRequests() -> Int {
-        let sendCustomEventRequests = self.getCustomEventRequestsFromCoreData()
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
         
-        return sendCustomEventRequests.count
+        do {
+            let count = try context.count(for: request)
+            
+            return count
+            
+        } catch let error {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            }
+        }
+        
+        return 0
     }
 }

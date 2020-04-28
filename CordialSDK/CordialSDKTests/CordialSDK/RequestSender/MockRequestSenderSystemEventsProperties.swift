@@ -1,19 +1,19 @@
 //
-//  MockRequestSenderEventsBulkSizeReachability.swift
+//  MockRequestSenderSystemEventsProperties.swift
 //  CordialSDKTests
 //
-//  Created by Yan Malinovsky on 31.03.2020.
+//  Created by Yan Malinovsky on 13.04.2020.
 //  Copyright © 2020 cordial.io. All rights reserved.
 //
 
 import XCTest
 import CordialSDK
 
-class MockRequestSenderEventsBulkSizeReachability: RequestSender {
+class MockRequestSenderSystemEventsProperties: RequestSender {
     
     var isVerified = false
     
-    var event = String()
+    var systemEventsProperties = Dictionary<String, String>()
     
     override func sendRequest(task: URLSessionDownloadTask) {
         let httpBody = task.originalRequest!.httpBody!
@@ -21,7 +21,12 @@ class MockRequestSenderEventsBulkSizeReachability: RequestSender {
         if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
             let json = jsonArray.first! as! [String: AnyObject]
             
-            XCTAssertEqual(self.event, json["event"] as! String, "Event don't match")
+            let properties = json["properties"] as! Dictionary<String, String>
+            let propertiesKeys = properties.keys
+            
+            propertiesKeys.forEach { key in
+                XCTAssertEqual(properties[key], self.systemEventsProperties[key], "System events property don't match")
+            }
             
             self.isVerified = true
         }

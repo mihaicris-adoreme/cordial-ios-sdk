@@ -91,4 +91,64 @@ public class TestCase: NSObject {
     public func reachabilitySenderMakeAllNeededHTTPCalls() {
         ReachabilitySender.shared.makeAllNeededHTTPCalls()
     }
+    
+    public func sendCachedCustomEventRequests(reason: String) {
+        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
+    }
+
+    public func sendInvalidEventRequest(task: URLSessionDownloadTask, invalidEventName: String) {
+        if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
+            switch operation.taskName {
+            case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
+                if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData, let request = task.originalRequest, let url = request.url, let headerFields = request.allHTTPHeaderFields, let httpResponse422 = HTTPURLResponse(url: url, statusCode: 422, httpVersion: "HTTP/1.1", headerFields: headerFields), let httpResponse200 = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: headerFields), let httpBody = request.httpBody {
+                    
+                    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
+                    do {
+                        if self.isHttpBodyHasInvalidEventName(httpBody: httpBody, invalidEventName: invalidEventName), let invalidHttpBody = self.getMockedInvalidHttpBody() {
+                            try invalidHttpBody.write(to: location, options: .atomic)
+                            SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, httpResponse: httpResponse422, location: location)
+                        } else {
+                            try httpBody.write(to: location, options: .atomic)
+                            SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, httpResponse: httpResponse200, location: location)
+                        }
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                }
+            default: break
+            }
+        }
+    }
+    
+    private func isHttpBodyHasInvalidEventName(httpBody: Data, invalidEventName: String) -> Bool {
+        let jsonString = String(decoding: httpBody, as: UTF8.self)
+        
+        var returnValue = false
+        if jsonString.contains(invalidEventName) {
+              returnValue = true
+          }
+        
+        return returnValue
+    }
+    
+    private func getMockedInvalidHttpBody() -> Data? {
+        return """
+            {
+              "success": false,
+              "error": {
+                "code": 422,
+                "message": "The given data was invalid.",
+                "errors": {
+                  "0.deviceId": [
+                    "The 0.deviceId field is required."
+                  ],
+                  "0.event": [
+                    "The 0.event field is required."
+                  ]
+                }
+              }
+            }
+        """.data(using: .utf8)
+    }
+    
 }
