@@ -77,7 +77,7 @@ class NotificationManager {
         }
     }
     
-    private func appMovedToBackgroundProceed() {
+    func appMovedToBackgroundProceed() {
         let eventName = API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
@@ -92,7 +92,7 @@ class NotificationManager {
         }
     }
     
-    private func appMovedFromBackgroundProceed() {
+    func appMovedFromBackgroundProceed() {
         let eventName = API.EVENT_NAME_APP_MOVED_FROM_BACKGROUND
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)

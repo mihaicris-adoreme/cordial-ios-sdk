@@ -85,7 +85,7 @@ public class TestCase: NSObject {
     }
     
     public func appMovedToBackground() {
-        NotificationManager.shared.appMovedToBackground()
+        NotificationManager.shared.appMovedToBackgroundProceed()
     }
     
     public func reachabilitySenderMakeAllNeededHTTPCalls() {
