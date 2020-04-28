@@ -45,8 +45,10 @@ class NotificationManager {
     
     var isNotificationManagerHasNotBeenSettedUp = true
     
-    var appMovedToBackgroundTimer: Timer?
-    var appMovedFromBackgroundTimer: Timer?
+    let appMovedToBackgroundThrottler = Throttler(minimumDelay: 1)
+    var appMovedToBackgroundBackgroundTaskID: UIBackgroundTaskIdentifier?
+    
+    let appMovedFromBackgroundThrottler = Throttler(minimumDelay: 1)
 
     private init() {
         let notificationCenter = NotificationCenter.default
@@ -60,11 +62,22 @@ class NotificationManager {
     }
     
     @objc func appMovedToBackground() {
-        appMovedToBackgroundTimer?.invalidate()
-        appMovedToBackgroundTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(appMovedToBackgroundProceed), userInfo: nil, repeats: false)
+        self.appMovedToBackgroundBackgroundTaskID = UIApplication.shared.beginBackgroundTask(expirationHandler: { [weak self] in
+            guard let backgroundTaskID = self?.appMovedToBackgroundBackgroundTaskID else { return }
+            UIApplication.shared.endBackgroundTask(backgroundTaskID)
+        })
+        
+        self.appMovedToBackgroundThrottler.throttle {
+            self.appMovedToBackgroundProceed()
+            
+            if let backgroundTaskID = self.appMovedToBackgroundBackgroundTaskID {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                self.appMovedToBackgroundBackgroundTaskID = nil
+            }
+        }
     }
     
-    @objc private func appMovedToBackgroundProceed() {
+    private func appMovedToBackgroundProceed() {
         let eventName = API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
@@ -74,11 +87,12 @@ class NotificationManager {
     }
     
     @objc func appMovedFromBackground() {
-        appMovedFromBackgroundTimer?.invalidate()
-        appMovedFromBackgroundTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(appMovedFromBackgroundProceed), userInfo: nil, repeats: false)
+        self.appMovedFromBackgroundThrottler.throttle {
+            self.appMovedFromBackgroundProceed()
+        }
     }
     
-    @objc private func appMovedFromBackgroundProceed() {
+    private func appMovedFromBackgroundProceed() {
         let eventName = API.EVENT_NAME_APP_MOVED_FROM_BACKGROUND
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)

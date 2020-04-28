@@ -54,6 +54,7 @@
 		9E565B95225B9E47005EC4AF /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E565B94225B9E47005EC4AF /* CoreDataManager.swift */; };
 		9E565B9C225BC09A005EC4AF /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E565B9B225BC09A005EC4AF /* ReachabilityManager.swift */; };
 		9E565BA0225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E565B9D225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld */; };
+		9E5F22A424584BBF00CDFBCF /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F22A324584BBF00CDFBCF /* Throttler.swift */; };
 		9E65C1D3233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */; };
 		9E65C1D4233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */; };
 		9E6DB89B234E168700711A2A /* CordialDeepLinksDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */; };
@@ -234,6 +235,7 @@
 		9E565B94225B9E47005EC4AF /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		9E565B9B225BC09A005EC4AF /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		9E565B9E225BD1A4005EC4AF /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		9E5F22A324584BBF00CDFBCF /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksDelegate.swift; sourceTree = "<group>"; };
@@ -507,6 +509,14 @@
 			path = CoreData;
 			sourceTree = "<group>";
 		};
+		9E5F22A224584BA600CDFBCF /* Throttler */ = {
+			isa = PBXGroup;
+			children = (
+				9E5F22A324584BBF00CDFBCF /* Throttler.swift */,
+			);
+			path = Throttler;
+			sourceTree = "<group>";
+		};
 		9E7037A022688254000C3582 /* UpsertContactCart */ = {
 			isa = PBXGroup;
 			children = (
@@ -550,6 +560,7 @@
 		9E7A5A41222EB54D0020054F /* CordialSDK */ = {
 			isa = PBXGroup;
 			children = (
+				9E5F22A224584BA600CDFBCF /* Throttler */,
 				9E95842923C7539300061C21 /* UserDefaults */,
 				9EE8C5F1235DAE1F0045347B /* DateFormatter */,
 				9E126DB222F865F600A74143 /* MD5 */,
@@ -1047,6 +1058,7 @@
 			files = (
 				9EC0ACDA2327C644002545D8 /* InAppMessagesParamCoreData.swift in Sources */,
 				9EBE676122731FA10065AA06 /* ContactCartRequestCoreData.swift in Sources */,
+				9E5F22A424584BBF00CDFBCF /* Throttler.swift in Sources */,
 				9E41A9082410047300C9F8B6 /* CordialSwizzlerHelper.swift in Sources */,
 				9E97DEF7226F381700856341 /* SendContactOrderRequest.swift in Sources */,
 				9E786AEC2399489800D92017 /* InAppMessagesShown+CoreDataProperties.swift in Sources */,
