@@ -17,8 +17,8 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToProductIdentifier = "segueToProduct"
     let segueToCartIdentifier = "segueToCart"
     let segueToProfileIdentifier = "segueToProfile"
+    let segueToCustomEventIdentifier = "segueToCustomEvent"
     
-    @IBOutlet weak var profileButtonItem: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     
     let catalogName = "Mens"
@@ -34,24 +34,15 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         self.collectionView.dataSource = self
         
         let cartButton = UIBarButtonItem(image: UIImage(named: "cart"), style: .plain, target: self, action: #selector(cartButtonAction))
-        let logoutButton = UIBarButtonItem(title: "Log out", style: .plain, target: self, action: #selector(logoutButtonAction))
-        navigationItem.rightBarButtonItems = [cartButton, logoutButton]
+        navigationItem.rightBarButtonItems = [cartButton]
         
         self.title = catalogName
-        
-        self.prerareProfileAndLogoutButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.sendBrowseCategoryCustomEvent()
-    }
-    
-    func prerareProfileAndLogoutButtons() {
-        if App.isGuestUser() {
-            self.profileButtonItem.isEnabled = false
-        } 
     }
     
     func sendBrowseCategoryCustomEvent() {
@@ -63,17 +54,25 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         self.performSegue(withIdentifier: self.segueToCartIdentifier, sender: self)
     }
     
-    @IBAction func profileButtonAction(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: self.segueToProfileIdentifier, sender: self)
+    @IBAction func menuButtonAction(_ sender: UIBarButtonItem) {
+        let activities: [UIActivity] = [
+            CustomUIActivityProfile(sender: self),
+            CustomUIActivityCustomEvent(sender: self),
+            CustomUIActivityLogin(sender: self),
+            CustomUIActivityLogout(sender: self)
+        ]
+        
+        let activitySheet = UIActivityViewController(activityItems: [Any](), applicationActivities: activities)
+        self.present(activitySheet, animated: true, completion: nil)
     }
     
-    @IBAction func loginButtonAction(_ sender: UIBarButtonItem) {
+    func loginAction() {
         App.userLogOut()
         
         self.presentLoginNavigationController(.formSheet)
     }
     
-    @objc func logoutButtonAction() {
+    func logoutAction() {
         self.cordialAPI.unsetContact()
         
         App.userLogOut()

@@ -16,7 +16,8 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     var products = [Product]()
     
     let cartCell = "cartTableCell"
-    let cartFooterCell = "cartTableFooterCell"
+    let cartFooterIdentifier = "cartTableFooter"
+    
     var cartTableFooterView: CartTableFooterView!
     
     let сordialAPI = CordialAPI()
@@ -33,8 +34,8 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
             products = AppDataManager.shared.cart.getCartItemsFromCoreData(appDelegate: appDelegate)
         }
         
-        self.tableView.register(UINib(nibName: "CartTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: cartFooterCell)
-        self.cartTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: cartFooterCell) as? CartTableFooterView
+        self.tableView.register(UINib(nibName: "CartTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: self.cartFooterIdentifier)
+        self.cartTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: self.cartFooterIdentifier) as? CartTableFooterView
         self.cartTableFooterView.checkoutButton.addTarget(self, action: #selector(checkoutAction), for: .touchUpInside)
         
         self.cartTableFooterView.layer.shadowColor = UIColor.gray.cgColor

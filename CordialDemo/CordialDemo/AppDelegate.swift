@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.setupCordialSDKLogicErrorHandler()
         
         guard #available(iOS 13.0, *) else {
-            if CordialAPI().getContactPrimaryKey() != nil {
+            if !App.isGuestUser() {
                 let catalogNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
                 self.window?.rootViewController = catalogNavigationController
             }
