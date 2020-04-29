@@ -119,7 +119,7 @@ class NotificationManager {
                 let primaryKey = CordialAPI().getContactPrimaryKey()
                 
                 if settings.authorizationStatus == .authorized {
-                    if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
                         let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
                         
                         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
@@ -128,7 +128,7 @@ class NotificationManager {
                         internalCordialAPI.setPushNotificationStatus(status: status)
                     }
                 } else {
-                    if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
                         let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                         
                         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
@@ -139,6 +139,14 @@ class NotificationManager {
                 }
             })
         }
+    }
+    
+    private func isSentUpsertContactsWithin24Hours() -> Bool {
+        if CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE) != nil {
+            return true
+        }
+        
+        return false
     }
     
     @objc func handleDidFinishLaunch(notification: NSNotification) {
