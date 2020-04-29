@@ -24,9 +24,36 @@ class CordialSwizzlerHelper {
             os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
         }
         
+        self.preparePushNotificationStatus(token: token)
+    }
+    
+    private func preparePushNotificationStatus(token: String) {
+        DispatchQueue.main.async {
+            let current = UNUserNotificationCenter.current()
+            
+            let internalCordialAPI = InternalCordialAPI()
+            
+            var status = String()
+            
+            current.getNotificationSettings(completionHandler: { (settings) in                
+                if settings.authorizationStatus == .authorized {
+                    status = API.PUSH_NOTIFICATION_STATUS_ALLOW
+                } else {
+                    status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+                }
+                
+                internalCordialAPI.setPushNotificationStatus(status: status)
+                
+                self.sendPushNotificationToken(token: token, status: status)
+            })
+        }
+    }
+    
+    private func sendPushNotificationToken(token: String, status: String) {
+        let internalCordialAPI = InternalCordialAPI()
+        
         if token != internalCordialAPI.getPushNotificationToken() {
             let primaryKey = CordialAPI().getContactPrimaryKey()
-            let status = internalCordialAPI.getPushNotificationStatus()
             
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
             ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
@@ -34,5 +61,4 @@ class CordialSwizzlerHelper {
             internalCordialAPI.setPushNotificationToken(token: token)
         }
     }
-    
 }
