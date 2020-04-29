@@ -90,10 +90,13 @@ class CustomEventsSender {
     private func getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: [SendCustomEventRequest], responseBody: String) -> [SendCustomEventRequest] {
         let errorIDs = self.getErrorIDs(responseBody: responseBody)
         
-        var mutableSendCustomEventRequests = sendCustomEventRequests
+        let validEnumeratedSendCustomEventRequests = sendCustomEventRequests.enumerated().filter {
+            !errorIDs.contains($0.offset)
+        }
         
-        errorIDs.forEach { errorID in
-            mutableSendCustomEventRequests.remove(at: errorID)
+        var mutableSendCustomEventRequests = [SendCustomEventRequest]()
+        validEnumeratedSendCustomEventRequests.forEach { (offset, sendCustomEventRequest) in
+            mutableSendCustomEventRequests.append(sendCustomEventRequest)
         }
         
         return mutableSendCustomEventRequests
@@ -107,7 +110,7 @@ class CustomEventsSender {
                 if let errorsJSON = responseBodyJSON["error"]?["errors"] as? [String: AnyObject] {
                     let errors = errorsJSON.keys.map { $0 }
                     errors.forEach { error in
-                        if let stringID = error.components(separatedBy: ".").first, let intID = Int(stringID) {
+                        if let stringID = error.components(separatedBy: ".").first, let intID = Int(stringID), !errorIDs.contains(intID) {
                             errorIDs.append(intID)
                         }
                     }

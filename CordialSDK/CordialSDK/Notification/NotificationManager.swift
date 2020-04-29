@@ -44,6 +44,11 @@ class NotificationManager {
     static let shared = NotificationManager()
     
     var isNotificationManagerHasNotBeenSettedUp = true
+    
+    let appMovedToBackgroundThrottler = Throttler(minimumDelay: 1)
+    var appMovedToBackgroundBackgroundTaskID: UIBackgroundTaskIdentifier?
+    
+    let appMovedFromBackgroundThrottler = Throttler(minimumDelay: 1)
 
     private init() {
         let notificationCenter = NotificationCenter.default
@@ -57,18 +62,40 @@ class NotificationManager {
     }
     
     @objc func appMovedToBackground() {
+        self.appMovedToBackgroundBackgroundTaskID = UIApplication.shared.beginBackgroundTask(expirationHandler: { [weak self] in
+            guard let backgroundTaskID = self?.appMovedToBackgroundBackgroundTaskID else { return }
+            UIApplication.shared.endBackgroundTask(backgroundTaskID)
+        })
+        
+        self.appMovedToBackgroundThrottler.throttle {
+            self.appMovedToBackgroundProceed()
+            
+            if let backgroundTaskID = self.appMovedToBackgroundBackgroundTaskID {
+                UIApplication.shared.endBackgroundTask(backgroundTaskID)
+                self.appMovedToBackgroundBackgroundTaskID = nil
+            }
+        }
+    }
+    
+    func appMovedToBackgroundProceed() {
         let eventName = API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
         let mcID = CordialAPI().getCurrentMcID()
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "App moved to background")
     }
     
     @objc func appMovedFromBackground() {
+        self.appMovedFromBackgroundThrottler.throttle {
+            self.appMovedFromBackgroundProceed()
+        }
+    }
+    
+    func appMovedFromBackgroundProceed() {
         let eventName = API.EVENT_NAME_APP_MOVED_FROM_BACKGROUND
         let mcID = CordialAPI().getCurrentMcID()
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         self.prepareCurrentPushNotificationStatus()
@@ -92,7 +119,7 @@ class NotificationManager {
                 let primaryKey = CordialAPI().getContactPrimaryKey()
                 
                 if settings.authorizationStatus == .authorized {
-                    if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
                         let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
                         
                         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
@@ -101,7 +128,7 @@ class NotificationManager {
                         internalCordialAPI.setPushNotificationStatus(status: status)
                     }
                 } else {
-                    if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) {
+                    if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
                         let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                         
                         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
@@ -112,6 +139,14 @@ class NotificationManager {
                 }
             })
         }
+    }
+    
+    private func isSentUpsertContactsWithin24Hours() -> Bool {
+        if CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE) != nil {
+            return true
+        }
+        
+        return false
     }
     
     @objc func handleDidFinishLaunch(notification: NSNotification) {

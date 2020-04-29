@@ -27,6 +27,7 @@ class CordialSDKTests: XCTestCase {
         
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.none)
+        CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.eventsBulkSize = 1
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 30
         CordialApiConfiguration.shared.pushNotificationHandler = PushNotificationHandler()
@@ -57,7 +58,35 @@ class CordialSDKTests: XCTestCase {
             CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
         }
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for ending token preparing")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
+    
+    func testRemoteNotificationStatus() {
+        let mock = MockRequestSenderRemoteNotificationStatus()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        
+        if let deviceToken = Data(base64Encoded: self.testDeviceToken) {
+            CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
+        }
+        
+        let expectation = XCTestExpectation(description: "Expectation for ending token preparing")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     func testRemoteNotificationsHasBeenTapped() {
@@ -299,7 +328,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testBulkSizeCount() {
+    func testEventsBulkSizeCount() {
         let mock = MockRequestSenderEventsBulkSizeCount()
         
         let events = ["test_custom_event_1", "test_custom_event_2", "test_custom_event_3"]
@@ -319,7 +348,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testBulkSizeTimer() {
+    func testEventsBulkSizeTimer() {
         let mock = MockRequestSenderEventsBulkSizeTimer()
         
         let event = "test_custom_event_1"
@@ -338,15 +367,15 @@ class CordialSDKTests: XCTestCase {
         
         CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             XCTAssert(mock.isVerified)
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 5)
     }
     
-    func testBulkSizeAppClose() {
+    func testEventsBulkSizeAppClose() {
         let mock = MockRequestSenderEventsBulkSizeAppClose()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -360,7 +389,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testBulkSizeReachability() {
+    func testEventsBulkSizeReachability() {
         let mock = MockRequestSenderEventsBulkSizeReachability()
         
         let event = "test_custom_event_1"
@@ -379,4 +408,71 @@ class CordialSDKTests: XCTestCase {
         
         XCTAssert(mock.isVerified)
     }
+    
+    func testQtyCachedEventQueue() {
+        let mock = MockRequestSenderQtyCachedEventQueue()
+        
+        let events = ["test_custom_event_1", "test_custom_event_2", "test_custom_event_3", "test_custom_event_4", "test_custom_event_5"]
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        CordialApiConfiguration.shared.qtyCachedEventQueue = 3
+        CordialApiConfiguration.shared.eventsBulkSize = 5
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        events.forEach { event in
+            CordialAPI().sendCustomEvent(eventName: event, properties: nil)
+        }
+        
+        TestCase().sendCachedCustomEventRequests(reason: "test qty cached events queue")
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testSystemEventsProperties() {
+        let mock = MockRequestSenderSystemEventsProperties()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        let systemEventsProperties = ["systemEventsPropertiesKey": "systemEventsPropertiesValue"]
+        mock.systemEventsProperties = systemEventsProperties
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+            
+        CordialApiConfiguration.shared.eventsBulkSize = 1
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        TestCase().appMovedToBackground()
+        
+        XCTAssert(mock.isVerified)
+    }
+
+    
+    func testEventsIfRequestHasInvalidEvent() {
+        let mock = MockRequestSenderIfEventRequestHasInvalidEvent()
+        
+        let validEventNames = ["test_valid_event_1", "test_valid_event_2"]
+        mock.validEventNames = validEventNames
+        
+        let invalidEventName = "test_invalid_event"
+        mock.invalidEventName = invalidEventName
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        CordialApiConfiguration.shared.eventsBulkSize = 2
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        CordialAPI().sendCustomEvent(eventName: invalidEventName, properties: nil)
+        validEventNames.forEach { validEventName in
+            CordialAPI().sendCustomEvent(eventName: validEventName, properties: nil)
+        }
+        
+        XCTAssert(mock.isVerified)
+    }
+    
 }

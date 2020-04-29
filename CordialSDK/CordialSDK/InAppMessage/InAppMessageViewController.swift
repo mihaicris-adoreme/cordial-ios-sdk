@@ -162,7 +162,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             if let eventName = eventName {
                 let mcID = self.inAppMessageData.mcID
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+                let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
                 self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
             
@@ -172,7 +172,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     @objc func dismissModalInAppMessage() {
         let mcID = self.inAppMessageData.mcID
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, mcID: mcID, properties: nil)
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         self.removeInAppMessageFromSuperview()

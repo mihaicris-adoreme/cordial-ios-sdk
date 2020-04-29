@@ -32,6 +32,7 @@ import CoreLocation
     @objc public var pushNotificationHandler: CordialPushNotificationDelegate?
     
     @objc public var qtyCachedEventQueue = 1000
+    @objc public var systemEventsProperties: Dictionary<String, String>?
     
     @objc public var eventsBulkSize: Int = 1 {
         didSet {
