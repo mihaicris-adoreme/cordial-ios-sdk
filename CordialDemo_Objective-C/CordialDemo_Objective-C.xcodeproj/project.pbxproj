@@ -315,7 +315,7 @@
 				9E65C8EB22EF1A1200E30F53 /* Resources */,
 				9EEFA9EB22EF1B1E004CBE8C /* Embed Frameworks */,
 				9E46318E22F0582E0081E8CE /* Embed App Extensions */,
-				6367805A77EC683067F16D27 /* [CP] Embed Pods Frameworks */,
+				014437C7D49674A943049FDA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -453,6 +453,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		014437C7D49674A943049FDA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		211EF397D86ABBE090A0BAB2 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -473,23 +490,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6367805A77EC683067F16D27 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_Objective-C/Pods-CordialDemo_Objective-C-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AB7F42DD630E9FB647CE7629 /* [CP] Check Pods Manifest.lock */ = {
