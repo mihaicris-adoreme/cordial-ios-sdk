@@ -34,9 +34,9 @@ class MockRequestSenderIfEventRequestHasInvalidEvent: RequestSender {
                     if !self.validEventNames.contains(json["event"] as! String) {
                         XCTAssert(false, "Event don't match")
                     }
+                    
+                    self.isVerified = true
                 }
-                
-                self.isVerified = true
             }
         }
     }

@@ -25,9 +25,9 @@ class MockRequestSenderQtyCachedEventQueue: RequestSender {
                 if !events.contains(json["event"] as! String) {
                     XCTAssert(false, "Event don't match")
                 }
+                
+                self.isVerified = true
             }
-            
-            self.isVerified = true
         }
     }
 }
