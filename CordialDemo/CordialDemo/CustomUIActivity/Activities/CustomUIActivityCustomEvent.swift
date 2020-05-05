@@ -25,7 +25,7 @@ class CustomUIActivityCustomEvent: UIActivity {
     }
 
     override var activityTitle: String? {
-        return "Custom Event"
+        return "Send Custom Event"
     }
 
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {

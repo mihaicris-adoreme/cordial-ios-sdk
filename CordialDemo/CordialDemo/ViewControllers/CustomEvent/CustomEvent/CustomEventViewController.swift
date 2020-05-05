@@ -50,25 +50,11 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func exportCustomEventAction(_ sender: UIBarButtonItem) {
-        if let eventName = self.eventNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
-            
-            var isEventNameValidated = false
-            
-            if eventName.isEmpty {
-                self.eventNameInfoLabel.text = "* Event name cannot be empty."
-                self.eventNameTextField.setBottomBorder(color: UIColor.red)
-            } else {
-                self.eventNameInfoLabel.text = String()
-                self.eventNameTextField.setBottomBorder(color: UIColor.lightGray)
-                
-                isEventNameValidated = true
-            }
-            
-            if isEventNameValidated {
-                self.eventNameTextField.resignFirstResponder()
-                self.performSegue(withIdentifier: self.segueToImportCustomEventIdentifier, sender: self)
-            }
-        }
+        self.eventNameTextField.resignFirstResponder()
+        self.eventNameTextField.setBottomBorder(color: UIColor.lightGray)
+        self.eventNameInfoLabel.text = String()
+        
+        self.performSegue(withIdentifier: self.segueToImportCustomEventIdentifier, sender: self)
     }
     
     func getDictionaryProperties(properties: [CustomEventProperty]) -> Dictionary<String, String>? {
@@ -92,21 +78,23 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
         case self.segueToImportCustomEventIdentifier:
             if let eventName = self.eventNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let importCustomEventViewController = segue.destination as? ImportCustomEventViewController {
                 
-                let properties = self.getDictionaryProperties(properties: self.properties)
-                
-                let customEventJSON = CordialAPI().getCustomEventJSON(eventName: eventName, properties: properties)
-                
-                do {
-                    if let customEventJSONData = customEventJSON.data(using: .utf8), let customEventJSONObject = try JSONSerialization.jsonObject(with: customEventJSONData, options : []) as? Dictionary<String, AnyObject> {
-                        
-                        let prettyCustomEventJSONData = try JSONSerialization.data(withJSONObject: customEventJSONObject, options: .prettyPrinted)
-        
-                        if let prettyCustomEventJSON = String(data: prettyCustomEventJSONData, encoding: .utf8) {
-                            importCustomEventViewController.customEventJSON = prettyCustomEventJSON
+                if self.properties.count > 0 {
+                    let properties = self.getDictionaryProperties(properties: self.properties)
+
+                    let customEventJSON = CordialAPI().getCustomEventJSON(eventName: eventName, properties: properties)
+
+                    do {
+                        if let customEventJSONData = customEventJSON.data(using: .utf8), let customEventJSONObject = try JSONSerialization.jsonObject(with: customEventJSONData, options : []) as? Dictionary<String, AnyObject> {
+                            
+                            let prettyCustomEventJSONData = try JSONSerialization.data(withJSONObject: customEventJSONObject, options: .prettyPrinted)
+
+                            if let prettyCustomEventJSON = String(data: prettyCustomEventJSONData, encoding: .utf8) {
+                                importCustomEventViewController.customEventJSON = prettyCustomEventJSON
+                            }
                         }
+                    } catch let error {
+                        popupSimpleNoteAlert(title: "ERROR", message: error.localizedDescription, controller: self)
                     }
-                } catch let error {
-                    popupSimpleNoteAlert(title: "ERROR", message: error.localizedDescription, controller: self)
                 }
             }
         default:

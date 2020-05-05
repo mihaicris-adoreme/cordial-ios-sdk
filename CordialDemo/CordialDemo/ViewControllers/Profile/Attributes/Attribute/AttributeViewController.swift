@@ -46,9 +46,11 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             
             if key.isEmpty {
                 self.keyInfoLabel.text = "* Key cannot be empty."
+                self.keyInfoLabel.textColor = UIColor.red
                 self.keyTextField.setBottomBorder(color: UIColor.red)
             } else {
                 self.keyInfoLabel.text = String()
+                self.keyInfoLabel.textColor = UIColor.black
                 self.keyTextField.setBottomBorder(color: UIColor.lightGray)
                 
                 isKeyValidated = true
@@ -68,11 +70,13 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             case AttributeType.numeric:
                 if value.isEmpty {
                     self.valueInfoLabel.text = "* Numeric value cannot be empty."
+                    self.valueInfoLabel.textColor = UIColor.red
                     self.valueTextField.setBottomBorder(color: UIColor.red)
                     
                     isValueValidated = false
                 } else {
                     self.valueInfoLabel.text = String()
+                    self.valueInfoLabel.textColor = UIColor.black
                     self.valueTextField.setBottomBorder(color: UIColor.lightGray)
                     
                     value = value.replacingOccurrences(of: ",", with: ".")
