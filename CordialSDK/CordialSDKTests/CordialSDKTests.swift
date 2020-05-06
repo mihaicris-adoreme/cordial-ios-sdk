@@ -427,7 +427,7 @@ class CordialSDKTests: XCTestCase {
             CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         }
         
-        TestCase().sendCachedCustomEventRequests(reason: "test qty cached events queue")
+        self.cordialAPI.flushCustomEvents(reason: "Test qty cached events queue")
         
         XCTAssert(mock.isVerified)
     }

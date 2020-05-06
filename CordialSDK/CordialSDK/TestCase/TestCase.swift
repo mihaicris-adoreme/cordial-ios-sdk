@@ -95,10 +95,6 @@ public class TestCase: NSObject {
     public func reachabilitySenderMakeAllNeededHTTPCalls() {
         ReachabilitySender.shared.makeAllNeededHTTPCalls()
     }
-    
-    public func sendCachedCustomEventRequests(reason: String) {
-        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
-    }
 
     public func sendInvalidEventRequest(task: URLSessionDownloadTask, invalidEventName: String) {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {

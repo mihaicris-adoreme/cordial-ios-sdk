@@ -164,6 +164,12 @@ import os.log
         }
     }
     
+    // MARK: flushCustomEvents
+    
+    @objc public func flushCustomEvents(reason: String) {
+        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
+    }
+
     // MARK: Get Custom Event JSON
     
     public func getCustomEventJSON(eventName: String, properties: Dictionary<String, String>?) -> String {
