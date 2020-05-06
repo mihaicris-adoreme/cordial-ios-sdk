@@ -703,21 +703,21 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Primary Key:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifr-Ta-rYj">
-                                <rect key="frame" x="20" y="64" width="96" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Primary Key" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ifr-Ta-rYj">
+                                <rect key="frame" x="20" y="64" width="94" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXX-NW-Csz">
                                 <rect key="frame" x="300" y="74.5" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attributes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iGa-g8-kfv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attributes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iGa-g8-kfv">
                                 <rect key="frame" x="20" y="117" width="247.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -733,6 +733,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="iGa-g8-kfv" firstAttribute="centerY" secondItem="UhR-14-Mj8" secondAttribute="centerY" id="7IG-bC-Yg0"/>
                             <constraint firstItem="ifr-Ta-rYj" firstAttribute="top" secondItem="2EC-vd-rjO" secondAttribute="top" constant="20" id="CKw-Ki-RzV"/>
                             <constraint firstItem="aXX-NW-Csz" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Tqt-pa-iCp" secondAttribute="leading" constant="20" symbolic="YES" id="CtC-0n-cq0"/>
                             <constraint firstItem="aXX-NW-Csz" firstAttribute="centerY" secondItem="ifr-Ta-rYj" secondAttribute="centerY" id="FYn-4f-DsJ"/>
@@ -741,7 +742,6 @@
                             <constraint firstItem="2EC-vd-rjO" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ifr-Ta-rYj" secondAttribute="trailing" symbolic="YES" id="VuW-YC-rUW"/>
                             <constraint firstItem="2EC-vd-rjO" firstAttribute="trailing" secondItem="UhR-14-Mj8" secondAttribute="trailing" constant="20" id="c7h-Hx-a1x"/>
                             <constraint firstItem="iGa-g8-kfv" firstAttribute="top" secondItem="ifr-Ta-rYj" secondAttribute="bottom" constant="32" id="eZc-Bh-xlc"/>
-                            <constraint firstItem="iGa-g8-kfv" firstAttribute="baseline" secondItem="UhR-14-Mj8" secondAttribute="baseline" id="fkq-Oy-1Od"/>
                             <constraint firstItem="5uE-f6-pov" firstAttribute="leading" secondItem="Tqt-pa-iCp" secondAttribute="leading" id="hI8-tH-cwq"/>
                             <constraint firstItem="ifr-Ta-rYj" firstAttribute="leading" secondItem="2EC-vd-rjO" secondAttribute="leading" constant="20" id="hyp-fG-bQd"/>
                             <constraint firstAttribute="trailing" secondItem="aXX-NW-Csz" secondAttribute="trailing" constant="20" id="iFu-ZB-MxF"/>
@@ -1193,9 +1193,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Properties:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AR9-FB-ejD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Properties" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AR9-FB-ejD">
                                 <rect key="frame" x="16" y="136.5" width="251.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1223,13 +1223,13 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="AR9-FB-ejD" firstAttribute="centerY" secondItem="7eE-9a-BWk" secondAttribute="centerY" id="6os-RN-iyZ"/>
                             <constraint firstItem="7eE-9a-BWk" firstAttribute="top" secondItem="Is2-5C-6BU" secondAttribute="bottom" constant="16" id="6uU-20-HjG"/>
                             <constraint firstItem="Is2-5C-6BU" firstAttribute="leading" secondItem="bUO-Ch-cXa" secondAttribute="leading" id="8Q0-p7-8Rf"/>
                             <constraint firstItem="Ffu-nT-lIL" firstAttribute="trailing" secondItem="7eE-9a-BWk" secondAttribute="trailing" constant="20" id="DWJ-1U-DIe"/>
                             <constraint firstItem="bUO-Ch-cXa" firstAttribute="leading" secondItem="Ffu-nT-lIL" secondAttribute="leading" constant="16" id="Iif-ml-iZH"/>
                             <constraint firstItem="Ffu-nT-lIL" firstAttribute="trailing" secondItem="bUO-Ch-cXa" secondAttribute="trailing" constant="16" id="N4N-WL-Sf8"/>
                             <constraint firstItem="Why-kP-Xg6" firstAttribute="top" secondItem="AR9-FB-ejD" secondAttribute="bottom" constant="20" id="OU8-QL-AcE"/>
-                            <constraint firstItem="AR9-FB-ejD" firstAttribute="baseline" secondItem="7eE-9a-BWk" secondAttribute="baseline" id="Qfa-yC-ALz"/>
                             <constraint firstItem="bUO-Ch-cXa" firstAttribute="top" secondItem="Ffu-nT-lIL" secondAttribute="top" constant="36" id="Quk-bu-03l"/>
                             <constraint firstItem="Is2-5C-6BU" firstAttribute="trailing" secondItem="bUO-Ch-cXa" secondAttribute="trailing" id="c3b-XQ-6V8"/>
                             <constraint firstAttribute="trailing" secondItem="Why-kP-Xg6" secondAttribute="trailing" id="cXV-NM-20N"/>

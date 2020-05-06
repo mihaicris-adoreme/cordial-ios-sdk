@@ -11,7 +11,11 @@ import CordialSDK
 
 class CustomEventTableFooterView: UITableViewHeaderFooterView {
 
+    @IBOutlet weak var flushEventsSwitch: UISwitch!
+    
     var сustomEventViewController: CustomEventViewController!
+    
+    let cordialAPI = CordialAPI()
     
     @IBAction func sendCustomEventAction(_ sender: UIButton) {
         if let eventName = self.сustomEventViewController.eventNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
@@ -30,7 +34,11 @@ class CustomEventTableFooterView: UITableViewHeaderFooterView {
             
             if isEventNameValidated {
                 let properties = self.сustomEventViewController.properties
-                CordialAPI().sendCustomEvent(eventName: eventName, properties: self.сustomEventViewController.getDictionaryProperties(properties: properties))
+                self.cordialAPI.sendCustomEvent(eventName: eventName, properties: self.сustomEventViewController.getDictionaryProperties(properties: properties))
+                
+                if self.flushEventsSwitch.isOn {
+                    self.cordialAPI.flushCustomEvents(reason: "Flush Custom Events")
+                }
                 
                 popupSimpleNoteAlert(title: "SUCCESS", message: "Custom event has been sent", controller: сustomEventViewController)
             }
