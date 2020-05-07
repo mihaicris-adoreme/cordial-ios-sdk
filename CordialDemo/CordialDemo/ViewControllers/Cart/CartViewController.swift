@@ -61,7 +61,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         let cartItems = self.getCartItems()
         
         let orderID = UUID().uuidString
-        let order = Order(orderID: orderID, status: "orderStatus", storeID: "storeID", customerID: "customerID", purchaseDate: Date(), shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
+        let order = Order(orderID: orderID, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
         
         сordialAPI.sendContactOrder(order: order)
     }

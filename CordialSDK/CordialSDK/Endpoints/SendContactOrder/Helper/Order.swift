@@ -14,7 +14,7 @@ import Foundation
     let status: String
     let storeID: String
     let customerID: String
-    let purchaseDate: Date
+    var purchaseDate: Date
     let shippingAddress: Address
     let billingAddress: Address
     let items: [CartItem]
@@ -36,22 +36,30 @@ import Foundation
         case properties = "properties"
     }
     
-    @objc public convenience init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], taxNumber: NSNumber?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
-        self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, purchaseDate: purchaseDate, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: taxNumber?.doubleValue, shippingAndHandling: shippingAndHandling, properties: properties)
+    @objc public convenience init(orderID: String, status: String, storeID: String, customerID: String, shippingAddress: Address, billingAddress: Address, items: [CartItem], taxNumber: NSNumber?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
+        self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: taxNumber?.doubleValue, shippingAndHandling: shippingAndHandling, properties: properties)
     }
     
-    public init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: Double?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
+    public init(orderID: String, status: String, storeID: String, customerID: String, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: Double?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
         self.orderID = orderID
         self.status = status
         self.storeID = storeID
         self.customerID = customerID
-        self.purchaseDate = purchaseDate
+        self.purchaseDate = Date()
         self.shippingAddress = shippingAddress
         self.billingAddress = billingAddress
         self.items = items
         self.tax = tax
         self.shippingAndHandling = shippingAndHandling
         self.properties = properties
+    }
+    
+    @objc public func setPurchaseDate(date: Date) {
+        self.purchaseDate = date
+    }
+    
+    @objc public func getPurchaseDate() -> String {
+        return CordialDateFormatter().getTimestampFromDate(date: self.purchaseDate)
     }
     
     @objc public func encode(with aCoder: NSCoder) {
@@ -66,6 +74,20 @@ import Foundation
         aCoder.encode(self.tax, forKey: Key.tax.rawValue)
         aCoder.encode(self.shippingAndHandling, forKey: Key.shippingAndHandling.rawValue)
         aCoder.encode(self.properties, forKey: Key.properties.rawValue)
+    }
+    
+    private init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: Double?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
+        self.orderID = orderID
+        self.status = status
+        self.storeID = storeID
+        self.customerID = customerID
+        self.purchaseDate = purchaseDate
+        self.shippingAddress = shippingAddress
+        self.billingAddress = billingAddress
+        self.items = items
+        self.tax = tax
+        self.shippingAndHandling = shippingAndHandling
+        self.properties = properties
     }
     
     @objc public required convenience init?(coder aDecoder: NSCoder) {
