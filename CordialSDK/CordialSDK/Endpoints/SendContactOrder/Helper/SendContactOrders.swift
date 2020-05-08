@@ -77,7 +77,7 @@ class SendContactOrders {
             "\"status\": \"\(order.status)\"",
             "\"storeID\": \"\(order.storeID)\"",
             "\"customerID\": \"\(order.customerID)\"",
-            "\"purchaseDate\": \"\(ISO8601DateFormatter().string(from: order.purchaseDate))\"",
+            "\"purchaseDate\": \"\(CordialDateFormatter().getTimestampFromDate(date: order.purchaseDate))\"",
             "\"shippingAddress\": \(self.getAddressJSON(address: order.shippingAddress))",
             "\"billingAddress\": \(self.getAddressJSON(address: order.billingAddress))",
             "\"items\": \(UpsertContactCart().getCartItemsJSON(cartItems: order.items))"

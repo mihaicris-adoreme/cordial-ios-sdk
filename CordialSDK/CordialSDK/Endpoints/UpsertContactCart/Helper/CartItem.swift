@@ -19,7 +19,7 @@ import Foundation
     let qty: Int64?
     let itemPrice: Double?
     let salePrice: Double?
-    let timestamp: String
+    var timestamp: String
     let attr: Dictionary<String, String>?
     let images: [String]?
     let properties: Dictionary<String, String>?
@@ -58,6 +58,16 @@ import Foundation
         self.attr = attr
         self.images = images
         self.properties = properties
+    }
+    
+    @objc public func seTimestamp(date: Date) {
+        let timestamp = CordialDateFormatter().getTimestampFromDate(date: date)
+        
+        self.timestamp = timestamp
+    }
+    
+    @objc public func getTimestamp() -> String {
+        return self.timestamp
     }
     
     @objc public func encode(with aCoder: NSCoder) {
