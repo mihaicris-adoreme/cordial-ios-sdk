@@ -10,8 +10,8 @@
 [Setting a Contact](#setting-a-contact)<br>
 [Unsetting a Contact](#unsetting-a-contact)<br>
 [Updating Attributes and Lists Memberships](#updating-attributes-and-lists-memberships)<br>
+[Post a Cart](#post-a-cart)<br>
 [Post an Order](#post-an-order)<br>
-[Post to Cart](#post-to-cart)<br>
 [Event Caching](#event-caching)<br>
 [Push Notifications](#push-notifications)<br>
 [Deep Links](#deep-links)<br>
@@ -302,9 +302,42 @@ NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 [cordialAPI upsertContactWithAttributes:attributes];
 ```
 
+## Post a Cart
+Updates to contact's cart can be sent to Cordial by calling the `CordialApi.upsertCart` method:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+сordialAPI.upsertContactCart(cartItems: cartItems)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[cordialAPI upsertContactCartWithCartItems:cartItems];
+```
+
+`cartItems` - an array of cart items. Each item is assigned attributes such as SKU, quantity, price and other cart item specific attributes:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+
+let cartItems = [cartItem]
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+NSNumber *qty = [NSNumber numberWithInteger:1];
+NSNumber *price = [NSNumber numberWithDouble:20.00];
+
+CartItem *cartItem = [[CartItem alloc] initWithProductID:@"productID" name:@"productName" sku:@"productSKU" category:nil url:nil itemDescription:nil qtyNumber:qty itemPriceNumber:price salePriceNumber:price attr:nil images:nil properties:nil];
+
+NSArray *cartItems = [[NSArray alloc] initWithObjects:cartItem, nil];
+```
 
 ## Post an Order
-The orders collection can be updated any time the contact places an order via the app. In order to post an order to Cordial, use the `CordialApi.sendOrder` method:
+The orders collection can be updated any time the contact places an order via the app. In order to post an order to Cordial, use the `CordialApi.sendContactOrder` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -316,23 +349,41 @@ ___
 ```
 [cordialAPI sendContactOrderWithOrder:order];
 ```
-`order`- used to specify order parameters such as orderID, storeID, customerID, billing and shipping addresses, etc.
-
-## Post to Cart
-Updates to contact's cart can be sent to Cordial by calling the `CordialApi.upsertCart` method:
+`order`- used to specify order parameters such as orderID, storeID, customerID, billing and shipping addresses, etc:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-сordialAPI.upsertContactCart(cartItems: items)
+let shippingAddress = Address(name: "shippingAddressName", address: "shippingAddress", city: "shippingAddressCity", state: "shippingAddressState", postalCode: "shippingAddressPostalCode", country: "shippingAddressCountry")
+
+let billingAddress = Address(name: "billingAddressName", address: "billingAddress", city: "billingAddressCity", state: "billingAddressState", postalCode: "billingAddressPostalCode", country: "billingAddressCountry")
+
+let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+
+let cartItems = [cartItem]
+
+let orderID = UUID().uuidString
+
+let order = Order(orderID: orderID, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[cordialAPI upsertContactCartWithCartItems:items];
-```
+Address *shippingAddress = [[Address alloc] initWithName:@"shippingAddressName" address:@"shippingAddress" city:@"shippingAddressCity" state:@"shippingAddressState" postalCode:@"shippingAddressPostalCode" country:@"shippingAddressCountry"];
 
-`items` - an array of cart items. Each item is assigned attributes such as SKU, quantity, price and other cart item specific attributes.
+Address *billingAddress = [[Address alloc] initWithName:@"billingAddressName" address:@"billingAddress" city:@"billingAddressCity" state:@"billingAddressState" postalCode:@"billingAddressPostalCode" country:@"billingAddressCountry"];
+
+NSNumber *qty = [NSNumber numberWithInteger:1];
+NSNumber *price = [NSNumber numberWithDouble:20.00];
+
+CartItem *cartItem = [[CartItem alloc] initWithProductID:@"productID" name:@"productName" sku:@"productSKU" category:nil url:nil itemDescription:nil qtyNumber:qty itemPriceNumber:price salePriceNumber:price attr:nil images:nil properties:nil];
+
+NSArray *cartItems = [[NSArray alloc] initWithObjects:cartItem, nil];
+
+NSString *orderID = [[NSUUID alloc] init].UUIDString;
+
+Order *order = [[Order alloc] initWithOrderID:orderID status:@"orderStatus" storeID:@"storeID" customerID:@"customerID" shippingAddress:shippingAddress billingAddress:billingAddress items:cartItems taxNumber:nil shippingAndHandling:nil properties:nil];
+```
 
 ## Event Caching
 Every request described above is cached in case of failure to post. For example, if the internet is down on the device and an event failed to be delivered to Cordial, the event would be cached by the SDK and its delivery would be retried once the connection is up again.
