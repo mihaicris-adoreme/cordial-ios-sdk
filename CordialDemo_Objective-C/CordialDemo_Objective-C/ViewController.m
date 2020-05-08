@@ -86,10 +86,8 @@
     Address *billingAddress = [[Address alloc] initWithName:@"billingAddressName" address:@"billingAddress" city:@"billingAddressCity" state:@"billingAddressState" postalCode:@"billingAddressPostalCode" country:@"billingAddressCountry"];
     
     NSString *orderID = [[NSUUID alloc] init].UUIDString;
-
-    NSDate *purchaseDate = [[NSDate alloc] init];
     
-    Order *order = [[Order alloc] initWithOrderID:orderID status:@"orderStatus" storeID:@"storeID" customerID:@"customerID" purchaseDate:purchaseDate shippingAddress:shippingAddress billingAddress:billingAddress items:[self getCartItems] taxNumber:nil shippingAndHandling:nil properties:nil];
+    Order *order = [[Order alloc] initWithOrderID:orderID status:@"orderStatus" storeID:@"storeID" customerID:@"customerID" shippingAddress:shippingAddress billingAddress:billingAddress items:[self getCartItems] taxNumber:nil shippingAndHandling:nil properties:nil];
     
     [cordialAPI sendContactOrderWithOrder:order];
 }

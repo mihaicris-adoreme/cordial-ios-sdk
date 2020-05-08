@@ -37,7 +37,7 @@ class SendContactOrderRequest: NSObject, NSCoding {
             self.init(mcID: mcID, order: order)
         } else {
             let address = Address(name: String(), address: String(), city: String(), state: String(), postalCode: String(), country: String())
-            let order = Order(orderID: String(), status: String(), storeID: String(), customerID: String(), purchaseDate: Date(), shippingAddress: address, billingAddress: address, items: [CartItem](), tax: nil, shippingAndHandling: nil, properties: nil)
+            let order = Order(orderID: String(), status: String(), storeID: String(), customerID: String(), shippingAddress: address, billingAddress: address, items: [CartItem](), tax: nil, shippingAndHandling: nil, properties: nil)
             self.init(mcID: nil, order: order)
             
             self.isError = true
