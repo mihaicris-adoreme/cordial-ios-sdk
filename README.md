@@ -303,7 +303,7 @@ NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 ```
 
 ## Post a Cart
-Updates to contact's cart can be sent to Cordial by calling the `CordialApi.upsertCart` method:
+Updates to contact's cart can be sent to Cordial by calling the `CordialApi.upsertContactCart` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
