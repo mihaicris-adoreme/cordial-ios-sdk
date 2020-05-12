@@ -1,5 +1,5 @@
 //
-//  MockRequestSenderUpsertContactCartOneItem.swift
+//  MockRequestSenderUpsertContactCartEmptyCart.swift
 //  CordialSDKTests
 //
 //  Created by Yan Malinovsky on 12.05.2020.
@@ -9,7 +9,7 @@
 import XCTest
 import CordialSDK
 
-class MockRequestSenderUpsertContactCartOneItem: RequestSender {
+class MockRequestSenderUpsertContactCartEmptyCart: RequestSender {
     
     var isVerified = false
     
@@ -24,17 +24,10 @@ class MockRequestSenderUpsertContactCartOneItem: RequestSender {
                 
                 let cartItems = json["cartitems"] as! [AnyObject]
                 
-                cartItems.forEach { cartItemAnyObject in
-                    let cartItem = cartItemAnyObject as! [String: AnyObject]
-                    
-                    if !cartItemIDs.contains(cartItem["productID"] as! String) {
-                        XCTAssert(false, "Cart item don't match")
-                    }
-                    
-                    self.isVerified = true
-                }
+                XCTAssertEqual(cartItems.count, 0, "Cart items count don't match")
+                
+                self.isVerified = true
             }
         }
     }
-    
 }

@@ -496,4 +496,18 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
+    func testUpsertContactCartEmptyCart() {
+        let mock = MockRequestSenderUpsertContactCartEmptyCart()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        let cartItems = [CartItem]()
+
+        CordialAPI().upsertContactCart(cartItems: cartItems)
+        
+        XCTAssert(mock.isVerified)
+    }
 }
