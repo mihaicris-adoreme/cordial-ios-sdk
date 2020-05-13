@@ -18,8 +18,6 @@ class MockRequestSenderUpsertContactCartReachabilityTwoCarts: RequestSender {
     override func sendRequest(task: URLSessionDownloadTask) {
         let httpBody = task.originalRequest!.httpBody!
         
-        let jsonString = String(decoding: httpBody, as: UTF8.self)
-        
         if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
             jsonArray.forEach { jsonAnyObject in
                 let json = jsonAnyObject as! [String: AnyObject]
