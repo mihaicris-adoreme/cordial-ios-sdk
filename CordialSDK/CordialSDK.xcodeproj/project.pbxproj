@@ -140,6 +140,7 @@
 		9EE78A57246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE78A56246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift */; };
 		9EE78A59246AEA8F008162DB /* MockRequestSenderUpsertContactCartEmptyCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE78A58246AEA8F008162DB /* MockRequestSenderUpsertContactCartEmptyCart.swift */; };
 		9EE78A5B246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE78A5A246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift */; };
+		9EE78A5D246C1F92008162DB /* MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE78A5C246C1F92008162DB /* MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift */; };
 		9EE84C062444B002009BAE25 /* MockRequestSenderSystemEventsProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE84C052444B002009BAE25 /* MockRequestSenderSystemEventsProperties.swift */; };
 		9EE8C5F3235DAE3E0045347B /* CordialDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8C5F2235DAE3E0045347B /* CordialDateFormatter.swift */; };
 		9EE94E29233CF07B009651DF /* InAppMessagesParam+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE94E27233CF07B009651DF /* InAppMessagesParam+CoreDataClass.swift */; };
@@ -331,6 +332,7 @@
 		9EE78A56246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUpsertContactCartOneItem.swift; sourceTree = "<group>"; };
 		9EE78A58246AEA8F008162DB /* MockRequestSenderUpsertContactCartEmptyCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUpsertContactCartEmptyCart.swift; sourceTree = "<group>"; };
 		9EE78A5A246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUpsertContactCartReachability.swift; sourceTree = "<group>"; };
+		9EE78A5C246C1F92008162DB /* MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift; sourceTree = "<group>"; };
 		9EE84C052444B002009BAE25 /* MockRequestSenderSystemEventsProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderSystemEventsProperties.swift; sourceTree = "<group>"; };
 		9EE8C5F2235DAE3E0045347B /* CordialDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDateFormatter.swift; sourceTree = "<group>"; };
 		9EE94E27233CF07B009651DF /* InAppMessagesParam+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesParam+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -742,6 +744,7 @@
 				9EE78A56246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift */,
 				9EE78A58246AEA8F008162DB /* MockRequestSenderUpsertContactCartEmptyCart.swift */,
 				9EE78A5A246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift */,
+				9EE78A5C246C1F92008162DB /* MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift */,
 			);
 			path = RequestSender;
 			sourceTree = "<group>";
@@ -1217,6 +1220,7 @@
 				9E41A8F1240FE1D100C9F8B6 /* DeepLinksHandler.swift in Sources */,
 				9E57995E243E014B0040A562 /* MockRequestSenderQtyCachedEventQueue.swift in Sources */,
 				9EE78A57246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift in Sources */,
+				9EE78A5D246C1F92008162DB /* MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift in Sources */,
 				9E411E0A241152BD00D850B0 /* MockRequestSenderNotSaveMcIdAfterSetContact.swift in Sources */,
 				9E41A93B24100BF600C9F8B6 /* MockRequestSenderRemoteNotificationsHasBeenTappedWithMcId.swift in Sources */,
 				9E411E062411345000D850B0 /* MockRequestSenderSaveMcIdAfterSetContact.swift in Sources */,
