@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class TestCase: NSObject {
+public class TestCase {
     
     public func clearAllTestCaseData() {
         CoreDataManager.shared.deleteAllCoreData()
@@ -151,4 +151,8 @@ public class TestCase: NSObject {
         """.data(using: .utf8)
     }
     
+    public func setContactCartRequestToCoreData(cartItems: [CartItem]) {
+        let upsertContactCartRequest = UpsertContactCartRequest(cartItems: cartItems)
+        CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
+    }
 }
