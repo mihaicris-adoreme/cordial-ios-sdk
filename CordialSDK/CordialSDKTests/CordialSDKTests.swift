@@ -558,4 +558,18 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
         
     }
+    
+    func testUserAgent() {
+        let mock = MockRequestSenderUserAgent()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        self.testCase.appMovedToBackground()
+        
+        XCTAssert(mock.isVerified)
+    }
 }
