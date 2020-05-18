@@ -88,7 +88,7 @@ class SendContactOrders {
         }
         
         if let shippingAndHandling = order.shippingAndHandling {
-            orderContainer.append("\"shippingAndHandling\": \"\(shippingAndHandling)\"")
+            orderContainer.append("\"shippingAndHandling\": \(shippingAndHandling)")
         }
     
         if let properties = order.properties {
