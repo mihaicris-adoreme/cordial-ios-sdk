@@ -19,7 +19,7 @@ import Foundation
     let billingAddress: Address
     let items: [CartItem]
     let tax: Double?
-    let shippingAndHandling: String?
+    let shippingAndHandling: Double?
     let properties: Dictionary<String, String>?
     
     enum Key: String {
@@ -36,11 +36,11 @@ import Foundation
         case properties = "properties"
     }
     
-    @objc public convenience init(orderID: String, status: String, storeID: String, customerID: String, shippingAddress: Address, billingAddress: Address, items: [CartItem], taxNumber: NSNumber?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
-        self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: taxNumber?.doubleValue, shippingAndHandling: shippingAndHandling, properties: properties)
+    @objc public convenience init(orderID: String, status: String, storeID: String, customerID: String, shippingAddress: Address, billingAddress: Address, items: [CartItem], taxNumber: NSNumber?, shippingAndHandling: NSNumber?, properties: Dictionary<String, String>?) {
+        self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: taxNumber?.doubleValue, shippingAndHandling: shippingAndHandling?.doubleValue, properties: properties)
     }
     
-    public init(orderID: String, status: String, storeID: String, customerID: String, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: Double?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
+    public init(orderID: String, status: String, storeID: String, customerID: String, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: Double?, shippingAndHandling: Double?, properties: Dictionary<String, String>?) {
         self.orderID = orderID
         self.status = status
         self.storeID = storeID
@@ -76,7 +76,7 @@ import Foundation
         aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
-    private init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: Double?, shippingAndHandling: String?, properties: Dictionary<String, String>?) {
+    private init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: Double?, shippingAndHandling: Double?, properties: Dictionary<String, String>?) {
         self.orderID = orderID
         self.status = status
         self.storeID = storeID
@@ -100,7 +100,14 @@ import Foundation
         let billingAddress = aDecoder.decodeObject(forKey: Key.billingAddress.rawValue) as! Address
         let items = aDecoder.decodeObject(forKey: Key.items.rawValue) as! [CartItem]
         let tax = aDecoder.decodeObject(forKey: Key.tax.rawValue) as! Double?
-        let shippingAndHandling = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as! String?
+        
+        var shippingAndHandling: Double?
+        if let shippingAndHandlingString = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as? String {
+            shippingAndHandling = Double(shippingAndHandlingString)
+        } else {
+            shippingAndHandling = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as! Double?
+        }
+        
         let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, String>?
         
         self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, purchaseDate: purchaseDate, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: tax, shippingAndHandling: shippingAndHandling, properties: properties)
