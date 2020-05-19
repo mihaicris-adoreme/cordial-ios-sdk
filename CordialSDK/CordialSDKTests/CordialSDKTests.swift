@@ -384,7 +384,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        TestCase().appMovedToBackground()
+        self.testCase.appMovedToBackground()
         
         XCTAssert(mock.isVerified)
     }
@@ -404,7 +404,7 @@ class CordialSDKTests: XCTestCase {
         
         CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         
-        TestCase().reachabilitySenderMakeAllNeededHTTPCalls()
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
         XCTAssert(mock.isVerified)
     }
@@ -445,7 +445,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        TestCase().appMovedToBackground()
+        self.testCase.appMovedToBackground()
         
         XCTAssert(mock.isVerified)
     }
@@ -475,4 +475,87 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
+    func testUpsertContactCartOneItem() {
+        let mock = MockRequestSenderUpsertContactCartOneItem()
+        
+        let cartItemID = "test_ID"
+        
+        mock.cartItemIDs.append(cartItemID)
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let cartItem = CartItem(productID: cartItemID, name: String(), sku: String(), category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+
+        let cartItems = [cartItem]
+
+        CordialAPI().upsertContactCart(cartItems: cartItems)
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testUpsertContactCartEmptyCart() {
+        let mock = MockRequestSenderUpsertContactCartEmptyCart()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        let cartItems = [CartItem]()
+
+        CordialAPI().upsertContactCart(cartItems: cartItems)
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testUpsertContactCartReachability() {
+        let mock = MockRequestSenderUpsertContactCartReachability()
+        
+        let cartItemID = "test_ID"
+        
+        mock.cartItemIDs.append(cartItemID)
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let cartItem = CartItem(productID: cartItemID, name: String(), sku: String(), category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+
+        self.testCase.setContactCartRequestToCoreData(cartItems: [cartItem])
+
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testUpsertContactCartReachabilityTwoCarts() {
+        let mock = MockRequestSenderUpsertContactCartReachabilityTwoCarts()
+        
+        let cartItemID_1 = "test_ID_1"
+        let cartItemID_2 = "test_ID_2"
+        
+        mock.cartItemIDs.append(cartItemID_2)
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let cartItem_1 = CartItem(productID: cartItemID_1, name: String(), sku: String(), category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+        
+        self.testCase.setContactCartRequestToCoreData(cartItems: [cartItem_1])
+        
+        let cartItem_2 = CartItem(productID: cartItemID_2, name: String(), sku: String(), category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+        
+        self.testCase.setContactCartRequestToCoreData(cartItems: [cartItem_2])
+        
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        XCTAssert(mock.isVerified)
+        
+    }
 }
