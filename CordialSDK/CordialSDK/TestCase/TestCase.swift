@@ -155,4 +155,8 @@ public class TestCase {
         let upsertContactCartRequest = UpsertContactCartRequest(cartItems: cartItems)
         CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
     }
+    
+    public func getUserAgent() -> String {
+        return UserAgentBuilder().getUserAgent()
+    }
 }
