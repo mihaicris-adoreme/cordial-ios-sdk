@@ -13,6 +13,8 @@
 [Post a Cart](#post-a-cart)<br>
 [Post an Order](#post-an-order)<br>
 [Event Caching](#event-caching)<br>
+[Events Bulking](#events-bulking)<br>
+[Events Flushing](#events-flushing)<br>
 [Push Notifications](#push-notifications)<br>
 [Deep Links](#deep-links)<br>
 [Delaying In-App Messages](#delaying-in-app-messages)<br>
@@ -336,6 +338,20 @@ CartItem *cartItem = [[CartItem alloc] initWithProductID:@"productID" name:@"pro
 NSArray *cartItems = [[NSArray alloc] initWithObjects:cartItem, nil];
 ```
 
+You can also set the timestamp by passing the instance of the `Date` class to the `setTimestamp` method, otherwise the `timestamp` will be initialized when the `CartItem` object is created.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+cartItem.seTimestamp(date: Date())
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+NSDate *date = [[NSDate alloc] init];
+[cartItem seTimestampWithDate:date];
+```
+
 ## Post an Order
 The orders collection can be updated any time the contact places an order via the app. In order to post an order to Cordial, use the `CordialApi.sendContactOrder` method:
 
@@ -385,6 +401,20 @@ NSString *orderID = [[NSUUID alloc] init].UUIDString;
 Order *order = [[Order alloc] initWithOrderID:orderID status:@"orderStatus" storeID:@"storeID" customerID:@"customerID" shippingAddress:shippingAddress billingAddress:billingAddress items:cartItems taxNumber:nil shippingAndHandling:nil properties:nil];
 ```
 
+You can also set the `purchaseDate` by passing the instance of the `Date` class to the `setPurchaseDate` method, otherwise the `purchaseDate` will be initialized when the `Order` object is created.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+order.setPurchaseDate(date: Date())
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+NSDate *date = [[NSDate alloc] init];
+[order setPurchaseDateWithDate:date];
+```
+
 ## Event Caching
 Every request described above is cached in case of failure to post. For example, if the internet is down on the device and an event failed to be delivered to Cordial, the event would be cached by the SDK and its delivery would be retried once the connection is up again.
 
@@ -420,6 +450,21 @@ ___
 ```
 [CordialApiConfiguration shared].eventsBulkSize = 3;
 [CordialApiConfiguration shared].eventsBulkUploadInterval = 15;
+```
+
+## Events Flushing
+
+The SDK allows to send all cached events immediately. This is done by calling the `flushEvents` method:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+cordialAPI.flushEvents(reason: "Flush events from the app")
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[cordialAPI flushEventsWithReason:@"Flush events from the app"];
 ```
 
 ## Push Notifications
