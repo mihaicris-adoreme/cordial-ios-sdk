@@ -14,6 +14,19 @@ import Foundation
     
     private override init(){}
     
+    // MARK: Request Sender Init
+    
     @objc public var requestSender = RequestSender()
+    
+    // MARK: Get Custom Event JSON
+    
+    @objc public func getCustomEventJSON(eventName: String, properties: Dictionary<String, String>?) -> String {
+        let mcID = CordialAPI().getCurrentMcID()
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
+        
+        let sendCustomEvents = SendCustomEvents()
+        
+        return sendCustomEvents.getSendCustomEventJSON(sendCustomEventRequest: sendCustomEventRequest)
+    }
     
 }

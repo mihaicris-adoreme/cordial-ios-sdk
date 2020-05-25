@@ -169,17 +169,6 @@ import os.log
     @objc public func flushEvents(reason: String) {
         CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
     }
-
-    // MARK: Get Custom Event JSON
-    
-    public func getCustomEventJSON(eventName: String, properties: Dictionary<String, String>?) -> String {
-        let mcID = self.getCurrentMcID()
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
-        
-        let sendCustomEvents = SendCustomEvents()
-        
-        return sendCustomEvents.getSendCustomEventJSON(sendCustomEventRequest: sendCustomEventRequest)
-    }
     
     // MARK: Upsert Contact Cart
     
