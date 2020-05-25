@@ -40,7 +40,7 @@ class UpsertContactCart {
             "\"cartitems\": \(cartItemsJSON)"
         ]
         
-        if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
+        if let primaryKey = upsertContactCartRequest.primaryKey {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         
