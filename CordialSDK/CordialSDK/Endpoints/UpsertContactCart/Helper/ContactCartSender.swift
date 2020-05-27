@@ -15,26 +15,9 @@ class ContactCartSender {
     
     func upsertContactCart(upsertContactCartRequest: UpsertContactCartRequest) {
         
-        let internalCordialAPI = InternalCordialAPI()
-        if internalCordialAPI.isUserLogin() {
+        if InternalCordialAPI().isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
-                let upsertContactCart = UpsertContactCart()
-                
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Sending contact cart. Request ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID)
-                    
-                    let payload = self.upsertContactCart.getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
-                    os_log("Payload: %{public}@", log: OSLog.cordialUpsertContactCart, type: .info, payload)
-                }
-                
-                if internalCordialAPI.getCurrentJWT() != nil {
-                    upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
-                } else {
-                    let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                    self.systemErrorHandler(upsertContactCartRequest: upsertContactCartRequest, error: responseError)
-                    
-                    SDKSecurity.shared.updateJWT()
-                }
+                self.upsertContactCartData(upsertContactCartRequest: upsertContactCartRequest)
             } else {
                 CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
                 
@@ -47,6 +30,28 @@ class ContactCartSender {
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Sending contact cart failed. Saved to retry later. Request ID: [%{public}@] Error: [User no login]", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID)
+            }
+        }
+    }
+    
+    private func upsertContactCartData(upsertContactCartRequest: UpsertContactCartRequest) {
+        if !ContactsSender.shared.isCurrentlyUpsertingContactsData {
+            let upsertContactCart = UpsertContactCart()
+            
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Sending contact cart. Request ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID)
+                
+                let payload = self.upsertContactCart.getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
+                os_log("Payload: %{public}@", log: OSLog.cordialUpsertContactCart, type: .info, payload)
+            }
+            
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(upsertContactCartRequest: upsertContactCartRequest, error: responseError)
+                
+                SDKSecurity.shared.updateJWT()
             }
         }
     }

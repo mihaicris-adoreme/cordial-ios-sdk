@@ -16,24 +16,9 @@ class CustomEventsSender {
     func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
         let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
         
-        let internalCordialAPI = InternalCordialAPI()
-        if internalCordialAPI.isUserLogin() {
+        if InternalCordialAPI().isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Sending events: { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
-                    
-                    let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
-                    os_log("Payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
-                }
-                
-                if internalCordialAPI.getCurrentJWT() != nil {
-                    SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
-                } else {
-                    let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                    self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
-                    
-                    SDKSecurity.shared.updateJWT()
-                }
+                self.sendCustomEventsData(sendCustomEventRequests: sendCustomEventRequests)
             } else {
                 CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
                 
@@ -46,6 +31,27 @@ class CustomEventsSender {
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Sending events { %{public}@ } failed. Saved to retry later. Error: [User no login]", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
+            }
+        }
+    }
+    
+    private func sendCustomEventsData(sendCustomEventRequests: [SendCustomEventRequest]) {
+        if !ContactsSender.shared.isCurrentlyUpsertingContactsData {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
+                os_log("Sending events: { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
+                
+                let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
+                os_log("Payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
+            }
+            
+            if InternalCordialAPI().getCurrentJWT() != nil {
+                SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
+            } else {
+                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
+                
+                SDKSecurity.shared.updateJWT()
             }
         }
     }

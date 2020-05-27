@@ -11,19 +11,30 @@ import os.log
 
 class ContactsSender {
     
+    static let shared = ContactsSender()
+    
+    private init(){}
+    
     let upsertContacts = UpsertContacts()
     
+    var isCurrentlyUpsertingContactsData = false
+    
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
-                
-        if InternalCordialAPI().isUserLogin() {
-            let previousPrimaryKey = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if internalCordialAPI.isUserLogin() {
+            let previousPrimaryKey = internalCordialAPI.getPreviousContactPrimaryKey()
             
             upsertContactRequests.forEach { upsertContactRequest in
                 if upsertContactRequest.primaryKey != previousPrimaryKey && previousPrimaryKey != nil {
-                    CoreDataManager.shared.deleteAllCoreData()
-                    InternalCordialAPI().removeCurrentMcID()
+                    internalCordialAPI.removeAllCachedData()
                 }
             }
+        }
+        
+        if self.isCurrentlyUpsertingContactsData {
+            internalCordialAPI.removeAllCachedData()
         }
         
         if ReachabilityManager.shared.isConnectedToInternet {
@@ -36,7 +47,7 @@ class ContactsSender {
                 })
             }
         
-            if InternalCordialAPI().getCurrentJWT() != nil {
+            if internalCordialAPI.getCurrentJWT() != nil {
                 self.upsertContacts.upsertContacts(upsertContactRequests: upsertContactRequests)
             } else {
                 let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
@@ -45,6 +56,8 @@ class ContactsSender {
                 SDKSecurity.shared.updateJWT()
             }
         } else {
+            self.isCurrentlyUpsertingContactsData = true
+            
             CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -56,6 +69,8 @@ class ContactsSender {
     }
     
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
+        self.isCurrentlyUpsertingContactsData = false
+        
         CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         
         let currentTimestamp = CordialDateFormatter().getCurrentTimestamp()

@@ -94,7 +94,7 @@ class CoreDataSender {
     private func sendCachedUpsertContactRequests() {
         let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
         if upsertContactRequests.count > 0 {
-            ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
+            ContactsSender.shared.upsertContacts(upsertContactRequests: upsertContactRequests)
         }
     }
     

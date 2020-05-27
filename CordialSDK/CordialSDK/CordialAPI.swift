@@ -104,20 +104,17 @@ import os.log
     // MARK: Set Contact
     
     @objc public func setContact(primaryKey: String?) {
-        let previousPrimaryKey = self.getContactPrimaryKey()
+        let internalCordialAPI = InternalCordialAPI()
         
-        CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+        internalCordialAPI.setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: primaryKey)
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
-        
-        let internalCordialAPI = InternalCordialAPI()
         
         let token = internalCordialAPI.getPushNotificationToken()
         let status = internalCordialAPI.getPushNotificationStatus()
         
         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+        ContactsSender.shared.upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
     // MARK: Unset Contact
@@ -130,8 +127,7 @@ import os.log
         let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
         ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         
-        CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+        InternalCordialAPI().setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: primaryKey)
     }
     
     // MARK: Upsert Contact
@@ -144,7 +140,7 @@ import os.log
             let status = internalCordialAPI.getPushNotificationStatus()
             
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: attributes)
-            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+            ContactsSender.shared.upsertContacts(upsertContactRequests: [upsertContactRequest])
         }
     }
     

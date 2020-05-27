@@ -11,7 +11,7 @@ import os.log
 
 class UpsertContactsURLSessionManager {
     
-    let contactsSender = ContactsSender()
+    let contactsSender = ContactsSender.shared
     
     func completionHandler(upsertContactsURLSessionData: UpsertContactsURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
         let upsertContactRequests = upsertContactsURLSessionData.upsertContactRequests

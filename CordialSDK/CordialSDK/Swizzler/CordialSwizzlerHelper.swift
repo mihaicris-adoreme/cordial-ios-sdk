@@ -56,7 +56,7 @@ class CordialSwizzlerHelper {
             let primaryKey = CordialAPI().getContactPrimaryKey()
             
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+            ContactsSender.shared.upsertContacts(upsertContactRequests: [upsertContactRequest])
             
             internalCordialAPI.setPushNotificationToken(token: token)
         }
