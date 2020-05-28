@@ -56,7 +56,7 @@ class SendContactOrders {
             "\"order\": \(orderJSON)"
         ]
         
-        if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
+        if let primaryKey = sendContactOrderRequest.primaryKey {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         
