@@ -58,7 +58,7 @@ class SendCustomEvents {
             "\"timestamp\": \"\(sendCustomEventRequest.timestamp)\""
         ]
         
-        if let primaryKey = sendCustomEventRequest.primaryKey {
+        if let primaryKey = self.cordialAPI.getContactPrimaryKey() {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
         }
         

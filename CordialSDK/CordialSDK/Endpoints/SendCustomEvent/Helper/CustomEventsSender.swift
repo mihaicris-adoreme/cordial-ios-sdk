@@ -36,23 +36,21 @@ class CustomEventsSender {
     }
     
     private func sendCustomEventsData(sendCustomEventRequests: [SendCustomEventRequest]) {
-        if !ContactsSender.shared.isCurrentlyUpsertingContactsData {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
-                os_log("Sending events: { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
-                
-                let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
-                os_log("Payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
-            }
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
+            os_log("Sending events: { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
             
-            if InternalCordialAPI().getCurrentJWT() != nil {
-                SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
-            } else {
-                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
-                
-                SDKSecurity.shared.updateJWT()
-            }
+            let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
+            os_log("Payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
+        }
+        
+        if InternalCordialAPI().getCurrentJWT() != nil {
+            SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
+        } else {
+            let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+            self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
+            
+            SDKSecurity.shared.updateJWT()
         }
     }
     

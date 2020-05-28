@@ -16,13 +16,16 @@ class CoreDataSender {
     var sendCachedCustomEventsScheduledTimer: Timer?
     
     func sendCacheFromCoreData() {
-        self.sendCachedCustomEventRequests(reason: "System sending all cached events")
-        
-        self.sendCachedUpsertContactCartRequest()
-        
-        self.sendCachedContactOrderRequests()
         
         self.sendCachedUpsertContactRequests()
+        
+        if !ContactsSender.shared.isCurrentlyUpsertingContactsData {
+            self.sendCachedCustomEventRequests(reason: "System sending all cached events")
+            
+            self.sendCachedUpsertContactCartRequest()
+            
+            self.sendCachedContactOrderRequests()
+        }
         
         self.sendCachedContactLogoutRequest()
         
@@ -30,7 +33,7 @@ class CoreDataSender {
     }
     
     func sendCachedCustomEventRequests(reason: String) {
-        if InternalCordialAPI().isUserLogin() {
+        if InternalCordialAPI().isUserLogin() && !ContactsSender.shared.isCurrentlyUpsertingContactsData {
             let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
             if customEventRequests.count > 0 {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {

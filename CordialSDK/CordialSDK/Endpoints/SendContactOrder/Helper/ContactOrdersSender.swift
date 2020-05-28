@@ -39,27 +39,25 @@ class ContactOrdersSender {
     }
     
     private func sendContactOrdersData(sendContactOrderRequests: [SendContactOrderRequest]) {
-        if !ContactsSender.shared.isCurrentlyUpsertingContactsData {
-            let sendContactOrders = SendContactOrders()
-            
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                sendContactOrderRequests.forEach({ sendContactOrderRequest in
-                    os_log("Sending contact order. Request ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
-                    
-                    let payload = self.sendContactOrders.getSendContactOrderRequestJSON(sendContactOrderRequest: sendContactOrderRequest)
-                    os_log("Payload: %{public}@", log: OSLog.cordialSendContactOrders, type: .info, payload)
-                })
-            }
-            
-            if InternalCordialAPI().getCurrentJWT() != nil {
-                sendContactOrders.sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
-            } else {
-                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                self.systemErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
+        let sendContactOrders = SendContactOrders()
+        
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            sendContactOrderRequests.forEach({ sendContactOrderRequest in
+                os_log("Sending contact order. Request ID: [%{public}@]", log: OSLog.cordialSendContactOrders, type: .info, sendContactOrderRequest.order.orderID)
                 
-                SDKSecurity.shared.updateJWT()
-            }
-        } 
+                let payload = self.sendContactOrders.getSendContactOrderRequestJSON(sendContactOrderRequest: sendContactOrderRequest)
+                os_log("Payload: %{public}@", log: OSLog.cordialSendContactOrders, type: .info, payload)
+            })
+        }
+        
+        if InternalCordialAPI().getCurrentJWT() != nil {
+            sendContactOrders.sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
+        } else {
+            let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+            self.systemErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
+            
+            SDKSecurity.shared.updateJWT()
+        }
     }
     
     func completionHandler(sendContactOrderRequests: [SendContactOrderRequest]) {
