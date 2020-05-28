@@ -85,7 +85,7 @@ class ContactsSender {
                     CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
                 }
                 
-                // Order
+                // Orders
                 let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
                 if sendContactOrderRequests.count > 0 {
                     sendContactOrderRequests.forEach { sendContactOrderRequest in
@@ -106,6 +106,12 @@ class ContactsSender {
         let currentTimestamp = CordialDateFormatter().getCurrentTimestamp()
         CordialUserDefaults.set(currentTimestamp, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE)
         
+        upsertContactRequests.forEach({ upsertContactRequest in
+            if let primaryKey = upsertContactRequest.primaryKey {
+                CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+            }
+        })
+        
         CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -113,12 +119,6 @@ class ContactsSender {
                 os_log("Contact has been sent. Request ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
             })
         }
-        
-        upsertContactRequests.forEach({ upsertContactRequest in
-            if let primaryKey = upsertContactRequest.primaryKey {
-                CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
-            }
-        })
     }
     
     func systemErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {
