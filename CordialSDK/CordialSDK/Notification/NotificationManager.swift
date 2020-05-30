@@ -123,7 +123,7 @@ class NotificationManager {
                         let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
                         
                         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-                        ContactsSender.shared.upsertContacts(upsertContactRequests: [upsertContactRequest])
+                        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
                         
                         internalCordialAPI.setPushNotificationStatus(status: status)
                     }
@@ -132,7 +132,7 @@ class NotificationManager {
                         let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                         
                         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-                        ContactsSender.shared.upsertContacts(upsertContactRequests: [upsertContactRequest])
+                        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
                         
                         internalCordialAPI.setPushNotificationStatus(status: status)
                     }

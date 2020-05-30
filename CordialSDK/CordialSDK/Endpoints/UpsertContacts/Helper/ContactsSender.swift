@@ -11,17 +11,13 @@ import os.log
 
 class ContactsSender {
     
-    static let shared = ContactsSender()
-    
-    private init(){}
-    
     let upsertContacts = UpsertContacts()
-    
-    var isCurrentlyUpsertingContactsData = false
     
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
 
         self.prepareCachedDataBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
+        
+        let internalCordialAPI = InternalCordialAPI()
         
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -33,7 +29,7 @@ class ContactsSender {
                 })
             }
         
-            if InternalCordialAPI().getCurrentJWT() != nil {
+            if internalCordialAPI.getCurrentJWT() != nil {
                 self.upsertContacts.upsertContacts(upsertContactRequests: upsertContactRequests)
             } else {
                 let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
@@ -42,7 +38,7 @@ class ContactsSender {
                 SDKSecurity.shared.updateJWT()
             }
         } else {
-            self.isCurrentlyUpsertingContactsData = true
+            internalCordialAPI.setIsCurrentlyUpsertingContacts(true)
             
             CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
             
@@ -67,7 +63,7 @@ class ContactsSender {
             }
         }
         
-        if self.isCurrentlyUpsertingContactsData {
+        if internalCordialAPI.isCurrentlyUpsertingContacts() {
             // Save client data if primary keys the same
             upsertContactRequests.forEach { upsertContactRequest in
                 // Events
@@ -99,7 +95,7 @@ class ContactsSender {
     }
     
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
-        self.isCurrentlyUpsertingContactsData = false
+        InternalCordialAPI().setIsCurrentlyUpsertingContacts(false)
         
         CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         

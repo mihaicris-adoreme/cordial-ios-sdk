@@ -19,7 +19,7 @@ class CoreDataSender {
         
         self.sendCachedUpsertContactRequests()
         
-        if !ContactsSender.shared.isCurrentlyUpsertingContactsData {
+        if !InternalCordialAPI().isCurrentlyUpsertingContacts() {
             self.sendCachedCustomEventRequests(reason: "System sending all cached events")
             
             self.sendCachedUpsertContactCartRequest()
@@ -33,7 +33,7 @@ class CoreDataSender {
     }
     
     func sendCachedCustomEventRequests(reason: String) {
-        if InternalCordialAPI().isUserLogin() && !ContactsSender.shared.isCurrentlyUpsertingContactsData {
+        if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
             let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
             if customEventRequests.count > 0 {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -97,7 +97,7 @@ class CoreDataSender {
     private func sendCachedUpsertContactRequests() {
         let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
         if upsertContactRequests.count > 0 {
-            ContactsSender.shared.upsertContacts(upsertContactRequests: upsertContactRequests)
+            ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
         }
     }
     

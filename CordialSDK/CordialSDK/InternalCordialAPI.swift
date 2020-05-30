@@ -45,6 +45,22 @@ class InternalCordialAPI {
         CoreDataManager.shared.deleteAllCoreData()
         InternalCordialAPI().removeCurrentMcID()
     }
+    
+    // MARK: Set isCurrentlyUpsertingContacts
+    
+    func setIsCurrentlyUpsertingContacts(_ isCurrentlyUpsertingContacts: Bool) {
+        CordialUserDefaults.set(isCurrentlyUpsertingContacts, forKey: API.USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_UPSERTING_CONTACTS)
+    }
+    
+    // MARK: Get isCurrentlyUpsertingContacts
+    
+    func isCurrentlyUpsertingContacts() -> Bool {
+        if let isCurrentlyUpsertingContacts = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_UPSERTING_CONTACTS) {
+            return isCurrentlyUpsertingContacts
+        }
+        
+        return false
+    }
         
     // MARK: Get device identifier
     

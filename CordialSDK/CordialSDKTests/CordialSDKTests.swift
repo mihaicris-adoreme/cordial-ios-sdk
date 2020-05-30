@@ -245,7 +245,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    // Guest -> PK
+    // Guest -> PK (BD - | mcID -)
     func testNotClearMcIdIfLoginWithPrimaryKeyInGuestMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
@@ -261,7 +261,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    // Guest -> Guest
+    // Guest -> Guest (BD - | mcID -)
     func testNotClearMcIdIfLoginWithoutPrimaryKeyInGuestMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
@@ -277,7 +277,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    // PK -> PK && PK == PK
+    // PK -> PK && PK == PK (BD - | mcID -)
     func testNotClearMcIdIfLoginWithTheSamePrimaryKeyInLoginMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
@@ -294,7 +294,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    // PK -> Guest
+    // PK -> Guest (BD + | mcID +)
     func testClearMcIdIfLoginWithoutPrimaryKeyInLoginMode() {
         let mock = MockRequestSenderNotSaveMcIdAfterSetContact()
         
@@ -311,7 +311,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    // PK -> PK && PK != PK
+    // PK -> PK && PK != PK (BD + | mcID +)
     func testClearMcIdIfLoginWithNotTheSamePrimaryKeyInLoginMode() {
         let mock = MockRequestSenderNotSaveMcIdAfterSetContact()
         
