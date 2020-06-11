@@ -79,7 +79,7 @@ class InternalCordialAPI {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
     }
     
-    // MARK: JSON Web Token
+    // MARK: Set JSON Web Token
     
     func setCurrentJWT(JWT: String) {
         CordialUserDefaults.set(JWT, forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
@@ -87,9 +87,19 @@ class InternalCordialAPI {
         CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
     }
     
+    // MARK: Get JSON Web Token
+    
     func getCurrentJWT() -> String? {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
+    
+    // MARK: Remove JSON Web Token
+    
+    func removeCurrentJWT() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
+    }
+    
+    // Is user login
     
     func isUserLogin() -> Bool {
         if let isUserLogin = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) {

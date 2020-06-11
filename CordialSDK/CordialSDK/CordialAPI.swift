@@ -71,6 +71,8 @@ import os.log
                 CordialUserDefaults.set(baseURL, forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL)
             }
             
+            InternalCordialAPI().removeCurrentJWT()
+            
             NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
         }
     }
