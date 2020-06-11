@@ -19,6 +19,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
+    let contentController = WKUserContentController()
+    
     var zoomScale = CGFloat()
     var isBannerAvailable = false
     
@@ -108,14 +110,12 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         let webConfiguration = WKWebViewConfiguration()
         
         if let inAppMessageJS = InAppMessageProcess.shared.getInAppMessageJS() {
-            let contentController = WKUserContentController()
-            
             let staticUserScript = WKUserScript(source: inAppMessageJS, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
-            contentController.addUserScript(staticUserScript)
+            self.contentController.addUserScript(staticUserScript)
             
-            contentController.add(self, name: "action")
+            self.contentController.add(self, name: "action")
             
-            webConfiguration.userContentController = contentController
+            webConfiguration.userContentController = self.contentController
         }
 
         self.webView = WKWebView(frame: webViewSize, configuration: webConfiguration)
