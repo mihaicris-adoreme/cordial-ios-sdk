@@ -20,6 +20,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
+    let webConfiguration = WKWebViewConfiguration()
+    let contentController = WKUserContentController()
+    
     var zoomScale = CGFloat()
     var isBannerAvailable = false
     
@@ -106,20 +109,20 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     func initWebView(webViewSize: CGRect, inAppMessageData: InAppMessageData) {
         self.inAppMessageData = inAppMessageData
         
-        let webConfiguration = WKWebViewConfiguration()
-        
         if let inAppMessageJS = InAppMessageProcess.shared.getInAppMessageJS() {
-            let contentController = WKUserContentController()
-            
             let staticUserScript = WKUserScript(source: inAppMessageJS, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
-            contentController.addUserScript(staticUserScript)
+            self.contentController.addUserScript(staticUserScript)
             
-            contentController.add(self, name: "action")
+            self.contentController.add(self, name: "action")
             
-            webConfiguration.userContentController = contentController
+            self.webConfiguration.userContentController = self.contentController
+            
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("IAM: contentController added to webConfiguration successfully", log: OSLog.cordialError, type: .info)
+            }
         }
 
-        self.webView = WKWebView(frame: webViewSize, configuration: webConfiguration)
+        self.webView = WKWebView(frame: webViewSize, configuration: self.webConfiguration)
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
         self.webView.scrollView.delegate = self
