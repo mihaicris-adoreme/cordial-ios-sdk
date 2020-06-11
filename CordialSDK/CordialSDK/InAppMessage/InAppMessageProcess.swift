@@ -30,11 +30,17 @@ class InAppMessageProcess {
                 let contents = try String(contentsOfFile: resourceBundleURL.path)
                 
                 return contents
-            } catch {
+            } catch let error {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                    os_log("IAM Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                }
                 return nil
             }
         }
         
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            os_log("IAM Error: [resourceBundleURL is nil]", log: OSLog.cordialError, type: .error)
+        }
         return nil
     }
     
