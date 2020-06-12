@@ -65,6 +65,29 @@ class InternalCordialAPI {
         
         return resourceBundle
     }
+
+    // MARK: Remove All Cached Data
+    
+    func removeAllCachedData() {
+        CoreDataManager.shared.deleteAllCoreData()
+        InternalCordialAPI().removeCurrentMcID()
+    }
+    
+    // MARK: Set isCurrentlyUpsertingContacts
+    
+    func setIsCurrentlyUpsertingContacts(_ isCurrentlyUpsertingContacts: Bool) {
+        CordialUserDefaults.set(isCurrentlyUpsertingContacts, forKey: API.USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_UPSERTING_CONTACTS)
+    }
+    
+    // MARK: Get isCurrentlyUpsertingContacts
+    
+    func isCurrentlyUpsertingContacts() -> Bool {
+        if let isCurrentlyUpsertingContacts = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_UPSERTING_CONTACTS) {
+            return isCurrentlyUpsertingContacts
+        }
+        
+        return false
+    }
         
     // MARK: Get device identifier
     
@@ -84,6 +107,19 @@ class InternalCordialAPI {
     
     func setContactPrimaryKey(primaryKey: String) {
         CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+    }
+    
+    // MARK: Get previous primary key
+    
+    @objc public func getPreviousContactPrimaryKey() -> String? {
+        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+    }
+
+    // MARK: Set previous primary key and remove current
+    
+    func setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: String?) {
+        CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
     // MARK: Set current mcID

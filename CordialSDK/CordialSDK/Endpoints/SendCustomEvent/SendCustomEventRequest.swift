@@ -17,6 +17,7 @@ class SendCustomEventRequest: NSObject, NSCoding {
     let latitude: Double?
     let longitude: Double?
     let properties: Dictionary<String, String>?
+    let primaryKey: String?
     
     var isError = false
         
@@ -28,6 +29,7 @@ class SendCustomEventRequest: NSObject, NSCoding {
         case latitude = "latitude"
         case longitude = "longitude"
         case properties = "properties"
+        case primaryKey = "primaryKey"
     }
     
     init(eventName: String, mcID: String?, properties: Dictionary<String, String>?) {
@@ -38,9 +40,10 @@ class SendCustomEventRequest: NSObject, NSCoding {
         self.latitude = CordialLocationManager.shared.getLatitude()
         self.longitude = CordialLocationManager.shared.getLongitude()
         self.properties = properties
+        self.primaryKey = CordialAPI().getContactPrimaryKey()
     }
     
-    private init(requestID: String, eventName: String, timestamp: String, mcID: String?, latitude: Double?, longitude: Double?, properties: Dictionary<String, String>?) {
+    private init(requestID: String, eventName: String, timestamp: String, mcID: String?, latitude: Double?, longitude: Double?, properties: Dictionary<String, String>?, primaryKey: String?) {
         self.requestID = requestID
         self.eventName = eventName
         self.timestamp = timestamp
@@ -48,6 +51,7 @@ class SendCustomEventRequest: NSObject, NSCoding {
         self.latitude = latitude
         self.longitude = longitude
         self.properties = properties
+        self.primaryKey = primaryKey
     }
     
     func encode(with aCoder: NSCoder) {
@@ -58,6 +62,7 @@ class SendCustomEventRequest: NSObject, NSCoding {
         aCoder.encode(self.latitude, forKey: Key.latitude.rawValue)
         aCoder.encode(self.longitude, forKey: Key.longitude.rawValue)
         aCoder.encode(self.properties, forKey: Key.properties.rawValue)
+        aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -76,9 +81,11 @@ class SendCustomEventRequest: NSObject, NSCoding {
             
             let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, String>?
             
-            self.init(requestID: requestID, eventName: eventName, timestamp: timestamp, mcID: mcID, latitude: latitude, longitude: longitude, properties: properties)
+            let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
+            
+            self.init(requestID: requestID, eventName: eventName, timestamp: timestamp, mcID: mcID, latitude: latitude, longitude: longitude, properties: properties, primaryKey: primaryKey)
         } else {
-            self.init(requestID: String(), eventName: String(), timestamp: String(), mcID: nil, latitude: nil, longitude: nil, properties: nil)
+            self.init(requestID: String(), eventName: String(), timestamp: String(), mcID: nil, latitude: nil, longitude: nil, properties: nil, primaryKey: nil)
             
             self.isError = true
         }

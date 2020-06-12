@@ -104,14 +104,13 @@ import os.log
     // MARK: Set Contact
     
     @objc public func setContact(primaryKey: String?) {
+        let internalCordialAPI = InternalCordialAPI()
+        
         let previousPrimaryKey = self.getContactPrimaryKey()
         
-        CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+        internalCordialAPI.setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: previousPrimaryKey)
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
-        
-        let internalCordialAPI = InternalCordialAPI()
         
         let token = internalCordialAPI.getPushNotificationToken()
         let status = internalCordialAPI.getPushNotificationStatus()
@@ -125,13 +124,12 @@ import os.log
     @objc public func unsetContact() {
         CordialUserDefaults.set(false, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         
-        let primaryKey = self.getContactPrimaryKey()
+        let previousPrimaryKey = self.getContactPrimaryKey()
         
-        let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: primaryKey)
+        let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: previousPrimaryKey)
         ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         
-        CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+        InternalCordialAPI().setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: previousPrimaryKey)
     }
     
     // MARK: Upsert Contact
@@ -168,17 +166,6 @@ import os.log
     
     @objc public func flushEvents(reason: String) {
         CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
-    }
-
-    // MARK: Get Custom Event JSON
-    
-    public func getCustomEventJSON(eventName: String, properties: Dictionary<String, String>?) -> String {
-        let mcID = self.getCurrentMcID()
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
-        
-        let sendCustomEvents = SendCustomEvents()
-        
-        return sendCustomEvents.getSendCustomEventJSON(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     // MARK: Upsert Contact Cart

@@ -12,34 +12,42 @@ class UpsertContactCartRequest: NSObject, NSCoding {
 
     let requestID: String
     let cartItems: [CartItem]
+    let primaryKey: String?
     
     var isError = false
     
     enum Key: String {
         case requestID = "requestID"
         case cartItems = "cartItems"
+        case primaryKey = "primaryKey"
     }
     
     init(cartItems: [CartItem]) {
         self.requestID = UUID().uuidString
         self.cartItems = cartItems
+        self.primaryKey = CordialAPI().getContactPrimaryKey()
     }
     
-    private init(requestID: String, cartItems: [CartItem]) {
+    private init(requestID: String, cartItems: [CartItem], primaryKey: String?) {
         self.requestID = requestID
         self.cartItems = cartItems
+        self.primaryKey = primaryKey
     }
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
         aCoder.encode(self.cartItems, forKey: Key.cartItems.rawValue)
+        aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
         if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String, let cartItems = aDecoder.decodeObject(forKey: Key.cartItems.rawValue) as? [CartItem] {
-            self.init(requestID: requestID, cartItems: cartItems)
+            
+            let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
+            
+            self.init(requestID: requestID, cartItems: cartItems, primaryKey: primaryKey)
         } else {
-            self.init(requestID: String(), cartItems: [CartItem]())
+            self.init(requestID: String(), cartItems: [CartItem](), primaryKey: nil)
             
             self.isError = true
         }
