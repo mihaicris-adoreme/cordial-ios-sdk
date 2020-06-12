@@ -38,6 +38,33 @@ class InternalCordialAPI {
         
         return false
     }
+    
+    // Get SDK resource bundle
+    
+    func getResourceBundle() -> Bundle? {
+        let frameworkIdentifier = "io.cordial.sdk"
+        let frameworkName = "CordialSDK"
+        
+        if let bundle = Bundle(identifier: frameworkIdentifier) {
+            return bundle
+        }
+        
+        guard let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: frameworkName, withExtension: "bundle") else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("ResourceBundle Error: [resourceBundleURL is nil] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, frameworkName)
+            }
+            return nil
+        }
+        
+        guard let resourceBundle = Bundle(url: resourceBundleURL) else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("ResourceBundle Error: [resourceBundle is nil] resourceBundleURL: [%{public}@] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, resourceBundleURL.absoluteString, frameworkName)
+            }
+            return nil
+        }
+        
+        return resourceBundle
+    }
         
     // MARK: Get device identifier
     

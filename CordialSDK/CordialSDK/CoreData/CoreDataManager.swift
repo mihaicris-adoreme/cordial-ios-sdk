@@ -18,8 +18,6 @@ class CoreDataManager {
     
     let coreDataSender = CoreDataSender()
     
-    let frameworkIdentifier = "io.cordial.sdk"
-    let frameworkName = "CordialSDK"
     let modelName = "CoreDataModel"
     
     let customEventRequests = CustomEventRequestsCoreData()
@@ -46,46 +44,22 @@ class CoreDataManager {
     
     fileprivate lazy var managedObjectModel: NSManagedObjectModel = {
         
-        var rawBundle: Bundle? {
-            
-            if let bundle = Bundle(identifier: self.frameworkIdentifier) {
-                return bundle
-            }
-            
-
-            guard let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: self.frameworkName, withExtension: "bundle") else {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("CoreData Error: [resourceBundleURL is nil] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, frameworkName)
-                }
-                return nil
-            }
-            
-            guard let resourceBundle = Bundle(url: resourceBundleURL) else {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("CoreData Error: [resourceBundle is nil] resourceBundleURL: [%{public}@] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, resourceBundleURL.absoluteString, frameworkName)
-                }
-                return nil
-            }
-            
-            return resourceBundle
-        }
-        
-        guard let bundle = rawBundle else {
+        guard let resourceBundle = InternalCordialAPI().getResourceBundle() else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Could not get bundle that contains the model", log: OSLog.cordialError, type: .error)
+                os_log("CoreData Error: [Could not get bundle that contains the model]", log: OSLog.cordialError, type: .error)
             }
             
             return NSManagedObjectModel()
         }
         
-        guard
-            let modelURL = bundle.url(forResource: self.modelName, withExtension: "momd"),
+        guard let modelURL = resourceBundle.url(forResource: self.modelName, withExtension: "momd"),
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("Could not get bundle for managed object model", log: OSLog.cordialError, type: .error)
-                }
                 
-                return NSManagedObjectModel()
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("CoreData Error: [Could not get bundle for managed object model]", log: OSLog.cordialError, type: .error)
+            }
+            
+            return NSManagedObjectModel()
         }
         
         return model
