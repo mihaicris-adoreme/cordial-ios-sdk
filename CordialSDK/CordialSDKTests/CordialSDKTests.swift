@@ -572,4 +572,93 @@ class CordialSDKTests: XCTestCase {
         
         XCTAssert(mock.isVerified)
     }
+    
+    func testSendContactOrder() {
+        let mock = MockRequestSenderSendContactOrder()
+        
+        let orderID = "test_order_ID"
+        mock.orderID = orderID
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let shippingAddress = Address(name: "shippingAddressName", address: "shippingAddress", city: "shippingAddressCity", state: "shippingAddressState", postalCode: "shippingAddressPostalCode", country: "shippingAddressCountry")
+
+        let billingAddress = Address(name: "billingAddressName", address: "billingAddress", city: "billingAddressCity", state: "billingAddressState", postalCode: "billingAddressPostalCode", country: "billingAddressCountry")
+
+        let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+
+        let cartItems = [cartItem]
+
+        let order = Order(orderID: orderID, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
+
+        CordialAPI().sendContactOrder(order: order)
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testSendContactOrderReachability() {
+        let mock = MockRequestSenderSendContactOrder()
+        
+        let orderID = "test_order_ID"
+        mock.orderID = orderID
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let shippingAddress = Address(name: "shippingAddressName", address: "shippingAddress", city: "shippingAddressCity", state: "shippingAddressState", postalCode: "shippingAddressPostalCode", country: "shippingAddressCountry")
+
+        let billingAddress = Address(name: "billingAddressName", address: "billingAddress", city: "billingAddressCity", state: "billingAddressState", postalCode: "billingAddressPostalCode", country: "billingAddressCountry")
+
+        let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+
+        let cartItems = [cartItem]
+
+        let order = Order(orderID: orderID, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
+
+        self.testCase.setContactOrderRequestToCoreData(order: order)
+
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testSendContactOrderReachabilityTwoOrders() {
+        let mock = MockRequestSenderSendContactOrderTwoOrders()
+        
+        let orderID_1 = "test_order_ID_1"
+        let orderID_2 = "test_order_ID_2"
+        
+        mock.orderID_1 = orderID_1
+        mock.orderID_2 = orderID_2
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let shippingAddress = Address(name: "shippingAddressName", address: "shippingAddress", city: "shippingAddressCity", state: "shippingAddressState", postalCode: "shippingAddressPostalCode", country: "shippingAddressCountry")
+
+        let billingAddress = Address(name: "billingAddressName", address: "billingAddress", city: "billingAddressCity", state: "billingAddressState", postalCode: "billingAddressPostalCode", country: "billingAddressCountry")
+
+        let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+
+        let cartItems = [cartItem]
+
+        let order_1 = Order(orderID: orderID_1, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
+
+        let order_2 = Order(orderID: orderID_2, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
+        
+        self.testCase.setContactOrderRequestToCoreData(order: order_1)
+        
+        self.testCase.setContactOrderRequestToCoreData(order: order_2)
+
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        XCTAssert(mock.isVerified)
+    }
 }

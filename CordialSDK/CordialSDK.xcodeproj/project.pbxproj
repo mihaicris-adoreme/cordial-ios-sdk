@@ -143,6 +143,8 @@
 		9EE78A5B246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE78A5A246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift */; };
 		9EE78A5D246C1F92008162DB /* MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE78A5C246C1F92008162DB /* MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift */; };
 		9EE84C062444B002009BAE25 /* MockRequestSenderSystemEventsProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE84C052444B002009BAE25 /* MockRequestSenderSystemEventsProperties.swift */; };
+		9EE8878F24853A7C001C3E45 /* MockRequestSenderSendContactOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8878E24853A7C001C3E45 /* MockRequestSenderSendContactOrder.swift */; };
+		9EE887912485C65C001C3E45 /* MockRequestSenderSendContactOrderTwoOrders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE887902485C65C001C3E45 /* MockRequestSenderSendContactOrderTwoOrders.swift */; };
 		9EE8C5F3235DAE3E0045347B /* CordialDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE8C5F2235DAE3E0045347B /* CordialDateFormatter.swift */; };
 		9EE94E29233CF07B009651DF /* InAppMessagesParam+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE94E27233CF07B009651DF /* InAppMessagesParam+CoreDataClass.swift */; };
 		9EE94E2A233CF07B009651DF /* InAppMessagesParam+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE94E28233CF07B009651DF /* InAppMessagesParam+CoreDataProperties.swift */; };
@@ -335,6 +337,8 @@
 		9EE78A5A246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUpsertContactCartReachability.swift; sourceTree = "<group>"; };
 		9EE78A5C246C1F92008162DB /* MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift; sourceTree = "<group>"; };
 		9EE84C052444B002009BAE25 /* MockRequestSenderSystemEventsProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderSystemEventsProperties.swift; sourceTree = "<group>"; };
+		9EE8878E24853A7C001C3E45 /* MockRequestSenderSendContactOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderSendContactOrder.swift; sourceTree = "<group>"; };
+		9EE887902485C65C001C3E45 /* MockRequestSenderSendContactOrderTwoOrders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderSendContactOrderTwoOrders.swift; sourceTree = "<group>"; };
 		9EE8C5F2235DAE3E0045347B /* CordialDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDateFormatter.swift; sourceTree = "<group>"; };
 		9EE94E27233CF07B009651DF /* InAppMessagesParam+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesParam+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9EE94E28233CF07B009651DF /* InAppMessagesParam+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesParam+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -745,6 +749,8 @@
 				9EE78A5A246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift */,
 				9EE78A5C246C1F92008162DB /* MockRequestSenderUpsertContactCartReachabilityTwoCarts.swift */,
 				9E6ACC0C246D73720025450B /* MockRequestSenderUserAgent.swift */,
+				9EE8878E24853A7C001C3E45 /* MockRequestSenderSendContactOrder.swift */,
+				9EE887902485C65C001C3E45 /* MockRequestSenderSendContactOrderTwoOrders.swift */,
 			);
 			path = RequestSender;
 			sourceTree = "<group>";
@@ -1200,6 +1206,7 @@
 				9E411E042411308900D850B0 /* EmptyMockRequestSender.swift in Sources */,
 				9E41A8F4240FE24600C9F8B6 /* PushNotificationHandler.swift in Sources */,
 				9ED6F869243276C70084824C /* MockRequestSenderEventsBulkSizeTimer.swift in Sources */,
+				9EE887912485C65C001C3E45 /* MockRequestSenderSendContactOrderTwoOrders.swift in Sources */,
 				9E6ACC0D246D73720025450B /* MockRequestSenderUserAgent.swift in Sources */,
 				9EBA1B1223FFE2D600005054 /* MockRequestSenderRemoteNotificationsHasBeenTapped.swift in Sources */,
 				9EBA1B1623FFE2F500005054 /* MockRequestSenderUpsertContact.swift in Sources */,
@@ -1215,6 +1222,7 @@
 				9EBA1B3D2400221000005054 /* MockRequestSenderSDKSecurity.swift in Sources */,
 				9ED6F86724321DB80084824C /* MockRequestSenderEventsBulkSizeCount.swift in Sources */,
 				9EBA1B1023FFE2C300005054 /* MockRequestSenderRemoteNotificationsDeviceToken.swift in Sources */,
+				9EE8878F24853A7C001C3E45 /* MockRequestSenderSendContactOrder.swift in Sources */,
 				9EE84C062444B002009BAE25 /* MockRequestSenderSystemEventsProperties.swift in Sources */,
 				9EF9ACE524489F19003A96E2 /* MockRequestSenderIfEventRequestHasInvalidEvent.swift in Sources */,
 				9E41A8F1240FE1D100C9F8B6 /* DeepLinksHandler.swift in Sources */,
