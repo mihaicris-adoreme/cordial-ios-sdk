@@ -12,7 +12,7 @@ import os.log
 class InAppMessageGetter {
     
     func startFetchInAppMessage(userInfo: [AnyHashable : Any]) {
-        if let mcID = userInfo["mcID"] as? String {
+        if let mcID = CordialPushNotificationParser().getMcID(userInfo: userInfo) {
             let typeString = userInfo["type"] as? String
             let displayTypeString = userInfo["displayType"] as? String
             let inactiveSessionDisplayString = userInfo["inactiveSessionDisplay"] as? String

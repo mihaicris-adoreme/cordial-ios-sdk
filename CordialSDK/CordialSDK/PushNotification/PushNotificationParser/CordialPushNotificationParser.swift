@@ -11,6 +11,7 @@ import Foundation
 class CordialPushNotificationParser {
     
     let deepLinksParser = CordialPushNotificationParserDeepLinks()
+    let messageAttributionParser = CordialPushNotificationParserMessageAttribution()
     
     func getDeepLinkURL(userInfo: [AnyHashable : Any]) -> URL? {
         if let deepLinkURL = self.deepLinksParser.getDeepLinkURLCurrentPayloadType(userInfo: userInfo) {
@@ -28,5 +29,12 @@ class CordialPushNotificationParser {
         return self.deepLinksParser.getDeepLinkFallbackURLPreviousPayloadType(userInfo: userInfo)
     }
     
+    func getMcID(userInfo: [AnyHashable : Any]) -> String? {
+        if let mcID = self.messageAttributionParser.getMcIdCurrentPayloadType(userInfo: userInfo) {
+            return mcID
+        }
+        
+        return self.messageAttributionParser.getMcIdPreviousPayloadType(userInfo: userInfo)
+    }
 }
 

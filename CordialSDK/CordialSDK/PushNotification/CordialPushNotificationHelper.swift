@@ -21,7 +21,7 @@ class CordialPushNotificationHelper {
             os_log("Push notification app open via tap. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
         }
         
-        if let mcID = userInfo["mcID"] as? String {
+        if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             self.internalCordialAPI.setCurrentMcID(mcID: mcID)
             
             if CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID) {
@@ -72,7 +72,7 @@ class CordialPushNotificationHelper {
     
     func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
-        let mcID = userInfo["mcID"] as? String
+        let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo)
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
