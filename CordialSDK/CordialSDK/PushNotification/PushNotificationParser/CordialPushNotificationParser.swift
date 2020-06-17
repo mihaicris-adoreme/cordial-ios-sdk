@@ -44,7 +44,7 @@ class CordialPushNotificationParser {
         return self.messageAttributionParser.getMcIdPreviousPayloadType(userInfo: userInfo)
     }
     
-    // MARK: Get IAM type
+    // MARK: Get in app message type
     
     func getTypeIAM(userInfo: [AnyHashable : Any]) -> String? {
         if let typeIAM = self.inAppMessageParser.getTypeIAMCurrentPayloadType(userInfo: userInfo) {
@@ -52,6 +52,16 @@ class CordialPushNotificationParser {
         }
         
         return self.inAppMessageParser.getTypeIAMPreviousPayloadType(userInfo: userInfo)
+    }
+    
+    // MARK: Get in app message display type
+    
+    func getDisplayTypeIAM(userInfo: [AnyHashable : Any]) -> String? {
+        if let displayTypeIAM = self.inAppMessageParser.getDisplayTypeIAMCurrentPayloadType(userInfo: userInfo) {
+            return displayTypeIAM
+        }
+        
+        return self.inAppMessageParser.getDisplayTypeIAMPreviousPayloadType(userInfo: userInfo)
     }
 }
 

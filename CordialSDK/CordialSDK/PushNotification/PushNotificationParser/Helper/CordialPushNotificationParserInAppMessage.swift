@@ -28,4 +28,21 @@ class CordialPushNotificationParserInAppMessage {
         return nil
     }
     
+    // MARK: Get in app message display type
+    
+    func getDisplayTypeIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> String? {
+        if let system = userInfo["system"] as? [String: AnyObject], let displayTypeIAM = system["displayType"] as? String {
+            return displayTypeIAM
+        }
+        
+        return nil
+    }
+    
+    func getDisplayTypeIAMPreviousPayloadType(userInfo: [AnyHashable : Any]) -> String? {
+        if let displayTypeIAM = userInfo["displayType"] as? String {
+            return displayTypeIAM
+        }
+        
+        return nil
+    }
 }
