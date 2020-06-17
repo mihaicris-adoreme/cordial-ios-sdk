@@ -10,8 +10,11 @@ import Foundation
 
 class CordialPushNotificationParser {
     
-    let deepLinksParser = CordialPushNotificationParserDeepLinks()
-    let messageAttributionParser = CordialPushNotificationParserMessageAttribution()
+    private let deepLinksParser = CordialPushNotificationParserDeepLinks()
+    private let messageAttributionParser = CordialPushNotificationParserMessageAttribution()
+    private let inAppMessageParser = CordialPushNotificationParserInAppMessage()
+    
+    // MARK: Get deep link URL
     
     func getDeepLinkURL(userInfo: [AnyHashable : Any]) -> URL? {
         if let deepLinkURL = self.deepLinksParser.getDeepLinkURLCurrentPayloadType(userInfo: userInfo) {
@@ -21,6 +24,8 @@ class CordialPushNotificationParser {
         return self.deepLinksParser.getDeepLinkURLPreviousPayloadType(userInfo: userInfo)
     }
     
+    // MARK: Get deep link fallback URL
+    
     func getDeepLinkFallbackURL(userInfo: [AnyHashable : Any]) -> URL? {
         if let fallbackURL = self.deepLinksParser.getDeepLinkFallbackURLCurrentPayloadType(userInfo: userInfo) {
             return fallbackURL
@@ -29,12 +34,24 @@ class CordialPushNotificationParser {
         return self.deepLinksParser.getDeepLinkFallbackURLPreviousPayloadType(userInfo: userInfo)
     }
     
+    // MARK: Get mcID
+    
     func getMcID(userInfo: [AnyHashable : Any]) -> String? {
         if let mcID = self.messageAttributionParser.getMcIdCurrentPayloadType(userInfo: userInfo) {
             return mcID
         }
         
         return self.messageAttributionParser.getMcIdPreviousPayloadType(userInfo: userInfo)
+    }
+    
+    // MARK: Get IAM type
+    
+    func getTypeIAM(userInfo: [AnyHashable : Any]) -> String? {
+        if let typeIAM = self.inAppMessageParser.getTypeIAMCurrentPayloadType(userInfo: userInfo) {
+            return typeIAM
+        }
+        
+        return self.inAppMessageParser.getTypeIAMPreviousPayloadType(userInfo: userInfo)
     }
 }
 
