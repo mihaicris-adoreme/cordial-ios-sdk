@@ -63,4 +63,22 @@ class CordialPushNotificationParserInAppMessage {
         
         return nil
     }
+    
+    // MARK: Get in app message expiration time
+    
+    func getExpirationTimeIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> String? {
+        if let system = userInfo["system"] as? [String: AnyObject], let expirationTime = system["expirationTime"] as? String {
+            return expirationTime
+        }
+        
+        return nil
+    }
+    
+    func getExpirationTimeIAMPreviousPayloadType(userInfo: [AnyHashable : Any]) -> String? {
+        if let expirationTime = userInfo["expirationTime"] as? String {
+            return expirationTime
+        }
+        
+        return nil
+    }
 }

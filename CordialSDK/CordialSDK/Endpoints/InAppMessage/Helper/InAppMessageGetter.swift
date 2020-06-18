@@ -98,7 +98,7 @@ class InAppMessageGetter {
             left = userInfoLeft
         }
         
-        if let timestamp = userInfo["expirationTime"] as? String {
+        if let timestamp = self.pushNotificationParser.getExpirationTimeIAM(userInfo: userInfo) {
             expirationTime = CordialDateFormatter().getDateFromTimestamp(timestamp: timestamp)
         }
         

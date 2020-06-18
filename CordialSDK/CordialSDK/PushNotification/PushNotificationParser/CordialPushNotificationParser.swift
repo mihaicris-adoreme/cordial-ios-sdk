@@ -73,5 +73,15 @@ class CordialPushNotificationParser {
         
         return self.inAppMessageParser.getInactiveSessionDisplayIAMPreviousPayloadType(userInfo: userInfo)
     }
+    
+    // MARK: Get in app message expiration time
+    
+    func getExpirationTimeIAM(userInfo: [AnyHashable : Any]) -> String? {
+        if let expirationTimeIAM = self.inAppMessageParser.getExpirationTimeIAMCurrentPayloadType(userInfo: userInfo) {
+            return expirationTimeIAM
+        }
+        
+        return self.inAppMessageParser.getExpirationTimeIAMPreviousPayloadType(userInfo: userInfo)
+    }
 }
 
