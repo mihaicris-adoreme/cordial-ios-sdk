@@ -44,6 +44,12 @@ class CordialPushNotificationParser {
         return self.messageAttributionParser.getMcIdPreviousPayloadType(userInfo: userInfo)
     }
     
+    // MARK: is payload contain in app message
+    
+    func isPayloadContainIAM(userInfo: [AnyHashable : Any]) -> Bool {
+        return self.inAppMessageParser.isPayloadContainIAMCurrentPayloadType(userInfo: userInfo)
+    }
+    
     // MARK: Get in app message type
     
     func getTypeIAM(userInfo: [AnyHashable : Any]) -> String? {

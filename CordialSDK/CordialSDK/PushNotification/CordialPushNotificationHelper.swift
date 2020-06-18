@@ -28,7 +28,7 @@ class CordialPushNotificationHelper {
                 InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
             }
             
-            if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
+            if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     DispatchQueue.main.async {
                         if !(UIApplication.shared.applicationState == .active) {
