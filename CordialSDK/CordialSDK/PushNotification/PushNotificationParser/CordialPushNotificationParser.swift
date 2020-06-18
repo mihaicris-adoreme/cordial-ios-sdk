@@ -63,5 +63,15 @@ class CordialPushNotificationParser {
         
         return self.inAppMessageParser.getDisplayTypeIAMPreviousPayloadType(userInfo: userInfo)
     }
+    
+    // MARK: Get in app message inactive session display
+    
+    func getInactiveSessionDisplayIAM(userInfo: [AnyHashable : Any]) -> String? {
+        if let inactiveSessionDisplayIAM = self.inAppMessageParser.getInactiveSessionDisplayIAMCurrentPayloadType(userInfo: userInfo) {
+            return inactiveSessionDisplayIAM
+        }
+        
+        return self.inAppMessageParser.getInactiveSessionDisplayIAMPreviousPayloadType(userInfo: userInfo)
+    }
 }
 

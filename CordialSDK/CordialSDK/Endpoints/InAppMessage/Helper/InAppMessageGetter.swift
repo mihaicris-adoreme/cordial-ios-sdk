@@ -17,7 +17,7 @@ class InAppMessageGetter {
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             let typeString = self.pushNotificationParser.getTypeIAM(userInfo: userInfo)
             let displayTypeString = self.pushNotificationParser.getDisplayTypeIAM(userInfo: userInfo)
-            let inactiveSessionDisplayString = userInfo["inactiveSessionDisplay"] as? String
+            let inactiveSessionDisplayString = self.pushNotificationParser.getInactiveSessionDisplayIAM(userInfo: userInfo)
             
             let type = self.getInAppMessageType(typeString: typeString)
             let displayType = self.getInAppMessageDisplayType(displayTypeString: displayTypeString)
