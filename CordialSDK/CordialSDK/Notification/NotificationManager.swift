@@ -142,8 +142,16 @@ class NotificationManager {
     }
     
     private func isSentUpsertContactsWithin24Hours() -> Bool {
-        if CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE) != nil {
-            return true
+        if let lastUpdateDateTimestamp = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE),
+            let lastUpdateDate = CordialDateFormatter().getDateFromTimestamp(timestamp: lastUpdateDateTimestamp) {
+            
+            let distanceBetweenDates = abs(lastUpdateDate.timeIntervalSinceNow)
+            let secondsInAnHour = 3600.0
+            let hoursBetweenDates = distanceBetweenDates / secondsInAnHour
+
+            if hoursBetweenDates < 24 {
+                return true
+            }
         }
         
         return false
