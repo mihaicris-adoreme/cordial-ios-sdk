@@ -70,7 +70,7 @@ class InternalCordialAPI {
     
     func removeAllCachedData() {
         CoreDataManager.shared.deleteAllCoreData()
-        InternalCordialAPI().removeCurrentMcID()
+        self.removeCurrentMcID()
     }
     
     // MARK: Set isCurrentlyUpsertingContacts
@@ -113,6 +113,12 @@ class InternalCordialAPI {
     
     @objc public func getPreviousContactPrimaryKey() -> String? {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+    }
+    
+    // MARK: Remove previous primary key
+    
+    func removePreviousContactPrimaryKey() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
     }
 
     // MARK: Set previous primary key and remove current
