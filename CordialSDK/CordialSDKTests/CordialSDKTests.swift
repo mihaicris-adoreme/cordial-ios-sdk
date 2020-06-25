@@ -688,6 +688,33 @@ class CordialSDKTests: XCTestCase {
     
     func testInAppMessageHasBeenShown() {
         let mock = MockRequestSenderInAppMessageHasBeenShown()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        if let testSilentPushNotificationData = self.testSilentPushNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentPushNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            
+            InAppMessageProcess.shared.isPresentedInAppMessage = false
+            
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 2)
+    }
+    
+    func testInAppMessageHasBeenShownReachability() {
+        let mock = MockRequestSenderInAppMessageHasBeenShown()
         
         DependencyConfiguration.shared.requestSender = mock
         
@@ -697,16 +724,25 @@ class CordialSDKTests: XCTestCase {
         if let testSilentPushNotificationData = self.testSilentPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testSilentPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+            if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+                InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
+                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcId)
+            }
         }
         
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
         
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
+            
+            InAppMessageProcess.shared.isPresentedInAppMessage = false
+            
             expectation.fulfill()
         }
         
         wait(for: [expectation], timeout: 2)
     }
+        
 }
