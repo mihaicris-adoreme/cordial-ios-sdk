@@ -94,9 +94,6 @@ class InAppMessagesCacheCoreData {
                 let data = anyData as! Data
                 
                 if let inAppMessageData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InAppMessageData, !inAppMessageData.isError {
-                    context.delete(managedObject)
-                    try context.save()
-                    
                     return inAppMessageData
                 } else {
                     context.delete(managedObject)

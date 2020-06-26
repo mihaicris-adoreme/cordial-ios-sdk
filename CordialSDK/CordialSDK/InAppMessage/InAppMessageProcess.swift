@@ -57,22 +57,28 @@ class InAppMessageProcess {
     }
     
     func showInAppMessage(inAppMessageData: InAppMessageData) {
-        if !self.isPresentedInAppMessage {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                switch inAppMessageData.type {
-                case InAppMessageType.modal:
-                    self.showModalInAppMessage(inAppMessageData: inAppMessageData)
-                case InAppMessageType.fullscreen:
-                    self.showModalInAppMessage(inAppMessageData: inAppMessageData)
-                case InAppMessageType.banner_up:
-                    self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
-                case InAppMessageType.banner_bottom:
-                    self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+        if InternalCordialAPI().isUserLogin() {
+            if !self.isPresentedInAppMessage {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    switch inAppMessageData.type {
+                    case InAppMessageType.modal:
+                        self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+                    case InAppMessageType.fullscreen:
+                        self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+                    case InAppMessageType.banner_up:
+                        self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+                    case InAppMessageType.banner_bottom:
+                        self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+                    }
+                }
+            } else {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                 }
             }
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+                os_log("IAM: [User no login]. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
             }
         }
     }
