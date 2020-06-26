@@ -15,6 +15,13 @@ class InAppMessageGetter {
     
     func startFetchInAppMessage(userInfo: [AnyHashable : Any]) {
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
+            self.setInAppMessagesParamsToCoreData(userInfo: userInfo)
+            self.fetchInAppMessage(mcID: mcID)
+        }
+    }
+    
+    func setInAppMessagesParamsToCoreData(userInfo: [AnyHashable : Any]) {
+        if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             let typeString = self.pushNotificationParser.getTypeIAM(userInfo: userInfo)
             let displayTypeString = self.pushNotificationParser.getDisplayTypeIAM(userInfo: userInfo)
             let inactiveSessionDisplayString = self.pushNotificationParser.getInactiveSessionDisplayIAM(userInfo: userInfo)
@@ -27,9 +34,8 @@ class InAppMessageGetter {
             let inactiveSessionDisplay = self.getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
             
             let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
-            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessageParams: inAppMessageParams)
             
-            self.fetchInAppMessage(mcID: mcID)
+            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessageParams: inAppMessageParams)
         }
     }
     
