@@ -19,7 +19,8 @@ class CordialSDKTests: XCTestCase {
     let testJWT = "testJWT"
     let testMcId = "test_mc_id"
     var testPushNotification = String()
-    var testSilentPushNotification = String()
+    var testSilentNotification = String()
+    var testSilentAndPushNotifications = String()
     let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
     let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
     
@@ -47,7 +48,7 @@ class CordialSDKTests: XCTestCase {
             }
         """
         
-        self.testSilentPushNotification = """
+        self.testSilentNotification = """
             {
                 "aps":{
                     "content-available" : 1
@@ -57,6 +58,24 @@ class CordialSDKTests: XCTestCase {
                 "type": "modal",
                 "displayType": "displayImmediately",
                 "inactiveSessionDisplay": "show-in-app"
+            }
+        """
+        
+        self.testSilentAndPushNotifications = """
+            {
+               "aps":{
+                  "alert":"Text push notification message.",
+                  "content-available" : 1
+               },
+               "mcID": "\(self.testMcId)",
+               "deepLink": {
+                 "url":"https://tjs.cordialdev.com/prep-tj1.html",
+                 "fallbackUrl":"https://tjs.cordialdev.com/prep-tj2.html"
+               },
+               "in-app": "true",
+               "type": "modal",
+               "displayType": "displayImmediately",
+               "inactiveSessionDisplay": "show-in-app"
             }
         """
     }
@@ -694,8 +713,8 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
 
-        if let testSilentPushNotificationData = self.testSilentPushNotification.data(using: .utf8),
-            let userInfo = try? JSONSerialization.jsonObject(with: testSilentPushNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
 
             CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
         }
@@ -721,8 +740,8 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        if let testSilentPushNotificationData = self.testSilentPushNotification.data(using: .utf8),
-            let userInfo = try? JSONSerialization.jsonObject(with: testSilentPushNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
             
             if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
@@ -753,8 +772,8 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        if let testSilentPushNotificationData = self.testSilentPushNotification.data(using: .utf8),
-            let userInfo = try? JSONSerialization.jsonObject(with: testSilentPushNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
             
             CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
         }
@@ -764,21 +783,10 @@ class CordialSDKTests: XCTestCase {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             let testMcId_2 = "\(self.testMcId)_2"
             
-            let testSilentPushNotification = """
-                {
-                    "aps":{
-                        "content-available" : 1
-                    },
-                    "mcID": "\(testMcId_2)",
-                    "in-app": "true",
-                    "type": "modal",
-                    "displayType": "displayImmediately",
-                    "inactiveSessionDisplay": "show-in-app"
-                }
-            """
+            let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: self.testMcId, with: testMcId_2)
             
-            if let testSilentPushNotificationData = testSilentPushNotification.data(using: .utf8),
-                let userInfo = try? JSONSerialization.jsonObject(with: testSilentPushNotificationData, options: []) as? [AnyHashable : Any] {
+            if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+                let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
 
                 if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                     InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
@@ -812,8 +820,8 @@ class CordialSDKTests: XCTestCase {
 
         CordialApiConfiguration.shared.inAppMessageDelayMode.delayedShow()
         
-        if let testSilentPushNotificationData = self.testSilentPushNotification.data(using: .utf8),
-            let userInfo = try? JSONSerialization.jsonObject(with: testSilentPushNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
 
             CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
         }
@@ -835,5 +843,32 @@ class CordialSDKTests: XCTestCase {
         }
 
         wait(for: [expectation], timeout: 3)
+    }
+    
+    func testInAppMessageInactiveSessionDisplay() {
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        let testSilentAndPushNotifications = self.testSilentAndPushNotifications.replacingOccurrences(of: "show-in-app", with: "hide-in-app")
+
+        if let testSilentNotificationData = testSilentAndPushNotifications.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+                InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
+                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcId)
+                
+                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcId), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
+                    
+                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: self.testMcId)
+                }
+            }
+        }
+
+        if CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcId) == nil {
+            XCTAssert(true, "IAM has been removed successfully")
+        } else {
+            XCTAssert(false, "IAM has not been removed")
+        }
     }
 }
