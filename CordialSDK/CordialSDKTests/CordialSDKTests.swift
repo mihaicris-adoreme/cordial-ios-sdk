@@ -214,6 +214,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
 
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
@@ -246,6 +247,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
 
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         
         self.cordialAPI.upsertContact(attributes: testContactAttributes)
@@ -271,6 +273,8 @@ class CordialSDKTests: XCTestCase {
 
         DependencyConfiguration.shared.requestSender = mock
         
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
+        
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
         XCTAssert(mock.isVerified)
@@ -282,6 +286,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         

@@ -15,6 +15,10 @@ public class TestCase {
         CordialUserDefaults.removeAllData()
     }
     
+    public func setTestPushNotificationToken(token: String) {
+        InternalCordialAPI().setPushNotificationToken(token: token)
+    }
+    
     public func setTestJWT(token: String) {
         InternalCordialAPI().setCurrentJWT(JWT: token)
     }
