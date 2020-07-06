@@ -61,6 +61,7 @@
 		9E565B9C225BC09A005EC4AF /* ReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E565B9B225BC09A005EC4AF /* ReachabilityManager.swift */; };
 		9E565BA0225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9E565B9D225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld */; };
 		9E57995E243E014B0040A562 /* MockRequestSenderQtyCachedEventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E57995D243E014B0040A562 /* MockRequestSenderQtyCachedEventQueue.swift */; };
+		9E5D0D9A24B36ED200BD1C24 /* ContactsSenderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D0D9924B36ED200BD1C24 /* ContactsSenderHelper.swift */; };
 		9E5F22A424584BBF00CDFBCF /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F22A324584BBF00CDFBCF /* Throttler.swift */; };
 		9E65C1D3233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */; };
 		9E65C1D4233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */; };
@@ -258,6 +259,7 @@
 		9E565B9B225BC09A005EC4AF /* ReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityManager.swift; sourceTree = "<group>"; };
 		9E565B9E225BD1A4005EC4AF /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		9E57995D243E014B0040A562 /* MockRequestSenderQtyCachedEventQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderQtyCachedEventQueue.swift; sourceTree = "<group>"; };
+		9E5D0D9924B36ED200BD1C24 /* ContactsSenderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSenderHelper.swift; sourceTree = "<group>"; };
 		9E5F22A324584BBF00CDFBCF /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -421,7 +423,7 @@
 		9E2C646E2260B77C002C6605 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				9E0813832274523500BD1412 /* ContactsSender.swift */,
+				9E5D0D9B24B36F8100BD1C24 /* ContactsSender */,
 				9E081385227458C800BD1412 /* UpsertContacts.swift */,
 				9E1E98792417D2FE00A28CA7 /* UpsertContactsAttributeTypes.swift */,
 			);
@@ -559,6 +561,23 @@
 				9E565B9D225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		9E5D0D9B24B36F8100BD1C24 /* ContactsSender */ = {
+			isa = PBXGroup;
+			children = (
+				9E5D0D9C24B36F8900BD1C24 /* Helper */,
+				9E0813832274523500BD1412 /* ContactsSender.swift */,
+			);
+			path = ContactsSender;
+			sourceTree = "<group>";
+		};
+		9E5D0D9C24B36F8900BD1C24 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				9E5D0D9924B36ED200BD1C24 /* ContactsSenderHelper.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		9E5F22A224584BA600CDFBCF /* Throttler */ = {
@@ -1161,6 +1180,7 @@
 				9EB5C80222FC6E840024F5A6 /* SendContactOrdersURLSessionManager.swift in Sources */,
 				9EE29BE922F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift in Sources */,
 				9EC0ACDC2327C76A002545D8 /* InAppMessageParams.swift in Sources */,
+				9E5D0D9A24B36ED200BD1C24 /* ContactsSenderHelper.swift in Sources */,
 				9E51EF13249A83F4009649C3 /* CordialPushNotificationParserInAppMessage.swift in Sources */,
 				9EB17AC322930D7B00EEAB7D /* ContactCartRequest+CoreDataClass.swift in Sources */,
 				9E1E987A2417D2FE00A28CA7 /* UpsertContactsAttributeTypes.swift in Sources */,
