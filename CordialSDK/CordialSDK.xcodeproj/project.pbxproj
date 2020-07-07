@@ -64,6 +64,7 @@
 		9E5D0D9A24B36ED200BD1C24 /* ContactsSenderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D0D9924B36ED200BD1C24 /* ContactsSenderHelper.swift */; };
 		9E5F22A424584BBF00CDFBCF /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F22A324584BBF00CDFBCF /* Throttler.swift */; };
 		9E63BE3824B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63BE3724B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift */; };
+		9E63BE3A24B4DB0E00BB509B /* MockRequestSenderInAppMessageBannerManualDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63BE3924B4DB0E00BB509B /* MockRequestSenderInAppMessageBannerManualDismiss.swift */; };
 		9E65C1D3233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */; };
 		9E65C1D4233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */; };
 		9E6ACC0D246D73720025450B /* MockRequestSenderUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6ACC0C246D73720025450B /* MockRequestSenderUserAgent.swift */; };
@@ -263,6 +264,7 @@
 		9E5D0D9924B36ED200BD1C24 /* ContactsSenderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSenderHelper.swift; sourceTree = "<group>"; };
 		9E5F22A324584BBF00CDFBCF /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		9E63BE3724B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageBannerAutoDismiss.swift; sourceTree = "<group>"; };
+		9E63BE3924B4DB0E00BB509B /* MockRequestSenderInAppMessageBannerManualDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageBannerManualDismiss.swift; sourceTree = "<group>"; };
 		9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9E6ACC0C246D73720025450B /* MockRequestSenderUserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUserAgent.swift; sourceTree = "<group>"; };
@@ -807,6 +809,7 @@
 				9EDA6B6224A3BACB001EB81C /* MockRequestSenderInAppMessageHasBeenShown.swift */,
 				9E15153924A4E9F3003A8333 /* MockRequestSenderInAppMessageHasBeenShownTwoTimes.swift */,
 				9E63BE3724B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift */,
+				9E63BE3924B4DB0E00BB509B /* MockRequestSenderInAppMessageBannerManualDismiss.swift */,
 			);
 			path = RequestSender;
 			sourceTree = "<group>";
@@ -1275,6 +1278,7 @@
 				9EBA1B1623FFE2F500005054 /* MockRequestSenderUpsertContact.swift in Sources */,
 				9EE78A5B246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift in Sources */,
 				9E41A8F7240FEC1D00C9F8B6 /* MockPushNotificationHandlerDeepLinkDelegate.swift in Sources */,
+				9E63BE3A24B4DB0E00BB509B /* MockRequestSenderInAppMessageBannerManualDismiss.swift in Sources */,
 				9EFD2F87240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift in Sources */,
 				9ED6F86D2432E1750084824C /* MockRequestSenderEventsBulkSizeReachability.swift in Sources */,
 				9ED6F86B2432B7640084824C /* MockRequestSenderEventsBulkSizeAppClose.swift in Sources */,

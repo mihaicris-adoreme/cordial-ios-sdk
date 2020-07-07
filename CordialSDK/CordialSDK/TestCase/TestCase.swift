@@ -204,4 +204,8 @@ public class TestCase {
     public func getEventNameInAppMessageAutoRemove() -> String {
         return API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE
     }
+    
+    public func getEventNameInAppMessageManualRemove() -> String {
+        return API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE
+    }
 }

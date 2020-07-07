@@ -943,4 +943,39 @@ class CordialSDKTests: XCTestCase {
 
         wait(for: [expectation], timeout: 18)
     }
+    
+    func testInAppMessageBannerManualDismiss() {
+        let mock = MockRequestSenderInAppMessageBannerManualDismiss()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let testSilentNotification = self.testSilentAndPushNotifications.replacingOccurrences(of: "modal", with: "banner_bottom")
+
+        if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                XCTAssert(mock.isVerified)
+                
+                InAppMessageProcess.shared.isPresentedInAppMessage = false
+                
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 3)
+    }
+    
 }
