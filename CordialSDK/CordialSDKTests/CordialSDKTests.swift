@@ -945,7 +945,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     func testInAppMessageBannerManualDismiss() {
-        let mock = MockRequestSenderInAppMessageBannerManualDismiss()
+        let mock = MockRequestSenderInAppMessageManualDismiss()
 
         DependencyConfiguration.shared.requestSender = mock
 
@@ -978,4 +978,37 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
+    func testInAppMessageFullscreenManualDismiss() {
+        let mock = MockRequestSenderInAppMessageManualDismiss()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let testSilentNotification = self.testSilentAndPushNotifications.replacingOccurrences(of: "modal", with: "fullscreen")
+
+        if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.dismissModalInAppMessage()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                XCTAssert(mock.isVerified)
+                
+                InAppMessageProcess.shared.isPresentedInAppMessage = false
+                
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 3)
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  MockRequestSenderInAppMessageBannerManualDismiss.swift
+//  MockRequestSenderInAppMessageManualDismiss.swift
 //  CordialSDKTests
 //
 //  Created by Yan Malinovsky on 07.07.2020.
@@ -9,7 +9,7 @@
 import XCTest
 import CordialSDK
 
-class MockRequestSenderInAppMessageBannerManualDismiss: RequestSender {
+class MockRequestSenderInAppMessageManualDismiss: RequestSender {
     
     var isVerified = false
     
