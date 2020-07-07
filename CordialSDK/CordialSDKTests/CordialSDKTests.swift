@@ -914,4 +914,33 @@ class CordialSDKTests: XCTestCase {
 
         wait(for: [expectation], timeout: 3)
     }
+    
+    func testInAppMessageBannerAutoDismiss() {
+        let mock = MockRequestSenderInAppMessageBannerAutoDismiss()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let testSilentNotification = self.testSilentAndPushNotifications.replacingOccurrences(of: "modal", with: "banner_up")
+
+        if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 17) {
+            XCTAssert(mock.isVerified)
+            
+            InAppMessageProcess.shared.isPresentedInAppMessage = false
+            
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 18)
+    }
 }

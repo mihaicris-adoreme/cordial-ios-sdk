@@ -200,4 +200,8 @@ public class TestCase {
     public func getEventNameInAppMessageShown() -> String {
         return API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN
     }
+    
+    public func getEventNameInAppMessageAutoRemove() -> String {
+        return API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE
+    }
 }
