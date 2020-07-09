@@ -15,8 +15,20 @@ class ContactLogoutSender {
     
     func sendContactLogout(sendContactLogoutRequest: SendContactLogoutRequest) {
     
-        InternalCordialAPI().removeCurrentMcID()
+        let internalCordialAPI = InternalCordialAPI()
         
+        internalCordialAPI.removeCurrentMcID()
+        
+        if internalCordialAPI.getPushNotificationToken() != nil {
+            self.sendContactLogoutData(sendContactLogoutRequest: sendContactLogoutRequest)
+        } else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Sending contact logout failed. Request ID: [%{public}@] Error: [No push notification token]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
+            }
+        }
+    }
+    
+    private func sendContactLogoutData(sendContactLogoutRequest: SendContactLogoutRequest) {
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Sending contact logout. Request ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)

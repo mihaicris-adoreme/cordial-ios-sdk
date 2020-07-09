@@ -261,6 +261,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         
          self.cordialAPI.unsetContact()
