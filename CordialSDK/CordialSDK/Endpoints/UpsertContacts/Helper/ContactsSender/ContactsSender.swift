@@ -17,6 +17,10 @@ class ContactsSender {
 
         let upsertContactRequests = ContactsSenderHelper().prepareDataBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
         
+        self.upsertContactsData(upsertContactRequests: upsertContactRequests)
+    }
+    
+    private func upsertContactsData(upsertContactRequests: [UpsertContactRequest]) {
         let internalCordialAPI = InternalCordialAPI()
         
         if ReachabilityManager.shared.isConnectedToInternet {
