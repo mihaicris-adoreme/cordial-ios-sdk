@@ -45,7 +45,7 @@ class CordialApiEndpoints {
     func getInAppMessageURL(mcID: String) -> String {
         let baseURL = cordialAPI.getBaseURL()
         
-        let replacedBaseURL = baseURL.replacingOccurrences(of: "events-stream", with: "message-hub")
+        let replacedBaseURL = baseURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
         
         return "\(replacedBaseURL)mobile/message/\(mcID)"
     }

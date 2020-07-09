@@ -73,3 +73,12 @@ struct API {
         return "[ \(stringContainer) ]"
     }
 }
+
+extension String {
+    func replacingFirstOccurrence(of targetString: String, with replaceString: String) -> String {
+        if let range = self.range(of: targetString) {
+            return self.replacingCharacters(in: range, with: replaceString)
+        }
+        return self
+    }
+}
