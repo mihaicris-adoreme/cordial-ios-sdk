@@ -967,7 +967,7 @@ class CordialSDKTests: XCTestCase {
             
             InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 XCTAssert(mock.isVerified)
                 
                 InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -976,7 +976,7 @@ class CordialSDKTests: XCTestCase {
             }
         }
 
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 4)
     }
     
     func testInAppMessageFullscreenManualDismiss() {
