@@ -1012,4 +1012,41 @@ class CordialSDKTests: XCTestCase {
 
         wait(for: [expectation], timeout: 3)
     }
+    
+    func testInAppMessageUserClickedInAppMessageActionButton() {
+        let mock = MockRequestSenderInAppMessageUserClickedInAppMessageActionButton()
+        
+        let eventName = "test_event_name"
+        mock.eventName = eventName
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            let messageBody = ["deepLink": "https://tjs.cordialdev.com/prep-tj1.html",  "eventName": eventName]
+            
+            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.userClickedInAppMessageActionButton(messageBody: messageBody)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                XCTAssert(mock.isVerified)
+                
+                InAppMessageProcess.shared.isPresentedInAppMessage = false
+                
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 3)
+    }
 }
