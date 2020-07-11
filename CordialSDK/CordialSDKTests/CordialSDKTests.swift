@@ -886,7 +886,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        let testSilentNotification = self.testSilentAndPushNotifications.replacingOccurrences(of: "displayImmediately", with: "displayOnAppOpenEvent")
+        let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: "displayImmediately", with: "displayOnAppOpenEvent")
 
         if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
@@ -924,7 +924,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        let testSilentNotification = self.testSilentAndPushNotifications.replacingOccurrences(of: "modal", with: "banner_up")
+        let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: "modal", with: "banner_up")
 
         if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
@@ -953,7 +953,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        let testSilentNotification = self.testSilentAndPushNotifications.replacingOccurrences(of: "modal", with: "banner_bottom")
+        let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: "modal", with: "banner_bottom")
 
         if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
@@ -987,7 +987,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        let testSilentNotification = self.testSilentAndPushNotifications.replacingOccurrences(of: "modal", with: "fullscreen")
+        let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: "modal", with: "fullscreen")
 
         if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
@@ -1045,6 +1045,38 @@ class CordialSDKTests: XCTestCase {
                 
                 expectation.fulfill()
             }
+        }
+
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    func testInAppMessageExpirationTime() {
+        let mock = MockRequestSenderInAppMessageExpirationTime()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: "\"inactiveSessionDisplay\": \"show-in-app\"", with: "\"inactiveSessionDisplay\": \"show-in-app\", \"expirationTime\":\"\(CordialDateFormatter().getCurrentTimestamp())\"")
+
+         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+             if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+                 let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+                 CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+             }
+
+             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                 XCTAssert(mock.isVerified)
+
+                 InAppMessageProcess.shared.isPresentedInAppMessage = false
+
+                 expectation.fulfill()
+             }
         }
 
         wait(for: [expectation], timeout: 3)
