@@ -1034,7 +1034,7 @@ class CordialSDKTests: XCTestCase {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
-            let messageBody = ["deepLink": "https://tjs.cordialdev.com/prep-tj1.html",  "eventName": eventName]
+            let messageBody = ["deepLink": self.testDeepLinkURL,  "eventName": eventName]
             
             InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.userClickedInAppMessageActionButton(messageBody: messageBody)
             
