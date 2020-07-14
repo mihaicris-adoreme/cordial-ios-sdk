@@ -220,6 +220,22 @@ class CordialSDKTests: XCTestCase {
         
         XCTAssert(mock.isVerified)
     }
+    
+    func testSetContactWithoutNotificationToken() {
+        let mock = MockRequestSenderSetContactWithoutNotificationToken()
+        
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        
+        self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
+        
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
+        self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
+        
+        XCTAssert(mock.isCalled)
+        XCTAssert(mock.isVerified)
+    }
 
     func testUpsertContact() {
         let mock = MockRequestSenderUpsertContact()
@@ -934,7 +950,7 @@ class CordialSDKTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 17) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 18) {
             XCTAssert(mock.isVerified)
             
             InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -942,7 +958,7 @@ class CordialSDKTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 18)
+        wait(for: [expectation], timeout: 19)
     }
     
     func testInAppMessageBannerManualDismiss() {
