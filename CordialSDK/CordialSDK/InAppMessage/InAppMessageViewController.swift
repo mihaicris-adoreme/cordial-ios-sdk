@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import os.log
 
 class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, UIScrollViewDelegate {
     
@@ -116,6 +117,10 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             contentController.add(self, name: "action")
             
             webConfiguration.userContentController = contentController
+            
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("IAM: contentController added to webConfiguration successfully", log: OSLog.cordialError, type: .info)
+            }
         }
 
         self.webView = WKWebView(frame: webViewSize, configuration: webConfiguration)
@@ -207,25 +212,29 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "action" {
-            if let dict = message.body as? NSDictionary {
-                if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
-                    let mcID = self.inAppMessageData.mcID
-                    self.internalCordialAPI.setCurrentMcID(mcID: mcID)
-                    self.internalCordialAPI.openDeepLink(url: url)
-                }
-                
-                if let eventName = dict["eventName"] as? String {
-                    let mcID = self.inAppMessageData.mcID
-                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
-                    self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-                }
+            self.userClickedInAppMessageActionButton(messageBody: message.body)
+        }
+    }
+    
+    func userClickedInAppMessageActionButton(messageBody: Any) {
+        if let dict = messageBody as? NSDictionary {
+            if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
+                let mcID = self.inAppMessageData.mcID
+                self.internalCordialAPI.setCurrentMcID(mcID: mcID)
+                self.internalCordialAPI.openDeepLink(url: url)
             }
             
-            if self.isBanner {
-                self.removeBannerFromSuperviewWithAnimation(eventName: nil, duration: InAppMessageProcess.shared.bannerAnimationDuration)
-            } else {
-                self.removeInAppMessageFromSuperview()
+            if let eventName = dict["eventName"] as? String {
+                let mcID = self.inAppMessageData.mcID
+                let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+                self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
+        }
+        
+        if self.isBanner {
+            self.removeBannerFromSuperviewWithAnimation(eventName: nil, duration: InAppMessageProcess.shared.bannerAnimationDuration)
+        } else {
+            self.removeInAppMessageFromSuperview()
         }
     }
 }

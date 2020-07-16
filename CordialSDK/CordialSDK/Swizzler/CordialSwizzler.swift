@@ -178,9 +178,7 @@ class CordialSwizzler {
             os_log("Silent push notification received. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
         }
         
-        if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
-            InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
-        }
+        CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
         
         completionHandler(.noData)
     }

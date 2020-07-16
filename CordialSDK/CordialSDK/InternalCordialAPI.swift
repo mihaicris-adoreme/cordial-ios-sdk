@@ -38,6 +38,56 @@ class InternalCordialAPI {
         
         return false
     }
+    
+    // Get SDK resource bundle
+    
+    func getResourceBundle() -> Bundle? {
+        let frameworkIdentifier = "io.cordial.sdk"
+        let frameworkName = "CordialSDK"
+        
+        if let bundle = Bundle(identifier: frameworkIdentifier) {
+            return bundle
+        }
+        
+        guard let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: frameworkName, withExtension: "bundle") else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("ResourceBundle Error: [resourceBundleURL is nil] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, frameworkName)
+            }
+            return nil
+        }
+        
+        guard let resourceBundle = Bundle(url: resourceBundleURL) else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("ResourceBundle Error: [resourceBundle is nil] resourceBundleURL: [%{public}@] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, resourceBundleURL.absoluteString, frameworkName)
+            }
+            return nil
+        }
+        
+        return resourceBundle
+    }
+
+    // MARK: Remove All Cached Data
+    
+    func removeAllCachedData() {
+        CoreDataManager.shared.deleteAllCoreData()
+        self.removeCurrentMcID()
+    }
+    
+    // MARK: Set isCurrentlyUpsertingContacts
+    
+    func setIsCurrentlyUpsertingContacts(_ isCurrentlyUpsertingContacts: Bool) {
+        CordialUserDefaults.set(isCurrentlyUpsertingContacts, forKey: API.USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_UPSERTING_CONTACTS)
+    }
+    
+    // MARK: Get isCurrentlyUpsertingContacts
+    
+    func isCurrentlyUpsertingContacts() -> Bool {
+        if let isCurrentlyUpsertingContacts = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_UPSERTING_CONTACTS) {
+            return isCurrentlyUpsertingContacts
+        }
+        
+        return false
+    }
         
     // MARK: Get device identifier
     
@@ -57,6 +107,25 @@ class InternalCordialAPI {
     
     func setContactPrimaryKey(primaryKey: String) {
         CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
+    }
+    
+    // MARK: Get previous primary key
+    
+    @objc public func getPreviousContactPrimaryKey() -> String? {
+        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+    }
+    
+    // MARK: Remove previous primary key
+    
+    func removePreviousContactPrimaryKey() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+    }
+
+    // MARK: Set previous primary key and remove current
+    
+    func setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: String?) {
+        CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
     // MARK: Set current mcID
@@ -79,7 +148,7 @@ class InternalCordialAPI {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
     }
     
-    // MARK: JSON Web Token
+    // MARK: Set JSON Web Token
     
     func setCurrentJWT(JWT: String) {
         CordialUserDefaults.set(JWT, forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
@@ -87,9 +156,19 @@ class InternalCordialAPI {
         CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
     }
     
+    // MARK: Get JSON Web Token
+    
     func getCurrentJWT() -> String? {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
+    
+    // MARK: Remove JSON Web Token
+    
+    func removeCurrentJWT() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
+    }
+    
+    // Is user login
     
     func isUserLogin() -> Bool {
         if let isUserLogin = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) {

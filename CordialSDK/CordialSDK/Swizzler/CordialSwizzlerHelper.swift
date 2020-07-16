@@ -11,6 +11,12 @@ import os.log
 
 class CordialSwizzlerHelper {
     
+    func didReceiveRemoteNotification(userInfo: [AnyHashable : Any]) {
+        if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+            InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
+        }
+    }
+    
     func didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: Data) {
         let internalCordialAPI = InternalCordialAPI()
         

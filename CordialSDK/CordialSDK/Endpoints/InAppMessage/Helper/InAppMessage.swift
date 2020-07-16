@@ -25,15 +25,4 @@ class InAppMessage {
             self.requestSender.sendRequest(task: inAppMessageDownloadTask)
         }
     }
-    
-    func isPayloadContainInAppMessage(userInfo: [AnyHashable : Any]) -> Bool {
-        if let inApp = userInfo["in-app"] as? Bool, inApp {
-            return true
-        } else if let inApp = userInfo["in-app"] as? String, inApp == "true" {
-            return true
-        }
-        
-        return false
-    }
-
 }

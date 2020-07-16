@@ -19,6 +19,8 @@ class CordialSDKTests: XCTestCase {
     let testJWT = "testJWT"
     let testMcId = "test_mc_id"
     var testPushNotification = String()
+    var testSilentNotification = String()
+    var testSilentAndPushNotifications = String()
     let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
     let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
     
@@ -43,6 +45,37 @@ class CordialSDKTests: XCTestCase {
                     "url": "\(self.testDeepLinkURL)",
                     "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
                 }
+            }
+        """
+        
+        self.testSilentNotification = """
+            {
+                "aps":{
+                    "content-available" : 1
+                },
+                "mcID": "\(self.testMcId)",
+                "in-app": "true",
+                "type": "modal",
+                "displayType": "displayImmediately",
+                "inactiveSessionDisplay": "show-in-app"
+            }
+        """
+        
+        self.testSilentAndPushNotifications = """
+            {
+               "aps":{
+                  "alert":"Text push notification message.",
+                  "content-available" : 1
+               },
+               "mcID": "\(self.testMcId)",
+               "deepLink": {
+                 "url":"https://tjs.cordialdev.com/prep-tj1.html",
+                 "fallbackUrl":"https://tjs.cordialdev.com/prep-tj2.html"
+               },
+               "in-app": "true",
+               "type": "modal",
+               "displayType": "displayImmediately",
+               "inactiveSessionDisplay": "show-in-app"
             }
         """
     }
@@ -97,7 +130,9 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
@@ -112,7 +147,9 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
 
-        if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            
             CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
         }
 
@@ -127,7 +164,9 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
@@ -142,7 +181,9 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
@@ -158,7 +199,9 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        if let testPushNotificationData = self.testPushNotification.data(using: .utf8), let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
@@ -171,9 +214,26 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
 
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testSetContactWithoutNotificationToken() {
+        let mock = MockRequestSenderSetContactWithoutNotificationToken()
+        
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        
+        self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
+        
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
+        self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
+        
+        XCTAssert(mock.isCalled)
         XCTAssert(mock.isVerified)
     }
 
@@ -203,6 +263,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
 
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         
         self.cordialAPI.upsertContact(attributes: testContactAttributes)
@@ -216,6 +277,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         
          self.cordialAPI.unsetContact()
@@ -228,6 +290,8 @@ class CordialSDKTests: XCTestCase {
 
         DependencyConfiguration.shared.requestSender = mock
         
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
+        
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
         XCTAssert(mock.isVerified)
@@ -239,13 +303,14 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
         XCTAssert(mock.isVerified)
     }
     
-    // Guest -> PK
+    // Guest -> PK (BD - | mcID -)
     func testNotClearMcIdIfLoginWithPrimaryKeyInGuestMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
@@ -261,7 +326,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    // Guest -> Guest
+    // Guest -> Guest (BD - | mcID -)
     func testNotClearMcIdIfLoginWithoutPrimaryKeyInGuestMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
@@ -277,7 +342,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    // PK -> PK && PK == PK
+    // PK -> PK && PK == PK (BD - | mcID -)
     func testNotClearMcIdIfLoginWithTheSamePrimaryKeyInLoginMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
@@ -294,7 +359,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    // PK -> Guest
+    // PK -> Guest (BD + | mcID +)
     func testClearMcIdIfLoginWithoutPrimaryKeyInLoginMode() {
         let mock = MockRequestSenderNotSaveMcIdAfterSetContact()
         
@@ -311,7 +376,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    // PK -> PK && PK != PK
+    // PK -> PK && PK != PK (BD + | mcID +)
     func testClearMcIdIfLoginWithNotTheSamePrimaryKeyInLoginMode() {
         let mock = MockRequestSenderNotSaveMcIdAfterSetContact()
         
@@ -571,5 +636,465 @@ class CordialSDKTests: XCTestCase {
         self.testCase.appMovedToBackground()
         
         XCTAssert(mock.isVerified)
+    }
+    
+    func testSendContactOrder() {
+        let mock = MockRequestSenderSendContactOrder()
+        
+        let orderID = "test_order_ID"
+        mock.orderID = orderID
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let shippingAddress = Address(name: "shippingAddressName", address: "shippingAddress", city: "shippingAddressCity", state: "shippingAddressState", postalCode: "shippingAddressPostalCode", country: "shippingAddressCountry")
+
+        let billingAddress = Address(name: "billingAddressName", address: "billingAddress", city: "billingAddressCity", state: "billingAddressState", postalCode: "billingAddressPostalCode", country: "billingAddressCountry")
+
+        let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+
+        let cartItems = [cartItem]
+
+        let order = Order(orderID: orderID, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
+
+        CordialAPI().sendContactOrder(order: order)
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testSendContactOrderReachability() {
+        let mock = MockRequestSenderSendContactOrder()
+        
+        let orderID = "test_order_ID"
+        mock.orderID = orderID
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let shippingAddress = Address(name: "shippingAddressName", address: "shippingAddress", city: "shippingAddressCity", state: "shippingAddressState", postalCode: "shippingAddressPostalCode", country: "shippingAddressCountry")
+
+        let billingAddress = Address(name: "billingAddressName", address: "billingAddress", city: "billingAddressCity", state: "billingAddressState", postalCode: "billingAddressPostalCode", country: "billingAddressCountry")
+
+        let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+
+        let cartItems = [cartItem]
+
+        let order = Order(orderID: orderID, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
+
+        self.testCase.setContactOrderRequestToCoreData(order: order)
+
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testSendContactOrderReachabilityTwoOrders() {
+        let mock = MockRequestSenderSendContactOrderTwoOrders()
+        
+        let orderID_1 = "test_order_ID_1"
+        let orderID_2 = "test_order_ID_2"
+        
+        mock.orderID_1 = orderID_1
+        mock.orderID_2 = orderID_2
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let shippingAddress = Address(name: "shippingAddressName", address: "shippingAddress", city: "shippingAddressCity", state: "shippingAddressState", postalCode: "shippingAddressPostalCode", country: "shippingAddressCountry")
+
+        let billingAddress = Address(name: "billingAddressName", address: "billingAddress", city: "billingAddressCity", state: "billingAddressState", postalCode: "billingAddressPostalCode", country: "billingAddressCountry")
+
+        let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+
+        let cartItems = [cartItem]
+
+        let order_1 = Order(orderID: orderID_1, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
+
+        let order_2 = Order(orderID: orderID_2, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
+        
+        self.testCase.setContactOrderRequestToCoreData(order: order_1)
+        
+        self.testCase.setContactOrderRequestToCoreData(order: order_2)
+
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testInAppMessageHasBeenShown() {
+        let mock = MockRequestSenderInAppMessageHasBeenShown()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            
+            InAppMessageProcess.shared.isPresentedInAppMessage = false
+            
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 2)
+    }
+    
+    func testInAppMessageHasBeenShownReachability() {
+        let mock = MockRequestSenderInAppMessageHasBeenShown()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+            
+            if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+                InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
+                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcId)
+            }
+        }
+        
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+        
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            
+            InAppMessageProcess.shared.isPresentedInAppMessage = false
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
+    
+    func testInAppMessageHasBeenShownTwoTimes() {
+        let mock = MockRequestSenderInAppMessageHasBeenShownTwoTimes()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+            
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+                
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let testMcId_2 = "\(self.testMcId)_2"
+            
+            let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: self.testMcId, with: testMcId_2)
+            
+            if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+                let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+                if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+                    InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
+                    CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: testMcId_2)
+                }
+            }
+
+            InAppMessageProcess.shared.isPresentedInAppMessage = false
+            
+            self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                XCTAssert(mock.isVerified)
+                
+                InAppMessageProcess.shared.isPresentedInAppMessage = false
+                
+                expectation.fulfill()
+            }
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    func testInAppMessageDelayedShow() {
+        let mock = MockRequestSenderInAppMessageHasBeenShown()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        CordialApiConfiguration.shared.inAppMessageDelayMode.delayedShow()
+        
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+        
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            CordialApiConfiguration.shared.inAppMessageDelayMode.show()
+            
+            InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                XCTAssert(mock.isVerified)
+                
+                InAppMessageProcess.shared.isPresentedInAppMessage = false
+                
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    func testInAppMessageInactiveSessionDisplay() {
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        let testSilentAndPushNotifications = self.testSilentAndPushNotifications.replacingOccurrences(of: "show-in-app", with: "hide-in-app")
+
+        if let testSilentNotificationData = testSilentAndPushNotifications.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+                InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
+                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcId)
+                
+                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcId), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
+                    
+                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: self.testMcId)
+                }
+            }
+        }
+
+        if CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcId) == nil {
+            XCTAssert(true, "IAM has been removed successfully")
+        } else {
+            XCTAssert(false, "IAM has not been removed")
+        }
+    }
+    
+    func testInAppMessageDisplayType() {
+        let mock = MockRequestSenderInAppMessageHasBeenShown()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: "displayImmediately", with: "displayOnAppOpenEvent")
+
+        if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+        
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            if InAppMessageProcess.shared.isPresentedInAppMessage {
+                XCTAssert(false, "IAM has been presented")
+            }
+            
+            InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                XCTAssert(mock.isVerified)
+                
+                InAppMessageProcess.shared.isPresentedInAppMessage = false
+                
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    func testInAppMessageBannerAutoDismiss() {
+        let mock = MockRequestSenderInAppMessageBannerAutoDismiss()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: "modal", with: "banner_up")
+
+        if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 18) {
+            XCTAssert(mock.isVerified)
+            
+            InAppMessageProcess.shared.isPresentedInAppMessage = false
+            
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 19)
+    }
+    
+    func testInAppMessageBannerManualDismiss() {
+        let mock = MockRequestSenderInAppMessageManualDismiss()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: "modal", with: "banner_bottom")
+
+        if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                XCTAssert(mock.isVerified)
+                
+                InAppMessageProcess.shared.isPresentedInAppMessage = false
+                
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 4)
+    }
+    
+    func testInAppMessageFullscreenManualDismiss() {
+        let mock = MockRequestSenderInAppMessageManualDismiss()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: "modal", with: "fullscreen")
+
+        if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.dismissModalInAppMessage()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                XCTAssert(mock.isVerified)
+                
+                InAppMessageProcess.shared.isPresentedInAppMessage = false
+                
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    func testInAppMessageUserClickedInAppMessageActionButton() {
+        let mock = MockRequestSenderInAppMessageUserClickedInAppMessageActionButton()
+        
+        let eventName = "test_event_name"
+        mock.eventName = eventName
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            let messageBody = ["deepLink": self.testDeepLinkURL,  "eventName": eventName]
+            
+            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.userClickedInAppMessageActionButton(messageBody: messageBody)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                XCTAssert(mock.isVerified)
+                
+                InAppMessageProcess.shared.isPresentedInAppMessage = false
+                
+                expectation.fulfill()
+            }
+        }
+
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    func testInAppMessageExpirationTime() {
+        let mock = MockRequestSenderInAppMessageExpirationTime()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: "\"inactiveSessionDisplay\": \"show-in-app\"", with: "\"inactiveSessionDisplay\": \"show-in-app\", \"expirationTime\":\"\(CordialDateFormatter().getCurrentTimestamp())\"")
+
+         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+             if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
+                 let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+                 CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+             }
+
+             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                 XCTAssert(mock.isVerified)
+
+                 InAppMessageProcess.shared.isPresentedInAppMessage = false
+
+                 expectation.fulfill()
+             }
+        }
+
+        wait(for: [expectation], timeout: 3)
     }
 }

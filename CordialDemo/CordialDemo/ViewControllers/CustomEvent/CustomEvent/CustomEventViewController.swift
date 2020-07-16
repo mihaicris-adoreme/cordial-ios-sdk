@@ -81,7 +81,7 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
                 if self.properties.count > 0 {
                     let properties = self.getDictionaryProperties(properties: self.properties)
 
-                    let customEventJSON = CordialAPI().getCustomEventJSON(eventName: eventName, properties: properties)
+                    let customEventJSON = DependencyConfiguration.shared.getCustomEventJSON(eventName: eventName, properties: properties)
 
                     do {
                         if let customEventJSONData = customEventJSON.data(using: .utf8), let customEventJSONObject = try JSONSerialization.jsonObject(with: customEventJSONData, options : []) as? Dictionary<String, AnyObject> {

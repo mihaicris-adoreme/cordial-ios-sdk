@@ -14,59 +14,21 @@ class CordialPushNotificationHelper {
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
-    private func getDeepLinkURL(userInfo: [AnyHashable : Any]) -> URL? {
-        if let deepLinkJSON = userInfo["deepLink"] as? [String: AnyObject], let deepLinkURLString = deepLinkJSON["url"] as? String, let deepLinkURL = URL(string: deepLinkURLString) {
-            return deepLinkURL
-        } else if let deepLinkJSONString = userInfo["deepLink"] as? String, let deepLinkJSONData = deepLinkJSONString.data(using: .utf8) {
-            do {
-                if let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject], let deepLinkURLString = deepLinkJSON["url"] as? String {
-                    let deepLinkURL = URL(string: deepLinkURLString)
-                    
-                    return deepLinkURL
-                }
-            } catch let error {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
-                }
-            }
-        }
-        
-        return nil
-    }
-    
-    private func getDeepLinkFallbackURL(userInfo: [AnyHashable : Any]) -> URL? {
-        if let deepLinkJSON = userInfo["deepLink"] as? [String: AnyObject], let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String, let fallbackURL = URL(string: fallbackURLString) {
-            return fallbackURL
-        } else if let deepLinkJSONString = userInfo["deepLink"] as? String, let deepLinkJSONData = deepLinkJSONString.data(using: .utf8) {
-            do {
-                if let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject], let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String {
-                    let fallbackURL = URL(string: fallbackURLString)
-                    
-                    return fallbackURL
-                }
-            } catch let error {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
-                }
-            }
-        }
-        
-        return nil
-    }
+    let pushNotificationParser = CordialPushNotificationParser()
     
     func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Push notification app open via tap. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
         }
         
-        if let mcID = userInfo["mcID"] as? String {
+        if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             self.internalCordialAPI.setCurrentMcID(mcID: mcID)
             
             if CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID) {
                 InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
             }
             
-            if InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
+            if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     DispatchQueue.main.async {
                         if !(UIApplication.shared.applicationState == .active) {
@@ -85,14 +47,14 @@ class CordialPushNotificationHelper {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        if let deepLinkURL = self.getDeepLinkURL(userInfo: userInfo), let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
+        if let deepLinkURL = self.pushNotificationParser.getDeepLinkURL(userInfo: userInfo), let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
     
             InAppMessageProcess.shared.isPresentedInAppMessage = false
             
             let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_DEEP_LINK_OPEN, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            if let fallbackURL = self.getDeepLinkFallbackURL(userInfo: userInfo) {
+            if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
                 if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
                     cordialDeepLinksHandler.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, scene: scene)
                 } else {
@@ -110,7 +72,7 @@ class CordialPushNotificationHelper {
     
     func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
-        let mcID = userInfo["mcID"] as? String
+        let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo)
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }

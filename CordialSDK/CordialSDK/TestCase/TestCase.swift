@@ -15,6 +15,10 @@ public class TestCase {
         CordialUserDefaults.removeAllData()
     }
     
+    public func setTestPushNotificationToken(token: String) {
+        InternalCordialAPI().setPushNotificationToken(token: token)
+    }
+    
     public func setTestJWT(token: String) {
         InternalCordialAPI().setCurrentJWT(JWT: token)
     }
@@ -156,7 +160,52 @@ public class TestCase {
         CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
     }
     
+    public func setContactOrderRequestToCoreData(order: Order) {
+        let sendContactOrderRequest = SendContactOrderRequest(mcID: nil, order: order)
+        CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: [sendContactOrderRequest])
+    }
+    
     public func getUserAgent() -> String {
         return UserAgentBuilder().getUserAgent()
+    }
+    
+    public func sendInAppMessageDataFetchRequest(task: URLSessionDownloadTask) {
+        if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
+            switch operation.taskName {
+            case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
+                if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData,
+                    let request = task.originalRequest,
+                    let url = request.url, let headerFields = request.allHTTPHeaderFields,
+                    let httpResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: headerFields),
+                    let httpBody = "{ \"content\": \"Hello, I am IAM!\" }".data(using: .utf8) {
+                    
+                    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
+                    do {
+                        try httpBody.write(to: location, options: .atomic)
+                        
+                        FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, httpResponse: httpResponse, location: location)
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                }
+            default: break
+            }
+        }
+    }
+    
+    public func getInAppMessageURL(mcID: String) -> URL? {
+        return URL(string: CordialApiEndpoints().getInAppMessageURL(mcID: mcID))
+    }
+    
+    public func getEventNameInAppMessageShown() -> String {
+        return API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN
+    }
+    
+    public func getEventNameInAppMessageAutoRemove() -> String {
+        return API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE
+    }
+    
+    public func getEventNameInAppMessageManualRemove() -> String {
+        return API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE
     }
 }

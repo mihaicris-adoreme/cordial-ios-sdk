@@ -45,7 +45,9 @@ class CordialApiEndpoints {
     func getInAppMessageURL(mcID: String) -> String {
         let baseURL = cordialAPI.getBaseURL()
         
-        return "\(baseURL)mobile/message/\(mcID)"
+        let replacedBaseURL = baseURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
+        
+        return "\(replacedBaseURL)mobile/message/\(mcID)"
     }
     
     func getSDKSecurityURL(secret: String) -> String {

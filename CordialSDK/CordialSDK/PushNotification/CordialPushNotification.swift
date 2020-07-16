@@ -64,7 +64,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         self.pushNotificationHelper.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
         
-        if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler, !InAppMessage().isPayloadContainInAppMessage(userInfo: userInfo) {
+        if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler, !CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
             pushNotificationHandler.notificationDeliveredInForeground(notificationContent: userInfo) {
                 completionHandler([.alert])
             }
