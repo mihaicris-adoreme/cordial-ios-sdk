@@ -230,10 +230,11 @@ class CordialSDKTests: XCTestCase {
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
+        XCTAssert(!mock.isCalled)
+        
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
-        XCTAssert(mock.isCalled)
         XCTAssert(mock.isVerified)
     }
 
@@ -317,6 +318,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.markUserAsLoggedIn()
         
         InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
@@ -333,6 +335,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.markUserAsLoggedIn()
         
         InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
@@ -349,6 +352,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
@@ -366,6 +370,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
@@ -383,6 +388,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
