@@ -188,7 +188,7 @@ import os.log
     // MARK: Register for push notifications
     
     @objc public func registerForPushNotifications(options: UNAuthorizationOptions) {
-        if CordialApiConfiguration.shared.pushNotificationHandler != nil {
+        if CordialApiConfiguration.shared.pushNotificationDelegate != nil {
             CordialApiConfiguration.shared.cordialPushNotification.registerForPushNotifications(options: options)
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {

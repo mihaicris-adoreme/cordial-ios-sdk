@@ -51,8 +51,9 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         self.pushNotificationHelper.pushNotificationHasBeenTapped(userInfo: userInfo)
         
-        if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
-            pushNotificationHandler.appOpenViaNotificationTap(notificationContent: userInfo) {
+        if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
+            
+            pushNotificationDelegate.appOpenViaNotificationTap(notificationContent: userInfo) {
                 completionHandler()
             }
         }
@@ -64,8 +65,10 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         self.pushNotificationHelper.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
         
-        if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler, !CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
-            pushNotificationHandler.notificationDeliveredInForeground(notificationContent: userInfo) {
+        if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate,
+            !CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+            
+            pushNotificationDelegate.notificationDeliveredInForeground(notificationContent: userInfo) {
                 completionHandler([.alert])
             }
         }

@@ -12,7 +12,7 @@ import os.log
 class CordialSwizzler {
     
     func swizzleAppDelegateMethods() {
-        if CordialApiConfiguration.shared.pushNotificationHandler != nil {
+        if CordialApiConfiguration.shared.pushNotificationDelegate != nil {
             self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
             self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
             self.swizzleDidReceiveRemoteNotificationfetchCompletionHandler()
@@ -26,7 +26,7 @@ class CordialSwizzler {
             }
         }
                 
-        if CordialApiConfiguration.shared.cordialDeepLinksHandler != nil {
+        if CordialApiConfiguration.shared.cordialDeepLinksDelegate != nil {
             if #available(iOS 13.0, *), InternalCordialAPI().doesAppUseScenes() {
                 self.swizzleSceneContinue()
                 self.swizzleSceneOpenURLContexts()
@@ -174,10 +174,7 @@ class CordialSwizzler {
     }
     
     @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Silent push notification received. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
-        }
-        
+
         CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
         
         completionHandler(.noData)
@@ -187,7 +184,7 @@ class CordialSwizzler {
     
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         
-        if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
+        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
                 return false
             }
@@ -197,7 +194,7 @@ class CordialSwizzler {
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil)
+            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
             
             return true
         }
@@ -209,7 +206,7 @@ class CordialSwizzler {
     
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
+        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
                 return
             }
@@ -219,7 +216,7 @@ class CordialSwizzler {
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
         }
     }
     
@@ -227,13 +224,13 @@ class CordialSwizzler {
     
     @objc func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler {
+        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
             let mcID = CordialAPI().getCurrentMcID()
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil)
+            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
             
             return true
         }
@@ -246,13 +243,13 @@ class CordialSwizzler {
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         
-        if let cordialDeepLinksHandler = CordialApiConfiguration.shared.cordialDeepLinksHandler, let url = URLContexts.first?.url {
+        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate, let url = URLContexts.first?.url {
             let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
             let mcID = CordialAPI().getCurrentMcID()
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            cordialDeepLinksHandler.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
         }
     }
     
