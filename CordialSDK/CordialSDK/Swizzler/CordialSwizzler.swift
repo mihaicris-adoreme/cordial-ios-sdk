@@ -11,8 +11,6 @@ import os.log
 
 class CordialSwizzler {
     
-    let swizzlerHelper = CordialSwizzlerHelper()
-    
     func swizzleAppDelegateMethods() {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
@@ -166,7 +164,7 @@ class CordialSwizzler {
     // MARK: Swizzled AppDelegate remote notification registration methods.
     
     @objc func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        self.swizzlerHelper.didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
+        CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
     }
     
     @objc func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -177,7 +175,7 @@ class CordialSwizzler {
     
     @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
-        self.swizzlerHelper.didReceiveRemoteNotification(userInfo: userInfo)
+        CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
         
         completionHandler(.noData)
     }
