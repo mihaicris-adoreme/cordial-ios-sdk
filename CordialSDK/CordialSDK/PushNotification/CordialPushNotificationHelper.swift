@@ -16,6 +16,12 @@ class CordialPushNotificationHelper {
     
     let pushNotificationParser = CordialPushNotificationParser()
     
+    func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any], completionHandler: () -> Void) {
+        self.pushNotificationHasBeenTapped(userInfo: userInfo)
+        
+        completionHandler()
+    }
+    
     func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Push notification app open via tap. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
@@ -28,7 +34,7 @@ class CordialPushNotificationHelper {
                 InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
             }
             
-            if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+            if self.pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
                 if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     DispatchQueue.main.async {
                         if !(UIApplication.shared.applicationState == .active) {
@@ -68,6 +74,14 @@ class CordialPushNotificationHelper {
                     cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil)
                 }
             }
+        }
+    }
+    
+    func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any], completionHandler: (UNNotificationPresentationOptions) -> Void) {
+        self.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
+        
+        if !self.pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
+            completionHandler([.alert])
         }
     }
     

@@ -8,25 +8,28 @@
 
 import Foundation
 
-class CordialPushNotificationHandler {
+@objc public class CordialPushNotificationHandler: NSObject {
     
-    func isCordialMessage(userInfo: [AnyHashable : Any]) {
+    private let swizzlerHelper = CordialSwizzlerHelper()
+    private let pushNotificationHelper = CordialPushNotificationHelper()
+    
+    @objc public func isCordialMessage(userInfo: [AnyHashable : Any]) {
         
     }
     
-    func processNewPushNotificationToken(deviceToken: Data) {
-        CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
+    @objc public func processNewPushNotificationToken(deviceToken: Data) {
+        self.swizzlerHelper.didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
     }
     
-    func processAppOpenViaPushNotificationTap(userInfo: [AnyHashable : Any]) {
-        CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
+    @objc public func processAppOpenViaPushNotificationTap(userInfo: [AnyHashable : Any], completionHandler: () -> Void) {
+        self.pushNotificationHelper.pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: completionHandler)
     }
     
-    func processNotificationDeliveryInForeground(userInfo: [AnyHashable : Any]) {
-        CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
+    @objc public func processNotificationDeliveryInForeground(userInfo: [AnyHashable : Any], completionHandler: (UNNotificationPresentationOptions) -> Void) {
+        self.pushNotificationHelper.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: completionHandler)
     }
     
-    func processSilentPushDelivery(userInfo: [AnyHashable : Any]) {
-        CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+    @objc public func processSilentPushDelivery(userInfo: [AnyHashable : Any]) {
+        self.swizzlerHelper.didReceiveRemoteNotification(userInfo: userInfo)
     }
 }
