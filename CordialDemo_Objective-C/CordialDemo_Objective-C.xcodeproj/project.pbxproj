@@ -24,7 +24,7 @@
 		9E65C91822EF1A1300E30F53 /* CordialDemo_Objective_CUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C91722EF1A1300E30F53 /* CordialDemo_Objective_CUITests.m */; };
 		9E915B5C2350AFE3002FA546 /* CordialDeepLinksHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E915B5B2350AFE3002FA546 /* CordialDeepLinksHandler.m */; };
 		9E9A417923290F0B00FBB4CC /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9A417823290F0B00FBB4CC /* NotificationManager.m */; };
-		9EE6451622EF38640071E285 /* CordialPushNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6451522EF38640071E285 /* CordialPushNotificationHandler.m */; };
+		9EE6451622EF38640071E285 /* PushNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6451522EF38640071E285 /* PushNotificationHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,8 +109,8 @@
 		9E915B5B2350AFE3002FA546 /* CordialDeepLinksHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialDeepLinksHandler.m; sourceTree = "<group>"; };
 		9E9A417723290F0B00FBB4CC /* NotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationManager.h; sourceTree = "<group>"; };
 		9E9A417823290F0B00FBB4CC /* NotificationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationManager.m; sourceTree = "<group>"; };
-		9EE6451422EF38640071E285 /* CordialPushNotificationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CordialPushNotificationHandler.h; sourceTree = "<group>"; };
-		9EE6451522EF38640071E285 /* CordialPushNotificationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CordialPushNotificationHandler.m; sourceTree = "<group>"; };
+		9EE6451422EF38640071E285 /* PushNotificationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushNotificationHandler.h; sourceTree = "<group>"; };
+		9EE6451522EF38640071E285 /* PushNotificationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushNotificationHandler.m; sourceTree = "<group>"; };
 		A5638A1FBC4BE049E198BF9F /* Pods_CordialDemo_Objective_C.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_Objective_C.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA026853FEBF25AFAC53E82 /* Pods-CordialDemo_Objective-CUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-CUITests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-CUITests/Pods-CordialDemo_Objective-CUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C0C993F51578BBFDB97E80EC /* Pods-CordialDemo_Objective-C-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_Objective-C-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo_Objective-C-NotificationServiceExtension/Pods-CordialDemo_Objective-C-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -269,8 +269,8 @@
 		9EE6450C22EF35F10071E285 /* PushNotification */ = {
 			isa = PBXGroup;
 			children = (
-				9EE6451422EF38640071E285 /* CordialPushNotificationHandler.h */,
-				9EE6451522EF38640071E285 /* CordialPushNotificationHandler.m */,
+				9EE6451422EF38640071E285 /* PushNotificationHandler.h */,
+				9EE6451522EF38640071E285 /* PushNotificationHandler.m */,
 			);
 			path = PushNotification;
 			sourceTree = "<group>";
@@ -577,7 +577,7 @@
 				9E65C8FB22EF1A1200E30F53 /* CordialDemo_Objective_C.xcdatamodeld in Sources */,
 				9E915B5C2350AFE3002FA546 /* CordialDeepLinksHandler.m in Sources */,
 				9E9A417923290F0B00FBB4CC /* NotificationManager.m in Sources */,
-				9EE6451622EF38640071E285 /* CordialPushNotificationHandler.m in Sources */,
+				9EE6451622EF38640071E285 /* PushNotificationHandler.m in Sources */,
 				9E65C90322EF1A1300E30F53 /* main.m in Sources */,
 				9E65C8F222EF1A1200E30F53 /* AppDelegate.m in Sources */,
 			);

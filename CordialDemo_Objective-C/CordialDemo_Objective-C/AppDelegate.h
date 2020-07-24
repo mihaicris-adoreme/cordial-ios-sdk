@@ -10,7 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <UserNotifications/UserNotifications.h>
 #import <CordialSDK/CordialSDK-Swift.h>
-#import "CordialPushNotificationHandler.h"
+#import "PushNotificationHandler.h"
 #import "CordialDeepLinksHandler.h"
 #import "NotificationManager.h"
 
