@@ -49,26 +49,30 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         // Called when user made a notification tap.
         let userInfo = response.notification.request.content.userInfo
         
-        self.pushNotificationHelper.pushNotificationHasBeenTapped(userInfo: userInfo)
-        
-        if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
+        if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
+            self.pushNotificationHelper.pushNotificationHasBeenTapped(userInfo: userInfo)
             
-            pushNotificationDelegate.appOpenViaNotificationTap(notificationContent: userInfo) {
-                completionHandler()
+            if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
+                pushNotificationDelegate.appOpenViaNotificationTap(notificationContent: userInfo)
             }
+            
+            completionHandler()
         }
+        
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         // Called when notification is delivered to a foreground app.
         let userInfo = notification.request.content.userInfo
         
-        self.pushNotificationHelper.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
-        
-        if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate,
-            !CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+        if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
+            self.pushNotificationHelper.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
             
-            pushNotificationDelegate.notificationDeliveredInForeground(notificationContent: userInfo) {
+            if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
+                pushNotificationDelegate.notificationDeliveredInForeground(notificationContent: userInfo)
+            }
+            
+            if !CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 completionHandler([.alert])
             }
         }

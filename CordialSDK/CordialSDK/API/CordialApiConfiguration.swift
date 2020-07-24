@@ -31,6 +31,7 @@ import CoreLocation
     
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
+    @objc public var pushesConfiguration: CordialPushNotificationType = .SDK
     
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, String>?

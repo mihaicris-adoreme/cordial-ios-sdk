@@ -12,7 +12,7 @@ import os.log
 class CordialSwizzler {
     
     func swizzleAppDelegateMethods() {
-        if CordialApiConfiguration.shared.pushNotificationDelegate != nil {
+        if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
             self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
             self.swizzleDidReceiveRemoteNotificationfetchCompletionHandler()
@@ -21,8 +21,8 @@ class CordialSwizzler {
                 os_log("Push notification related functions swizzled successfully", log: OSLog.cordialPushNotification, type: .info)
             }
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Error: pushNotificationHandler has not been provided", log: OSLog.cordialPushNotification, type: .error)
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Push notification related functions not swizzled: pushesConfiguration not equals to SDK value", log: OSLog.cordialPushNotification, type: .info)
             }
         }
                 
