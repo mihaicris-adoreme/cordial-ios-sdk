@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationHandler.swift
+//  PushNotificationHandler.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 4/2/19.
@@ -9,7 +9,7 @@
 import Foundation
 import CordialSDK
 
-class CordialPushNotificationHandler: CordialPushNotificationDelegate {
+class PushNotificationHandler: CordialPushNotificationDelegate {
     
     func appOpenViaNotificationTap(notificationContent: [AnyHashable : Any]) {
 
