@@ -16,6 +16,7 @@
 [Events Bulking](#events-bulking)<br>
 [Events Flushing](#events-flushing)<br>
 [Push Notifications](#push-notifications)<br>
+[Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
 [Deep Links](#deep-links)<br>
 [Delaying In-App Messages](#delaying-in-app-messages)<br>
 
@@ -468,7 +469,9 @@ ___
 ```
 
 ## Push Notifications
-Your application must use Cordial SDK to configure push notifications. Make sure to add `Remote notifications` background mode and `Push Notifications` capability. Make sure you’re not using iOS specific methods to register for push notifications as Cordial SDK would do it automatically. In order to enable push notification delivery and handle notification taps, the code needs the following:
+Your application can use Cordial SDK to configure push notifications. 
+
+Make sure to add `Remote notifications` background mode and `Push Notifications` capability. In order to enable push notification delivery and handle notification taps, the code needs the following:
 
 1. Provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. This should be done in `AppDelegate.didFinishLaunchingWithOptions`:
 
@@ -476,13 +479,13 @@ Your application must use Cordial SDK to configure push notifications. Make sure
 ___
 ```
 let pushNotificationHandler = YourImplementationOfTheProtocol()  
-CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
+CordialApiConfiguration.shared.pushNotificationDelegate = pushNotificationHandler
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
 YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationOfTheProtocol alloc] init];
-[CordialApiConfiguration shared].pushNotificationHandler = pushNotificationHandler;
+[CordialApiConfiguration shared].pushNotificationDelegate = pushNotificationHandler;
 ```
 
 2. To register for receiving push notifications, simply call:
@@ -500,6 +503,94 @@ ___
 [cordialAPI registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound|UNAuthorizationOptionBadge];
 ```
 
+## Multiple Push Notification Providers
+Cordial SDK also support multiple push notification providers if your application using `UserNotifications` framework. 
+
+By default Cordial SDK setted up as the only one push notification source for your application. This behavior can be changed through variable `pushesConfiguration` with can take one of the two params `SDK` or `APP`. In order to enable multiple notification providers support pass `APP` value to  `CordialApiConfiguration.pushesConfiguration` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.pushesConfiguration = .APP
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationTypeAPP;
+```
+
+After enable multiple notification providers support you need to know who is sender of received notification payload. To figure out is notification payload received from Cordial you need to call method `isCordialMessage`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+if CordialPushNotificationHandler().isCordialMessage(userInfo: userInfo) {
+    // Any Cordial push notification handler call
+}
+
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+if ([[[CordialPushNotificationHandler alloc] init] isCordialMessageWithUserInfo:userInfo]) {
+    // Any Cordial push notification handler call
+}
+```
+
+To handle Cordial push notifications after enable support of multiple notification providers you need to do four additional steps:
+
+1. Pass push notification token to the Cordial SDK:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialPushNotificationHandler().processNewPushNotificationToken(deviceToken: deviceToken)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[[CordialPushNotificationHandler alloc] init] processNewPushNotificationTokenWithDeviceToken:deviceToken];
+```
+
+2. Call method `processAppOpenViaPushNotificationTap` if app has been open via push notification tap:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialPushNotificationHandler().processAppOpenViaPushNotificationTap(userInfo: userInfo, completionHandler: completionHandler)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[[CordialPushNotificationHandler alloc] init] processAppOpenViaPushNotificationTapWithUserInfo:userInfo completionHandler:completionHandler];
+```
+
+3. Call method `processNotificationDeliveryInForeground` if push notification has been foreground delivered:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialPushNotificationHandler().processNotificationDeliveryInForeground(userInfo: userInfo, completionHandler: completionHandler)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[[CordialPushNotificationHandler alloc] init] processNotificationDeliveryInForegroundWithUserInfo:userInfo completionHandler:completionHandler];
+```
+
+4. Call method `processSilentPushDelivery` if app recived silent push notification:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialPushNotificationHandler().processSilentPushDelivery(userInfo: userInfo)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[[CordialPushNotificationHandler alloc] init] processSilentPushDeliveryWithUserInfo:userInfo];
+```
+
 ##  Deep Links 
 Cordial SDK allows you to track deep link open events. Two types of deep links are supported: universal links and URL scheme links. In order to allow the SDK to track deep links, make sure to implement the `CordialDeepLinksDelegate` protocol. The protocol contains callbacks that will be called once the app gets the chance to open a deep link.
 
@@ -509,13 +600,13 @@ In the body of the `AppDelegate.didFinishLaunchingWithOptions` function, provide
 ___
 ```
 let cordialDeepLinksHandler = YourImplementationOfCordialDeepLinksHandler()
-CordialApiConfiguration.shared.cordialDeepLinksHandler = cordialDeepLinksHandler
+CordialApiConfiguration.shared.cordialDeepLinksDelegate = cordialDeepLinksHandler
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
 YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImplementationOfCordialDeepLinksHandler alloc] init];
-[CordialApiConfiguration shared].cordialDeepLinksHandler = cordialDeepLinksHandler;
+[CordialApiConfiguration shared].cordialDeepLinksDelegate = cordialDeepLinksHandler;
 ```
 
 ## Delaying In-App Messages
