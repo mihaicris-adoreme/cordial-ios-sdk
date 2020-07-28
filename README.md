@@ -520,6 +520,7 @@ ___
 ```
 
 In any time you can roll back changes to allow Cordial SDK automatically handling push notifications. To do it set `CordialApiConfiguration.pushesConfiguration` to `SDK` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
+
  &nbsp;&nbsp;&nbsp;&nbsp;Swift:
  ___
  ```
