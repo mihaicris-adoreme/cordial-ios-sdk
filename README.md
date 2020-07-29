@@ -539,7 +539,7 @@ if ([[[CordialPushNotificationHandler alloc] init] isCordialMessageWithUserInfo:
 }
 ```
 
-After enable multiple notification providers support you should send the token to the SDK once it’s received and pass push notifications sent by Cordial to the SDK. This option should be used when you have multiple push notifications sources, for example, if your backend is sending push notifications itself. Note, it is really important to pass the token otherwise the SDK will not be tracking any user behaviour on the device.
+After enable multiple notification providers you should send the token to the SDK once it’s received and pass push notifications sent by Cordial to the SDK. This option should be used when you have multiple push notifications sources, for example, if your backend is sending push notifications itself. Note, it is really important to pass the token otherwise the SDK will not be tracking any user behaviour on the device.
 
 To handle Cordial push notifications after enable support of multiple notification providers you need to do four additional steps:
 
