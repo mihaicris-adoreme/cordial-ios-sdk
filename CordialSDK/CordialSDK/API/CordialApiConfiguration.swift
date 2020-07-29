@@ -25,11 +25,13 @@ import CoreLocation
     
     let cordialSwizzler = CordialSwizzler()
     let cordialPushNotification = CordialPushNotification()
+    let cordialPushNotificationHandler = CordialPushNotificationHandler()
     
     @objc public let osLogManager = CordialOSLogManager()
     
-    @objc public var cordialDeepLinksHandler: CordialDeepLinksDelegate?
-    @objc public var pushNotificationHandler: CordialPushNotificationDelegate?
+    @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
+    @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
+    @objc public var pushesConfiguration: CordialPushNotificationType = .SDK
     
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, String>?

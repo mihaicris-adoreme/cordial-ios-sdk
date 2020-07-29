@@ -12,6 +12,11 @@ import os.log
 class CordialSwizzlerHelper {
     
     func didReceiveRemoteNotification(userInfo: [AnyHashable : Any]) {
+        
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Silent push notification received. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
+        }
+        
         if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
             InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
         }
@@ -22,8 +27,8 @@ class CordialSwizzlerHelper {
         
         let token = internalCordialAPI.getPreparedRemoteNotificationsDeviceToken(deviceToken: deviceToken)
         
-        if let pushNotificationHandler = CordialApiConfiguration.shared.pushNotificationHandler {
-            pushNotificationHandler.apnsTokenReceived(token: token)
+        if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
+            pushNotificationDelegate.apnsTokenReceived(token: token)
         }
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {

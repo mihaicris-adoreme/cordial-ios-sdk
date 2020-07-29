@@ -17,9 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    let pushNotificationHandler = CordialPushNotificationHandler()
-    let cordialDeepLinksHandler = CordialDeepLinksHandler()
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         IQKeyboardManager.shared.enable = true
@@ -31,8 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
         CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ProductViewController.self, CartViewController.self])
-        CordialApiConfiguration.shared.pushNotificationHandler = pushNotificationHandler
-        CordialApiConfiguration.shared.cordialDeepLinksHandler = cordialDeepLinksHandler
+        CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
+        CordialApiConfiguration.shared.cordialDeepLinksDelegate = CordialDeepLinksHandler()
                 
         self.setupCordialSDKLogicErrorHandler()
         

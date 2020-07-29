@@ -32,8 +32,8 @@ class CordialSDKTests: XCTestCase {
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.eventsBulkSize = 1
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 30
-        CordialApiConfiguration.shared.pushNotificationHandler = PushNotificationHandler()
-        CordialApiConfiguration.shared.cordialDeepLinksHandler = DeepLinksHandler()
+        CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
+        CordialApiConfiguration.shared.cordialDeepLinksDelegate = DeepLinksHandler()
         
         self.testPushNotification = """
             {
@@ -193,7 +193,7 @@ class CordialSDKTests: XCTestCase {
     func testDeepLinkDelegate() {
         let mock = MockPushNotificationHandlerDeepLinkDelegate()
         
-        CordialApiConfiguration.shared.cordialDeepLinksHandler = mock
+        CordialApiConfiguration.shared.cordialDeepLinksDelegate = mock
         DependencyConfiguration.shared.requestSender = EmptyMockRequestSender()
         
         self.testCase.setTestJWT(token: self.testJWT)

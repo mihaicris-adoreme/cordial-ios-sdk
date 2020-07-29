@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationHandler.h
+//  PushNotificationHandler.h
 //  CordialDemo_Objective-C
 //
 //  Created by Yan Malinovsky on 7/29/19.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CordialPushNotificationHandler : NSObject<CordialPushNotificationDelegate>
+@interface PushNotificationHandler : NSObject<CordialPushNotificationDelegate>
 
 @end
 

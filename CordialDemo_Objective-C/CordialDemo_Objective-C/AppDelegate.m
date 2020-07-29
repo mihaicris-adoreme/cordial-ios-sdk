@@ -22,8 +22,8 @@
     [CordialApiConfiguration shared].eventsBulkUploadInterval = 15;
     [[[CordialApiConfiguration shared] osLogManager] setLogLevel:logLevelAll];
     [[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
-    [CordialApiConfiguration shared].pushNotificationHandler = [[CordialPushNotificationHandler alloc] init];
-    [CordialApiConfiguration shared].cordialDeepLinksHandler = [[CordialDeepLinksHandler alloc] init];
+    [CordialApiConfiguration shared].pushNotificationDelegate = [[PushNotificationHandler alloc] init];
+    [CordialApiConfiguration shared].cordialDeepLinksDelegate = [[CordialDeepLinksHandler alloc] init];
     
     [[[CordialAPI alloc] init] registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound];
     
