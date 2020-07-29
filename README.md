@@ -506,7 +506,7 @@ YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationO
 ## Multiple Push Notification Providers
 Cordial SDK also supports multiple push notification providers if your application uses `UserNotifications` framework. 
 
-Multiple push notification providers you need to read literally. It is an ability to simultaneously uses several notification providers. This lets your application configure by itself for push notifications and displays and tracks notifications from Cordial when they are manually passed in by the app. The main logic to do it is simply send notification token to the Cordial backend and use specific piece of code in several parts of your application to send notification payload data to Cordial SDK when it needed. 
+Multiple push notification providers you need to read this literally. It is an ability to simultaneously uses several notification providers. This lets your application configure by itself for push notifications and displays and tracks notifications from Cordial when they are manually passed in by the app. The main logic to do it is simply send notification token to the Cordial backend and use specific piece of code in several parts of your application to send notification payload data to Cordial SDK when it needed. 
 
 By default Cordial SDK setted up as the only one push notification source for your application. This behavior can be changed through variable `pushesConfiguration` with can take one of the two params `SDK` or `APP`.  In order to enable multiple notification providers support pass `APP` value to  `CordialApiConfiguration.pushesConfiguration` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
