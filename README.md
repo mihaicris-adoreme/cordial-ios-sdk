@@ -469,7 +469,8 @@ ___
 ```
 
 ## Push Notifications
-Your application can use Cordial SDK to configure push notifications. 
+
+Your application can use Cordial SDK to configure push notifications.
 
 Make sure to add `Remote notifications` background mode and `Push Notifications` capability. In order to enable push notification delivery and handle notification taps, the code needs the following:
 
@@ -504,11 +505,11 @@ YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationO
 ```
 
 ## Multiple Push Notification Providers
-Cordial SDK also supports multiple push notification providers if your application uses `UserNotifications` framework. 
+Cordial SDK supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
 
-Multiple push notification providers you need to read this literally. It is an ability to simultaneously uses several notification providers. This lets your application configure by itself for push notifications and displays and tracks notifications from Cordial when they are manually passed in by the app. The main logic to do it is simply send notification token to the Cordial backend and use specific piece of code in several parts of your application to send notification payload data to Cordial SDK when it needed. 
+It allows to use several notification providers in a single app simultaneously. This requires your application to configure itself for push notifications and let Cordial SDK display and track notifications that were sent by Cordial. To allow Cordial SDK to display and track push notifications sent by Cordial, the application should send APNS token to Cordial SDK once received and use a specific piece of code shown below in several parts of your application. 
 
-By default Cordial SDK setted up as the only one push notification source for your application. This behavior can be changed through variable `pushesConfiguration` with can take one of the two params `SDK` or `APP`.  In order to enable multiple notification providers support pass `APP` value to  `CordialApiConfiguration.pushesConfiguration` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
+By default Cordial SDK is set up as the only push notification provider for your application. This behavior can be changed using `pushesConfiguration` option which can take one of the two values `SDK` or `APP`.  In order to enable multiple notification providers set `CordialApiConfiguration.pushesConfiguration` to `APP` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -521,7 +522,7 @@ ___
 [CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationTypeAPP;
 ```
 
-After enable multiple notification providers support you need to know who is sender of received notification payload. To figure out is notification payload received from Cordial you need to call method `isCordialMessage`:
+After enabling multiple push notification providers support the application needs to know if a push notification is from Cordial. To check if push notification is from Cordial use `isCordialMessage` function:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -539,9 +540,9 @@ if ([[[CordialPushNotificationHandler alloc] init] isCordialMessageWithUserInfo:
 }
 ```
 
-After enable multiple notification providers you should send the token to the SDK once it’s received and pass push notifications sent by Cordial to the SDK. This option should be used when you have multiple push notifications sources, for example, if your backend is sending push notifications itself. Note, it is really important to pass the token otherwise the SDK will not be tracking any user behaviour on the device.
+After enabling multiple push notification providers the app should pass an APNS token to the SDK once it’s received and start passing push notifications sent by Cordial to the SDK. Note, it is really important to pass the token otherwise the SDK will not be tracking any user behaviour on the device.
 
-To handle Cordial push notifications after enable support of multiple notification providers you need to do four additional steps:
+To handle Cordial push notifications after enabling multiple notification providers support the app needs to do four additional steps:
 
 1. Pass push notification token to the Cordial SDK:
 
