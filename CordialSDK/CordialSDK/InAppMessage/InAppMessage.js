@@ -1,7 +1,7 @@
 // Action function for user interaction with app
-function action(deepLink = null, eventName = null) {
+function crdlAction(deepLink = null, eventName = null) {
    try {
-       webkit.messageHandlers.action.postMessage({
+       webkit.messageHandlers.crdlAction.postMessage({
            deepLink: deepLink,
            eventName: eventName
        });
