@@ -114,7 +114,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             let staticUserScript = WKUserScript(source: inAppMessageJS, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
             contentController.addUserScript(staticUserScript)
             
-            contentController.add(self, name: "action")
+            contentController.add(self, name: "crdlAction")
             
             webConfiguration.userContentController = contentController
             
@@ -211,7 +211,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     // MARK: WKScriptMessageHandler
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "action" {
+        if message.name == "crdlAction" {
             self.userClickedInAppMessageActionButton(messageBody: message.body)
         }
     }
