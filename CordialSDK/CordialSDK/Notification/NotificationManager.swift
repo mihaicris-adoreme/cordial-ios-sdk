@@ -168,7 +168,7 @@ class NotificationManager {
             self.appMovedFromBackground()
         }
         
-        if #available(iOS 13.0, *), InternalCordialAPI().doesAppUseScenes() {
+        if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
             notificationCenter.removeObserver(self, name: UIScene.didEnterBackgroundNotification, object: nil)
             notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIScene.didEnterBackgroundNotification, object: nil)
             
