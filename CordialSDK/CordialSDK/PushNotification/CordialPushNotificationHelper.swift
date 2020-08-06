@@ -23,6 +23,10 @@ class CordialPushNotificationHelper {
     }
     
     func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
+        if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
+            pushNotificationDelegate.appOpenViaNotificationTap(notificationContent: userInfo)
+        }
+        
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Push notification app open via tap. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
         }
@@ -86,6 +90,10 @@ class CordialPushNotificationHelper {
     }
     
     func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
+        if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
+            pushNotificationDelegate.notificationDeliveredInForeground(notificationContent: userInfo)
+        }
+        
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND
         let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo)
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
