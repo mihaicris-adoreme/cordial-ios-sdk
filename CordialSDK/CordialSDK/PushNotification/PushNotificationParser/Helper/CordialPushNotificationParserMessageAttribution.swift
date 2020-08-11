@@ -22,12 +22,4 @@ class CordialPushNotificationParserMessageAttribution {
         return nil
     }
     
-    func getMcIdPreviousPayloadType(userInfo: [AnyHashable : Any]) -> String? {
-        if let mcID = userInfo["mcID"] as? String {
-            return mcID
-        }
-        
-        return nil
-    }
-    
 }

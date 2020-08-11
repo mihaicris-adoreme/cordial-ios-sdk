@@ -17,31 +17,19 @@ class CordialPushNotificationParser {
     // MARK: Get deep link URL
     
     func getDeepLinkURL(userInfo: [AnyHashable : Any]) -> URL? {
-        if let deepLinkURL = self.deepLinksParser.getDeepLinkURLCurrentPayloadType(userInfo: userInfo) {
-            return deepLinkURL
-        }
-        
-        return self.deepLinksParser.getDeepLinkURLPreviousPayloadType(userInfo: userInfo)
+        return self.deepLinksParser.getDeepLinkURLCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get deep link fallback URL
     
     func getDeepLinkFallbackURL(userInfo: [AnyHashable : Any]) -> URL? {
-        if let fallbackURL = self.deepLinksParser.getDeepLinkFallbackURLCurrentPayloadType(userInfo: userInfo) {
-            return fallbackURL
-        }
-        
-        return self.deepLinksParser.getDeepLinkFallbackURLPreviousPayloadType(userInfo: userInfo)
+        return self.deepLinksParser.getDeepLinkFallbackURLCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get mcID
     
     func getMcID(userInfo: [AnyHashable : Any]) -> String? {
-        if let mcID = self.messageAttributionParser.getMcIdCurrentPayloadType(userInfo: userInfo) {
-            return mcID
-        }
-        
-        return self.messageAttributionParser.getMcIdPreviousPayloadType(userInfo: userInfo)
+        return self.messageAttributionParser.getMcIdCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Is payload contain in app message
@@ -53,41 +41,56 @@ class CordialPushNotificationParser {
     // MARK: Get in app message type
     
     func getTypeIAM(userInfo: [AnyHashable : Any]) -> String? {
-        if let typeIAM = self.inAppMessageParser.getTypeIAMCurrentPayloadType(userInfo: userInfo) {
-            return typeIAM
-        }
-        
-        return self.inAppMessageParser.getTypeIAMPreviousPayloadType(userInfo: userInfo)
+        return self.inAppMessageParser.getTypeIAMCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get in app message display type
     
     func getDisplayTypeIAM(userInfo: [AnyHashable : Any]) -> String? {
-        if let displayTypeIAM = self.inAppMessageParser.getDisplayTypeIAMCurrentPayloadType(userInfo: userInfo) {
-            return displayTypeIAM
-        }
-        
-        return self.inAppMessageParser.getDisplayTypeIAMPreviousPayloadType(userInfo: userInfo)
+        return self.inAppMessageParser.getDisplayTypeIAMCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get in app message inactive session display
     
     func getInactiveSessionDisplayIAM(userInfo: [AnyHashable : Any]) -> String? {
-        if let inactiveSessionDisplayIAM = self.inAppMessageParser.getInactiveSessionDisplayIAMCurrentPayloadType(userInfo: userInfo) {
-            return inactiveSessionDisplayIAM
-        }
-        
-        return self.inAppMessageParser.getInactiveSessionDisplayIAMPreviousPayloadType(userInfo: userInfo)
+        return self.inAppMessageParser.getInactiveSessionDisplayIAMCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get in app message expiration time
     
-    func getExpirationTimeIAM(userInfo: [AnyHashable : Any]) -> String? {
-        if let expirationTimeIAM = self.inAppMessageParser.getExpirationTimeIAMCurrentPayloadType(userInfo: userInfo) {
-            return expirationTimeIAM
-        }
-        
-        return self.inAppMessageParser.getExpirationTimeIAMPreviousPayloadType(userInfo: userInfo)
+    func getExpirationTimeIAM(userInfo: [AnyHashable : Any]) -> String? {        
+        return self.inAppMessageParser.getExpirationTimeIAMCurrentPayloadType(userInfo: userInfo)
     }
+    
+    // MARK: Get in app message banner height
+    
+    func getBannerHeightIAM(userInfo: [AnyHashable : Any]) -> Int16? {
+        return self.inAppMessageParser.getBannerHeightIAMCurrentPayloadType(userInfo: userInfo)
+    }
+    
+    // MARK: Get in app message modal top margin
+    
+    func getModalTopMarginIAM(userInfo: [AnyHashable : Any]) -> Int16? {
+        return self.inAppMessageParser.getModalTopMarginIAMCurrentPayloadType(userInfo: userInfo)
+    }
+    
+    // MARK: Get in app message modal right margin
+    
+    func getModalRightMarginIAM(userInfo: [AnyHashable : Any]) -> Int16? {
+        return self.inAppMessageParser.getModalRightMarginIAMCurrentPayloadType(userInfo: userInfo)
+    }
+    
+    // MARK: Get in app message modal bottom margin
+    
+    func getModalBottomMarginIAM(userInfo: [AnyHashable : Any]) -> Int16? {
+        return self.inAppMessageParser.getModalBottomMarginIAMCurrentPayloadType(userInfo: userInfo)
+    }
+    
+    // MARK: Get in app message modal left margin
+    
+    func getModalLeftMarginIAM(userInfo: [AnyHashable : Any]) -> Int16? {
+        return self.inAppMessageParser.getModalLeftMarginIAMCurrentPayloadType(userInfo: userInfo)
+    }
+
 }
 
