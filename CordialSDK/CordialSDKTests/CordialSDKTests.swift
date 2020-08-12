@@ -38,12 +38,16 @@ class CordialSDKTests: XCTestCase {
         self.testPushNotification = """
             {
                 "aps":{
-                    "alert":"Text push notification message."
+                    "alert": "Text push notification message."
                 },
-                "mcID": "\(self.testMcId)",
-                "deepLink": {
-                    "url": "\(self.testDeepLinkURL)",
-                    "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
+                "system": {
+                    "messageAttribution": {
+                        "mcID": "\(self.testMcId)"
+                    },
+                    "deepLink": {
+                        "url": "\(self.testDeepLinkURL)",
+                        "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
+                    }
                 }
             }
         """
@@ -53,29 +57,39 @@ class CordialSDKTests: XCTestCase {
                 "aps":{
                     "content-available" : 1
                 },
-                "mcID": "\(self.testMcId)",
-                "in-app": "true",
-                "type": "modal",
-                "displayType": "displayImmediately",
-                "inactiveSessionDisplay": "show-in-app"
+                "system": {
+                    "messageAttribution": {
+                        "mcID": "\(self.testMcId)"
+                    },
+                "iam": {
+                        "type": "modal",
+                        "displayType": "displayImmediately",
+                        "inactiveSessionDisplay": "show-in-app"
+                    }
+                }
             }
         """
         
         self.testSilentAndPushNotifications = """
             {
-               "aps":{
-                  "alert":"Text push notification message.",
-                  "content-available" : 1
-               },
-               "mcID": "\(self.testMcId)",
-               "deepLink": {
-                 "url":"https://tjs.cordialdev.com/prep-tj1.html",
-                 "fallbackUrl":"https://tjs.cordialdev.com/prep-tj2.html"
-               },
-               "in-app": "true",
-               "type": "modal",
-               "displayType": "displayImmediately",
-               "inactiveSessionDisplay": "show-in-app"
+                "aps":{
+                    "alert": "Text push notification message.",
+                    "content-available" : 1
+                },
+                "system": {
+                    "messageAttribution": {
+                        "mcID": "\(self.testMcId)"
+                    },
+                    "deepLink": {
+                        "url": "\(self.testDeepLinkURL)",
+                        "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
+                    },
+                    "iam": {
+                        "type": "modal",
+                        "displayType": "displayImmediately",
+                        "inactiveSessionDisplay": "show-in-app"
+                    }
+                }
             }
         """
     }
