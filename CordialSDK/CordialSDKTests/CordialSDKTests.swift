@@ -40,15 +40,11 @@ class CordialSDKTests: XCTestCase {
                 "aps":{
                     "alert": "Text push notification message."
                 },
-                "system": {
-                    "messageAttribution": {
-                        "mcID": "\(self.testMcId)"
-                    },
-                    "deepLink": {
-                        "url": "\(self.testDeepLinkURL)",
-                        "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
-                    }
-                }
+                "deepLink": {
+                    "url": "\(self.testDeepLinkURL)",
+                    "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
+                },
+                "mcID": "\(self.testMcId)"
             }
         """
         
@@ -58,15 +54,13 @@ class CordialSDKTests: XCTestCase {
                     "content-available" : 1
                 },
                 "system": {
-                    "messageAttribution": {
-                        "mcID": "\(self.testMcId)"
-                    },
-                "iam": {
+                    "iam": {
                         "type": "modal",
                         "displayType": "displayImmediately",
                         "inactiveSessionDisplay": "show-in-app"
                     }
-                }
+                },
+                "mcID": "\(self.testMcId)"
             }
         """
         
@@ -77,19 +71,17 @@ class CordialSDKTests: XCTestCase {
                     "content-available" : 1
                 },
                 "system": {
-                    "messageAttribution": {
-                        "mcID": "\(self.testMcId)"
-                    },
-                    "deepLink": {
-                        "url": "\(self.testDeepLinkURL)",
-                        "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
-                    },
                     "iam": {
                         "type": "modal",
                         "displayType": "displayImmediately",
                         "inactiveSessionDisplay": "show-in-app"
                     }
-                }
+                },
+                "deepLink": {
+                    "url": "\(self.testDeepLinkURL)",
+                    "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
+                },
+                "mcID": "\(self.testMcId)"
             }
         """
     }

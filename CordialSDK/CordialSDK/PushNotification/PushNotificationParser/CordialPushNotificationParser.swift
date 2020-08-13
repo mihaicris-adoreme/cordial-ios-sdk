@@ -17,19 +17,31 @@ class CordialPushNotificationParser {
     // MARK: Get deep link URL
     
     func getDeepLinkURL(userInfo: [AnyHashable : Any]) -> URL? {
-        return self.deepLinksParser.getDeepLinkURLCurrentPayloadType(userInfo: userInfo)
+        if let deepLinkURL = self.deepLinksParser.getDeepLinkURLCurrentPayloadType(userInfo: userInfo) {
+            return deepLinkURL
+        }
+        
+        return self.deepLinksParser.getDeepLinkURLPreviousPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get deep link fallback URL
     
     func getDeepLinkFallbackURL(userInfo: [AnyHashable : Any]) -> URL? {
-        return self.deepLinksParser.getDeepLinkFallbackURLCurrentPayloadType(userInfo: userInfo)
+        if let fallbackURL = self.deepLinksParser.getDeepLinkFallbackURLCurrentPayloadType(userInfo: userInfo) {
+            return fallbackURL
+        }
+        
+        return self.deepLinksParser.getDeepLinkFallbackURLPreviousPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get mcID
     
     func getMcID(userInfo: [AnyHashable : Any]) -> String? {
-        return self.messageAttributionParser.getMcIdCurrentPayloadType(userInfo: userInfo)
+        if let mcID = self.messageAttributionParser.getMcIdCurrentPayloadType(userInfo: userInfo) {
+            return mcID
+        }
+        
+        return self.messageAttributionParser.getMcIdPreviousPayloadType(userInfo: userInfo)
     }
     
     // MARK: Is payload contain in app message
@@ -58,7 +70,7 @@ class CordialPushNotificationParser {
     
     // MARK: Get in app message expiration time
     
-    func getExpirationTimeIAM(userInfo: [AnyHashable : Any]) -> String? {        
+    func getExpirationTimeIAM(userInfo: [AnyHashable : Any]) -> String? {
         return self.inAppMessageParser.getExpirationTimeIAMCurrentPayloadType(userInfo: userInfo)
     }
     
