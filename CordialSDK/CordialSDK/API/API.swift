@@ -47,6 +47,7 @@ struct API {
     static let EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_shown"
     static let EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_auto_dismiss"
     static let EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_manual_dismiss"
+    static let EVENT_NAME_INBOX_MESSAGE_READ = "\(API.SYSTEM_EVENT_PREFIX)inbox_read"
     
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"
