@@ -114,4 +114,5 @@ class CordialPushNotificationParserDeepLinks {
         
         return nil
     }
+    
 }

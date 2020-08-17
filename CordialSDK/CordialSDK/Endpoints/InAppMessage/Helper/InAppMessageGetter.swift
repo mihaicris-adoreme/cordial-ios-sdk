@@ -84,23 +84,23 @@ class InAppMessageGetter {
         var left = Int16(10)
         var expirationTime: Date?
         
-        if let userInfoHeight = userInfo["height"] as? Int16 {
+        if let userInfoHeight = self.pushNotificationParser.getBannerHeightIAM(userInfo: userInfo) {
             height = userInfoHeight
         }
         
-        if let userInfoTop = userInfo["top"] as? Int16 {
+        if let userInfoTop = self.pushNotificationParser.getModalTopMarginIAM(userInfo: userInfo) {
             top = userInfoTop
         }
         
-        if let userInfoRight = userInfo["right"] as? Int16 {
+        if let userInfoRight = self.pushNotificationParser.getModalRightMarginIAM(userInfo: userInfo) {
             right = userInfoRight
         }
         
-        if let userInfoBottom = userInfo["bottom"] as? Int16 {
+        if let userInfoBottom = self.pushNotificationParser.getModalBottomMarginIAM(userInfo: userInfo) {
             bottom = userInfoBottom
         }
         
-        if let userInfoLeft = userInfo["left"] as? Int16 {
+        if let userInfoLeft = self.pushNotificationParser.getModalLeftMarginIAM(userInfo: userInfo) {
             left = userInfoLeft
         }
         
@@ -148,6 +148,8 @@ class InAppMessageGetter {
                     if InAppMessageProcess.shared.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                         InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
                     } else {
+                        InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
+                        
                         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                             os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                         }

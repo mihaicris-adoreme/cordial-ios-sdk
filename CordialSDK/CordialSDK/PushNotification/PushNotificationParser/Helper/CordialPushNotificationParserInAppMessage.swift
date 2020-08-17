@@ -18,16 +18,6 @@ class CordialPushNotificationParserInAppMessage {
             return true
         }
         
-        return self.isPayloadContainIAMPreviousPayloadType(userInfo: userInfo)
-    }
-    
-    private func isPayloadContainIAMPreviousPayloadType(userInfo: [AnyHashable : Any]) -> Bool {
-        if let inApp = userInfo["in-app"] as? Bool, inApp {
-            return true
-        } else if let inApp = userInfo["in-app"] as? String, inApp == "true" {
-            return true
-        }
-        
         return false
     }
     
@@ -38,14 +28,6 @@ class CordialPushNotificationParserInAppMessage {
             let iam = system["iam"] as? [String: AnyObject],
             let typeIAM = iam["type"] as? String {
                 return typeIAM
-        }
-        
-        return nil
-    }
-    
-    func getTypeIAMPreviousPayloadType(userInfo: [AnyHashable : Any]) -> String? {
-        if let typeIAM = userInfo["type"] as? String {
-            return typeIAM
         }
         
         return nil
@@ -63,14 +45,6 @@ class CordialPushNotificationParserInAppMessage {
         return nil
     }
     
-    func getDisplayTypeIAMPreviousPayloadType(userInfo: [AnyHashable : Any]) -> String? {
-        if let displayTypeIAM = userInfo["displayType"] as? String {
-            return displayTypeIAM
-        }
-        
-        return nil
-    }
-    
     // MARK: Get in app message inactive session display
     
     func getInactiveSessionDisplayIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> String? {
@@ -78,14 +52,6 @@ class CordialPushNotificationParserInAppMessage {
             let iam = system["iam"] as? [String: AnyObject],
             let inactiveSessionDisplayString = iam["inactiveSessionDisplay"] as? String {
                 return inactiveSessionDisplayString
-        }
-        
-        return nil
-    }
-    
-    func getInactiveSessionDisplayIAMPreviousPayloadType(userInfo: [AnyHashable : Any]) -> String? {
-        if let inactiveSessionDisplayString = userInfo["inactiveSessionDisplay"] as? String {
-            return inactiveSessionDisplayString
         }
         
         return nil
@@ -103,9 +69,61 @@ class CordialPushNotificationParserInAppMessage {
         return nil
     }
     
-    func getExpirationTimeIAMPreviousPayloadType(userInfo: [AnyHashable : Any]) -> String? {
-        if let expirationTime = userInfo["expirationTime"] as? String {
-            return expirationTime
+    // MARK: Get in app message banner height
+    
+    func getBannerHeightIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
+        if let system = userInfo["system"] as? [String: AnyObject],
+            let iam = system["iam"] as? [String: AnyObject],
+            let height = iam["height"] as? Int16 {
+                return height
+        }
+        
+        return nil
+    }
+    
+    // MARK: Get in app message modal top margin
+    
+    func getModalTopMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
+        if let system = userInfo["system"] as? [String: AnyObject],
+            let iam = system["iam"] as? [String: AnyObject],
+            let top = iam["top"] as? Int16 {
+                return top
+        }
+        
+        return nil
+    }
+    
+    // MARK: Get in app message modal right margin
+    
+    func getModalRightMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
+        if let system = userInfo["system"] as? [String: AnyObject],
+            let iam = system["iam"] as? [String: AnyObject],
+            let right = iam["right"] as? Int16 {
+                return right
+        }
+        
+        return nil
+    }
+    
+    // MARK: Get in app message modal bottom margin
+    
+    func getModalBottomMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
+        if let system = userInfo["system"] as? [String: AnyObject],
+            let iam = system["iam"] as? [String: AnyObject],
+            let bottom = iam["bottom"] as? Int16 {
+                return bottom
+        }
+        
+        return nil
+    }
+    
+    // MARK: Get in app message modal left margin
+    
+    func getModalLeftMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
+        if let system = userInfo["system"] as? [String: AnyObject],
+            let iam = system["iam"] as? [String: AnyObject],
+            let left = iam["left"] as? Int16 {
+                return left
         }
         
         return nil
