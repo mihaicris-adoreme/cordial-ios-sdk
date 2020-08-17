@@ -10,7 +10,17 @@ import Foundation
 
 @objc public class CordialDateFormatter: NSObject {
     
-    let dateFormatter = ISO8601DateFormatter()
+    let dateFormatter: ISO8601DateFormatter
+    
+    @objc public override init() {
+        self.dateFormatter = ISO8601DateFormatter()
+        
+        if #available(iOS 11.0, *) {
+            self.dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        } else {
+            self.dateFormatter.formatOptions = [.withInternetDateTime]
+        }
+    }
 
     @objc public func getCurrentTimestamp() -> String {
         let date = Date()

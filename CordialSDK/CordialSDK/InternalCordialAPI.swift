@@ -13,7 +13,7 @@ class InternalCordialAPI {
     
     // MARK: Checking app for use scenes
     
-    func doesAppUseScenes() -> Bool {
+    func isAppUseScenes() -> Bool {
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         
         var methodCount: UInt32 = 0
@@ -252,7 +252,9 @@ class InternalCordialAPI {
             let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
             userActivity.webpageURL = url
             
-            if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+            if #available(iOS 13.0, *), self.isAppUseScenes(),
+                let scene = UIApplication.shared.connectedScenes.first {
+                
                 scene.delegate?.scene?(scene, continue: userActivity)
             } else {
                 let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })

@@ -38,13 +38,13 @@ class CordialSDKTests: XCTestCase {
         self.testPushNotification = """
             {
                 "aps":{
-                    "alert":"Text push notification message."
+                    "alert": "Text push notification message."
                 },
-                "mcID": "\(self.testMcId)",
                 "deepLink": {
                     "url": "\(self.testDeepLinkURL)",
                     "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
-                }
+                },
+                "mcID": "\(self.testMcId)"
             }
         """
         
@@ -53,29 +53,35 @@ class CordialSDKTests: XCTestCase {
                 "aps":{
                     "content-available" : 1
                 },
-                "mcID": "\(self.testMcId)",
-                "in-app": "true",
-                "type": "modal",
-                "displayType": "displayImmediately",
-                "inactiveSessionDisplay": "show-in-app"
+                "system": {
+                    "iam": {
+                        "type": "modal",
+                        "displayType": "displayImmediately",
+                        "inactiveSessionDisplay": "show-in-app"
+                    }
+                },
+                "mcID": "\(self.testMcId)"
             }
         """
         
         self.testSilentAndPushNotifications = """
             {
-               "aps":{
-                  "alert":"Text push notification message.",
-                  "content-available" : 1
-               },
-               "mcID": "\(self.testMcId)",
-               "deepLink": {
-                 "url":"https://tjs.cordialdev.com/prep-tj1.html",
-                 "fallbackUrl":"https://tjs.cordialdev.com/prep-tj2.html"
-               },
-               "in-app": "true",
-               "type": "modal",
-               "displayType": "displayImmediately",
-               "inactiveSessionDisplay": "show-in-app"
+                "aps":{
+                    "alert": "Text push notification message.",
+                    "content-available" : 1
+                },
+                "system": {
+                    "iam": {
+                        "type": "modal",
+                        "displayType": "displayImmediately",
+                        "inactiveSessionDisplay": "show-in-app"
+                    }
+                },
+                "deepLink": {
+                    "url": "\(self.testDeepLinkURL)",
+                    "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
+                },
+                "mcID": "\(self.testMcId)"
             }
         """
     }
