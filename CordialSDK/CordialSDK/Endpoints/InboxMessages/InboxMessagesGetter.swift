@@ -21,7 +21,7 @@ class InboxMessagesGetter {
                 InboxMessages().getInboxMessages(primaryKey: primaryKey)
             } else {
                 let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                self.systemErrorHandler(primaryKey: primaryKey, error: responseError)
+                self.errorHandler(primaryKey: primaryKey, error: responseError)
                 
                 SDKSecurity.shared.updateJWT()
             }
@@ -32,7 +32,11 @@ class InboxMessagesGetter {
         }
     }
     
-    func systemErrorHandler(primaryKey: String, error: ResponseError) {
+    func completionHandler(primaryKey: String, responseBody: [String: AnyObject]) {
+        
+    }
+    
+    func errorHandler(primaryKey: String, error: ResponseError) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Fetching inbox messages with primaryKey: [%{public}@] failed. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, primaryKey, error.message)
         }
