@@ -17,4 +17,10 @@ import Foundation
         InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
     }
+    
+    @objc public func fetchInboxMessages() {
+        if let primaryKey = CordialAPI().getContactPrimaryKey() {
+            InboxMessagesGetter().fetchInboxMessages(primaryKey: primaryKey)
+        }
+    }
 }

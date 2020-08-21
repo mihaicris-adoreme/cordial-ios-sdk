@@ -21,22 +21,7 @@ class FetchInboxMessagesURLSessionManager {
             
             switch httpResponse.statusCode {
             case 200:
-                do {
-                    if let responseBodyData = responseBody.data(using: .utf8),
-                        let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject] {
-        
-                        self.inboxMessagesGetter.completionHandler(primaryKey: primaryKey, responseBody: responseBodyJSON)
-                    
-                    } else {
-                        let message = "Failed to parse inbox messages response."
-                        let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                        self.inboxMessagesGetter.errorHandler(primaryKey: primaryKey, error: responseError)
-                    }
-                } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed decode response with primaryKey: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, primaryKey, error.localizedDescription)
-                    }
-                }
+                self.inboxMessagesGetter.completionHandler(primaryKey: primaryKey, responseBody: responseBody)
             case 401: 
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)

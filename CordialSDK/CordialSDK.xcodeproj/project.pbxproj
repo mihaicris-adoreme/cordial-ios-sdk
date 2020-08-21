@@ -702,9 +702,9 @@
 		9E7BD8C1228D9999004B4EB9 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
-				9EB62A7924EF1B5700745D6D /* InboxMessages */,
 				9E126DAA22F8597B00A74143 /* SDKSecurity */,
 				9E12EA3C22CCC36800C2DED4 /* InAppMessage */,
+				9EB62A7924EF1B5700745D6D /* InboxMessages */,
 				9E92D3D0228EF22A00D8AFE0 /* SendContactLogout */,
 				9E44CB1B222FE24B00DADC6C /* UpsertContacts */,
 				9EEE995322412BDE0041D8AE /* SendCustomEvent */,

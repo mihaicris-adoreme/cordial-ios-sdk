@@ -61,6 +61,8 @@ class CordialApiEndpoints {
         
         let deviceId = InternalCordialAPI().getDeviceIdentifier()
         
-        return "\(baseURL)inbox/messages/\(primaryKey)/\(deviceId)"
+        let replacedBaseURL = baseURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
+        
+        return "\(replacedBaseURL)inbox/messages/\(primaryKey)/\(deviceId)"
     }
 }

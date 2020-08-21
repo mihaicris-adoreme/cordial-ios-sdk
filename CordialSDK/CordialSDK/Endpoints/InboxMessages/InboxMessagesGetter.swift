@@ -32,8 +32,8 @@ class InboxMessagesGetter {
         }
     }
     
-    func completionHandler(primaryKey: String, responseBody: [String: AnyObject]) {
-        
+    func completionHandler(primaryKey: String, responseBody: String) {
+        print(responseBody)
     }
     
     func errorHandler(primaryKey: String, error: ResponseError) {
