@@ -38,7 +38,7 @@ class InboxMessagesGetter {
     
     func errorHandler(primaryKey: String, error: ResponseError) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Fetching inbox messages with primaryKey: [%{public}@] failed. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, primaryKey, error.message)
+            os_log("Fetching inbox messages with primaryKey: [%{public}@] failed. Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, primaryKey, error.message)
         }
     }
     
