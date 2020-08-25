@@ -27,6 +27,8 @@ class InboxMessages: NSObject, URLSessionDelegate {
         }
     }
     
+    // MARK: URLSessionDelegate
+    
     lazy var inboxMessagesURLSession: URLSession = {
         let config = URLSessionConfiguration.default
         config.isDiscretionary = false
@@ -34,16 +36,13 @@ class InboxMessages: NSObject, URLSessionDelegate {
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
     
-    func getInboxMessages(primaryKey: String) {
+    func getInboxMessages(primaryKey: String, onComplete: @escaping (_ response: String) -> Void, onError: @escaping (_ error: String) -> Void) {
         if let url = URL(string: CordialApiEndpoints().getInboxMessagesURL(primaryKey: primaryKey)) {
             let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .GET)
             
             self.inboxMessagesURLSession.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Fetching inbox messages with primaryKey: [%{public}@] failed. Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, primaryKey, error.localizedDescription)
-                    }
-                    
+                    onError("Fetching inbox messages with primaryKey: [\(primaryKey)] failed. Error: [\(error.localizedDescription)]")
                     return
                 }
                 
@@ -52,26 +51,23 @@ class InboxMessages: NSObject, URLSessionDelegate {
                     
                     switch httpResponse.statusCode {
                     case 200:
-                        print(responseBody)
+                        onComplete(responseBody)
                     case 401:
-                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                            let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                            
-                            os_log("Fetching inbox messages with primaryKey: [%{public}@] failed. Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, primaryKey, message)
-                        }
+                        let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
+                        let error = "Fetching inbox messages with primaryKey: [\(primaryKey)] failed. Error: [\(message)]"
+                        
+                        onError(error)
 
                         SDKSecurity.shared.updateJWT()
                     default:
-                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                            let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                            
-                            os_log("Fetching inbox messages with primaryKey: [%{public}@] failed. Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, primaryKey, message)
-                        }
+                        let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
+                        let error = "Fetching inbox messages with primaryKey: [\(primaryKey)] failed. Error: [\(message)]"
+                        
+                        onError(error)
                     }
                 } else {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [Inbox messages data is empty with primaryKey: [%{public}@]]", log: OSLog.cordialInboxMessages, type: .error, primaryKey)
-                    }
+                    let error = "Error: [Inbox messages data is empty with primaryKey: [\(primaryKey)]"
+                    onError(error)
                 }
             }.resume()
         }

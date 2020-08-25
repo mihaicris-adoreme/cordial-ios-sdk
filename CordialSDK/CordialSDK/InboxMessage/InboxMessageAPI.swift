@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 @objc public class InboxMessageAPI: NSObject {
     
@@ -18,9 +19,26 @@ import Foundation
         
     }
     
-    @objc public func fetchInboxMessages() {
+    @objc public func fetchInboxMessagesOrigin() {
         if let primaryKey = CordialAPI().getContactPrimaryKey() {
-            InboxMessagesGetter().fetchInboxMessages(primaryKey: primaryKey)
+            InboxMessagesGetter().fetchInboxMessagesOrigin(primaryKey: primaryKey)
+        } else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Fetching inbox messages failed. Error: [primaryKey is absent]", log: OSLog.cordialInboxMessages, type: .error)
+            }
+        }
+    }
+    
+    @objc public func fetchInboxMessages(onComplete: @escaping (_ response: String) -> Void, onError: @escaping (_ error: String) -> Void) {
+        if let primaryKey = CordialAPI().getContactPrimaryKey() {
+            InboxMessagesGetter().fetchInboxMessages(primaryKey: primaryKey, onComplete: { response in
+                onComplete(response)
+            }, onError: { error in
+                onError(error)
+            })
+        } else {
+            let error = "Fetching inbox messages failed. Error: [primaryKey is absent]"
+            onError(error)
         }
     }
 }
