@@ -53,12 +53,11 @@ class InboxMessages: NSObject, URLSessionDelegate {
                     case 200:
                         onComplete(responseBody)
                     case 401:
-                        let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                        let error = "Fetching inbox messages with primaryKey: [\(primaryKey)] failed. Error: [\(message)]"
-                        
-                        onError(error)
-
-                        SDKSecurity.shared.updateJWT()
+                        SDKSecurity.shared.updateJWTwithCallbacks(onComplete: { response in
+                            self.getInboxMessages(primaryKey: primaryKey, onComplete: onComplete, onError: onError)
+                        }, onError: { error in
+                            onError(error)
+                        })
                     default:
                         let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                         let error = "Fetching inbox messages with primaryKey: [\(primaryKey)] failed. Error: [\(message)]"

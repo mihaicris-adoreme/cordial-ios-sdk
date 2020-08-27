@@ -45,10 +45,11 @@ class InboxMessagesGetter {
                     onError(error)
                 })
             } else {
-                let error = "Fetching inbox messages with primaryKey: [\(primaryKey)] failed. Error: [JWT is absent]"
-                onError(error)
-                
-                SDKSecurity.shared.updateJWT()
+                SDKSecurity.shared.updateJWTwithCallbacks(onComplete: { response in
+                    self.fetchInboxMessages(primaryKey: primaryKey, onComplete: onComplete, onError: onError)
+                }, onError: { error in
+                    onError(error)
+                })
             }
         } else {
             let error = "Fetching inbox messages with primaryKey: [\(primaryKey)] failed. Error: [No Internet connection]"
