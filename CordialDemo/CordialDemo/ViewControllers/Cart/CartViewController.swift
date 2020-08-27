@@ -42,6 +42,12 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         self.cartTableFooterView.layer.shadowOpacity = 1
         self.cartTableFooterView.layer.shadowOffset = .zero
         self.cartTableFooterView.layer.shadowRadius = 10
+        
+        InboxMessageAPI().fetchInboxMessages(onComplete: { response in
+            print(response)
+        }, onError: { error in
+            print(error)
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {

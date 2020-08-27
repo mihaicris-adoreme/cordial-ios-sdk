@@ -20,14 +20,30 @@ import os.log
     }
     
     @objc public func fetchInboxMessages(onComplete: @escaping (_ response: String) -> Void, onError: @escaping (_ error: String) -> Void) {
-        if let primaryKey = CordialAPI().getContactPrimaryKey() {
-            InboxMessagesGetter().fetchInboxMessages(primaryKey: primaryKey, onComplete: { response in
-                onComplete(response)
-            }, onError: { error in
+        let cordialAPI = CordialAPI()
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if internalCordialAPI.isUserLogin() {
+            var key: String?
+            if let primaryKey = cordialAPI.getContactPrimaryKey() {
+                key = primaryKey
+            } else if let token = internalCordialAPI.getPushNotificationToken() {
+                let channelKey = cordialAPI.getChannelKey()
+                key = "\(channelKey):\(token)"
+            }
+            
+            if let urlKey = key {
+                InboxMessagesGetter().fetchInboxMessages(urlKey: urlKey, onComplete: { response in
+                    onComplete(response)
+                }, onError: { error in
+                    onError(error)
+                })
+            } else {
+                let error = "Fetching inbox messages failed. Error: [unexpected error]"
                 onError(error)
-            })
+            }
         } else {
-            let error = "Fetching inbox messages failed. Error: [primaryKey is absent]"
+            let error = "Fetching inbox messages failed. Error: [User no login]"
             onError(error)
         }
     }

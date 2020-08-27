@@ -56,13 +56,13 @@ class CordialApiEndpoints {
         return "\(baseURL)mobile/auth/\(secret)"
     }
     
-    func getInboxMessagesURL(primaryKey: String) -> String {
+    func getInboxMessagesURL(urlKey: String) -> String {
         let baseURL = self.cordialAPI.getBaseURL()
         
         let deviceId = InternalCordialAPI().getDeviceIdentifier()
         
         let replacedBaseURL = baseURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
         
-        return "\(replacedBaseURL)inbox/messages/\(primaryKey)/\(deviceId)"
+        return "\(replacedBaseURL)inbox/messages/\(urlKey)/\(deviceId)"
     }
 }

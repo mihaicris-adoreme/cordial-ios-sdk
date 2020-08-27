@@ -11,27 +11,27 @@ import os.log
 
 class InboxMessagesGetter {
     
-    func fetchInboxMessages(primaryKey: String, onComplete: @escaping (_ response: String) -> Void, onError: @escaping (_ error: String) -> Void) {
+    func fetchInboxMessages(urlKey: String, onComplete: @escaping (_ response: String) -> Void, onError: @escaping (_ error: String) -> Void) {
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Fetching inbox messages with primaryKey: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, primaryKey)
+                os_log("Fetching inbox messages", log: OSLog.cordialInboxMessages, type: .info)
             }
             
             if InternalCordialAPI().getCurrentJWT() != nil {
-                InboxMessages().getInboxMessages(primaryKey: primaryKey, onComplete: { response in
+                InboxMessages().getInboxMessages(urlKey: urlKey, onComplete: { response in
                     onComplete(response)
                 }, onError: { error in
                     onError(error)
                 })
             } else {
                 SDKSecurity.shared.updateJWTwithCallbacks(onComplete: { response in
-                    self.fetchInboxMessages(primaryKey: primaryKey, onComplete: onComplete, onError: onError)
+                    self.fetchInboxMessages(urlKey: urlKey, onComplete: onComplete, onError: onError)
                 }, onError: { error in
                     onError(error)
                 })
             }
         } else {
-            let error = "Fetching inbox messages with primaryKey: [\(primaryKey)] failed. Error: [No Internet connection]"
+            let error = "Fetching inbox messages failed. Error: [No Internet connection]"
             onError(error)
         }
     }

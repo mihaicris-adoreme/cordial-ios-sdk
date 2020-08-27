@@ -20,13 +20,13 @@ class InboxMessages: NSObject, URLSessionDelegate {
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
     
-    func getInboxMessages(primaryKey: String, onComplete: @escaping (_ response: String) -> Void, onError: @escaping (_ error: String) -> Void) {
-        if let url = URL(string: CordialApiEndpoints().getInboxMessagesURL(primaryKey: primaryKey)) {
+    func getInboxMessages(urlKey: String, onComplete: @escaping (_ response: String) -> Void, onError: @escaping (_ error: String) -> Void) {
+        if let url = URL(string: CordialApiEndpoints().getInboxMessagesURL(urlKey: urlKey)) {
             let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .GET)
             
             self.inboxMessagesURLSession.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    onError("Fetching inbox messages with primaryKey: [\(primaryKey)] failed. Error: [\(error.localizedDescription)]")
+                    onError("Fetching inbox messages failed. Error: [\(error.localizedDescription)]")
                     return
                 }
                 
@@ -38,18 +38,18 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         onComplete(responseBody)
                     case 401:
                         SDKSecurity.shared.updateJWTwithCallbacks(onComplete: { response in
-                            self.getInboxMessages(primaryKey: primaryKey, onComplete: onComplete, onError: onError)
+                            self.getInboxMessages(urlKey: urlKey, onComplete: onComplete, onError: onError)
                         }, onError: { error in
                             onError(error)
                         })
                     default:
                         let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                        let error = "Fetching inbox messages with primaryKey: [\(primaryKey)] failed. Error: [\(message)]"
+                        let error = "Fetching inbox messages failed. Error: [\(message)]"
                         
                         onError(error)
                     }
                 } else {
-                    let error = "Error: [Inbox messages data is empty with primaryKey: [\(primaryKey)]"
+                    let error = "Error: [Inbox messages payload is absent]"
                     onError(error)
                 }
             }.resume()
