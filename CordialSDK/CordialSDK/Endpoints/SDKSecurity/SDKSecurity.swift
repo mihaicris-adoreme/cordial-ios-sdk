@@ -46,6 +46,38 @@ class SDKSecurity: NSObject, URLSessionDelegate {
         }
     }
     
+    func getSDKSecurityURL() -> String {
+        let accountKey = cordialAPI.getAccountKey()
+        let channelKey = cordialAPI.getChannelKey()
+        
+        let currentDevice = UIDevice.current
+        let systemName = currentDevice.systemName
+        let systemVersion = currentDevice.systemVersion
+        
+        let secretString = "{\"accountKey\":\"\(accountKey)\",\"channelKey\":\"\(channelKey)\",\"os\":\"\(systemName)\",\"version\":\"\(systemVersion)\"}"
+        let secret = MD5().getHex(string: secretString)
+        
+        return CordialApiEndpoints().getSDKSecurityURL(secret: secret)
+    }
+
+    func completionHandler(JWT: String) {
+        self.setJWT(JWT: JWT)
+    }
+    
+    func errorHandler(error: ResponseError) {
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            os_log("Getting JWT failed. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.message)
+        }
+    }
+    
+    private func setJWT(JWT: String) {
+        InternalCordialAPI().setCurrentJWT(JWT: JWT)
+         
+         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+             os_log("JWT has been received successfully", log: OSLog.cordialSDKSecurity, type: .info)
+         }
+    }
+    
     // MARK: URLSessionDelegate
     
     lazy var updateJWTURLSession: URLSession = {
@@ -98,37 +130,5 @@ class SDKSecurity: NSObject, URLSessionDelegate {
                 }
             }.resume()
         }
-    }
-    
-    func getSDKSecurityURL() -> String {
-        let accountKey = cordialAPI.getAccountKey()
-        let channelKey = cordialAPI.getChannelKey()
-        
-        let currentDevice = UIDevice.current
-        let systemName = currentDevice.systemName
-        let systemVersion = currentDevice.systemVersion
-        
-        let secretString = "{\"accountKey\":\"\(accountKey)\",\"channelKey\":\"\(channelKey)\",\"os\":\"\(systemName)\",\"version\":\"\(systemVersion)\"}"
-        let secret = MD5().getHex(string: secretString)
-        
-        return CordialApiEndpoints().getSDKSecurityURL(secret: secret)
-    }
-
-    func completionHandler(JWT: String) {
-        self.setJWT(JWT: JWT)
-    }
-    
-    func errorHandler(error: ResponseError) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Getting JWT failed. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.message)
-        }
-    }
-    
-    private func setJWT(JWT: String) {
-        InternalCordialAPI().setCurrentJWT(JWT: JWT)
-         
-         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-             os_log("JWT has been received successfully", log: OSLog.cordialSDKSecurity, type: .info)
-         }
     }
 }

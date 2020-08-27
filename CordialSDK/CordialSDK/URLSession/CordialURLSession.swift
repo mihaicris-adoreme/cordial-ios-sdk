@@ -63,10 +63,6 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
                     FetchInAppMessageURLSessionManager().errorHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, error: error)
                 }
-            case API.DOWNLOAD_TASK_NAME_FETCH_INBOX_MESSAGES:
-                if let inboxMessagesURLSessionData = operation.taskData as? InboxMessagesURLSessionData {
-                    FetchInboxMessagesURLSessionManager().errorHandler(inboxMessagesURLSessionData: inboxMessagesURLSessionData, error: error)
-                }
             case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
                 SDKSecurityGetJWTURLSessionManager().errorHandler(error: error)
             case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
@@ -106,10 +102,6 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
                 if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
                     FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, httpResponse: httpResponse, location: location)
-                }
-            case API.DOWNLOAD_TASK_NAME_FETCH_INBOX_MESSAGES:
-                if let inboxMessagesURLSessionData = operation.taskData as? InboxMessagesURLSessionData {
-                    FetchInboxMessagesURLSessionManager().completionHandler(inboxMessagesURLSessionData: inboxMessagesURLSessionData, httpResponse: httpResponse, location: location)
                 }
             case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
                 SDKSecurityGetJWTURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
