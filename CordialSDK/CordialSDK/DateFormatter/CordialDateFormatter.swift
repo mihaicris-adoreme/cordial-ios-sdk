@@ -35,4 +35,12 @@ import Foundation
     @objc public func getTimestampFromDate(date: Date) -> String {
         return self.dateFormatter.string(from: date)
     }
+    
+    @objc public func isValidTimestamp(timestamp: String) -> Bool {
+        if let _ = self.getDateFromTimestamp(timestamp: timestamp) {
+            return true
+        }
+        
+        return false
+    }
 }

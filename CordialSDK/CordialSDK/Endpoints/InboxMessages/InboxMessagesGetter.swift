@@ -11,14 +11,18 @@ import os.log
 
 class InboxMessagesGetter {
     
-    func fetchInboxMessages(urlKey: String, onComplete: @escaping (_ response: String) -> Void, onError: @escaping (_ error: String) -> Void) {
+    func fetchInboxMessages(urlKey: String, onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Fetching inbox messages", log: OSLog.cordialInboxMessages, type: .info)
+                os_log("Fetching inbox messages", log: OSLog.cordialSDKInboxMessages, type: .info)
             }
             
             if InternalCordialAPI().getCurrentJWT() != nil {
                 InboxMessages().getInboxMessages(urlKey: urlKey, onComplete: { response in
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Inbox messages has been received successfully", log: OSLog.cordialSDKInboxMessages, type: .info)
+                    }
+                    
                     onComplete(response)
                 }, onError: { error in
                     onError(error)

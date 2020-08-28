@@ -38,6 +38,7 @@
 		9E7A5A8D222EB64C0020054F /* CordialDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */; };
 		9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */; };
 		9E7CEC7D242857F800E054BF /* GeoAttributeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */; };
+		9E7DF22E24F95808005533A7 /* OSLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7DF22D24F95808005533A7 /* OSLogManager.swift */; };
 		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
 		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
 		9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B95A923A53A1300936630 /* SceneDelegate.swift */; };
@@ -160,6 +161,7 @@
 		9E7A5A8E222EB64C0020054F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAttributeViewController.swift; sourceTree = "<group>"; };
+		9E7DF22D24F95808005533A7 /* OSLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLogManager.swift; sourceTree = "<group>"; };
 		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
 		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
 		9E8B95A923A53A1300936630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 			children = (
 				9E6A56CC244FB30700E6495A /* ViewControllers */,
 				9EAB97252427365500C5C5DA /* App */,
+				9E7DF22C24F957EF005533A7 /* OSLog */,
 				9ECF6B7D2298559300E6E88F /* ProductHandler */,
 				9ECF6B7A22984FEA00E6E88F /* DeepLinks */,
 				9EF7B21422666102003B223D /* PushNotification */,
@@ -415,6 +418,14 @@
 				9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */,
 			);
 			path = GeoAttribute;
+			sourceTree = "<group>";
+		};
+		9E7DF22C24F957EF005533A7 /* OSLog */ = {
+			isa = PBXGroup;
+			children = (
+				9E7DF22D24F95808005533A7 /* OSLogManager.swift */,
+			);
+			path = OSLog;
 			sourceTree = "<group>";
 		};
 		9E80E35D24194E1400EE5852 /* Footer */ = {
@@ -910,6 +921,7 @@
 				9EDAEA0D234CD23F008A7B2F /* Settings.swift in Sources */,
 				9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */,
 				9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */,
+				9E7DF22E24F95808005533A7 /* OSLogManager.swift in Sources */,
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
 				9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */,

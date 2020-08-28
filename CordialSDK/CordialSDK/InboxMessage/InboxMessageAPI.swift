@@ -19,7 +19,7 @@ import os.log
         
     }
     
-    @objc public func fetchInboxMessages(onComplete: @escaping (_ response: String) -> Void, onError: @escaping (_ error: String) -> Void) {
+    @objc public func fetchInboxMessages(onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
         let cordialAPI = CordialAPI()
         let internalCordialAPI = InternalCordialAPI()
         
