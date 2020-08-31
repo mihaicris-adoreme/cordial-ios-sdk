@@ -8,7 +8,6 @@
 
 import UIKit
 import CordialSDK
-import os.log
 
 class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -43,15 +42,6 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         self.cartTableFooterView.layer.shadowOpacity = 1
         self.cartTableFooterView.layer.shadowOffset = .zero
         self.cartTableFooterView.layer.shadowRadius = 10
-        
-        
-        InboxMessageAPI().fetchInboxMessages(onComplete: { response in
-            response.forEach { message in
-                os_log("Inbox message: \n ID: %{public}@ \n HTML: %{public}@ \n customKeyValuePairs: %{public}@ \n title: %{public}@ \n read: %{public}@ \n sentAt: %{public}@", log: OSLog.сordialSDKDemoInboxMessages, type: .info, message.id, message.html, message.customKeyValuePairs.description, message.title, message.read.description, message.sentAt)
-            }
-        }, onError: { error in
-            os_log("Fetching inbox messages failed. Error: [%{public}@]", log: OSLog.сordialSDKDemoInboxMessages, type: .error, error)
-        })
     }
     
     override func viewWillAppear(_ animated: Bool) {

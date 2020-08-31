@@ -58,6 +58,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         let activities: [UIActivity] = [
             CustomUIActivityProfile(sender: self),
             CustomUIActivityCustomEvent(sender: self),
+            CustomUIActivityFetchInboxMessages(sender: self),
             CustomUIActivityLogin(sender: self),
             CustomUIActivityLogout(sender: self)
         ]

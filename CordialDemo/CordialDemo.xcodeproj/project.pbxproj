@@ -24,6 +24,7 @@
 		9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */; };
 		9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */; };
 		9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */; };
+		9E58D9F124FD904500075D76 /* CustomUIActivityFetchInboxMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58D9F024FD904500075D76 /* CustomUIActivityFetchInboxMessages.swift */; };
 		9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E602D09226744CC00197CBD /* CartTableViewCell.swift */; };
 		9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */; };
 		9E77896C22878C090089C986 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E77896B22878C090089C986 /* NotificationService.swift */; };
@@ -140,6 +141,7 @@
 		9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewController.swift; sourceTree = "<group>"; };
 		9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		9E58D9F024FD904500075D76 /* CustomUIActivityFetchInboxMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityFetchInboxMessages.swift; sourceTree = "<group>"; };
 		9E602D09226744CC00197CBD /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksHandler.swift; sourceTree = "<group>"; };
 		9E77896922878C090089C986 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -267,6 +269,7 @@
 		9E30BDED244FA6D600040974 /* Activities */ = {
 			isa = PBXGroup;
 			children = (
+				9E58D9F024FD904500075D76 /* CustomUIActivityFetchInboxMessages.swift */,
 				9EA5F539244F67A000BF685C /* CustomUIActivityProfile.swift */,
 				9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */,
 				9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */,
@@ -893,6 +896,7 @@
 				9EAB97272427366900C5C5DA /* AppDateFormatter.swift in Sources */,
 				9EA5F540244F9D0E00BF685C /* CustomUIActivityLogin.swift in Sources */,
 				9E96BA49244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift in Sources */,
+				9E58D9F124FD904500075D76 /* CustomUIActivityFetchInboxMessages.swift in Sources */,
 				9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */,
 				9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */,
 				9E30BDE9244FA6AA00040974 /* CustomUIActivityLogout.swift in Sources */,
