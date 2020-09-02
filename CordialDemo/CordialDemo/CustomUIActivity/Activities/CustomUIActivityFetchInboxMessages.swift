@@ -42,13 +42,17 @@ class CustomUIActivityFetchInboxMessages: UIActivity {
             self.activityDidFinish(true)
             
             InboxMessageAPI().fetchInboxMessages(onComplete: { response in
-                response.forEach { message in
-                    popupSimpleNoteAlert(title: "SUCCESS", message: "Details in the console", controller: catalogCollectionViewController)
-                    
-                    os_log("Inbox message: \n ID: %{public}@ \n HTML: %{public}@ \n customKeyValuePairs: %{public}@ \n title: %{public}@ \n read: %{public}@ \n sentAt: %{public}@", log: OSLog.сordialSDKDemoInboxMessages, type: .info, message.id, message.html, message.customKeyValuePairs.description, message.title, message.read.description, message.sentAt)
+                popupSimpleNoteAlert(title: "SUCCESS", message: "DETAILS IN THE CONSOLE", controller: catalogCollectionViewController)
+                
+                if response.count > 0 {
+                    response.forEach { message in
+                        os_log("Inbox message: \n ID: %{public}@ \n HTML: %{public}@ \n customKeyValuePairs: %{public}@ \n title: %{public}@ \n read: %{public}@ \n sentAt: %{public}@", log: OSLog.сordialSDKDemoInboxMessages, type: .info, message.id, message.html, message.customKeyValuePairs.description, message.title, message.read.description, message.sentAt)
+                    }
+                } else {
+                    os_log("Inbox is empty", log: OSLog.сordialSDKDemoInboxMessages, type: .info)
                 }
             }, onError: { error in
-                popupSimpleNoteAlert(title: "FAILED", message: error, controller: catalogCollectionViewController)
+                popupSimpleNoteAlert(title: "FAILED", message: "DETAILS IN THE CONSOLE", controller: catalogCollectionViewController)
                 
                 os_log("%{public}@", log: OSLog.сordialSDKDemoInboxMessages, type: .error, error)
             })

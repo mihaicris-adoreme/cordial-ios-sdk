@@ -120,12 +120,12 @@ class SDKSecurity: NSObject, URLSessionDelegate {
                             onError(error)
                         }
                     } else {
-                        let error = "Failed decode response data."
+                        let error = "Failed decode JWT response data"
                         onError(error)
                     }
                 } catch let error {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.localizedDescription)
+                        os_log("Failed decode JWT response data. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.localizedDescription)
                     }
                 }
             }.resume()

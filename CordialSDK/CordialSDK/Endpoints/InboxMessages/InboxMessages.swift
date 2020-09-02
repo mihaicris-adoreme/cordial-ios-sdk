@@ -47,12 +47,26 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         })
                     default:
                         let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                        let error = "Fetching inbox messages failed. Error: [\(message)]"
                         
-                        onError(error)
+                        do {
+                            if let jsonObject = try JSONSerialization.jsonObject(with: responseData, options : []) as? Dictionary<String, AnyObject> {
+                                
+                                let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+
+                                if let prettyJSON = String(data: jsonData, encoding: .utf8) {
+                                    onError("Fetching inbox messages failed. \(message). JSON: \n \(prettyJSON)")
+                                } else {
+                                    onError("Fetching inbox messages failed. Error: [Failed decode response data] \(message)")
+                                }
+                            } else {
+                                onError("Fetching inbox messages failed. Error: [Failed decode response data] \(message)")
+                            }
+                        } catch let error {
+                            onError("Fetching inbox messages failed. Error: [\(error)] \(message)")
+                        }
                     }
                 } else {
-                    let error = "Error: [Inbox messages payload is absent]"
+                    let error = "Fetching inbox messages failed. Error: [Inbox messages payload is absent]"
                     onError(error)
                 }
             }.resume()
@@ -77,15 +91,29 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         var read: Bool?
                         var sentAt: String?
                         
+                        var messageError = String()
+                        
                         messageJSON.forEach { key, value in
                             switch key {
                                 case "_id":
                                     if let valueID = value as? String {
                                         id = valueID
+                                    } else {
+                                        if !messageError.isEmpty {
+                                            messageError += ". "
+                                        }
+                                        
+                                        messageError += "_id IS NIL"
                                     }
                                 case "html":
                                     if let valueHTML = value as? String {
                                         html = valueHTML
+                                    } else {
+                                        if !messageError.isEmpty {
+                                            messageError += ". "
+                                        }
+                                        
+                                        messageError += "html IS NIL"
                                     }
                                 case "customKeyValuePairs":
                                     if let valueCustomKeyValuePairs = value as? [String: String] {
@@ -96,14 +124,40 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                 case "title":
                                     if let valueTitle = value as? String {
                                         title = valueTitle
+                                    } else {
+                                        if !messageError.isEmpty {
+                                            messageError += ". "
+                                        }
+                                        
+                                        messageError += "title IS NIL"
                                     }
                                 case "read":
                                     if let valueRead = value as? Bool {
                                         read = valueRead
+                                    } else {
+                                        if !messageError.isEmpty {
+                                            messageError += ". "
+                                        }
+                                        
+                                        messageError += "read IS NIL"
                                     }
                                 case "sentAt":
-                                    if let valueSentAt = value as? String, CordialDateFormatter().isValidTimestamp(timestamp: valueSentAt) {
-                                        sentAt = valueSentAt
+                                    if let valueSentAt = value as? String {
+                                        if CordialDateFormatter().isValidTimestamp(timestamp: valueSentAt) {
+                                            sentAt = valueSentAt
+                                        } else {
+                                            if !messageError.isEmpty {
+                                                messageError += ". "
+                                            }
+                                            
+                                            messageError += "sentAt IS NOT VALID"
+                                        }
+                                    } else {
+                                        if !messageError.isEmpty {
+                                            messageError += ". "
+                                        }
+                                        
+                                        messageError += "sentAt IS NIL"
                                     }
                                 default: break
                             }
@@ -120,7 +174,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
                             
                             inboxMessages.append(inboxMessage)
                         } else {
-                            onError("Fetching inbox messages failed. Error: [JSON parser failed]")
+                            onError("Fetching inbox messages failed. Error: [Failed decode response data. \(messageError)]")
                         }
                     }
                     
