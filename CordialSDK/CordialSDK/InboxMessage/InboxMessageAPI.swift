@@ -23,28 +23,31 @@ import os.log
         let cordialAPI = CordialAPI()
         let internalCordialAPI = InternalCordialAPI()
         
-        if internalCordialAPI.isUserLogin() {
-            var key: String?
-            if let primaryKey = cordialAPI.getContactPrimaryKey() {
-                key = primaryKey
-            } else if let token = internalCordialAPI.getPushNotificationToken() {
-                let channelKey = cordialAPI.getChannelKey()
-                key = "\(channelKey):\(token)"
-            }
-            
-            if let urlKey = key {
-                InboxMessagesGetter().fetchInboxMessages(urlKey: urlKey, onComplete: { response in
-                    onComplete(response)
-                }, onError: { error in
-                    onError(error)
-                })
-            } else {
-                let error = "Fetching inbox messages failed. Error: [unexpected error]"
+        var key: String?
+        if let primaryKey = cordialAPI.getContactPrimaryKey() {
+            key = primaryKey
+        } else if let token = internalCordialAPI.getPushNotificationToken() {
+            let channelKey = cordialAPI.getChannelKey()
+            key = "\(channelKey):\(token)"
+        }
+        
+        if let urlKey = key {
+            InboxMessagesGetter().fetchInboxMessages(urlKey: urlKey, onComplete: { response in
+                onComplete(response)
+            }, onError: { error in
                 onError(error)
-            }
+            })
         } else {
-            let error = "Fetching inbox messages failed. Error: [User no login]"
+            let error = "Fetching inbox messages failed. Error: [Unexpected error]"
             onError(error)
         }
+    }
+    
+    @objc public func markInboxMessageRead(mcID: String) {
+        
+    }
+    
+    @objc public func markInboxMessageUnread(mcID: String) {
+        
     }
 }

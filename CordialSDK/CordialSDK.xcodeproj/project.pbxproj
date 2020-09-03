@@ -71,6 +71,8 @@
 		9E687EC924BA257A00D81322 /* MockRequestSenderInAppMessageExpirationTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E687EC824BA257A00D81322 /* MockRequestSenderInAppMessageExpirationTime.swift */; };
 		9E687ECB24BE01B200D81322 /* MockRequestSenderSetContactWithoutNotificationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E687ECA24BE01B200D81322 /* MockRequestSenderSetContactWithoutNotificationToken.swift */; };
 		9E6ACC0D246D73720025450B /* MockRequestSenderUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6ACC0C246D73720025450B /* MockRequestSenderUserAgent.swift */; };
+		9E6D1DA3250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D1DA2250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift */; };
+		9E6D1DA62501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D1DA52501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift */; };
 		9E6DB89B234E168700711A2A /* CordialDeepLinksDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */; };
 		9E7037A2226882F4000C3582 /* UpsertContactCartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A1226882F4000C3582 /* UpsertContactCartRequest.swift */; };
 		9E7037A7226885E4000C3582 /* CartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A6226885E4000C3582 /* CartItem.swift */; };
@@ -280,6 +282,8 @@
 		9E687EC824BA257A00D81322 /* MockRequestSenderInAppMessageExpirationTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageExpirationTime.swift; sourceTree = "<group>"; };
 		9E687ECA24BE01B200D81322 /* MockRequestSenderSetContactWithoutNotificationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderSetContactWithoutNotificationToken.swift; sourceTree = "<group>"; };
 		9E6ACC0C246D73720025450B /* MockRequestSenderUserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUserAgent.swift; sourceTree = "<group>"; };
+		9E6D1DA2250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesMarkReadUnreadRequest.swift; sourceTree = "<group>"; };
+		9E6D1DA52501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesMarkReadUnreadSender.swift; sourceTree = "<group>"; };
 		9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksDelegate.swift; sourceTree = "<group>"; };
 		9E7037A1226882F4000C3582 /* UpsertContactCartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactCartRequest.swift; sourceTree = "<group>"; };
 		9E7037A6226885E4000C3582 /* CartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
@@ -612,6 +616,23 @@
 			path = Throttler;
 			sourceTree = "<group>";
 		};
+		9E6D1DA12501137100940363 /* InboxMessagesMarkReadUnread */ = {
+			isa = PBXGroup;
+			children = (
+				9E6D1DA42501238A00940363 /* Helper */,
+				9E6D1DA2250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift */,
+			);
+			path = InboxMessagesMarkReadUnread;
+			sourceTree = "<group>";
+		};
+		9E6D1DA42501238A00940363 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				9E6D1DA52501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		9E7037A022688254000C3582 /* UpsertContactCart */ = {
 			isa = PBXGroup;
 			children = (
@@ -702,6 +723,7 @@
 				9E126DAA22F8597B00A74143 /* SDKSecurity */,
 				9E12EA3C22CCC36800C2DED4 /* InAppMessage */,
 				9EB62A7924EF1B5700745D6D /* InboxMessages */,
+				9E6D1DA12501137100940363 /* InboxMessagesMarkReadUnread */,
 				9E92D3D0228EF22A00D8AFE0 /* SendContactLogout */,
 				9E44CB1B222FE24B00DADC6C /* UpsertContacts */,
 				9EEE995322412BDE0041D8AE /* SendCustomEvent */,
@@ -1214,6 +1236,7 @@
 				9EA31A302292D5E80037B786 /* ContactLogoutRequestCoreData.swift in Sources */,
 				9EB17AC522930D7B00EEAB7D /* CustomEventRequest+CoreDataClass.swift in Sources */,
 				9E565B8E225B7198005EC4AF /* SendCustomEvents.swift in Sources */,
+				9E6D1DA3250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift in Sources */,
 				9EB17AC622930D7B00EEAB7D /* CustomEventRequest+CoreDataProperties.swift in Sources */,
 				9E51EF02249A6177009649C3 /* CordialPushNotificationParser.swift in Sources */,
 				9E1B0D2D2379C1520010B86E /* InAppMessageDelayMode.swift in Sources */,
@@ -1297,6 +1320,7 @@
 				9E95842B23C7540A00061C21 /* CordialUserDefaults.swift in Sources */,
 				9E126DB422F8661700A74143 /* MD5.swift in Sources */,
 				9EBA1B1F23FFEC5500005054 /* TestCase.swift in Sources */,
+				9E6D1DA62501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift in Sources */,
 				9EBA1B1C23FFE3BD00005054 /* DependencyConfiguration.swift in Sources */,
 				9E3EA04522B2805900EDBF93 /* CordialLocationManager.swift in Sources */,
 				9EB17ABD22930D7B00EEAB7D /* ContactRequest+CoreDataClass.swift in Sources */,
