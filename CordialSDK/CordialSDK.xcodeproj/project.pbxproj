@@ -73,6 +73,10 @@
 		9E6ACC0D246D73720025450B /* MockRequestSenderUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6ACC0C246D73720025450B /* MockRequestSenderUserAgent.swift */; };
 		9E6D1DA3250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D1DA2250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift */; };
 		9E6D1DA62501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D1DA52501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift */; };
+		9E6D1DA925065E6800940363 /* InboxMessagesMarkReadUnreadCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D1DA825065E6800940363 /* InboxMessagesMarkReadUnreadCoreData.swift */; };
+		9E6D1DAB25079DC000940363 /* InboxMessagesMarkReadUnread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D1DAA25079DC000940363 /* InboxMessagesMarkReadUnread.swift */; };
+		9E6D1DAD2507A39200940363 /* InboxMessagesMarkReadUnreadURLSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D1DAC2507A39200940363 /* InboxMessagesMarkReadUnreadURLSessionData.swift */; };
+		9E6D1DBD2507D95700940363 /* InboxMessagesMarkReadUnreadURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D1DBC2507D95700940363 /* InboxMessagesMarkReadUnreadURLSessionManager.swift */; };
 		9E6DB89B234E168700711A2A /* CordialDeepLinksDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */; };
 		9E7037A2226882F4000C3582 /* UpsertContactCartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A1226882F4000C3582 /* UpsertContactCartRequest.swift */; };
 		9E7037A7226885E4000C3582 /* CartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7037A6226885E4000C3582 /* CartItem.swift */; };
@@ -284,6 +288,10 @@
 		9E6ACC0C246D73720025450B /* MockRequestSenderUserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUserAgent.swift; sourceTree = "<group>"; };
 		9E6D1DA2250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesMarkReadUnreadRequest.swift; sourceTree = "<group>"; };
 		9E6D1DA52501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesMarkReadUnreadSender.swift; sourceTree = "<group>"; };
+		9E6D1DA825065E6800940363 /* InboxMessagesMarkReadUnreadCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesMarkReadUnreadCoreData.swift; sourceTree = "<group>"; };
+		9E6D1DAA25079DC000940363 /* InboxMessagesMarkReadUnread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesMarkReadUnread.swift; sourceTree = "<group>"; };
+		9E6D1DAC2507A39200940363 /* InboxMessagesMarkReadUnreadURLSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesMarkReadUnreadURLSessionData.swift; sourceTree = "<group>"; };
+		9E6D1DBC2507D95700940363 /* InboxMessagesMarkReadUnreadURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesMarkReadUnreadURLSessionManager.swift; sourceTree = "<group>"; };
 		9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksDelegate.swift; sourceTree = "<group>"; };
 		9E7037A1226882F4000C3582 /* UpsertContactCartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactCartRequest.swift; sourceTree = "<group>"; };
 		9E7037A6226885E4000C3582 /* CartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
@@ -547,6 +555,7 @@
 				9E5147C722FC4D9B00977278 /* SendContactLogoutURLSessionData.swift */,
 				9E5147E522FC5DA000977278 /* UpsertContactCartURLSessionData.swift */,
 				9EB5C7FF22FC6C090024F5A6 /* SendContactOrdersURLSessionData.swift */,
+				9E6D1DAC2507A39200940363 /* InboxMessagesMarkReadUnreadURLSessionData.swift */,
 			);
 			path = URLSessionData;
 			sourceTree = "<group>";
@@ -629,6 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				9E6D1DA52501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift */,
+				9E6D1DAA25079DC000940363 /* InboxMessagesMarkReadUnread.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -913,6 +923,7 @@
 				9ED621F222CE388900A55DB2 /* InAppMessagesQueueCoreData.swift */,
 				9EC0ACD92327C644002545D8 /* InAppMessagesParamCoreData.swift */,
 				9E786AE72399437F00D92017 /* InAppMessagesShownCoreData.swift */,
+				9E6D1DA825065E6800940363 /* InboxMessagesMarkReadUnreadCoreData.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1025,6 +1036,7 @@
 				9E5147C922FC4DFD00977278 /* SendContactLogoutURLSessionManager.swift */,
 				9E5147E722FC5DCB00977278 /* UpsertContactCartURLSessionManager.swift */,
 				9EB5C80122FC6E840024F5A6 /* SendContactOrdersURLSessionManager.swift */,
+				9E6D1DBC2507D95700940363 /* InboxMessagesMarkReadUnreadURLSessionManager.swift */,
 			);
 			path = URLSessionManager;
 			sourceTree = "<group>";
@@ -1275,6 +1287,7 @@
 				9EE29BE722F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift in Sources */,
 				9ED621F322CE388900A55DB2 /* InAppMessagesQueueCoreData.swift in Sources */,
 				9E12EA4522CCD45100C2DED4 /* InAppMessage.swift in Sources */,
+				9E6D1DAB25079DC000940363 /* InboxMessagesMarkReadUnread.swift in Sources */,
 				9E97DEF5226F307E00856341 /* Order.swift in Sources */,
 				9E31E78322CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift in Sources */,
 				9E565B8C225B6E7C005EC4AF /* CordialApiConfiguration.swift in Sources */,
@@ -1308,6 +1321,7 @@
 				9ED26372224CFAF300BD9BB3 /* CordialFirstLaunch.swift in Sources */,
 				9E5147AA22FC264D00977278 /* UpsertContactsURLSessionData.swift in Sources */,
 				9EB17AC422930D7B00EEAB7D /* ContactCartRequest+CoreDataProperties.swift in Sources */,
+				9E6D1DAD2507A39200940363 /* InboxMessagesMarkReadUnreadURLSessionData.swift in Sources */,
 				9EE94E29233CF07B009651DF /* InAppMessagesParam+CoreDataClass.swift in Sources */,
 				9EEE941122E099A200A61FD3 /* InAppMessageBannerView.swift in Sources */,
 				9E5147E622FC5DA000977278 /* UpsertContactCartURLSessionData.swift in Sources */,
@@ -1330,7 +1344,9 @@
 				9E92D3D9228F022800D8AFE0 /* SendContactLogout.swift in Sources */,
 				9EFCA9DA225F8C8B005A8AC8 /* CordialApiEndpoints.swift in Sources */,
 				9E97DEFB226F413300856341 /* SendContactOrders.swift in Sources */,
+				9E6D1DBD2507D95700940363 /* InboxMessagesMarkReadUnreadURLSessionManager.swift in Sources */,
 				9EEE995522412C160041D8AE /* SendCustomEventRequest.swift in Sources */,
+				9E6D1DA925065E6800940363 /* InboxMessagesMarkReadUnreadCoreData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

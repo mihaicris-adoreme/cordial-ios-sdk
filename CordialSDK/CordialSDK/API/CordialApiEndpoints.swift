@@ -65,4 +65,12 @@ class CordialApiEndpoints {
         
         return "\(replacedBaseURL)inbox/messages/\(urlKey)/\(deviceId)"
     }
+    
+    func getInboxMessagesMarkReadUnreadURL() -> String {
+        let baseURL = self.cordialAPI.getBaseURL()
+        
+        let replacedBaseURL = baseURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
+        
+        return "\(replacedBaseURL)inbox/read"
+    }
 }

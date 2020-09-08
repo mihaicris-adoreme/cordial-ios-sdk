@@ -22,7 +22,7 @@ public extension Notification.Name {
     static let cordialUpsertContactsLogicError = Notification.Name("CordialUpsertContactsLogicError")
     static let cordialSendContactLogoutLogicError = Notification.Name("CordialSendContactLogoutLogicError")
     static let cordialInAppMessageLogicError = Notification.Name("CordialInAppMessageLogicError")
-    
+    static let cordialInboxMessagesMarkReadUnreadLogicError = Notification.Name("CordialInboxMessagesMarkReadUnreadLogicError")
 }
 
 @objc public extension NSNotification {
@@ -37,6 +37,7 @@ public extension Notification.Name {
     static let cordialUpsertContactsLogicError = Notification.Name.cordialUpsertContactsLogicError
     static let cordialSendContactLogoutLogicError = Notification.Name.cordialSendContactLogoutLogicError
     static let cordialInAppMessageLogicError = Notification.Name.cordialInAppMessageLogicError
+    static let cordialInboxMessagesMarkReadUnreadLogicError = Notification.Name.cordialInboxMessagesMarkReadUnreadLogicError
 }
 
 class NotificationManager {

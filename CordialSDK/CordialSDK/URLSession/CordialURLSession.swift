@@ -85,6 +85,10 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 if let sendContactOrdersURLSessionData = operation.taskData as? SendContactOrdersURLSessionData {
                     SendContactOrdersURLSessionManager().errorHandler(sendContactOrdersURLSessionData: sendContactOrdersURLSessionData, error: error)
                 }
+            case API.DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS:
+                if let inboxMessagesMarkReadUnreadURLSessionData = operation.taskData as? InboxMessagesMarkReadUnreadURLSessionData {
+                    InboxMessagesMarkReadUnreadURLSessionManager().errorHandler(inboxMessagesMarkReadUnreadURLSessionData: inboxMessagesMarkReadUnreadURLSessionData, error: error)
+                }
             default: break
             }
         }
@@ -124,6 +128,10 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
             case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS:
                 if let sendContactOrdersURLSessionData = operation.taskData as? SendContactOrdersURLSessionData {
                     SendContactOrdersURLSessionManager().completionHandler(sendContactOrdersURLSessionData: sendContactOrdersURLSessionData, httpResponse: httpResponse, location: location)
+                }
+            case API.DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS:
+                if let inboxMessagesMarkReadUnreadURLSessionData = operation.taskData as? InboxMessagesMarkReadUnreadURLSessionData {
+                    InboxMessagesMarkReadUnreadURLSessionManager().completionHandler(inboxMessagesMarkReadUnreadURLSessionData: inboxMessagesMarkReadUnreadURLSessionData, httpResponse: httpResponse, location: location)
                 }
             default: break
             }

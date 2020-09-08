@@ -29,6 +29,7 @@ class CoreDataManager {
     let inAppMessagesQueue = InAppMessagesQueueCoreData()
     let inAppMessagesParam = InAppMessagesParamCoreData()
     let inAppMessagesShown = InAppMessagesShownCoreData()
+    let inboxMessagesMarkReadUnread = InboxMessagesMarkReadUnreadCoreData()
     
     lazy var persistentContainer: NSPersistentContainer = {
     
@@ -93,6 +94,7 @@ class CoreDataManager {
         self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
         self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)
         self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesShown.entityName)
+        self.deleteAllCoreDataByEntity(entityName: self.inboxMessagesMarkReadUnread.entityName)
     }
     
 }

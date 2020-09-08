@@ -21,12 +21,11 @@ import os.log
     
     @objc public func fetchInboxMessages(onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
         let cordialAPI = CordialAPI()
-        let internalCordialAPI = InternalCordialAPI()
         
         var key: String?
         if let primaryKey = cordialAPI.getContactPrimaryKey() {
             key = primaryKey
-        } else if let token = internalCordialAPI.getPushNotificationToken() {
+        } else if let token = InternalCordialAPI().getPushNotificationToken() {
             let channelKey = cordialAPI.getChannelKey()
             key = "\(channelKey):\(token)"
         }
