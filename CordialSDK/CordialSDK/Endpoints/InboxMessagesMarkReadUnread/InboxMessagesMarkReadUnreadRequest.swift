@@ -28,13 +28,21 @@ class InboxMessagesMarkReadUnreadRequest: NSObject, NSCoding {
     
     init(markAsReadMcIDs: [String], markAsUnreadMcIDs: [String]) {
         self.requestID = UUID().uuidString
-        self.primaryKey = CordialAPI().getContactPrimaryKey()
+        
+        if let primaryKey = CordialAPI().getContactPrimaryKey() {
+            self.primaryKey = primaryKey
+        } else if let contactKey = InternalCordialAPI().getContactKey() {
+            self.primaryKey = contactKey
+        } else {
+            self.primaryKey = nil
+        }
+        
         self.markAsReadMcIDs = markAsReadMcIDs
         self.markAsUnreadMcIDs = markAsUnreadMcIDs
         self.date = Date()
     }
     
-    private init(requestID: String, primaryKey: String?, markAsReadMcIDs: [String], markAsUnreadMcIDs: [String], date: Date) {
+    init(requestID: String, primaryKey: String?, markAsReadMcIDs: [String], markAsUnreadMcIDs: [String], date: Date) {
         self.requestID = requestID
         self.primaryKey = primaryKey
         self.markAsReadMcIDs = markAsReadMcIDs

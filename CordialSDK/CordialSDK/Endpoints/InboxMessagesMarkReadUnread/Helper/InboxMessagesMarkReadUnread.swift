@@ -38,10 +38,8 @@ class InboxMessagesMarkReadUnread {
             "\"deviceId\": \"\(internalCordialAPI.getDeviceIdentifier())\""
         ]
         
-        if let primaryKey = CordialAPI().getContactPrimaryKey() {
+        if let primaryKey = inboxMessagesMarkReadUnreadRequest.primaryKey {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
-        } else if let contactKey = internalCordialAPI.getContactKey() {
-            rootContainer.append("\"primaryKey\": \"\(contactKey)\"")
         }
         
         if !inboxMessagesMarkReadUnreadRequest.markAsReadMcIDs.isEmpty {

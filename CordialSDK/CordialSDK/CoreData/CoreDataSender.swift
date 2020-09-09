@@ -27,6 +27,8 @@ class CoreDataSender {
             self.sendCachedContactOrderRequests()
         }
         
+        self.sendCachedInboxMessagesMarkReadUnreadRequests()
+        
         self.sendCachedContactLogoutRequest()
         
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
@@ -105,5 +107,52 @@ class CoreDataSender {
         if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         }
+    }
+    
+    private func sendCachedInboxMessagesMarkReadUnreadRequests() {
+        var inboxMessagesMarkReadUnreadRequestsWithPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
+        var inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
+        
+        let inboxMessagesMarkReadUnreadRequests = CoreDataManager.shared.inboxMessagesMarkReadUnread.fetchInboxMessagesMarkReadUnreadDataFromCoreData()
+        inboxMessagesMarkReadUnreadRequests.forEach { inboxMessagesMarkReadUnreadRequest in
+            if inboxMessagesMarkReadUnreadRequest.primaryKey == CordialAPI().getContactPrimaryKey() {
+                inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
+            } else if inboxMessagesMarkReadUnreadRequest.primaryKey == InternalCordialAPI().getContactKey() {
+                inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
+            }
+        }
+        
+        if let firstInboxMessagesMarkReadUnreadRequestsWithPrimaryKey = inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.first {
+            let mergedInboxMessagesMarkReadUnreadRequest = self.getInboxMessagesMarkReadUnreadRequest(primaryKey: firstInboxMessagesMarkReadUnreadRequestsWithPrimaryKey.primaryKey, inboxMessagesMarkReadUnreadRequests: inboxMessagesMarkReadUnreadRequestsWithPrimaryKey)
+            
+            InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: mergedInboxMessagesMarkReadUnreadRequest)
+        }
+        
+        if let firstInboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.first {
+            let mergedInboxMessagesMarkReadUnreadRequest = self.getInboxMessagesMarkReadUnreadRequest(primaryKey: firstInboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.primaryKey, inboxMessagesMarkReadUnreadRequests: inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey)
+            
+            InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: mergedInboxMessagesMarkReadUnreadRequest)
+        }
+    }
+    
+    private func getInboxMessagesMarkReadUnreadRequest(primaryKey: String?, inboxMessagesMarkReadUnreadRequests: [InboxMessagesMarkReadUnreadRequest]) -> InboxMessagesMarkReadUnreadRequest {
+        
+        var mergedMarkAsReadMcIDs = [String]()
+        var mergedMarkAsUnreadMcIDs = [String]()
+        
+        inboxMessagesMarkReadUnreadRequests.forEach { inboxMessagesMarkReadUnreadRequest in
+            inboxMessagesMarkReadUnreadRequest.markAsReadMcIDs.forEach { markAsReadMcID in
+                if !mergedMarkAsReadMcIDs.contains(markAsReadMcID) {
+                    mergedMarkAsReadMcIDs.append(markAsReadMcID)
+                }
+            }
+            inboxMessagesMarkReadUnreadRequest.markAsUnreadMcIDs.forEach { markAsUnreadMcID in
+                if !mergedMarkAsUnreadMcIDs.contains(markAsUnreadMcID) {
+                    mergedMarkAsUnreadMcIDs.append(markAsUnreadMcID)
+                }
+            }
+        }
+        
+        return InboxMessagesMarkReadUnreadRequest(requestID: UUID().uuidString, primaryKey: primaryKey, markAsReadMcIDs: mergedMarkAsReadMcIDs, markAsUnreadMcIDs: mergedMarkAsUnreadMcIDs, date: Date())
     }
 }
