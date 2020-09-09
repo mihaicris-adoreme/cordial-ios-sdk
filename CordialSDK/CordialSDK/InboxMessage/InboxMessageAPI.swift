@@ -43,10 +43,12 @@ import os.log
     }
     
     @objc public func markInboxMessageRead(mcID: String) {
-        
+        let inboxMessagesMarkReadUnreadRequest = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [mcID], markAsUnreadMcIDs: [])
+        InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
     }
     
     @objc public func markInboxMessageUnread(mcID: String) {
-        
+        let inboxMessagesMarkReadUnreadRequest = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: [mcID])
+        InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
     }
 }

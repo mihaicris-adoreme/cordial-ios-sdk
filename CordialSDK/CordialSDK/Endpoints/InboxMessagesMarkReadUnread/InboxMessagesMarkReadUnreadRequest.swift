@@ -26,9 +26,9 @@ class InboxMessagesMarkReadUnreadRequest: NSObject, NSCoding {
         case date = "date"
     }
     
-    init(primaryKey: String?, markAsReadMcIDs: [String], markAsUnreadMcIDs: [String]) {
+    init(markAsReadMcIDs: [String], markAsUnreadMcIDs: [String]) {
         self.requestID = UUID().uuidString
-        self.primaryKey = primaryKey
+        self.primaryKey = CordialAPI().getContactPrimaryKey()
         self.markAsReadMcIDs = markAsReadMcIDs
         self.markAsUnreadMcIDs = markAsUnreadMcIDs
         self.date = Date()
