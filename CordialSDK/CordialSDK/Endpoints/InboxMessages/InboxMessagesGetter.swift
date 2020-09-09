@@ -11,7 +11,7 @@ import os.log
 
 class InboxMessagesGetter {
     
-    func fetchInboxMessages(urlKey: String, onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
+    func fetchInboxMessages(contactKey: String, onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
         
         if InternalCordialAPI().isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
@@ -20,7 +20,7 @@ class InboxMessagesGetter {
                 }
                 
                 if InternalCordialAPI().getCurrentJWT() != nil {
-                    InboxMessages().getInboxMessages(urlKey: urlKey, onComplete: { response in
+                    InboxMessages().getInboxMessages(contactKey: contactKey, onComplete: { response in
                         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                             os_log("Inbox messages have been received successfully", log: OSLog.cordialSDKInboxMessages, type: .info)
                         }
@@ -31,7 +31,7 @@ class InboxMessagesGetter {
                     })
                 } else {
                     SDKSecurity.shared.updateJWTwithCallbacks(onComplete: { response in
-                        self.fetchInboxMessages(urlKey: urlKey, onComplete: onComplete, onError: onError)
+                        self.fetchInboxMessages(contactKey: contactKey, onComplete: onComplete, onError: onError)
                     }, onError: { error in
                         onError(error)
                     })

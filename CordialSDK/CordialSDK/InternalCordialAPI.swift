@@ -103,6 +103,22 @@ class InternalCordialAPI {
         return tokenParts.joined()
     }
     
+    // MARK: Get contact key
+    
+    func getContactKey() -> String? {
+        let cordialAPI = CordialAPI()
+        
+        var key: String?
+        if let primaryKey = cordialAPI.getContactPrimaryKey() {
+            key = primaryKey
+        } else if let token = InternalCordialAPI().getPushNotificationToken() {
+            let channelKey = cordialAPI.getChannelKey()
+            key = "\(channelKey):\(token)"
+        }
+        
+        return key
+    }
+    
     // MARK: Set primary key
     
     func setContactPrimaryKey(primaryKey: String) {

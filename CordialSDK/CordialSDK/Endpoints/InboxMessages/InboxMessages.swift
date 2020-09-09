@@ -20,8 +20,8 @@ class InboxMessages: NSObject, URLSessionDelegate {
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
     
-    func getInboxMessages(urlKey: String, onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
-        if let url = URL(string: CordialApiEndpoints().getInboxMessagesURL(urlKey: urlKey)) {
+    func getInboxMessages(contactKey: String, onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
+        if let url = URL(string: CordialApiEndpoints().getInboxMessagesURL(contactKey: contactKey)) {
             let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .GET)
             
             self.inboxMessagesURLSession.dataTask(with: request) { data, response, error in
@@ -41,7 +41,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         
                     case 401:
                         SDKSecurity.shared.updateJWTwithCallbacks(onComplete: { response in
-                            self.getInboxMessages(urlKey: urlKey, onComplete: onComplete, onError: onError)
+                            self.getInboxMessages(contactKey: contactKey, onComplete: onComplete, onError: onError)
                         }, onError: { error in
                             onError(error)
                         })

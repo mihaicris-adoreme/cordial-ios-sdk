@@ -32,12 +32,16 @@ class InboxMessagesMarkReadUnread {
     
     private func getInboxMessagesMarkReadUnreadJSON(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) -> String {
         
+        let internalCordialAPI = InternalCordialAPI()
+        
         var rootContainer  = [
-            "\"deviceId\": \"\(InternalCordialAPI().getDeviceIdentifier())\""
+            "\"deviceId\": \"\(internalCordialAPI.getDeviceIdentifier())\""
         ]
         
         if let primaryKey = CordialAPI().getContactPrimaryKey() {
             rootContainer.append("\"primaryKey\": \"\(primaryKey)\"")
+        } else if let contactKey = internalCordialAPI.getContactKey() {
+            rootContainer.append("\"primaryKey\": \"\(contactKey)\"")
         }
         
         if !inboxMessagesMarkReadUnreadRequest.markAsReadMcIDs.isEmpty {

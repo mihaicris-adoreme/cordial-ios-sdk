@@ -20,18 +20,8 @@ import os.log
     }
     
     @objc public func fetchInboxMessages(onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
-        let cordialAPI = CordialAPI()
-        
-        var key: String?
-        if let primaryKey = cordialAPI.getContactPrimaryKey() {
-            key = primaryKey
-        } else if let token = InternalCordialAPI().getPushNotificationToken() {
-            let channelKey = cordialAPI.getChannelKey()
-            key = "\(channelKey):\(token)"
-        }
-        
-        if let urlKey = key {
-            InboxMessagesGetter().fetchInboxMessages(urlKey: urlKey, onComplete: { response in
+        if let contactKey = InternalCordialAPI().getContactKey() {
+            InboxMessagesGetter().fetchInboxMessages(contactKey: contactKey, onComplete: { response in
                 onComplete(response)
             }, onError: { error in
                 onError(error)
@@ -42,13 +32,13 @@ import os.log
         }
     }
     
-    @objc public func markInboxMessageRead(mcID: String) {
-        let inboxMessagesMarkReadUnreadRequest = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [mcID], markAsUnreadMcIDs: [])
+    @objc public func markInboxMessagesRead(mcIDs: [String]) {
+        let inboxMessagesMarkReadUnreadRequest = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: mcIDs, markAsUnreadMcIDs: [])
         InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
     }
     
-    @objc public func markInboxMessageUnread(mcID: String) {
-        let inboxMessagesMarkReadUnreadRequest = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: [mcID])
+    @objc public func markInboxMessagesUnread(mcIDs: [String]) {
+        let inboxMessagesMarkReadUnreadRequest = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: mcIDs)
         InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
     }
 }
