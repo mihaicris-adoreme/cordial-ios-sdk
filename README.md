@@ -696,14 +696,13 @@ To mark messages as read:
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let mcID = "example_mc_id"
-InboxMessageAPI().markInboxMessageRead(mcID: mcID)
+let mcIDs = ["example_mc_id", "example_mc_id_2"]
+InboxMessageAPI().markInboxMessagesRead(mcIDs: mcIDs)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-NSString *mcID = @"example_mc_id";
-[[[InboxMessageAPI alloc] init] markInboxMessageReadWithMcID:mcID];
+
 ```
 
 4. To mark messages as unread:
@@ -711,14 +710,13 @@ NSString *mcID = @"example_mc_id";
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let mcID = "example_mc_id"
-InboxMessageAPI().markInboxMessageUnread(mcID: mcID)
+let mcIDs = ["example_mc_id", "example_mc_id_2"]
+InboxMessageAPI().markInboxMessagesUnread(mcIDs: mcIDs)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-NSString *mcID = @"example_mc_id";
-[[[InboxMessageAPI alloc] init] markInboxMessageUnreadWithMcID:mcID];
+
 ```
 
 5. To delete an inbox message:
@@ -728,14 +726,13 @@ To remove an inbox message from user's inbox, call
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let mcID = "example_mc_id"
-InboxMessageAPI().deleteInboxMessage(mcID: mcID)
+let mcIDs = ["example_mc_id", "example_mc_id_2"]
+InboxMessageAPI().deleteInboxMessages(mcIDs: mcIDs)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-NSString *mcID = @"example_mc_id";
-[[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
+
 ```
 
 
