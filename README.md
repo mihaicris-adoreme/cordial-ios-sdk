@@ -19,6 +19,7 @@
 [Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
 [Deep Links](#deep-links)<br>
 [Delaying In-App Messages](#delaying-in-app-messages)<br>
+[In Development](#in-development)<br>
 
 ## Installation
 
@@ -640,5 +641,95 @@ ___
 ```
 
 Note, disallowed ViewControllers should inherit from the `InAppMessageDelayViewController` class or otherwise delayed in-app message will be attempted to be shown on next app open.
+
+## In Development
+
+
+### Inbox messages API
+
+To work with inbox messages you will have to use the `InboxMessageAPI` class. It is the entry point to all inbox messages related functionality. The API supports the following operations:
+
+1. Fetch all inbox messages for currently logged in contact
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+InboxMessageAPI().fetchInboxMessages(onComplete: { response in
+    ...
+}, onError: { error in
+    ...
+})
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+
+``` 
+Response will be array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its id, title, body, custom key values pairs, if the message is read and when it was sent.
+
+2. Send up an inbox message is read event. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let mcID = "example_mc_id"
+InboxMessageAPI().sendInboxMessageReadEvent(mcID: mcID)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+
+```
+
+This is the method to be called to signal a message is read by the user and should be triggered every time a contact reads (or opens) a message.
+
+3. Mark a message as read/unread
+
+This operations actually marks a message as read or unread which toggles the `read` flag on the corresponding `InboxMessage` object.
+
+To mark messages as read:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let mcID = "example_mc_id"
+InboxMessageAPI().markInboxMessageRead(mcID: mcID)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+
+```
+
+4. To mark messages as unread:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let mcID = "example_mc_id"
+InboxMessageAPI().markInboxMessageUnread(mcID: mcID)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+
+```
+
+5. To delete an inbox message:
+
+To remove an inbox message from user's inbox, call
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let mcID = "example_mc_id"
+InboxMessageAPI().deleteInboxMessage(mcID: mcID)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+
+```
+
 
 [Top](#contents)
