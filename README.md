@@ -738,4 +738,5 @@ NSString *mcID = @"example_mc_id";
 [[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
 ```
 
+
 [Top](#contents)
