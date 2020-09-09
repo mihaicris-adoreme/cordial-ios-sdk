@@ -644,8 +644,7 @@ Note, disallowed ViewControllers should inherit from the `InAppMessageDelayViewC
 
 ## In Development
 
-
-### Inbox messages API
+### Inbox Messages API
 
 To work with inbox messages you will have to use the `InboxMessageAPI` class. It is the entry point to all inbox messages related functionality. The API supports the following operations:
 
@@ -663,7 +662,11 @@ InboxMessageAPI().fetchInboxMessages(onComplete: { response in
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-
+[[[InboxMessageAPI alloc] init] fetchInboxMessagesOnComplete:^(NSArray<InboxMessage *> *response) {
+    ...
+} onError:^(NSString *error) {
+    ...
+}];
 ``` 
 Response will be array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its id, title, body, custom key values pairs, if the message is read and when it was sent.
 
@@ -678,7 +681,8 @@ InboxMessageAPI().sendInboxMessageReadEvent(mcID: mcID)
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-
+NSString *mcID = @"example_mc_id";
+[[[InboxMessageAPI alloc] init] sendInboxMessageReadEventWithMcID:mcID];
 ```
 
 This is the method to be called to signal a message is read by the user and should be triggered every time a contact reads (or opens) a message.
@@ -698,7 +702,8 @@ InboxMessageAPI().markInboxMessageRead(mcID: mcID)
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-
+NSString *mcID = @"example_mc_id";
+[[[InboxMessageAPI alloc] init] markInboxMessageReadWithMcID:mcID];
 ```
 
 4. To mark messages as unread:
@@ -712,7 +717,8 @@ InboxMessageAPI().markInboxMessageUnread(mcID: mcID)
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-
+NSString *mcID = @"example_mc_id";
+[[[InboxMessageAPI alloc] init] markInboxMessageUnreadWithMcID:mcID];
 ```
 
 5. To delete an inbox message:
@@ -728,8 +734,8 @@ InboxMessageAPI().deleteInboxMessage(mcID: mcID)
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-
+NSString *mcID = @"example_mc_id";
+[[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
 ```
-
 
 [Top](#contents)
