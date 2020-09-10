@@ -87,7 +87,7 @@ class SDKSecurity: NSObject, URLSessionDelegate {
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
     
-    func updateJWTwithCallbacks(onComplete: @escaping (_ response: String) -> Void, onError: @escaping (_ error: String) -> Void) {
+    func updateJWTwithCallbacks(onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         if let url = URL(string: self.getSDKSecurityURL()) {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Fetching JWT", log: OSLog.cordialSDKSecurity, type: .info)
@@ -97,7 +97,7 @@ class SDKSecurity: NSObject, URLSessionDelegate {
             
             self.updateJWTURLSession.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    onError("Failed decode response data. Error: [\(error.localizedDescription)]")
+                    onFailure("Failed decode response data. Error: [\(error.localizedDescription)]")
                     return
                 }
 
@@ -108,20 +108,20 @@ class SDKSecurity: NSObject, URLSessionDelegate {
                         case 200:
                             if let JWT = responseBodyJSON["token"] as? String {
                                 self.setJWT(JWT: JWT)
-                                onComplete("JWT has been received successfully")
+                                onSuccess("JWT has been received successfully")
                             } else {
                                 let message = "Getting JWT failed. Error: [JWT is absent]"
-                                onError(message)
+                                onFailure(message)
                             }
                         default:
                             let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                             let error = "Getting JWT failed. Error: [\(message)]"
 
-                            onError(error)
+                            onFailure(error)
                         }
                     } else {
                         let error = "Failed decode JWT response data"
-                        onError(error)
+                        onFailure(error)
                     }
                 } catch let error {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {

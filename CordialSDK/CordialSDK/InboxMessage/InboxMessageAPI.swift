@@ -19,16 +19,16 @@ import os.log
         
     }
     
-    @objc public func fetchInboxMessages(onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
+    @objc public func fetchInboxMessages(onSuccess: @escaping (_ response: [InboxMessage]) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         if let contactKey = InternalCordialAPI().getContactKey() {
-            InboxMessagesGetter().fetchInboxMessages(contactKey: contactKey, onComplete: { response in
-                onComplete(response)
-            }, onError: { error in
-                onError(error)
+            InboxMessagesGetter().fetchInboxMessages(contactKey: contactKey, onSuccess: { response in
+                onSuccess(response)
+            }, onFailure: { error in
+                onFailure(error)
             })
         } else {
             let error = "Fetching inbox messages failed. Error: [Unexpected error]"
-            onError(error)
+            onFailure(error)
         }
     }
     

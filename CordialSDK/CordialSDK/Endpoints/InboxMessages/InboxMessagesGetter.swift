@@ -11,7 +11,7 @@ import os.log
 
 class InboxMessagesGetter {
     
-    func fetchInboxMessages(contactKey: String, onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
+    func fetchInboxMessages(contactKey: String, onSuccess: @escaping (_ response: [InboxMessage]) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         
         if InternalCordialAPI().isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
@@ -20,29 +20,29 @@ class InboxMessagesGetter {
                 }
                 
                 if InternalCordialAPI().getCurrentJWT() != nil {
-                    InboxMessages().getInboxMessages(contactKey: contactKey, onComplete: { response in
+                    InboxMessages().getInboxMessages(contactKey: contactKey, onSuccess: { response in
                         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                             os_log("Inbox messages have been received successfully", log: OSLog.cordialSDKInboxMessages, type: .info)
                         }
                         
-                        onComplete(response)
-                    }, onError: { error in
-                        onError(error)
+                        onSuccess(response)
+                    }, onFailure: { error in
+                        onFailure(error)
                     })
                 } else {
-                    SDKSecurity.shared.updateJWTwithCallbacks(onComplete: { response in
-                        self.fetchInboxMessages(contactKey: contactKey, onComplete: onComplete, onError: onError)
-                    }, onError: { error in
-                        onError(error)
+                    SDKSecurity.shared.updateJWTwithCallbacks(onSuccess: { response in
+                        self.fetchInboxMessages(contactKey: contactKey, onSuccess: onSuccess, onFailure: onFailure)
+                    }, onFailure: { error in
+                        onFailure(error)
                     })
                 }
             } else {
                 let error = "Fetching inbox messages failed. Error: [No Internet connection]"
-                onError(error)
+                onFailure(error)
             }
         } else {
             let error = "Fetching inbox messages failed. Error: [User no login]"
-            onError(error)
+            onFailure(error)
         }
     }
     

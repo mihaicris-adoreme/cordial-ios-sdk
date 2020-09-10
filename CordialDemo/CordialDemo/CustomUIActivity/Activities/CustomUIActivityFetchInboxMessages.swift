@@ -41,7 +41,7 @@ class CustomUIActivityFetchInboxMessages: UIActivity {
             
             self.activityDidFinish(true)
             
-            InboxMessageAPI().fetchInboxMessages(onComplete: { response in
+            InboxMessageAPI().fetchInboxMessages(onSuccess: { response in
                 popupSimpleNoteAlert(title: "SUCCESS", message: "DETAILS IN THE CONSOLE", controller: catalogCollectionViewController)
                 
                 if response.count > 0 {
@@ -51,7 +51,7 @@ class CustomUIActivityFetchInboxMessages: UIActivity {
                 } else {
                     os_log("Inbox is empty", log: OSLog.сordialSDKDemoInboxMessages, type: .info)
                 }
-            }, onError: { error in
+            }, onFailure: { error in
                 popupSimpleNoteAlert(title: "FAILED", message: "DETAILS IN THE CONSOLE", controller: catalogCollectionViewController)
                 
                 os_log("%{public}@", log: OSLog.сordialSDKDemoInboxMessages, type: .error, error)

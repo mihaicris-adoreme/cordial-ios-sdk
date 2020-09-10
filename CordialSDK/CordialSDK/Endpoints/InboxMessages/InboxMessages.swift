@@ -20,13 +20,13 @@ class InboxMessages: NSObject, URLSessionDelegate {
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
     
-    func getInboxMessages(contactKey: String, onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
+    func getInboxMessages(contactKey: String, onSuccess: @escaping (_ response: [InboxMessage]) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         if let url = URL(string: CordialApiEndpoints().getInboxMessagesURL(contactKey: contactKey)) {
             let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .GET)
             
             self.inboxMessagesURLSession.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    onError("Fetching inbox messages failed. Error: [\(error.localizedDescription)]")
+                    onFailure("Fetching inbox messages failed. Error: [\(error.localizedDescription)]")
                     return
                 }
                 
@@ -34,16 +34,16 @@ class InboxMessages: NSObject, URLSessionDelegate {
                     switch httpResponse.statusCode {
                     case 200:
                         self.parseResponseJSON(responseData: responseData, onComplete: { response in
-                            onComplete(response)
+                            onSuccess(response)
                         }, onError: { error in
-                            onError(error)
+                            onFailure(error)
                         })
                         
                     case 401:
-                        SDKSecurity.shared.updateJWTwithCallbacks(onComplete: { response in
-                            self.getInboxMessages(contactKey: contactKey, onComplete: onComplete, onError: onError)
-                        }, onError: { error in
-                            onError(error)
+                        SDKSecurity.shared.updateJWTwithCallbacks(onSuccess: { response in
+                            self.getInboxMessages(contactKey: contactKey, onSuccess: onSuccess, onFailure: onFailure)
+                        }, onFailure: { error in
+                            onFailure(error)
                         })
                     default:
                         let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
@@ -54,20 +54,20 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                 let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
 
                                 if let prettyJSON = String(data: jsonData, encoding: .utf8) {
-                                    onError("Fetching inbox messages failed. \(message). JSON: \n \(prettyJSON)")
+                                    onFailure("Fetching inbox messages failed. \(message). JSON: \n \(prettyJSON)")
                                 } else {
-                                    onError("Fetching inbox messages failed. Error: [Failed decode response data] \(message)")
+                                    onFailure("Fetching inbox messages failed. Error: [Failed decode response data] \(message)")
                                 }
                             } else {
-                                onError("Fetching inbox messages failed. Error: [Failed decode response data] \(message)")
+                                onFailure("Fetching inbox messages failed. Error: [Failed decode response data] \(message)")
                             }
                         } catch let error {
-                            onError("Fetching inbox messages failed. Error: [\(error)] \(message)")
+                            onFailure("Fetching inbox messages failed. Error: [\(error)] \(message)")
                         }
                     }
                 } else {
                     let error = "Fetching inbox messages failed. Error: [Inbox messages payload is absent]"
-                    onError(error)
+                    onFailure(error)
                 }
             }.resume()
         }
