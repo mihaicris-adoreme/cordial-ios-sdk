@@ -33,9 +33,9 @@ class InboxMessages: NSObject, URLSessionDelegate {
                 if let responseData = data, let httpResponse = response as? HTTPURLResponse {
                     switch httpResponse.statusCode {
                     case 200:
-                        self.parseResponseJSON(responseData: responseData, onComplete: { response in
+                        self.parseResponseJSON(responseData: responseData, onSuccess: { response in
                             onSuccess(response)
-                        }, onError: { error in
+                        }, onFailure: { error in
                             onFailure(error)
                         })
                         
@@ -73,7 +73,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
         }
     }
     
-    private func parseResponseJSON(responseData: Data, onComplete: @escaping (_ response: [InboxMessage]) -> Void, onError: @escaping (_ error: String) -> Void) {
+    private func parseResponseJSON(responseData: Data, onSuccess: @escaping (_ response: [InboxMessage]) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         do {
             if let responseJSON = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: AnyObject],
                 let result = responseJSON["success"] as? Bool,
@@ -174,19 +174,19 @@ class InboxMessages: NSObject, URLSessionDelegate {
                             
                             inboxMessages.append(inboxMessage)
                         } else {
-                            onError("Fetching inbox messages failed. Error: [Failed decode response data. \(messageError)]")
+                            onFailure("Fetching inbox messages failed. Error: [Failed decode response data. \(messageError)]")
                         }
                     }
                     
-                    onComplete(inboxMessages)
+                    onSuccess(inboxMessages)
                 } else {
-                    onComplete(inboxMessages)
+                    onSuccess(inboxMessages)
                 }
             } else {
-                onError("Fetching inbox messages failed. Error: [success: false]")
+                onFailure("Fetching inbox messages failed. Error: [success: false]")
             }
         } catch let error {
-            onError("Fetching inbox messages failed. Error: [\(error.localizedDescription)]")
+            onFailure("Fetching inbox messages failed. Error: [\(error.localizedDescription)]")
         }
     }
 }
