@@ -15,6 +15,7 @@ class CordialRequestFactory {
     enum HttpMethods: String {
         case GET
         case POST
+        case DELETE
     }
 
     func getURLRequest(url: URL, httpMethod: HttpMethods) -> URLRequest {

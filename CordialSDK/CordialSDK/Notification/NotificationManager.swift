@@ -23,6 +23,7 @@ public extension Notification.Name {
     static let cordialSendContactLogoutLogicError = Notification.Name("CordialSendContactLogoutLogicError")
     static let cordialInAppMessageLogicError = Notification.Name("CordialInAppMessageLogicError")
     static let cordialInboxMessagesMarkReadUnreadLogicError = Notification.Name("CordialInboxMessagesMarkReadUnreadLogicError")
+    static let cordialInboxMessageDeleteRequestLogicError = Notification.Name("CordialInboxMessageDeleteRequestLogicError")
 }
 
 @objc public extension NSNotification {

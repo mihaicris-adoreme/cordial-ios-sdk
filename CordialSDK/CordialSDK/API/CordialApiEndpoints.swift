@@ -12,65 +12,81 @@ class CordialApiEndpoints {
     
     let cordialAPI = CordialAPI()
     
+    // MARK: Events Stream URLs
+    
+    private func getEventsStreamBaseURL() -> String {
+        return self.cordialAPI.getBaseURL()
+    }
+    
     func getCustomEventsURL() -> String {
-        let baseURL = self.cordialAPI.getBaseURL()
+        let baseURL = self.getEventsStreamBaseURL()
         
         return "\(baseURL)mobile/events"
     }
     
     func getContactsURL() -> String {
-        let baseURL = self.cordialAPI.getBaseURL()
+        let baseURL = self.getEventsStreamBaseURL()
         
         return "\(baseURL)mobile/contacts"
     }
     
     func getContactLogoutURL() -> String {
-        let baseURL = self.cordialAPI.getBaseURL()
+        let baseURL = self.getEventsStreamBaseURL()
         
         return "\(baseURL)mobile/contact/logout"
     }
     
     func getContactCartURL() -> String {
-        let baseURL = self.cordialAPI.getBaseURL()
+        let baseURL = self.getEventsStreamBaseURL()
         
         return "\(baseURL)mobile/contact/cart"
     }
     
     func getOrdersURL() -> String {
-        let baseURL = self.cordialAPI.getBaseURL()
+        let baseURL = self.getEventsStreamBaseURL()
         
         return "\(baseURL)mobile/orders"
     }
     
-    func getInAppMessageURL(mcID: String) -> String {
-        let baseURL = self.cordialAPI.getBaseURL()
-        
-        let replacedBaseURL = baseURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
-        
-        return "\(replacedBaseURL)mobile/message/\(mcID)"
-    }
-    
     func getSDKSecurityURL(secret: String) -> String {
-        let baseURL = self.cordialAPI.getBaseURL()
+        let baseURL = self.getEventsStreamBaseURL()
         
         return "\(baseURL)mobile/auth/\(secret)"
     }
     
-    func getInboxMessagesURL(contactKey: String) -> String {
+    // MARK: Message Hub URLs
+    
+    private func getMessageHubBaseURL() -> String {
         let baseURL = self.cordialAPI.getBaseURL()
         
-        let deviceId = InternalCordialAPI().getDeviceIdentifier()
+        return baseURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
+    }
+    
+    func getInAppMessageURL(mcID: String) -> String {
+        let baseURL = self.getMessageHubBaseURL()
         
-        let replacedBaseURL = baseURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
+        return "\(baseURL)mobile/message/\(mcID)"
+    }
+    
+    func getInboxMessagesURL(contactKey: String) -> String {
+        let baseURL = self.getMessageHubBaseURL()
         
-        return "\(replacedBaseURL)inbox/messages/\(contactKey)/\(deviceId)"
+        let deviceID = InternalCordialAPI().getDeviceIdentifier()
+        
+        return "\(baseURL)inbox/messages/\(contactKey)/\(deviceID)"
     }
     
     func getInboxMessagesMarkReadUnreadURL() -> String {
-        let baseURL = self.cordialAPI.getBaseURL()
+        let baseURL = self.getMessageHubBaseURL()
         
-        let replacedBaseURL = baseURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
+        return "\(baseURL)inbox/read"
+    }
+    
+    func getInboxMessageDeleteURL(contactKey: String, mcID: String) -> String {
+        let baseURL = self.getMessageHubBaseURL()
         
-        return "\(replacedBaseURL)inbox/read"
+        let deviceID = InternalCordialAPI().getDeviceIdentifier()
+        
+        return "\(baseURL)inbox/message/\(contactKey)/\(deviceID)/\(mcID)"
     }
 }

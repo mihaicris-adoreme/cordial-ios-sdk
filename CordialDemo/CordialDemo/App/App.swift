@@ -77,6 +77,9 @@ extension AppDelegate {
         notificationCenter.removeObserver(self, name: .cordialInboxMessagesMarkReadUnreadLogicError, object: nil)
         notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialInboxMessagesMarkReadUnreadLogicError, object: nil)
         
+        notificationCenter.removeObserver(self, name: .cordialInboxMessageDeleteRequestLogicError, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialInboxMessageDeleteRequestLogicError, object: nil)
+        
     }
     
     @objc func cordialNotificationErrorHandler(notification: NSNotification) {

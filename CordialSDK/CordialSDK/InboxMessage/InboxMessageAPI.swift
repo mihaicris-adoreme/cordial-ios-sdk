@@ -41,4 +41,9 @@ import os.log
         let inboxMessagesMarkReadUnreadRequest = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: mcIDs)
         InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
     }
+    
+    @objc public func deleteInboxMessage(mcID: String) {
+        let inboxMessageDeleteRequest = InboxMessageDeleteRequest(mcID: mcID)
+        InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
+    }
 }
