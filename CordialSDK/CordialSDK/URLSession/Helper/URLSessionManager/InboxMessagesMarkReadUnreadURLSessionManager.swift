@@ -35,7 +35,7 @@ class InboxMessagesMarkReadUnreadURLSessionManager {
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Failed decode inbox messages read/unread marks response data. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSDKInboxMessages, type: .error, inboxMessagesMarkReadUnreadRequest.requestID, error.localizedDescription)
+                os_log("Failed decode inbox messages read/unread marks response data. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, inboxMessagesMarkReadUnreadRequest.requestID, error.localizedDescription)
             }
         }
     }

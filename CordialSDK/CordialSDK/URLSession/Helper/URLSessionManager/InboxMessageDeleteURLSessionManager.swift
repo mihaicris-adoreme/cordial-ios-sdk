@@ -35,7 +35,7 @@ class InboxMessageDeleteURLSessionManager {
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Failed decode delete inbox message response data. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSDKInboxMessages, type: .error, inboxMessageDeleteRequest.requestID, error.localizedDescription)
+                os_log("Failed decode delete inbox message response data. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, inboxMessageDeleteRequest.requestID, error.localizedDescription)
             }
         }
     }

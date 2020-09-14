@@ -34,7 +34,7 @@ class InboxMessageDeleteSender {
     
     func completionHandler(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Inbox message has been successfully deleted. Request ID: [%{public}@]", log: OSLog.cordialSDKInboxMessages, type: .info, inboxMessageDeleteRequest.requestID)
+            os_log("Inbox message has been successfully deleted. Request ID: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessageDeleteRequest.requestID)
         }
     }
     
@@ -42,7 +42,7 @@ class InboxMessageDeleteSender {
         CoreDataManager.shared.inboxMessageDelete.putInboxMessageDeleteRequestToCoreData(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Deleting inbox message failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSDKInboxMessages, type: .info, inboxMessageDeleteRequest.requestID, error.message)
+            os_log("Deleting inbox message failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessageDeleteRequest.requestID, error.message)
         }
     }
     
@@ -50,7 +50,7 @@ class InboxMessageDeleteSender {
         NotificationCenter.default.post(name: .cordialInboxMessageDeleteRequestLogicError, object: error)
 
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Deleting inbox message failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSDKInboxMessages, type: .error, inboxMessageDeleteRequest.requestID, error.message)
+            os_log("Deleting inbox message failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, inboxMessageDeleteRequest.requestID, error.message)
         }
     }
 

@@ -14,16 +14,16 @@ public extension Notification.Name {
     static let connectedToInternet = Notification.Name("ConnectedToInternet")
     static let notConnectedToInternet = Notification.Name("NotConnectedToInternet")
     
-    static let cordialConnectionSettingsHasBeenChange = Notification.Name("CordialConnectionSettingsHasBeenChange")
+    static let cordialConnectionSettingsHasBeenChange = Notification.Name("CordialSDKConnectionSettingsHasBeenChange")
     
-    static let cordialSendCustomEventsLogicError = Notification.Name("CordialSendCustomEventsLogicError")
-    static let cordialUpsertContactCartLogicError = Notification.Name("CordialUpsertContactCartLogicError")
-    static let cordialSendContactOrdersLogicError = Notification.Name("CordialSendContactOrdersLogicError")
-    static let cordialUpsertContactsLogicError = Notification.Name("CordialUpsertContactsLogicError")
-    static let cordialSendContactLogoutLogicError = Notification.Name("CordialSendContactLogoutLogicError")
-    static let cordialInAppMessageLogicError = Notification.Name("CordialInAppMessageLogicError")
-    static let cordialInboxMessagesMarkReadUnreadLogicError = Notification.Name("CordialInboxMessagesMarkReadUnreadLogicError")
-    static let cordialInboxMessageDeleteRequestLogicError = Notification.Name("CordialInboxMessageDeleteRequestLogicError")
+    static let cordialSendCustomEventsLogicError = Notification.Name("CordialSDKSendCustomEventsLogicError")
+    static let cordialUpsertContactCartLogicError = Notification.Name("CordialSDKUpsertContactCartLogicError")
+    static let cordialSendContactOrdersLogicError = Notification.Name("CordialSDKSendContactOrdersLogicError")
+    static let cordialUpsertContactsLogicError = Notification.Name("CordialSDKUpsertContactsLogicError")
+    static let cordialSendContactLogoutLogicError = Notification.Name("CordialSDKSendContactLogoutLogicError")
+    static let cordialInAppMessageLogicError = Notification.Name("CordialSDKInAppMessageLogicError")
+    static let cordialInboxMessagesMarkReadUnreadLogicError = Notification.Name("CordialSDKInboxMessagesMarkReadUnreadLogicError")
+    static let cordialInboxMessageDeleteRequestLogicError = Notification.Name("CordialSDKInboxMessageDeleteRequestLogicError")
 }
 
 @objc public extension NSNotification {

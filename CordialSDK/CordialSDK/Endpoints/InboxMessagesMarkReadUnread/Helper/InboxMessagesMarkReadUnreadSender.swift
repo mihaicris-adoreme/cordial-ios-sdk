@@ -34,7 +34,7 @@ class InboxMessagesMarkReadUnreadSender {
     
     func completionHandler(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Inbox messages read/unread marks have been sent. Request ID: [%{public}@]", log: OSLog.cordialSDKInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID)
+            os_log("Inbox messages read/unread marks have been sent. Request ID: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID)
         }
     }
     
@@ -42,7 +42,7 @@ class InboxMessagesMarkReadUnreadSender {
         CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending inbox messages read/unread marks failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSDKInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
+            os_log("Sending inbox messages read/unread marks failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
         }
     }
     
@@ -50,7 +50,7 @@ class InboxMessagesMarkReadUnreadSender {
         NotificationCenter.default.post(name: .cordialInboxMessagesMarkReadUnreadLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending inbox messages read/unread marks failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSDKInboxMessages, type: .error, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
+            os_log("Sending inbox messages read/unread marks failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
         }
     }
 }

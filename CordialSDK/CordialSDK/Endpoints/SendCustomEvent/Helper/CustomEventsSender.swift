@@ -121,7 +121,7 @@ class CustomEventsSender {
                 }
             } else {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("Failed decode response.", log: OSLog.cordialSDKSecurity, type: .error)
+                    os_log("Failed decode response.", log: OSLog.cordialSecurity, type: .error)
                 }
             }
         } catch let error {
