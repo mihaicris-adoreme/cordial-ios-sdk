@@ -42,7 +42,7 @@ class InAppMessagesShownCoreData {
         request.predicate = NSPredicate(format: "mcID = %@", mcID)
         
         do {
-            if let result = try context.fetch(request) as? [NSManagedObject], result.count > 0 {
+            if let result = try context.fetch(request) as? [NSManagedObject], !result.isEmpty {
                 return true
             }
         } catch let error {

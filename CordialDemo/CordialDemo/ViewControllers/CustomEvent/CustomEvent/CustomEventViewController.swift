@@ -64,7 +64,7 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
             dictionaryProperties[property.key] = property.value
         }
         
-        if dictionaryProperties.count > 0 {
+        if !dictionaryProperties.isEmpty {
             return dictionaryProperties
         }
         
@@ -78,7 +78,7 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
         case self.segueToImportCustomEventIdentifier:
             if let eventName = self.eventNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let importCustomEventViewController = segue.destination as? ImportCustomEventViewController {
                 
-                if self.properties.count > 0 {
+                if !self.properties.isEmpty {
                     let properties = self.getDictionaryProperties(properties: self.properties)
 
                     let customEventJSON = DependencyConfiguration.shared.getCustomEventJSON(eventName: eventName, properties: properties)

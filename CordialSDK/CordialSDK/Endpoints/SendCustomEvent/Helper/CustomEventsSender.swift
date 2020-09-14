@@ -80,7 +80,7 @@ class CustomEventsSender {
         
         if let responseBody = error.responseBody {
             let sendCustomEventRequestsWithoutBrokenEvents = self.getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: sendCustomEventRequests, responseBody: responseBody)
-            if sendCustomEventRequestsWithoutBrokenEvents.count > 0 {
+            if !sendCustomEventRequestsWithoutBrokenEvents.isEmpty {
                 CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
                 
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {

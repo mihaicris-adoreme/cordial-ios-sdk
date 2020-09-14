@@ -39,7 +39,7 @@ class CoreDataSender {
     func sendCachedCustomEventRequests(reason: String) {
         if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
             let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
-            if customEventRequests.count > 0 {
+            if !customEventRequests.isEmpty {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     if CordialApiConfiguration.shared.eventsBulkSize != 1 {
                         os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
@@ -92,7 +92,7 @@ class CoreDataSender {
     private func sendCachedContactOrderRequests() {
         if InternalCordialAPI().isUserLogin() {
             let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-            if sendContactOrderRequests.count > 0 {
+            if !sendContactOrderRequests.isEmpty {
                 ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
             }
         }
@@ -100,7 +100,7 @@ class CoreDataSender {
     
     private func sendCachedUpsertContactRequests() {
         let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
-        if upsertContactRequests.count > 0 {
+        if !upsertContactRequests.isEmpty {
             ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
         }
     }

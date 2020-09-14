@@ -40,7 +40,7 @@ class ContactsSenderHelper {
             upsertContactRequests.forEach { upsertContactRequest in
                 // Events
                 let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
-                if customEventRequests.count > 0 {
+                if !customEventRequests.isEmpty {
                     customEventRequests.forEach { customEventRequest in
                         if upsertContactRequest.primaryKey == customEventRequest.primaryKey {
                             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [customEventRequest])
@@ -55,7 +55,7 @@ class ContactsSenderHelper {
                 
                 // Orders
                 let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-                if sendContactOrderRequests.count > 0 {
+                if !sendContactOrderRequests.isEmpty {
                     sendContactOrderRequests.forEach { sendContactOrderRequest in
                         if upsertContactRequest.primaryKey == sendContactOrderRequest.primaryKey {
                             CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: [sendContactOrderRequest])

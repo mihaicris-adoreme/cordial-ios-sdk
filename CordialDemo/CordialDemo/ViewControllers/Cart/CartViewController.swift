@@ -80,7 +80,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     }
     
     func upsertCartTableFooterView() {
-        if self.products.count > 0 {
+        if !self.products.isEmpty {
             var totalQty: Int64 = 0
             var totalPrice: Double = 0
             self.products.forEach { product in
@@ -131,7 +131,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if products.count > 0 {
+        if !products.isEmpty {
             let productHeight = self.tableView.frame.size.height / 3
             let productsHeight = productHeight * CGFloat(self.products.count)
             let calculatedHeightForFooter = self.tableView.frame.size.height - productsHeight

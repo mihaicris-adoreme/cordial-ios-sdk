@@ -44,7 +44,7 @@ class CustomUIActivityFetchInboxMessages: UIActivity {
             CordialInboxMessageAPI().fetchInboxMessages(onSuccess: { response in
                 popupSimpleNoteAlert(title: "SUCCESS", message: "DETAILS IN THE CONSOLE", controller: catalogCollectionViewController)
                 
-                if response.count > 0 {
+                if !response.isEmpty {
                     response.forEach { message in
                         os_log("Inbox message: \n ID: %{public}@ \n HTML: %{public}@ \n customKeyValuePairs: %{public}@ \n title: %{public}@ \n read: %{public}@ \n sentAt: %{public}@", log: OSLog.сordialSDKDemoInboxMessages, type: .info, message.id, message.html, message.customKeyValuePairs.description, message.title, message.read.description, message.sentAt)
                     }

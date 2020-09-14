@@ -110,7 +110,7 @@ class AttributesGeoCoreData {
         
         do {
             let result = try context.fetch(request)
-            if result.count > 0 {
+            if !result.isEmpty {
                 return true
             }
         } catch let error as NSError {

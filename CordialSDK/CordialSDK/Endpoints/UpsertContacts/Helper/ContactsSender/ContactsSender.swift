@@ -17,7 +17,7 @@ class ContactsSender {
 
         let upsertContactRequests = ContactsSenderHelper().prepareDataBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
         
-        if upsertContactRequests.count > 0 {
+        if !upsertContactRequests.isEmpty {
             self.upsertContactsData(upsertContactRequests: upsertContactRequests)
         }
     }
