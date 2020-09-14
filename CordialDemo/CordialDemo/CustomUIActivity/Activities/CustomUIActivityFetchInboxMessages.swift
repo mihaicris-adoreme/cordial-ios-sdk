@@ -41,7 +41,7 @@ class CustomUIActivityFetchInboxMessages: UIActivity {
             
             self.activityDidFinish(true)
             
-            InboxMessageAPI().fetchInboxMessages(onSuccess: { response in
+            CordialInboxMessageAPI().fetchInboxMessages(onSuccess: { response in
                 popupSimpleNoteAlert(title: "SUCCESS", message: "DETAILS IN THE CONSOLE", controller: catalogCollectionViewController)
                 
                 if response.count > 0 {

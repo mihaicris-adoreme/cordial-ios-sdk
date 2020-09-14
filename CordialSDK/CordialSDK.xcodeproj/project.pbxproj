@@ -185,7 +185,7 @@
 		9EFCA9DA225F8C8B005A8AC8 /* CordialApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFCA9D9225F8C8B005A8AC8 /* CordialApiEndpoints.swift */; };
 		9EFD2F87240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD2F86240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift */; };
 		9EFD2F89240EB41A000AFE18 /* MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD2F88240EB41A000AFE18 /* MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink.swift */; };
-		9EFFB9F224EAD4D300DF9D5A /* InboxMessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFFB9F124EAD4D300DF9D5A /* InboxMessageAPI.swift */; };
+		9EFFB9F224EAD4D300DF9D5A /* CordialInboxMessageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFFB9F124EAD4D300DF9D5A /* CordialInboxMessageAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -408,7 +408,7 @@
 		9EFCA9D9225F8C8B005A8AC8 /* CordialApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialApiEndpoints.swift; sourceTree = "<group>"; };
 		9EFD2F86240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUnsetContact.swift; sourceTree = "<group>"; };
 		9EFD2F88240EB41A000AFE18 /* MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink.swift; sourceTree = "<group>"; };
-		9EFFB9F124EAD4D300DF9D5A /* InboxMessageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageAPI.swift; sourceTree = "<group>"; };
+		9EFFB9F124EAD4D300DF9D5A /* CordialInboxMessageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialInboxMessageAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1100,7 +1100,7 @@
 		9EFFB9F024EAD45300DF9D5A /* InboxMessage */ = {
 			isa = PBXGroup;
 			children = (
-				9EFFB9F124EAD4D300DF9D5A /* InboxMessageAPI.swift */,
+				9EFFB9F124EAD4D300DF9D5A /* CordialInboxMessageAPI.swift */,
 				9E7DF22A24F93F7E005533A7 /* InboxMessage.swift */,
 			);
 			path = InboxMessage;
@@ -1363,7 +1363,7 @@
 				9E5147E622FC5DA000977278 /* UpsertContactCartURLSessionData.swift in Sources */,
 				9E343A7F22DF612B000D39A3 /* CordialURLSessionData.swift in Sources */,
 				9E92D3D7228F01CA00D8AFE0 /* ContactLogoutSender.swift in Sources */,
-				9EFFB9F224EAD4D300DF9D5A /* InboxMessageAPI.swift in Sources */,
+				9EFFB9F224EAD4D300DF9D5A /* CordialInboxMessageAPI.swift in Sources */,
 				9E05637A22DC9AC000EECADD /* InternalCordialAPI.swift in Sources */,
 				9EBF4AA42252559900CA24C7 /* CordialSwizzler.swift in Sources */,
 				9E51EF11249A7CF3009649C3 /* CordialPushNotificationParserMessageAttribution.swift in Sources */,

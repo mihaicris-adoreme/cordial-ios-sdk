@@ -1,5 +1,5 @@
 //
-//  InboxMessageAPI.swift
+//  CordialInboxMessageAPI.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 17.08.2020.
@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-@objc public class InboxMessageAPI: NSObject {
+@objc public class CordialInboxMessageAPI: NSObject {
     
     @objc public func sendInboxMessageReadEvent(mcID: String) {
         let eventName = API.EVENT_NAME_INBOX_MESSAGE_READ
