@@ -41,6 +41,9 @@
     <entity name="InAppMessagesShown" representedClassName="InAppMessagesShown" syncable="YES">
         <attribute name="mcID" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="InboxMessageDeleteRequests" representedClassName="InboxMessageDeleteRequests" syncable="YES" codeGenerationType="class">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+    </entity>
     <entity name="InboxMessagesReadUnreadMarks" representedClassName="InboxMessagesReadUnreadMarks" syncable="YES" codeGenerationType="class">
         <attribute name="data" optional="YES" attributeType="Binary"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -56,5 +59,6 @@
         <element name="InAppMessagesQueue" positionX="-36" positionY="18" width="128" height="75"/>
         <element name="InAppMessagesShown" positionX="-36" positionY="99" width="128" height="58"/>
         <element name="InboxMessagesReadUnreadMarks" positionX="-36" positionY="99" width="128" height="73"/>
+        <element name="InboxMessageDeleteRequests" positionX="-36" positionY="99" width="128" height="58"/>
     </elements>
 </model>

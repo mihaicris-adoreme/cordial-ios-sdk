@@ -29,6 +29,8 @@ class CoreDataSender {
         
         self.sendCachedInboxMessagesMarkReadUnreadRequests()
         
+        self.sendCachedInboxMessageDeleteRequests()
+        
         self.sendCachedContactLogoutRequest()
         
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
@@ -103,12 +105,6 @@ class CoreDataSender {
         }
     }
     
-    private func sendCachedContactLogoutRequest() {
-        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
-            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
-        }
-    }
-    
     private func sendCachedInboxMessagesMarkReadUnreadRequests() {
         var inboxMessagesMarkReadUnreadRequestsWithPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
         var inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
@@ -154,5 +150,18 @@ class CoreDataSender {
         }
         
         return InboxMessagesMarkReadUnreadRequest(requestID: UUID().uuidString, primaryKey: primaryKey, markAsReadMcIDs: mergedMarkAsReadMcIDs, markAsUnreadMcIDs: mergedMarkAsUnreadMcIDs, date: Date())
+    }
+    
+    private func sendCachedInboxMessageDeleteRequests() {
+        let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequestsFromCoreData()
+        inboxMessageDeleteRequests.forEach { inboxMessageDeleteRequest in
+            InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
+        }
+    }
+    
+    private func sendCachedContactLogoutRequest() {
+        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
+            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
+        }
     }
 }

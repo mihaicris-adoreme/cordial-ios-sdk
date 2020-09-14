@@ -39,7 +39,7 @@ class InboxMessageDeleteSender {
     }
     
     func systemErrorHandler(inboxMessageDeleteRequest: InboxMessageDeleteRequest, error: ResponseError) {
-        // TODO: CoreData
+        CoreDataManager.shared.inboxMessageDelete.putInboxMessageDeleteRequestToCoreData(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Deleting inbox message failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSDKInboxMessages, type: .info, inboxMessageDeleteRequest.requestID, error.message)
