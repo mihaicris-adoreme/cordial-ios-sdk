@@ -24,7 +24,7 @@
 		9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */; };
 		9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */; };
 		9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */; };
-		9E58D9F124FD904500075D76 /* CustomUIActivityFetchInboxMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58D9F024FD904500075D76 /* CustomUIActivityFetchInboxMessages.swift */; };
+		9E58D9F124FD904500075D76 /* CustomUIActivityInbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58D9F024FD904500075D76 /* CustomUIActivityInbox.swift */; };
 		9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E602D09226744CC00197CBD /* CartTableViewCell.swift */; };
 		9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */; };
 		9E77896C22878C090089C986 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E77896B22878C090089C986 /* NotificationService.swift */; };
@@ -40,6 +40,8 @@
 		9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */; };
 		9E7CEC7D242857F800E054BF /* GeoAttributeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */; };
 		9E7DF22E24F95808005533A7 /* OSLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7DF22D24F95808005533A7 /* OSLogManager.swift */; };
+		9E7EC4222510CE3200314A18 /* InboxMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EC4212510CE3200314A18 /* InboxMessagesViewController.swift */; };
+		9E7EC4242510CE5C00314A18 /* InboxMessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EC4232510CE5C00314A18 /* InboxMessagesTableViewCell.swift */; };
 		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
 		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
 		9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B95A923A53A1300936630 /* SceneDelegate.swift */; };
@@ -141,7 +143,7 @@
 		9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewController.swift; sourceTree = "<group>"; };
 		9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
-		9E58D9F024FD904500075D76 /* CustomUIActivityFetchInboxMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityFetchInboxMessages.swift; sourceTree = "<group>"; };
+		9E58D9F024FD904500075D76 /* CustomUIActivityInbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityInbox.swift; sourceTree = "<group>"; };
 		9E602D09226744CC00197CBD /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksHandler.swift; sourceTree = "<group>"; };
 		9E77896922878C090089C986 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,6 +166,8 @@
 		9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAttributeViewController.swift; sourceTree = "<group>"; };
 		9E7DF22D24F95808005533A7 /* OSLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLogManager.swift; sourceTree = "<group>"; };
+		9E7EC4212510CE3200314A18 /* InboxMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesViewController.swift; sourceTree = "<group>"; };
+		9E7EC4232510CE5C00314A18 /* InboxMessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableViewCell.swift; sourceTree = "<group>"; };
 		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
 		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
 		9E8B95A923A53A1300936630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -269,7 +273,7 @@
 		9E30BDED244FA6D600040974 /* Activities */ = {
 			isa = PBXGroup;
 			children = (
-				9E58D9F024FD904500075D76 /* CustomUIActivityFetchInboxMessages.swift */,
+				9E58D9F024FD904500075D76 /* CustomUIActivityInbox.swift */,
 				9EA5F539244F67A000BF685C /* CustomUIActivityProfile.swift */,
 				9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */,
 				9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */,
@@ -300,6 +304,7 @@
 		9E6A56CC244FB30700E6495A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				9E7EC41D2510CD4900314A18 /* Inbox */,
 				9EF7B213226660D0003B223D /* Login */,
 				9EB260C8229FF475005786BD /* Settings */,
 				9E7BD8C7228DADDC004B4EB9 /* Profile */,
@@ -429,6 +434,23 @@
 				9E7DF22D24F95808005533A7 /* OSLogManager.swift */,
 			);
 			path = OSLog;
+			sourceTree = "<group>";
+		};
+		9E7EC41D2510CD4900314A18 /* Inbox */ = {
+			isa = PBXGroup;
+			children = (
+				9E7EC4202510CE0C00314A18 /* InboxMessages */,
+			);
+			path = Inbox;
+			sourceTree = "<group>";
+		};
+		9E7EC4202510CE0C00314A18 /* InboxMessages */ = {
+			isa = PBXGroup;
+			children = (
+				9E7EC4212510CE3200314A18 /* InboxMessagesViewController.swift */,
+				9E7EC4232510CE5C00314A18 /* InboxMessagesTableViewCell.swift */,
+			);
+			path = InboxMessages;
 			sourceTree = "<group>";
 		};
 		9E80E35D24194E1400EE5852 /* Footer */ = {
@@ -896,9 +918,10 @@
 				9EAB97272427366900C5C5DA /* AppDateFormatter.swift in Sources */,
 				9EA5F540244F9D0E00BF685C /* CustomUIActivityLogin.swift in Sources */,
 				9E96BA49244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift in Sources */,
-				9E58D9F124FD904500075D76 /* CustomUIActivityFetchInboxMessages.swift in Sources */,
+				9E58D9F124FD904500075D76 /* CustomUIActivityInbox.swift in Sources */,
 				9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */,
 				9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */,
+				9E7EC4242510CE5C00314A18 /* InboxMessagesTableViewCell.swift in Sources */,
 				9E30BDE9244FA6AA00040974 /* CustomUIActivityLogout.swift in Sources */,
 				9E1EB39C241DC61E004CAD90 /* Attribute.swift in Sources */,
 				9EC1E141245051E500A4C756 /* CustomEventProperty.swift in Sources */,
@@ -921,6 +944,7 @@
 				9E45FE7622537648006A5A6B /* PushNotificationHandler.swift in Sources */,
 				9EA5F53A244F67A000BF685C /* CustomUIActivityProfile.swift in Sources */,
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,
+				9E7EC4222510CE3200314A18 /* InboxMessagesViewController.swift in Sources */,
 				9EDAEA0B234CCBFB008A7B2F /* Credentials.swift in Sources */,
 				9EDAEA0D234CD23F008A7B2F /* Settings.swift in Sources */,
 				9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */,

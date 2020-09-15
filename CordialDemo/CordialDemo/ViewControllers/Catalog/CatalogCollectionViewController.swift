@@ -18,6 +18,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToCartIdentifier = "segueToCart"
     let segueToProfileIdentifier = "segueToProfile"
     let segueToCustomEventIdentifier = "segueToCustomEvent"
+    let segueToInboxIdentifier = "segueToInbox"
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -58,7 +59,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         let activities: [UIActivity] = [
             CustomUIActivityProfile(sender: self),
             CustomUIActivityCustomEvent(sender: self),
-            CustomUIActivityFetchInboxMessages(sender: self),
+            CustomUIActivityInbox(sender: self),
             CustomUIActivityLogin(sender: self),
             CustomUIActivityLogout(sender: self)
         ]
