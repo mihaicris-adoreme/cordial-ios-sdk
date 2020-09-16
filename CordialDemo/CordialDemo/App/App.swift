@@ -102,6 +102,14 @@ extension UITextField {
     }
 }
 
+extension UIViewController {
+    var previousViewController: UIViewController? {
+        guard let navigationController = navigationController else { return nil }
+        let count = navigationController.viewControllers.count
+        return count < 1 ? nil : navigationController.viewControllers[count - 1]
+    }
+}
+
 func popupSimpleNoteAlert(title: String?, message: String?, controller: UIViewController) {
     DispatchQueue.main.async {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

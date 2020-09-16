@@ -18,6 +18,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     let segueToMessageIdentifier = "segueToMessage"
     
     var inboxMessages = [InboxMessage]()
+    var chosenInboxMessage: InboxMessage!
     
     let activityIndicator = UIActivityIndicatorView()
     
@@ -27,14 +28,16 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        self.tableView.tableFooterView = UIView(frame: .zero)
+        
         self.title = "Inbox"
         
         self.prepareActivityIndicator()
+        self.updateTableViewData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.tableView.tableFooterView = UIView(frame: .zero)
-        self.updateTableViewData()
+
     }
     
     func prepareActivityIndicator() {
@@ -47,7 +50,10 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func updateTableViewData() {
-        self.activityIndicator.startAnimating()
+        if self.inboxMessages.isEmpty {
+            self.activityIndicator.startAnimating()
+        }
+        
         self.updateInboxMessages()
     }
     
@@ -56,6 +62,12 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
             self.activityIndicator.stopAnimating()
             self.tableView.reloadData()
         }
+    }
+    
+    func clearTableViewData() {
+        self.inboxMessages = [InboxMessage]()
+        self.tableView.reloadData()
+        self.updateTableViewData()
     }
     
     func updateInboxMessages() {
@@ -68,9 +80,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @IBAction func refreshButtonAction(_ sender: UIBarButtonItem) {
-        self.inboxMessages = [InboxMessage]()
-        self.tableView.reloadData()
-        
+        self.clearTableViewData()
         self.updateTableViewData()
     }
     
@@ -80,7 +90,17 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         switch segue.identifier {
         case self.segueToMessageIdentifier:
             if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
-                // TODO Navigation
+                
+                if !self.chosenInboxMessage.read {
+                    CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.chosenInboxMessage.id])
+                    inboxMessageViewController.isNeededInboxMessagesUpdate = true
+                } else {
+                    inboxMessageViewController.isNeededInboxMessagesUpdate = false
+                }
+                
+                CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.id)
+                
+                inboxMessageViewController.inboxMessage = self.chosenInboxMessage
             }
         default:
             break
@@ -101,7 +121,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         
         cell.titleLabel.text = inboxMessage.title
         
-        let timestamp = self.inboxMessages[indexPath.row].sentAt
+        let timestamp = inboxMessage.sentAt
         let date = CordialDateFormatter().getDateFromTimestamp(timestamp: timestamp)!
         cell.timestampLabel.text = AppDateFormatter().getTimestampFromDate(date: date)
         
@@ -115,6 +135,20 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.chosenInboxMessage = self.inboxMessages[indexPath.row]
+        
         self.performSegue(withIdentifier: self.segueToMessageIdentifier, sender: self)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCell.EditingStyle.delete {
+            
+            let inboxMessage = self.inboxMessages[indexPath.row]
+            
+            CordialInboxMessageAPI().deleteInboxMessage(mcID: inboxMessage.id)
+            
+            self.inboxMessages.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
     }
 }
