@@ -681,11 +681,70 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="jrf-jM-J5p" id="8pD-9T-h26"/>
+                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueToMessage" id="s5i-HI-zGc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIc-pT-AUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2643.75" y="-1467.2535211267607"/>
+            <point key="canvasLocation" x="2646" y="-1676"/>
+        </scene>
+        <!--Inbox Message View Controller-->
+        <scene sceneID="Obf-0D-p0a">
+            <objects>
+                <viewController id="uvD-dl-1b0" customClass="InboxMessageViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="pVP-4p-F1r">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abG-fH-hV9">
+                                <rect key="frame" x="0.0" y="107" width="320" height="461"/>
+                                <connections>
+                                    <segue destination="ghy-MB-3Nm" kind="embed" id="4zl-x7-haM"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pkr-yk-fA3">
+                                <rect key="frame" x="0.0" y="107" width="320" height="461"/>
+                                <connections>
+                                    <segue destination="xka-Rw-oX8" kind="embed" id="dWF-8p-m9T"/>
+                                </connections>
+                            </containerView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="a0M-ce-6hk">
+                                <rect key="frame" x="16" y="60" width="288" height="32"/>
+                                <segments>
+                                    <segment title="HTML"/>
+                                    <segment title="KEY : VALUE"/>
+                                </segments>
+                                <connections>
+                                    <action selector="inboxMessageSegmentedControlAction:" destination="uvD-dl-1b0" eventType="valueChanged" id="Iy6-AJ-Sru"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="pkr-yk-fA3" firstAttribute="width" secondItem="abG-fH-hV9" secondAttribute="width" id="EAe-dA-tKV"/>
+                            <constraint firstItem="BfL-e3-cAp" firstAttribute="trailing" secondItem="a0M-ce-6hk" secondAttribute="trailing" constant="16" id="GG8-8K-uzl"/>
+                            <constraint firstItem="a0M-ce-6hk" firstAttribute="leading" secondItem="BfL-e3-cAp" secondAttribute="leading" constant="16" id="JtQ-Xa-ZE1"/>
+                            <constraint firstItem="pkr-yk-fA3" firstAttribute="centerX" secondItem="abG-fH-hV9" secondAttribute="centerX" id="TDv-4C-ToR"/>
+                            <constraint firstItem="abG-fH-hV9" firstAttribute="trailing" secondItem="BfL-e3-cAp" secondAttribute="trailing" id="Yq3-3A-bvF"/>
+                            <constraint firstItem="abG-fH-hV9" firstAttribute="bottom" secondItem="BfL-e3-cAp" secondAttribute="bottom" id="cfP-2I-vJT"/>
+                            <constraint firstItem="abG-fH-hV9" firstAttribute="top" secondItem="a0M-ce-6hk" secondAttribute="bottom" constant="16" id="jlO-0b-dVX"/>
+                            <constraint firstItem="pkr-yk-fA3" firstAttribute="centerY" secondItem="abG-fH-hV9" secondAttribute="centerY" id="lND-nk-wqP"/>
+                            <constraint firstItem="pkr-yk-fA3" firstAttribute="height" secondItem="abG-fH-hV9" secondAttribute="height" id="mho-3A-qih"/>
+                            <constraint firstItem="a0M-ce-6hk" firstAttribute="top" secondItem="BfL-e3-cAp" secondAttribute="top" constant="16" id="qJg-Ti-RY5"/>
+                            <constraint firstItem="abG-fH-hV9" firstAttribute="leading" secondItem="BfL-e3-cAp" secondAttribute="leading" id="zds-CZ-ek1"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BfL-e3-cAp"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="2ps-GB-MNT"/>
+                    <connections>
+                        <outlet property="inboxMessageHTMLView" destination="pkr-yk-fA3" id="0x7-J1-vol"/>
+                        <outlet property="inboxMessageKeyValuePairsView" destination="abG-fH-hV9" id="8as-uP-c1j"/>
+                        <outlet property="inboxMessageSegmentedControl" destination="a0M-ce-6hk" id="mm6-sB-elV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i4L-pS-UbI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3483.75" y="-1676.4084507042253"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="0Hs-AQ-9Zi">
@@ -1195,7 +1254,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="maa-aM-x2B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4278.75" y="-630.63380281690138"/>
+            <point key="canvasLocation" x="4281" y="-631"/>
         </scene>
         <!--Custom Event View Controller-->
         <scene sceneID="H4Q-yf-Lu5">
@@ -1453,6 +1512,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPz-v1-aT4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3482" y="887"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="xgT-zg-Lce">
+            <objects>
+                <viewController id="ghy-MB-3Nm" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hwY-A1-Wxf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="461"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="W8a-Km-Gsj"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WBg-39-oa9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4281" y="-2052"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="4sB-lF-D85">
+            <objects>
+                <viewController id="xka-Rw-oX8" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fw5-UX-Q4Y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="461"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="OBY-ww-8K2"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dd1-Xz-zkR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4281" y="-1432"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

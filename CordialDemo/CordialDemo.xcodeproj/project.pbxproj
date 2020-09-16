@@ -45,6 +45,7 @@
 		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
 		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
 		9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B95A923A53A1300936630 /* SceneDelegate.swift */; };
+		9E8F1B4A2511802F00B90139 /* InboxMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8F1B492511802F00B90139 /* InboxMessageViewController.swift */; };
 		9E96BA47244FB46500DB8BEC /* CustomEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA46244FB46500DB8BEC /* CustomEventViewController.swift */; };
 		9E96BA49244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA48244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift */; };
 		9E96BA4B244FCA6700DB8BEC /* CustomEventPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA4A244FCA6700DB8BEC /* CustomEventPropertyViewController.swift */; };
@@ -171,6 +172,7 @@
 		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
 		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
 		9E8B95A923A53A1300936630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		9E8F1B492511802F00B90139 /* InboxMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageViewController.swift; sourceTree = "<group>"; };
 		9E96BA46244FB46500DB8BEC /* CustomEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventViewController.swift; sourceTree = "<group>"; };
 		9E96BA48244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityCustomEvent.swift; sourceTree = "<group>"; };
 		9E96BA4A244FCA6700DB8BEC /* CustomEventPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventPropertyViewController.swift; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 			isa = PBXGroup;
 			children = (
 				9E7EC4202510CE0C00314A18 /* InboxMessages */,
+				9E8F1B482511800A00B90139 /* InboxMessage */,
 			);
 			path = Inbox;
 			sourceTree = "<group>";
@@ -460,6 +463,14 @@
 				9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */,
 			);
 			path = Footer;
+			sourceTree = "<group>";
+		};
+		9E8F1B482511800A00B90139 /* InboxMessage */ = {
+			isa = PBXGroup;
+			children = (
+				9E8F1B492511802F00B90139 /* InboxMessageViewController.swift */,
+			);
+			path = InboxMessage;
 			sourceTree = "<group>";
 		};
 		9E96BA42244FB44700DB8BEC /* CustomEvent */ = {
@@ -932,6 +943,7 @@
 				9E96BA4B244FCA6700DB8BEC /* CustomEventPropertyViewController.swift in Sources */,
 				9EF7B20B2266259B003B223D /* Product.swift in Sources */,
 				9E1EB3D6241F1700004CAD90 /* ProfileTableViewCell.swift in Sources */,
+				9E8F1B4A2511802F00B90139 /* InboxMessageViewController.swift in Sources */,
 				9EC1E1682450EB5C00A4C756 /* ImportCustomEventViewController.swift in Sources */,
 				9EF7B20F2266340F003B223D /* AppDataManager.swift in Sources */,
 				9E7A5A6C222EB64B0020054F /* LoginViewController.swift in Sources */,

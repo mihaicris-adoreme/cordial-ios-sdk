@@ -8,13 +8,14 @@
 
 import UIKit
 import CordialSDK
-import os.log
 
 class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
     let inboxMessagesTableCell = "inboxMessagesTableCell"
+    
+    let segueToMessageIdentifier = "segueToMessage"
     
     var inboxMessages = [InboxMessage]()
     
@@ -62,7 +63,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
             self.inboxMessages = inboxMessages
             self.tableViewReloadData()
         }, onFailure: { error in
-            os_log("%{public}@", log: OSLog.сordialSDKDemoInboxMessages, type: .error, error)
+            popupSimpleNoteAlert(title: error, message: nil, controller: self)
         })
     }
     
@@ -71,6 +72,20 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         self.tableView.reloadData()
         
         self.updateTableViewData()
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case self.segueToMessageIdentifier:
+            if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
+                // TODO Navigation
+            }
+        default:
+            break
+        }
+        
     }
     
     // MARK: UITableViewDataSource
@@ -97,5 +112,9 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: self.segueToMessageIdentifier, sender: self)
     }
 }
