@@ -60,7 +60,7 @@ import CoreLocation
 
     @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
-    private override init(){
+    private override init() {
         self.cordialPushNotification.getNotificationSettings()
     }
     
