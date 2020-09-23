@@ -10,13 +10,11 @@ import Foundation
 
 class ContactsSenderHelper {
     
-    func prepareDataBeforeUpsertContacts(upsertContactRequests: [UpsertContactRequest]) -> [UpsertContactRequest] {
+    func prepareCoreDataCacheBeforeUpsertContacts(upsertContactRequests: [UpsertContactRequest]) {
         
         self.removeCacheIfCurrentPrimaryKeyNotEqualToPreviousPrimaryKey(upsertContactRequests: upsertContactRequests)
         
         self.preparingCacheForSubsequentAttemptsToMakeContactsUpsert(upsertContactRequests: upsertContactRequests)
-        
-        return self.removeUpsertContactRequestIfNotificationTokenNotPresented(upsertContactRequests: upsertContactRequests)
     }
     
     private func removeCacheIfCurrentPrimaryKeyNotEqualToPreviousPrimaryKey(upsertContactRequests: [UpsertContactRequest]) {
@@ -66,16 +64,4 @@ class ContactsSenderHelper {
         }
     }
     
-    private func removeUpsertContactRequestIfNotificationTokenNotPresented(upsertContactRequests: [UpsertContactRequest]) -> [UpsertContactRequest] {
-        
-        var upsertContactRequests = upsertContactRequests
-        
-        for index in 0...(upsertContactRequests.count - 1) {
-            if upsertContactRequests[index].token == nil {
-                upsertContactRequests.remove(at: index)
-            }
-        }
-        
-        return upsertContactRequests
-    }
 }

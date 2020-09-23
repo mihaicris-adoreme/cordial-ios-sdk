@@ -15,11 +15,9 @@ class ContactsSender {
     
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
 
-        let upsertContactRequests = ContactsSenderHelper().prepareDataBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
+        ContactsSenderHelper().prepareCoreDataCacheBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
         
-        if !upsertContactRequests.isEmpty {
-            self.upsertContactsData(upsertContactRequests: upsertContactRequests)
-        }
+        self.upsertContactsData(upsertContactRequests: upsertContactRequests)
     }
     
     private func upsertContactsData(upsertContactRequests: [UpsertContactRequest]) {
