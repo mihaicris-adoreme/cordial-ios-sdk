@@ -226,23 +226,6 @@ class CordialSDKTests: XCTestCase {
         
         XCTAssert(mock.isVerified)
     }
-    
-    func testSetContactWithoutNotificationToken() {
-        let mock = MockRequestSenderSetContactWithoutNotificationToken()
-        
-        DependencyConfiguration.shared.requestSender = mock
-
-        self.testCase.setTestJWT(token: self.testJWT)
-        
-        self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
-        
-        XCTAssert(!mock.isCalled)
-        
-        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
-        self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
-        
-        XCTAssert(mock.isVerified)
-    }
 
     func testUpsertContact() {
         let mock = MockRequestSenderUpsertContact()
