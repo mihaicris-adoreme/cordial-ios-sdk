@@ -18,6 +18,7 @@
 		9E1EB39A241DC199004CAD90 /* AttributesCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB399241DC199004CAD90 /* AttributesCoreData.swift */; };
 		9E1EB39C241DC61E004CAD90 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB39B241DC61E004CAD90 /* Attribute.swift */; };
 		9E1EB3D6241F1700004CAD90 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB3D5241F1700004CAD90 /* ProfileTableViewCell.swift */; };
+		9E2BCB8E251D3A9200C21E04 /* InboxMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2BCB8D251D3A9200C21E04 /* InboxMessageHandler.swift */; };
 		9E30BDE9244FA6AA00040974 /* CustomUIActivityLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */; };
 		9E3DD4CF241BC066004C3918 /* AttributeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */; };
 		9E45FE7622537648006A5A6B /* PushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E45FE7522537648006A5A6B /* PushNotificationHandler.swift */; };
@@ -138,6 +139,7 @@
 		9E1EB399241DC199004CAD90 /* AttributesCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesCoreData.swift; sourceTree = "<group>"; };
 		9E1EB39B241DC61E004CAD90 /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
 		9E1EB3D5241F1700004CAD90 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		9E2BCB8D251D3A9200C21E04 /* InboxMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageHandler.swift; sourceTree = "<group>"; };
 		9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityLogout.swift; sourceTree = "<group>"; };
 		9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeViewController.swift; sourceTree = "<group>"; };
 		9E45FE7522537648006A5A6B /* PushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationHandler.swift; sourceTree = "<group>"; };
@@ -272,6 +274,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		9E2BCB8C251D3A5100C21E04 /* InboxMessage */ = {
+			isa = PBXGroup;
+			children = (
+				9E2BCB8D251D3A9200C21E04 /* InboxMessageHandler.swift */,
+			);
+			path = InboxMessage;
+			sourceTree = "<group>";
+		};
 		9E30BDED244FA6D600040974 /* Activities */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,7 +316,7 @@
 		9E6A56CC244FB30700E6495A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				9E7EC41D2510CD4900314A18 /* Inbox */,
+				9E7EC41D2510CD4900314A18 /* InboxMessages */,
 				9EF7B213226660D0003B223D /* Login */,
 				9EB260C8229FF475005786BD /* Settings */,
 				9E7BD8C7228DADDC004B4EB9 /* Profile */,
@@ -360,6 +370,7 @@
 				9ECF6B7D2298559300E6E88F /* ProductHandler */,
 				9ECF6B7A22984FEA00E6E88F /* DeepLinks */,
 				9EF7B21422666102003B223D /* PushNotification */,
+				9E2BCB8C251D3A5100C21E04 /* InboxMessage */,
 				9EF7B21022663864003B223D /* CoreData */,
 				9EA5F535244F677600BF685C /* CustomUIActivity */,
 				9E115532224E541A00CEF9FB /* CordialDemo.entitlements */,
@@ -438,13 +449,13 @@
 			path = OSLog;
 			sourceTree = "<group>";
 		};
-		9E7EC41D2510CD4900314A18 /* Inbox */ = {
+		9E7EC41D2510CD4900314A18 /* InboxMessages */ = {
 			isa = PBXGroup;
 			children = (
 				9E7EC4202510CE0C00314A18 /* InboxMessages */,
 				9E8F1B482511800A00B90139 /* InboxMessage */,
 			);
-			path = Inbox;
+			path = InboxMessages;
 			sourceTree = "<group>";
 		};
 		9E7EC4202510CE0C00314A18 /* InboxMessages */ = {
@@ -925,6 +936,7 @@
 				9EA5F53C244F6A8500BF685C /* CustomUIActivityType.swift in Sources */,
 				9EDC7E402242912000BF8FB0 /* App.swift in Sources */,
 				9EF7B20D22662A79003B223D /* CartViewController.swift in Sources */,
+				9E2BCB8E251D3A9200C21E04 /* InboxMessageHandler.swift in Sources */,
 				9EC1E1472450891B00A4C756 /* CustomEventTableFooterView.swift in Sources */,
 				9EAB97272427366900C5C5DA /* AppDateFormatter.swift in Sources */,
 				9EA5F540244F9D0E00BF685C /* CustomUIActivityLogin.swift in Sources */,

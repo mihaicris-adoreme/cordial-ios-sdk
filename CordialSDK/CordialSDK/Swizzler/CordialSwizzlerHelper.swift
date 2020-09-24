@@ -17,8 +17,17 @@ class CordialSwizzlerHelper {
             os_log("Silent push notification received. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
         }
         
-        if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+        let pushNotificationParser = CordialPushNotificationParser()
+        
+        if pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
             InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
+        }
+        
+        if pushNotificationParser.isPayloadContainInboxMessage(userInfo: userInfo),
+           let mcID = pushNotificationParser.getMcID(userInfo: userInfo),
+           let inboxMessageDelegate = CordialApiConfiguration.shared.inboxMessageDelegate {
+            
+            inboxMessageDelegate.newInboxMessageDelivered(mcID: mcID)
         }
     }
     

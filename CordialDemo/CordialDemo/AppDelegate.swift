@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ProductViewController.self, CartViewController.self])
         CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = CordialDeepLinksHandler()
+        CordialApiConfiguration.shared.inboxMessageDelegate = InboxMessageHandler()
                 
         self.setupCordialSDKLogicErrorHandler()
         
