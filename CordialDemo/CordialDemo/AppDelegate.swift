@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = CordialDeepLinksHandler()
         CordialApiConfiguration.shared.inboxMessageDelegate = InboxMessageHandler()
                 
-        self.setupCordialSDKLogicErrorHandler()
+        AppNotificationManager.shared.setupCordialSDKLogicErrorHandler()
         
         guard #available(iOS 13.0, *) else {
             if !App.isGuestUser() {

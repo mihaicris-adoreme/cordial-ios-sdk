@@ -12,11 +12,7 @@ import CordialSDK
 class InboxMessageHandler: InboxMessageDelegate {
     
     func newInboxMessageDelivered(mcID: String) {
-        getActiveViewController()?.navigationController?.viewControllers.forEach({ viewController in
-            if let inboxMessagesViewController = viewController as? InboxMessagesViewController {
-                inboxMessagesViewController.updateInboxMessages()
-            }
-        })
+        NotificationCenter.default.post(name: .cordialDemoNewInboxMessageDelivered, object: nil)
     }
 
 }

@@ -51,6 +51,7 @@
 		9E96BA49244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA48244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift */; };
 		9E96BA4B244FCA6700DB8BEC /* CustomEventPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA4A244FCA6700DB8BEC /* CustomEventPropertyViewController.swift */; };
 		9E96BA4F244FD14100DB8BEC /* CustomEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA4E244FD14100DB8BEC /* CustomEventTableViewCell.swift */; };
+		9EA151F525220E43009B85C3 /* AppNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA151F425220E43009B85C3 /* AppNotificationManager.swift */; };
 		9EA5F53A244F67A000BF685C /* CustomUIActivityProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5F539244F67A000BF685C /* CustomUIActivityProfile.swift */; };
 		9EA5F53C244F6A8500BF685C /* CustomUIActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5F53B244F6A8500BF685C /* CustomUIActivityType.swift */; };
 		9EA5F540244F9D0E00BF685C /* CustomUIActivityLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */; };
@@ -179,6 +180,7 @@
 		9E96BA48244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityCustomEvent.swift; sourceTree = "<group>"; };
 		9E96BA4A244FCA6700DB8BEC /* CustomEventPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventPropertyViewController.swift; sourceTree = "<group>"; };
 		9E96BA4E244FD14100DB8BEC /* CustomEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventTableViewCell.swift; sourceTree = "<group>"; };
+		9EA151F425220E43009B85C3 /* AppNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNotificationManager.swift; sourceTree = "<group>"; };
 		9EA5F539244F67A000BF685C /* CustomUIActivityProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityProfile.swift; sourceTree = "<group>"; };
 		9EA5F53B244F6A8500BF685C /* CustomUIActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityType.swift; sourceTree = "<group>"; };
 		9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityLogin.swift; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 			children = (
 				9EDC7E3F2242912000BF8FB0 /* App.swift */,
 				9EAB97262427366900C5C5DA /* AppDateFormatter.swift */,
+				9EA151F425220E43009B85C3 /* AppNotificationManager.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -971,6 +974,7 @@
 				9E7EC4222510CE3200314A18 /* InboxMessagesViewController.swift in Sources */,
 				9EDAEA0B234CCBFB008A7B2F /* Credentials.swift in Sources */,
 				9EDAEA0D234CD23F008A7B2F /* Settings.swift in Sources */,
+				9EA151F525220E43009B85C3 /* AppNotificationManager.swift in Sources */,
 				9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */,
 				9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */,
 				9E7DF22E24F95808005533A7 /* OSLogManager.swift in Sources */,

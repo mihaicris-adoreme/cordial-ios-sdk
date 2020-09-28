@@ -32,12 +32,21 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         
         self.title = "Inbox"
         
+        self.setupNotificationNewInboxMessageDelivered()
+        
         self.prepareActivityIndicator()
         self.updateTableViewData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    func setupNotificationNewInboxMessageDelivered() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.removeObserver(self, name: .cordialDemoNewInboxMessageDelivered, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(newInboxMessageDelivered), name: .cordialDemoNewInboxMessageDelivered, object: nil)
+    }
 
+    @objc func newInboxMessageDelivered() {
+        self.updateInboxMessages()
     }
     
     func prepareActivityIndicator() {
