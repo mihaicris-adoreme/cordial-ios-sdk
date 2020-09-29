@@ -15,6 +15,12 @@ class CoreDataSender {
     
     var sendCachedCustomEventsScheduledTimer: Timer?
     
+    private let queueUpsertContactRequest = DispatchQueue(label: "CordialCoreDataSenderUpsertContactRequestThreadQueue", attributes: .concurrent)
+    private let queueSendCustomEventRequest = DispatchQueue(label: "CordialCoreDataSenderSendCustomEventRequestThreadQueue", attributes: .concurrent)
+    private let queueUpsertContactCartRequest = DispatchQueue(label: "CordialCoreDataSenderUpsertContactCartRequestThreadQueue", attributes: .concurrent)
+    private let queueSendContactOrderRequest = DispatchQueue(label: "CordialCoreDataSenderSendContactOrderRequestThreadQueue", attributes: .concurrent)
+    private let queueSendContactLogoutRequest = DispatchQueue(label: "CordialCoreDataSenderSendContactLogoutRequestThreadQueue", attributes: .concurrent)
+    
     func sendCacheFromCoreData() {
         
         self.sendCachedUpsertContactRequests()
@@ -33,18 +39,20 @@ class CoreDataSender {
     }
     
     func sendCachedCustomEventRequests(reason: String) {
-        if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
-            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
-            if customEventRequests.count > 0 {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    if CordialApiConfiguration.shared.eventsBulkSize != 1 {
-                        os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
+        self.queueSendCustomEventRequest.sync(flags: .barrier) {
+            if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
+                let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
+                if customEventRequests.count > 0 {
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        if CordialApiConfiguration.shared.eventsBulkSize != 1 {
+                            os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
+                        }
                     }
+                    
+                    CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
+                    
+                    self.restartSendCachedCustomEventRequestsScheduledTimer()
                 }
-                
-                CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
-                
-                self.restartSendCachedCustomEventRequestsScheduledTimer()
             }
         }
     }
@@ -78,32 +86,40 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactCartRequest() {
-        if InternalCordialAPI().isUserLogin() {
-            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
-                ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+        self.queueUpsertContactCartRequest.sync(flags: .barrier) {
+            if InternalCordialAPI().isUserLogin() {
+                if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
+                    ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+                }
             }
         }
     }
     
     private func sendCachedContactOrderRequests() {
-        if InternalCordialAPI().isUserLogin() {
-            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-            if sendContactOrderRequests.count > 0 {
-                ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
+        self.queueSendContactOrderRequest.sync(flags: .barrier) {
+            if InternalCordialAPI().isUserLogin() {
+                let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
+                if sendContactOrderRequests.count > 0 {
+                    ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
+                }
             }
         }
     }
     
     private func sendCachedUpsertContactRequests() {
-        let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
-        if upsertContactRequests.count > 0 {
-            ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
+        self.queueUpsertContactRequest.sync(flags: .barrier) {
+            let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
+            if upsertContactRequests.count > 0 {
+                ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
+            }
         }
     }
     
     private func sendCachedContactLogoutRequest() {
-        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
-            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
+        self.queueSendContactLogoutRequest.sync(flags: .barrier) {
+            if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
+                ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
+            }
         }
     }
 }

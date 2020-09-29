@@ -11,8 +11,8 @@ import UserNotifications
 
 public extension Notification.Name {
     
-    static let connectedToInternet = Notification.Name("ConnectedToInternet")
-    static let notConnectedToInternet = Notification.Name("NotConnectedToInternet")
+    static let cordialConnectedToInternet = Notification.Name("CordialConnectedToInternet")
+    static let cordialNotConnectedToInternet = Notification.Name("CordialNotConnectedToInternet")
     
     static let cordialConnectionSettingsHasBeenChange = Notification.Name("CordialConnectionSettingsHasBeenChange")
     
@@ -26,8 +26,8 @@ public extension Notification.Name {
 }
 
 @objc public extension NSNotification {
-    static let connectedToInternet = Notification.Name.connectedToInternet
-    static let notConnectedToInternet = Notification.Name.notConnectedToInternet
+    static let cordialConnectedToInternet = Notification.Name.cordialConnectedToInternet
+    static let cordialNotConnectedToInternet = Notification.Name.cordialNotConnectedToInternet
     
     static let cordialConnectionSettingsHasBeenChange = Notification.Name.cordialConnectionSettingsHasBeenChange
     
