@@ -36,11 +36,11 @@ public enum ReachabilityError: Error {
     case UnableToGetInitialFlags
 }
 
-@available(*, unavailable, renamed: "Notification.Name.reachabilityChanged")
-public let ReachabilityChangedNotification = NSNotification.Name("ReachabilityChangedNotification")
+@available(*, unavailable, renamed: "Notification.Name.cordialReachabilityChanged")
+public let ReachabilityChangedNotification = NSNotification.Name("CordialReachabilityChangedNotification")
 
 public extension Notification.Name {
-    static let reachabilityChanged = Notification.Name("reachabilityChanged")
+    static let cordialReachabilityChanged = Notification.Name("CordialReachabilityChanged")
 }
 
 public class Reachability {
@@ -240,7 +240,7 @@ fileprivate extension Reachability {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             block?(self)
-            self.notificationCenter.post(name: .reachabilityChanged, object: self)
+            self.notificationCenter.post(name: .cordialReachabilityChanged, object: self)
         }
     }
 }

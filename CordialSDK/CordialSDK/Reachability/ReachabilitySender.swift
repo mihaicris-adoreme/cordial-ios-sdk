@@ -16,8 +16,8 @@ class ReachabilitySender {
     private init(){
         let notificationCenter = NotificationCenter.default
         
-        notificationCenter.removeObserver(self, name: .connectedToInternet, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(makeAllNeededHTTPCalls), name: .connectedToInternet, object: nil)
+        notificationCenter.removeObserver(self, name: .cordialConnectedToInternet, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(makeAllNeededHTTPCalls), name: .cordialConnectedToInternet, object: nil)
     }
     
     @objc func makeAllNeededHTTPCalls() {
