@@ -38,26 +38,39 @@ class ContactsSenderHelper {
             upsertContactRequests.forEach { upsertContactRequest in
                 // Events
                 let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
-                if !customEventRequests.isEmpty {
-                    customEventRequests.forEach { customEventRequest in
-                        if upsertContactRequest.primaryKey == customEventRequest.primaryKey {
-                            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [customEventRequest])
-                        }
+                customEventRequests.forEach { customEventRequest in
+                    if upsertContactRequest.primaryKey == customEventRequest.primaryKey {
+                        CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [customEventRequest])
                     }
                 }
                 
                 // Cart
-                if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData(), upsertContactRequest.primaryKey == upsertContactCartRequest.primaryKey {
+                if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData(),
+                   upsertContactRequest.primaryKey == upsertContactCartRequest.primaryKey {
                     CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
                 }
                 
                 // Orders
                 let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-                if !sendContactOrderRequests.isEmpty {
-                    sendContactOrderRequests.forEach { sendContactOrderRequest in
-                        if upsertContactRequest.primaryKey == sendContactOrderRequest.primaryKey {
-                            CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: [sendContactOrderRequest])
-                        }
+                sendContactOrderRequests.forEach { sendContactOrderRequest in
+                    if upsertContactRequest.primaryKey == sendContactOrderRequest.primaryKey {
+                        CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: [sendContactOrderRequest])
+                    }
+                }
+                
+                // Inbox message read/unread marks
+                let inboxMessagesMarkReadUnreadRequests = CoreDataManager.shared.inboxMessagesMarkReadUnread.fetchInboxMessagesMarkReadUnreadDataFromCoreData()
+                inboxMessagesMarkReadUnreadRequests.forEach { inboxMessagesMarkReadUnreadRequest in
+                    if upsertContactRequest.primaryKey == inboxMessagesMarkReadUnreadRequest.primaryKey {
+                        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
+                    }
+                }
+                 
+                // Inbox message delete
+                let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequestsFromCoreData()
+                inboxMessageDeleteRequests.forEach { inboxMessageDeleteRequest in
+                    if upsertContactRequest.primaryKey == inboxMessageDeleteRequest.primaryKey {
+                        CoreDataManager.shared.inboxMessageDelete.putInboxMessageDeleteRequestToCoreData(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
                     }
                 }
             }
