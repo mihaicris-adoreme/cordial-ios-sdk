@@ -86,7 +86,6 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         
                         var id: String?
                         var html: String?
-                        var customKeyValuePairs: [String: String]?
                         var title: String?
                         var read: Bool?
                         var sentAt: String?
@@ -114,12 +113,6 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                         }
                                         
                                         messageError += "html IS NIL"
-                                    }
-                                case "customKeyValuePairs":
-                                    if let valueCustomKeyValuePairs = value as? [String: String] {
-                                        customKeyValuePairs = valueCustomKeyValuePairs
-                                    } else {
-                                        customKeyValuePairs = [String: String]()
                                     }
                                 case "title":
                                     if let valueTitle = value as? String {
@@ -165,12 +158,11 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         
                         if let messageID = id,
                             let messageHTML = html,
-                            let messageCustomKeyValuePairs = customKeyValuePairs,
                             let messageTitle = title,
                             let messageRead = read,
                             let messageSentAt = sentAt {
                             
-                            let inboxMessage = InboxMessage(id: messageID, html: messageHTML, customKeyValuePairs: messageCustomKeyValuePairs, title: messageTitle, read: messageRead, sentAt: messageSentAt)
+                            let inboxMessage = InboxMessage(id: messageID, html: messageHTML, title: messageTitle, read: messageRead, sentAt: messageSentAt)
                             
                             inboxMessages.append(inboxMessage)
                         } else {
