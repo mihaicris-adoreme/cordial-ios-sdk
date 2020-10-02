@@ -85,7 +85,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
                     messagesJSON.forEach { messageJSON in
                         
                         var id: String?
-                        var html: String?
+                        var url: String?
                         var title: String?
                         var read: Bool?
                         var sentAt: String?
@@ -105,8 +105,8 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                         messageError += "_id IS NIL"
                                     }
                                 case "html":
-                                    if let valueHTML = value as? String {
-                                        html = valueHTML
+                                    if let valueURL = value as? String {
+                                        url = valueURL
                                     } else {
                                         if !messageError.isEmpty {
                                             messageError += ". "
@@ -157,12 +157,12 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         }
                         
                         if let messageID = id,
-                            let messageHTML = html,
+                            let messageURL = url,
                             let messageTitle = title,
                             let messageRead = read,
                             let messageSentAt = sentAt {
                             
-                            let inboxMessage = InboxMessage(id: messageID, html: messageHTML, title: messageTitle, read: messageRead, sentAt: messageSentAt)
+                            let inboxMessage = InboxMessage(id: messageID, url: messageURL, title: messageTitle, read: messageRead, sentAt: messageSentAt)
                             
                             inboxMessages.append(inboxMessage)
                         } else {
