@@ -12,9 +12,12 @@ import os.log
 class InboxMessageDeleteSender {
     
     func sendInboxMessageDelete(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
-        if InternalCordialAPI().isUserLogin() {
+        
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if internalCordialAPI.isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
-                if InternalCordialAPI().getCurrentJWT() != nil {
+                if internalCordialAPI.getCurrentJWT() != nil {
                     InboxMessageDelete().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
                 } else {
                     let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)

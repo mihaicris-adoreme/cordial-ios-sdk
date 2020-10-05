@@ -12,9 +12,12 @@ import os.log
 class InboxMessagesMarkReadUnreadSender {
     
     func sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
-        if InternalCordialAPI().isUserLogin() {
+        
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if internalCordialAPI.isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
-                if InternalCordialAPI().getCurrentJWT() != nil {
+                if internalCordialAPI.getCurrentJWT() != nil {
                     InboxMessagesMarkReadUnread().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
                 } else {
                     let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)

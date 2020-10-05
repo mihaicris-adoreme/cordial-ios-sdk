@@ -10,8 +10,6 @@ import Foundation
 
 class UpsertContacts {
     
-    let internalCordialAPI = InternalCordialAPI()
-    
     let requestSender = DependencyConfiguration.shared.requestSender
     
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
@@ -53,7 +51,7 @@ class UpsertContacts {
     internal func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest) -> String {
         
         var rootContainer  = [
-            "\"deviceId\": \"\(internalCordialAPI.getDeviceIdentifier())\"",
+            "\"deviceId\": \"\(InternalCordialAPI().getDeviceIdentifier())\"",
             "\"status\": \"\(upsertContactRequest.status)\""
         ]
         

@@ -13,13 +13,15 @@ class InboxMessagesGetter {
     
     func fetchInboxMessages(contactKey: String, onSuccess: @escaping (_ response: [InboxMessage]) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         
-        if InternalCordialAPI().isUserLogin() {
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if internalCordialAPI.isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     os_log("Fetching inbox messages", log: OSLog.cordialInboxMessages, type: .info)
                 }
                 
-                if InternalCordialAPI().getCurrentJWT() != nil {
+                if internalCordialAPI.getCurrentJWT() != nil {
                     InboxMessages().getInboxMessages(contactKey: contactKey, onSuccess: { response in
                         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                             os_log("Inbox messages have been received successfully", log: OSLog.cordialInboxMessages, type: .info)
