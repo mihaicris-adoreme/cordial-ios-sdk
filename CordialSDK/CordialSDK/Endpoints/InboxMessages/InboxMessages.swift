@@ -104,7 +104,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                         
                                         messageError += "_id IS NIL"
                                     }
-                                case "html":
+                                case "url":
                                     if let valueURL = value as? String {
                                         url = valueURL
                                     } else {
@@ -112,7 +112,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                             messageError += ". "
                                         }
                                         
-                                        messageError += "html IS NIL"
+                                        messageError += "url IS NIL"
                                     }
                                 case "title":
                                     if let valueTitle = value as? String {
