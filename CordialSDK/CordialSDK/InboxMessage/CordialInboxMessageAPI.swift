@@ -42,6 +42,19 @@ import os.log
         InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
     }
     
+    @objc public func fetchInboxMessage(mcID: String, onSuccess: @escaping (_ response: InboxMessage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+        if let contactKey = InternalCordialAPI().getContactKey() {
+            InboxMessageGetter().fetchInboxMessage(contactKey: contactKey, mcID: mcID, onSuccess: { response in
+                onSuccess(response)
+            }, onFailure: { error in
+                onFailure(error)
+            })
+        } else {
+            let error = "Fetching single inbox message failed. Error: [Unexpected error]"
+            onFailure(error)
+        }
+    }
+    
     @objc public func deleteInboxMessage(mcID: String) {
         let inboxMessageDeleteRequest = InboxMessageDeleteRequest(mcID: mcID)
         InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)

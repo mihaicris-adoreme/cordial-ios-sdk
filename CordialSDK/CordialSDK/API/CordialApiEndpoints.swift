@@ -82,7 +82,7 @@ class CordialApiEndpoints {
         return "\(baseURL)inbox/read"
     }
     
-    func getInboxMessageDeleteURL(contactKey: String, mcID: String) -> String {
+    func getInboxMessageURL(contactKey: String, mcID: String) -> String {
         let baseURL = self.getMessageHubBaseURL()
         
         let deviceID = InternalCordialAPI().getDeviceIdentifier()

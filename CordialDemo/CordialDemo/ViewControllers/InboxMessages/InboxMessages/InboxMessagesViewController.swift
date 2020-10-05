@@ -100,14 +100,14 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         case self.segueToMessageIdentifier:
             if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
                 
-                if !self.chosenInboxMessage.read {
-                    CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.chosenInboxMessage.id])
+                if !self.chosenInboxMessage.isRead {
+                    CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.chosenInboxMessage.mcID])
                     inboxMessageViewController.isNeededInboxMessagesUpdate = true
                 } else {
                     inboxMessageViewController.isNeededInboxMessagesUpdate = false
                 }
                 
-                CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.id)
+                CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.mcID)
                 
                 inboxMessageViewController.inboxMessage = self.chosenInboxMessage
             }
@@ -134,7 +134,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         let date = CordialDateFormatter().getDateFromTimestamp(timestamp: timestamp)!
         cell.timestampLabel.text = AppDateFormatter().getTimestampFromDate(date: date)
         
-        if inboxMessage.read {
+        if inboxMessage.isRead {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
@@ -154,7 +154,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
             
             let inboxMessage = self.inboxMessages[indexPath.row]
             
-            CordialInboxMessageAPI().deleteInboxMessage(mcID: inboxMessage.id)
+            CordialInboxMessageAPI().deleteInboxMessage(mcID: inboxMessage.mcID)
             
             self.inboxMessages.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)

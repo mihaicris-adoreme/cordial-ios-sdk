@@ -35,7 +35,7 @@ class InboxMessageViewController: UIViewController {
     }
     
     @objc func markUnreadButtonAction() {
-        CordialInboxMessageAPI().markInboxMessagesUnread(mcIDs: [self.inboxMessage.id])
+        CordialInboxMessageAPI().markInboxMessagesUnread(mcIDs: [self.inboxMessage.mcID])
         
         self.isNeededInboxMessagesUpdate = true
         

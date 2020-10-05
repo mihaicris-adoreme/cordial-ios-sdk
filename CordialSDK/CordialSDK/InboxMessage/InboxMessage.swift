@@ -10,17 +10,17 @@ import Foundation
 
 @objc public class InboxMessage: NSObject {
     
-    @objc public let id: String
+    @objc public let mcID: String
     @objc public let url: String
     @objc public let title: String
-    @objc public let read: Bool
+    @objc public let isRead: Bool
     @objc public let sentAt: String
     
-    init(id: String, url: String, title: String, read: Bool, sentAt: String) {
-        self.id = id
+    init(mcID: String, url: String, title: String, isRead: Bool, sentAt: String) {
+        self.mcID = mcID
         self.url = url
         self.title = title
-        self.read = read
+        self.isRead = isRead
         self.sentAt = sentAt
     }
 }

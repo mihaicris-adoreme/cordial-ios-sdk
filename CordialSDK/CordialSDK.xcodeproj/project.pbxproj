@@ -187,6 +187,7 @@
 		9EEE941122E099A200A61FD3 /* InAppMessageBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */; };
 		9EEE995522412C160041D8AE /* SendCustomEventRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEE995422412C160041D8AE /* SendCustomEventRequest.swift */; };
 		9EF0B3482361C7CD00641411 /* CoreDataSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF0B3472361C7CD00641411 /* CoreDataSender.swift */; };
+		9EF40DC6252B797E00DE7623 /* InboxMessageGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF40DC5252B797E00DE7623 /* InboxMessageGetter.swift */; };
 		9EF9ACE524489F19003A96E2 /* MockRequestSenderIfEventRequestHasInvalidEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF9ACE424489F19003A96E2 /* MockRequestSenderIfEventRequestHasInvalidEvent.swift */; };
 		9EFCA9DA225F8C8B005A8AC8 /* CordialApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFCA9D9225F8C8B005A8AC8 /* CordialApiEndpoints.swift */; };
 		9EFD2F87240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD2F86240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift */; };
@@ -416,6 +417,7 @@
 		9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageBannerView.swift; sourceTree = "<group>"; };
 		9EEE995422412C160041D8AE /* SendCustomEventRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCustomEventRequest.swift; sourceTree = "<group>"; };
 		9EF0B3472361C7CD00641411 /* CoreDataSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSender.swift; sourceTree = "<group>"; };
+		9EF40DC5252B797E00DE7623 /* InboxMessageGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageGetter.swift; sourceTree = "<group>"; };
 		9EF9ACE424489F19003A96E2 /* MockRequestSenderIfEventRequestHasInvalidEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderIfEventRequestHasInvalidEvent.swift; sourceTree = "<group>"; };
 		9EFCA9D9225F8C8B005A8AC8 /* CordialApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialApiEndpoints.swift; sourceTree = "<group>"; };
 		9EFD2F86240EA5CC000AFE18 /* MockRequestSenderUnsetContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUnsetContact.swift; sourceTree = "<group>"; };
@@ -774,8 +776,9 @@
 			children = (
 				9E126DAA22F8597B00A74143 /* SDKSecurity */,
 				9E12EA3C22CCC36800C2DED4 /* InAppMessage */,
-				9EB62A7924EF1B5700745D6D /* InboxMessages */,
+				9EF40DC4252B793500DE7623 /* InboxMessage */,
 				9E6D1E23250A702600940363 /* InboxMessageDelete */,
+				9EB62A7924EF1B5700745D6D /* InboxMessages */,
 				9E6D1DA12501137100940363 /* InboxMessagesMarkReadUnread */,
 				9E92D3D0228EF22A00D8AFE0 /* SendContactLogout */,
 				9E44CB1B222FE24B00DADC6C /* UpsertContacts */,
@@ -1114,6 +1117,14 @@
 			path = SendCustomEvent;
 			sourceTree = "<group>";
 		};
+		9EF40DC4252B793500DE7623 /* InboxMessage */ = {
+			isa = PBXGroup;
+			children = (
+				9EF40DC5252B797E00DE7623 /* InboxMessageGetter.swift */,
+			);
+			path = InboxMessage;
+			sourceTree = "<group>";
+		};
 		9EFFB9F024EAD45300DF9D5A /* InboxMessage */ = {
 			isa = PBXGroup;
 			children = (
@@ -1304,6 +1315,7 @@
 				9E6D1DA3250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift in Sources */,
 				9EB17AC622930D7B00EEAB7D /* CustomEventRequest+CoreDataProperties.swift in Sources */,
 				9E51EF02249A6177009649C3 /* CordialPushNotificationParser.swift in Sources */,
+				9EF40DC6252B797E00DE7623 /* InboxMessageGetter.swift in Sources */,
 				9E1B0D2D2379C1520010B86E /* InAppMessageDelayMode.swift in Sources */,
 				9E565B95225B9E47005EC4AF /* CoreDataManager.swift in Sources */,
 				9EE8C5F3235DAE3E0045347B /* CordialDateFormatter.swift in Sources */,

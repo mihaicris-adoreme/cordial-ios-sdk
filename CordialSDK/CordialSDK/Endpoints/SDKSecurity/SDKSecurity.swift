@@ -80,7 +80,7 @@ class SDKSecurity: NSObject, URLSessionDelegate {
     
     // MARK: URLSessionDelegate
     
-    lazy var updateJWTURLSession: URLSession = {
+    private lazy var updateJWTURLSession: URLSession = {
         let config = URLSessionConfiguration.default
         config.isDiscretionary = false
         config.sessionSendsLaunchEvents = true

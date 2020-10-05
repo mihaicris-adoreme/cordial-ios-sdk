@@ -13,7 +13,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
         
     // MARK: URLSessionDelegate
     
-    lazy var inboxMessagesURLSession: URLSession = {
+    private lazy var inboxMessagesURLSession: URLSession = {
         let config = URLSessionConfiguration.default
         config.isDiscretionary = false
         config.sessionSendsLaunchEvents = true
@@ -162,7 +162,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
                             let messageRead = read,
                             let messageSentAt = sentAt {
                             
-                            let inboxMessage = InboxMessage(id: messageID, url: messageURL, title: messageTitle, read: messageRead, sentAt: messageSentAt)
+                            let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, title: messageTitle, isRead: messageRead, sentAt: messageSentAt)
                             
                             inboxMessages.append(inboxMessage)
                         } else {
