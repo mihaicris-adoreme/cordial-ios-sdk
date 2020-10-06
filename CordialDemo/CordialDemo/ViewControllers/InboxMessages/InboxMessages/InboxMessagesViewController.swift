@@ -55,6 +55,8 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         } else {
             self.activityIndicator.style = .gray
         }
+        
+        self.activityIndicator.hidesWhenStopped = true
         self.tableView.backgroundView = self.activityIndicator
     }
     

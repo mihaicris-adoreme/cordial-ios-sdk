@@ -58,7 +58,7 @@ import os.log
     @objc public func fetchInboxMessageContent(mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         self.fetchInboxMessage(mcID: mcID, onSuccess: { inboxMessage in
             if let url = URL(string: inboxMessage.url) {
-                InboxMessageGetter().fetchInboxMessageContent(url: url, onSuccess: { response in
+                InboxMessageContentGetter().fetchInboxMessageContent(url: url, onSuccess: { response in
                     onSuccess(response)
                 }, onFailure: { error in
                     onFailure(error)

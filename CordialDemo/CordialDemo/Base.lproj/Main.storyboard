@@ -697,26 +697,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LIQ-Y8-SQe">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cfH-SO-wiw">
                                 <rect key="frame" x="0.0" y="44" width="320" height="524"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BfL-e3-cAp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="LIQ-Y8-SQe" firstAttribute="bottom" secondItem="BfL-e3-cAp" secondAttribute="bottom" id="3oJ-6f-HxG"/>
-                            <constraint firstItem="LIQ-Y8-SQe" firstAttribute="trailing" secondItem="BfL-e3-cAp" secondAttribute="trailing" id="6Hk-1t-MOJ"/>
-                            <constraint firstItem="LIQ-Y8-SQe" firstAttribute="top" secondItem="BfL-e3-cAp" secondAttribute="top" id="Ms0-hE-zrJ"/>
-                            <constraint firstItem="LIQ-Y8-SQe" firstAttribute="leading" secondItem="BfL-e3-cAp" secondAttribute="leading" id="cb8-vB-33s"/>
+                            <constraint firstItem="cfH-SO-wiw" firstAttribute="top" secondItem="BfL-e3-cAp" secondAttribute="top" id="7ap-Y2-HCQ"/>
+                            <constraint firstItem="cfH-SO-wiw" firstAttribute="trailing" secondItem="BfL-e3-cAp" secondAttribute="trailing" id="Ovh-lh-lFz"/>
+                            <constraint firstItem="cfH-SO-wiw" firstAttribute="leading" secondItem="BfL-e3-cAp" secondAttribute="leading" id="nMG-SW-zqe"/>
+                            <constraint firstItem="cfH-SO-wiw" firstAttribute="bottom" secondItem="BfL-e3-cAp" secondAttribute="bottom" id="zXq-Zk-lqK"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2ps-GB-MNT"/>
                     <connections>
-                        <outlet property="messageContent" destination="LIQ-Y8-SQe" id="zw3-KZ-2yy"/>
+                        <outlet property="webView" destination="cfH-SO-wiw" id="ayF-R5-U3o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i4L-pS-UbI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
