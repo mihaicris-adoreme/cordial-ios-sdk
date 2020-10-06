@@ -10,10 +10,14 @@ import Foundation
 
 class InAppMessagesQueueManager {
     
+    private let queueFetchInAppMessages = DispatchQueue(label: "CordialInAppMessagesQueueManagerFetchInAppMessagesThreadQueue", attributes: .concurrent)
+    
     func fetchInAppMessagesFromQueue() {
-        let mcIDs = CoreDataManager.shared.inAppMessagesQueue.getMcIDsFromCoreDataInAppMessagesQueue()
-        mcIDs.forEach { mcID in
-            InAppMessageGetter().fetchInAppMessage(mcID: mcID)
+        self.queueFetchInAppMessages.sync(flags: .barrier) {
+            let mcIDs = CoreDataManager.shared.inAppMessagesQueue.getMcIDsFromCoreDataInAppMessagesQueue()
+            mcIDs.forEach { mcID in
+                InAppMessageGetter().fetchInAppMessage(mcID: mcID)
+            }
         }
     }
     

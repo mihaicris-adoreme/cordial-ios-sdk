@@ -11,8 +11,8 @@ import UserNotifications
 
 public extension Notification.Name {
     
-    static let connectedToInternet = Notification.Name("ConnectedToInternet")
-    static let notConnectedToInternet = Notification.Name("NotConnectedToInternet")
+    static let cordialConnectedToInternet = Notification.Name("CordialConnectedToInternet")
+    static let cordialNotConnectedToInternet = Notification.Name("CordialNotConnectedToInternet")
     
     static let cordialConnectionSettingsHasBeenChange = Notification.Name("CordialConnectionSettingsHasBeenChange")
     
@@ -26,8 +26,8 @@ public extension Notification.Name {
 }
 
 @objc public extension NSNotification {
-    static let connectedToInternet = Notification.Name.connectedToInternet
-    static let notConnectedToInternet = Notification.Name.notConnectedToInternet
+    static let cordialConnectedToInternet = Notification.Name.cordialConnectedToInternet
+    static let cordialNotConnectedToInternet = Notification.Name.cordialNotConnectedToInternet
     
     static let cordialConnectionSettingsHasBeenChange = Notification.Name.cordialConnectionSettingsHasBeenChange
     
@@ -82,8 +82,6 @@ class NotificationManager {
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-        
-        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "App moved to background")
     }
     
     @objc func appMovedFromBackground() {

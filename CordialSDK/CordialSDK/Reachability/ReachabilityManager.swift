@@ -19,8 +19,8 @@ class ReachabilityManager {
     private init() {
         let notificationCenter = NotificationCenter.default
         
-        notificationCenter.removeObserver(self, name: .reachabilityChanged, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(reachabilityChanged(note:)), name: .reachabilityChanged, object: reachability)
+        notificationCenter.removeObserver(self, name: .cordialReachabilityChanged, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(cordialReachabilityChanged(note:)), name: .cordialReachabilityChanged, object: reachability)
         
         do {
             try reachability.startNotifier()
@@ -31,19 +31,19 @@ class ReachabilityManager {
         }
     }
     
-    @objc func reachabilityChanged(note: Notification) {
+    @objc func cordialReachabilityChanged(note: Notification) {
         let reachability = note.object as! Reachability
         
         switch reachability.connection {
         case .wifi:
             isConnectedToInternet = true
-            NotificationCenter.default.post(name: .connectedToInternet, object: nil)
+            NotificationCenter.default.post(name: .cordialConnectedToInternet, object: nil)
         case .cellular:
             isConnectedToInternet = true
-            NotificationCenter.default.post(name: .connectedToInternet, object: nil)
+            NotificationCenter.default.post(name: .cordialConnectedToInternet, object: nil)
         case .none:
             isConnectedToInternet = false
-            NotificationCenter.default.post(name: .notConnectedToInternet, object: nil)
+            NotificationCenter.default.post(name: .cordialNotConnectedToInternet, object: nil)
         }
     }
     
