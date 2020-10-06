@@ -11,7 +11,7 @@ import Foundation
 @objc public class InboxMessage: NSObject {
     
     @objc public let mcID: String
-    @objc public let url: String
+    let url: String
     @objc public let title: String
     @objc public let isRead: Bool
     @objc public let sentAt: String

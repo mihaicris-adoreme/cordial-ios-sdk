@@ -14,7 +14,7 @@ class InboxMessagesMarkReadUnread {
     
     func sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
         if let url = URL(string: CordialApiEndpoints().getInboxMessagesMarkReadUnreadURL()) {
-            var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+            var request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
             let inboxMessagesMarkReadUnreadJSON = self.getInboxMessagesMarkReadUnreadJSON(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
             

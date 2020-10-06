@@ -22,7 +22,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
     
     func getInboxMessages(contactKey: String, onSuccess: @escaping (_ response: [InboxMessage]) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         if let url = URL(string: CordialApiEndpoints().getInboxMessagesURL(contactKey: contactKey)) {
-            let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .GET)
+            let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
             
             self.inboxMessagesURLSession.dataTask(with: request) { data, response, error in
                 if let error = error {

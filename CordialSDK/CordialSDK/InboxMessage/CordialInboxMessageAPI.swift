@@ -55,6 +55,22 @@ import os.log
         }
     }
     
+    @objc public func fetchInboxMessageContent(mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+        self.fetchInboxMessage(mcID: mcID, onSuccess: { inboxMessage in
+            if let url = URL(string: inboxMessage.url) {
+                InboxMessageGetter().fetchInboxMessageContent(url: url, onSuccess: { response in
+                    onSuccess(response)
+                }, onFailure: { error in
+                    onFailure(error)
+                })
+            } else {
+                onFailure("Fetching inbox message content failed. Error: [Inbox message URL is not valid]")
+            }
+        }, onFailure: { error in
+            onFailure(error)
+        })
+    }
+    
     @objc public func deleteInboxMessage(mcID: String) {
         let inboxMessageDeleteRequest = InboxMessageDeleteRequest(mcID: mcID)
         InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)

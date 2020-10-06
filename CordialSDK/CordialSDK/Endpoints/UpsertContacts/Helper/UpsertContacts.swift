@@ -15,7 +15,7 @@ class UpsertContacts {
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
     
         if let url = URL(string: CordialApiEndpoints().getContactsURL()) {
-            var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+            var request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
             let upsertContactRequestsJSON = self.getUpsertContactRequestsJSON(upsertContactRequests: upsertContactRequests)
             

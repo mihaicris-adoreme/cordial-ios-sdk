@@ -14,7 +14,7 @@ class InboxMessageDelete {
     
     func sendInboxMessageDelete(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
         if let primaryKey = inboxMessageDeleteRequest.primaryKey, let url = URL(string: CordialApiEndpoints().getInboxMessageURL(contactKey: primaryKey, mcID: inboxMessageDeleteRequest.mcID)) {
-            let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .DELETE)
+            let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .DELETE)
             
             let inboxMessageDeleteDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
             

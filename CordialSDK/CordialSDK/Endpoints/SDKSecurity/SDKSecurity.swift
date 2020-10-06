@@ -29,7 +29,7 @@ class SDKSecurity: NSObject, URLSessionDelegate {
                     os_log("Fetching JWT", log: OSLog.cordialSecurity, type: .info)
                 }
                 
-                let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+                let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
                 
                 let sdkSecurityGetJWTDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
                 
@@ -93,7 +93,7 @@ class SDKSecurity: NSObject, URLSessionDelegate {
                 os_log("Fetching JWT", log: OSLog.cordialSecurity, type: .info)
             }
             
-            let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+            let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
             self.updateJWTURLSession.dataTask(with: request) { data, response, error in
                 if let error = error {

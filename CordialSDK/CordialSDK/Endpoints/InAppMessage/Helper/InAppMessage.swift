@@ -14,7 +14,7 @@ class InAppMessage {
     
     func getInAppMessage(mcID: String) {
         if let url = URL(string: CordialApiEndpoints().getInAppMessageURL(mcID: mcID)) {
-            let request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .GET)
+            let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
             
             let inAppMessageDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
             

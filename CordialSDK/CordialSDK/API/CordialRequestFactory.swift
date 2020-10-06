@@ -18,12 +18,8 @@ class CordialRequestFactory {
         case DELETE
     }
 
-    func getURLRequest(url: URL, httpMethod: HttpMethods) -> URLRequest {
-        var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
-        request.httpMethod = httpMethod.rawValue
-
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")  
-        request.setValue("application/json", forHTTPHeaderField: "Accept")
+    func getCordialURLRequest(url: URL, httpMethod: HttpMethods) -> URLRequest {
+        var request = self.getBaseURLRequest(url: url, httpMethod: httpMethod)
         
         let userAgent = UserAgentBuilder().getUserAgent()
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
@@ -42,4 +38,13 @@ class CordialRequestFactory {
         return request
     }
 
+    func getBaseURLRequest(url: URL, httpMethod: HttpMethods) -> URLRequest {
+        var request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData)
+        request.httpMethod = httpMethod.rawValue
+
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        return request
+    }
 }

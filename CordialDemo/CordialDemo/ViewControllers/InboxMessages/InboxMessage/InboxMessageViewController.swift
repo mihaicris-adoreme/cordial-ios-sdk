@@ -25,7 +25,7 @@ class InboxMessageViewController: UIViewController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "mark_unread"), style: .plain, target: self, action: #selector(markUnreadButtonAction))
         
-        self.messageContent.text = self.inboxMessage.url
+        self.messageContent.text = "TODO"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
