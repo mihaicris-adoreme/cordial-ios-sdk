@@ -7,12 +7,11 @@
 //
 
 import UIKit
-import WebKit
 import CordialSDK
 
-class InboxMessageViewController: UIViewController, WKNavigationDelegate {
+class InboxMessageViewController: UIViewController {
     
-    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var inboxMessageContentTextView: UITextView!
     
     var inboxMessage: InboxMessage!
     
@@ -24,8 +23,6 @@ class InboxMessageViewController: UIViewController, WKNavigationDelegate {
         super.viewDidLoad()
 
         self.title = "Message"
-        
-        self.webView.navigationDelegate = self
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "mark_unread"), style: .plain, target: self, action: #selector(markUnreadButtonAction))
         
@@ -63,22 +60,13 @@ class InboxMessageViewController: UIViewController, WKNavigationDelegate {
     func fetchInboxMessageContent() {
         self.activityIndicator.startAnimating()
         
-        CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.inboxMessage.mcID, onSuccess: { html in
+        CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.inboxMessage.mcID, onSuccess: { content in
             DispatchQueue.main.async {
-                self.webView.loadHTMLString(html, baseURL: nil)
+                self.activityIndicator.stopAnimating()
+                self.inboxMessageContentTextView.text = content
             }
         }, onFailure: { error in
             popupSimpleNoteAlert(title: error, message: nil, controller: self)
         })
-    }
-    
-    // MARK: WKNavigationDelegate
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        self.activityIndicator.stopAnimating()
-    }
-    
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        self.activityIndicator.stopAnimating()
     }
 }

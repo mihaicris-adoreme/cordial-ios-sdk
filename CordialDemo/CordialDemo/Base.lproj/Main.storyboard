@@ -697,27 +697,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cfH-SO-wiw">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wHk-OS-p2C">
                                 <rect key="frame" x="0.0" y="44" width="320" height="524"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                            </wkWebView>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="BfL-e3-cAp"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="cfH-SO-wiw" firstAttribute="top" secondItem="BfL-e3-cAp" secondAttribute="top" id="7ap-Y2-HCQ"/>
-                            <constraint firstItem="cfH-SO-wiw" firstAttribute="trailing" secondItem="BfL-e3-cAp" secondAttribute="trailing" id="Ovh-lh-lFz"/>
-                            <constraint firstItem="cfH-SO-wiw" firstAttribute="leading" secondItem="BfL-e3-cAp" secondAttribute="leading" id="nMG-SW-zqe"/>
-                            <constraint firstItem="cfH-SO-wiw" firstAttribute="bottom" secondItem="BfL-e3-cAp" secondAttribute="bottom" id="zXq-Zk-lqK"/>
+                            <constraint firstItem="wHk-OS-p2C" firstAttribute="trailing" secondItem="BfL-e3-cAp" secondAttribute="trailing" id="H5X-xb-9NI"/>
+                            <constraint firstItem="wHk-OS-p2C" firstAttribute="bottom" secondItem="BfL-e3-cAp" secondAttribute="bottom" id="ZrB-lg-fOP"/>
+                            <constraint firstItem="wHk-OS-p2C" firstAttribute="top" secondItem="BfL-e3-cAp" secondAttribute="top" id="dN6-OC-Tuz"/>
+                            <constraint firstItem="wHk-OS-p2C" firstAttribute="leading" secondItem="BfL-e3-cAp" secondAttribute="leading" id="wNF-AY-XrQ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2ps-GB-MNT"/>
                     <connections>
-                        <outlet property="webView" destination="cfH-SO-wiw" id="ayF-R5-U3o"/>
+                        <outlet property="inboxMessageContentTextView" destination="wHk-OS-p2C" id="C6d-VA-7WQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i4L-pS-UbI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

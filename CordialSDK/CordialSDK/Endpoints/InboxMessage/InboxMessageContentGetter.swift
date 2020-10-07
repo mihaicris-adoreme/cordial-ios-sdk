@@ -62,11 +62,8 @@ class InboxMessageContentGetter: NSObject, URLSessionDelegate {
             if let responseData = data, let httpResponse = response as? HTTPURLResponse {
                 switch httpResponse.statusCode {
                 case 200:
-                    self.parseResponseJSON(responseData: responseData, onSuccess: { response in
-                        onSuccess(response)
-                    }, onFailure: { error in
-                        onFailure(error)
-                    })
+                    let response = String(decoding: responseData, as: UTF8.self)
+                    onSuccess(response)
                 default:
                     let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                     
@@ -93,18 +90,4 @@ class InboxMessageContentGetter: NSObject, URLSessionDelegate {
             }
         }.resume()
     }
-
-    private func parseResponseJSON(responseData: Data, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
-        do {
-            if let responseJSON = try JSONSerialization.jsonObject(with: responseData, options: []) as? [String: AnyObject],
-               let html = responseJSON["html"] as? String {
-                onSuccess(html)
-            } else {
-                onFailure("Fetching inbox message content failed. Error: [Inbox message content is absent]")
-            }
-        } catch let error {
-            onFailure("Fetching inbox message content failed. Error: [\(error.localizedDescription)]")
-        }
-    }
-
 }
