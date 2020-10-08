@@ -668,7 +668,7 @@ ___
     // your code
 }];
 ``` 
-`response` is an array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its id, title, body, custom key values pairs, if the message is read and when it was sent.
+`response` is an array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its mcID, title, if the message is read and when it was sent.
 
 #### Send up an inbox message is read event. 
 
@@ -689,7 +689,7 @@ This is the method to be called to signal a message is read by the user and shou
 
 #### Mark a message as read/unread
 
-This operations actually marks a message as read or unread which toggles the `read` flag on the corresponding `InboxMessage` object.
+This operations actually marks a message as read or unread which toggles the `isRead` flag on the corresponding `InboxMessage` object.
 
 To mark messages as read:
 
@@ -736,6 +736,23 @@ ___
 ```
 NSString *mcID = @"example_mc_id";
 [[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
+```
+
+#### Notifications about new incoming inbox message
+
+The SDK can notify when a new inbox message has been delivered to the device. In order to be notified set a `InboxMessageDelegate`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let inboxMessageHandler = YourImplementationOfInboxMessageDelegate()
+CordialApiConfiguration.shared.inboxMessageDelegate = inboxMessageHandler
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+YourImplementationOfInboxMessageDelegate *inboxMessageHandler = [[YourImplementationOfInboxMessageDelegate alloc] init];
+[CordialApiConfiguration shared].inboxMessageDelegate = inboxMessageHandler;
 ```
 
 
