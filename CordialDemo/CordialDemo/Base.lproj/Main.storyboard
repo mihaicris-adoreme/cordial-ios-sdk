@@ -627,38 +627,28 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inboxMessagesTableCell" id="pLT-eV-nuN" customClass="InboxMessagesTableViewCell" customModule="CordialDemo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="320" height="78"/>
+                                        <rect key="frame" x="0.0" y="28" width="320" height="58.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pLT-eV-nuN" id="76H-Rh-xeW">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="78"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="58.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9AX-3a-hJf">
-                                                    <rect key="frame" x="16" y="19" width="288" height="19.5"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q1u-bu-zU6">
-                                                    <rect key="frame" x="16" y="39.5" width="288" height="18.5"/>
+                                                    <rect key="frame" x="16" y="20" width="288" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="q1u-bu-zU6" firstAttribute="top" secondItem="9AX-3a-hJf" secondAttribute="bottom" constant="1" id="3nu-sT-Cmv"/>
-                                                <constraint firstItem="9AX-3a-hJf" firstAttribute="trailing" secondItem="q1u-bu-zU6" secondAttribute="trailing" id="6sr-jd-QU4"/>
+                                                <constraint firstItem="q1u-bu-zU6" firstAttribute="trailing" secondItem="76H-Rh-xeW" secondAttribute="trailingMargin" id="697-ub-LxO"/>
                                                 <constraint firstAttribute="bottom" secondItem="q1u-bu-zU6" secondAttribute="bottom" constant="20" symbolic="YES" id="BLC-aH-r8Z"/>
-                                                <constraint firstItem="9AX-3a-hJf" firstAttribute="trailing" secondItem="76H-Rh-xeW" secondAttribute="trailingMargin" id="G59-s1-yFS"/>
-                                                <constraint firstItem="9AX-3a-hJf" firstAttribute="leading" secondItem="q1u-bu-zU6" secondAttribute="leading" id="deF-qN-WJB"/>
-                                                <constraint firstItem="9AX-3a-hJf" firstAttribute="leading" secondItem="76H-Rh-xeW" secondAttribute="leadingMargin" id="g7o-A4-2HM"/>
-                                                <constraint firstItem="9AX-3a-hJf" firstAttribute="top" secondItem="76H-Rh-xeW" secondAttribute="topMargin" constant="8" id="mrc-Ik-2eT"/>
+                                                <constraint firstItem="q1u-bu-zU6" firstAttribute="leading" secondItem="76H-Rh-xeW" secondAttribute="leadingMargin" id="RKf-6V-tfC"/>
+                                                <constraint firstItem="q1u-bu-zU6" firstAttribute="top" secondItem="76H-Rh-xeW" secondAttribute="top" constant="20" symbolic="YES" id="ZqK-hv-ODQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="timestampLabel" destination="q1u-bu-zU6" id="EVc-aC-D70"/>
-                                            <outlet property="titleLabel" destination="9AX-3a-hJf" id="8Jw-Lz-GVw"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

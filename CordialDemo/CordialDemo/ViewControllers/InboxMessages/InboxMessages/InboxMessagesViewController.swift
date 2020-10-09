@@ -130,8 +130,6 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         
         let inboxMessage = self.inboxMessages[indexPath.row]
         
-        cell.titleLabel.text = inboxMessage.title
-        
         let timestamp = inboxMessage.sentAt
         let date = CordialDateFormatter().getDateFromTimestamp(timestamp: timestamp)!
         cell.timestampLabel.text = AppDateFormatter().getTimestampFromDate(date: date)

@@ -668,7 +668,7 @@ ___
     // your code
 }];
 ``` 
-`response` is an array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its mcID, title, if the message is read and when it was sent.
+`response` is an array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its mcID, if the message is read and when it was sent.
 
 #### Send up an inbox message is read event. 
 

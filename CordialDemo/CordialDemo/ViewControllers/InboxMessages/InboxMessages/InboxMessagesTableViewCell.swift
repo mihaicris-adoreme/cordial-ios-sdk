@@ -10,7 +10,6 @@ import UIKit
 
 class InboxMessagesTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!
 
 }

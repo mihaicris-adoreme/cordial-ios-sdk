@@ -119,7 +119,6 @@ class InboxMessageGetter: NSObject, URLSessionDelegate {
                 if let messageJSON = responseJSON["message"] as? [String: AnyObject] {
                         
                     var url: String?
-                    var title: String?
                     var read: Bool?
                     var sentAt: String?
                     
@@ -136,16 +135,6 @@ class InboxMessageGetter: NSObject, URLSessionDelegate {
                                     }
                                     
                                     messageError += "url IS NIL"
-                                }
-                            case "title":
-                                if let valueTitle = value as? String {
-                                    title = valueTitle
-                                } else {
-                                    if !messageError.isEmpty {
-                                        messageError += ". "
-                                    }
-                                    
-                                    messageError += "title IS NIL"
                                 }
                             case "read":
                                 if let valueRead = value as? Bool {
@@ -180,11 +169,10 @@ class InboxMessageGetter: NSObject, URLSessionDelegate {
                     }
                     
                     if let messageURL = url,
-                        let messageTitle = title,
                         let messageRead = read,
                         let messageSentAt = sentAt {
                         
-                        let inboxMessage = InboxMessage(mcID: mcID, url: messageURL, title: messageTitle, isRead: messageRead, sentAt: messageSentAt)
+                        let inboxMessage = InboxMessage(mcID: mcID, url: messageURL, isRead: messageRead, sentAt: messageSentAt)
                         
                         onSuccess(inboxMessage)
                     } else {

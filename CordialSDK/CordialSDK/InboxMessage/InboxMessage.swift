@@ -12,14 +12,12 @@ import Foundation
     
     @objc public let mcID: String
     let url: String
-    @objc public let title: String
     @objc public let isRead: Bool
     @objc public let sentAt: String
     
-    init(mcID: String, url: String, title: String, isRead: Bool, sentAt: String) {
+    init(mcID: String, url: String, isRead: Bool, sentAt: String) {
         self.mcID = mcID
         self.url = url
-        self.title = title
         self.isRead = isRead
         self.sentAt = sentAt
     }

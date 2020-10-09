@@ -86,7 +86,6 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         
                         var id: String?
                         var url: String?
-                        var title: String?
                         var read: Bool?
                         var sentAt: String?
                         
@@ -113,16 +112,6 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                         }
                                         
                                         messageError += "url IS NIL"
-                                    }
-                                case "title":
-                                    if let valueTitle = value as? String {
-                                        title = valueTitle
-                                    } else {
-                                        if !messageError.isEmpty {
-                                            messageError += ". "
-                                        }
-                                        
-                                        messageError += "title IS NIL"
                                     }
                                 case "read":
                                     if let valueRead = value as? Bool {
@@ -158,11 +147,10 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         
                         if let messageID = id,
                             let messageURL = url,
-                            let messageTitle = title,
                             let messageRead = read,
                             let messageSentAt = sentAt {
                             
-                            let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, title: messageTitle, isRead: messageRead, sentAt: messageSentAt)
+                            let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, isRead: messageRead, sentAt: messageSentAt)
                             
                             inboxMessages.append(inboxMessage)
                         } else {
