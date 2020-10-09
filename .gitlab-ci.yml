@@ -11,6 +11,6 @@ build_project:
     - xcodebuild clean -project CordialAppExtensions_Objective-C/CordialAppExtensions_Objective-C.xcodeproj -scheme CordialAppExtensions_Objective-C | xcpretty
     - xcodebuild test -project CordialAppExtensions_Objective-C/CordialAppExtensions_Objective-C.xcodeproj -scheme CordialAppExtensions_Objective-C -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty -s
   tags:
-    - ios_14
+    - ios_13
     - osx_10
     - xcode_12
