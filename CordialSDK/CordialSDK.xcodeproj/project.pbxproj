@@ -76,6 +76,8 @@
 		9E65C1D4233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */; };
 		9E687EC724B94F0600D81322 /* MockRequestSenderInAppMessageUserClickedInAppMessageActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E687EC624B94F0600D81322 /* MockRequestSenderInAppMessageUserClickedInAppMessageActionButton.swift */; };
 		9E687EC924BA257A00D81322 /* MockRequestSenderInAppMessageExpirationTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E687EC824BA257A00D81322 /* MockRequestSenderInAppMessageExpirationTime.swift */; };
+		9E6980A325376FEA00BABC82 /* PageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6980A225376FEA00BABC82 /* PageRequest.swift */; };
+		9E6980AE25377AF600BABC82 /* InboxPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6980AD25377AF600BABC82 /* InboxPage.swift */; };
 		9E6ACC0D246D73720025450B /* MockRequestSenderUserAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6ACC0C246D73720025450B /* MockRequestSenderUserAgent.swift */; };
 		9E6D1DA3250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D1DA2250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift */; };
 		9E6D1DA62501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6D1DA52501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift */; };
@@ -304,6 +306,8 @@
 		9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9E687EC624B94F0600D81322 /* MockRequestSenderInAppMessageUserClickedInAppMessageActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageUserClickedInAppMessageActionButton.swift; sourceTree = "<group>"; };
 		9E687EC824BA257A00D81322 /* MockRequestSenderInAppMessageExpirationTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageExpirationTime.swift; sourceTree = "<group>"; };
+		9E6980A225376FEA00BABC82 /* PageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageRequest.swift; sourceTree = "<group>"; };
+		9E6980AD25377AF600BABC82 /* InboxPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxPage.swift; sourceTree = "<group>"; };
 		9E6ACC0C246D73720025450B /* MockRequestSenderUserAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUserAgent.swift; sourceTree = "<group>"; };
 		9E6D1DA2250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesMarkReadUnreadRequest.swift; sourceTree = "<group>"; };
 		9E6D1DA52501248A00940363 /* InboxMessagesMarkReadUnreadSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesMarkReadUnreadSender.swift; sourceTree = "<group>"; };
@@ -653,6 +657,22 @@
 			path = Throttler;
 			sourceTree = "<group>";
 		};
+		9E69809B25376E6300BABC82 /* Pagination */ = {
+			isa = PBXGroup;
+			children = (
+				9E6980A225376FEA00BABC82 /* PageRequest.swift */,
+			);
+			path = Pagination;
+			sourceTree = "<group>";
+		};
+		9E6980AC2537765200BABC82 /* Pagination */ = {
+			isa = PBXGroup;
+			children = (
+				9E6980AD25377AF600BABC82 /* InboxPage.swift */,
+			);
+			path = Pagination;
+			sourceTree = "<group>";
+		};
 		9E6D1DA12501137100940363 /* InboxMessagesMarkReadUnread */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,7 +758,8 @@
 				9E126DB222F865F600A74143 /* MD5 */,
 				9EC86A5B22DDC99600ACF996 /* URLSession */,
 				9EA2EFA422C4F0290047314C /* InAppMessage */,
-				9EFFB9F024EAD45300DF9D5A /* InboxMessage */,
+				9E69809B25376E6300BABC82 /* Pagination */,
+				9EFFB9F024EAD45300DF9D5A /* Inbox */,
 				9E3EA04322B2804200EDBF93 /* LocationManager */,
 				9ECF6B6922982F4A00E6E88F /* FirstLaunch */,
 				9ECF6B6822982ED600E6E88F /* API */,
@@ -1128,14 +1149,15 @@
 			path = InboxMessage;
 			sourceTree = "<group>";
 		};
-		9EFFB9F024EAD45300DF9D5A /* InboxMessage */ = {
+		9EFFB9F024EAD45300DF9D5A /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
+				9E6980AC2537765200BABC82 /* Pagination */,
 				9EFFB9F124EAD4D300DF9D5A /* CordialInboxMessageAPI.swift */,
 				9E2BCB7A251D289B00C21E04 /* InboxMessageDelegate.swift */,
 				9E7DF22A24F93F7E005533A7 /* InboxMessage.swift */,
 			);
-			path = InboxMessage;
+			path = Inbox;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1327,10 +1349,12 @@
 				9EC86A5D22DDCA1A00ACF996 /* CordialURLSession.swift in Sources */,
 				9EEC9D8022896F9900B40FFB /* UserAgentBuilder.swift in Sources */,
 				9E5147AC22FC358E00977278 /* UpsertContactsURLSessionManager.swift in Sources */,
+				9E6980A325376FEA00BABC82 /* PageRequest.swift in Sources */,
 				9E565BA0225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld in Sources */,
 				9E31E78222CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift in Sources */,
 				9EB5C80022FC6C090024F5A6 /* SendContactOrdersURLSessionData.swift in Sources */,
 				9E786AE82399437F00D92017 /* InAppMessagesShownCoreData.swift in Sources */,
+				9E6980AE25377AF600BABC82 /* InboxPage.swift in Sources */,
 				9EB5C80222FC6E840024F5A6 /* SendContactOrdersURLSessionManager.swift in Sources */,
 				9EE29BE922F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift in Sources */,
 				9EC0ACDC2327C76A002545D8 /* InAppMessageParams.swift in Sources */,
