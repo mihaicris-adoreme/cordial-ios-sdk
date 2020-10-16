@@ -32,7 +32,7 @@ class InboxMessageViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         if self.isNeededInboxMessagesUpdate, let inboxMessagesViewController = self.previousViewController as? InboxMessagesViewController {
-            inboxMessagesViewController.clearTableViewData()
+            inboxMessagesViewController.refreshTableViewData()
         }
     }
     

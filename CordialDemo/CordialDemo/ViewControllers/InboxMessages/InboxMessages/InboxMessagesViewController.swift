@@ -20,6 +20,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     var inboxMessages = [InboxMessage]()
     var chosenInboxMessage: InboxMessage!
     
+    var isInboxMessagesHasBeenLoaded = false
     let activityIndicator = UIActivityIndicatorView()
     
     override func viewDidLoad() {
@@ -38,6 +39,12 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         self.updateTableViewData()
     }
     
+    func getPageRequest() -> PageRequest {
+        self.isInboxMessagesHasBeenLoaded = false
+        
+        return PageRequest(page: 1, size: 10)
+    }
+    
     func setupNotificationNewInboxMessageDelivered() {
         let notificationCenter = NotificationCenter.default
         
@@ -46,7 +53,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     @objc func newInboxMessageDelivered() {
-        self.updateInboxMessages()
+        self.updateInboxMessages(pageRequest: self.getPageRequest())
     }
     
     func prepareActivityIndicator() {
@@ -65,7 +72,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
             self.activityIndicator.startAnimating()
         }
         
-        self.updateInboxMessages()
+        self.updateInboxMessages(pageRequest: self.getPageRequest())
     }
     
     func tableViewReloadData() {
@@ -75,25 +82,33 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func clearTableViewData() {
-        self.inboxMessages = [InboxMessage]()
-        self.tableView.reloadData()
-        self.updateTableViewData()
+    func refreshTableViewData() {
+        if self.isInboxMessagesHasBeenLoaded {
+            self.inboxMessages = [InboxMessage]()
+            self.tableView.reloadData()
+            self.updateTableViewData()
+        }
     }
     
-    func updateInboxMessages() {
-        let pageRequest = PageRequest(page: 1, size: 2)
+    func updateInboxMessages(pageRequest: PageRequest) {
         CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, onSuccess: { inboxPage in
-            self.inboxMessages = inboxPage.content
-            self.tableViewReloadData()
+            if !self.isInboxMessagesHasBeenLoaded {
+                self.inboxMessages += inboxPage.content
+                self.tableViewReloadData()
+            }
+            
+            if inboxPage.hasNext() {
+                self.updateInboxMessages(pageRequest: pageRequest.next())
+            } else {
+                self.isInboxMessagesHasBeenLoaded = true
+            }
         }, onFailure: { error in
             popupSimpleNoteAlert(title: error, message: nil, controller: self)
         })
     }
     
     @IBAction func refreshButtonAction(_ sender: UIBarButtonItem) {
-        self.clearTableViewData()
-        self.updateTableViewData()
+        self.refreshTableViewData()
     }
     
     // MARK: - Navigation

@@ -622,7 +622,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jrf-jM-J5p">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jrf-jM-J5p">
                                 <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -666,7 +666,7 @@
                     <navigationItem key="navigationItem" id="WrA-v9-zhl">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="v2f-Zj-tRk">
                             <connections>
-                                <action selector="refreshButtonAction:" destination="55x-1y-73y" id="Eo3-nu-tth"/>
+                                <action selector="refreshButtonAction:" destination="55x-1y-73y" id="RVH-oB-rX9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
