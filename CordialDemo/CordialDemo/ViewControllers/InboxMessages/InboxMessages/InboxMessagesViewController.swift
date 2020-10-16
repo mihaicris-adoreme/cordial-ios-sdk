@@ -82,8 +82,9 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func updateInboxMessages() {
-        CordialInboxMessageAPI().fetchInboxMessages(onSuccess: { inboxMessages in
-            self.inboxMessages = inboxMessages
+        let pageRequest = PageRequest(page: 1, size: 2)
+        CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, onSuccess: { inboxPage in
+            self.inboxMessages = inboxPage.content
             self.tableViewReloadData()
         }, onFailure: { error in
             popupSimpleNoteAlert(title: error, message: nil, controller: self)
