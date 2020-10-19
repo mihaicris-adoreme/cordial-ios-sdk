@@ -653,7 +653,8 @@ To work with inbox messages you will have to use the `InboxMessageAPI` class. It
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-InboxMessageAPI().fetchInboxMessages(onSuccess: { response in
+let pageRequest = PageRequest(page: 1, size: 10) 
+CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, onSuccess: { inboxPage in
     // your code
 }, onFailure: { error in
     // your code
@@ -662,7 +663,8 @@ InboxMessageAPI().fetchInboxMessages(onSuccess: { response in
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[[InboxMessageAPI alloc] init] fetchInboxMessagesOnSuccess:^(NSArray<InboxMessage *> *response) {
+PageRequest *pageRequest = [[PageRequest alloc] initWithPage:1 size:10];
+[[[CordialInboxMessageAPI alloc] init] fetchInboxMessagesWithPageRequest:pageRequest onSuccess:^(InboxPage *inboxPage) {
     // your code
 } onFailure:^(NSString *error) {
     // your code
