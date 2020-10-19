@@ -19,9 +19,9 @@ import os.log
         
     }
     
-    @objc public func fetchInboxMessages(pageRequest: PageRequest, onSuccess: @escaping (_ response: InboxPage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+    @objc public func fetchInboxMessages(pageRequest: PageRequest, inboxPageFilter: InboxPageFilter?, onSuccess: @escaping (_ response: InboxPage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         if let contactKey = InternalCordialAPI().getContactKey() {
-            InboxMessagesGetter().fetchInboxMessages(pageRequest: pageRequest, contactKey: contactKey, onSuccess: { response in
+            InboxMessagesGetter().fetchInboxMessages(pageRequest: pageRequest, inboxPageFilter: inboxPageFilter, contactKey: contactKey, onSuccess: { response in
                 onSuccess(response)
             }, onFailure: { error in
                 onFailure(error)

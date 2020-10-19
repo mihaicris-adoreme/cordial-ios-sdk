@@ -45,6 +45,11 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         return PageRequest(page: 1, size: 10)
     }
     
+    func getInboxPageFilter() -> InboxPageFilter? {
+        // TODO
+        return nil
+    }
+    
     func setupNotificationNewInboxMessageDelivered() {
         let notificationCenter = NotificationCenter.default
         
@@ -53,7 +58,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     @objc func newInboxMessageDelivered() {
-        self.updateInboxMessages(pageRequest: self.getPageRequest())
+        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxPageFilter: self.getInboxPageFilter())
     }
     
     func prepareActivityIndicator() {
@@ -72,7 +77,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
             self.activityIndicator.startAnimating()
         }
         
-        self.updateInboxMessages(pageRequest: self.getPageRequest())
+        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxPageFilter: self.getInboxPageFilter())
     }
     
     func tableViewReloadData() {
@@ -90,15 +95,15 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func updateInboxMessages(pageRequest: PageRequest) {
-        CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, onSuccess: { inboxPage in
+    func updateInboxMessages(pageRequest: PageRequest, inboxPageFilter: InboxPageFilter?) {
+        CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxPageFilter: inboxPageFilter, onSuccess: { inboxPage in
             if !self.isInboxMessagesHasBeenLoaded {
                 self.inboxMessages += inboxPage.content
                 self.tableViewReloadData()
             }
             
             if inboxPage.hasNext() {
-                self.updateInboxMessages(pageRequest: pageRequest.next())
+                self.updateInboxMessages(pageRequest: pageRequest.next(), inboxPageFilter: inboxPageFilter)
             } else {
                 self.isInboxMessagesHasBeenLoaded = true
             }
