@@ -29,10 +29,10 @@ extension OSLog {
 }
 
 @objc public enum logLevel: Int {
-    case none = 1
-    case all = 2
-    case error = 3
-    case info = 4
+    case none
+    case all
+    case error
+    case info 
 }
 
 public enum osLogLevel: String {

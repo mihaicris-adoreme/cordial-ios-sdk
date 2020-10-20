@@ -15,10 +15,13 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     
     let inboxMessagesTableCell = "inboxMessagesTableCell"
     
-    let segueToMessageIdentifier = "segueToMessage"
+    let segueToInboxMessageIdentifier = "segueToInboxMessage"
+    let segueToInboxFilterIdentifier = "segueToInboxFilter"
     
     var inboxMessages = [InboxMessage]()
     var chosenInboxMessage: InboxMessage!
+    
+    var inboxPageFilter: InboxPageFilter?
     
     var isInboxMessagesHasBeenLoaded = false
     let activityIndicator = UIActivityIndicatorView()
@@ -39,6 +42,10 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         self.updateTableViewData()
     }
     
+    @IBAction func filterAction(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: self.segueToInboxFilterIdentifier, sender: self)
+    }
+    
     func getPageRequest() -> PageRequest {
         self.isInboxMessagesHasBeenLoaded = false
         
@@ -46,8 +53,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func getInboxPageFilter() -> InboxPageFilter? {
-        // TODO
-        return nil
+        return self.inboxPageFilter
     }
     
     func setupNotificationNewInboxMessageDelivered() {
@@ -120,7 +126,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case self.segueToMessageIdentifier:
+        case self.segueToInboxMessageIdentifier:
             if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
                 
                 if !self.chosenInboxMessage.isRead {
@@ -133,6 +139,10 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
                 CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.mcID)
                 
                 inboxMessageViewController.inboxMessage = self.chosenInboxMessage
+            }
+        case self.segueToInboxFilterIdentifier:
+            if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesFilterViewController {
+                inboxMessagesFilterViewController.inboxPageFilter = self.inboxPageFilter
             }
         default:
             break
@@ -167,7 +177,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.chosenInboxMessage = self.inboxMessages[indexPath.row]
         
-        self.performSegue(withIdentifier: self.segueToMessageIdentifier, sender: self)
+        self.performSegue(withIdentifier: self.segueToInboxMessageIdentifier, sender: self)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

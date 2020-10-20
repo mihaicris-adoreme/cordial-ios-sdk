@@ -10,9 +10,9 @@ import Foundation
 
 @objc public class InboxPageFilter: NSObject {
     
-    var isRead: InboxPageFilterIsReadType
-    var fromDate: Date?
-    var toDate: Date?
+    @objc public var isRead: InboxPageFilterIsReadType
+    @objc public var fromDate: Date?
+    @objc public var toDate: Date?
     
     public init(isRead: InboxPageFilterIsReadType, fromDate: Date?, toDate: Date?) {
         self.isRead = isRead

@@ -614,6 +614,52 @@
             </objects>
             <point key="canvasLocation" x="3483" y="133"/>
         </scene>
+        <!--Inbox Messages Filter View Controller-->
+        <scene sceneID="Iqf-ku-oTL">
+            <objects>
+                <viewController id="CnG-HZ-MFa" customClass="InboxMessagesFilterViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N1d-7J-Whv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have the messages been read?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyG-6o-qia">
+                                <rect key="frame" x="16" y="60" width="288" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BRz-jB-RFZ">
+                                <rect key="frame" x="16" y="97" width="288" height="32"/>
+                                <segments>
+                                    <segment title="None"/>
+                                    <segment title="Yes"/>
+                                    <segment title="No"/>
+                                </segments>
+                                <connections>
+                                    <action selector="isReadSegmentedControlAction:" destination="CnG-HZ-MFa" eventType="valueChanged" id="JPd-Ke-S5z"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="TrZ-bn-KZV"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="nyG-6o-qia" firstAttribute="trailing" secondItem="N1d-7J-Whv" secondAttribute="trailingMargin" id="4gq-RC-mg8"/>
+                            <constraint firstItem="nyG-6o-qia" firstAttribute="leading" secondItem="N1d-7J-Whv" secondAttribute="leadingMargin" id="8fb-fv-u5g"/>
+                            <constraint firstItem="nyG-6o-qia" firstAttribute="leading" secondItem="BRz-jB-RFZ" secondAttribute="leading" id="Cyy-9P-hni"/>
+                            <constraint firstItem="nyG-6o-qia" firstAttribute="trailing" secondItem="BRz-jB-RFZ" secondAttribute="trailing" id="MEK-HX-x4r"/>
+                            <constraint firstItem="nyG-6o-qia" firstAttribute="top" secondItem="TrZ-bn-KZV" secondAttribute="top" constant="16" id="Vkx-u6-M78"/>
+                            <constraint firstItem="BRz-jB-RFZ" firstAttribute="top" secondItem="nyG-6o-qia" secondAttribute="bottom" constant="16" id="mfD-fW-g3R"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Kfv-jN-t3t"/>
+                    <connections>
+                        <outlet property="isReadSegmentedControl" destination="BRz-jB-RFZ" id="uoT-Xn-QAX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JUU-4P-D9T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3263" y="-2143"/>
+        </scene>
         <!--Inbox Messages View Controller-->
         <scene sceneID="4x6-EM-US8">
             <objects>
@@ -664,20 +710,28 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="WrA-v9-zhl">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="v2f-Zj-tRk">
-                            <connections>
-                                <action selector="refreshButtonAction:" destination="55x-1y-73y" id="RVH-oB-rX9"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="v2f-Zj-tRk">
+                                <connections>
+                                    <action selector="refreshButtonAction:" destination="55x-1y-73y" id="RVH-oB-rX9"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="filter" id="UlR-UH-dSG">
+                                <connections>
+                                    <action selector="filterAction:" destination="55x-1y-73y" id="dPR-cE-g8B"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="jrf-jM-J5p" id="8pD-9T-h26"/>
-                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueToMessage" id="s5i-HI-zGc"/>
+                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueToInboxMessage" id="s5i-HI-zGc"/>
+                        <segue destination="CnG-HZ-MFa" kind="show" identifier="segueToInboxFilter" id="h0i-X5-r8G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIc-pT-AUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2646" y="-1676"/>
+            <point key="canvasLocation" x="2644" y="-1384"/>
         </scene>
         <!--Inbox Message View Controller-->
         <scene sceneID="Obf-0D-p0a">
@@ -711,7 +765,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i4L-pS-UbI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3483.75" y="-1676.4084507042253"/>
+            <point key="canvasLocation" x="3482" y="-1385"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="0Hs-AQ-9Zi">
@@ -1486,6 +1540,7 @@
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.25567400455474854" green="0.42760902643203735" blue="0.56480115652084351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>
+        <image name="filter" width="30" height="30"/>
         <image name="logo" width="517.5" height="185"/>
         <image name="menu" width="17" height="11"/>
         <systemColor name="labelColor">
