@@ -627,12 +627,12 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ZfP-UW-y0H"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BRz-jB-RFZ">
-                                <rect key="frame" x="20" y="97" width="280" height="32"/>
+                                <rect key="frame" x="20" y="106" width="280" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="jI7-a3-xRR"/>
                                 </constraints>
@@ -645,62 +645,74 @@
                                     <action selector="isReadSegmentedControlAction:" destination="CnG-HZ-MFa" eventType="valueChanged" id="JPd-Ke-S5z"/>
                                 </connections>
                             </segmentedControl>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uX3-I6-5Ee">
-                                <rect key="frame" x="20" y="158" width="85" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uX3-I6-5Ee">
+                                <rect key="frame" x="20" y="177" width="85" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="85" id="NL3-ds-kk7"/>
                                     <constraint firstAttribute="height" constant="34" id="pSO-Ap-1qZ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5sD-Gd-zCL">
-                                <rect key="frame" x="113" y="158" width="145" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5sD-Gd-zCL">
+                                <rect key="frame" x="113" y="177" width="145" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Iz0-K3-5Pe">
-                                <rect key="frame" x="0.0" y="200" width="320" height="140"/>
+                                <rect key="frame" x="0.0" y="221" width="320" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="140" id="Bqm-pl-ydh"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="fromDatePickerAction:" destination="CnG-HZ-MFa" eventType="valueChanged" id="q7b-5u-fzG"/>
+                                </connections>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kpb-hF-VDQ">
-                                <rect key="frame" x="266" y="158" width="34" height="34"/>
+                                <rect key="frame" x="266" y="177" width="34" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="55u-nM-YYU"/>
                                     <constraint firstAttribute="width" secondItem="Kpb-hF-VDQ" secondAttribute="height" multiplier="1:1" id="GlI-Ps-z4M"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="clear"/>
+                                <connections>
+                                    <action selector="fromDateClearAction:" destination="CnG-HZ-MFa" eventType="touchUpInside" id="ctH-wC-1u1"/>
+                                </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FFf-LF-e9J">
-                                <rect key="frame" x="113" y="356" width="145" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FFf-LF-e9J">
+                                <rect key="frame" x="113" y="386" width="145" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xah-il-GIo">
-                                <rect key="frame" x="20" y="356" width="85" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To date:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xah-il-GIo">
+                                <rect key="frame" x="20" y="386" width="85" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="RLn-Gt-dXt"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="zA2-TE-FbW">
-                                <rect key="frame" x="0.0" y="398" width="320" height="140"/>
+                                <rect key="frame" x="0.0" y="429" width="320" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="140" id="vYH-Tm-nzz"/>
                                 </constraints>
+                                <connections>
+                                    <action selector="toDatePickerAction:" destination="CnG-HZ-MFa" eventType="valueChanged" id="zYA-dK-7Hg"/>
+                                </connections>
                             </datePicker>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0o-Y9-bGu">
-                                <rect key="frame" x="266" y="356" width="34" height="34"/>
+                                <rect key="frame" x="266" y="386" width="34" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="b0o-Y9-bGu" secondAttribute="height" multiplier="1:1" id="7L2-cV-Jrc"/>
                                     <constraint firstAttribute="height" constant="34" id="m2n-zJ-A1k"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="clear"/>
+                                <connections>
+                                    <action selector="toDateClearAction:" destination="CnG-HZ-MFa" eventType="touchUpInside" id="lQg-Cj-pTh"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="TrZ-bn-KZV"/>
@@ -712,10 +724,10 @@
                             <constraint firstItem="nyG-6o-qia" firstAttribute="top" secondItem="TrZ-bn-KZV" secondAttribute="top" constant="16" id="42y-bZ-2Pb"/>
                             <constraint firstItem="TrZ-bn-KZV" firstAttribute="trailing" secondItem="Iz0-K3-5Pe" secondAttribute="trailing" id="5Qi-Bj-nZf"/>
                             <constraint firstItem="TrZ-bn-KZV" firstAttribute="trailing" secondItem="zA2-TE-FbW" secondAttribute="trailing" id="7Vs-TE-qc1"/>
-                            <constraint firstItem="zA2-TE-FbW" firstAttribute="top" secondItem="Xah-il-GIo" secondAttribute="bottom" constant="8" id="Afj-Tu-3wf"/>
+                            <constraint firstItem="zA2-TE-FbW" firstAttribute="top" secondItem="Xah-il-GIo" secondAttribute="bottom" constant="9" id="Afj-Tu-3wf"/>
                             <constraint firstItem="5sD-Gd-zCL" firstAttribute="leading" secondItem="uX3-I6-5Ee" secondAttribute="trailing" constant="8" id="BJY-GY-Jy0"/>
                             <constraint firstItem="uX3-I6-5Ee" firstAttribute="trailing" secondItem="Xah-il-GIo" secondAttribute="trailing" id="CTW-JM-XWp"/>
-                            <constraint firstItem="BRz-jB-RFZ" firstAttribute="top" secondItem="nyG-6o-qia" secondAttribute="bottom" constant="16" id="D1s-ig-uDR"/>
+                            <constraint firstItem="BRz-jB-RFZ" firstAttribute="top" secondItem="nyG-6o-qia" secondAttribute="bottom" constant="25" id="D1s-ig-uDR"/>
                             <constraint firstItem="5sD-Gd-zCL" firstAttribute="bottom" secondItem="Kpb-hF-VDQ" secondAttribute="bottom" id="DuX-I4-34H"/>
                             <constraint firstItem="BRz-jB-RFZ" firstAttribute="leading" secondItem="TrZ-bn-KZV" secondAttribute="leading" constant="20" id="EH2-1x-l6D"/>
                             <constraint firstItem="BRz-jB-RFZ" firstAttribute="trailing" secondItem="Kpb-hF-VDQ" secondAttribute="trailing" id="HK3-7Z-evg"/>
@@ -725,13 +737,13 @@
                             <constraint firstItem="FFf-LF-e9J" firstAttribute="top" secondItem="b0o-Y9-bGu" secondAttribute="top" id="aX7-W8-UPv"/>
                             <constraint firstItem="Kpb-hF-VDQ" firstAttribute="leading" secondItem="5sD-Gd-zCL" secondAttribute="trailing" constant="8" id="abm-oe-F4p"/>
                             <constraint firstItem="b0o-Y9-bGu" firstAttribute="leading" secondItem="FFf-LF-e9J" secondAttribute="trailing" constant="8" id="bmY-x8-uYc"/>
-                            <constraint firstItem="uX3-I6-5Ee" firstAttribute="top" secondItem="BRz-jB-RFZ" secondAttribute="bottom" constant="30" id="dtP-47-MpX"/>
-                            <constraint firstItem="Xah-il-GIo" firstAttribute="top" secondItem="Iz0-K3-5Pe" secondAttribute="bottom" constant="16" id="gYX-Ox-U2x"/>
+                            <constraint firstItem="uX3-I6-5Ee" firstAttribute="top" secondItem="BRz-jB-RFZ" secondAttribute="bottom" constant="40" id="dtP-47-MpX"/>
+                            <constraint firstItem="Xah-il-GIo" firstAttribute="top" secondItem="Iz0-K3-5Pe" secondAttribute="bottom" constant="25" id="gYX-Ox-U2x"/>
                             <constraint firstItem="TrZ-bn-KZV" firstAttribute="trailing" secondItem="BRz-jB-RFZ" secondAttribute="trailing" constant="20" id="jEE-Hh-obR"/>
                             <constraint firstItem="TrZ-bn-KZV" firstAttribute="trailing" secondItem="nyG-6o-qia" secondAttribute="trailing" constant="16" id="mvb-Z7-oyi"/>
                             <constraint firstItem="TrZ-bn-KZV" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="nyG-6o-qia" secondAttribute="trailing" symbolic="YES" id="oy1-hF-QaO"/>
                             <constraint firstItem="Kpb-hF-VDQ" firstAttribute="trailing" secondItem="b0o-Y9-bGu" secondAttribute="trailing" id="pKo-i5-Vir"/>
-                            <constraint firstItem="Iz0-K3-5Pe" firstAttribute="top" secondItem="uX3-I6-5Ee" secondAttribute="bottom" constant="8" id="qZW-2C-b4N"/>
+                            <constraint firstItem="Iz0-K3-5Pe" firstAttribute="top" secondItem="uX3-I6-5Ee" secondAttribute="bottom" constant="10" id="qZW-2C-b4N"/>
                             <constraint firstItem="uX3-I6-5Ee" firstAttribute="leading" secondItem="Xah-il-GIo" secondAttribute="leading" id="udr-Gq-9Wb"/>
                             <constraint firstItem="5sD-Gd-zCL" firstAttribute="leading" secondItem="FFf-LF-e9J" secondAttribute="leading" id="uk6-fY-kLm"/>
                             <constraint firstItem="uX3-I6-5Ee" firstAttribute="top" secondItem="5sD-Gd-zCL" secondAttribute="top" id="vOB-eR-tZg"/>
@@ -740,7 +752,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="Kfv-jN-t3t"/>
                     <connections>
+                        <outlet property="fromDatePicker" destination="Iz0-K3-5Pe" id="d0X-rx-nMS"/>
+                        <outlet property="fromDateTextField" destination="5sD-Gd-zCL" id="ZaY-72-bBW"/>
                         <outlet property="isReadSegmentedControl" destination="BRz-jB-RFZ" id="uoT-Xn-QAX"/>
+                        <outlet property="toDatePicker" destination="zA2-TE-FbW" id="jWf-7D-waO"/>
+                        <outlet property="toDateTextField" destination="FFf-LF-e9J" id="hW3-xF-iZw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUU-4P-D9T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
