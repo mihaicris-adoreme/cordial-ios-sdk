@@ -18,7 +18,7 @@ class InboxMessagesFilterViewController: UIViewController {
     
     @IBOutlet weak var isReadSegmentedControl: UISegmentedControl!
     
-    var inboxPageFilter: InboxPageFilter?
+    var inboxFilter: InboxFilter?
     
     var isNeededInboxMessagesUpdate = false
     
@@ -30,13 +30,13 @@ class InboxMessagesFilterViewController: UIViewController {
         self.fromDateTextField.setBottomBorder(color: UIColor.black)
         self.toDateTextField.setBottomBorder(color: UIColor.black)
         
-        self.prepareInboxPageFilterData()
+        self.prepareInboxFilterData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         if self.isNeededInboxMessagesUpdate,
            let inboxMessagesViewController = self.previousViewController as? InboxMessagesViewController {
-            inboxMessagesViewController.inboxPageFilter = self.inboxPageFilter
+            inboxMessagesViewController.inboxFilter = self.inboxFilter
             inboxMessagesViewController.refreshTableViewData()
         }
     }
@@ -46,10 +46,10 @@ class InboxMessagesFilterViewController: UIViewController {
         
         self.fromDateTextField.text = AppDateFormatter().getTimestampFromDate(date: sender.date)
         
-        if let inboxPageFilter = self.inboxPageFilter {
-            self.inboxPageFilter = InboxPageFilter(isRead: inboxPageFilter.isRead, fromDate: sender.date, toDate: inboxPageFilter.toDate)
+        if let inboxFilter = self.inboxFilter {
+            self.inboxFilter = InboxFilter(isRead: inboxFilter.isRead, fromDate: sender.date, toDate: inboxFilter.toDate)
         } else {
-            self.inboxPageFilter = InboxPageFilter(isRead: .NONE, fromDate: sender.date, toDate: nil)
+            self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: sender.date, toDate: nil)
         }
     }
     
@@ -58,10 +58,10 @@ class InboxMessagesFilterViewController: UIViewController {
         
         self.toDateTextField.text = AppDateFormatter().getTimestampFromDate(date: sender.date)
         
-        if let inboxPageFilter = self.inboxPageFilter {
-            self.inboxPageFilter = InboxPageFilter(isRead: inboxPageFilter.isRead, fromDate: inboxPageFilter.fromDate, toDate: sender.date)
+        if let inboxFilter = self.inboxFilter {
+            self.inboxFilter = InboxFilter(isRead: inboxFilter.isRead, fromDate: inboxFilter.fromDate, toDate: sender.date)
         } else {
-            self.inboxPageFilter = InboxPageFilter(isRead: .NONE, fromDate: nil, toDate: sender.date)
+            self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: nil, toDate: sender.date)
         }
     }
     
@@ -70,10 +70,10 @@ class InboxMessagesFilterViewController: UIViewController {
         
         self.fromDateTextField.text = nil
         
-        if let inboxPageFilter = self.inboxPageFilter {
-            self.inboxPageFilter = InboxPageFilter(isRead: inboxPageFilter.isRead, fromDate: nil, toDate: inboxPageFilter.toDate)
+        if let inboxFilter = self.inboxFilter {
+            self.inboxFilter = InboxFilter(isRead: inboxFilter.isRead, fromDate: nil, toDate: inboxFilter.toDate)
         } else {
-            self.inboxPageFilter = InboxPageFilter(isRead: .NONE, fromDate: nil, toDate: nil)
+            self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: nil, toDate: nil)
         }
     }
     
@@ -82,23 +82,23 @@ class InboxMessagesFilterViewController: UIViewController {
         
         self.toDateTextField.text = nil
         
-        if let inboxPageFilter = self.inboxPageFilter {
-            self.inboxPageFilter = InboxPageFilter(isRead: inboxPageFilter.isRead, fromDate: inboxPageFilter.fromDate, toDate: nil)
+        if let inboxFilter = self.inboxFilter {
+            self.inboxFilter = InboxFilter(isRead: inboxFilter.isRead, fromDate: inboxFilter.fromDate, toDate: nil)
         } else {
-            self.inboxPageFilter = InboxPageFilter(isRead: .NONE, fromDate: nil, toDate: nil)
+            self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: nil, toDate: nil)
         }
     }
     
-    func prepareInboxPageFilterData() {
-        if let inboxPageFilter = self.inboxPageFilter {
-            self.isReadSegmentedControl.selectedSegmentIndex = inboxPageFilter.isRead.rawValue
+    func prepareInboxFilterData() {
+        if let inboxFilter = self.inboxFilter {
+            self.isReadSegmentedControl.selectedSegmentIndex = inboxFilter.isRead.rawValue
             
-            if let fromDate = inboxPageFilter.fromDate {
+            if let fromDate = inboxFilter.fromDate {
                 self.fromDatePicker.date = fromDate
                 self.fromDateTextField.text = AppDateFormatter().getTimestampFromDate(date: fromDate)
             }
             
-            if let toDate = inboxPageFilter.toDate {
+            if let toDate = inboxFilter.toDate {
                 self.toDatePicker.date = toDate
                 self.toDateTextField.text = AppDateFormatter().getTimestampFromDate(date: toDate)
             }
@@ -111,22 +111,22 @@ class InboxMessagesFilterViewController: UIViewController {
         switch sender.selectedSegmentIndex
         {
         case 0:
-            if let inboxPageFilter = self.inboxPageFilter {
-                self.inboxPageFilter = InboxPageFilter(isRead: .NONE, fromDate: inboxPageFilter.fromDate, toDate: inboxPageFilter.toDate)
+            if let inboxFilter = self.inboxFilter {
+                self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: inboxFilter.fromDate, toDate: inboxFilter.toDate)
             } else {
-                self.inboxPageFilter = InboxPageFilter(isRead: .NONE, fromDate: nil, toDate: nil)
+                self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: nil, toDate: nil)
             }
         case 1:
-            if let inboxPageFilter = self.inboxPageFilter {
-                self.inboxPageFilter = InboxPageFilter(isRead: .YES, fromDate: inboxPageFilter.fromDate, toDate: inboxPageFilter.toDate)
+            if let inboxFilter = self.inboxFilter {
+                self.inboxFilter = InboxFilter(isRead: .YES, fromDate: inboxFilter.fromDate, toDate: inboxFilter.toDate)
             } else {
-                self.inboxPageFilter = InboxPageFilter(isRead: .YES, fromDate: nil, toDate: nil)
+                self.inboxFilter = InboxFilter(isRead: .YES, fromDate: nil, toDate: nil)
             }
         case 2:
-            if let inboxPageFilter = self.inboxPageFilter {
-                self.inboxPageFilter = InboxPageFilter(isRead: .NO, fromDate: inboxPageFilter.fromDate, toDate: inboxPageFilter.toDate)
+            if let inboxFilter = self.inboxFilter {
+                self.inboxFilter = InboxFilter(isRead: .NO, fromDate: inboxFilter.fromDate, toDate: inboxFilter.toDate)
             } else {
-                self.inboxPageFilter = InboxPageFilter(isRead: .NO, fromDate: nil, toDate: nil)
+                self.inboxFilter = InboxFilter(isRead: .NO, fromDate: nil, toDate: nil)
             }
         default: break
         }

@@ -20,9 +20,9 @@ class InboxMessages: NSObject, URLSessionDelegate {
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
     
-    func getInboxMessages(pageRequest: PageRequest, inboxPageFilter: InboxPageFilter?, contactKey: String, onSuccess: @escaping (_ response: InboxPage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+    func getInboxMessages(pageRequest: PageRequest, inboxFilter: InboxFilter?, contactKey: String, onSuccess: @escaping (_ response: InboxPage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         
-        let queryItems = self.getURLQueryItems(pageRequest: pageRequest, inboxPageFilter: inboxPageFilter)
+        let queryItems = self.getURLQueryItems(pageRequest: pageRequest, inboxFilter: inboxFilter)
         
         if var urlComponents = URLComponents(string: CordialApiEndpoints().getInboxMessagesURL(contactKey: contactKey)) {
             urlComponents.queryItems = queryItems
@@ -46,7 +46,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
                             
                         case 401:
                             SDKSecurity.shared.updateJWTwithCallbacks(onSuccess: { response in
-                                self.getInboxMessages(pageRequest: pageRequest, inboxPageFilter: inboxPageFilter, contactKey: contactKey, onSuccess: onSuccess, onFailure: onFailure)
+                                self.getInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, contactKey: contactKey, onSuccess: onSuccess, onFailure: onFailure)
                             }, onFailure: { error in
                                 onFailure(error)
                             })
@@ -79,7 +79,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
         }
     }
     
-    private func getURLQueryItems(pageRequest: PageRequest, inboxPageFilter: InboxPageFilter?) -> [URLQueryItem] {
+    private func getURLQueryItems(pageRequest: PageRequest, inboxFilter: InboxFilter?) -> [URLQueryItem] {
         var queryItems = [
             URLQueryItem(name: "page", value: String(pageRequest.page)),
             URLQueryItem(name: "perPage", value: String(pageRequest.size))
@@ -87,23 +87,23 @@ class InboxMessages: NSObject, URLSessionDelegate {
 
         let cordialDateFormatter = CordialDateFormatter()
         
-        if let inboxPageFilter = inboxPageFilter {
+        if let inboxFilter = inboxFilter {
             
-            if let fromDate = inboxPageFilter.fromDate {
+            if let fromDate = inboxFilter.fromDate {
                 let fromData = cordialDateFormatter.getTimestampFromDate(date: fromDate)
                 queryItems += [ URLQueryItem(name: "filters[sentAt][gt]", value: fromData) ]
             }
             
-            if let toDate = inboxPageFilter.toDate {
+            if let toDate = inboxFilter.toDate {
                 let toData = cordialDateFormatter.getTimestampFromDate(date: toDate)
                 queryItems += [ URLQueryItem(name: "filters[sentAt][lt]", value: toData) ]
             }
             
-            switch inboxPageFilter.isRead {
-            case InboxPageFilterIsReadType.NONE: break
-            case InboxPageFilterIsReadType.YES:
+            switch inboxFilter.isRead {
+            case InboxFilterIsReadType.NONE: break
+            case InboxFilterIsReadType.YES:
                 queryItems += [ URLQueryItem(name: "filters[read]", value: "true") ]
-            case InboxPageFilterIsReadType.NO:
+            case InboxFilterIsReadType.NO:
                 queryItems += [ URLQueryItem(name: "filters[read]", value: "false") ]
             }
             

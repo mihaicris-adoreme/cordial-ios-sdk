@@ -117,8 +117,8 @@
 		9EA31A302292D5E80037B786 /* ContactLogoutRequestCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */; };
 		9EA43D3824C8734C000A1F45 /* CordialPushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA43D3724C8734C000A1F45 /* CordialPushNotificationHandler.swift */; };
 		9EA43D3A24C9A8B6000A1F45 /* CordialPushNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA43D3924C9A8B6000A1F45 /* CordialPushNotificationType.swift */; };
-		9EB004CF253E299100156E8E /* InboxPageFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB004CE253E299100156E8E /* InboxPageFilter.swift */; };
-		9EB004D5253E33B100156E8E /* InboxPageFilterIsReadType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB004D4253E33B100156E8E /* InboxPageFilterIsReadType.swift */; };
+		9EB004CF253E299100156E8E /* InboxFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB004CE253E299100156E8E /* InboxFilter.swift */; };
+		9EB004D5253E33B100156E8E /* InboxFilterIsReadType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB004D4253E33B100156E8E /* InboxFilterIsReadType.swift */; };
 		9EB17ABD22930D7B00EEAB7D /* ContactRequest+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17AB322930D7A00EEAB7D /* ContactRequest+CoreDataClass.swift */; };
 		9EB17ABE22930D7B00EEAB7D /* ContactRequest+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17AB422930D7A00EEAB7D /* ContactRequest+CoreDataProperties.swift */; };
 		9EB17ABF22930D7B00EEAB7D /* ContactOrderRequest+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17AB522930D7A00EEAB7D /* ContactOrderRequest+CoreDataClass.swift */; };
@@ -352,8 +352,8 @@
 		9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLogoutRequestCoreData.swift; sourceTree = "<group>"; };
 		9EA43D3724C8734C000A1F45 /* CordialPushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationHandler.swift; sourceTree = "<group>"; };
 		9EA43D3924C9A8B6000A1F45 /* CordialPushNotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationType.swift; sourceTree = "<group>"; };
-		9EB004CE253E299100156E8E /* InboxPageFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxPageFilter.swift; sourceTree = "<group>"; };
-		9EB004D4253E33B100156E8E /* InboxPageFilterIsReadType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxPageFilterIsReadType.swift; sourceTree = "<group>"; };
+		9EB004CE253E299100156E8E /* InboxFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxFilter.swift; sourceTree = "<group>"; };
+		9EB004D4253E33B100156E8E /* InboxFilterIsReadType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxFilterIsReadType.swift; sourceTree = "<group>"; };
 		9EB17AB322930D7A00EEAB7D /* ContactRequest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactRequest+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9EB17AB422930D7A00EEAB7D /* ContactRequest+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactRequest+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9EB17AB522930D7A00EEAB7D /* ContactOrderRequest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactOrderRequest+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -673,8 +673,8 @@
 			isa = PBXGroup;
 			children = (
 				9E6980AD25377AF600BABC82 /* InboxPage.swift */,
-				9EB004CE253E299100156E8E /* InboxPageFilter.swift */,
-				9EB004D4253E33B100156E8E /* InboxPageFilterIsReadType.swift */,
+				9EB004CE253E299100156E8E /* InboxFilter.swift */,
+				9EB004D4253E33B100156E8E /* InboxFilterIsReadType.swift */,
 			);
 			path = Pagination;
 			sourceTree = "<group>";
@@ -1375,7 +1375,7 @@
 				9EA43D3A24C9A8B6000A1F45 /* CordialPushNotificationType.swift in Sources */,
 				9EBE675F22731EB70065AA06 /* CustomEventRequestsCoreData.swift in Sources */,
 				9EB17ABE22930D7B00EEAB7D /* ContactRequest+CoreDataProperties.swift in Sources */,
-				9EB004CF253E299100156E8E /* InboxPageFilter.swift in Sources */,
+				9EB004CF253E299100156E8E /* InboxFilter.swift in Sources */,
 				9E6D1E2C250EC96000940363 /* InboxMessageDeleteURLSessionData.swift in Sources */,
 				9E7037A922688EC9000C3582 /* UpsertContactCart.swift in Sources */,
 				9E343A8122DF61BF000D39A3 /* InAppMessageURLSessionData.swift in Sources */,
@@ -1455,7 +1455,7 @@
 				9E6D1DBD2507D95700940363 /* InboxMessagesMarkReadUnreadURLSessionManager.swift in Sources */,
 				9EEE995522412C160041D8AE /* SendCustomEventRequest.swift in Sources */,
 				9E6D1DA925065E6800940363 /* InboxMessagesMarkReadUnreadCoreData.swift in Sources */,
-				9EB004D5253E33B100156E8E /* InboxPageFilterIsReadType.swift in Sources */,
+				9EB004D5253E33B100156E8E /* InboxFilterIsReadType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

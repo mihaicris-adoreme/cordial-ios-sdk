@@ -1,5 +1,5 @@
 //
-//  InboxPageFilterIsReadType.swift
+//  InboxFilterIsReadType.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 19.10.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public enum InboxPageFilterIsReadType: Int {
+@objc public enum InboxFilterIsReadType: Int {
     case NONE
     case YES
     case NO 

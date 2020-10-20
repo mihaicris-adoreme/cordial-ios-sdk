@@ -1,5 +1,5 @@
 //
-//  InboxPageFilter.swift
+//  InboxFilter.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 19.10.2020.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-@objc public class InboxPageFilter: NSObject {
+@objc public class InboxFilter: NSObject {
     
-    @objc public var isRead: InboxPageFilterIsReadType
+    @objc public var isRead: InboxFilterIsReadType
     @objc public var fromDate: Date?
     @objc public var toDate: Date?
     
-    public init(isRead: InboxPageFilterIsReadType, fromDate: Date?, toDate: Date?) {
+    public init(isRead: InboxFilterIsReadType, fromDate: Date?, toDate: Date?) {
         self.isRead = isRead
         self.fromDate = fromDate
         self.toDate = toDate

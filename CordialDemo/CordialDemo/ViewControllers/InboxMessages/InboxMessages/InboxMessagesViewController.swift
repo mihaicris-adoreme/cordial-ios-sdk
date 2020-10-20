@@ -21,7 +21,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     var inboxMessages = [InboxMessage]()
     var chosenInboxMessage: InboxMessage!
     
-    var inboxPageFilter: InboxPageFilter?
+    var inboxFilter: InboxFilter?
     
     var isInboxMessagesHasBeenLoaded = false
     let activityIndicator = UIActivityIndicatorView()
@@ -52,8 +52,8 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         return PageRequest(page: 1, size: 10)
     }
     
-    func getInboxPageFilter() -> InboxPageFilter? {
-        return self.inboxPageFilter
+    func getInboxFilter() -> InboxFilter? {
+        return self.inboxFilter
     }
     
     func setupNotificationNewInboxMessageDelivered() {
@@ -64,7 +64,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     @objc func newInboxMessageDelivered() {
-        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxPageFilter: self.getInboxPageFilter())
+        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxFilter: self.getInboxFilter())
     }
     
     func prepareActivityIndicator() {
@@ -83,7 +83,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
             self.activityIndicator.startAnimating()
         }
         
-        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxPageFilter: self.getInboxPageFilter())
+        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxFilter: self.getInboxFilter())
     }
     
     func tableViewReloadData() {
@@ -101,15 +101,15 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func updateInboxMessages(pageRequest: PageRequest, inboxPageFilter: InboxPageFilter?) {
-        CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxPageFilter: inboxPageFilter, onSuccess: { inboxPage in
+    func updateInboxMessages(pageRequest: PageRequest, inboxFilter: InboxFilter?) {
+        CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, onSuccess: { inboxPage in
             if !self.isInboxMessagesHasBeenLoaded {
                 self.inboxMessages += inboxPage.content
                 self.tableViewReloadData()
             }
             
             if inboxPage.hasNext() {
-                self.updateInboxMessages(pageRequest: pageRequest.next(), inboxPageFilter: inboxPageFilter)
+                self.updateInboxMessages(pageRequest: pageRequest.next(), inboxFilter: inboxFilter)
             } else {
                 self.isInboxMessagesHasBeenLoaded = true
             }
@@ -142,7 +142,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
             }
         case self.segueToInboxFilterIdentifier:
             if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesFilterViewController {
-                inboxMessagesFilterViewController.inboxPageFilter = self.inboxPageFilter
+                inboxMessagesFilterViewController.inboxFilter = self.inboxFilter
             }
         default:
             break

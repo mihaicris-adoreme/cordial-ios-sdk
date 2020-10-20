@@ -11,7 +11,7 @@ import os.log
 
 class InboxMessagesGetter {
     
-    func fetchInboxMessages(pageRequest: PageRequest, inboxPageFilter: InboxPageFilter?, contactKey: String, onSuccess: @escaping (_ response: InboxPage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+    func fetchInboxMessages(pageRequest: PageRequest, inboxFilter: InboxFilter?, contactKey: String, onSuccess: @escaping (_ response: InboxPage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         
         let internalCordialAPI = InternalCordialAPI()
         
@@ -22,7 +22,7 @@ class InboxMessagesGetter {
                 }
                 
                 if internalCordialAPI.getCurrentJWT() != nil {
-                    InboxMessages().getInboxMessages(pageRequest: pageRequest, inboxPageFilter: inboxPageFilter, contactKey: contactKey, onSuccess: { response in
+                    InboxMessages().getInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, contactKey: contactKey, onSuccess: { response in
                         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                             os_log("Inbox messages have been received successfully", log: OSLog.cordialInboxMessages, type: .info)
                         }
@@ -33,7 +33,7 @@ class InboxMessagesGetter {
                     })
                 } else {
                     SDKSecurity.shared.updateJWTwithCallbacks(onSuccess: { response in
-                        self.fetchInboxMessages(pageRequest: pageRequest, inboxPageFilter: inboxPageFilter, contactKey: contactKey, onSuccess: onSuccess, onFailure: onFailure)
+                        self.fetchInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, contactKey: contactKey, onSuccess: onSuccess, onFailure: onFailure)
                     }, onFailure: { error in
                         onFailure(error)
                     })
