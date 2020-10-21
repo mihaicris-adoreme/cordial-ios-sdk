@@ -664,13 +664,49 @@ CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, onSuccess:
 ___
 ```
 PageRequest *pageRequest = [[PageRequest alloc] initWithPage:1 size:10];
-[[[CordialInboxMessageAPI alloc] init] fetchInboxMessagesWithPageRequest:pageRequest onSuccess:^(InboxPage *inboxPage) {
+[[[CordialInboxMessageAPI alloc] init] fetchInboxMessagesWithPageRequest:pageRequest inboxFilter:nil onSuccess:^(InboxPage *inboxPage) {
     // your code
 } onFailure:^(NSString *error) {
     // your code
 }];
 ``` 
-`response` is an array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its mcID, if the message is read and when it was sent.
+
+Response is an `InboxPage` object wich contains pagination parameters. `InboxPage` property `content` is an array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its mcID, if the message is read and when it was sent.
+
+To filter inbox messages, pass an `InboxFilter` instance to the `fetchInboxMessages` method:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let pageRequest = PageRequest(page: 1, size: 10) 
+let fromDate = Date()
+let toDate = Date()
+let inboxFilter = InboxFilter(isRead: .yes, fromDate: fromDate, toDate: toDate)
+CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, onSuccess: { inboxPage in
+    // your code
+}, onFailure: { error in
+    // your code
+})
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+PageRequest *pageRequest = [[PageRequest alloc] initWithPage:1 size:10];
+NSDate *fromDate = [[NSDate alloc] init];
+NSDate *toDate = [[NSDate alloc] init];
+InboxFilter *inboxFilter = [[InboxFilter alloc] initWithIsRead:InboxFilterIsReadTypeYes fromDate:fromDate toDate:toDate];
+[[[CordialInboxMessageAPI alloc] init] fetchInboxMessagesWithPageRequest:pageRequest inboxFilter:inboxFilter onSuccess:^(InboxPage *inboxPage) {
+    // your code
+} onFailure:^(NSString *error) {
+    // your code
+}];
+``` 
+
+`InboxFilter` contains the following filter parameters:
+
+    If the inbox message is read
+    If the inbox message was sent before the specified date
+    If the inbox message was sent after the specified date
 
 #### Send up an inbox message is read event. 
 
@@ -756,6 +792,5 @@ ___
 YourImplementationOfInboxMessageDelegate *inboxMessageHandler = [[YourImplementationOfInboxMessageDelegate alloc] init];
 [CordialApiConfiguration shared].inboxMessageDelegate = inboxMessageHandler;
 ```
-
 
 [Top](#contents)

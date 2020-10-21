@@ -14,7 +14,7 @@ import Foundation
     @objc public var fromDate: Date?
     @objc public var toDate: Date?
     
-    public init(isRead: InboxFilterIsReadType, fromDate: Date?, toDate: Date?) {
+    @objc public init(isRead: InboxFilterIsReadType, fromDate: Date?, toDate: Date?) {
         self.isRead = isRead
         self.fromDate = fromDate
         self.toDate = toDate

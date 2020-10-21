@@ -49,7 +49,7 @@ class InboxMessagesFilterViewController: UIViewController {
         if let inboxFilter = self.inboxFilter {
             self.inboxFilter = InboxFilter(isRead: inboxFilter.isRead, fromDate: sender.date, toDate: inboxFilter.toDate)
         } else {
-            self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: sender.date, toDate: nil)
+            self.inboxFilter = InboxFilter(isRead: .none, fromDate: sender.date, toDate: nil)
         }
     }
     
@@ -61,7 +61,7 @@ class InboxMessagesFilterViewController: UIViewController {
         if let inboxFilter = self.inboxFilter {
             self.inboxFilter = InboxFilter(isRead: inboxFilter.isRead, fromDate: inboxFilter.fromDate, toDate: sender.date)
         } else {
-            self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: nil, toDate: sender.date)
+            self.inboxFilter = InboxFilter(isRead: .none, fromDate: nil, toDate: sender.date)
         }
     }
     
@@ -73,7 +73,7 @@ class InboxMessagesFilterViewController: UIViewController {
         if let inboxFilter = self.inboxFilter {
             self.inboxFilter = InboxFilter(isRead: inboxFilter.isRead, fromDate: nil, toDate: inboxFilter.toDate)
         } else {
-            self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: nil, toDate: nil)
+            self.inboxFilter = InboxFilter(isRead: .none, fromDate: nil, toDate: nil)
         }
     }
     
@@ -85,7 +85,7 @@ class InboxMessagesFilterViewController: UIViewController {
         if let inboxFilter = self.inboxFilter {
             self.inboxFilter = InboxFilter(isRead: inboxFilter.isRead, fromDate: inboxFilter.fromDate, toDate: nil)
         } else {
-            self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: nil, toDate: nil)
+            self.inboxFilter = InboxFilter(isRead: .none, fromDate: nil, toDate: nil)
         }
     }
     
@@ -112,21 +112,21 @@ class InboxMessagesFilterViewController: UIViewController {
         {
         case 0:
             if let inboxFilter = self.inboxFilter {
-                self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: inboxFilter.fromDate, toDate: inboxFilter.toDate)
+                self.inboxFilter = InboxFilter(isRead: .none, fromDate: inboxFilter.fromDate, toDate: inboxFilter.toDate)
             } else {
-                self.inboxFilter = InboxFilter(isRead: .NONE, fromDate: nil, toDate: nil)
+                self.inboxFilter = InboxFilter(isRead: .none, fromDate: nil, toDate: nil)
             }
         case 1:
             if let inboxFilter = self.inboxFilter {
-                self.inboxFilter = InboxFilter(isRead: .YES, fromDate: inboxFilter.fromDate, toDate: inboxFilter.toDate)
+                self.inboxFilter = InboxFilter(isRead: .yes, fromDate: inboxFilter.fromDate, toDate: inboxFilter.toDate)
             } else {
-                self.inboxFilter = InboxFilter(isRead: .YES, fromDate: nil, toDate: nil)
+                self.inboxFilter = InboxFilter(isRead: .yes, fromDate: nil, toDate: nil)
             }
         case 2:
             if let inboxFilter = self.inboxFilter {
-                self.inboxFilter = InboxFilter(isRead: .NO, fromDate: inboxFilter.fromDate, toDate: inboxFilter.toDate)
+                self.inboxFilter = InboxFilter(isRead: .no, fromDate: inboxFilter.fromDate, toDate: inboxFilter.toDate)
             } else {
-                self.inboxFilter = InboxFilter(isRead: .NO, fromDate: nil, toDate: nil)
+                self.inboxFilter = InboxFilter(isRead: .no, fromDate: nil, toDate: nil)
             }
         default: break
         }

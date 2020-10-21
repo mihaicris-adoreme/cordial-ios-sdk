@@ -100,10 +100,10 @@ class InboxMessages: NSObject, URLSessionDelegate {
             }
             
             switch inboxFilter.isRead {
-            case InboxFilterIsReadType.NONE: break
-            case InboxFilterIsReadType.YES:
+            case InboxFilterIsReadType.none: break
+            case InboxFilterIsReadType.yes:
                 queryItems += [ URLQueryItem(name: "filters[read]", value: "true") ]
-            case InboxFilterIsReadType.NO:
+            case InboxFilterIsReadType.no:
                 queryItems += [ URLQueryItem(name: "filters[read]", value: "false") ]
             }
             

@@ -9,7 +9,7 @@
 import Foundation
 
 @objc public enum InboxFilterIsReadType: Int {
-    case NONE
-    case YES
-    case NO 
+    case none
+    case yes
+    case no
 }
