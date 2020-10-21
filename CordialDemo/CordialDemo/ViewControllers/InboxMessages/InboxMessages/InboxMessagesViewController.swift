@@ -52,10 +52,6 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         return PageRequest(page: 1, size: 10)
     }
     
-    func getInboxFilter() -> InboxFilter? {
-        return self.inboxFilter
-    }
-    
     func setupNotificationNewInboxMessageDelivered() {
         let notificationCenter = NotificationCenter.default
         
@@ -64,7 +60,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     @objc func newInboxMessageDelivered() {
-        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxFilter: self.getInboxFilter())
+        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxFilter: self.inboxFilter)
     }
     
     func prepareActivityIndicator() {
@@ -83,7 +79,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
             self.activityIndicator.startAnimating()
         }
         
-        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxFilter: self.getInboxFilter())
+        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxFilter: self.inboxFilter)
     }
     
     func tableViewReloadData() {
