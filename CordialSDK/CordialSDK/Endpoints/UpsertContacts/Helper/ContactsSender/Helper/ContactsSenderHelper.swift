@@ -34,7 +34,7 @@ class ContactsSenderHelper {
     
     private func preparingCacheForSubsequentAttemptsToMakeContactsUpsert(upsertContactRequests: [UpsertContactRequest]) {
         if InternalCordialAPI().isCurrentlyUpsertingContacts() {
-            // Save client data if primary keys the same
+            // Save client data if primary keys are the same
             upsertContactRequests.forEach { upsertContactRequest in
                 // Events
                 let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()

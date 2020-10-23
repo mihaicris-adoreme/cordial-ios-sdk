@@ -46,7 +46,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         self.performSegue(withIdentifier: self.segueToInboxFilterIdentifier, sender: self)
     }
     
-    func getPageRequest() -> PageRequest {
+    func getNewPageRequest() -> PageRequest {
         self.isInboxMessagesHasBeenLoaded = false
         
         return PageRequest(page: 1, size: 10)
@@ -60,7 +60,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     }
 
     @objc func newInboxMessageDelivered() {
-        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxFilter: self.inboxFilter)
+        popupSimpleNoteAlert(title: "Inbox Message", message: "The new inbox message has been received", controller: self)
     }
     
     func prepareActivityIndicator() {
@@ -79,7 +79,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
             self.activityIndicator.startAnimating()
         }
         
-        self.updateInboxMessages(pageRequest: self.getPageRequest(), inboxFilter: self.inboxFilter)
+        self.updateInboxMessages(pageRequest: self.getNewPageRequest(), inboxFilter: self.inboxFilter)
     }
     
     func tableViewReloadData() {
