@@ -15,12 +15,6 @@ class CoreDataSender {
     
     var sendCachedCustomEventsScheduledTimer: Timer?
     
-    private let queueUpsertContactRequest = DispatchQueue(label: "CordialCoreDataSenderUpsertContactRequestThreadQueue", attributes: .concurrent)
-    private let queueSendCustomEventRequest = DispatchQueue(label: "CordialCoreDataSenderSendCustomEventRequestThreadQueue", attributes: .concurrent)
-    private let queueUpsertContactCartRequest = DispatchQueue(label: "CordialCoreDataSenderUpsertContactCartRequestThreadQueue", attributes: .concurrent)
-    private let queueSendContactOrderRequest = DispatchQueue(label: "CordialCoreDataSenderSendContactOrderRequestThreadQueue", attributes: .concurrent)
-    private let queueSendContactLogoutRequest = DispatchQueue(label: "CordialCoreDataSenderSendContactLogoutRequestThreadQueue", attributes: .concurrent)
-    
     func sendCacheFromCoreData() {
         
         self.sendCachedUpsertContactRequests()
@@ -39,7 +33,7 @@ class CoreDataSender {
     }
     
     func sendCachedCustomEventRequests(reason: String) {
-        self.queueSendCustomEventRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
             if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
                 let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
                 if customEventRequests.count > 0 {
@@ -86,7 +80,7 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactCartRequest() {
-        self.queueUpsertContactCartRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueUpsertContactCartRequest.sync(flags: .barrier) {
             if InternalCordialAPI().isUserLogin() {
                 if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
                     ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
@@ -96,7 +90,7 @@ class CoreDataSender {
     }
     
     private func sendCachedContactOrderRequests() {
-        self.queueSendContactOrderRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendContactOrderRequest.sync(flags: .barrier) {
             if InternalCordialAPI().isUserLogin() {
                 let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
                 if sendContactOrderRequests.count > 0 {
@@ -107,7 +101,7 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactRequests() {
-        self.queueUpsertContactRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueUpsertContactRequest.sync(flags: .barrier) {
             let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
             if upsertContactRequests.count > 0 {
                 ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
@@ -116,7 +110,7 @@ class CoreDataSender {
     }
     
     private func sendCachedContactLogoutRequest() {
-        self.queueSendContactLogoutRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendContactLogoutRequest.sync(flags: .barrier) {
             if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
                 ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
             }

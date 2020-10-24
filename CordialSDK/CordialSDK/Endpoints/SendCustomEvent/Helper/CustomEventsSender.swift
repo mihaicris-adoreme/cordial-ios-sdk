@@ -20,6 +20,7 @@ class CustomEventsSender {
             if ReachabilityManager.shared.isConnectedToInternet {
                 self.sendCustomEventsData(sendCustomEventRequests: sendCustomEventRequests)
             } else {
+                // Function has been called through barrier queue. No need additional barrier.
                 CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
                 
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -27,6 +28,7 @@ class CustomEventsSender {
                 }
             }
         } else {
+            // Function has been called through barrier queue. No need additional barrier.
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -62,7 +64,9 @@ class CustomEventsSender {
     }
     
     func systemErrorHandler(sendCustomEventRequests: [SendCustomEventRequest], error: ResponseError) {
-        CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
+        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
+        }
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
@@ -81,7 +85,10 @@ class CustomEventsSender {
         if let responseBody = error.responseBody {
             let sendCustomEventRequestsWithoutBrokenEvents = self.getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: sendCustomEventRequests, responseBody: responseBody)
             if sendCustomEventRequestsWithoutBrokenEvents.count > 0 {
-                CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
+                
+                ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+                    CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
+                }
                 
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     let eventNamesAndRequestIDsWithoutBrokenEvents = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)

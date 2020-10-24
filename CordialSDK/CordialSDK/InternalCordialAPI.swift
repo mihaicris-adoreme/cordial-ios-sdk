@@ -181,7 +181,9 @@ class InternalCordialAPI {
     // MARK: Send Any Custom Event
     
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
+        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
+        }
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             if CordialApiConfiguration.shared.eventsBulkSize != 1 {
