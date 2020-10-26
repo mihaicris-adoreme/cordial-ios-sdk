@@ -32,23 +32,27 @@ class CustomEventRequestsCoreData {
 
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             sendCustomEventRequests.forEach { sendCustomEventRequest in
-                let newRow = NSManagedObject(entity: entity, insertInto: context)
+                
+                if self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID) {
+                    
+                    let newRow = NSManagedObject(entity: entity, insertInto: context)
 
-                do {
-                    if #available(iOS 11.0, *) {
-                        let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: false)
-                        
-                        newRow.setValue(sendCustomEventRequestData, forKey: "data")
-                    } else {
-                        let sendCustomEventRequestData = NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest)
-                        
-                        newRow.setValue(sendCustomEventRequestData, forKey: "data")
-                    }
+                    do {
+                        if #available(iOS 11.0, *) {
+                            let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: false)
+                            
+                            newRow.setValue(sendCustomEventRequestData, forKey: "data")
+                        } else {
+                            let sendCustomEventRequestData = NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest)
+                            
+                            newRow.setValue(sendCustomEventRequestData, forKey: "data")
+                        }
 
-                    try context.save()
-                } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                        try context.save()
+                    } catch let error {
+                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                            os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                        }
                     }
                 }
             }
@@ -113,6 +117,42 @@ class CustomEventRequestsCoreData {
         }
 
         return sendCustomEventRequests
+    }
+    
+    private func isCustomEventRequestExistAtCoreData(requestID: String) -> Bool {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+
+        do {
+            let result = try context.fetch(request)
+            for managedObject in result as! [NSManagedObject] {
+                guard let anyData = managedObject.value(forKey: "data") else { continue }
+                let data = anyData as! Data
+
+                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendCustomEventRequest, !sendCustomEventRequest.isError {
+                    
+                    if requestID == sendCustomEventRequest.requestID {
+                        return true
+                    }
+                    
+                } else {
+                    context.delete(managedObject)
+                    try context.save()
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Failed unarchiving SendCustomEventRequest", log: OSLog.cordialError, type: .error)
+                    }
+                }
+            }
+        } catch let error {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            }
+        }
+
+        return false
     }
     
     func fetchCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
