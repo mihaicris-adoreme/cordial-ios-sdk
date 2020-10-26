@@ -33,7 +33,7 @@ class CustomEventRequestsCoreData {
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             sendCustomEventRequests.forEach { sendCustomEventRequest in
                 
-                if self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID) {
+                if !self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID) {
                     
                     let newRow = NSManagedObject(entity: entity, insertInto: context)
 
