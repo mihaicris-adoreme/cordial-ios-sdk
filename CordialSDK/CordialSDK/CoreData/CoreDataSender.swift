@@ -20,7 +20,10 @@ class CoreDataSender {
         self.sendCachedUpsertContactRequests()
         
         if !InternalCordialAPI().isCurrentlyUpsertingContacts() {
-            self.sendCachedCustomEventRequests(reason: "System sending all cached events")
+            
+            ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+                self.sendCachedCustomEventRequests(reason: "System sending all cached events")
+            }
             
             self.sendCachedUpsertContactCartRequest()
             
@@ -33,20 +36,18 @@ class CoreDataSender {
     }
     
     func sendCachedCustomEventRequests(reason: String) {
-        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
-            if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
-                let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
-                if customEventRequests.count > 0 {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        if CordialApiConfiguration.shared.eventsBulkSize != 1 {
-                            os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
-                        }
+        if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
+            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
+            if customEventRequests.count > 0 {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    if CordialApiConfiguration.shared.eventsBulkSize != 1 {
+                        os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
                     }
-                    
-                    CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
-                    
-                    self.restartSendCachedCustomEventRequestsScheduledTimer()
                 }
+                
+                CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
+                
+                self.restartSendCachedCustomEventRequestsScheduledTimer()
             }
         }
     }
@@ -73,7 +74,10 @@ class CoreDataSender {
             
             if eventsBulkSize > 1 {
                 self.sendCachedCustomEventsScheduledTimer = Timer.scheduledTimer(withTimeInterval: eventsBulkUploadInterval, repeats: true) { timer in
-                    self.sendCachedCustomEventRequests(reason: "Scheduled timer")
+                    
+                    ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+                        self.sendCachedCustomEventRequests(reason: "Scheduled timer")
+                    }
                 }
             } 
         }

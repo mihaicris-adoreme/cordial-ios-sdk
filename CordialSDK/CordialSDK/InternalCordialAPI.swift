@@ -191,8 +191,10 @@ class InternalCordialAPI {
             }
         }
         
-        if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.eventsBulkSize {
-            CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
+        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+            if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.eventsBulkSize {
+                CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
+            }
         }
     }
     

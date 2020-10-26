@@ -167,7 +167,9 @@ import os.log
     // MARK: Flush Custom Events
     
     @objc public func flushEvents(reason: String) {
-        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
+        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+            CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
+        }
     }
     
     // MARK: Upsert Contact Cart
