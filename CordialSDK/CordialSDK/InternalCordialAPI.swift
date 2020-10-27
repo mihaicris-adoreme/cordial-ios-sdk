@@ -191,7 +191,7 @@ class InternalCordialAPI {
             }
         }
         
-        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+        ThrottlerManager.shared.sendCustomEventRequest.throttle {
             if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.eventsBulkSize {
                 CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
             }

@@ -10,14 +10,15 @@ import Foundation
 
 class Throttler {
 
-    private var workItem: DispatchWorkItem = DispatchWorkItem(block: {})
+    private var workItem: DispatchWorkItem 
     private var previousRun: Date = Date.distantPast
     private let queue: DispatchQueue
     private let minimumDelay: TimeInterval
 
-    init(minimumDelay: TimeInterval, queue: DispatchQueue = DispatchQueue.main) {
+    init(minimumDelay: TimeInterval, queue: DispatchQueue = DispatchQueue.main, flags: DispatchWorkItemFlags = []) {
         self.minimumDelay = minimumDelay
         self.queue = queue
+        self.workItem = DispatchWorkItem(qos: .unspecified, flags: flags, block: {})
     }
 
     func throttle(_ block: @escaping () -> Void) {

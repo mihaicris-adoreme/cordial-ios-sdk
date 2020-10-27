@@ -21,7 +21,7 @@ class CoreDataSender {
         
         if !InternalCordialAPI().isCurrentlyUpsertingContacts() {
             
-            ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+            ThrottlerManager.shared.sendCustomEventRequest.throttle {
                 self.sendCachedCustomEventRequests(reason: "System sending all cached events")
             }
             
@@ -75,7 +75,7 @@ class CoreDataSender {
             if eventsBulkSize > 1 {
                 self.sendCachedCustomEventsScheduledTimer = Timer.scheduledTimer(withTimeInterval: eventsBulkUploadInterval, repeats: true) { timer in
                     
-                    ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+                    ThrottlerManager.shared.sendCustomEventRequest.throttle {
                         self.sendCachedCustomEventRequests(reason: "Scheduled timer")
                     }
                 }
@@ -84,7 +84,7 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactCartRequest() {
-        ThreadQueues.shared.queueUpsertContactCartRequest.sync(flags: .barrier) {
+        ThrottlerManager.shared.upsertContactCartRequest.throttle {
             if InternalCordialAPI().isUserLogin() {
                 if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
                     ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
@@ -94,7 +94,7 @@ class CoreDataSender {
     }
     
     private func sendCachedContactOrderRequests() {
-        ThreadQueues.shared.queueSendContactOrderRequest.sync(flags: .barrier) {
+        ThrottlerManager.shared.sendContactOrderRequest.throttle {
             if InternalCordialAPI().isUserLogin() {
                 let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
                 if sendContactOrderRequests.count > 0 {
@@ -105,7 +105,7 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactRequests() {
-        ThreadQueues.shared.queueUpsertContactRequest.sync(flags: .barrier) {
+        ThrottlerManager.shared.upsertContactRequest.throttle {
             let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
             if upsertContactRequests.count > 0 {
                 ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
@@ -114,7 +114,7 @@ class CoreDataSender {
     }
     
     private func sendCachedContactLogoutRequest() {
-        ThreadQueues.shared.queueSendContactLogoutRequest.sync(flags: .barrier) {
+        ThrottlerManager.shared.sendContactLogoutRequest.throttle {
             if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
                 ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
             }

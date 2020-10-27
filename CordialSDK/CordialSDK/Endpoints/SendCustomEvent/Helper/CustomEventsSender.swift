@@ -20,18 +20,16 @@ class CustomEventsSender {
             if ReachabilityManager.shared.isConnectedToInternet {
                 self.sendCustomEventsData(sendCustomEventRequests: sendCustomEventRequests)
             } else {
-                ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
-                    CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
-                }
+                // Function has been called through barrier queue. No need additional barrier.
+                CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
                 
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     os_log("Sending events { %{public}@ } failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
                 }
             }
         } else {
-            ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
-                CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
-            }
+            // Function has been called through barrier queue. No need additional barrier.
+            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Sending events { %{public}@ } failed. Saved to retry later. Error: [User no login]", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
