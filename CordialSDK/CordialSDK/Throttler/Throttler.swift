@@ -14,10 +14,12 @@ class Throttler {
     private var previousRun: Date = Date.distantPast
     private let queue: DispatchQueue
     private let minimumDelay: TimeInterval
+    private let flags: DispatchWorkItemFlags
 
     init(minimumDelay: TimeInterval, queue: DispatchQueue = DispatchQueue.main, flags: DispatchWorkItemFlags = []) {
         self.minimumDelay = minimumDelay
         self.queue = queue
+        self.flags = flags
         self.workItem = DispatchWorkItem(qos: .unspecified, flags: flags, block: {})
     }
 
@@ -26,7 +28,7 @@ class Throttler {
         self.workItem.cancel()
 
         // Re-assign workItem with the new block task, resetting the previousRun time when it executes
-        self.workItem = DispatchWorkItem() { [weak self] in
+        self.workItem = DispatchWorkItem(qos: DispatchQoS.unspecified, flags: flags) { [weak self] in
             self?.previousRun = Date()
             block()
         }
