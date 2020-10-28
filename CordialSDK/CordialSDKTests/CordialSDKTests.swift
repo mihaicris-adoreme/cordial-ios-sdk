@@ -142,7 +142,14 @@ class CordialSDKTests: XCTestCase {
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
     
     func testRemoteNotificationsHasBeenForegroundDelivered() {
@@ -159,7 +166,14 @@ class CordialSDKTests: XCTestCase {
             CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
         }
 
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
     
     func testRemoteNotificationsHasBeenTappedWithDeepLink() {
