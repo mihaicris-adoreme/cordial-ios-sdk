@@ -176,23 +176,6 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testRemoteNotificationsHasBeenTappedWithDeepLink() {
-        let mock = MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink()
-        
-        DependencyConfiguration.shared.requestSender = mock
-        
-        self.testCase.setTestJWT(token: self.testJWT)
-        self.testCase.markUserAsLoggedIn()
-        
-        if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
-            let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
-            
-            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
-        }
-        
-        XCTAssert(mock.isVerified)
-    }
-    
     func testRemoteNotificationsHasBeenTappedWithMcId() {
         let mock = MockRequestSenderRemoteNotificationsHasBeenTappedWithMcId()
         
@@ -207,7 +190,14 @@ class CordialSDKTests: XCTestCase {
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
     
     func testDeepLinkDelegate() {
@@ -315,7 +305,14 @@ class CordialSDKTests: XCTestCase {
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     func testSDKSecurityNotValidJWT() {
@@ -328,7 +325,14 @@ class CordialSDKTests: XCTestCase {
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     // Guest -> PK (BD - | mcID -)
@@ -436,7 +440,14 @@ class CordialSDKTests: XCTestCase {
             CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         }
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
     
     func testEventsBulkSizeTimer() {
@@ -477,7 +488,14 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.appMovedToBackground()
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
     
     func testEventsBulkSizeReachability() {
@@ -497,7 +515,14 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
     
     func testQtyCachedEventQueue() {
@@ -520,7 +545,14 @@ class CordialSDKTests: XCTestCase {
         
         self.cordialAPI.flushEvents(reason: "Test qty cached events queue")
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
     
     func testSystemEventsProperties() {
@@ -538,7 +570,14 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.appMovedToBackground()
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
 
     
@@ -563,7 +602,14 @@ class CordialSDKTests: XCTestCase {
             CordialAPI().sendCustomEvent(eventName: validEventName, properties: nil)
         }
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
     
     func testUpsertContactCartOneItem() {
@@ -620,7 +666,14 @@ class CordialSDKTests: XCTestCase {
 
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     func testUpsertContactCartReachabilityTwoCarts() {
@@ -646,7 +699,14 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
         
     }
     
@@ -661,7 +721,14 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.appMovedToBackground()
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
     
     func testSendContactOrder() {
@@ -715,7 +782,14 @@ class CordialSDKTests: XCTestCase {
 
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     func testSendContactOrderReachabilityTwoOrders() {
@@ -750,7 +824,14 @@ class CordialSDKTests: XCTestCase {
 
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        XCTAssert(mock.isVerified)
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     func testInAppMessageHasBeenShown() {
@@ -769,7 +850,7 @@ class CordialSDKTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
             
             InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -777,7 +858,7 @@ class CordialSDKTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 2)
+        wait(for: [expectation], timeout: 3)
     }
     
     func testInAppMessageHasBeenShownReachability() {
@@ -801,7 +882,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
             
             InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -809,7 +890,7 @@ class CordialSDKTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 2)
+        wait(for: [expectation], timeout: 3)
     }
     
     func testInAppMessageHasBeenShownTwoTimes() {
@@ -846,7 +927,7 @@ class CordialSDKTests: XCTestCase {
             
             self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 XCTAssert(mock.isVerified)
                 
                 InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -855,7 +936,7 @@ class CordialSDKTests: XCTestCase {
             }
         }
         
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 4)
     }
     
     func testInAppMessageDelayedShow() {
@@ -876,12 +957,12 @@ class CordialSDKTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             CordialApiConfiguration.shared.inAppMessageDelayMode.show()
             
             InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 XCTAssert(mock.isVerified)
                 
                 InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -890,7 +971,7 @@ class CordialSDKTests: XCTestCase {
             }
         }
 
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 5)
     }
     
     func testInAppMessageInactiveSessionDisplay() {
@@ -938,7 +1019,7 @@ class CordialSDKTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             
             if InAppMessageProcess.shared.isPresentedInAppMessage {
                 XCTAssert(false, "IAM has been presented")
@@ -946,7 +1027,7 @@ class CordialSDKTests: XCTestCase {
             
             InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 XCTAssert(mock.isVerified)
                 
                 InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -955,7 +1036,7 @@ class CordialSDKTests: XCTestCase {
             }
         }
 
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 5)
     }
     
     func testInAppMessageBannerAutoDismiss() {
@@ -1005,11 +1086,11 @@ class CordialSDKTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             
             InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 XCTAssert(mock.isVerified)
                 
                 InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -1018,7 +1099,7 @@ class CordialSDKTests: XCTestCase {
             }
         }
 
-        wait(for: [expectation], timeout: 4)
+        wait(for: [expectation], timeout: 6)
     }
     
     func testInAppMessageFullscreenManualDismiss() {
