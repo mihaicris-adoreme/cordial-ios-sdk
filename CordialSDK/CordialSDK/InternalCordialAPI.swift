@@ -153,7 +153,9 @@ class InternalCordialAPI {
     func setCurrentJWT(JWT: String) {
         CordialUserDefaults.set(JWT, forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
         
-        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
+        DispatchQueue.main.async {
+            CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
+        }
     }
     
     // MARK: Get JSON Web Token
