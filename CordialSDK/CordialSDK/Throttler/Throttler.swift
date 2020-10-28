@@ -28,7 +28,7 @@ class Throttler {
         self.workItem.cancel()
 
         // Re-assign workItem with the new block task, resetting the previousRun time when it executes
-        self.workItem = DispatchWorkItem(qos: DispatchQoS.unspecified, flags: flags) { [weak self] in
+        self.workItem = DispatchWorkItem(qos: DispatchQoS.unspecified, flags: self.flags) { [weak self] in
             self?.previousRun = Date()
             block()
         }

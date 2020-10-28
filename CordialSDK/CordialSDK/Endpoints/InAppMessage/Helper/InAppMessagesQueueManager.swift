@@ -11,7 +11,7 @@ import Foundation
 class InAppMessagesQueueManager {
     
     func fetchInAppMessagesFromQueue() {
-        ThrottlerManager.shared.fetchInAppMessages.throttle {
+        ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
             let mcIDs = CoreDataManager.shared.inAppMessagesQueue.getMcIDsFromCoreDataInAppMessagesQueue()
             mcIDs.forEach { mcID in
                 InAppMessageGetter().fetchInAppMessage(mcID: mcID)

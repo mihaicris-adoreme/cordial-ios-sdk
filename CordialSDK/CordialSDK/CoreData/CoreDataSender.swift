@@ -84,7 +84,7 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactCartRequest() {
-        ThrottlerManager.shared.upsertContactCartRequest.throttle {
+        ThreadQueues.shared.queueUpsertContactCartRequest.sync(flags: .barrier) {
             if InternalCordialAPI().isUserLogin() {
                 if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
                     ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
@@ -94,7 +94,7 @@ class CoreDataSender {
     }
     
     private func sendCachedContactOrderRequests() {
-        ThrottlerManager.shared.sendContactOrderRequest.throttle {
+        ThreadQueues.shared.queueSendContactOrderRequest.sync(flags: .barrier) {
             if InternalCordialAPI().isUserLogin() {
                 let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
                 if sendContactOrderRequests.count > 0 {
@@ -105,7 +105,7 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactRequests() {
-        ThrottlerManager.shared.upsertContactRequest.throttle {
+        ThreadQueues.shared.queueUpsertContactRequest.sync(flags: .barrier) {
             let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
             if upsertContactRequests.count > 0 {
                 ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
@@ -114,7 +114,7 @@ class CoreDataSender {
     }
     
     private func sendCachedContactLogoutRequest() {
-        ThrottlerManager.shared.sendContactLogoutRequest.throttle {
+        ThreadQueues.shared.queueSendContactLogoutRequest.sync(flags: .barrier) {
             if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
                 ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
             }

@@ -126,34 +126,15 @@ class CustomEventRequestsCoreData {
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
 
         let predicate = NSPredicate(format: "requestID = %@", requestID)
         request.predicate = predicate
         
         do {
-            let result = try context.fetch(request)
-            
-            return result.count > 0
-            
-//            for managedObject in result as! [NSManagedObject] {
-//                guard let anyData = managedObject.value(forKey: "data") else { continue }
-//                let data = anyData as! Data
-//
-//                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendCustomEventRequest, !sendCustomEventRequest.isError {
-//
-//                    if requestID == sendCustomEventRequest.requestID {
-//                        return true
-//                    }
-//
-//                } else {
-//                    context.delete(managedObject)
-//                    try context.save()
-//
-//                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-//                        os_log("Failed unarchiving SendCustomEventRequest", log: OSLog.cordialError, type: .error)
-//                    }
-//                }
-//            }
+            if let result = try context.fetch(request) as? [NSManagedObject], result.count > 0 {
+                return true
+            }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
