@@ -32,23 +32,29 @@ class CustomEventRequestsCoreData {
 
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             sendCustomEventRequests.forEach { sendCustomEventRequest in
-                let newRow = NSManagedObject(entity: entity, insertInto: context)
+                
+                if !self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID) {
+                    
+                    let newRow = NSManagedObject(entity: entity, insertInto: context)
 
-                do {
-                    if #available(iOS 11.0, *) {
-                        let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: false)
-                        
-                        newRow.setValue(sendCustomEventRequestData, forKey: "data")
-                    } else {
-                        let sendCustomEventRequestData = NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest)
-                        
-                        newRow.setValue(sendCustomEventRequestData, forKey: "data")
-                    }
+                    do {
+                        if #available(iOS 11.0, *) {
+                            let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: false)
+                            
+                            newRow.setValue(sendCustomEventRequestData, forKey: "data")
+                            newRow.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
+                        } else {
+                            let sendCustomEventRequestData = NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest)
+                            
+                            newRow.setValue(sendCustomEventRequestData, forKey: "data")
+                            newRow.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
+                        }
 
-                    try context.save()
-                } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                        try context.save()
+                    } catch let error {
+                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                            os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                        }
                     }
                 }
             }
@@ -113,6 +119,30 @@ class CustomEventRequestsCoreData {
         }
 
         return sendCustomEventRequests
+    }
+    
+    private func isCustomEventRequestExistAtCoreData(requestID: String) -> Bool {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
+
+        let predicate = NSPredicate(format: "requestID = %@", requestID)
+        request.predicate = predicate
+        
+        do {
+            if let result = try context.fetch(request) as? [NSManagedObject], result.count > 0 {
+                return true
+            }
+        } catch let error {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            }
+        }
+
+        return false
+        
     }
     
     func fetchCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {

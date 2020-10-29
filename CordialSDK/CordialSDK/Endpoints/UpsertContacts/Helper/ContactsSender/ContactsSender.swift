@@ -25,6 +25,8 @@ class ContactsSender {
     private func upsertContactsData(upsertContactRequests: [UpsertContactRequest]) {
         let internalCordialAPI = InternalCordialAPI()
         
+        internalCordialAPI.setIsCurrentlyUpsertingContacts(true)
+        
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 upsertContactRequests.forEach({ upsertContactRequest in
@@ -44,7 +46,6 @@ class ContactsSender {
                 SDKSecurity.shared.updateJWT()
             }
         } else {
-            internalCordialAPI.setIsCurrentlyUpsertingContacts(true)
             
             CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
             
@@ -70,12 +71,14 @@ class ContactsSender {
             }
         })
         
-        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
+        DispatchQueue.main.async {
+            CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            upsertContactRequests.forEach({ upsertContactRequest in
-                os_log("Contact has been sent. Request ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
-            })
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                upsertContactRequests.forEach({ upsertContactRequest in
+                    os_log("Contact has been sent. Request ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
+                })
+            }
         }
     }
     

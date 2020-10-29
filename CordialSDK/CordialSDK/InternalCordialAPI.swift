@@ -153,7 +153,9 @@ class InternalCordialAPI {
     func setCurrentJWT(JWT: String) {
         CordialUserDefaults.set(JWT, forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
         
-        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
+        DispatchQueue.main.async {
+            CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
+        }
     }
     
     // MARK: Get JSON Web Token
@@ -181,7 +183,9 @@ class InternalCordialAPI {
     // MARK: Send Any Custom Event
     
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
+        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
+        }
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             if CordialApiConfiguration.shared.eventsBulkSize != 1 {
@@ -189,8 +193,10 @@ class InternalCordialAPI {
             }
         }
         
-        if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.eventsBulkSize {
-            CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
+        ThrottlerManager.shared.sendCustomEventRequest.throttle {
+            if CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() >= CordialApiConfiguration.shared.eventsBulkSize {
+                CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
+            }
         }
     }
     
