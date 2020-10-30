@@ -167,7 +167,9 @@ import os.log
     // MARK: Flush Custom Events
     
     @objc public func flushEvents(reason: String) {
-        CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
+        ThrottlerManager.shared.sendCustomEventRequest.throttle {
+            CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
+        }
     }
     
     // MARK: Upsert Contact Cart

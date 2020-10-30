@@ -86,17 +86,40 @@ class CoreDataManager {
     }
     
     func deleteAllCoreData() {
-        self.deleteAllCoreDataByEntity(entityName: self.customEventRequests.entityName)
-        self.deleteAllCoreDataByEntity(entityName: self.contactCartRequest.entityName)
-        self.deleteAllCoreDataByEntity(entityName: self.contactOrderRequests.entityName)
-        self.deleteAllCoreDataByEntity(entityName: self.contactRequests.entityName)
-        self.deleteAllCoreDataByEntity(entityName: self.contactLogoutRequest.entityName)
-        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
-        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
-        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)
-        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesShown.entityName)
-        self.deleteAllCoreDataByEntity(entityName: self.inboxMessagesMarkReadUnread.entityName)
-        self.deleteAllCoreDataByEntity(entityName: self.inboxMessageDelete.entityName)
+        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.customEventRequests.entityName)
+        }
+        
+        ThreadQueues.shared.queueUpsertContactCartRequest.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.contactCartRequest.entityName)
+        }
+        
+        ThreadQueues.shared.queueSendContactOrderRequest.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.contactOrderRequests.entityName)
+        }
+            
+        ThreadQueues.shared.queueUpsertContactRequest.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.contactRequests.entityName)
+        }
+            
+        ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
+            self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
+            self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)
+            self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesShown.entityName)
+        }
+        
+        ThreadQueues.shared.queueSendContactLogoutRequest.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.contactLogoutRequest.entityName)
+        }
+        
+        ThreadQueues.shared.queueInboxMessagesMarkReadUnreadRequest.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inboxMessagesMarkReadUnread.entityName)
+        }
+        
+        ThreadQueues.shared.queueInboxMessageDeleteRequest.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inboxMessageDelete.entityName)
+        }
     }
     
 }
