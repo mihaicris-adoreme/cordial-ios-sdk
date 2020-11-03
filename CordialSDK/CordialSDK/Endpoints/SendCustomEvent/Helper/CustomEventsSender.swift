@@ -64,7 +64,7 @@ class CustomEventsSender {
     }
     
     func systemErrorHandler(sendCustomEventRequests: [SendCustomEventRequest], error: ResponseError) {
-        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendCustomEvent.sync(flags: .barrier) {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
         }
         

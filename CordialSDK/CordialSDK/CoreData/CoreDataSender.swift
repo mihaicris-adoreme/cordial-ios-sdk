@@ -88,7 +88,7 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactCartRequest() {
-        ThreadQueues.shared.queueUpsertContactCartRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueUpsertContactCart.sync(flags: .barrier) {
             if InternalCordialAPI().isUserLogin() {
                 if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
                     ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
@@ -98,7 +98,7 @@ class CoreDataSender {
     }
     
     private func sendCachedContactOrderRequests() {
-        ThreadQueues.shared.queueSendContactOrderRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendContactOrder.sync(flags: .barrier) {
             if InternalCordialAPI().isUserLogin() {
                 let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
                 if !sendContactOrderRequests.isEmpty {
@@ -109,7 +109,7 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactRequests() {
-        ThreadQueues.shared.queueUpsertContactRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueUpsertContact.sync(flags: .barrier) {
             let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
             if !upsertContactRequests.isEmpty {
                 ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
@@ -118,7 +118,7 @@ class CoreDataSender {
     }
     
     private func sendCachedInboxMessagesMarkReadUnreadRequests() {
-        ThreadQueues.shared.queueInboxMessagesMarkReadUnreadRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueInboxMessagesMarkReadUnread.sync(flags: .barrier) {
             var inboxMessagesMarkReadUnreadRequestsWithPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
             var inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
             
@@ -167,7 +167,7 @@ class CoreDataSender {
     }
     
     private func sendCachedInboxMessageDeleteRequests() {
-        ThreadQueues.shared.queueInboxMessageDeleteRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueInboxMessageDelete.sync(flags: .barrier) {
             let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequestsFromCoreData()
             inboxMessageDeleteRequests.forEach { inboxMessageDeleteRequest in
                 InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
@@ -176,7 +176,7 @@ class CoreDataSender {
     }
     
     private func sendCachedContactLogoutRequest() {
-        ThreadQueues.shared.queueSendContactLogoutRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendContactLogout.sync(flags: .barrier) {
             if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
                 ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
             }

@@ -199,7 +199,7 @@ class InternalCordialAPI {
     // MARK: Send Any Custom Event
     
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendCustomEvent.sync(flags: .barrier) {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
         }
         
