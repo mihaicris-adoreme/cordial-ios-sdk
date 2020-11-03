@@ -219,6 +219,8 @@ class InboxMessages: NSObject, URLSessionDelegate {
                             
                             let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, urlExpireAt: messageDateUrlExpireAt, isRead: messageRead, sentAt: messageDateSentAt)
                             
+                            CoreDataManager.shared.inboxMessagesCache.putInboxMessageToCoreData(inboxMessage: inboxMessage)
+                            
                             inboxMessages.append(inboxMessage)
                         } else {
                             onFailure("Fetching inbox messages failed. Error: [Failed decode response data. \(messageError)]")
