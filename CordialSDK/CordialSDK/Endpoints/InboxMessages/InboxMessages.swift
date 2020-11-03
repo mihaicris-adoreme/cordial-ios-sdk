@@ -129,10 +129,13 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         
                         var id: String?
                         var url: String?
+                        var urlExpireAt: String?
                         var read: Bool?
                         var sentAt: String?
                         
                         var messageError = String()
+                        
+                        let cordialDateFormatter = CordialDateFormatter()
                         
                         messageJSON.forEach { key, value in
                             switch key {
@@ -156,6 +159,24 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                         
                                         messageError += "url IS NIL"
                                     }
+                                case "urlExpireAt":
+                                    if let valueUrlExpireAt = value as? String {
+                                        if cordialDateFormatter.isValidTimestamp(timestamp: valueUrlExpireAt) {
+                                            urlExpireAt = valueUrlExpireAt
+                                        } else {
+                                            if !messageError.isEmpty {
+                                                messageError += ". "
+                                            }
+                                            
+                                            messageError += "urlExpireAt IS NOT VALID"
+                                        }
+                                    } else {
+                                        if !messageError.isEmpty {
+                                            messageError += ". "
+                                        }
+                                        
+                                        messageError += "urlExpireAt IS NIL"
+                                    }
                                 case "read":
                                     if let valueRead = value as? Bool {
                                         read = valueRead
@@ -168,7 +189,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                     }
                                 case "sentAt":
                                     if let valueSentAt = value as? String {
-                                        if CordialDateFormatter().isValidTimestamp(timestamp: valueSentAt) {
+                                        if cordialDateFormatter.isValidTimestamp(timestamp: valueSentAt) {
                                             sentAt = valueSentAt
                                         } else {
                                             if !messageError.isEmpty {
@@ -190,10 +211,13 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         
                         if let messageID = id,
                             let messageURL = url,
+                            let messageUrlExpireAt = urlExpireAt,
+                            let messageDateUrlExpireAt = cordialDateFormatter.getDateFromTimestamp(timestamp: messageUrlExpireAt),
                             let messageRead = read,
-                            let messageSentAt = sentAt {
+                            let messageSentAt = sentAt,
+                            let messageDateSentAt = cordialDateFormatter.getDateFromTimestamp(timestamp: messageSentAt) {
                             
-                            let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, isRead: messageRead, sentAt: messageSentAt)
+                            let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, urlExpireAt: messageDateUrlExpireAt, isRead: messageRead, sentAt: messageDateSentAt)
                             
                             inboxMessages.append(inboxMessage)
                         } else {

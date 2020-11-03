@@ -19,8 +19,5 @@ extension InboxMessagesCache {
 
     @NSManaged public var data: Data?
     @NSManaged public var mcID: String?
-    @NSManaged public var url: URL?
-    @NSManaged public var urlExpireAt: Date?
-    @NSManaged public var inboxMessagesContent: InboxMessagesContent?
 
 }

@@ -18,5 +18,6 @@ extension InboxMessagesContent {
     }
 
     @NSManaged public var content: String?
+    @NSManaged public var mcID: String?
 
 }

@@ -11,6 +11,6 @@ import Foundation
 import CoreData
 
 @objc(InboxMessagesContent)
-public class InboxMessagesContent: InboxMessagesCache {
+public class InboxMessagesContent: NSManagedObject {
 
 }

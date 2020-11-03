@@ -157,9 +157,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
         
         let inboxMessage = self.inboxMessages[indexPath.row]
         
-        let timestamp = inboxMessage.sentAt
-        let date = CordialDateFormatter().getDateFromTimestamp(timestamp: timestamp)!
-        cell.timestampLabel.text = AppDateFormatter().getTimestampFromDate(date: date)
+        cell.timestampLabel.text = AppDateFormatter().getTimestampFromDate(date: inboxMessage.sentAt)
         
         if inboxMessage.isRead {
             cell.accessoryType = .checkmark
