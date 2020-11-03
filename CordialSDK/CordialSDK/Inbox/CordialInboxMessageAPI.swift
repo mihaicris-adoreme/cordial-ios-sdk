@@ -72,6 +72,8 @@ import os.log
     }
     
     @objc public func deleteInboxMessage(mcID: String) {
+        CoreDataManager.shared.inboxMessagesCache.removeInboxMessageFromCoreData(mcID: mcID)
+        
         let inboxMessageDeleteRequest = InboxMessageDeleteRequest(mcID: mcID)
         InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
     }
