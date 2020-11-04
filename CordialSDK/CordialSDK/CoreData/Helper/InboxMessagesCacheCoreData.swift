@@ -22,6 +22,44 @@ class InboxMessagesCacheCoreData {
         }
     }
     
+    func getInboxMessageFromCoreData(mcID: String) -> InboxMessage? {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
+
+        let predicate = NSPredicate(format: "mcID = %@", mcID)
+        request.predicate = predicate
+        
+        do {
+            let result = try context.fetch(request)
+            
+            for managedObject in result as! [NSManagedObject] {
+                guard let anyData = managedObject.value(forKey: "data") else { continue }
+                let data = anyData as! Data
+                
+                if let inboxMessage = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InboxMessage, !inboxMessage.isError {
+    
+                    return inboxMessage
+                } else {
+                    context.delete(managedObject)
+                    try context.save()
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Failed unarchiving InboxMessage", log: OSLog.cordialError, type: .error)
+                    }
+                }
+            }
+        } catch let error {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            }
+        }
+        
+        return nil
+    }
+    
     func removeInboxMessageFromCoreData(mcID: String) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
 

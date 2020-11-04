@@ -43,7 +43,10 @@ import os.log
     }
     
     @objc public func fetchInboxMessage(mcID: String, onSuccess: @escaping (_ response: InboxMessage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
-        if let contactKey = InternalCordialAPI().getContactKey() {
+        
+        if let inboxMessage = CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: mcID) {
+            onSuccess(inboxMessage)
+        } else if let contactKey = InternalCordialAPI().getContactKey() {
             InboxMessageGetter().fetchInboxMessage(contactKey: contactKey, mcID: mcID, onSuccess: { response in
                 onSuccess(response)
             }, onFailure: { error in

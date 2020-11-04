@@ -46,8 +46,9 @@ import Foundation
         if let mcID = coder.decodeObject(forKey: Key.mcID.rawValue) as? String,
            let url = coder.decodeObject(forKey: Key.url.rawValue) as? String,
            let urlExpireAt = coder.decodeObject(forKey: Key.urlExpireAt.rawValue) as? Date,
-           let isRead = coder.decodeObject(forKey: Key.isRead.rawValue) as? Bool,
            let sentAt = coder.decodeObject(forKey: Key.sentAt.rawValue) as? Date {
+            
+            let isRead = coder.decodeBool(forKey: Key.isRead.rawValue)
             
             self.init(mcID: mcID, url: url, urlExpireAt: urlExpireAt, isRead: isRead, sentAt: sentAt)
         } else {
