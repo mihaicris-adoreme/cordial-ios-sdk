@@ -11,6 +11,12 @@ import os.log
 
 class InboxMessageContentGetter: NSObject, URLSessionDelegate {
     
+    static let shared = InboxMessageContentGetter()
+    
+    var is403StatusReceived = false
+    
+    private override init() {}
+    
     // MARK: URLSessionDelegate
     
     private lazy var inboxMessageContentURLSession: URLSession = {
@@ -20,7 +26,7 @@ class InboxMessageContentGetter: NSObject, URLSessionDelegate {
         return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
     
-    func fetchInboxMessageContent(url: URL, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+    func fetchInboxMessageContent(url: URL, mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         
         let internalCordialAPI = InternalCordialAPI()
         
@@ -30,7 +36,7 @@ class InboxMessageContentGetter: NSObject, URLSessionDelegate {
                     os_log("Fetching inbox message content", log: OSLog.cordialInboxMessages, type: .info)
                 }
                 
-                self.getInboxMessageContent(url: url, onSuccess: { response in
+                self.getInboxMessageContent(url: url, mcID: mcID, onSuccess: { response in
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                         os_log("Inbox message content has been received successfully", log: OSLog.cordialInboxMessages, type: .info)
                     }
@@ -50,7 +56,7 @@ class InboxMessageContentGetter: NSObject, URLSessionDelegate {
         }
     }
     
-    private func getInboxMessageContent(url: URL, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+    private func getInboxMessageContent(url: URL, mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         let request = CordialRequestFactory().getBaseURLRequest(url: url, httpMethod: .GET)
         
         self.inboxMessageContentURLSession.dataTask(with: request) { data, response, error in
@@ -64,6 +70,19 @@ class InboxMessageContentGetter: NSObject, URLSessionDelegate {
                 case 200:
                     let response = String(decoding: responseData, as: UTF8.self)
                     onSuccess(response)
+                case 403:
+                    if !self.is403StatusReceived {
+                        
+                        self.is403StatusReceived = true
+                        
+                        self.getInboxMessageContentTroughthoutUpdatedURL(mcID: mcID, onSuccess: { response in
+                            onSuccess(response)
+                        }, onFailure: { error in
+                            onFailure(error)
+                        })
+                    } else {
+                        onFailure("Fetching inbox message content failed. Error: [Inbox message URL is not valid]")
+                    }
                 default:
                     let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                     
@@ -89,5 +108,22 @@ class InboxMessageContentGetter: NSObject, URLSessionDelegate {
                 onFailure(error)
             }
         }.resume()
+    }
+    
+    private func getInboxMessageContentTroughthoutUpdatedURL(mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+    
+        CordialInboxMessageAPI().getInboxMessage(mcID: mcID, onSuccess: { inboxMessage in
+            if let url = URL(string: inboxMessage.url) {
+                self.fetchInboxMessageContent(url: url, mcID: mcID, onSuccess: { response in
+                    onSuccess(response)
+                }, onFailure: { error in
+                    onFailure(error)
+                })
+            } else {
+                onFailure("Fetching inbox message content failed. Error: [Inbox message URL is not valid]")
+            }
+        }, onFailure: { error in
+            onFailure(error)
+        })
     }
 }

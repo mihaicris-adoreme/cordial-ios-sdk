@@ -47,7 +47,17 @@ import os.log
         if let inboxMessage = CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: mcID),
            API.isValidExpirationDate(date: inboxMessage.urlExpireAt) {
             onSuccess(inboxMessage)
-        } else if let contactKey = InternalCordialAPI().getContactKey() {
+        } else {
+            self.getInboxMessage(mcID: mcID, onSuccess: { response in
+                onSuccess(response)
+            }, onFailure: { error in
+                onFailure(error)
+            })
+        }
+    }
+    
+    internal func getInboxMessage(mcID: String, onSuccess: @escaping (_ response: InboxMessage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+        if let contactKey = InternalCordialAPI().getContactKey() {
             InboxMessageGetter().fetchInboxMessage(contactKey: contactKey, mcID: mcID, onSuccess: { response in
                 onSuccess(response)
             }, onFailure: { error in
@@ -62,7 +72,8 @@ import os.log
     @objc public func fetchInboxMessageContent(mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         self.fetchInboxMessage(mcID: mcID, onSuccess: { inboxMessage in
             if let url = URL(string: inboxMessage.url) {
-                InboxMessageContentGetter().fetchInboxMessageContent(url: url, onSuccess: { response in
+                InboxMessageContentGetter.shared.is403StatusReceived = false
+                InboxMessageContentGetter.shared.fetchInboxMessageContent(url: url, mcID: mcID, onSuccess: { response in
                     onSuccess(response)
                 }, onFailure: { error in
                     onFailure(error)
