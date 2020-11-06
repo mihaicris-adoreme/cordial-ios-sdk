@@ -44,7 +44,8 @@ import os.log
     
     @objc public func fetchInboxMessage(mcID: String, onSuccess: @escaping (_ response: InboxMessage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         
-        if let inboxMessage = CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: mcID) {
+        if let inboxMessage = CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: mcID),
+           API.isValidExpirationDate(date: inboxMessage.urlExpireAt) {
             onSuccess(inboxMessage)
         } else if let contactKey = InternalCordialAPI().getContactKey() {
             InboxMessageGetter().fetchInboxMessage(contactKey: contactKey, mcID: mcID, onSuccess: { response in

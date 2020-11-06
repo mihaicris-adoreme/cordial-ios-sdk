@@ -75,6 +75,14 @@ struct API {
         
         return "[ \(stringContainer) ]"
     }
+    
+    static func isValidExpirationDate(date: Date) -> Bool {
+        if Int(date.timeIntervalSinceNow).signum() == 1 {
+            return true
+        }
+        
+        return false
+    }
 }
 
 extension String {

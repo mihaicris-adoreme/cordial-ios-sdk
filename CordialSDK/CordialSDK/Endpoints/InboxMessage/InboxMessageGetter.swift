@@ -198,6 +198,8 @@ class InboxMessageGetter: NSObject, URLSessionDelegate {
                         
                         let inboxMessage = InboxMessage(mcID: mcID, url: messageURL, urlExpireAt: messageDateUrlExpireAt, isRead: messageRead, sentAt: messageDateSentAt)
                         
+                        CoreDataManager.shared.inboxMessagesCache.putInboxMessageToCoreData(inboxMessage: inboxMessage)
+                        
                         onSuccess(inboxMessage)
                     } else {
                         onFailure("Fetching single inbox message failed. Error: [Failed decode response data. \(messageError)]")
