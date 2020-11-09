@@ -70,24 +70,29 @@ import os.log
     }
     
     @objc public func fetchInboxMessageContent(mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
-        self.fetchInboxMessage(mcID: mcID, onSuccess: { inboxMessage in
-            if let url = URL(string: inboxMessage.url) {
-                InboxMessageContentGetter.shared.is403StatusReceived = false
-                InboxMessageContentGetter.shared.fetchInboxMessageContent(url: url, mcID: mcID, onSuccess: { response in
-                    onSuccess(response)
-                }, onFailure: { error in
-                    onFailure(error)
-                })
-            } else {
-                onFailure("Fetching inbox message content failed. Error: [Inbox message URL is not valid]")
-            }
-        }, onFailure: { error in
-            onFailure(error)
-        })
+        if let content = CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: mcID) {
+            onSuccess(content)
+        } else {
+            self.fetchInboxMessage(mcID: mcID, onSuccess: { inboxMessage in
+                if let url = URL(string: inboxMessage.url) {
+                    InboxMessageContentGetter.shared.is403StatusReceived = false
+                    InboxMessageContentGetter.shared.fetchInboxMessageContent(url: url, mcID: mcID, onSuccess: { response in
+                        onSuccess(response)
+                    }, onFailure: { error in
+                        onFailure(error)
+                    })
+                } else {
+                    onFailure("Fetching inbox message content failed. Error: [Inbox message URL is not valid]")
+                }
+            }, onFailure: { error in
+                onFailure(error)
+            })
+        }
     }
     
     @objc public func deleteInboxMessage(mcID: String) {
         CoreDataManager.shared.inboxMessagesCache.removeInboxMessageFromCoreData(mcID: mcID)
+        CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContentFromCoreData(mcID: mcID)
         
         let inboxMessageDeleteRequest = InboxMessageDeleteRequest(mcID: mcID)
         InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)

@@ -69,6 +69,9 @@ class InboxMessageContentGetter: NSObject, URLSessionDelegate {
                 switch httpResponse.statusCode {
                 case 200:
                     let response = String(decoding: responseData, as: UTF8.self)
+                    
+                    CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: mcID, content: response)
+                    
                     onSuccess(response)
                 case 403:
                     if !self.is403StatusReceived {
