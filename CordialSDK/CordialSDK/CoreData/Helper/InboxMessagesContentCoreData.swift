@@ -15,10 +15,16 @@ class InboxMessagesContentCoreData {
     let entityName = "InboxMessagesContent"
     
     func putInboxMessageContentToCoreData(mcID: String, content: String) {
-        if !self.isInboxMessageContentExistInCoreData(mcID: mcID) {
-            self.setInboxMessageContentToCoreData(mcID: mcID, content: content)
-        } else {
-            self.updateInboxMessageContentAtCoreData(mcID: mcID, content: content)
+        
+        if let contentSize = content.data(using: .utf8)?.count,
+           InboxMessageCache.shared.maxCacheSize > contentSize {
+            
+            if InboxMessageCache.shared.maxCacheSize > self.getInboxMessagesContentSizeAtCoreData() {
+                self.saveInboxMessageContentToCoreData(mcID: mcID, content: content)
+            } else {
+                self.removeLastInboxMessageContentFromCoreData()
+                self.putInboxMessageContentToCoreData(mcID: mcID, content: content)
+            }
         }
     }
     
@@ -73,72 +79,78 @@ class InboxMessagesContentCoreData {
         }
     }
     
+    func removeLastInboxMessageContentFromCoreData() {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
+        
+        do {
+            let result = try context.fetch(request)
+            
+            for managedObject in result as! [NSManagedObject] {
+                context.delete(managedObject)
+                try context.save()
+            }
+        } catch let error {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            }
+        }
+    }
+    
+    private func saveInboxMessageContentToCoreData(mcID: String, content: String) {
+        if let contentSize = content.data(using: .utf8)?.count,
+           InboxMessageCache.shared.maxCachableMessageSize > contentSize {
+            
+            self.setInboxMessageContentToCoreData(mcID: mcID, content: content)
+        }
+    }
+    
     private func setInboxMessageContentToCoreData(mcID: String, content: String) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newObject = NSManagedObject(entity: entity, insertInto: context)
             
-            self.saveInboxMessageContentToCoreData(mcID: mcID, content: content, object: newObject, context: context)
+            do {
+                newObject.setValue(mcID, forKey: "mcID")
+                newObject.setValue(content, forKey: "content")
+                newObject.setValue(content.data(using: .utf8)?.count, forKey: "size")
+                
+                try context.save()
+            } catch let error {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                    os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                }
+            }
         }
     }
     
-    private func updateInboxMessageContentAtCoreData(mcID: String, content: String) {
+    private func getInboxMessagesContentSizeAtCoreData() -> Int {
         let context = CoreDataManager.shared.persistentContainer.viewContext
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.fetchLimit = 1
-
-        let predicate = NSPredicate(format: "mcID = %@", mcID)
-        request.predicate = predicate
+        
+        var storageSize = 0
         
         do {
             let result = try context.fetch(request)
             
             for managedObject in result as! [NSManagedObject] {
-                self.saveInboxMessageContentToCoreData(mcID: mcID, content: content, object: managedObject, context: context)
+                if let size = managedObject.value(forKey: "size") as? Int {
+                    storageSize += size
+                }
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
             }
         }
-    }
-    
-    private func saveInboxMessageContentToCoreData(mcID: String, content: String, object: NSManagedObject, context: NSManagedObjectContext) {
-        do {
-            object.setValue(mcID, forKey: "mcID")
-            object.setValue(content, forKey: "content")
-            
-            try context.save()
-        } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
-            }
-        }
-    }
-    
-    private func isInboxMessageContentExistInCoreData(mcID: String) -> Bool {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
-        request.returnsObjectsAsFaults = false
-        request.fetchLimit = 1
-
-        let predicate = NSPredicate(format: "mcID = %@", mcID)
-        request.predicate = predicate
         
-        do {
-            if let result = try context.fetch(request) as? [NSManagedObject], result.count > 0 {
-                return true
-            }
-        } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
-            }
-        }
-
-        return false
+        return storageSize
     }
+    
 }

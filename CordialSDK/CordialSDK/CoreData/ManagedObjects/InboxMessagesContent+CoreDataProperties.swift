@@ -2,7 +2,7 @@
 //  InboxMessagesContent+CoreDataProperties.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 03.11.2020.
+//  Created by Yan Malinovsky on 11.11.2020.
 //  Copyright © 2020 cordial.io. All rights reserved.
 //
 //
@@ -19,5 +19,6 @@ extension InboxMessagesContent {
 
     @NSManaged public var content: String?
     @NSManaged public var mcID: String?
+    @NSManaged public var size: Int64
 
 }

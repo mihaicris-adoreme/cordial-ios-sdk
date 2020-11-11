@@ -52,6 +52,7 @@
     <entity name="InboxMessagesContent" representedClassName="InboxMessagesContent" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String"/>
         <attribute name="mcID" optional="YES" attributeType="String"/>
+        <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
     <entity name="InboxMessagesReadUnreadMarks" representedClassName="InboxMessagesReadUnreadMarks" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
@@ -69,7 +70,7 @@
         <element name="InAppMessagesShown" positionX="-36" positionY="99" width="128" height="58"/>
         <element name="InboxMessageDeleteRequests" positionX="-36" positionY="99" width="128" height="58"/>
         <element name="InboxMessagesCache" positionX="-27" positionY="108" width="128" height="73"/>
-        <element name="InboxMessagesContent" positionX="-36" positionY="99" width="128" height="73"/>
+        <element name="InboxMessagesContent" positionX="-36" positionY="99" width="128" height="88"/>
         <element name="InboxMessagesReadUnreadMarks" positionX="-36" positionY="99" width="128" height="73"/>
     </elements>
 </model>

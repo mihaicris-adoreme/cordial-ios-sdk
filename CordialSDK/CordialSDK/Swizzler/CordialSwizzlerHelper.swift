@@ -24,10 +24,14 @@ class CordialSwizzlerHelper {
         }
         
         if pushNotificationParser.isPayloadContainInboxMessage(userInfo: userInfo),
-           let mcID = pushNotificationParser.getMcID(userInfo: userInfo),
-           let inboxMessageDelegate = CordialApiConfiguration.shared.inboxMessageDelegate {
+           let mcID = pushNotificationParser.getMcID(userInfo: userInfo) {
             
-            inboxMessageDelegate.newInboxMessageDelivered(mcID: mcID)
+            CoreDataManager.shared.inboxMessagesCache.removeInboxMessageFromCoreData(mcID: mcID)
+            CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContentFromCoreData(mcID: mcID)
+            
+            if let inboxMessageDelegate = CordialApiConfiguration.shared.inboxMessageDelegate {
+                inboxMessageDelegate.newInboxMessageDelivered(mcID: mcID)
+            }
         }
     }
     
