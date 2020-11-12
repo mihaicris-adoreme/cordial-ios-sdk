@@ -14,7 +14,7 @@ import Foundation
     
     private override init() {}
     
-    @objc public var maxCacheSize = 2 * 1024 * 1024
-    @objc public var maxCachableMessageSize = 50 * 1024
+    @objc public var maxCacheSize = 10 * 1024 * 1024
+    @objc public var maxCachableMessageSize = 200 * 1024
     
 }
