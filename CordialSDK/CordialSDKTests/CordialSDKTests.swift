@@ -176,6 +176,31 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
+    func testRemoteNotificationsHasBeenTappedWithDeepLink() {
+        let mock = MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            
+            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
+        }
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+
+    
     func testRemoteNotificationsHasBeenTappedWithMcId() {
         let mock = MockRequestSenderRemoteNotificationsHasBeenTappedWithMcId()
         
