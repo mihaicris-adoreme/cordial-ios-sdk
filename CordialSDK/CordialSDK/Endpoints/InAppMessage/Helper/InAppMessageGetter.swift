@@ -145,7 +145,7 @@ class InAppMessageGetter {
                         os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                     }
                 case InAppMessageDisplayType.displayImmediately:
-                    if let expirationTime = inAppMessageData.expirationTime, API.isValidExpirationDate(date: expirationTime) {
+                    if InAppMessageProcess.shared.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                         InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
                     } else {
                         InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)

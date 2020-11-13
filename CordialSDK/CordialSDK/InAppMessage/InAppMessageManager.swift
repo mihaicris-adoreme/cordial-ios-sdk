@@ -10,7 +10,11 @@ import Foundation
 
 class InAppMessageManager {
     
-    var inAppMessageViewController: InAppMessageViewController!
+    private var inAppMessageViewController: InAppMessageViewController!
+    
+    func getInAppMessageViewController() -> InAppMessageViewController {
+        return self.inAppMessageViewController
+    }
     
     func getModalWebViewController(activeViewController: UIViewController, inAppMessageData: InAppMessageData) -> InAppMessageViewController {
         self.inAppMessageViewController = InAppMessageViewController()

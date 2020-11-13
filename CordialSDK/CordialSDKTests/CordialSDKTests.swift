@@ -1071,7 +1071,7 @@ class CordialSDKTests: XCTestCase {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             
-            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
+            InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 XCTAssert(mock.isVerified)
@@ -1105,7 +1105,7 @@ class CordialSDKTests: XCTestCase {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
-            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.dismissModalInAppMessage()
+            InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().dismissModalInAppMessage()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 XCTAssert(mock.isVerified)
@@ -1142,7 +1142,7 @@ class CordialSDKTests: XCTestCase {
             
             let messageBody = ["deepLink": self.testDeepLinkURL,  "eventName": eventName]
             
-            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.userClickedInAppMessageActionButton(messageBody: messageBody)
+            InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().userClickedInAppMessageActionButton(messageBody: messageBody)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 XCTAssert(mock.isVerified)

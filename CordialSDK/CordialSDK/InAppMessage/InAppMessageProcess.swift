@@ -139,7 +139,7 @@ class InAppMessageProcess {
     
     func showInAppMessageIfExistAndAvailable() {
         if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getLatestInAppMessageDataFromCoreData() {
-            if let expirationTime = inAppMessageData.expirationTime, API.isValidExpirationDate(date: expirationTime) {
+            if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
             } else {
                 InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
@@ -155,7 +155,7 @@ class InAppMessageProcess {
     
     func showDisplayImmediatelyInAppMessageIfExistAndAvailable() {
         if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getDisplayImmediatelyInAppMessageDataFromCoreData() {
-            if let expirationTime = inAppMessageData.expirationTime, API.isValidExpirationDate(date: expirationTime) {
+            if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
             } else {
                 InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
@@ -167,6 +167,14 @@ class InAppMessageProcess {
                 self.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
             }
         }
+    }
+    
+    func isAvailableInAppMessage(inAppMessageData: InAppMessageData) -> Bool {
+        if let expirationTime = inAppMessageData.expirationTime {
+            return API.isValidExpirationDate(date: expirationTime)
+        }
+        
+        return true
     }
     
     func showModalInAppMessage(inAppMessageData: InAppMessageData) {
