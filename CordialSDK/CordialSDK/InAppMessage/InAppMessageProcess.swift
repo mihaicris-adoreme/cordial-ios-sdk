@@ -212,12 +212,10 @@ class InAppMessageProcess {
     }
     
     private func addSafeAreaInsetsTopMarginToModalInAppMessageViewController(modalWebViewController: InAppMessageViewController) {
-        if #available(iOS 11.0, *) {
-            if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
-                if UIScreen.main.bounds.height - safeAreaInsetsTop < modalWebViewController.webView.frame.height {
-                    modalWebViewController.view.frame.origin.y = safeAreaInsetsTop
-                    modalWebViewController.view.frame.size.height -= safeAreaInsetsTop
-                }
+        if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
+            if UIScreen.main.bounds.height - safeAreaInsetsTop < modalWebViewController.webView.frame.height {
+                modalWebViewController.view.frame.origin.y = safeAreaInsetsTop
+                modalWebViewController.view.frame.size.height -= safeAreaInsetsTop
             }
         }
     }

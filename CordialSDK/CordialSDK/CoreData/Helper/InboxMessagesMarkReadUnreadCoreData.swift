@@ -21,17 +21,10 @@ class InboxMessagesMarkReadUnreadCoreData {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                if #available(iOS 11.0, *) {
-                    let inboxMessagesMarkReadUnreadRequestArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessagesMarkReadUnreadRequest, requiringSecureCoding: false)
-            
-                    newRow.setValue(inboxMessagesMarkReadUnreadRequestArchivedData, forKey: "data")
-                    newRow.setValue(inboxMessagesMarkReadUnreadRequest.date, forKey: "date")
-                } else {
-                    let inboxMessagesMarkReadUnreadRequestArchivedData = NSKeyedArchiver.archivedData(withRootObject: inboxMessagesMarkReadUnreadRequest)
-                    
-                    newRow.setValue(inboxMessagesMarkReadUnreadRequestArchivedData, forKey: "data")
-                    newRow.setValue(inboxMessagesMarkReadUnreadRequest.date, forKey: "date")
-                }
+                let inboxMessagesMarkReadUnreadRequestArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessagesMarkReadUnreadRequest, requiringSecureCoding: false)
+        
+                newRow.setValue(inboxMessagesMarkReadUnreadRequestArchivedData, forKey: "data")
+                newRow.setValue(inboxMessagesMarkReadUnreadRequest.date, forKey: "date")
                 
                 try context.save()
             } catch let error {

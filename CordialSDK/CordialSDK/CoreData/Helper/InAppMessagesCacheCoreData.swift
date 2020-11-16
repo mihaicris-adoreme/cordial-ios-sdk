@@ -24,21 +24,12 @@ class InAppMessagesCacheCoreData {
             
             if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
                 do {
-                    if #available(iOS 11.0, *) {
-                        let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
-                        
-                        newRow.setValue(mcID, forKey: "mcID")
-                        newRow.setValue(inAppMessageArchivedData, forKey: "data")
-                        newRow.setValue(date, forKey: "date")
-                        newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
-                    } else {
-                        let inAppMessageArchivedData = NSKeyedArchiver.archivedData(withRootObject: inAppMessageData)
-                        
-                        newRow.setValue(mcID, forKey: "mcID")
-                        newRow.setValue(inAppMessageArchivedData, forKey: "data")
-                        newRow.setValue(date, forKey: "date")
-                        newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
-                    }
+                    let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
+                    
+                    newRow.setValue(mcID, forKey: "mcID")
+                    newRow.setValue(inAppMessageArchivedData, forKey: "data")
+                    newRow.setValue(date, forKey: "date")
+                    newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
                     
                     try context.save()
                 } catch let error {

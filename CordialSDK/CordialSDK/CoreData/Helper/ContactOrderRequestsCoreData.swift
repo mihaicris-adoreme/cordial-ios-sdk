@@ -22,15 +22,9 @@ class ContactOrderRequestsCoreData {
                 let newRow = NSManagedObject(entity: entity, insertInto: context)
                 
                 do {
-                    if #available(iOS 11.0, *) {
-                        let sendContactOrderRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactOrderRequest, requiringSecureCoding: false)
-                        
-                        newRow.setValue(sendContactOrderRequestData, forKey: "data")
-                    } else {
-                        let sendContactOrderRequestData = NSKeyedArchiver.archivedData(withRootObject: sendContactOrderRequest)
-                        
-                        newRow.setValue(sendContactOrderRequestData, forKey: "data")
-                    }
+                    let sendContactOrderRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactOrderRequest, requiringSecureCoding: false)
+                    
+                    newRow.setValue(sendContactOrderRequestData, forKey: "data")
                     
                     try context.save()
                 } catch let error {

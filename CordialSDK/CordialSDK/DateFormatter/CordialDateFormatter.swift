@@ -14,12 +14,7 @@ import Foundation
     
     @objc public override init() {
         self.dateFormatter = ISO8601DateFormatter()
-        
-        if #available(iOS 11.0, *) {
-            self.dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        } else {
-            self.dateFormatter.formatOptions = [.withInternetDateTime]
-        }
+        self.dateFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
     }
 
     @objc public func getCurrentTimestamp() -> String {

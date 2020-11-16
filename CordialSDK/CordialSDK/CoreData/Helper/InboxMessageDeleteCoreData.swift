@@ -21,15 +21,9 @@ class InboxMessageDeleteCoreData {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                if #available(iOS 11.0, *) {
-                    let inboxMessageDeleteRequestArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessageDeleteRequest, requiringSecureCoding: false)
-            
-                    newRow.setValue(inboxMessageDeleteRequestArchivedData, forKey: "data")
-                } else {
-                    let inboxMessageDeleteRequestArchivedData = NSKeyedArchiver.archivedData(withRootObject: inboxMessageDeleteRequest)
-                    
-                    newRow.setValue(inboxMessageDeleteRequestArchivedData, forKey: "data")
-                }
+                let inboxMessageDeleteRequestArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessageDeleteRequest, requiringSecureCoding: false)
+        
+                newRow.setValue(inboxMessageDeleteRequestArchivedData, forKey: "data")
                 
                 try context.save()
             } catch let error {

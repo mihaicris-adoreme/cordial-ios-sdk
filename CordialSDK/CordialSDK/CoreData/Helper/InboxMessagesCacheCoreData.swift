@@ -119,17 +119,10 @@ class InboxMessagesCacheCoreData {
     
     private func saveInboxMessageToCoreData(inboxMessage: InboxMessage, object: NSManagedObject, context: NSManagedObjectContext) {
         do {
-            if #available(iOS 11.0, *) {
-                let inboxMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessage, requiringSecureCoding: false)
-        
-                object.setValue(inboxMessageArchivedData, forKey: "data")
-                object.setValue(inboxMessage.mcID, forKey: "mcID")
-            } else {
-                let inboxMessageArchivedData = NSKeyedArchiver.archivedData(withRootObject: inboxMessage)
-                
-                object.setValue(inboxMessageArchivedData, forKey: "data")
-                object.setValue(inboxMessage.mcID, forKey: "mcID")
-            }
+            let inboxMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessage, requiringSecureCoding: false)
+    
+            object.setValue(inboxMessageArchivedData, forKey: "data")
+            object.setValue(inboxMessage.mcID, forKey: "mcID")
             
             try context.save()
         } catch let error {

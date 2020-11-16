@@ -146,7 +146,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             let x = self.webView.frame.origin.x
             var y = self.webView.frame.origin.y + self.webView.frame.size.height
             
-            if #available(iOS 11.0, *), let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top, let safeAreaInsetsBottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+            if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top,
+               let safeAreaInsetsBottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+                
                 y += safeAreaInsetsTop
                 y += safeAreaInsetsBottom
             }
