@@ -177,7 +177,7 @@ class CordialSwizzler {
     
     @objc func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("RegisterForRemoteNotifications fail with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            os_log("RegisterForRemoteNotifications fail with error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
         }
     }
     

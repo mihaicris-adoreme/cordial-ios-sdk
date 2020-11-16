@@ -28,7 +28,7 @@ class InAppMessageProcess {
         
         guard let resourceBundle = InternalCordialAPI().getResourceBundle() else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("IAM Error: [Could not get bundle that contains InAppMessage.js file]", log: OSLog.cordialError, type: .error)
+                os_log("IAM Error: [Could not get bundle that contains InAppMessage.js file]", log: OSLog.cordialInAppMessage, type: .error)
             }
             
             return nil
@@ -36,7 +36,7 @@ class InAppMessageProcess {
         
         guard let resourceBundleURL = resourceBundle.url(forResource: "InAppMessage", withExtension: "js") else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("IAM Error: [Could not get bundle url for file InAppMessage.js", log: OSLog.cordialError, type: .error)
+                os_log("IAM Error: [Could not get bundle url for file InAppMessage.js", log: OSLog.cordialInAppMessage, type: .error)
             }
             
             return nil
@@ -50,7 +50,7 @@ class InAppMessageProcess {
             
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("IAM Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("IAM Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, error.localizedDescription)
             }
             return nil
         }

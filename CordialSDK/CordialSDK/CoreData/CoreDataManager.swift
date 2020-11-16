@@ -50,7 +50,7 @@ class CoreDataManager {
         
         guard let resourceBundle = InternalCordialAPI().getResourceBundle() else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [Could not get bundle that contains the model]", log: OSLog.cordialError, type: .error)
+                os_log("CoreData Error: [Could not get bundle that contains the model]", log: OSLog.cordialCoreDataError, type: .error)
             }
             
             return NSManagedObjectModel()
@@ -60,7 +60,7 @@ class CoreDataManager {
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
                 
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [Could not get bundle for managed object model]", log: OSLog.cordialError, type: .error)
+                os_log("CoreData Error: [Could not get bundle for managed object model]", log: OSLog.cordialCoreDataError, type: .error)
             }
             
             return NSManagedObjectModel()
@@ -82,7 +82,7 @@ class CoreDataManager {
             try context.save()
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Delete CoreData by entity failed with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("Delete CoreData Entity Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, entityName)
             }
         }
     }

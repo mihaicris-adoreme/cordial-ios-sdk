@@ -119,7 +119,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             webConfiguration.userContentController = contentController
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("IAM: contentController added to webConfiguration successfully", log: OSLog.cordialError, type: .info)
+                os_log("IAM Info: [contentController added to webConfiguration successfully]", log: OSLog.cordialInAppMessage, type: .info)
             }
         }
 
