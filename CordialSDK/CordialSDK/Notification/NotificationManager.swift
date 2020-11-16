@@ -47,10 +47,7 @@ class NotificationManager {
     
     var isNotificationManagerHasNotBeenSettedUp = true
     
-    let appMovedToBackgroundThrottler = Throttler(minimumDelay: 1)
     var appMovedToBackgroundBackgroundTaskID: UIBackgroundTaskIdentifier?
-    
-    let appMovedFromBackgroundThrottler = Throttler(minimumDelay: 1)
 
     private init() {
         let notificationCenter = NotificationCenter.default
@@ -69,7 +66,7 @@ class NotificationManager {
             UIApplication.shared.endBackgroundTask(backgroundTaskID)
         })
         
-        self.appMovedToBackgroundThrottler.throttle {
+        ThrottlerManager.shared.appMovedToBackground.throttle {
             self.appMovedToBackgroundProceed()
             
             if let backgroundTaskID = self.appMovedToBackgroundBackgroundTaskID {
@@ -87,7 +84,7 @@ class NotificationManager {
     }
     
     @objc func appMovedFromBackground() {
-        self.appMovedFromBackgroundThrottler.throttle {
+        ThrottlerManager.shared.appMovedFromBackground.throttle {
             self.appMovedFromBackgroundProceed()
         }
     }
