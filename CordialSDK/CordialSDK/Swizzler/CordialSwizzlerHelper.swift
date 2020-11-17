@@ -69,6 +69,8 @@ class CordialSwizzlerHelper {
                 internalCordialAPI.setPushNotificationStatus(status: status)
                 
                 self.sendPushNotificationToken(token: token, status: status)
+                
+                CoreDataManager.shared.coreDataSender.sendCachedUpsertContactRequests()
             })
         }
     }

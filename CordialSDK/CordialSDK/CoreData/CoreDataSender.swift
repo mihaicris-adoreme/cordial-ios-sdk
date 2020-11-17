@@ -108,7 +108,7 @@ class CoreDataSender {
         }
     }
     
-    private func sendCachedUpsertContactRequests() {
+    func sendCachedUpsertContactRequests() {
         ThreadQueues.shared.queueUpsertContact.sync(flags: .barrier) {
             let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
             if !upsertContactRequests.isEmpty {
