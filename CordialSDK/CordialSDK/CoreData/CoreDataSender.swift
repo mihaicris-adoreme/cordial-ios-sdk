@@ -39,6 +39,15 @@ class CoreDataSender {
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
     }
     
+    func sendCachedUpsertContactRequests() {
+        ThreadQueues.shared.queueUpsertContact.sync(flags: .barrier) {
+            let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
+            if !upsertContactRequests.isEmpty {
+                ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
+            }
+        }
+    }
+    
     func sendCachedCustomEventRequests(reason: String) {
         if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
             let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
@@ -108,39 +117,32 @@ class CoreDataSender {
         }
     }
     
-    func sendCachedUpsertContactRequests() {
-        ThreadQueues.shared.queueUpsertContact.sync(flags: .barrier) {
-            let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
-            if !upsertContactRequests.isEmpty {
-                ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
-            }
-        }
-    }
-    
     private func sendCachedInboxMessagesMarkReadUnreadRequests() {
         ThreadQueues.shared.queueInboxMessagesMarkReadUnread.sync(flags: .barrier) {
-            var inboxMessagesMarkReadUnreadRequestsWithPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
-            var inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
-            
-            let inboxMessagesMarkReadUnreadRequests = CoreDataManager.shared.inboxMessagesMarkReadUnread.fetchInboxMessagesMarkReadUnreadDataFromCoreData()
-            inboxMessagesMarkReadUnreadRequests.forEach { inboxMessagesMarkReadUnreadRequest in
-                if inboxMessagesMarkReadUnreadRequest.primaryKey == CordialAPI().getContactPrimaryKey() {
-                    inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
-                } else if inboxMessagesMarkReadUnreadRequest.primaryKey == InternalCordialAPI().getContactKey() {
-                    inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
+            if InternalCordialAPI().isUserLogin() {
+                var inboxMessagesMarkReadUnreadRequestsWithPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
+                var inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
+                
+                let inboxMessagesMarkReadUnreadRequests = CoreDataManager.shared.inboxMessagesMarkReadUnread.fetchInboxMessagesMarkReadUnreadDataFromCoreData()
+                inboxMessagesMarkReadUnreadRequests.forEach { inboxMessagesMarkReadUnreadRequest in
+                    if inboxMessagesMarkReadUnreadRequest.primaryKey == CordialAPI().getContactPrimaryKey() {
+                        inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
+                    } else if inboxMessagesMarkReadUnreadRequest.primaryKey == InternalCordialAPI().getContactKey() {
+                        inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
+                    }
                 }
-            }
-            
-            if let firstInboxMessagesMarkReadUnreadRequestsWithPrimaryKey = inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.first {
-                let mergedInboxMessagesMarkReadUnreadRequest = self.getInboxMessagesMarkReadUnreadRequest(primaryKey: firstInboxMessagesMarkReadUnreadRequestsWithPrimaryKey.primaryKey, inboxMessagesMarkReadUnreadRequests: inboxMessagesMarkReadUnreadRequestsWithPrimaryKey)
                 
-                InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: mergedInboxMessagesMarkReadUnreadRequest)
-            }
-            
-            if let firstInboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.first {
-                let mergedInboxMessagesMarkReadUnreadRequest = self.getInboxMessagesMarkReadUnreadRequest(primaryKey: firstInboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.primaryKey, inboxMessagesMarkReadUnreadRequests: inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey)
+                if let firstInboxMessagesMarkReadUnreadRequestsWithPrimaryKey = inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.first {
+                    let mergedInboxMessagesMarkReadUnreadRequest = self.getInboxMessagesMarkReadUnreadRequest(primaryKey: firstInboxMessagesMarkReadUnreadRequestsWithPrimaryKey.primaryKey, inboxMessagesMarkReadUnreadRequests: inboxMessagesMarkReadUnreadRequestsWithPrimaryKey)
+                    
+                    InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: mergedInboxMessagesMarkReadUnreadRequest)
+                }
                 
-                InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: mergedInboxMessagesMarkReadUnreadRequest)
+                if let firstInboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.first {
+                    let mergedInboxMessagesMarkReadUnreadRequest = self.getInboxMessagesMarkReadUnreadRequest(primaryKey: firstInboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.primaryKey, inboxMessagesMarkReadUnreadRequests: inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey)
+                    
+                    InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: mergedInboxMessagesMarkReadUnreadRequest)
+                }
             }
         }
     }
@@ -168,9 +170,11 @@ class CoreDataSender {
     
     private func sendCachedInboxMessageDeleteRequests() {
         ThreadQueues.shared.queueInboxMessageDelete.sync(flags: .barrier) {
-            let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequestsFromCoreData()
-            inboxMessageDeleteRequests.forEach { inboxMessageDeleteRequest in
-                InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
+            if InternalCordialAPI().isUserLogin() {
+                let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequestsFromCoreData()
+                inboxMessageDeleteRequests.forEach { inboxMessageDeleteRequest in
+                    InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
+                }
             }
         }
     }

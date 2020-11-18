@@ -55,8 +55,6 @@ class CordialSwizzlerHelper {
         DispatchQueue.main.async {
             let current = UNUserNotificationCenter.current()
             
-            let internalCordialAPI = InternalCordialAPI()
-            
             var status = String()
             
             current.getNotificationSettings(completionHandler: { (settings) in                
@@ -65,8 +63,6 @@ class CordialSwizzlerHelper {
                 } else {
                     status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                 }
-                
-                internalCordialAPI.setPushNotificationStatus(status: status)
                 
                 self.sendPushNotificationToken(token: token, status: status)
                 
@@ -79,12 +75,15 @@ class CordialSwizzlerHelper {
         let internalCordialAPI = InternalCordialAPI()
         
         if token != internalCordialAPI.getPushNotificationToken() {
-            let primaryKey = CordialAPI().getContactPrimaryKey()
-            
-            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
             
             internalCordialAPI.setPushNotificationToken(token: token)
+            
+            if InternalCordialAPI().isUserLogin() {
+                let primaryKey = CordialAPI().getContactPrimaryKey()
+                
+                let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+                ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+            }
         }
     }
 }
