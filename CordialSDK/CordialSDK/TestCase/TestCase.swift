@@ -99,6 +99,10 @@ public class TestCase {
     public func reachabilitySenderMakeAllNeededHTTPCalls() {
         ReachabilitySender.shared.makeAllNeededHTTPCalls()
     }
+    
+    public func prepareCurrentPushNotificationStatus() {
+        CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
+    }
 
     public func sendInvalidEventRequest(task: URLSessionDownloadTask, invalidEventName: String) {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {

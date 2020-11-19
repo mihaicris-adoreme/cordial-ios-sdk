@@ -92,6 +92,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
         
         if let deviceToken = Data(base64Encoded: self.testDeviceToken) {
             CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
@@ -113,10 +114,9 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         
-        if let deviceToken = Data(base64Encoded: self.testDeviceToken) {
-            CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
-        }
+        self.testCase.prepareCurrentPushNotificationStatus()
         
         let expectation = XCTestExpectation(description: "Expectation for ending token preparing")
         
