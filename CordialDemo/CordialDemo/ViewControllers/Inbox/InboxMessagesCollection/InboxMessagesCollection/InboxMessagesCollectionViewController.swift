@@ -7,24 +7,46 @@
 //
 
 import UIKit
+import CordialSDK
 
-class InboxMessagesCollectionViewController: UIViewController {
+class InboxMessagesCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    let reuseIdentifier = "inboxMessagesCollectionCell"
+    
+    var inboxMessages = [InboxMessage]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.title = "Inbox"
+        
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        
     }
     
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
 
+
+    // MARK: UICollectionViewDataSource
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.inboxMessages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesCollectionViewCell
+        
+        cell.titleLabel.text = self.inboxMessages[indexPath.row].mcID
+        
+        return cell
+    }
 }

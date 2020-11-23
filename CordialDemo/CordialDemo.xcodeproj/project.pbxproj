@@ -44,6 +44,7 @@
 		9E7EC4222510CE3200314A18 /* InboxMessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EC4212510CE3200314A18 /* InboxMessagesTableViewController.swift */; };
 		9E7EC4242510CE5C00314A18 /* InboxMessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EC4232510CE5C00314A18 /* InboxMessagesTableViewCell.swift */; };
 		9E7F2917256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2916256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift */; };
+		9E7F2966256C09D0006D3BED /* InboxMessagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2965256C09D0006D3BED /* InboxMessagesCollectionViewCell.swift */; };
 		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
 		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
 		9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B95A923A53A1300936630 /* SceneDelegate.swift */; };
@@ -175,6 +176,7 @@
 		9E7EC4212510CE3200314A18 /* InboxMessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableViewController.swift; sourceTree = "<group>"; };
 		9E7EC4232510CE5C00314A18 /* InboxMessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableViewCell.swift; sourceTree = "<group>"; };
 		9E7F2916256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesCollectionViewController.swift; sourceTree = "<group>"; };
+		9E7F2965256C09D0006D3BED /* InboxMessagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
 		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
 		9E8B95A923A53A1300936630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 			isa = PBXGroup;
 			children = (
 				9E7F2916256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift */,
+				9E7F2965256C09D0006D3BED /* InboxMessagesCollectionViewCell.swift */,
 			);
 			path = InboxMessagesCollection;
 			sourceTree = "<group>";
@@ -1009,6 +1012,7 @@
 				9E7F2917256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift in Sources */,
 				9E45FE7622537648006A5A6B /* PushNotificationHandler.swift in Sources */,
 				9EA5F53A244F67A000BF685C /* CustomUIActivityProfile.swift in Sources */,
+				9E7F2966256C09D0006D3BED /* InboxMessagesCollectionViewCell.swift in Sources */,
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,
 				9E7EC4222510CE3200314A18 /* InboxMessagesTableViewController.swift in Sources */,
 				9EDAEA0B234CCBFB008A7B2F /* Credentials.swift in Sources */,

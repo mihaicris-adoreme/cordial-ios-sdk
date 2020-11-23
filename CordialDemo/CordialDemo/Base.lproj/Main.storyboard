@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -322,14 +323,62 @@
                     <view key="view" contentMode="scaleToFill" id="0ft-nV-SLB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Lhh-ew-UpC">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3kP-b7-c1V">
+                                    <size key="itemSize" width="320" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="inboxMessagesCollectionCell" id="3Al-D9-QCQ" customClass="InboxMessagesCollectionViewCell" customModule="CordialDemo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Oi3-7Y-A4d">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XyI-MS-OHQ">
+                                                    <rect key="frame" x="8" y="53.5" width="304" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="XyI-MS-OHQ" firstAttribute="leading" secondItem="Oi3-7Y-A4d" secondAttribute="leading" constant="8" id="XOf-zK-ZZy"/>
+                                                <constraint firstAttribute="trailing" secondItem="XyI-MS-OHQ" secondAttribute="trailing" constant="8" id="YG3-WW-dnZ"/>
+                                                <constraint firstItem="XyI-MS-OHQ" firstAttribute="centerY" secondItem="Oi3-7Y-A4d" secondAttribute="centerY" id="rKP-7U-Ihj"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="320" height="128"/>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="XyI-MS-OHQ" id="vUT-oU-u06"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="mXT-fb-eCc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Lhh-ew-UpC" firstAttribute="trailing" secondItem="mXT-fb-eCc" secondAttribute="trailing" id="57Q-vW-lbX"/>
+                            <constraint firstItem="Lhh-ew-UpC" firstAttribute="top" secondItem="mXT-fb-eCc" secondAttribute="top" id="D5V-h9-dr6"/>
+                            <constraint firstItem="Lhh-ew-UpC" firstAttribute="bottom" secondItem="mXT-fb-eCc" secondAttribute="bottom" id="NeU-iN-NkT"/>
+                            <constraint firstItem="Lhh-ew-UpC" firstAttribute="leading" secondItem="mXT-fb-eCc" secondAttribute="leading" id="qVN-Aq-f86"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="vVf-MT-OxH"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Lhh-ew-UpC" id="7tq-4j-ib0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vKV-wZ-CW9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="953" y="-630"/>
+            <point key="canvasLocation" x="952.5" y="-630.63380281690138"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4Y4-lb-RqM">
@@ -365,7 +414,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="catalogCell" id="Uru-Ho-XMr" customClass="CatalogCollectionViewCell" customModule="CordialDemo" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="catalogCollectionCell" id="Uru-Ho-XMr" customClass="CatalogCollectionViewCell" customModule="CordialDemo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="150" height="240"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -426,10 +475,6 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="27a-yX-dEo" id="qTi-tK-hIr"/>
-                                    <outlet property="delegate" destination="27a-yX-dEo" id="KkG-pT-0E1"/>
-                                </connections>
                             </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1J4-vE-SxX"/>
@@ -650,10 +695,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="wpv-91-zrT" id="ZVg-Do-x7k"/>
-                                    <outlet property="delegate" destination="wpv-91-zrT" id="IMO-5V-i6E"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4u8-OP-NJK"/>
