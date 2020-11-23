@@ -315,6 +315,22 @@
             </objects>
             <point key="canvasLocation" x="140.57971014492756" y="888.58695652173924"/>
         </scene>
+        <!--Inbox Messages Collection View Controller-->
+        <scene sceneID="36O-pU-vU8">
+            <objects>
+                <viewController id="GOw-pz-0e3" customClass="InboxMessagesCollectionViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0ft-nV-SLB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="mXT-fb-eCc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="vVf-MT-OxH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vKV-wZ-CW9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="953" y="-630"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="4Y4-lb-RqM">
             <objects>
@@ -437,7 +453,8 @@
                         <segue destination="wpv-91-zrT" kind="show" identifier="segueToCart" id="AlP-xG-MIL"/>
                         <segue destination="xoO-vV-374" kind="show" identifier="segueToProfile" id="g1h-zg-9TE"/>
                         <segue destination="VjT-ne-evL" kind="show" identifier="segueToCustomEvent" id="grd-Xe-nVj"/>
-                        <segue destination="55x-1y-73y" kind="show" identifier="segueToInbox" id="IvU-zN-3Ts"/>
+                        <segue destination="55x-1y-73y" kind="show" identifier="segueToInboxTable" id="IvU-zN-3Ts"/>
+                        <segue destination="GOw-pz-0e3" kind="show" identifier="segueToInboxCollection" id="MAf-P6-8Od"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjF-Ku-Fu9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -657,10 +674,10 @@
             </objects>
             <point key="canvasLocation" x="3483" y="133"/>
         </scene>
-        <!--Inbox Messages Filter View Controller-->
+        <!--Inbox Messages Table Filter View Controller-->
         <scene sceneID="Iqf-ku-oTL">
             <objects>
-                <viewController id="CnG-HZ-MFa" customClass="InboxMessagesFilterViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="CnG-HZ-MFa" customClass="InboxMessagesTableFilterViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N1d-7J-Whv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -804,12 +821,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUU-4P-D9T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3262.3188405797105" y="-2144.1964285714284"/>
+            <point key="canvasLocation" x="3482" y="-2132"/>
         </scene>
-        <!--Inbox Messages View Controller-->
+        <!--Inbox Messages Table View Controller-->
         <scene sceneID="4x6-EM-US8">
             <objects>
-                <viewController id="55x-1y-73y" customClass="InboxMessagesViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="55x-1y-73y" customClass="InboxMessagesTableViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yis-gc-baG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -879,10 +896,10 @@
             </objects>
             <point key="canvasLocation" x="2644" y="-1384"/>
         </scene>
-        <!--Inbox Message View Controller-->
+        <!--Inbox Message Table View Controller-->
         <scene sceneID="Obf-0D-p0a">
             <objects>
-                <viewController id="uvD-dl-1b0" customClass="InboxMessageViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="uvD-dl-1b0" customClass="InboxMessageTableViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pVP-4p-F1r">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

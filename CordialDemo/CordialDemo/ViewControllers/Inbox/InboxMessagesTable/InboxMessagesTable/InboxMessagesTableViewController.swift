@@ -1,5 +1,5 @@
 //
-//  InboxMessagesViewController.swift
+//  InboxMessagesTableViewController.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 15.09.2020.
@@ -9,7 +9,7 @@
 import UIKit
 import CordialSDK
 
-class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -123,7 +123,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case self.segueToInboxMessageIdentifier:
-            if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
+            if let inboxMessageViewController = segue.destination as? InboxMessageTableViewController {
                 
                 if !self.chosenInboxMessage.isRead {
                     CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.chosenInboxMessage.mcID])
@@ -137,7 +137,7 @@ class InboxMessagesViewController: UIViewController, UITableViewDelegate, UITabl
                 inboxMessageViewController.inboxMessage = self.chosenInboxMessage
             }
         case self.segueToInboxFilterIdentifier:
-            if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesFilterViewController {
+            if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesTableFilterViewController {
                 inboxMessagesFilterViewController.inboxFilter = self.inboxFilter
             }
         default:

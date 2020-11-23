@@ -41,12 +41,13 @@
 		9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */; };
 		9E7CEC7D242857F800E054BF /* GeoAttributeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */; };
 		9E7DF22E24F95808005533A7 /* OSLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7DF22D24F95808005533A7 /* OSLogManager.swift */; };
-		9E7EC4222510CE3200314A18 /* InboxMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EC4212510CE3200314A18 /* InboxMessagesViewController.swift */; };
+		9E7EC4222510CE3200314A18 /* InboxMessagesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EC4212510CE3200314A18 /* InboxMessagesTableViewController.swift */; };
 		9E7EC4242510CE5C00314A18 /* InboxMessagesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EC4232510CE5C00314A18 /* InboxMessagesTableViewCell.swift */; };
+		9E7F2917256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2916256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift */; };
 		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
 		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
 		9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B95A923A53A1300936630 /* SceneDelegate.swift */; };
-		9E8F1B4A2511802F00B90139 /* InboxMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8F1B492511802F00B90139 /* InboxMessageViewController.swift */; };
+		9E8F1B4A2511802F00B90139 /* InboxMessageTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8F1B492511802F00B90139 /* InboxMessageTableViewController.swift */; };
 		9E96BA47244FB46500DB8BEC /* CustomEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA46244FB46500DB8BEC /* CustomEventViewController.swift */; };
 		9E96BA49244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA48244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift */; };
 		9E96BA4B244FCA6700DB8BEC /* CustomEventPropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E96BA4A244FCA6700DB8BEC /* CustomEventPropertyViewController.swift */; };
@@ -56,7 +57,7 @@
 		9EA5F53C244F6A8500BF685C /* CustomUIActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5F53B244F6A8500BF685C /* CustomUIActivityType.swift */; };
 		9EA5F540244F9D0E00BF685C /* CustomUIActivityLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */; };
 		9EAB97272427366900C5C5DA /* AppDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB97262427366900C5C5DA /* AppDateFormatter.swift */; };
-		9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */; };
+		9EB00590253E5EE800156E8E /* InboxMessagesTableFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB0058F253E5EE800156E8E /* InboxMessagesTableFilterViewController.swift */; };
 		9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB260CA229FF489005786BD /* SettingsViewController.swift */; };
 		9EC1E141245051E500A4C756 /* CustomEventProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E140245051E500A4C756 /* CustomEventProperty.swift */; };
 		9EC1E1472450891B00A4C756 /* CustomEventTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */; };
@@ -171,12 +172,13 @@
 		9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAttributeViewController.swift; sourceTree = "<group>"; };
 		9E7DF22D24F95808005533A7 /* OSLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLogManager.swift; sourceTree = "<group>"; };
-		9E7EC4212510CE3200314A18 /* InboxMessagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesViewController.swift; sourceTree = "<group>"; };
+		9E7EC4212510CE3200314A18 /* InboxMessagesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableViewController.swift; sourceTree = "<group>"; };
 		9E7EC4232510CE5C00314A18 /* InboxMessagesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableViewCell.swift; sourceTree = "<group>"; };
+		9E7F2916256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesCollectionViewController.swift; sourceTree = "<group>"; };
 		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
 		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
 		9E8B95A923A53A1300936630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9E8F1B492511802F00B90139 /* InboxMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageViewController.swift; sourceTree = "<group>"; };
+		9E8F1B492511802F00B90139 /* InboxMessageTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageTableViewController.swift; sourceTree = "<group>"; };
 		9E96BA46244FB46500DB8BEC /* CustomEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventViewController.swift; sourceTree = "<group>"; };
 		9E96BA48244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityCustomEvent.swift; sourceTree = "<group>"; };
 		9E96BA4A244FCA6700DB8BEC /* CustomEventPropertyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventPropertyViewController.swift; sourceTree = "<group>"; };
@@ -186,7 +188,7 @@
 		9EA5F53B244F6A8500BF685C /* CustomUIActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityType.swift; sourceTree = "<group>"; };
 		9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityLogin.swift; sourceTree = "<group>"; };
 		9EAB97262427366900C5C5DA /* AppDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDateFormatter.swift; sourceTree = "<group>"; };
-		9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesFilterViewController.swift; sourceTree = "<group>"; };
+		9EB0058F253E5EE800156E8E /* InboxMessagesTableFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableFilterViewController.swift; sourceTree = "<group>"; };
 		9EB260CA229FF489005786BD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9EC1E140245051E500A4C756 /* CustomEventProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventProperty.swift; sourceTree = "<group>"; };
 		9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventTableFooterView.swift; sourceTree = "<group>"; };
@@ -320,7 +322,7 @@
 		9E6A56CC244FB30700E6495A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				9E7EC41D2510CD4900314A18 /* InboxMessages */,
+				9E7EC41D2510CD4900314A18 /* Inbox */,
 				9EF7B213226660D0003B223D /* Login */,
 				9EB260C8229FF475005786BD /* Settings */,
 				9E7BD8C7228DADDC004B4EB9 /* Profile */,
@@ -453,23 +455,48 @@
 			path = OSLog;
 			sourceTree = "<group>";
 		};
-		9E7EC41D2510CD4900314A18 /* InboxMessages */ = {
+		9E7EC41D2510CD4900314A18 /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
-				9E7EC4202510CE0C00314A18 /* InboxMessages */,
-				9EB0058E253E5E9900156E8E /* InboxMessagesFilter */,
-				9E8F1B482511800A00B90139 /* InboxMessage */,
+				9E7F28F0256BEA1E006D3BED /* InboxMessagesTable */,
+				9E7F28F7256BEAF1006D3BED /* InboxMessagesCollection */,
 			);
-			path = InboxMessages;
+			path = Inbox;
 			sourceTree = "<group>";
 		};
-		9E7EC4202510CE0C00314A18 /* InboxMessages */ = {
+		9E7EC4202510CE0C00314A18 /* InboxMessagesTable */ = {
 			isa = PBXGroup;
 			children = (
-				9E7EC4212510CE3200314A18 /* InboxMessagesViewController.swift */,
+				9E7EC4212510CE3200314A18 /* InboxMessagesTableViewController.swift */,
 				9E7EC4232510CE5C00314A18 /* InboxMessagesTableViewCell.swift */,
 			);
-			path = InboxMessages;
+			path = InboxMessagesTable;
+			sourceTree = "<group>";
+		};
+		9E7F28F0256BEA1E006D3BED /* InboxMessagesTable */ = {
+			isa = PBXGroup;
+			children = (
+				9E8F1B482511800A00B90139 /* InboxMessageTable */,
+				9E7EC4202510CE0C00314A18 /* InboxMessagesTable */,
+				9EB0058E253E5E9900156E8E /* InboxMessagesTableFilter */,
+			);
+			path = InboxMessagesTable;
+			sourceTree = "<group>";
+		};
+		9E7F28F7256BEAF1006D3BED /* InboxMessagesCollection */ = {
+			isa = PBXGroup;
+			children = (
+				9E7F28F8256BEAFF006D3BED /* InboxMessagesCollection */,
+			);
+			path = InboxMessagesCollection;
+			sourceTree = "<group>";
+		};
+		9E7F28F8256BEAFF006D3BED /* InboxMessagesCollection */ = {
+			isa = PBXGroup;
+			children = (
+				9E7F2916256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift */,
+			);
+			path = InboxMessagesCollection;
 			sourceTree = "<group>";
 		};
 		9E80E35D24194E1400EE5852 /* Footer */ = {
@@ -481,12 +508,12 @@
 			path = Footer;
 			sourceTree = "<group>";
 		};
-		9E8F1B482511800A00B90139 /* InboxMessage */ = {
+		9E8F1B482511800A00B90139 /* InboxMessageTable */ = {
 			isa = PBXGroup;
 			children = (
-				9E8F1B492511802F00B90139 /* InboxMessageViewController.swift */,
+				9E8F1B492511802F00B90139 /* InboxMessageTableViewController.swift */,
 			);
-			path = InboxMessage;
+			path = InboxMessageTable;
 			sourceTree = "<group>";
 		};
 		9E96BA42244FB44700DB8BEC /* CustomEvent */ = {
@@ -537,12 +564,12 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		9EB0058E253E5E9900156E8E /* InboxMessagesFilter */ = {
+		9EB0058E253E5E9900156E8E /* InboxMessagesTableFilter */ = {
 			isa = PBXGroup;
 			children = (
-				9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */,
+				9EB0058F253E5EE800156E8E /* InboxMessagesTableFilterViewController.swift */,
 			);
-			path = InboxMessagesFilter;
+			path = InboxMessagesTableFilter;
 			sourceTree = "<group>";
 		};
 		9EB260C8229FF475005786BD /* Settings */ = {
@@ -969,7 +996,7 @@
 				9E96BA4B244FCA6700DB8BEC /* CustomEventPropertyViewController.swift in Sources */,
 				9EF7B20B2266259B003B223D /* Product.swift in Sources */,
 				9E1EB3D6241F1700004CAD90 /* ProfileTableViewCell.swift in Sources */,
-				9E8F1B4A2511802F00B90139 /* InboxMessageViewController.swift in Sources */,
+				9E8F1B4A2511802F00B90139 /* InboxMessageTableViewController.swift in Sources */,
 				9EC1E1682450EB5C00A4C756 /* ImportCustomEventViewController.swift in Sources */,
 				9EF7B20F2266340F003B223D /* AppDataManager.swift in Sources */,
 				9E7A5A6C222EB64B0020054F /* LoginViewController.swift in Sources */,
@@ -979,10 +1006,11 @@
 				9E1EB39A241DC199004CAD90 /* AttributesCoreData.swift in Sources */,
 				9E005F5924296DD500425C5B /* AttributesGeoCoreData.swift in Sources */,
 				9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */,
+				9E7F2917256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift in Sources */,
 				9E45FE7622537648006A5A6B /* PushNotificationHandler.swift in Sources */,
 				9EA5F53A244F67A000BF685C /* CustomUIActivityProfile.swift in Sources */,
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,
-				9E7EC4222510CE3200314A18 /* InboxMessagesViewController.swift in Sources */,
+				9E7EC4222510CE3200314A18 /* InboxMessagesTableViewController.swift in Sources */,
 				9EDAEA0B234CCBFB008A7B2F /* Credentials.swift in Sources */,
 				9EDAEA0D234CD23F008A7B2F /* Settings.swift in Sources */,
 				9EA151F525220E43009B85C3 /* AppNotificationManager.swift in Sources */,
@@ -990,7 +1018,7 @@
 				9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */,
 				9E7DF22E24F95808005533A7 /* OSLogManager.swift in Sources */,
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,
-				9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */,
+				9EB00590253E5EE800156E8E /* InboxMessagesTableFilterViewController.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
 				9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */,
 			);

@@ -1,5 +1,5 @@
 //
-//  InboxMessagesFilterViewController.swift
+//  InboxMessagesTableFilterViewController.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 20.10.2020.
@@ -9,7 +9,7 @@
 import UIKit
 import CordialSDK
 
-class InboxMessagesFilterViewController: UIViewController {
+class InboxMessagesTableFilterViewController: UIViewController {
     
     @IBOutlet weak var fromDateTextField: UITextField!
     @IBOutlet weak var fromDatePicker: UIDatePicker!
@@ -35,7 +35,7 @@ class InboxMessagesFilterViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         if self.isNeededInboxMessagesUpdate,
-           let inboxMessagesViewController = self.previousViewController as? InboxMessagesViewController {
+           let inboxMessagesViewController = self.previousViewController as? InboxMessagesTableViewController {
             inboxMessagesViewController.inboxFilter = self.inboxFilter
             inboxMessagesViewController.refreshTableViewData()
         }

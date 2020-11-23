@@ -18,7 +18,8 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToCartIdentifier = "segueToCart"
     let segueToProfileIdentifier = "segueToProfile"
     let segueToCustomEventIdentifier = "segueToCustomEvent"
-    let segueToInboxIdentifier = "segueToInbox"
+    let segueToInboxTableIdentifier = "segueToInboxTable"
+    let segueToInboxCollectionIdentifier = "segueToInboxCollection"
     
     @IBOutlet weak var collectionView: UICollectionView!
     

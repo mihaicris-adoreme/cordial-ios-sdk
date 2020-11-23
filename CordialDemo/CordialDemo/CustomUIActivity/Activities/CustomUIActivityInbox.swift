@@ -40,8 +40,21 @@ class CustomUIActivityInbox: UIActivity {
             
             self.activityDidFinish(true)
             
-            let identifier = catalogCollectionViewController.segueToInboxIdentifier
-            catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
+            let alert = UIAlertController(title: "Inbox", message: "Please select the view", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Table", style: .default) { action in
+                let identifier = catalogCollectionViewController.segueToInboxTableIdentifier
+                catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
+            })
+            
+            alert.addAction(UIAlertAction(title: "Collection", style: .default) { action in
+                let identifier = catalogCollectionViewController.segueToInboxCollectionIdentifier
+                catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
+            })
+            
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+            
+            catalogCollectionViewController.present(alert, animated: true, completion: nil)
         default:
             break
         }
