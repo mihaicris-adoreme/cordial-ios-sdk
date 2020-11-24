@@ -13,7 +13,7 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
 
     @IBOutlet weak var tableView: UITableView!
     
-    let inboxMessagesTableCell = "inboxMessagesTableCell"
+    let reuseIdentifier = "inboxMessagesTableCell"
     
     let segueToInboxMessageIdentifier = "segueToInboxMessage"
     let segueToInboxFilterIdentifier = "segueToInboxFilter"
@@ -153,7 +153,7 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.inboxMessagesTableCell, for: indexPath) as! InboxMessagesTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesTableViewCell
         
         let inboxMessage = self.inboxMessages[indexPath.row]
         
