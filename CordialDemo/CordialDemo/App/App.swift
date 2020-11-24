@@ -72,6 +72,26 @@ extension UIViewController {
     }
 }
 
+extension UIImageView {
+    public func asyncImage(url: URL) {
+        self.image = nil
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            if let responseData = data {
+                DispatchQueue.main.async {
+                    self.image = UIImage(data: responseData)
+                }
+            } else {
+                print("Image is absent by the URL")
+            }
+        }.resume()
+    }}
+
 func popupSimpleNoteAlert(title: String?, message: String?, controller: UIViewController) {
     DispatchQueue.main.async {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

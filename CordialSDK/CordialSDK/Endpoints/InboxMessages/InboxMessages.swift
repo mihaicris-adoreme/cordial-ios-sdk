@@ -139,7 +139,7 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                     {
                                       "title": "Title",
                                       "subtitle": "Subtitle",
-                                      "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg"
+                                      "url": "https://i.imgur.com/UJYcRg4.jpg"
                                     }
                                 """
                         

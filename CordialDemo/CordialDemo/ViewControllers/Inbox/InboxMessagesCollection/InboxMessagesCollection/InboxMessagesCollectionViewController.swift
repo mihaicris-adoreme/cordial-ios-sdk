@@ -100,7 +100,25 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesCollectionViewCell
         
-        cell.titleLabel.text = self.inboxMessages[indexPath.row].mcID
+        let inboxMessage = self.inboxMessages[indexPath.row]
+        
+        do {
+            if let inboxMessageMetadataData = inboxMessage.metadata.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
+                
+                if let image = inboxMessageMetadataJSON["url"], let imageURL = URL(string: image) {
+                    cell.imageView.asyncImage(url: imageURL)
+                    cell.imageView.contentMode = .scaleToFill
+                }
+                
+                cell.titleLabel.text = inboxMessageMetadataJSON["title"]
+                cell.subtitleLabel.text = inboxMessageMetadataJSON["subtitle"]
+                
+            } else {
+                popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID)", controller: self)
+            }
+        } catch let error {
+            popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID) Error: \(error.localizedDescription)", controller: self)
+        }
         
         return cell
     }
