@@ -132,6 +132,16 @@ class InboxMessages: NSObject, URLSessionDelegate {
                         var urlExpireAt: String?
                         var read: Bool?
                         var sentAt: String?
+                        var metadata: String?
+                        
+                        // TMP
+                        metadata = """
+                                    {
+                                      "title": "Title",
+                                      "subtitle": "Subtitle",
+                                      "url": "https://res.cloudinary.com/demo/image/upload/sample.jpg"
+                                    }
+                                """
                         
                         var messageError = String()
                         
@@ -205,6 +215,16 @@ class InboxMessages: NSObject, URLSessionDelegate {
                                         
                                         messageError += "sentAt IS NIL"
                                     }
+                                case "metadata":
+                                    if let valueMetadata = value as? String {
+                                        metadata = valueMetadata
+                                    } else {
+                                        if !messageError.isEmpty {
+                                            messageError += ". "
+                                        }
+                                        
+                                        messageError += "metadata IS NIL"
+                                    }
                                 default: break
                             }
                         }
@@ -215,9 +235,10 @@ class InboxMessages: NSObject, URLSessionDelegate {
                             let messageDateUrlExpireAt = cordialDateFormatter.getDateFromTimestamp(timestamp: messageUrlExpireAt),
                             let messageRead = read,
                             let messageSentAt = sentAt,
-                            let messageDateSentAt = cordialDateFormatter.getDateFromTimestamp(timestamp: messageSentAt) {
+                            let messageDateSentAt = cordialDateFormatter.getDateFromTimestamp(timestamp: messageSentAt),
+                            let messageMetadata = metadata {
                             
-                            let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, urlExpireAt: messageDateUrlExpireAt, isRead: messageRead, sentAt: messageDateSentAt)
+                            let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, urlExpireAt: messageDateUrlExpireAt, isRead: messageRead, sentAt: messageDateSentAt, metadata: messageMetadata)
                             
                             CoreDataManager.shared.inboxMessagesCache.putInboxMessageToCoreData(inboxMessage: inboxMessage)
                             
