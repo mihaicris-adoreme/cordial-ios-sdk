@@ -16,7 +16,7 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
     let reuseIdentifier = "inboxMessagesTableCell"
     
     let segueToInboxMessageIdentifier = "segueToInboxMessage"
-    let segueToInboxFilterIdentifier = "segueToInboxFilter"
+    let segueToInboxFilterIdentifier = "segueFromInboxTableToInboxFilter"
     
     var inboxMessages = [InboxMessage]()
     var chosenInboxMessage: InboxMessage!
@@ -29,27 +29,21 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = "Inbox"
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         self.tableView.tableFooterView = UIView(frame: .zero)
         
-        self.title = "Inbox"
+        let filter = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(filterAction))
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshButtonAction))
+        navigationItem.rightBarButtonItems = [refresh, filter]
         
         self.setupNotificationNewInboxMessageDelivered()
         
         self.prepareActivityIndicator()
         self.updateTableViewData()
-    }
-    
-    @IBAction func filterAction(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: self.segueToInboxFilterIdentifier, sender: self)
-    }
-    
-    func getNewPageRequest() -> PageRequest {
-        self.isInboxMessagesHasBeenLoaded = false
-        
-        return PageRequest(page: 1, size: 10)
     }
     
     func setupNotificationNewInboxMessageDelivered() {
@@ -61,6 +55,28 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
 
     @objc func newInboxMessageDelivered() {
         popupSimpleNoteAlert(title: "Inbox Message", message: "The new inbox message has been received", controller: self)
+    }
+    
+    @objc func filterAction(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: self.segueToInboxFilterIdentifier, sender: self)
+    }
+    
+    @objc func refreshButtonAction(_ sender: UIBarButtonItem) {
+        self.refreshTableViewData()
+    }
+    
+    func refreshTableViewData() {
+        if self.isInboxMessagesHasBeenLoaded {
+            self.inboxMessages = [InboxMessage]()
+            self.tableView.reloadData()
+            self.updateTableViewData()
+        }
+    }
+    
+    func getNewPageRequest() -> PageRequest {
+        self.isInboxMessagesHasBeenLoaded = false
+        
+        return PageRequest(page: 1, size: 10)
     }
     
     func prepareActivityIndicator() {
@@ -89,14 +105,6 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
         }
     }
     
-    func refreshTableViewData() {
-        if self.isInboxMessagesHasBeenLoaded {
-            self.inboxMessages = [InboxMessage]()
-            self.tableView.reloadData()
-            self.updateTableViewData()
-        }
-    }
-    
     func updateInboxMessages(pageRequest: PageRequest, inboxFilter: InboxFilter?) {
         CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, onSuccess: { inboxPage in
             if !self.isInboxMessagesHasBeenLoaded {
@@ -112,10 +120,6 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
         }, onFailure: { error in
             popupSimpleNoteAlert(title: error, message: nil, controller: self)
         })
-    }
-    
-    @IBAction func refreshButtonAction(_ sender: UIBarButtonItem) {
-        self.refreshTableViewData()
     }
     
     // MARK: - Navigation
@@ -137,13 +141,12 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
                 inboxMessageViewController.inboxMessage = self.chosenInboxMessage
             }
         case self.segueToInboxFilterIdentifier:
-            if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesTableFilterViewController {
+            if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesFilterViewController {
                 inboxMessagesFilterViewController.inboxFilter = self.inboxFilter
             }
         default:
             break
         }
-        
     }
     
     // MARK: UITableViewDataSource

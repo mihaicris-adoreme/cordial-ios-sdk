@@ -58,7 +58,7 @@
 		9EA5F53C244F6A8500BF685C /* CustomUIActivityType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5F53B244F6A8500BF685C /* CustomUIActivityType.swift */; };
 		9EA5F540244F9D0E00BF685C /* CustomUIActivityLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */; };
 		9EAB97272427366900C5C5DA /* AppDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAB97262427366900C5C5DA /* AppDateFormatter.swift */; };
-		9EB00590253E5EE800156E8E /* InboxMessagesTableFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB0058F253E5EE800156E8E /* InboxMessagesTableFilterViewController.swift */; };
+		9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */; };
 		9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB260CA229FF489005786BD /* SettingsViewController.swift */; };
 		9EC1E141245051E500A4C756 /* CustomEventProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E140245051E500A4C756 /* CustomEventProperty.swift */; };
 		9EC1E1472450891B00A4C756 /* CustomEventTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */; };
@@ -190,7 +190,7 @@
 		9EA5F53B244F6A8500BF685C /* CustomUIActivityType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityType.swift; sourceTree = "<group>"; };
 		9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityLogin.swift; sourceTree = "<group>"; };
 		9EAB97262427366900C5C5DA /* AppDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDateFormatter.swift; sourceTree = "<group>"; };
-		9EB0058F253E5EE800156E8E /* InboxMessagesTableFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableFilterViewController.swift; sourceTree = "<group>"; };
+		9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesFilterViewController.swift; sourceTree = "<group>"; };
 		9EB260CA229FF489005786BD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9EC1E140245051E500A4C756 /* CustomEventProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventProperty.swift; sourceTree = "<group>"; };
 		9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventTableFooterView.swift; sourceTree = "<group>"; };
@@ -460,6 +460,7 @@
 		9E7EC41D2510CD4900314A18 /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
+				9EB0058E253E5E9900156E8E /* InboxMessagesFilter */,
 				9E7F28F0256BEA1E006D3BED /* InboxMessagesTable */,
 				9E7F28F7256BEAF1006D3BED /* InboxMessagesCollection */,
 			);
@@ -480,7 +481,6 @@
 			children = (
 				9E8F1B482511800A00B90139 /* InboxMessageTable */,
 				9E7EC4202510CE0C00314A18 /* InboxMessagesTable */,
-				9EB0058E253E5E9900156E8E /* InboxMessagesTableFilter */,
 			);
 			path = InboxMessagesTable;
 			sourceTree = "<group>";
@@ -567,12 +567,12 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		9EB0058E253E5E9900156E8E /* InboxMessagesTableFilter */ = {
+		9EB0058E253E5E9900156E8E /* InboxMessagesFilter */ = {
 			isa = PBXGroup;
 			children = (
-				9EB0058F253E5EE800156E8E /* InboxMessagesTableFilterViewController.swift */,
+				9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */,
 			);
-			path = InboxMessagesTableFilter;
+			path = InboxMessagesFilter;
 			sourceTree = "<group>";
 		};
 		9EB260C8229FF475005786BD /* Settings */ = {
@@ -1022,7 +1022,7 @@
 				9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */,
 				9E7DF22E24F95808005533A7 /* OSLogManager.swift in Sources */,
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,
-				9EB00590253E5EE800156E8E /* InboxMessagesTableFilterViewController.swift in Sources */,
+				9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
 				9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */,
 			);

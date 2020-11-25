@@ -15,6 +15,8 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
     
     let reuseIdentifier = "inboxMessagesCollectionCell"
     
+    let segueToInboxFilterIdentifier = "segueFromInboxCollectionToInboxFilter"
+    
     var inboxMessages = [InboxMessage]()
     
     var inboxFilter: InboxFilter?
@@ -30,8 +32,41 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
+        let filter = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(filterAction))
+        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshButtonAction))
+        navigationItem.rightBarButtonItems = [refresh, filter]
+        
+        self.setupNotificationNewInboxMessageDelivered()
+        
         self.prepareActivityIndicator()
         self.updateСollectionViewData()
+    }
+    
+    func setupNotificationNewInboxMessageDelivered() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.removeObserver(self, name: .cordialDemoNewInboxMessageDelivered, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(newInboxMessageDelivered), name: .cordialDemoNewInboxMessageDelivered, object: nil)
+    }
+
+    @objc func newInboxMessageDelivered() {
+        popupSimpleNoteAlert(title: "Inbox Message", message: "The new inbox message has been received", controller: self)
+    }
+    
+    @objc func filterAction(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: self.segueToInboxFilterIdentifier, sender: self)
+    }
+    
+    @objc func refreshButtonAction(_ sender: UIBarButtonItem) {
+        self.refreshCollectionViewData()
+    }
+    
+    func refreshCollectionViewData() {
+        if self.isInboxMessagesHasBeenLoaded {
+            self.inboxMessages = [InboxMessage]()
+            self.collectionView.reloadData()
+            self.updateСollectionViewData()
+        }
     }
     
     func getNewPageRequest() -> PageRequest {
@@ -86,8 +121,14 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        switch segue.identifier {
+        case self.segueToInboxFilterIdentifier:
+            if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesFilterViewController {
+                inboxMessagesFilterViewController.inboxFilter = self.inboxFilter
+            }
+        default:
+            break
+        }
     }
 
 

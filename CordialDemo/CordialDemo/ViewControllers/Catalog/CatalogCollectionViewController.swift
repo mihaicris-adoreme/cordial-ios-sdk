@@ -32,13 +32,14 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = self.catalogName
+        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
         let cartButton = UIBarButtonItem(image: UIImage(named: "cart"), style: .plain, target: self, action: #selector(cartButtonAction))
         navigationItem.rightBarButtonItems = [cartButton]
         
-        self.title = self.catalogName
     }
     
     override func viewWillAppear(_ animated: Bool) {
