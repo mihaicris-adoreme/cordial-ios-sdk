@@ -9,7 +9,7 @@
 import UIKit
 import CordialSDK
 
-class InboxMessagesCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class InboxMessagesCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -107,7 +107,9 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
                 
                 if let image = inboxMessageMetadataJSON["url"], let imageURL = URL(string: image) {
                     cell.imageView.asyncImage(url: imageURL)
-                    cell.imageView.contentMode = .scaleToFill
+                    cell.imageView.contentMode = .scaleAspectFill
+                    cell.imageView.clipsToBounds = true
+                    cell.imageView.layer.cornerRadius = 20
                 }
                 
                 cell.titleLabel.text = inboxMessageMetadataJSON["title"]
@@ -121,5 +123,17 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
         }
         
         return cell
+    }
+    
+    // MARK: UICollectionViewDelegateFlowLayout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let screenSize = UIScreen.main.bounds.size
+        let cellWidth = screenSize.width
+        
+        let cellHeight = cellWidth * 0.75 // 240 (height) / 320 (width) = 0.75
+        
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 }
