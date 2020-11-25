@@ -15,9 +15,11 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
     
     let reuseIdentifier = "inboxMessagesCollectionCell"
     
+    let segueToInboxMessageIdentifier = "segueFromInboxCollectionToInboxMessage"
     let segueToInboxFilterIdentifier = "segueFromInboxCollectionToInboxFilter"
     
     var inboxMessages = [InboxMessage]()
+    var chosenInboxMessage: InboxMessage!
     
     var inboxFilter: InboxFilter?
     
@@ -32,25 +34,12 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
-        let filter = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(filterAction))
-        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshButtonAction))
-        navigationItem.rightBarButtonItems = [refresh, filter]
-        
-        self.setupNotificationNewInboxMessageDelivered()
+        let filterButton = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(filterAction))
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshButtonAction))
+        navigationItem.rightBarButtonItems = [refreshButton, filterButton]
         
         self.prepareActivityIndicator()
         self.updateСollectionViewData()
-    }
-    
-    func setupNotificationNewInboxMessageDelivered() {
-        let notificationCenter = NotificationCenter.default
-        
-        notificationCenter.removeObserver(self, name: .cordialDemoNewInboxMessageDelivered, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(newInboxMessageDelivered), name: .cordialDemoNewInboxMessageDelivered, object: nil)
-    }
-
-    @objc func newInboxMessageDelivered() {
-        popupSimpleNoteAlert(title: "Inbox Message", message: "The new inbox message has been received", controller: self)
     }
     
     @objc func filterAction(_ sender: UIBarButtonItem) {
@@ -122,6 +111,20 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
+        case self.segueToInboxMessageIdentifier:
+            if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
+                
+                if !self.chosenInboxMessage.isRead {
+                    CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.chosenInboxMessage.mcID])
+                    inboxMessageViewController.isNeededInboxMessagesUpdate = true
+                } else {
+                    inboxMessageViewController.isNeededInboxMessagesUpdate = false
+                }
+                
+                CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.mcID)
+                
+                inboxMessageViewController.inboxMessage = self.chosenInboxMessage
+            }
         case self.segueToInboxFilterIdentifier:
             if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesFilterViewController {
                 inboxMessagesFilterViewController.inboxFilter = self.inboxFilter
@@ -130,7 +133,6 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
             break
         }
     }
-
 
     // MARK: UICollectionViewDataSource
     
@@ -164,6 +166,12 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
         }
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.chosenInboxMessage = self.inboxMessages[indexPath.row]
+        
+        self.performSegue(withIdentifier: self.segueToInboxMessageIdentifier, sender: self)
     }
     
     // MARK: UICollectionViewDelegateFlowLayout

@@ -15,7 +15,7 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
     
     let reuseIdentifier = "inboxMessagesTableCell"
     
-    let segueToInboxMessageIdentifier = "segueToInboxMessage"
+    let segueToInboxMessageIdentifier = "segueFromInboxTableToInboxMessage"
     let segueToInboxFilterIdentifier = "segueFromInboxTableToInboxFilter"
     
     var inboxMessages = [InboxMessage]()
@@ -36,25 +36,12 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
         
         self.tableView.tableFooterView = UIView(frame: .zero)
         
-        let filter = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(filterAction))
-        let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshButtonAction))
-        navigationItem.rightBarButtonItems = [refresh, filter]
-        
-        self.setupNotificationNewInboxMessageDelivered()
+        let filterButton = UIBarButtonItem(image: UIImage(named: "filter"), style: .plain, target: self, action: #selector(filterAction))
+        let refreshButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshButtonAction))
+        navigationItem.rightBarButtonItems = [refreshButton, filterButton]
         
         self.prepareActivityIndicator()
         self.updateTableViewData()
-    }
-    
-    func setupNotificationNewInboxMessageDelivered() {
-        let notificationCenter = NotificationCenter.default
-        
-        notificationCenter.removeObserver(self, name: .cordialDemoNewInboxMessageDelivered, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(newInboxMessageDelivered), name: .cordialDemoNewInboxMessageDelivered, object: nil)
-    }
-
-    @objc func newInboxMessageDelivered() {
-        popupSimpleNoteAlert(title: "Inbox Message", message: "The new inbox message has been received", controller: self)
     }
     
     @objc func filterAction(_ sender: UIBarButtonItem) {
@@ -127,7 +114,7 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         case self.segueToInboxMessageIdentifier:
-            if let inboxMessageViewController = segue.destination as? InboxMessageTableViewController {
+            if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
                 
                 if !self.chosenInboxMessage.isRead {
                     CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.chosenInboxMessage.mcID])

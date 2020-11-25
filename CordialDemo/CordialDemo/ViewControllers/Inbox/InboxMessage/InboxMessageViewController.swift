@@ -1,5 +1,5 @@
 //
-//  InboxMessageTableViewController.swift
+//  InboxMessageViewController.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 16.09.2020.
@@ -9,7 +9,7 @@
 import UIKit
 import CordialSDK
 
-class InboxMessageTableViewController: UIViewController {
+class InboxMessageViewController: UIViewController {
     
     @IBOutlet weak var inboxMessageContentTextView: UITextView!
     
@@ -31,8 +31,15 @@ class InboxMessageTableViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        if self.isNeededInboxMessagesUpdate, let inboxMessagesViewController = self.previousViewController as? InboxMessagesTableViewController {
-            inboxMessagesViewController.refreshTableViewData()
+        if self.isNeededInboxMessagesUpdate {
+            
+            if let inboxMessagesViewController = self.previousViewController as? InboxMessagesTableViewController {
+                inboxMessagesViewController.refreshTableViewData()
+            }
+            
+            if let inboxMessagesViewController = self.previousViewController as? InboxMessagesCollectionViewController {
+                inboxMessagesViewController.refreshCollectionViewData()
+            }
         }
     }
     

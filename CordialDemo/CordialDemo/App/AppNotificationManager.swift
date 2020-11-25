@@ -18,7 +18,7 @@ class AppNotificationManager {
     
     static let shared = AppNotificationManager()
     
-    func setupCordialSDKLogicErrorHandler() {
+    func setupCordialSDKObservers() {
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.removeObserver(self, name: .cordialSendCustomEventsLogicError, object: nil)
@@ -47,10 +47,21 @@ class AppNotificationManager {
         
     }
     
+    func setupCordialDemoObservers() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.removeObserver(self, name: .cordialDemoNewInboxMessageDelivered, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(newInboxMessageDelivered), name: .cordialDemoNewInboxMessageDelivered, object: nil)
+    }
+    
     @objc func cordialNotificationErrorHandler(notification: NSNotification) {
         if let error = notification.object as? ResponseError {
             CordialAPI().showSystemAlert(title: error.message, message: error.responseBody)
         }
+    }
+
+    @objc func newInboxMessageDelivered() {
+        CordialAPI().showSystemAlert(title: "Inbox Message", message: "The new inbox message has been received")
     }
         
 }

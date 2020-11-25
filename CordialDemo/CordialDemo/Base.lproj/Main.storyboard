@@ -396,6 +396,7 @@
                     <connections>
                         <outlet property="collectionView" destination="Lhh-ew-UpC" id="7tq-4j-ib0"/>
                         <segue destination="CnG-HZ-MFa" kind="show" identifier="segueFromInboxCollectionToInboxFilter" id="75C-Gr-WT6"/>
+                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueFromInboxCollectionToInboxMessage" id="qgl-5n-UFL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vKV-wZ-CW9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -938,7 +939,7 @@
                     <navigationItem key="navigationItem" id="WrA-v9-zhl"/>
                     <connections>
                         <outlet property="tableView" destination="jrf-jM-J5p" id="8pD-9T-h26"/>
-                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueToInboxMessage" id="s5i-HI-zGc"/>
+                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueFromInboxTableToInboxMessage" id="s5i-HI-zGc"/>
                         <segue destination="CnG-HZ-MFa" kind="show" identifier="segueFromInboxTableToInboxFilter" id="h0i-X5-r8G"/>
                     </connections>
                 </viewController>
@@ -946,10 +947,10 @@
             </objects>
             <point key="canvasLocation" x="2644" y="-1384"/>
         </scene>
-        <!--Inbox Message Table View Controller-->
+        <!--Inbox Message View Controller-->
         <scene sceneID="Obf-0D-p0a">
             <objects>
-                <viewController id="uvD-dl-1b0" customClass="InboxMessageTableViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="uvD-dl-1b0" customClass="InboxMessageViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pVP-4p-F1r">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1749,7 +1750,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="h0i-X5-r8G"/>
+        <segue reference="qgl-5n-UFL"/>
+        <segue reference="75C-Gr-WT6"/>
         <segue reference="AlP-xG-MIL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.25567400455474854" green="0.42760902643203735" blue="0.56480115652084351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
