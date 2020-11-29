@@ -1,5 +1,5 @@
 //
-//  InboxMessagesCollectionViewController.swift
+//  InboxMessagesCollectionCardsViewController.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 23.11.2020.
@@ -9,14 +9,14 @@
 import UIKit
 import CordialSDK
 
-class InboxMessagesCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class InboxMessagesCollectionCardsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    let reuseIdentifier = "inboxMessagesCollectionCell"
+    let reuseIdentifier = "inboxMessagesCollectionCardsCell"
     
-    let segueToInboxMessageIdentifier = "segueFromInboxCollectionToInboxMessage"
-    let segueToInboxFilterIdentifier = "segueFromInboxCollectionToInboxFilter"
+    let segueToInboxMessageIdentifier = "segueFromInboxCollectionCardsToInboxMessage"
+    let segueToInboxFilterIdentifier = "segueFromInboxCollectionCardsToInboxFilter"
     
     var inboxMessages = [InboxMessage]()
     var chosenInboxMessage: InboxMessage!
@@ -141,7 +141,7 @@ class InboxMessagesCollectionViewController: UIViewController, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesCollectionCardsViewCell
         
         let inboxMessage = self.inboxMessages[indexPath.row]
         

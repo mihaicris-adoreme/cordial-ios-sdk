@@ -13,7 +13,7 @@ class InboxMessagesTableRawViewController: UIViewController, UITableViewDelegate
 
     @IBOutlet weak var tableView: UITableView!
     
-    let reuseIdentifier = "inboxMessagesTableCell"
+    let reuseIdentifier = "inboxMessagesTableRawCell"
     
     let segueToInboxMessageIdentifier = "segueFromInboxTableRawToInboxMessage"
     let segueToInboxFilterIdentifier = "segueFromInboxTableRawToInboxFilter"
