@@ -1,5 +1,5 @@
 //
-//  InboxMessagesTableViewController.swift
+//  InboxMessagesTableRawViewController.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 15.09.2020.
@@ -9,14 +9,14 @@
 import UIKit
 import CordialSDK
 
-class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class InboxMessagesTableRawViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
     let reuseIdentifier = "inboxMessagesTableCell"
     
-    let segueToInboxMessageIdentifier = "segueFromInboxTableToInboxMessage"
-    let segueToInboxFilterIdentifier = "segueFromInboxTableToInboxFilter"
+    let segueToInboxMessageIdentifier = "segueFromInboxTableRawToInboxMessage"
+    let segueToInboxFilterIdentifier = "segueFromInboxTableRawToInboxFilter"
     
     var inboxMessages = [InboxMessage]()
     var chosenInboxMessage: InboxMessage!
@@ -143,7 +143,7 @@ class InboxMessagesTableViewController: UIViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesTableRawViewCell
         
         let inboxMessage = self.inboxMessages[indexPath.row]
         

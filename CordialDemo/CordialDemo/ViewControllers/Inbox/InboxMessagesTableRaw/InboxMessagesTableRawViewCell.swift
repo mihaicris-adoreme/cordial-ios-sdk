@@ -1,5 +1,5 @@
 //
-//  InboxMessagesTableViewCell.swift
+//  InboxMessagesTableRawViewCell.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 15.09.2020.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InboxMessagesTableViewCell: UITableViewCell {
+class InboxMessagesTableRawViewCell: UITableViewCell {
 
     @IBOutlet weak var timestampLabel: UILabel!
 

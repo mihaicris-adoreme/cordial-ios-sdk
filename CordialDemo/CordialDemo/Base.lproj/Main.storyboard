@@ -931,10 +931,10 @@
             </objects>
             <point key="canvasLocation" x="2644" y="-2138"/>
         </scene>
-        <!--Inbox Messages Table View Controller-->
+        <!--Inbox Messages Table Raw View Controller-->
         <scene sceneID="4x6-EM-US8">
             <objects>
-                <viewController id="55x-1y-73y" customClass="InboxMessagesTableViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="55x-1y-73y" customClass="InboxMessagesTableRawViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yis-gc-baG">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -943,7 +943,7 @@
                                 <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inboxMessagesTableCell" id="pLT-eV-nuN" customClass="InboxMessagesTableViewCell" customModule="CordialDemo" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inboxMessagesTableCell" id="pLT-eV-nuN" customClass="InboxMessagesTableRawViewCell" customModule="CordialDemo" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="58.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pLT-eV-nuN" id="76H-Rh-xeW">
@@ -983,8 +983,8 @@
                     <navigationItem key="navigationItem" id="WrA-v9-zhl"/>
                     <connections>
                         <outlet property="tableView" destination="jrf-jM-J5p" id="8pD-9T-h26"/>
-                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueFromInboxTableToInboxMessage" id="s5i-HI-zGc"/>
-                        <segue destination="CnG-HZ-MFa" kind="show" identifier="segueFromInboxTableToInboxFilter" id="h0i-X5-r8G"/>
+                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueFromInboxTableRawToInboxMessage" id="s5i-HI-zGc"/>
+                        <segue destination="CnG-HZ-MFa" kind="show" identifier="segueFromInboxTableRawToInboxFilter" id="h0i-X5-r8G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIc-pT-AUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

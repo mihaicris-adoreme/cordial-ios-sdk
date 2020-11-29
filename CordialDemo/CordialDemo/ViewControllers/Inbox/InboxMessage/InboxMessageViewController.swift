@@ -41,7 +41,7 @@ class InboxMessageViewController: UIViewController {
                 inboxMessagesViewController.refreshCollectionViewData()
             }
             
-            if let inboxMessagesViewController = self.previousViewController as? InboxMessagesTableViewController {
+            if let inboxMessagesViewController = self.previousViewController as? InboxMessagesTableRawViewController {
                 inboxMessagesViewController.refreshTableViewData()
             }
         }
