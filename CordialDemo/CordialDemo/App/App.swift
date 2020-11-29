@@ -90,7 +90,16 @@ extension UIImageView {
                 print("Image is absent by the URL")
             }
         }.resume()
-    }}
+    }
+    
+    func roundImage(borderWidth: CGFloat, borderColor: UIColor) {
+        self.layer.borderWidth = borderWidth
+        self.layer.masksToBounds = false
+        self.layer.borderColor = borderColor.cgColor
+        self.layer.cornerRadius = self.frame.height / 2
+        self.clipsToBounds = true
+    }
+}
 
 func popupSimpleNoteAlert(title: String?, message: String?, controller: UIViewController) {
     DispatchQueue.main.async {

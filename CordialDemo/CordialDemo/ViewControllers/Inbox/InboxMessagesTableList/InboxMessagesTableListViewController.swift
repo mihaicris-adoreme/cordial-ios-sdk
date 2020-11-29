@@ -147,12 +147,38 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
         
         let inboxMessage = self.inboxMessages[indexPath.row]
         
-//        cell.timestampLabel.text = AppDateFormatter().getTimestampFromDate(date: inboxMessage.sentAt)
-        
-        if inboxMessage.isRead {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
+        do {
+            if let inboxMessageMetadataData = inboxMessage.metadata.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
+                
+                if let image = inboxMessageMetadataJSON["url"], let imageURL = URL(string: image) {
+                    cell.imagePreview.asyncImage(url: imageURL)
+                    cell.imagePreview.roundImage(borderWidth: 2, borderColor: UIColor.lightGray)
+                    cell.imagePreview.contentMode = .scaleAspectFill
+                }
+                
+                cell.titleLabel.text = inboxMessageMetadataJSON["title"]
+                cell.subtitleLabel.text = inboxMessageMetadataJSON["subtitle"]
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMM d"
+                
+                cell.timestampLabel.text = dateFormatter.string(from: inboxMessage.sentAt)
+                
+                if inboxMessage.isRead {
+                    cell.titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+                    cell.subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+                    cell.timestampLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+                } else {
+                    cell.titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
+                    cell.subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
+                    cell.timestampLabel.font = UIFont.systemFont(ofSize: 13, weight: .light)
+                }
+                
+            } else {
+                popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID)", controller: self)
+            }
+        } catch let error {
+            popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID) Error: \(error.localizedDescription)", controller: self)
         }
         
         return cell
