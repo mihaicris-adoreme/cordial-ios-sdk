@@ -21,6 +21,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToProfileIdentifier = "segueToProfile"
     let segueToCustomEventIdentifier = "segueToCustomEvent"
     let segueToInboxTableIdentifier = "segueToInboxTable"
+    let segueToInboxTableListIdentifier = "segueToInboxTableList"
     let segueToInboxCollectionIdentifier = "segueToInboxCollection"
     
     let catalogName = "Mens"

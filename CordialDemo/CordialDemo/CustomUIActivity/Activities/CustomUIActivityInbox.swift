@@ -42,13 +42,18 @@ class CustomUIActivityInbox: UIActivity {
             
             let alert = UIAlertController(title: "Inbox", message: "Please select the view", preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "Table", style: .default) { action in
-                let identifier = catalogCollectionViewController.segueToInboxTableIdentifier
+            alert.addAction(UIAlertAction(title: "List", style: .default) { action in
+                let identifier = catalogCollectionViewController.segueToInboxTableListIdentifier
                 catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
             })
             
-            alert.addAction(UIAlertAction(title: "Collection", style: .default) { action in
+            alert.addAction(UIAlertAction(title: "Cards", style: .default) { action in
                 let identifier = catalogCollectionViewController.segueToInboxCollectionIdentifier
+                catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
+            })
+            
+            alert.addAction(UIAlertAction(title: "Raw", style: .default) { action in
+                let identifier = catalogCollectionViewController.segueToInboxTableIdentifier
                 catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
             })
             

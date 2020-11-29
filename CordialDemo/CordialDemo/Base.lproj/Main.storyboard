@@ -316,6 +316,49 @@
             </objects>
             <point key="canvasLocation" x="140.57971014492756" y="888.58695652173924"/>
         </scene>
+        <!--Inbox Messages Table List View Controller-->
+        <scene sceneID="T7M-Kf-kFu">
+            <objects>
+                <viewController id="1GM-d5-H2X" customClass="InboxMessagesTableListViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="rwg-g8-qcv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E7i-dT-2CB">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="inboxMessagesTableListCell" id="YWc-K4-tpZ" customClass="InboxMessagesTableListViewCell" customModule="CordialDemo" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="320" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YWc-K4-tpZ" id="06j-Pd-Quw">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="xs1-t2-BJq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="E7i-dT-2CB" firstAttribute="bottom" secondItem="xs1-t2-BJq" secondAttribute="bottom" id="AH7-Fu-h1L"/>
+                            <constraint firstItem="E7i-dT-2CB" firstAttribute="top" secondItem="xs1-t2-BJq" secondAttribute="top" id="rFA-Ew-8aC"/>
+                            <constraint firstItem="E7i-dT-2CB" firstAttribute="trailing" secondItem="xs1-t2-BJq" secondAttribute="trailing" id="tS6-JU-Wdd"/>
+                            <constraint firstItem="E7i-dT-2CB" firstAttribute="leading" secondItem="xs1-t2-BJq" secondAttribute="leading" id="ypR-5V-mDe"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Re2-8d-apd"/>
+                    <connections>
+                        <outlet property="tableView" destination="E7i-dT-2CB" id="fVq-lA-ALT"/>
+                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueFromInboxTableListToInboxMessage" id="Y7Z-D7-M5p"/>
+                        <segue destination="CnG-HZ-MFa" kind="show" identifier="segueFromInboxTableListToInboxFilter" id="JcU-il-0pm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2wL-FO-fDt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="952.5" y="-2138.0281690140846"/>
+        </scene>
         <!--Inbox Messages Collection View Controller-->
         <scene sceneID="36O-pU-vU8">
             <objects>
@@ -401,7 +444,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vKV-wZ-CW9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="953" y="-630"/>
+            <point key="canvasLocation" x="953" y="-1406"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4Y4-lb-RqM">
@@ -523,6 +566,7 @@
                         <segue destination="VjT-ne-evL" kind="show" identifier="segueToCustomEvent" id="grd-Xe-nVj"/>
                         <segue destination="55x-1y-73y" kind="show" identifier="segueToInboxTable" id="IvU-zN-3Ts"/>
                         <segue destination="GOw-pz-0e3" kind="show" identifier="segueToInboxCollection" id="MAf-P6-8Od"/>
+                        <segue destination="1GM-d5-H2X" kind="show" identifier="segueToInboxTableList" id="U4e-MT-WJc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjF-Ku-Fu9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -885,7 +929,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUU-4P-D9T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1766" y="-1385"/>
+            <point key="canvasLocation" x="2644" y="-2138"/>
         </scene>
         <!--Inbox Messages Table View Controller-->
         <scene sceneID="4x6-EM-US8">
@@ -945,7 +989,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIc-pT-AUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2644" y="-1384"/>
+            <point key="canvasLocation" x="953" y="-632"/>
         </scene>
         <!--Inbox Message View Controller-->
         <scene sceneID="Obf-0D-p0a">
@@ -979,7 +1023,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i4L-pS-UbI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1764" y="-630"/>
+            <point key="canvasLocation" x="2646" y="-1405"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="0Hs-AQ-9Zi">
@@ -1750,8 +1794,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qgl-5n-UFL"/>
-        <segue reference="75C-Gr-WT6"/>
+        <segue reference="Y7Z-D7-M5p"/>
+        <segue reference="JcU-il-0pm"/>
         <segue reference="AlP-xG-MIL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.25567400455474854" green="0.42760902643203735" blue="0.56480115652084351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

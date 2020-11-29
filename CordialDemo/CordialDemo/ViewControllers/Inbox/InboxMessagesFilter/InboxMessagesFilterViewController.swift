@@ -36,7 +36,7 @@ class InboxMessagesFilterViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         if self.isNeededInboxMessagesUpdate {
             
-            if let inboxMessagesViewController = self.previousViewController as? InboxMessagesTableViewController {
+            if let inboxMessagesViewController = self.previousViewController as? InboxMessagesTableListViewController {
                 inboxMessagesViewController.inboxFilter = self.inboxFilter
                 inboxMessagesViewController.refreshTableViewData()
             }
@@ -44,6 +44,11 @@ class InboxMessagesFilterViewController: UIViewController {
             if let inboxMessagesViewController = self.previousViewController as? InboxMessagesCollectionViewController {
                 inboxMessagesViewController.inboxFilter = self.inboxFilter
                 inboxMessagesViewController.refreshCollectionViewData()
+            }
+            
+            if let inboxMessagesViewController = self.previousViewController as? InboxMessagesTableViewController {
+                inboxMessagesViewController.inboxFilter = self.inboxFilter
+                inboxMessagesViewController.refreshTableViewData()
             }
         }
     }

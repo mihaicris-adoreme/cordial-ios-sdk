@@ -14,6 +14,8 @@
 		9E005F5F24297D2700425C5B /* AttributeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E005F5E24297D2700425C5B /* AttributeType.swift */; };
 		9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00ED3C227084E400684F40 /* CartTableFooterView.swift */; };
 		9E00ED3F227084ED00684F40 /* CartTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E00ED3E227084ED00684F40 /* CartTableFooterView.xib */; };
+		9E0F46F22573DC0800E2FA95 /* InboxMessagesTableListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F46F12573DC0800E2FA95 /* InboxMessagesTableListViewController.swift */; };
+		9E0F46FA2573DC4800E2FA95 /* InboxMessagesTableListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F46F92573DC4800E2FA95 /* InboxMessagesTableListViewCell.swift */; };
 		9E1EB37C241DACDA004CAD90 /* CartCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB37B241DACDA004CAD90 /* CartCoreData.swift */; };
 		9E1EB39A241DC199004CAD90 /* AttributesCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB399241DC199004CAD90 /* AttributesCoreData.swift */; };
 		9E1EB39C241DC61E004CAD90 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB39B241DC61E004CAD90 /* Attribute.swift */; };
@@ -138,6 +140,8 @@
 		9E005F5E24297D2700425C5B /* AttributeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeType.swift; sourceTree = "<group>"; };
 		9E00ED3C227084E400684F40 /* CartTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableFooterView.swift; sourceTree = "<group>"; };
 		9E00ED3E227084ED00684F40 /* CartTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CartTableFooterView.xib; sourceTree = "<group>"; };
+		9E0F46F12573DC0800E2FA95 /* InboxMessagesTableListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableListViewController.swift; sourceTree = "<group>"; };
+		9E0F46F92573DC4800E2FA95 /* InboxMessagesTableListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableListViewCell.swift; sourceTree = "<group>"; };
 		9E115532224E541A00CEF9FB /* CordialDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CordialDemo.entitlements; sourceTree = "<group>"; };
 		9E1EB37B241DACDA004CAD90 /* CartCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCoreData.swift; sourceTree = "<group>"; };
 		9E1EB399241DC199004CAD90 /* AttributesCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesCoreData.swift; sourceTree = "<group>"; };
@@ -270,6 +274,15 @@
 				9E00ED3E227084ED00684F40 /* CartTableFooterView.xib */,
 			);
 			path = Footer;
+			sourceTree = "<group>";
+		};
+		9E0F46F02573DBD300E2FA95 /* InboxMessagesTableList */ = {
+			isa = PBXGroup;
+			children = (
+				9E0F46F12573DC0800E2FA95 /* InboxMessagesTableListViewController.swift */,
+				9E0F46F92573DC4800E2FA95 /* InboxMessagesTableListViewCell.swift */,
+			);
+			path = InboxMessagesTableList;
 			sourceTree = "<group>";
 		};
 		9E1EB37A241DACB5004CAD90 /* Helper */ = {
@@ -463,6 +476,7 @@
 				9E8F1B482511800A00B90139 /* InboxMessage */,
 				9EB0058E253E5E9900156E8E /* InboxMessagesFilter */,
 				9E7F28F0256BEA1E006D3BED /* InboxMessagesTable */,
+				9E0F46F02573DBD300E2FA95 /* InboxMessagesTableList */,
 				9E7F28F7256BEAF1006D3BED /* InboxMessagesCollection */,
 			);
 			path = Inbox;
@@ -993,6 +1007,7 @@
 				9E1EB39A241DC199004CAD90 /* AttributesCoreData.swift in Sources */,
 				9E005F5924296DD500425C5B /* AttributesGeoCoreData.swift in Sources */,
 				9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */,
+				9E0F46FA2573DC4800E2FA95 /* InboxMessagesTableListViewCell.swift in Sources */,
 				9E7F2917256BF3B1006D3BED /* InboxMessagesCollectionViewController.swift in Sources */,
 				9E45FE7622537648006A5A6B /* PushNotificationHandler.swift in Sources */,
 				9EA5F53A244F67A000BF685C /* CustomUIActivityProfile.swift in Sources */,
@@ -1009,6 +1024,7 @@
 				9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
 				9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */,
+				9E0F46F22573DC0800E2FA95 /* InboxMessagesTableListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
