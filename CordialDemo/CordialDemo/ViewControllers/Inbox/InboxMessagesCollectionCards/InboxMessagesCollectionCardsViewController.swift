@@ -42,12 +42,6 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
         self.updateСollectionViewData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.collectionView.backgroundView = UIView()
-        
-        self.collectionView.backgroundView?.gradientView(size: CGSize(width: self.collectionView.frame.size.width, height: self.collectionView.frame.size.height), fromColor: UIColor.white, toColor: UIColor.lightGray)
-    }
-    
     @objc func filterAction(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: self.segueToInboxFilterIdentifier, sender: self)
     }
@@ -148,8 +142,6 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesCollectionCardsViewCell
-        
-        cell.cardView.gradientView(size: CGSize(width: cell.frame.size.width, height: cell.frame.size.height), fromColor: UIColor.white, toColor: UIColor.lightGray)
         
         let inboxMessage = self.inboxMessages[indexPath.row]
         

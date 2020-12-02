@@ -493,7 +493,6 @@
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="320" height="240"/>
                                         <connections>
-                                            <outlet property="cardView" destination="Euk-EH-zgi" id="dWn-Qh-Srq"/>
                                             <outlet property="imageView" destination="10M-lh-Btw" id="ao4-yH-utz"/>
                                             <outlet property="subtitleLabel" destination="4hq-KM-e1o" id="OVs-hj-g2q"/>
                                             <outlet property="titleLabel" destination="XyI-MS-OHQ" id="vUT-oU-u06"/>

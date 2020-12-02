@@ -101,20 +101,6 @@ extension UIImageView {
     }
 }
 
-extension UIView {
-    func gradientView(size: CGSize, fromColor: UIColor, toColor: UIColor) {
-        let gradient: CAGradientLayer = CAGradientLayer()
-        
-        gradient.colors = [fromColor.cgColor, toColor.cgColor]
-        gradient.locations = [0.0 , 1.0]
-        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
-        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-        gradient.frame = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
-
-        self.layer.insertSublayer(gradient, at: 0)
-    }
-}
-
 func popupSimpleNoteAlert(title: String?, message: String?, controller: UIViewController) {
     DispatchQueue.main.async {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
