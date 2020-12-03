@@ -16,7 +16,11 @@ import Foundation
     
     // MARK: Request Sender Init
     
-    @objc public var requestSender = RequestSender()
+    var requestSender = RequestSender()
+    
+    // MARK: Network Client Init
+    
+    var inboxMessagesURLSession = InboxMessagesURLSession().session
     
     // MARK: Get Custom Event JSON
     

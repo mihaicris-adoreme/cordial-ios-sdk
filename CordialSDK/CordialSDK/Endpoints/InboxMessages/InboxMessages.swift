@@ -9,16 +9,7 @@
 import Foundation
 import os.log
 
-class InboxMessages: NSObject, URLSessionDelegate {
-        
-    // MARK: URLSessionDelegate
-    
-    private lazy var inboxMessagesURLSession: URLSession = {
-        let config = URLSessionConfiguration.default
-        config.isDiscretionary = false
-        config.sessionSendsLaunchEvents = true
-        return URLSession(configuration: config, delegate: self, delegateQueue: nil)
-    }()
+class InboxMessages {
     
     func getInboxMessages(pageRequest: PageRequest, inboxFilter: InboxFilter?, contactKey: String, onSuccess: @escaping (_ response: InboxPage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         
@@ -29,7 +20,9 @@ class InboxMessages: NSObject, URLSessionDelegate {
             
             if let url = urlComponents.url {
                 let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
-                self.inboxMessagesURLSession.dataTask(with: request) { data, response, error in
+                
+                let networkClient = NetworkClient(session: DependencyConfiguration.shared.inboxMessagesURLSession)
+                networkClient.session.dataTask(with: request) { data, response, error in
                     if let error = error {
                         onFailure("Fetching inbox messages failed. Error: [\(error.localizedDescription)]")
                         return

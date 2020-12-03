@@ -23,6 +23,7 @@ class CordialSDKTests: XCTestCase {
     var testSilentAndPushNotifications = String()
     let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
     let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
+    var testInboxMessagesPayload = String()
     
     override func setUp() {
         self.testCase.clearAllTestCaseData()
@@ -82,6 +83,31 @@ class CordialSDKTests: XCTestCase {
                     "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
                 },
                 "mcID": "\(self.testMcId)"
+            }
+        """
+        
+        self.testInboxMessagesPayload = """
+            {
+                "currentPage": 1,
+                "lastPage": 1,
+                "perPage": 10,
+                "total": 1,
+                "success": true,
+                "messages": [
+                    {
+                        "_id": "\(self.testMcId)",
+                        "url": "https://cordial.com/",
+                        "urlExpireAt": "\(CordialDateFormatter().getCurrentTimestamp())",
+                        "read": true,
+                        "sentAt": "\(CordialDateFormatter().getCurrentTimestamp())",
+                        "metadata":
+                            {
+                                "title": "Title",
+                                "subtitle": "Subtitle",
+                                "url": "https://cordial.com/"
+                            }
+                    }
+                ]
             }
         """
     }
@@ -1211,5 +1237,33 @@ class CordialSDKTests: XCTestCase {
         }
 
         wait(for: [expectation], timeout: 3)
+    }
+        
+    func testInboxMessages() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        if let testPushNotificationData = self.testInboxMessagesPayload.data(using: .utf8),
+           let url = URL(string: "https://cordial.com/") {
+            
+            let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSession = MockURLSession(completionHandler: (testPushNotificationData, response, nil))
+            let mockNetworkClient = NetworkClient(session: mockSession)
+            
+            DependencyConfiguration.shared.inboxMessagesURLSession = mockNetworkClient.session
+            
+            let pageRequest = PageRequest(page: 1, size: 10)
+            CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: nil, onSuccess: { inboxPage in
+                if inboxPage.content.count == 1 {
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+            }, onFailure: { error in
+                XCTAssert(false, error)
+            })
+        }
     }
 }
