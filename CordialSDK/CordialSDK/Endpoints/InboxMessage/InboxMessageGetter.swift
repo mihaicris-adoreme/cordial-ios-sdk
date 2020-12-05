@@ -9,16 +9,7 @@
 import Foundation
 import os.log
 
-class InboxMessageGetter: NSObject, URLSessionDelegate {
-    
-    // MARK: URLSessionDelegate
-    
-    private lazy var inboxMessageURLSession: URLSession = {
-        let config = URLSessionConfiguration.default
-        config.isDiscretionary = false
-        config.sessionSendsLaunchEvents = true
-        return URLSession(configuration: config, delegate: self, delegateQueue: nil)
-    }()
+class InboxMessageGetter {
     
     func fetchInboxMessage(contactKey: String, mcID: String, onSuccess: @escaping (_ response: InboxMessage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         
@@ -61,7 +52,8 @@ class InboxMessageGetter: NSObject, URLSessionDelegate {
         if let url = URL(string: CordialApiEndpoints().getInboxMessageURL(contactKey: contactKey, mcID: mcID)) {
             let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
             
-            self.inboxMessageURLSession.dataTask(with: request) { data, response, error in
+            let networkClient = NetworkClient(session: DependencyConfiguration.shared.inboxMessageURLSession)
+            networkClient.session.dataTask(with: request) { data, response, error in
                 if let error = error {
                     onFailure("Fetching single inbox message failed. Error: [\(error.localizedDescription)]")
                     return

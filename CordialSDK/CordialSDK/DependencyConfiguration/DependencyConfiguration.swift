@@ -21,6 +21,7 @@ import Foundation
     // MARK: Network Client Init
     
     var inboxMessagesURLSession = InboxMessagesURLSession().session
+    var inboxMessageURLSession = InboxMessageURLSession().session
     
     // MARK: Get Custom Event JSON
     

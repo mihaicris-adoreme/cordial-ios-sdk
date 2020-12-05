@@ -1014,8 +1014,8 @@ class CordialSDKTests: XCTestCase {
 
         let testSilentAndPushNotifications = self.testSilentAndPushNotifications.replacingOccurrences(of: "show-in-app", with: "hide-in-app")
 
-        if let testSilentNotificationData = testSilentAndPushNotifications.data(using: .utf8),
-            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testSilentAndPushNotificationsData = testSilentAndPushNotifications.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentAndPushNotificationsData, options: []) as? [AnyHashable : Any] {
 
             if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
@@ -1239,17 +1239,17 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
         
-    func testInboxMessages() {
+    func testFetchInboxMessages() {
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        if let testPushNotificationData = self.testInboxMessagesPayload.data(using: .utf8),
+        if let testInboxMessagesPayloadData = self.testInboxMessagesPayload.data(using: .utf8),
            let url = URL(string: "https://cordial.com/") {
             
             let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
-            let mockSession = MockURLSession(completionHandler: (testPushNotificationData, response, nil))
+            let mockSession = MockURLSession(completionHandler: (testInboxMessagesPayloadData, response, nil))
             let mockNetworkClient = NetworkClient(session: mockSession)
             
             DependencyConfiguration.shared.inboxMessagesURLSession = mockNetworkClient.session
