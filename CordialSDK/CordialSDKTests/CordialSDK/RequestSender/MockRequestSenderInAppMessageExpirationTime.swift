@@ -17,7 +17,7 @@ class MockRequestSenderInAppMessageExpirationTime: RequestSender {
     
     override func sendRequest(task: URLSessionDownloadTask) {
         
-        if let inAppMessageURL = self.sdkTests.testCase.getInAppMessageURL(mcID: self.sdkTests.testMcId),
+        if let inAppMessageURL = self.sdkTests.testCase.getInAppMessageURL(mcID: self.sdkTests.testMcID),
             let inAppMessageRequestURL = task.originalRequest?.url,
             inAppMessageURL == inAppMessageRequestURL {
             

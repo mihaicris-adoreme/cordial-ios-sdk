@@ -14,16 +14,18 @@ class CordialSDKTests: XCTestCase {
     let cordialAPI = CordialAPI()
     let testCase = TestCase()
     
+    let validStringURL = "https://cordial.com/"
     let testDeviceToken = "ffa29a48a76025c0ff73a2cb2a6ad50266114c03b3f612e824d61be7c9a0f4cb"
     let testPrimaryKey = "test_primary_key@gmail.com"
     let testJWT = "testJWT"
-    let testMcId = "test_mc_id"
+    let testMcID = "test_mc_id"
     var testPushNotification = String()
     var testSilentNotification = String()
     var testSilentAndPushNotifications = String()
     let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
     let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
     var testInboxMessagesPayload = String()
+    var testInboxMessagePayload = String()
     
     override func setUp() {
         self.testCase.clearAllTestCaseData()
@@ -45,7 +47,7 @@ class CordialSDKTests: XCTestCase {
                     "url": "\(self.testDeepLinkURL)",
                     "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
                 },
-                "mcID": "\(self.testMcId)"
+                "mcID": "\(self.testMcID)"
             }
         """
         
@@ -61,7 +63,7 @@ class CordialSDKTests: XCTestCase {
                         "inactiveSessionDisplay": "show-in-app"
                     }
                 },
-                "mcID": "\(self.testMcId)"
+                "mcID": "\(self.testMcID)"
             }
         """
         
@@ -82,7 +84,7 @@ class CordialSDKTests: XCTestCase {
                     "url": "\(self.testDeepLinkURL)",
                     "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
                 },
-                "mcID": "\(self.testMcId)"
+                "mcID": "\(self.testMcID)"
             }
         """
         
@@ -95,8 +97,8 @@ class CordialSDKTests: XCTestCase {
                 "success": true,
                 "messages": [
                     {
-                        "_id": "\(self.testMcId)",
-                        "url": "https://cordial.com/",
+                        "_id": "\(self.testMcID)",
+                        "url": "\(self.validStringURL)",
                         "urlExpireAt": "\(CordialDateFormatter().getCurrentTimestamp())",
                         "read": true,
                         "sentAt": "\(CordialDateFormatter().getCurrentTimestamp())",
@@ -104,10 +106,29 @@ class CordialSDKTests: XCTestCase {
                             {
                                 "title": "Title",
                                 "subtitle": "Subtitle",
-                                "url": "https://cordial.com/"
+                                "url": "\(self.validStringURL)"
                             }
                     }
                 ]
+            }
+        """
+        
+        self.testInboxMessagePayload = """
+            {
+                "success": true,
+                "message": 
+                    {
+                        "url": "\(self.validStringURL)",
+                        "urlExpireAt": "\(CordialDateFormatter().getCurrentTimestamp())",
+                        "read": true,
+                        "sentAt": "\(CordialDateFormatter().getCurrentTimestamp())",
+                        "metadata":
+                            {
+                                "title": "Title",
+                                "subtitle": "Subtitle",
+                                "url": "\(self.validStringURL)"
+                            }
+                    }
             }
         """
     }
@@ -379,7 +400,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        InternalCordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
@@ -396,7 +417,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        InternalCordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: nil)
         
@@ -414,7 +435,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        InternalCordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
@@ -432,7 +453,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        InternalCordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: nil)
         
@@ -450,7 +471,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        InternalCordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: "new_\(self.testPrimaryKey)")
         
@@ -908,7 +929,7 @@ class CordialSDKTests: XCTestCase {
             
             if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
-                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcId)
+                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcID)
             }
         }
         
@@ -944,16 +965,16 @@ class CordialSDKTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let testMcId_2 = "\(self.testMcId)_2"
+            let testMcID_2 = "\(self.testMcID)_2"
             
-            let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: self.testMcId, with: testMcId_2)
+            let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: self.testMcID, with: testMcID_2)
             
             if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
                 let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
 
                 if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                     InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
-                    CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: testMcId_2)
+                    CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: testMcID_2)
                 }
             }
 
@@ -1019,16 +1040,16 @@ class CordialSDKTests: XCTestCase {
 
             if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
-                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcId)
+                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcID)
                 
-                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcId), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
+                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     
-                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: self.testMcId)
+                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: self.testMcID)
                 }
             }
         }
 
-        if CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcId) == nil {
+        if CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcID) == nil {
             XCTAssert(true, "IAM has been removed successfully")
         } else {
             XCTAssert(false, "IAM has not been removed")
@@ -1238,15 +1259,15 @@ class CordialSDKTests: XCTestCase {
 
         wait(for: [expectation], timeout: 3)
     }
-        
-    func testFetchInboxMessages() {
+            
+    func testInboxMessagesCache() {
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
         if let testInboxMessagesPayloadData = self.testInboxMessagesPayload.data(using: .utf8),
-           let url = URL(string: "https://cordial.com/") {
+           let url = URL(string: "\(self.validStringURL)") {
             
             let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             let mockSession = MockURLSession(completionHandler: (testInboxMessagesPayloadData, response, nil))
@@ -1256,11 +1277,37 @@ class CordialSDKTests: XCTestCase {
             
             let pageRequest = PageRequest(page: 1, size: 10)
             CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: nil, onSuccess: { inboxPage in
-                if inboxPage.content.count == 1 {
+                if inboxPage.content.count == 1,
+                   let inboxMessage = inboxPage.content.first,
+                   CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
+
                     XCTAssert(true)
                 } else {
                     XCTAssert(false)
                 }
+            }, onFailure: { error in
+                XCTAssert(false, error)
+            })
+        }
+    }
+    
+    func testInboxMessageCache() {
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+
+        if let testInboxMessagesPayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let url = URL(string: "\(self.validStringURL)") {
+
+            let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSession = MockURLSession(completionHandler: (testInboxMessagesPayloadData, response, nil))
+            let mockNetworkClient = NetworkClient(session: mockSession)
+
+            DependencyConfiguration.shared.inboxMessageURLSession = mockNetworkClient.session
+
+            CordialInboxMessageAPI().fetchInboxMessage(mcID: "\(self.testMcID)", onSuccess: { inboxMessage in
+                XCTAssert(true)
             }, onFailure: { error in
                 XCTAssert(false, error)
             })

@@ -23,7 +23,7 @@ class MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink: RequestSend
                 let jsonDicrionary = json as! [String: String]
                 
                 if jsonDicrionary["event"] == self.sdkTests.testCase.getEventNameDeepLinkOpen() {
-                    XCTAssertEqual(jsonDicrionary["mcID"], self.sdkTests.testMcId, "mcIDs don't match")
+                    XCTAssertEqual(jsonDicrionary["mcID"], self.sdkTests.testMcID, "mcIDs don't match")
                     
                     self.isVerified = true
                 }
