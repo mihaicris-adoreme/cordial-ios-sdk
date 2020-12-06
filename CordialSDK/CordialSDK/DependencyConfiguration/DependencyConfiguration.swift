@@ -22,6 +22,7 @@ import Foundation
     
     var inboxMessagesURLSession = InboxMessagesURLSession().session
     var inboxMessageURLSession = InboxMessageURLSession().session
+    var inboxMessageContentURLSession = InboxMessageContentURLSession().session
     
     // MARK: Get Custom Event JSON
     

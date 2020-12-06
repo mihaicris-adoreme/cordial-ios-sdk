@@ -9,22 +9,13 @@
 import Foundation
 import os.log
 
-class InboxMessageContentGetter: NSObject, URLSessionDelegate {
+class InboxMessageContentGetter {
     
     static let shared = InboxMessageContentGetter()
     
+    private init() {}
+    
     var is403StatusReceived = false
-    
-    private override init() {}
-    
-    // MARK: URLSessionDelegate
-    
-    private lazy var inboxMessageContentURLSession: URLSession = {
-        let config = URLSessionConfiguration.default
-        config.isDiscretionary = false
-        config.sessionSendsLaunchEvents = true
-        return URLSession(configuration: config, delegate: self, delegateQueue: nil)
-    }()
     
     func fetchInboxMessageContent(url: URL, mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         
@@ -59,7 +50,8 @@ class InboxMessageContentGetter: NSObject, URLSessionDelegate {
     private func getInboxMessageContent(url: URL, mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         let request = CordialRequestFactory().getBaseURLRequest(url: url, httpMethod: .GET)
         
-        self.inboxMessageContentURLSession.dataTask(with: request) { data, response, error in
+        let networkClient = NetworkClient(session: DependencyConfiguration.shared.inboxMessageContentURLSession)
+        networkClient.session.dataTask(with: request) { data, response, error in
             if let error = error {
                 onFailure("Fetching inbox message content failed. Error: [\(error.localizedDescription)]")
                 return
