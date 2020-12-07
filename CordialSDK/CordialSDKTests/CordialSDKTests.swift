@@ -26,7 +26,7 @@ class CordialSDKTests: XCTestCase {
     let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
     var testInboxMessagesPayload = String()
     var testInboxMessagePayload = String()
-    var testInboxMessageContentPayload = "<h1>Hello Cordial!</h1>"
+    var testInboxMessageContentPayload = "Cordial"
     
     override func setUp() {
         self.testCase.clearAllTestCaseData()
@@ -114,10 +114,14 @@ class CordialSDKTests: XCTestCase {
             }
         """
         
-        self.testInboxMessagePayload = """
+        self.testInboxMessagePayload = self.getTestInboxMessagePayload()
+    }
+    
+    private func getTestInboxMessagePayload() -> String {
+        return """
             {
                 "success": true,
-                "message": 
+                "message":
                     {
                         "url": "\(self.validStringURL)",
                         "urlExpireAt": "\(CordialDateFormatter().getCurrentTimestamp())",
@@ -1314,8 +1318,12 @@ class CordialSDKTests: XCTestCase {
             DependencyConfiguration.shared.inboxMessageURLSession = mockNetworkClient.session
 
             CordialInboxMessageAPI().fetchInboxMessage(mcID: "\(self.testMcID)", onSuccess: { inboxMessage in
-                isVerified = true
-                XCTAssert(true)
+                if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
+                    isVerified = true
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
             }, onFailure: { error in
                 XCTAssert(false, error)
             })
@@ -1332,12 +1340,12 @@ class CordialSDKTests: XCTestCase {
         
         var isVerified = false
 
-        if let testInboxMessagesPayloadData = self.testInboxMessagePayload.data(using: .utf8),
+        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
            let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
            let url = URL(string: "\(self.validStringURL)") {
 
             let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
-            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagesPayloadData, responseInboxMessage, nil))
+            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
             DependencyConfiguration.shared.inboxMessageURLSession = NetworkClient(session: mockSessionInboxMessage).session
             
             let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
@@ -1351,6 +1359,66 @@ class CordialSDKTests: XCTestCase {
                     
                     isVerified = true
                     XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+            }, onFailure: { error in
+                XCTAssert(false, error)
+            })
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessageContentCacheExpire() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+
+        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
+           let url = URL(string: "\(self.validStringURL)") {
+
+            let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
+            DependencyConfiguration.shared.inboxMessageURLSession = NetworkClient(session: mockSessionInboxMessage).session
+            
+            let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
+            DependencyConfiguration.shared.inboxMessageContentURLSession = NetworkClient(session: mockSessionInboxMessageContent).session
+
+            CordialInboxMessageAPI().fetchInboxMessage(mcID: "\(self.testMcID)", onSuccess: { inboxMessage in
+                
+                let testInboxMessagePayload2 = self.getTestInboxMessagePayload()
+                
+                if let testInboxMessagePayloadData2 = testInboxMessagePayload2.data(using: .utf8),
+                   let testInboxMessageContentPayloadData2 = "\(self.testInboxMessageContentPayload)_2".data(using: .utf8) {
+                        
+                    let responseInboxMessage2 = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+                    let mockSessionInboxMessage2 = MockURLSession(completionHandler: (testInboxMessagePayloadData2, responseInboxMessage2, nil))
+                    DependencyConfiguration.shared.inboxMessageURLSession = NetworkClient(session: mockSessionInboxMessage2).session
+                    
+                    let responseInboxMessageContent2 = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+                    let mockSessionInboxMessageContent2 = MockURLSession(completionHandler: (testInboxMessageContentPayloadData2, responseInboxMessageContent2, nil))
+                    DependencyConfiguration.shared.inboxMessageContentURLSession = NetworkClient(session: mockSessionInboxMessageContent2).session
+                    
+                    CordialInboxMessageAPI().fetchInboxMessage(mcID: "\(self.testMcID)", onSuccess: { inboxMessage in
+                        CordialInboxMessageAPI().fetchInboxMessageContent(mcID: "\(self.testMcID)", onSuccess: { content in
+                            if content != self.testInboxMessageContentPayload {
+                                isVerified = true
+                                XCTAssert(true)
+                            } else {
+                                XCTAssert(false)
+                            }
+                        }, onFailure: { error in
+                            XCTAssert(false, error)
+                        })
+                    }, onFailure: { error in
+                        XCTAssert(false, error)
+                    })
                 } else {
                     XCTAssert(false)
                 }
