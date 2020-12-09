@@ -26,29 +26,29 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
             
             var urlString:String? = nil
             if let imageURL = request.content.userInfo["imageURL"] as? String {
-                os_log("CordialAppExtensions: Payload has contain imageURL", log: OSLog.cordialAppExtensions, type: .info)
+                os_log("CordialSDK_AppExtensions: Payload has contain imageURL")
                 urlString = imageURL
             } else {
-                os_log("CordialAppExtensions: Payload has not contain imageURL")
+                os_log("CordialSDK_AppExtensions: Payload has not contain imageURL")
             }
             
             if urlString != nil, let fileUrl = URL(string: urlString!) {
                 guard let imageData = NSData(contentsOf: fileUrl) else {
-                    os_log("CordialAppExtensions: Error during image download", log: OSLog.cordialAppExtensions, type: .error)
+                    os_log("CordialSDK_AppExtensions: Error during image download")
                     contentHandler(bestAttemptContent)
                     return
                 }
                 guard let attachment = UNNotificationAttachment.saveImageToDisk(fileIdentifier: "image.gif", data: imageData, options: nil) else {
-                    os_log("CordialAppExtensions: Error during image saving", log: OSLog.cordialAppExtensions, type: .error)
+                    os_log("CordialSDK_AppExtensions: Error during image saving")
                     contentHandler(bestAttemptContent)
                     return
                 }
                 
                 bestAttemptContent.attachments = [ attachment ]
                 
-                os_log("CordialAppExtensions: Image has been added successfully", log: OSLog.cordialAppExtensions, type: .info)
+                os_log("CordialSDK_AppExtensions: Image has been added successfully")
             } else {
-                os_log("CordialAppExtensions: Error [imageURL isn't URL]", log: OSLog.cordialAppExtensions, type: .error)
+                os_log("CordialSDK_AppExtensions: Error [imageURL isn't URL]")
             }
             
             // End
@@ -61,7 +61,7 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
         if let contentHandler = contentHandler, let bestAttemptContent =  bestAttemptContent {
-            os_log("CordialAppExtensions: Image has been failed to download or save", log: OSLog.cordialAppExtensions, type: .error)
+            os_log("CordialSDK_AppExtensions: Image attach has been failed by the timeout")
             contentHandler(bestAttemptContent)
         }
     }
@@ -82,7 +82,7 @@ extension UNNotificationAttachment {
             let attachment = try UNNotificationAttachment(identifier: fileIdentifier, url: fileURL!, options: options)
             return attachment
         } catch let error {
-            os_log("CordialAppExtensions: Error [%{public}@]", log: OSLog.cordialAppExtensions, type: .error, error.localizedDescription)
+            os_log("CordialSDK_AppExtensions: Error [%{public}@]", error.localizedDescription)
         }
         
         return nil
