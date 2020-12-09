@@ -8,6 +8,7 @@
 
 import Foundation
 import UserNotifications
+import os.log
 
 open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
     
@@ -25,23 +26,29 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
             
             var urlString:String? = nil
             if let imageURL = request.content.userInfo["imageURL"] as? String {
+                os_log("CordialAppExtensions: Payload has contain imageURL", log: OSLog.cordialAppExtensions, type: .info)
                 urlString = imageURL
+            } else {
+                os_log("CordialAppExtensions: Payload has not contain imageURL")
             }
             
             if urlString != nil, let fileUrl = URL(string: urlString!) {
-                print("fileUrl: \(fileUrl)")
-                
                 guard let imageData = NSData(contentsOf: fileUrl) else {
+                    os_log("CordialAppExtensions: Error during image download", log: OSLog.cordialAppExtensions, type: .error)
                     contentHandler(bestAttemptContent)
                     return
                 }
                 guard let attachment = UNNotificationAttachment.saveImageToDisk(fileIdentifier: "image.gif", data: imageData, options: nil) else {
-                    print("error in UNNotificationAttachment.saveImageToDisk()")
+                    os_log("CordialAppExtensions: Error during image saving", log: OSLog.cordialAppExtensions, type: .error)
                     contentHandler(bestAttemptContent)
                     return
                 }
                 
                 bestAttemptContent.attachments = [ attachment ]
+                
+                os_log("CordialAppExtensions: Image has been added successfully", log: OSLog.cordialAppExtensions, type: .info)
+            } else {
+                os_log("CordialAppExtensions: Error [imageURL isn't URL]", log: OSLog.cordialAppExtensions, type: .error)
             }
             
             // End
@@ -54,6 +61,7 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
         if let contentHandler = contentHandler, let bestAttemptContent =  bestAttemptContent {
+            os_log("CordialAppExtensions: Image has been failed to download or save", log: OSLog.cordialAppExtensions, type: .error)
             contentHandler(bestAttemptContent)
         }
     }
@@ -74,7 +82,7 @@ extension UNNotificationAttachment {
             let attachment = try UNNotificationAttachment(identifier: fileIdentifier, url: fileURL!, options: options)
             return attachment
         } catch let error {
-            print("error \(error)")
+            os_log("CordialAppExtensions: Error [%{public}@]", log: OSLog.cordialAppExtensions, type: .error, error.localizedDescription)
         }
         
         return nil

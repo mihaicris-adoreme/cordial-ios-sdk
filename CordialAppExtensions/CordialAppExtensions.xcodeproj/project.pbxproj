@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E0F4B06257FC11500E2FA95 /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F4B05257FC11500E2FA95 /* OSLog.swift */; };
 		9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */; };
 		9EBD746A2287884700EC93EF /* CordialAppExtensions_Swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD74602287884600EC93EF /* CordialAppExtensions_Swift.framework */; };
 		9EBD746F2287884700EC93EF /* CordialAppExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD746E2287884700EC93EF /* CordialAppExtensionsTests.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E0F4B05257FC11500E2FA95 /* OSLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
 		9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialNotificationServiceExtension.swift; sourceTree = "<group>"; };
 		9EBD74602287884600EC93EF /* CordialAppExtensions_Swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CordialAppExtensions_Swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBD74632287884600EC93EF /* CordialAppExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CordialAppExtensions.h; sourceTree = "<group>"; };
@@ -52,6 +54,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E0F4B04257FC0FA00E2FA95 /* OSLog */ = {
+			isa = PBXGroup;
+			children = (
+				9E0F4B05257FC11500E2FA95 /* OSLog.swift */,
+			);
+			path = OSLog;
+			sourceTree = "<group>";
+		};
 		9E7789602287889C0089C986 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +91,7 @@
 		9EBD74622287884600EC93EF /* CordialAppExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				9E0F4B04257FC0FA00E2FA95 /* OSLog */,
 				9E7789602287889C0089C986 /* NotificationServiceExtension */,
 				9EBD74632287884600EC93EF /* CordialAppExtensions.h */,
 				9EBD74642287884600EC93EF /* Info.plist */,
@@ -207,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E0F4B06257FC11500E2FA95 /* OSLog.swift in Sources */,
 				9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
