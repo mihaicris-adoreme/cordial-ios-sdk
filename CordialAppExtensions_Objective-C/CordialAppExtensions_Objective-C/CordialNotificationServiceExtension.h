@@ -6,6 +6,7 @@
 //
 
 #import <UserNotifications/UserNotifications.h>
+#import <os/log.h>
 
 @interface CordialNotificationServiceExtension : UNNotificationServiceExtension
 
