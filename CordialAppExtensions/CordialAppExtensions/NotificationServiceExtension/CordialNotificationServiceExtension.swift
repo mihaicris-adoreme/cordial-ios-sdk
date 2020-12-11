@@ -26,20 +26,20 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
             
             var urlString:String? = nil
             if let imageURL = request.content.userInfo["imageURL"] as? String {
-                os_log("CordialSDK_AppExtensions: Payload has contain imageURL")
+                os_log("CordialSDK_AppExtensions: Payload contains imageURL")
                 urlString = imageURL
             } else {
-                os_log("CordialSDK_AppExtensions: Payload has not contain imageURL")
+                os_log("CordialSDK_AppExtensions: Payload does not contain imageURL")
             }
             
             if urlString != nil, let fileUrl = URL(string: urlString!) {
                 guard let imageData = NSData(contentsOf: fileUrl) else {
-                    os_log("CordialSDK_AppExtensions: Error during image download")
+                    os_log("CordialSDK_AppExtensions: Error downloading an image")
                     contentHandler(bestAttemptContent)
                     return
                 }
                 guard let attachment = UNNotificationAttachment.saveImageToDisk(fileIdentifier: "image.gif", data: imageData, options: nil) else {
-                    os_log("CordialSDK_AppExtensions: Error during image saving")
+                    os_log("CordialSDK_AppExtensions: Error saving an image")
                     contentHandler(bestAttemptContent)
                     return
                 }
@@ -48,7 +48,7 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
                 
                 os_log("CordialSDK_AppExtensions: Image has been added successfully")
             } else {
-                os_log("CordialSDK_AppExtensions: Error [imageURL isn't URL]")
+                os_log("CordialSDK_AppExtensions: Error [imageURL isn’t a valid URL]")
             }
             
             // End
@@ -61,7 +61,7 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
         if let contentHandler = contentHandler, let bestAttemptContent =  bestAttemptContent {
-            os_log("CordialSDK_AppExtensions: Image attach has been failed by the timeout")
+            os_log("CordialSDK_AppExtensions: Image attaching failed by timeout")
             contentHandler(bestAttemptContent)
         }
     }

@@ -27,23 +27,23 @@
     NSString *urlString = request.content.userInfo[@"imageURL"];
     
     if (urlString == nil) {
-        os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Payload has not contain imageURL");
+        os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Payload does not contain imageURL");
         self.contentHandler(self.bestAttemptContent);
     } else {
-        os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Payload has contain imageURL");
+        os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Payload contains imageURL");
     }
     
     NSURL *fileUrl = [[NSURL alloc] initWithString:urlString];
     
     if (fileUrl == nil) {
-        os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Error [imageURL isn't URL]");
+        os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Error [imageURL isn’t a valid URL]");
         self.contentHandler(self.bestAttemptContent);
     }
     
     NSData *imageData = [[NSData alloc] initWithContentsOfURL:fileUrl];
     
     if (imageData == nil) {
-        os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Error during image download");
+        os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Error downloading an image");
         self.contentHandler(self.bestAttemptContent);
     }
     
@@ -69,7 +69,7 @@
         if (success) {
             os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Image has been added successfully");
         } else {
-            os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Error during image saving");
+            os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Error saving an image");
         }
     }
     
@@ -81,7 +81,7 @@
 - (void)serviceExtensionTimeWillExpire {
     // Called just before the extension will be terminated by the system.
     // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
-    os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Image attach has been failed by the timeout");
+    os_log(OS_LOG_DEFAULT, "CordialSDK_AppExtensions: Image attaching failed by timeout");
     self.contentHandler(self.bestAttemptContent);
 }
 
