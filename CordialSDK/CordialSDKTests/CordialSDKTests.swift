@@ -1329,45 +1329,7 @@ class CordialSDKTests: XCTestCase {
         
         XCTAssert(isVerified)
     }
-    
-    func testInboxMessageContentCache() {
-        
-        self.testCase.setTestJWT(token: self.testJWT)
-        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
-        self.testCase.markUserAsLoggedIn()
-        
-        var isVerified = false
 
-        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
-           let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
-           let url = URL(string: self.validStringURL) {
-
-            let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
-            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
-            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
-            
-            let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
-            let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
-            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
-
-            CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
-                
-                if let content = CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)"),
-                   content == self.testInboxMessageContentPayload {
-                    
-                    isVerified = true
-                    XCTAssert(true)
-                } else {
-                    XCTAssert(false)
-                }
-            }, onFailure: { error in
-                XCTAssert(false, error)
-            })
-        }
-        
-        XCTAssert(isVerified)
-    }
-    
     func testInboxMessageCacheExpire() {
         
         self.testCase.setTestJWT(token: self.testJWT)
@@ -1417,6 +1379,84 @@ class CordialSDKTests: XCTestCase {
                     }, onFailure: { error in
                         XCTAssert(false, error)
                     })
+                } else {
+                    XCTAssert(false)
+                }
+            }, onFailure: { error in
+                XCTAssert(false, error)
+            })
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessageContent() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+        
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: "\(self.testInboxMessageContentPayload)_2")
+        
+        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
+            
+            let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
+
+            CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
+                
+                if let content = CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID),
+                   content != self.testInboxMessageContentPayload {
+                    
+                    isVerified = true
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+            }, onFailure: { error in
+                XCTAssert(false, error)
+            })
+        }
+    
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessageContentCache() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+
+        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
+            
+            let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
+
+            CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
+                
+                if let content = CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID),
+                   content == self.testInboxMessageContentPayload {
+                    
+                    isVerified = true
+                    XCTAssert(true)
                 } else {
                     XCTAssert(false)
                 }
