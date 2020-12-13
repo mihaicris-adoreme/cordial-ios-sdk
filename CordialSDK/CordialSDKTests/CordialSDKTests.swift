@@ -1278,9 +1278,8 @@ class CordialSDKTests: XCTestCase {
             
             let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             let mockSession = MockURLSession(completionHandler: (testInboxMessagesPayloadData, response, nil))
-            let mockNetworkClient = NetworkClient(session: mockSession)
             
-            DependencyConfiguration.shared.inboxMessagesURLSession = mockNetworkClient.session
+            DependencyConfiguration.shared.inboxMessagesURLSession = mockSession
             
             let pageRequest = PageRequest(page: 1, size: 10)
             CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: nil, onSuccess: { inboxPage in
@@ -1313,9 +1312,8 @@ class CordialSDKTests: XCTestCase {
 
             let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             let mockSession = MockURLSession(completionHandler: (testInboxMessagesPayloadData, response, nil))
-            let mockNetworkClient = NetworkClient(session: mockSession)
 
-            DependencyConfiguration.shared.inboxMessageURLSession = mockNetworkClient.session
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSession
 
             CordialInboxMessageAPI().fetchInboxMessage(mcID: self.testMcID, onSuccess: { inboxMessage in
                 if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
@@ -1346,11 +1344,11 @@ class CordialSDKTests: XCTestCase {
 
             let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
-            DependencyConfiguration.shared.inboxMessageURLSession = NetworkClient(session: mockSessionInboxMessage).session
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
             
             let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
-            DependencyConfiguration.shared.inboxMessageContentURLSession = NetworkClient(session: mockSessionInboxMessageContent).session
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
 
             CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
                 
@@ -1384,11 +1382,11 @@ class CordialSDKTests: XCTestCase {
 
             let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
-            DependencyConfiguration.shared.inboxMessageURLSession = NetworkClient(session: mockSessionInboxMessage).session
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
             
             let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
-            DependencyConfiguration.shared.inboxMessageContentURLSession = NetworkClient(session: mockSessionInboxMessageContent).session
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
 
             CordialInboxMessageAPI().fetchInboxMessage(mcID: self.testMcID, onSuccess: { inboxMessage in
                 
@@ -1399,11 +1397,11 @@ class CordialSDKTests: XCTestCase {
                         
                     let responseInboxMessage2 = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
                     let mockSessionInboxMessage2 = MockURLSession(completionHandler: (testInboxMessagePayloadData2, responseInboxMessage2, nil))
-                    DependencyConfiguration.shared.inboxMessageURLSession = NetworkClient(session: mockSessionInboxMessage2).session
+                    DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage2
                     
                     let responseInboxMessageContent2 = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
                     let mockSessionInboxMessageContent2 = MockURLSession(completionHandler: (testInboxMessageContentPayloadData2, responseInboxMessageContent2, nil))
-                    DependencyConfiguration.shared.inboxMessageContentURLSession = NetworkClient(session: mockSessionInboxMessageContent2).session
+                    DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent2
                     
                     CordialInboxMessageAPI().fetchInboxMessage(mcID: self.testMcID, onSuccess: { inboxMessage in
                         CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
@@ -1444,11 +1442,11 @@ class CordialSDKTests: XCTestCase {
 
             let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
-            DependencyConfiguration.shared.inboxMessageURLSession = NetworkClient(session: mockSessionInboxMessage).session
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
             
             let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 403, httpVersion: nil, headerFields: nil)
             let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
-            DependencyConfiguration.shared.inboxMessageContentURLSession = NetworkClient(session: mockSessionInboxMessageContent).session
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
 
             CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
                 XCTAssert(false)
@@ -1479,11 +1477,11 @@ class CordialSDKTests: XCTestCase {
 
             let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
-            DependencyConfiguration.shared.inboxMessageURLSession = NetworkClient(session: mockSessionInboxMessage).session
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
             
             let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 500, httpVersion: nil, headerFields: nil)
             let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
-            DependencyConfiguration.shared.inboxMessageContentURLSession = NetworkClient(session: mockSessionInboxMessageContent).session
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
 
             CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
                 XCTAssert(false)

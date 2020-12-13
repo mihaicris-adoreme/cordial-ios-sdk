@@ -21,8 +21,7 @@ class InboxMessages {
             if let url = urlComponents.url {
                 let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
                 
-                let networkClient = NetworkClient(session: DependencyConfiguration.shared.inboxMessagesURLSession)
-                networkClient.session.dataTask(with: request) { data, response, error in
+                DependencyConfiguration.shared.inboxMessagesURLSession.dataTask(with: request) { data, response, error in
                     if let error = error {
                         onFailure("Fetching inbox messages failed. Error: [\(error.localizedDescription)]")
                         return

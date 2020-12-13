@@ -1,22 +1,12 @@
 //
-//  NetworkClient.swift
+//  URLSession.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 03.12.2020.
+//  Created by Yan Malinovsky on 13.12.2020.
 //  Copyright © 2020 cordial.io. All rights reserved.
 //
 
 import Foundation
-
-class NetworkClient {
-
-    var session: URLSessionProtocol
-    
-    init(session: URLSessionProtocol = URLSession.shared) {
-        self.session = session
-    }
-    
-}
 
 // MARK: - DataTask
 

@@ -52,8 +52,7 @@ class InboxMessageGetter {
         if let url = URL(string: CordialApiEndpoints().getInboxMessageURL(contactKey: contactKey, mcID: mcID)) {
             let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
             
-            let networkClient = NetworkClient(session: DependencyConfiguration.shared.inboxMessageURLSession)
-            networkClient.session.dataTask(with: request) { data, response, error in
+            DependencyConfiguration.shared.inboxMessageURLSession.dataTask(with: request) { data, response, error in
                 if let error = error {
                     onFailure("Fetching single inbox message failed. Error: [\(error.localizedDescription)]")
                     return

@@ -18,7 +18,7 @@ import Foundation
     
     var requestSender = RequestSender()
     
-    // MARK: Network Client Init
+    // MARK: URLSession Init
     
     var inboxMessagesURLSession = InboxMessagesURLSession().session
     var inboxMessageURLSession = InboxMessageURLSession().session

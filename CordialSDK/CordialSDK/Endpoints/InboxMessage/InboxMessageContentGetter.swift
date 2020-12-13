@@ -50,8 +50,7 @@ class InboxMessageContentGetter {
     private func getInboxMessageContent(url: URL, mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         let request = CordialRequestFactory().getBaseURLRequest(url: url, httpMethod: .GET)
         
-        let networkClient = NetworkClient(session: DependencyConfiguration.shared.inboxMessageContentURLSession)
-        networkClient.session.dataTask(with: request) { data, response, error in
+        DependencyConfiguration.shared.inboxMessageContentURLSession.dataTask(with: request) { data, response, error in
             if let error = error {
                 onFailure("Fetching inbox message content failed. Error: [\(error.localizedDescription)]")
                 return
