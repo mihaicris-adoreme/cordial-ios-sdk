@@ -1537,4 +1537,32 @@ class CordialSDKTests: XCTestCase {
         
         XCTAssert(isVerified)
     }
+    
+    func testInboxMessagesMarkRead() {
+        let mock = MockRequestSenderInboxMessagesMarkReadUnread()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+
+        CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.testMcID])
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testInboxMessagesMarkUnread() {
+        let mock = MockRequestSenderInboxMessagesMarkReadUnread()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+
+        CordialInboxMessageAPI().markInboxMessagesUnread(mcIDs: [self.testMcID])
+        
+        XCTAssert(mock.isVerified)
+    }
 }

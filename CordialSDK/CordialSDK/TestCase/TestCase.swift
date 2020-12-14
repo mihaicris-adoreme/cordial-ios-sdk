@@ -212,4 +212,8 @@ public class TestCase {
     public func getEventNameInAppMessageManualRemove() -> String {
         return API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE
     }
+    
+    public func getInboxMessagesMarkReadUnreadURL() -> URL? {
+        return URL(string: CordialApiEndpoints().getInboxMessagesMarkReadUnreadURL())
+    }
 }
