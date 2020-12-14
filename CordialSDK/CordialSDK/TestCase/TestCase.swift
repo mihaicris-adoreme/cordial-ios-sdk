@@ -216,4 +216,8 @@ public class TestCase {
     public func getInboxMessagesMarkReadUnreadURL() -> URL? {
         return URL(string: CordialApiEndpoints().getInboxMessagesMarkReadUnreadURL())
     }
+    
+    public func getInboxMessageURL(contactKey: String, mcID: String) -> URL? {
+        return URL(string: CordialApiEndpoints().getInboxMessageURL(contactKey: contactKey, mcID: mcID))
+    }
 }

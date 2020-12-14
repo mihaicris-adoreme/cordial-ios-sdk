@@ -1565,4 +1565,21 @@ class CordialSDKTests: XCTestCase {
         
         XCTAssert(mock.isVerified)
     }
+    
+    func testInboxMessageDelete() {
+        let mock = MockRequestSenderInboxMessageDelete()
+        
+        mock.contactKey = self.testPrimaryKey
+        mock.mcID = self.testMcID
+        
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        CordialInboxMessageAPI().deleteInboxMessage(mcID: self.testMcID)
+        
+        XCTAssert(mock.isVerified)
+    }
 }
