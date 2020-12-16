@@ -1,5 +1,5 @@
 //
-//  MockRequestSenderInboxMessagesMarkUnreadInvalidMcID.swift
+//  MockRequestSenderInboxMessagesMarkReadInvalidMcID.swift
 //  CordialSDKTests
 //
 //  Created by Yan Malinovsky on 16.12.2020.
@@ -9,7 +9,7 @@
 import Foundation
 import CordialSDK
 
-class MockRequestSenderInboxMessagesMarkUnreadInvalidMcID: RequestSender {
+class MockRequestSenderInboxMessagesMarkReadInvalidMcID: RequestSender {
     
     var isVerified = false
     
@@ -28,7 +28,7 @@ class MockRequestSenderInboxMessagesMarkUnreadInvalidMcID: RequestSender {
            inboxMessagesMarkReadUnreadURL == inboxMessagesMarkReadUnreadRequestURL {
             
             if jsonString.contains(self.invalidMcID) {
-                self.sdkTests.testCase.sendInvalidInboxMessagesMarkReadUnreadRequest(type: "markAsUnReadIds", mcID: self.invalidMcID, task: task)
+                self.sdkTests.testCase.sendInvalidInboxMessagesMarkReadUnreadRequest(type: "markAsReadIds", mcID: self.invalidMcID, task: task)
             } else {
                 self.isVerified = true
             }

@@ -145,7 +145,7 @@ public class TestCase {
         }
     }
     
-    public func sendInvalidInboxMessagesMarkUnreadRequest(mcID: String, task: URLSessionDownloadTask) {
+    public func sendInvalidInboxMessagesMarkReadUnreadRequest(type: String, mcID: String, task: URLSessionDownloadTask) {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS:
@@ -161,7 +161,7 @@ public class TestCase {
                             "code": 422,
                             "message": "The given data was invalid.",
                             "errors": {
-                              "markAsUnReadIds.0": [
+                              "\(type).0": [
                                 "Unable to decrypt a mcID value from \(mcID)."
                               ]
                             }
