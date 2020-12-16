@@ -104,21 +104,38 @@ public class TestCase {
         CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
     }
 
-    public func sendInvalidEventRequest(task: URLSessionDownloadTask, invalidEventName: String) {
+    public func sendInvalidCustomEventRequest(task: URLSessionDownloadTask) {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
-                if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData, let request = task.originalRequest, let url = request.url, let headerFields = request.allHTTPHeaderFields, let httpResponse422 = HTTPURLResponse(url: url, statusCode: 422, httpVersion: "HTTP/1.1", headerFields: headerFields), let httpResponse200 = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: headerFields), let httpBody = request.httpBody {
+                if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData,
+                   let request = task.originalRequest,
+                   let url = request.url,
+                   let headerFields = request.allHTTPHeaderFields,
+                   let httpResponse = HTTPURLResponse(url: url, statusCode: 422, httpVersion: "HTTP/1.1", headerFields: headerFields),
+                   let httpBody = """
+                       {
+                         "success": false,
+                         "error": {
+                           "code": 422,
+                           "message": "The given data was invalid.",
+                           "errors": {
+                             "0.deviceId": [
+                               "The 0.deviceId field is required."
+                             ],
+                             "0.event": [
+                               "The 0.event field is required."
+                             ]
+                           }
+                         }
+                       }
+                   """.data(using: .utf8) {
                     
-                    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
                     do {
-                        if self.isHttpBodyHasInvalidEventName(httpBody: httpBody, invalidEventName: invalidEventName), let invalidHttpBody = self.getMockedInvalidHttpBody() {
-                            try invalidHttpBody.write(to: location, options: .atomic)
-                            SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, httpResponse: httpResponse422, location: location)
-                        } else {
-                            try httpBody.write(to: location, options: .atomic)
-                            SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, httpResponse: httpResponse200, location: location)
-                        }
+                        let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
+                        
+                        try httpBody.write(to: location, options: .atomic)
+                        SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, httpResponse: httpResponse, location: location)
                     } catch let error {
                         print(error.localizedDescription)
                     }
@@ -128,35 +145,42 @@ public class TestCase {
         }
     }
     
-    private func isHttpBodyHasInvalidEventName(httpBody: Data, invalidEventName: String) -> Bool {
-        let jsonString = String(decoding: httpBody, as: UTF8.self)
-        
-        var returnValue = false
-        if jsonString.contains(invalidEventName) {
-              returnValue = true
-          }
-        
-        return returnValue
-    }
-    
-    private func getMockedInvalidHttpBody() -> Data? {
-        return """
-            {
-              "success": false,
-              "error": {
-                "code": 422,
-                "message": "The given data was invalid.",
-                "errors": {
-                  "0.deviceId": [
-                    "The 0.deviceId field is required."
-                  ],
-                  "0.event": [
-                    "The 0.event field is required."
-                  ]
+    public func sendInvalidInboxMessagesMarkUnreadRequest(mcID: String, task: URLSessionDownloadTask) {
+        if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
+            switch operation.taskName {
+            case API.DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS:
+                if let inboxMessagesMarkReadUnreadURLSessionData = operation.taskData as? InboxMessagesMarkReadUnreadURLSessionData,
+                   let request = task.originalRequest,
+                   let url = request.url,
+                   let headerFields = request.allHTTPHeaderFields,
+                   let httpResponse = HTTPURLResponse(url: url, statusCode: 422, httpVersion: "HTTP/1.1", headerFields: headerFields),
+                   let httpBody = """
+                        {
+                          "success": false,
+                          "error": {
+                            "code": 422,
+                            "message": "The given data was invalid.",
+                            "errors": {
+                              "markAsUnReadIds.0": [
+                                "Unable to decrypt a mcID value from \(mcID)."
+                              ]
+                            }
+                          }
+                        }
+                   """.data(using: .utf8) {
+                    
+                    do {
+                        let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
+                        
+                        try httpBody.write(to: location, options: .atomic)
+                        InboxMessagesMarkReadUnreadURLSessionManager().completionHandler(inboxMessagesMarkReadUnreadURLSessionData: inboxMessagesMarkReadUnreadURLSessionData, httpResponse: httpResponse, location: location)
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
                 }
-              }
+            default: break
             }
-        """.data(using: .utf8)
+        }
     }
     
     public func setContactCartRequestToCoreData(cartItems: [CartItem]) {

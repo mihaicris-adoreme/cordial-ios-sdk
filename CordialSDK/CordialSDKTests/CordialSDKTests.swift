@@ -1566,6 +1566,24 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
+    func testInboxMessagesMarkUnreadInvalidMcID() {
+        let mock = MockRequestSenderInboxMessagesMarkUnreadInvalidMcID()
+        
+        let invalidMcID = "\(self.testMcID)_invalid"
+        mock.invalidMcID = invalidMcID
+        
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+
+        let mcIDs = [invalidMcID, self.testMcID]
+        CordialInboxMessageAPI().markInboxMessagesUnread(mcIDs: mcIDs)
+        
+        XCTAssert(mock.isVerified)
+    }
+    
     func testInboxMessageDelete() {
         let mock = MockRequestSenderInboxMessageDelete()
         

@@ -38,6 +38,7 @@
 		9E31E78322CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E31E77F22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift */; };
 		9E343A7F22DF612B000D39A3 /* CordialURLSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E343A7E22DF612B000D39A3 /* CordialURLSessionData.swift */; };
 		9E343A8122DF61BF000D39A3 /* InAppMessageURLSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E343A8022DF61BF000D39A3 /* InAppMessageURLSessionData.swift */; };
+		9E39DBF52589A2C100FCAE2C /* MockRequestSenderInboxMessagesMarkUnreadInvalidMcID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E39DBF42589A2C000FCAE2C /* MockRequestSenderInboxMessagesMarkUnreadInvalidMcID.swift */; };
 		9E3EA04522B2805900EDBF93 /* CordialLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3EA04422B2805900EDBF93 /* CordialLocationManager.swift */; };
 		9E3EA62522579FBA00ECE52E /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3EA62422579FBA00ECE52E /* Reachability.swift */; };
 		9E3EA6272257A02400ECE52E /* CustomEventsSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3EA6262257A02400ECE52E /* CustomEventsSender.swift */; };
@@ -285,6 +286,7 @@
 		9E31E77F22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesQueue+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9E343A7E22DF612B000D39A3 /* CordialURLSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialURLSessionData.swift; sourceTree = "<group>"; };
 		9E343A8022DF61BF000D39A3 /* InAppMessageURLSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageURLSessionData.swift; sourceTree = "<group>"; };
+		9E39DBF42589A2C000FCAE2C /* MockRequestSenderInboxMessagesMarkUnreadInvalidMcID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInboxMessagesMarkUnreadInvalidMcID.swift; sourceTree = "<group>"; };
 		9E3EA04422B2805900EDBF93 /* CordialLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialLocationManager.swift; sourceTree = "<group>"; };
 		9E3EA62422579FBA00ECE52E /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		9E3EA6262257A02400ECE52E /* CustomEventsSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventsSender.swift; sourceTree = "<group>"; };
@@ -993,6 +995,7 @@
 				9E687EC824BA257A00D81322 /* MockRequestSenderInAppMessageExpirationTime.swift */,
 				9E0F4CB82587855600E2FA95 /* MockRequestSenderInboxMessagesMarkReadUnread.swift */,
 				9E0F4CC02587AD1200E2FA95 /* MockRequestSenderInboxMessageDelete.swift */,
+				9E39DBF42589A2C000FCAE2C /* MockRequestSenderInboxMessagesMarkUnreadInvalidMcID.swift */,
 			);
 			path = RequestSender;
 			sourceTree = "<group>";
@@ -1558,6 +1561,7 @@
 				9EBA1B1023FFE2C300005054 /* MockRequestSenderRemoteNotificationsDeviceToken.swift in Sources */,
 				9EE8878F24853A7C001C3E45 /* MockRequestSenderSendContactOrder.swift in Sources */,
 				9EE84C062444B002009BAE25 /* MockRequestSenderSystemEventsProperties.swift in Sources */,
+				9E39DBF52589A2C100FCAE2C /* MockRequestSenderInboxMessagesMarkUnreadInvalidMcID.swift in Sources */,
 				9EF9ACE524489F19003A96E2 /* MockRequestSenderIfEventRequestHasInvalidEvent.swift in Sources */,
 				9E687EC924BA257A00D81322 /* MockRequestSenderInAppMessageExpirationTime.swift in Sources */,
 				9E0F4CC12587AD1300E2FA95 /* MockRequestSenderInboxMessageDelete.swift in Sources */,
