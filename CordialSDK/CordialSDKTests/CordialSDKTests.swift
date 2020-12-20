@@ -194,7 +194,7 @@ class CordialSDKTests: XCTestCase {
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -218,7 +218,7 @@ class CordialSDKTests: XCTestCase {
             CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
         }
 
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -242,7 +242,7 @@ class CordialSDKTests: XCTestCase {
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -267,7 +267,7 @@ class CordialSDKTests: XCTestCase {
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -365,7 +365,7 @@ class CordialSDKTests: XCTestCase {
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -385,7 +385,7 @@ class CordialSDKTests: XCTestCase {
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -500,7 +500,7 @@ class CordialSDKTests: XCTestCase {
             CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         }
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -548,7 +548,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.appMovedToBackground()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -575,7 +575,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -605,7 +605,7 @@ class CordialSDKTests: XCTestCase {
         
         self.cordialAPI.flushEvents(reason: "Test qty cached events queue")
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -630,7 +630,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.appMovedToBackground()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -662,7 +662,7 @@ class CordialSDKTests: XCTestCase {
             CordialAPI().sendCustomEvent(eventName: validEventName, properties: nil)
         }
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -726,7 +726,7 @@ class CordialSDKTests: XCTestCase {
 
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -759,7 +759,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -781,7 +781,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.appMovedToBackground()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -842,7 +842,7 @@ class CordialSDKTests: XCTestCase {
 
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -884,7 +884,7 @@ class CordialSDKTests: XCTestCase {
 
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -1600,6 +1600,66 @@ class CordialSDKTests: XCTestCase {
         CordialInboxMessageAPI().markInboxMessagesUnread(mcIDs: mcIDs)
         
         XCTAssert(mock.isVerified)
+    }
+    
+    func testInboxMessagesMarkReadCache() {
+        let mock = MockRequestSenderInboxMessagesMarkReadCache()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        let markAsReadMcIDs_1 = ["\(self.testMcID)_1", "\(self.testMcID)_2"]
+        let markAsReadMcIDs_2 = ["\(self.testMcID)_3", "\(self.testMcID)_4"]
+        
+        let inboxMessagesMarkReadRequest_1 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: markAsReadMcIDs_1, markAsUnreadMcIDs: [])
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_1)
+
+        let inboxMessagesMarkReadRequest_2 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: markAsReadMcIDs_2, markAsUnreadMcIDs: [])
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_2)
+        
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
+    
+    func testInboxMessagesMarkUnreadCache() {
+        let mock = MockRequestSenderInboxMessagesMarkUnreadCache()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        let markAsUnreadMcIDs_1 = ["\(self.testMcID)_1", "\(self.testMcID)_2"]
+        let markAsUnreadMcIDs_2 = ["\(self.testMcID)_3", "\(self.testMcID)_4"]
+        
+        let inboxMessagesMarkUnreadRequest_1 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: markAsUnreadMcIDs_1)
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_1)
+
+        let inboxMessagesMarkUnreadRequest_2 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: markAsUnreadMcIDs_2)
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_2)
+        
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     func testInboxMessageDelete() {
