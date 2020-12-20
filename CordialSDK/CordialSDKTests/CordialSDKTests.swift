@@ -1674,8 +1674,17 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
+        let inboxMessage = InboxMessage(mcID: self.testMcID, url: String(), urlExpireAt: Date(), isRead: true, sentAt: Date(), metadata: String())
+        CoreDataManager.shared.inboxMessagesCache.putInboxMessageToCoreData(inboxMessage: inboxMessage)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
+        
         CordialInboxMessageAPI().deleteInboxMessage(mcID: self.testMcID)
         
-        XCTAssert(mock.isVerified)
+        if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: self.testMcID) == nil,
+           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil,
+           mock.isVerified {
+            
+            XCTAssert(true)
+        }
     }
 }
