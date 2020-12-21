@@ -63,6 +63,10 @@ public class TestCase {
         return API.EVENT_NAME_APP_MOVED_TO_BACKGROUND
     }
     
+    public func getEventNameInboxMessageRead() -> String {
+        return API.EVENT_NAME_INBOX_MESSAGE_READ
+    }
+    
     public func getDeviceIdentifier() -> String {
         return InternalCordialAPI().getDeviceIdentifier()
     }

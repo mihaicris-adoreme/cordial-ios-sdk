@@ -1706,6 +1706,25 @@ class CordialSDKTests: XCTestCase {
         }
 
         XCTAssert(inboxMessageHandler.isVerified)
+    }
+    
+    func testInboxMessageReadEvent() {
+        let mock = MockRequestSenderInboxMessageReadEvent()
+         
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
         
+        CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.testMcID)
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
 }
