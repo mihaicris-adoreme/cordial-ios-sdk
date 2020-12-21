@@ -138,6 +138,7 @@
 		9EA43D3824C8734C000A1F45 /* CordialPushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA43D3724C8734C000A1F45 /* CordialPushNotificationHandler.swift */; };
 		9EA43D3A24C9A8B6000A1F45 /* CordialPushNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA43D3924C9A8B6000A1F45 /* CordialPushNotificationType.swift */; };
 		9EA785CB258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA785CA258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift */; };
+		9EA785D02590DC8C00F02C64 /* InboxMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA785CF2590DC8C00F02C64 /* InboxMessageHandler.swift */; };
 		9EB004CF253E299100156E8E /* InboxFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB004CE253E299100156E8E /* InboxFilter.swift */; };
 		9EB004D5253E33B100156E8E /* InboxFilterIsReadType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB004D4253E33B100156E8E /* InboxFilterIsReadType.swift */; };
 		9EB17ABD22930D7B00EEAB7D /* ContactRequest+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17AB322930D7A00EEAB7D /* ContactRequest+CoreDataClass.swift */; };
@@ -392,6 +393,7 @@
 		9EA43D3724C8734C000A1F45 /* CordialPushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationHandler.swift; sourceTree = "<group>"; };
 		9EA43D3924C9A8B6000A1F45 /* CordialPushNotificationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationType.swift; sourceTree = "<group>"; };
 		9EA785CA258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInboxMessagesMarkUnreadCache.swift; sourceTree = "<group>"; };
+		9EA785CF2590DC8C00F02C64 /* InboxMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageHandler.swift; sourceTree = "<group>"; };
 		9EB004CE253E299100156E8E /* InboxFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxFilter.swift; sourceTree = "<group>"; };
 		9EB004D4253E33B100156E8E /* InboxFilterIsReadType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxFilterIsReadType.swift; sourceTree = "<group>"; };
 		9EB17AB322930D7A00EEAB7D /* ContactRequest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactRequest+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 		9E41A8EE240FE16600C9F8B6 /* CordialDemo */ = {
 			isa = PBXGroup;
 			children = (
+				9EA785CE2590DC6B00F02C64 /* InboxMessage */,
 				9E41A8F2240FE23500C9F8B6 /* PushNotification */,
 				9E41A8EF240FE1BE00C9F8B6 /* DeepLinks */,
 			);
@@ -928,6 +931,14 @@
 				9ED9266922CB5BDF00809EC0 /* InAppMessage.js */,
 			);
 			path = InAppMessage;
+			sourceTree = "<group>";
+		};
+		9EA785CE2590DC6B00F02C64 /* InboxMessage */ = {
+			isa = PBXGroup;
+			children = (
+				9EA785CF2590DC8C00F02C64 /* InboxMessageHandler.swift */,
+			);
+			path = InboxMessage;
 			sourceTree = "<group>";
 		};
 		9EB62A7924EF1B5700745D6D /* InboxMessages */ = {
@@ -1572,6 +1583,7 @@
 				9ED6F86724321DB80084824C /* MockRequestSenderEventsBulkSizeCount.swift in Sources */,
 				9EBA1B1023FFE2C300005054 /* MockRequestSenderRemoteNotificationsDeviceToken.swift in Sources */,
 				9EE8878F24853A7C001C3E45 /* MockRequestSenderSendContactOrder.swift in Sources */,
+				9EA785D02590DC8C00F02C64 /* InboxMessageHandler.swift in Sources */,
 				9EE84C062444B002009BAE25 /* MockRequestSenderSystemEventsProperties.swift in Sources */,
 				9E39DBF52589A2C100FCAE2C /* MockRequestSenderInboxMessagesMarkUnreadInvalidMcID.swift in Sources */,
 				9EF9ACE524489F19003A96E2 /* MockRequestSenderIfEventRequestHasInvalidEvent.swift in Sources */,

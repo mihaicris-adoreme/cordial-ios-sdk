@@ -62,7 +62,8 @@ class CordialSDKTests: XCTestCase {
                         "type": "modal",
                         "displayType": "displayImmediately",
                         "inactiveSessionDisplay": "show-in-app"
-                    }
+                    },
+                    "inbox": {}
                 },
                 "mcID": "\(self.testMcID)"
             }
@@ -79,7 +80,8 @@ class CordialSDKTests: XCTestCase {
                         "type": "modal",
                         "displayType": "displayImmediately",
                         "inactiveSessionDisplay": "show-in-app"
-                    }
+                    },
+                    "inbox": {}
                 },
                 "deepLink": {
                     "url": "\(self.testDeepLinkURL)",
@@ -1686,5 +1688,24 @@ class CordialSDKTests: XCTestCase {
             
             XCTAssert(true)
         }
+    }
+    
+    func testInboxMessageDelegate() {
+        let inboxMessageHandler = InboxMessageHandler()
+        inboxMessageHandler.testMcID = self.testMcID
+        
+        CordialApiConfiguration.shared.inboxMessageDelegate = inboxMessageHandler
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        XCTAssert(inboxMessageHandler.isVerified)
+        
     }
 }

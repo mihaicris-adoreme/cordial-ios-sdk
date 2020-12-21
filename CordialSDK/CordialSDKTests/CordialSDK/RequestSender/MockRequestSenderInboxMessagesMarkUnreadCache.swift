@@ -27,7 +27,8 @@ class MockRequestSenderInboxMessagesMarkUnreadCache: RequestSender {
            markAsReadIds.contains("\(self.sdkTests.testMcID)_1"),
            markAsReadIds.contains("\(self.sdkTests.testMcID)_2"),
            markAsReadIds.contains("\(self.sdkTests.testMcID)_3"),
-           markAsReadIds.contains("\(self.sdkTests.testMcID)_4") {
+           markAsReadIds.contains("\(self.sdkTests.testMcID)_4"),
+           markAsReadIds.count == 4 {
             
             self.isVerified = true
         } else {
