@@ -1284,7 +1284,8 @@ class CordialSDKTests: XCTestCase {
             DependencyConfiguration.shared.inboxMessagesURLSession = mockSession
             
             let pageRequest = PageRequest(page: 1, size: 10)
-            CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: nil, onSuccess: { inboxPage in
+            let inboxFilter = InboxFilter(isRead: .yes, fromDate: Date(), toDate: Date())
+            CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, onSuccess: { inboxPage in
                 if inboxPage.content.count == 1,
                    let inboxMessage = inboxPage.content.first,
                    CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
