@@ -1797,7 +1797,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.23;
+				MARKETING_VERSION = 0.4.24;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1828,7 +1828,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.23;
+				MARKETING_VERSION = 0.4.24;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
