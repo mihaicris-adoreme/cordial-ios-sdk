@@ -18,11 +18,12 @@ import Foundation
     
     var requestSender = RequestSender()
     
-    // MARK: URLSession Init
+    // MARK: URLSessionProtocol Init
     
     var inboxMessagesURLSession = InboxMessagesURLSession().session
     var inboxMessageURLSession = InboxMessageURLSession().session
     var inboxMessageContentURLSession = InboxMessageContentURLSession().session
+    var updateJWTURLSession = SDKSecurityURLSession().session
     
     // MARK: Get Custom Event JSON
     

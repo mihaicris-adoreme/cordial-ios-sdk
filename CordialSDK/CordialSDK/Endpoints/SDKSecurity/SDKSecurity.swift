@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 import os.log
 
-class SDKSecurity: NSObject, URLSessionDelegate {
+class SDKSecurity {
     
     static let shared = SDKSecurity()
     
-    private override init(){}
+    private init(){}
     
     let cordialAPI = CordialAPI()
     
@@ -78,15 +78,6 @@ class SDKSecurity: NSObject, URLSessionDelegate {
          }
     }
     
-    // MARK: URLSessionDelegate
-    
-    private lazy var updateJWTURLSession: URLSession = {
-        let config = URLSessionConfiguration.default
-        config.isDiscretionary = false
-        config.sessionSendsLaunchEvents = true
-        return URLSession(configuration: config, delegate: self, delegateQueue: nil)
-    }()
-    
     func updateJWTwithCallbacks(onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         if let url = URL(string: self.getSDKSecurityURL()) {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -95,7 +86,7 @@ class SDKSecurity: NSObject, URLSessionDelegate {
             
             let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
-            self.updateJWTURLSession.dataTask(with: request) { data, response, error in
+            DependencyConfiguration.shared.updateJWTURLSession.dataTask(with: request) { data, response, error in
                 if let error = error {
                     onFailure("Failed decode response data. Error: [\(error.localizedDescription)]")
                     return
