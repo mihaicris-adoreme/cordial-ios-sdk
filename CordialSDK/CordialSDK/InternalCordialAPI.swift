@@ -143,14 +143,7 @@ class InternalCordialAPI {
         CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
-    
-    // MARK: Set current mcID
-    
-    func setCurrentMcID(mcID: String) {
-        CordialUserDefaults.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
-        CordialUserDefaults.set(CordialDateFormatter().getCurrentTimestamp(), forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
-    }
-    
+        
     // MARK: Remove current mcID
     
     @objc public func removeCurrentMcID() {

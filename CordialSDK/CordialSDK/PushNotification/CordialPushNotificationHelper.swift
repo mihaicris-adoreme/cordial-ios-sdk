@@ -32,7 +32,7 @@ class CordialPushNotificationHelper {
         }
         
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
-            self.internalCordialAPI.setCurrentMcID(mcID: mcID)
+            self.cordialAPI.setCurrentMcID(mcID: mcID)
             
             if CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID) {
                 InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)

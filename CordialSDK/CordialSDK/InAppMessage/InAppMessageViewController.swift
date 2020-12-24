@@ -220,14 +220,16 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     func userClickedInAppMessageActionButton(messageBody: Any) {
         if let dict = messageBody as? NSDictionary {
+            let mcID = self.inAppMessageData.mcID
+            
             if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
-                let mcID = self.inAppMessageData.mcID
-                self.internalCordialAPI.setCurrentMcID(mcID: mcID)
+                self.cordialAPI.setCurrentMcID(mcID: mcID)
                 self.internalCordialAPI.openDeepLink(url: url)
             }
             
             if let eventName = dict["eventName"] as? String {
-                let mcID = self.inAppMessageData.mcID
+                self.cordialAPI.setCurrentMcID(mcID: mcID)
+                
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
                 self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             }
