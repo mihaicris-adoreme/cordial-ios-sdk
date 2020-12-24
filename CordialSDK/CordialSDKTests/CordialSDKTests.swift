@@ -345,7 +345,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        CordialAPI().setCurrentMcID(mcID: self.testMcId)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
@@ -362,7 +362,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        CordialAPI().setCurrentMcID(mcID: self.testMcId)
         
         self.cordialAPI.setContact(primaryKey: nil)
         
@@ -380,7 +380,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        CordialAPI().setCurrentMcID(mcID: self.testMcId)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
@@ -398,7 +398,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        CordialAPI().setCurrentMcID(mcID: self.testMcId)
         
         self.cordialAPI.setContact(primaryKey: nil)
         
@@ -416,7 +416,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcId)
+        CordialAPI().setCurrentMcID(mcID: self.testMcId)
         
         self.cordialAPI.setContact(primaryKey: "new_\(self.testPrimaryKey)")
         
@@ -1057,7 +1057,7 @@ class CordialSDKTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 18) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 19) {
             XCTAssert(mock.isVerified)
             
             InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -1065,7 +1065,7 @@ class CordialSDKTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 19)
+        wait(for: [expectation], timeout: 20)
     }
     
     func testInAppMessageBannerManualDismiss() {
