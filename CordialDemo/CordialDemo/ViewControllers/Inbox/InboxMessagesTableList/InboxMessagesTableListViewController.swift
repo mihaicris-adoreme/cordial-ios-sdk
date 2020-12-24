@@ -123,6 +123,7 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
                     inboxMessageViewController.isNeededInboxMessagesUpdate = false
                 }
 
+                CordialAPI().setCurrentMcID(mcID: self.chosenInboxMessage.mcID)
                 CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.mcID)
 
                 inboxMessageViewController.inboxMessage = self.chosenInboxMessage
