@@ -407,7 +407,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcID)
+        CordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
@@ -424,7 +424,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcID)
+        CordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: nil)
         
@@ -442,7 +442,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcID)
+        CordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
@@ -460,7 +460,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcID)
+        CordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: nil)
         
@@ -478,7 +478,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        InternalCordialAPI().setCurrentMcID(mcID: self.testMcID)
+        CordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: "new_\(self.testPrimaryKey)")
         
