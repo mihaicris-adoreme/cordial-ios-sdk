@@ -184,17 +184,27 @@ class CordialSwizzler {
     
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         
+        let cordialSwizzlerHelper = CordialSwizzlerHelper()
+        
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
                 return false
             }
             
-            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
-            let mcID = CordialAPI().getCurrentMcID()
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
-            InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-            
-            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
+            if url.absoluteString != "https://tjs.cordialdev.com/prep-tj1.html" { // TMP
+                let tmpURL = URL(string: "https://events-handling-svc.cordial.io/c/45:5feb5dfe20c3e60bb1699514:ot:5e6b9936102e517f8c04870a:1/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDkyNjE3MDUsImNkIjoiLmNvcmRpYWwuaW8iLCJjZSI6ODY0MDAsInRrIjoiY29yZGlhbGRldiIsIm10bElEIjoiNWZlYjVlYmUyMGMzZTYwYmI5NTA4M2JiIiwibWNMaW5rSUQiOiIxMzY3N2MwZSIsImxpbmtVcmwiOiJodHRwczpcL1wvdGpzLmNvcmRpYWxkZXYuY29tXC9wcmVwLXRqMS5odG1sIn0.W98dI4OdLj7cMsThM_efKvmNJqT4XF_MpfWj5Vxwzm4")! // TMP logic
+                
+                cordialSwizzlerHelper.convertEmailLinkToDeepLink(url: tmpURL, onSuccess: { url in
+                    InternalCordialAPI().openDeepLink(url: url)
+                }, onFailure: { error in
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Universal link opening failed with error: [%{public}@]", log: OSLog.cordialError, type: .error, error)
+                    }
+                })
+            } else {
+                cordialSwizzlerHelper.sentEventDeepLinlkOpen()
+                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
+            }
             
             return true
         }
@@ -206,17 +216,28 @@ class CordialSwizzler {
     
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        
+        let cordialSwizzlerHelper = CordialSwizzlerHelper()
+        
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
                 return
             }
             
-            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
-            let mcID = CordialAPI().getCurrentMcID()
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
-            InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-            
-            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+            if url.absoluteString != "https://tjs.cordialdev.com/prep-tj1.html" { // TMP
+                let tmpURL = URL(string: "https://events-handling-svc.cordial.io/c/45:5feb5dfe20c3e60bb1699514:ot:5e6b9936102e517f8c04870a:1/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDkyNjE3MDUsImNkIjoiLmNvcmRpYWwuaW8iLCJjZSI6ODY0MDAsInRrIjoiY29yZGlhbGRldiIsIm10bElEIjoiNWZlYjVlYmUyMGMzZTYwYmI5NTA4M2JiIiwibWNMaW5rSUQiOiIxMzY3N2MwZSIsImxpbmtVcmwiOiJodHRwczpcL1wvdGpzLmNvcmRpYWxkZXYuY29tXC9wcmVwLXRqMS5odG1sIn0.W98dI4OdLj7cMsThM_efKvmNJqT4XF_MpfWj5Vxwzm4")! // TMP logic
+
+                cordialSwizzlerHelper.convertEmailLinkToDeepLink(url: tmpURL, onSuccess: { url in
+                    InternalCordialAPI().openDeepLink(url: url)
+                }, onFailure: { error in
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Universal link opening failed with error: [%{public}@]", log: OSLog.cordialError, type: .error, error)
+                    }
+                })
+            } else {
+                cordialSwizzlerHelper.sentEventDeepLinlkOpen()
+                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+            }
         }
     }
     

@@ -254,19 +254,21 @@ class InternalCordialAPI {
     // MARK: Open deep link
     
     func openDeepLink(url: URL) {
-        if let scheme = url.scheme, scheme.contains("http") {
-            let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
-            userActivity.webpageURL = url
-            
-            if #available(iOS 13.0, *), self.isAppUseScenes(),
-                let scene = UIApplication.shared.connectedScenes.first {
+        DispatchQueue.main.async {
+            if let scheme = url.scheme, scheme.contains("http") {
+                let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+                userActivity.webpageURL = url
                 
-                scene.delegate?.scene?(scene, continue: userActivity)
+                if #available(iOS 13.0, *), self.isAppUseScenes(),
+                    let scene = UIApplication.shared.connectedScenes.first {
+                    
+                    scene.delegate?.scene?(scene, continue: userActivity)
+                } else {
+                    let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+                }
             } else {
-                let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+                UIApplication.shared.open(url, options:[:], completionHandler: nil)
             }
-        } else {
-            UIApplication.shared.open(url, options:[:], completionHandler: nil)
         }
     }
     
