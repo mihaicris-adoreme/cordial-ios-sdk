@@ -72,31 +72,7 @@ class CordialSwizzlerHelper {
             internalCordialAPI.setPushNotificationToken(token: token)
         }
     }
-    
-    func convertEmailLinkToDeepLink(url: URL, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                onFailure("Fetching inbox messages failed. Error: [\(error.localizedDescription)]")
-                return
-            }
-            
-            if let httpResponse = response as? HTTPURLResponse,
-               let responseURL = httpResponse.url{
-                
-                switch httpResponse.statusCode {
-                case 200:
-                    onSuccess(responseURL)
-                default:
-                    let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                    
-                    onFailure("Fetching inbox messages failed. \(message)")
-                }
-            } else {
-                onFailure("Fetching inbox messages failed. Error: [Payload is absent]")
-            }
-        }.resume()
-    }
-    
+        
     func sentEventDeepLinlkOpen() {
         let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
         let mcID = CordialAPI().getCurrentMcID()
