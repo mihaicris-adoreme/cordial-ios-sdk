@@ -8,7 +8,6 @@
 
 import Foundation
 import UserNotifications
-import os.log
 
 public extension Notification.Name {
     
@@ -46,7 +45,7 @@ class NotificationManager {
     
     var isNotificationManagerHasNotBeenSettedUp = true
     
-    var emailLink = String()
+    var emailDeepLink = String()
     
     let appMovedToBackgroundThrottler = Throttler(minimumDelay: 1)
     var appMovedToBackgroundBackgroundTaskID: UIBackgroundTaskIdentifier?
@@ -104,13 +103,9 @@ class NotificationManager {
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
         InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
               
-        if let url = URL(string: self.emailLink) {
-            self.emailLink = String()
+        if let url = URL(string: self.emailDeepLink) {
+            self.emailDeepLink = String()
             CordialEmailDeepLink().open(url: url)
-        } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Universal link opening failed with error: [URL absent]", log: OSLog.cordialError, type: .error)
-            }
         }
     }
     

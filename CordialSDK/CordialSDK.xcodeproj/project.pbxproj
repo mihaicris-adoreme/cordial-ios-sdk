@@ -11,6 +11,7 @@
 		9E0813842274523500BD1412 /* ContactsSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0813832274523500BD1412 /* ContactsSender.swift */; };
 		9E081386227458C800BD1412 /* UpsertContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081385227458C800BD1412 /* UpsertContacts.swift */; };
 		9E0813882274722000BD1412 /* ContactRequestsCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */; };
+		9E125FBD25AF9B1B00B75140 /* CordialEmailDeepLinkURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E125FBC25AF9B1B00B75140 /* CordialEmailDeepLinkURLSession.swift */; };
 		9E126DB122F85EF300A74143 /* SDKSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E126DB022F85EF300A74143 /* SDKSecurity.swift */; };
 		9E126DB422F8661700A74143 /* MD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E126DB322F8661700A74143 /* MD5.swift */; };
 		9E12EA4322CCD42200C2DED4 /* InAppMessageGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */; };
@@ -219,6 +220,7 @@
 		9E0813832274523500BD1412 /* ContactsSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSender.swift; sourceTree = "<group>"; };
 		9E081385227458C800BD1412 /* UpsertContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContacts.swift; sourceTree = "<group>"; };
 		9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRequestsCoreData.swift; sourceTree = "<group>"; };
+		9E125FBC25AF9B1B00B75140 /* CordialEmailDeepLinkURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialEmailDeepLinkURLSession.swift; sourceTree = "<group>"; };
 		9E126DB022F85EF300A74143 /* SDKSecurity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKSecurity.swift; sourceTree = "<group>"; };
 		9E126DB322F8661700A74143 /* MD5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MD5.swift; sourceTree = "<group>"; };
 		9E12EA4222CCD42200C2DED4 /* InAppMessageGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageGetter.swift; sourceTree = "<group>"; };
@@ -952,6 +954,7 @@
 			children = (
 				9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */,
 				9E5C5CDD25AF85900098A249 /* CordialEmailDeepLink.swift */,
+				9E125FBC25AF9B1B00B75140 /* CordialEmailDeepLinkURLSession.swift */,
 			);
 			path = DeepLinks;
 			sourceTree = "<group>";
@@ -1185,6 +1188,7 @@
 				9E786AEC2399489800D92017 /* InAppMessagesShown+CoreDataProperties.swift in Sources */,
 				9EE94E2A233CF07B009651DF /* InAppMessagesParam+CoreDataProperties.swift in Sources */,
 				9E65C1D4233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift in Sources */,
+				9E125FBD25AF9B1B00B75140 /* CordialEmailDeepLinkURLSession.swift in Sources */,
 				9E806DAC2271E05200A15F8E /* ReachabilitySender.swift in Sources */,
 				9EBE675A22731C030065AA06 /* ContactOrdersSender.swift in Sources */,
 				9E5C5CDE25AF85900098A249 /* CordialEmailDeepLink.swift in Sources */,

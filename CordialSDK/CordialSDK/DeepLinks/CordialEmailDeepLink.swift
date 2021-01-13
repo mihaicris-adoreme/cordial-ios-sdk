@@ -16,31 +16,31 @@ class CordialEmailDeepLink {
             InternalCordialAPI().openDeepLink(url: url)
         }, onFailure: { error in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Universal link opening failed with error: [%{public}@]", log: OSLog.cordialError, type: .error, error)
+                os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialError, type: .error, error)
             }
         })
     }
     
     private func fetchDeepLink(url: URL, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
+        CordialEmailDeepLinkURLSession().session.dataTask(with: url) { data, response, error in
             if let error = error {
-                onFailure("Fetching inbox messages failed. Error: [\(error.localizedDescription)]")
+                onFailure("Fetching Email DeepLink failed. Error: [\(error.localizedDescription)]")
                 return
             }
             
-            if let httpResponse = response as? HTTPURLResponse,
-               let responseURL = httpResponse.url{
-                
-                switch httpResponse.statusCode {
-                case 200:
-                    onSuccess(responseURL)
-                default:
+            if let httpResponse = response as? HTTPURLResponse {
+                if httpResponse.statusCode == 302,
+                   let location = httpResponse.allHeaderFields["Location"] as? String,
+                   let url = URL(string: location) {
+                    
+                    onSuccess(url)
+                } else {
                     let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                     
-                    onFailure("Fetching inbox messages failed. \(message)")
+                    onFailure("Fetching Email DeepLink failed. \(message)")
                 }
             } else {
-                onFailure("Fetching inbox messages failed. Error: [Payload is absent]")
+                onFailure("Fetching Email DeepLink failed. Error: [Unexpected error]")
             }
         }.resume()
     }
