@@ -12,8 +12,8 @@ import os.log
 class CordialEmailDeepLink {
     
     func open(url: URL) {
-        self.fetchDeepLink(url: url, onSuccess: { deepLink in
-            InternalCordialAPI().openDeepLink(url: deepLink)
+        self.fetchDeepLink(url: url, onSuccess: { url in
+            InternalCordialAPI().openDeepLink(url: url)
         }, onFailure: { error in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialError, type: .error, error)
@@ -31,14 +31,15 @@ class CordialEmailDeepLink {
             if let httpResponse = response as? HTTPURLResponse {
                 if httpResponse.statusCode == 302,
                    let location = httpResponse.allHeaderFields["Location"] as? String,
-                   let locationURL = URL(string: location) {
+                   let url = URL(string: location) {
                     
                     if let mcID = httpResponse.allHeaderFields["x-mcid"] as? String,
                        mcID != ":TEST:" {
-                        // TODO save mcID
+                        
+                        CordialAPI().setCurrentMcID(mcID: mcID)
                     }
                     
-                    onSuccess(locationURL)
+                    onSuccess(url)
                 } else {
                     let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                     

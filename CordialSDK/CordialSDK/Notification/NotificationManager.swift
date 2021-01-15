@@ -103,9 +103,9 @@ class NotificationManager {
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
         InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
               
-        if let url = URL(string: self.emailDeepLink) {
+        if let emailDeepLinkURL = URL(string: self.emailDeepLink) {
             self.emailDeepLink = String()
-            CordialEmailDeepLink().open(url: url)
+            CordialEmailDeepLink().open(url: emailDeepLinkURL)
         }
     }
     
