@@ -191,9 +191,10 @@ class CordialSwizzler {
                 return false
             }
             
-            if url.absoluteString != "https://tjs.cordialdev.com/prep-tj1.html" { // TMP
-                let tmpURL = URL(string: "https://events-handling-svc.cordial.io/c/45:5feb5dfe20c3e60bb1699514:ot:5e6b9936102e517f8c04870a:1/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDkyNjE3MDUsImNkIjoiLmNvcmRpYWwuaW8iLCJjZSI6ODY0MDAsInRrIjoiY29yZGlhbGRldiIsIm10bElEIjoiNWZlYjVlYmUyMGMzZTYwYmI5NTA4M2JiIiwibWNMaW5rSUQiOiIxMzY3N2MwZSIsImxpbmtVcmwiOiJodHRwczpcL1wvdGpzLmNvcmRpYWxkZXYuY29tXC9wcmVwLXRqMS5odG1sIn0.W98dI4OdLj7cMsThM_efKvmNJqT4XF_MpfWj5Vxwzm4")! // TMP logic
-                NotificationManager.shared.emailDeepLink = tmpURL.absoluteString
+            if let host = url.host,
+               CordialApiConfiguration.shared.vanityDomains.contains(host) {
+                
+                NotificationManager.shared.emailDeepLink = url.absoluteString
             } else {
                 cordialSwizzlerHelper.sentEventDeepLinlkOpen()
                 cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
@@ -217,9 +218,10 @@ class CordialSwizzler {
                 return
             }
             
-            if url.absoluteString != "https://tjs.cordialdev.com/prep-tj1.html" { // TMP
-                let tmpURL = URL(string: "https://events-handling-svc.cordial.io/c/45:5feb5dfe20c3e60bb1699514:ot:5e6b9936102e517f8c04870a:1/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MDkyNjE3MDUsImNkIjoiLmNvcmRpYWwuaW8iLCJjZSI6ODY0MDAsInRrIjoiY29yZGlhbGRldiIsIm10bElEIjoiNWZlYjVlYmUyMGMzZTYwYmI5NTA4M2JiIiwibWNMaW5rSUQiOiIxMzY3N2MwZSIsImxpbmtVcmwiOiJodHRwczpcL1wvdGpzLmNvcmRpYWxkZXYuY29tXC9wcmVwLXRqMS5odG1sIn0.W98dI4OdLj7cMsThM_efKvmNJqT4XF_MpfWj5Vxwzm4")! // TMP logic
-                NotificationManager.shared.emailDeepLink = tmpURL.absoluteString
+            if let host = url.host,
+               CordialApiConfiguration.shared.vanityDomains.contains(host) {
+                
+                NotificationManager.shared.emailDeepLink = url.absoluteString
             } else {
                 cordialSwizzlerHelper.sentEventDeepLinlkOpen()
                 cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)

@@ -7,6 +7,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:tjs.cordialdev.com</string>
+		<string>applinks:e.a45.clients.cordialdev.com</string>
 	</array>
 </dict>
 </plist>
