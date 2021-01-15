@@ -119,7 +119,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             webConfiguration.userContentController = contentController
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("IAM: contentController added to webConfiguration successfully", log: OSLog.cordialError, type: .info)
+                os_log("IAM Info: [contentController added to webConfiguration successfully]", log: OSLog.cordialInAppMessage, type: .info)
             }
         }
 
@@ -146,7 +146,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             let x = self.webView.frame.origin.x
             var y = self.webView.frame.origin.y + self.webView.frame.size.height
             
-            if #available(iOS 11.0, *), let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top, let safeAreaInsetsBottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+            if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top,
+               let safeAreaInsetsBottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+                
                 y += safeAreaInsetsTop
                 y += safeAreaInsetsBottom
             }

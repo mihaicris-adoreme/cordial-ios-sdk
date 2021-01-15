@@ -11,6 +11,8 @@ import CordialSDK
 
 class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     
+    let deepLinksHost = "tjs.cordialdev.com"
+    
     func openDeepLink(url: URL, fallbackURL: URL?) {
         // If app dose not use scenes this method will be called instead `openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene)`
         
@@ -18,12 +20,16 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
             return
         }
         
-        if let products = URLComponents(url: url, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-            self.showAppDelegateDeepLink(product: product)
-        } else if let fallbackURL = URL(string: (fallbackURL?.absoluteString.removingPercentEncoding)!), let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-            self.showAppDelegateDeepLink(product: product)
-        } else if let webpageUrl = URL(string: "https://\(host)/") {
-            UIApplication.shared.open(webpageUrl)
+        if host == self.deepLinksHost {
+            if let products = URLComponents(url: url, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+                self.showAppDelegateDeepLink(product: product)
+            } else if let fallbackURL = URL(string: (fallbackURL?.absoluteString.removingPercentEncoding)!), let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+                self.showAppDelegateDeepLink(product: product)
+            } else if let webpageUrl = URL(string: "https://\(host)/") {
+                UIApplication.shared.open(webpageUrl)
+            }
+        } else {
+            UIApplication.shared.open(url)
         }
     }
     
@@ -34,12 +40,16 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
             return
         }
         
-        if let products = URLComponents(url: url, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-            self.showSceneDelegateDeepLink(product: product, scene: scene)
-        } else if fallbackURL != nil, let fallbackURL = URL(string: (fallbackURL?.absoluteString.removingPercentEncoding)!), let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-            self.showSceneDelegateDeepLink(product: product, scene: scene)
-        } else if let webpageUrl = URL(string: "https://\(host)/") {
-            UIApplication.shared.open(webpageUrl)
+        if host == self.deepLinksHost {
+            if let products = URLComponents(url: url, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+                self.showSceneDelegateDeepLink(product: product, scene: scene)
+            } else if fallbackURL != nil, let fallbackURL = URL(string: (fallbackURL?.absoluteString.removingPercentEncoding)!), let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+                self.showSceneDelegateDeepLink(product: product, scene: scene)
+            } else if let webpageUrl = URL(string: "https://\(host)/") {
+                UIApplication.shared.open(webpageUrl)
+            }
+        } else {
+            UIApplication.shared.open(url)
         }
     }
     

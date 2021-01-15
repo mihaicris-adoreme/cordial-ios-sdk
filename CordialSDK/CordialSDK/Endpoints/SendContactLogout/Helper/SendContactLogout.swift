@@ -16,7 +16,7 @@ class SendContactLogout {
     
     func sendContactLogout(sendContactLogoutRequest: SendContactLogoutRequest) {
         if let url = URL(string: CordialApiEndpoints().getContactLogoutURL()) {
-            var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+            var request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
             let sendContactLogoutJSON = getSendContactLogoutJSON(sendContactLogoutRequest: sendContactLogoutRequest)
             request.httpBody = sendContactLogoutJSON.data(using: .utf8)

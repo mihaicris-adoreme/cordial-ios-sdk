@@ -64,7 +64,7 @@ class CustomEventsSender {
     }
     
     func systemErrorHandler(sendCustomEventRequests: [SendCustomEventRequest], error: ResponseError) {
-        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendCustomEvent.sync(flags: .barrier) {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
         }
         
@@ -73,7 +73,7 @@ class CustomEventsSender {
             os_log("Sending events { %{public}@ } failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs, error.message)
         }
     }
-    
+
     func logicErrorHandler(sendCustomEventRequests: [SendCustomEventRequest], error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendCustomEventsLogicError, object: error)
         
@@ -84,8 +84,8 @@ class CustomEventsSender {
         
         if let responseBody = error.responseBody {
             let sendCustomEventRequestsWithoutBrokenEvents = self.getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: sendCustomEventRequests, responseBody: responseBody)
-            if sendCustomEventRequestsWithoutBrokenEvents.count > 0 {
-                                    
+            if !sendCustomEventRequestsWithoutBrokenEvents.isEmpty {
+                
                 self.sendCustomEvents(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
                 
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -126,12 +126,12 @@ class CustomEventsSender {
                 }
             } else {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("Failed decode response.", log: OSLog.cordialSDKSecurity, type: .error)
+                    os_log("Failed decode response", log: OSLog.cordialSendCustomEvents, type: .error)
                 }
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, error.localizedDescription)
             }
         }
         

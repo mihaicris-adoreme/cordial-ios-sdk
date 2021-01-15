@@ -14,6 +14,8 @@ class ThrottlerManager {
     
     private init(){}
     
+    let appMovedToBackground = Throttler(minimumDelay: 1)
+    let appMovedFromBackground = Throttler(minimumDelay: 1)
     let sendCustomEventRequest = Throttler(minimumDelay: 1)
     
 }

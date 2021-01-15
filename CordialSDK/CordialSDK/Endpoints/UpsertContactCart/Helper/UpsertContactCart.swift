@@ -17,7 +17,7 @@ class UpsertContactCart {
     
     func upsertContactCart(upsertContactCartRequest: UpsertContactCartRequest) {
         if let url = URL(string: CordialApiEndpoints().getContactCartURL()) {
-            var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+            var request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
             let upsertContactCartJSON = getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
             request.httpBody = upsertContactCartJSON.data(using: .utf8)

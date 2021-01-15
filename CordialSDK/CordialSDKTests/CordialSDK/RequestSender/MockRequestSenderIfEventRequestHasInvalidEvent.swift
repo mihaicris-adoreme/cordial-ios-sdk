@@ -25,7 +25,7 @@ class MockRequestSenderIfEventRequestHasInvalidEvent: RequestSender {
         let jsonString = String(decoding: httpBody, as: UTF8.self)
         
         if jsonString.contains(self.invalidEventName) {
-            self.sdkTests.testCase.sendInvalidEventRequest(task: task, invalidEventName: self.invalidEventName)
+            self.sdkTests.testCase.sendInvalidCustomEventRequest(task: task)
         } else {
             if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
                 jsonArray.forEach { jsonAnyObject in

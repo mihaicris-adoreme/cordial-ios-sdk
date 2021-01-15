@@ -7,11 +7,11 @@
 //
 
 import Foundation
+import os.log
 
 class ContactsSenderHelper {
     
-    func prepareDataBeforeUpsertContacts(upsertContactRequests: [UpsertContactRequest]) -> [UpsertContactRequest] {
-        
+    func prepareCoreDataCacheBeforeUpsertContacts(upsertContactRequests: [UpsertContactRequest]) -> [UpsertContactRequest] {
         self.removeCacheIfCurrentPrimaryKeyNotEqualToPreviousPrimaryKey(upsertContactRequests: upsertContactRequests)
         
         return self.removeUpsertContactRequestIfNotificationTokenNotPresented(upsertContactRequests: upsertContactRequests)
@@ -38,10 +38,20 @@ class ContactsSenderHelper {
         
         for index in 0...(upsertContactRequests.count - 1) {
             if upsertContactRequests[index].token == nil {
+                
+                CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: [upsertContactRequests[index]])
+                
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    upsertContactRequests.forEach({ upsertContactRequest in
+                        os_log("Sending contact failed. Saved to retry later. Request ID: [%{public}@] Error: [Device token is absent]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
+                    })
+                }
+                
                 upsertContactRequests.remove(at: index)
             }
         }
         
         return upsertContactRequests
     }
+
 }

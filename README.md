@@ -653,7 +653,8 @@ To work with inbox messages you will have to use the `InboxMessageAPI` class. It
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-InboxMessageAPI().fetchInboxMessages(onSuccess: { response in
+let pageRequest = PageRequest(page: 1, size: 10) 
+CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, onSuccess: { inboxPage in
     // your code
 }, onFailure: { error in
     // your code
@@ -662,13 +663,50 @@ InboxMessageAPI().fetchInboxMessages(onSuccess: { response in
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[[InboxMessageAPI alloc] init] fetchInboxMessagesOnSuccess:^(NSArray<InboxMessage *> *response) {
+PageRequest *pageRequest = [[PageRequest alloc] initWithPage:1 size:10];
+[[[CordialInboxMessageAPI alloc] init] fetchInboxMessagesWithPageRequest:pageRequest inboxFilter:nil onSuccess:^(InboxPage *inboxPage) {
     // your code
 } onFailure:^(NSString *error) {
     // your code
 }];
 ``` 
-`response` is an array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its id, title, body, custom key values pairs, if the message is read and when it was sent.
+
+Response is an `InboxPage` object wich contains pagination parameters. `InboxPage` property `content` is an array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its mcID, if the message is read and when it was sent.
+
+To filter inbox messages, pass an `InboxFilter` instance to the `fetchInboxMessages` method:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let pageRequest = PageRequest(page: 1, size: 10) 
+let fromDate = Date()
+let toDate = Date()
+let inboxFilter = InboxFilter(isRead: .yes, fromDate: fromDate, toDate: toDate)
+CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, onSuccess: { inboxPage in
+    // your code
+}, onFailure: { error in
+    // your code
+})
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+PageRequest *pageRequest = [[PageRequest alloc] initWithPage:1 size:10];
+NSDate *fromDate = [[NSDate alloc] init];
+NSDate *toDate = [[NSDate alloc] init];
+InboxFilter *inboxFilter = [[InboxFilter alloc] initWithIsRead:InboxFilterIsReadTypeYes fromDate:fromDate toDate:toDate];
+[[[CordialInboxMessageAPI alloc] init] fetchInboxMessagesWithPageRequest:pageRequest inboxFilter:inboxFilter onSuccess:^(InboxPage *inboxPage) {
+    // your code
+} onFailure:^(NSString *error) {
+    // your code
+}];
+``` 
+
+`InboxFilter` contains the following filter parameters:
+
+    If the inbox message is read
+    If the inbox message was sent before the specified date
+    If the inbox message was sent after the specified date
 
 #### Send up an inbox message is read event. 
 
@@ -689,7 +727,7 @@ This is the method to be called to signal a message is read by the user and shou
 
 #### Mark a message as read/unread
 
-This operations actually marks a message as read or unread which toggles the `read` flag on the corresponding `InboxMessage` object.
+This operations actually marks a message as read or unread which toggles the `isRead` flag on the corresponding `InboxMessage` object.
 
 To mark messages as read:
 
@@ -738,5 +776,21 @@ NSString *mcID = @"example_mc_id";
 [[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
 ```
 
+#### Notifications about new incoming inbox message
+
+The SDK can notify when a new inbox message has been delivered to the device. In order to be notified set a `InboxMessageDelegate`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let inboxMessageHandler = YourImplementationOfInboxMessageDelegate()
+CordialApiConfiguration.shared.inboxMessageDelegate = inboxMessageHandler
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+YourImplementationOfInboxMessageDelegate *inboxMessageHandler = [[YourImplementationOfInboxMessageDelegate alloc] init];
+[CordialApiConfiguration shared].inboxMessageDelegate = inboxMessageHandler;
+```
 
 [Top](#contents)

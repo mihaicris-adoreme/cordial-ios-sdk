@@ -51,38 +51,6 @@ struct App {
     }
 }
 
-extension AppDelegate {
-    
-    func setupCordialSDKLogicErrorHandler() {
-        let notificationCenter = NotificationCenter.default
-        
-        notificationCenter.removeObserver(self, name: .cordialSendCustomEventsLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialSendCustomEventsLogicError, object: nil)
-        
-        notificationCenter.removeObserver(self, name: .cordialUpsertContactCartLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialUpsertContactCartLogicError, object: nil)
-        
-        notificationCenter.removeObserver(self, name: .cordialSendContactOrdersLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialSendContactOrdersLogicError, object: nil)
-        
-        notificationCenter.removeObserver(self, name: .cordialUpsertContactsLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialUpsertContactsLogicError, object: nil)
-        
-        notificationCenter.removeObserver(self, name: .cordialSendContactLogoutLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialSendContactLogoutLogicError, object: nil)
-        
-        notificationCenter.removeObserver(self, name: .cordialInAppMessageLogicError, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(cordialNotificationErrorHandler(notification:)), name: .cordialInAppMessageLogicError, object: nil)
-        
-    }
-    
-    @objc func cordialNotificationErrorHandler(notification: NSNotification) {
-        if let error = notification.object as? ResponseError {
-            CordialAPI().showSystemAlert(title: error.message, message: error.responseBody)
-        }
-    }
-}
-
 extension UITextField {
     func setBottomBorder(color: UIColor) {
         self.borderStyle = .none
@@ -93,6 +61,43 @@ extension UITextField {
         self.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
         self.layer.shadowOpacity = 1.0
         self.layer.shadowRadius = 0.0
+    }
+}
+
+extension UIViewController {
+    var previousViewController: UIViewController? {
+        guard let navigationController = navigationController else { return nil }
+        let count = navigationController.viewControllers.count
+        return count < 1 ? nil : navigationController.viewControllers[count - 1]
+    }
+}
+
+extension UIImageView {
+    public func asyncImage(url: URL) {
+        self.image = nil
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+            
+            if let responseData = data {
+                DispatchQueue.main.async {
+                    self.image = UIImage(data: responseData)
+                }
+            } else {
+                print("Image is absent by the URL")
+            }
+        }.resume()
+    }
+    
+    func roundImage(borderWidth: CGFloat, borderColor: UIColor) {
+        self.layer.borderWidth = borderWidth
+        self.layer.masksToBounds = false
+        self.layer.borderColor = borderColor.cgColor
+        self.layer.cornerRadius = self.frame.height / 2
+        self.clipsToBounds = true
     }
 }
 

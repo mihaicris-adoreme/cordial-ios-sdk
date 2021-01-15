@@ -42,6 +42,22 @@
     <entity name="InAppMessagesShown" representedClassName="InAppMessagesShown" syncable="YES">
         <attribute name="mcID" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="InboxMessageDeleteRequests" representedClassName="InboxMessageDeleteRequests" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="InboxMessagesCache" representedClassName="InboxMessagesCache" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="InboxMessagesContent" representedClassName="InboxMessagesContent" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+        <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="InboxMessagesReadUnreadMarks" representedClassName="InboxMessagesReadUnreadMarks" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
     <elements>
         <element name="ContactCartRequest" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="ContactLogout" positionX="-45" positionY="9" width="128" height="60"/>
@@ -52,5 +68,9 @@
         <element name="InAppMessagesParam" positionX="-36" positionY="27" width="128" height="208"/>
         <element name="InAppMessagesQueue" positionX="-36" positionY="18" width="128" height="75"/>
         <element name="InAppMessagesShown" positionX="-36" positionY="99" width="128" height="58"/>
+        <element name="InboxMessageDeleteRequests" positionX="-36" positionY="99" width="128" height="58"/>
+        <element name="InboxMessagesCache" positionX="-27" positionY="108" width="128" height="73"/>
+        <element name="InboxMessagesContent" positionX="-36" positionY="99" width="128" height="88"/>
+        <element name="InboxMessagesReadUnreadMarks" positionX="-36" positionY="99" width="128" height="73"/>
     </elements>
 </model>

@@ -16,6 +16,7 @@ extension OSLog {
     static let cordialPushNotification = OSLog(subsystem: subsystem, category: "CordialSDKPushNotification")
     
     static let cordialError = OSLog(subsystem: subsystem, category: "CordialSDKError")
+    static let cordialCoreDataError = OSLog(subsystem: subsystem, category: "CordialSDKCoreDataError")
     
     static let cordialSendCustomEvents = OSLog(subsystem: subsystem, category: "CordialSDKSendCustomEvents")
     static let cordialUpsertContactCart = OSLog(subsystem: subsystem, category: "CordialSDKUpsertContactCart")
@@ -23,15 +24,16 @@ extension OSLog {
     static let cordialUpsertContacts = OSLog(subsystem: subsystem, category: "CordialSDKUpsertContacts")
     static let cordialSendContactLogout = OSLog(subsystem: subsystem, category: "CordialSDKSendContactLogout")
     static let cordialInAppMessage = OSLog(subsystem: subsystem, category: "CordialSDKInAppMessage")
-    static let cordialSDKSecurity = OSLog(subsystem: subsystem, category: "CordialSDKSecurity")
+    static let cordialSecurity = OSLog(subsystem: subsystem, category: "CordialSDKSecurity")
+    static let cordialInboxMessages = OSLog(subsystem: subsystem, category: "CordialSDKInboxMessages")
     
 }
 
 @objc public enum logLevel: Int {
-    case none = 1
-    case all = 2
-    case error = 3
-    case info = 4
+    case none
+    case all
+    case error
+    case info 
 }
 
 public enum osLogLevel: String {

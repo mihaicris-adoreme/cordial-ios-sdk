@@ -34,6 +34,14 @@ class CordialSwizzler {
                 self.swizzleContinueRestorationHandler()
                 self.swizzleOpenOptions()
             }
+            
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Deep links related functions swizzled successfully", log: OSLog.cordialPushNotification, type: .info)
+            }
+        } else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Deep links related functions not swizzled: Deep links delegate not setted up", log: OSLog.cordialPushNotification, type: .info)
+            }
         }
         
         self.swizzleHandleEventsForBackgroundURLSessionCompletionHandler()
@@ -169,7 +177,7 @@ class CordialSwizzler {
     
     @objc func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("RegisterForRemoteNotifications fail with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            os_log("RegisterForRemoteNotifications fail with error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
         }
     }
     

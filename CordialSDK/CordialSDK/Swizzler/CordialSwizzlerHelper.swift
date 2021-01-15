@@ -17,8 +17,21 @@ class CordialSwizzlerHelper {
             os_log("Silent push notification received. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
         }
         
-        if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+        let pushNotificationParser = CordialPushNotificationParser()
+        
+        if pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
             InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
+        }
+        
+        if pushNotificationParser.isPayloadContainInboxMessage(userInfo: userInfo),
+           let mcID = pushNotificationParser.getMcID(userInfo: userInfo) {
+            
+            CoreDataManager.shared.inboxMessagesCache.removeInboxMessageFromCoreData(mcID: mcID)
+            CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContentFromCoreData(mcID: mcID)
+            
+            if let inboxMessageDelegate = CordialApiConfiguration.shared.inboxMessageDelegate {
+                inboxMessageDelegate.newInboxMessageDelivered(mcID: mcID)
+            }
         }
     }
     
@@ -42,8 +55,6 @@ class CordialSwizzlerHelper {
         DispatchQueue.main.async {
             let current = UNUserNotificationCenter.current()
             
-            let internalCordialAPI = InternalCordialAPI()
-            
             var status = String()
             
             current.getNotificationSettings(completionHandler: { (settings) in                
@@ -53,9 +64,9 @@ class CordialSwizzlerHelper {
                     status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                 }
                 
-                internalCordialAPI.setPushNotificationStatus(status: status)
-                
                 self.sendPushNotificationToken(token: token, status: status)
+                
+                CoreDataManager.shared.coreDataSender.sendCachedUpsertContactRequests()
             })
         }
     }
@@ -64,12 +75,15 @@ class CordialSwizzlerHelper {
         let internalCordialAPI = InternalCordialAPI()
         
         if token != internalCordialAPI.getPushNotificationToken() {
-            let primaryKey = CordialAPI().getContactPrimaryKey()
-            
-            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
             
             internalCordialAPI.setPushNotificationToken(token: token)
+            
+            if InternalCordialAPI().isUserLogin() {
+                let primaryKey = CordialAPI().getContactPrimaryKey()
+                
+                let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+                ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+            }
         }
     }
         

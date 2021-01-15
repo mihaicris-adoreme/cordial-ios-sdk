@@ -12,12 +12,17 @@ class ThreadQueues {
     
     static let shared = ThreadQueues()
    
-    let queueUpsertContactRequest = DispatchQueue(label: "CordialCoreDataSenderUpsertContactRequestThreadQueue", attributes: .concurrent)
-    let queueSendCustomEventRequest = DispatchQueue(label: "CordialCoreDataSenderSendCustomEventRequestThreadQueue", attributes: .concurrent)
-    let queueUpsertContactCartRequest = DispatchQueue(label: "CordialCoreDataSenderUpsertContactCartRequestThreadQueue", attributes: .concurrent)
-    let queueSendContactOrderRequest = DispatchQueue(label: "CordialCoreDataSenderSendContactOrderRequestThreadQueue", attributes: .concurrent)
-    let queueFetchInAppMessages = DispatchQueue(label: "CordialInAppMessagesQueueManagerFetchInAppMessagesThreadQueue", attributes: .concurrent)
-    let queueSendContactLogoutRequest = DispatchQueue(label: "CordialCoreDataSenderSendContactLogoutRequestThreadQueue", attributes: .concurrent)
+    let queueUpsertContact = DispatchQueue(label: "CordialCoreDataUpsertContactThreadQueue", attributes: .concurrent)
+    let queueSendCustomEvent = DispatchQueue(label: "CordialCoreDataSendCustomEventThreadQueue", attributes: .concurrent)
+    let queueUpsertContactCart = DispatchQueue(label: "CordialCoreDataUpsertContactCartThreadQueue", attributes: .concurrent)
+    let queueSendContactOrder = DispatchQueue(label: "CordialCoreDataSendContactOrderThreadQueue", attributes: .concurrent)
+    let queueFetchInAppMessages = DispatchQueue(label: "CordialCoreDataFetchInAppMessagesThreadQueue", attributes: .concurrent)
+    let queueInboxMessagesMarkReadUnread = DispatchQueue(label: "CordialCoreDataInboxMessagesMarkReadUnreadThreadQueue", attributes: .concurrent)
+    let queueInboxMessageDelete = DispatchQueue(label: "CordialCoreDataInboxMessageDeleteThreadQueue", attributes: .concurrent)
+    let queueInboxMessagesCache = DispatchQueue(label: "CordialCoreDataInboxMessagesCacheThreadQueue", attributes: .concurrent)
+    let queueInboxMessagesContent = DispatchQueue(label: "CordialCoreDataInboxMessagesContentThreadQueue", attributes: .concurrent)
+    let queueSendContactLogout = DispatchQueue(label: "CordialCoreDataSendContactLogoutThreadQueue", attributes: .concurrent)
+    
     
     private init() {}
     

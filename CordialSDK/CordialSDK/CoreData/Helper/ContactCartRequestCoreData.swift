@@ -23,20 +23,14 @@ class ContactCartRequestCoreData {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                if #available(iOS 11.0, *) {
-                    let upsertContactCartRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest, requiringSecureCoding: false)
-                    
-                    newRow.setValue(upsertContactCartRequestData, forKey: "data")
-                } else {
-                    let upsertContactCartRequestData = NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest)
-                    
-                    newRow.setValue(upsertContactCartRequestData, forKey: "data")
-                }
+                let upsertContactCartRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest, requiringSecureCoding: false)
+                
+                newRow.setValue(upsertContactCartRequestData, forKey: "data")
                 
                 try context.save()
             } catch let error {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                    os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
                 }
             }
         }
@@ -69,7 +63,7 @@ class ContactCartRequestCoreData {
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
         
