@@ -10,7 +10,7 @@ import Foundation
 
 class CordialEmailDeepLinkURLSession: NSObject, URLSessionDelegate, URLSessionTaskDelegate {
     
-    lazy var session: URLSession = { // TMP need to be URLSessionProtocol
+    lazy var session: URLSessionProtocol = {
         let config = URLSessionConfiguration.default
         config.isDiscretionary = false
         config.sessionSendsLaunchEvents = true
