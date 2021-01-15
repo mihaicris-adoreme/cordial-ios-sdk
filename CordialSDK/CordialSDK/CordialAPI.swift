@@ -103,6 +103,13 @@ import os.log
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
     }
     
+    // MARK: Set current mcID
+    
+    @objc public func setCurrentMcID(mcID: String) {
+        CordialUserDefaults.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+        CordialUserDefaults.set(CordialDateFormatter().getCurrentTimestamp(), forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
+    }
+    
     // MARK: Set Contact
     
     @objc public func setContact(primaryKey: String?) {
