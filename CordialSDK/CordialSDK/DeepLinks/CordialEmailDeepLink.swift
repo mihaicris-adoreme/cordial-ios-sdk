@@ -18,7 +18,7 @@ class CordialEmailDeepLink {
             NotificationManager.shared.emailDeepLink = String()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Email DeepLink converted successfully", log: OSLog.cordialError, type: .info)
+                os_log("Email DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
             }
         }, onFailure: { error in
             if let emailDeepLinkURL = URL(string: NotificationManager.shared.emailDeepLink),
@@ -34,7 +34,7 @@ class CordialEmailDeepLink {
             NotificationManager.shared.emailDeepLink = String()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialError, type: .error, error)
+                os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
             }
         })
     }

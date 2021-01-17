@@ -13,10 +13,11 @@ extension OSLog {
     
     private static var subsystem = Bundle.main.bundleIdentifier!
     
-    static let cordialPushNotification = OSLog(subsystem: subsystem, category: "CordialSDKPushNotification")
-    
     static let cordialError = OSLog(subsystem: subsystem, category: "CordialSDKError")
     static let cordialCoreDataError = OSLog(subsystem: subsystem, category: "CordialSDKCoreDataError")
+    
+    static let cordialPushNotification = OSLog(subsystem: subsystem, category: "CordialSDKPushNotification")
+    static let cordialDeepLinks = OSLog(subsystem: subsystem, category: "CordialSDKDeepLinks")
     
     static let cordialSendCustomEvents = OSLog(subsystem: subsystem, category: "CordialSDKSendCustomEvents")
     static let cordialUpsertContactCart = OSLog(subsystem: subsystem, category: "CordialSDKUpsertContactCart")

@@ -36,11 +36,11 @@ class CordialSwizzler {
             }
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Deep links related functions swizzled successfully", log: OSLog.cordialPushNotification, type: .info)
+                os_log("Deep links related functions swizzled successfully", log: OSLog.cordialDeepLinks, type: .info)
             }
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Deep links related functions not swizzled: Deep links delegate not setted up", log: OSLog.cordialPushNotification, type: .info)
+                os_log("Deep links related functions not swizzled: Deep links delegate not setted up", log: OSLog.cordialDeepLinks, type: .info)
             }
         }
         
