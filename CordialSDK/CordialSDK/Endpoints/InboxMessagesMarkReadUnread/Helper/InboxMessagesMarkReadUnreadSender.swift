@@ -56,7 +56,7 @@ class InboxMessagesMarkReadUnreadSender {
             os_log("Sending inbox messages read/unread marks failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
         }
         
-        if let responseBody = error.responseBody {
+        if error.statusCode == 422, let responseBody = error.responseBody {
             let inboxMessagesMarkReadUnreadRequestWithoutBrokenMarks = self.getInboxMessagesMarkReadUnreadRequestWithoutBrokenMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest, responseBody: responseBody)
             
             if !inboxMessagesMarkReadUnreadRequestWithoutBrokenMarks.markAsReadMcIDs.isEmpty ||

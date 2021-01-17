@@ -82,7 +82,7 @@ class CustomEventsSender {
             os_log("Sending some events { %{public}@ } failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, eventNamesAndRequestIDs, error.message)
         }
         
-        if let responseBody = error.responseBody {
+        if error.statusCode == 422, let responseBody = error.responseBody {
             let sendCustomEventRequestsWithoutBrokenEvents = self.getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: sendCustomEventRequests, responseBody: responseBody)
             if !sendCustomEventRequestsWithoutBrokenEvents.isEmpty {
                 
