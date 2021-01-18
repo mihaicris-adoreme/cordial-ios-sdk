@@ -8,6 +8,7 @@
 	<array>
 		<string>applinks:tjs.cordialdev.com</string>
 		<string>applinks:e.a45.clients.cordialdev.com</string>
+		<string>applinks:events-handling-svc.cordial-core.cp-7796-x-mcid-header.cordialdev.com</string>
 	</array>
 </dict>
 </plist>
