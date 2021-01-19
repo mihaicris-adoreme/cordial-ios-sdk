@@ -52,9 +52,11 @@ class CordialEmailDeepLink {
                    let url = URL(string: location) {
                     
                     if let mcID = httpResponse.allHeaderFields["x-mcid"] as? String,
-                       mcID != ":TEST:" {
+                       let isTest = httpResponse.allHeaderFields["x-message-istest"] as? Bool {
                         
-                        CordialAPI().setCurrentMcID(mcID: mcID)
+                        if isTest {
+                            CordialAPI().setCurrentMcID(mcID: mcID)
+                        }
                     }
                     
                     onSuccess(url)
