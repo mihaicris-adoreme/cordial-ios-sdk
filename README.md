@@ -228,15 +228,30 @@ Every piece of information (internal or custom events, updating a contact, etc.)
 
 In the event the contact's primary key is unknown, all requests associated with the device ID will be cached until the contact is identified using `setContact`.
 
+`setContact` with primary key usage:
+
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-cordialAPI.setContact(primaryKey: email)
+cordialAPI.setContact(primaryKey: "foo@example.com")
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[cordialAPI setContactWithPrimaryKey:email];
+[cordialAPI setContactWithPrimaryKey: @"foo@example.com"];
+```
+
+`setContact` with secondary key usage:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+cordialAPI.setContact(primaryKey: "email:foo@example.com")
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[cordialAPI setContactWithPrimaryKey: @"email:foo@example.com"];
 ```
 
 ## Unsetting a Contact
