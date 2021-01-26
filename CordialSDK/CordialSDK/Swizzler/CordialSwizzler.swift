@@ -11,6 +11,10 @@ import os.log
 
 class CordialSwizzler {
     
+    static let shared = CordialSwizzler()
+    
+    private init() {}
+    
     func swizzleAppDelegateMethods() {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()

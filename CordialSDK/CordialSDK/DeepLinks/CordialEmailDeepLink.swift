@@ -54,8 +54,10 @@ class CordialEmailDeepLink {
                     if let mcID = httpResponse.allHeaderFields["x-mcid"] as? String {
                     
                         var isTest = false
-                        if let isTestHeader = httpResponse.allHeaderFields["x-message-istest"] as? Bool {
-                            isTest = isTestHeader
+                        if let isTestHeaderString = httpResponse.allHeaderFields["x-message-istest"] as? String,
+                           isTestHeaderString.trimmingCharacters(in: .whitespacesAndNewlines) != "0" {
+                            
+                            isTest = true
                         }
                         
                         if !isTest {

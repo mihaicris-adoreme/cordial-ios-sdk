@@ -58,8 +58,8 @@ class NotificationManager {
         if self.isNotificationManagerHasNotBeenSettedUp {
             self.isNotificationManagerHasNotBeenSettedUp = false
             
-            notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-            notificationCenter.addObserver(self, selector: #selector(handleDidFinishLaunch), name: UIApplication.didBecomeActiveNotification, object: nil)
+            notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(handleDidFinishLaunch), name: UIApplication.didFinishLaunchingNotification, object: nil)
         } 
     }
     
@@ -167,8 +167,6 @@ class NotificationManager {
         let notificationCenter = NotificationCenter.default
         
         if !self.isNotificationManagerHasNotBeenSettedUp {
-            notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-            
             self.appMovedFromBackground()
         }
         
@@ -189,7 +187,7 @@ class NotificationManager {
         notificationCenter.removeObserver(self, name: .cordialConnectionSettingsHasBeenChange, object: nil)
         notificationCenter.addObserver(self, selector: #selector(connectionSettingsHasBeenChangeHandler), name: .cordialConnectionSettingsHasBeenChange, object: nil)
         
-        CordialApiConfiguration.shared.cordialSwizzler.swizzleAppDelegateMethods()
+        CordialSwizzler.shared.swizzleAppDelegateMethods()
     }
 
 }
