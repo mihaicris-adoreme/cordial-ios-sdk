@@ -14,15 +14,23 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     func openDeepLink(url: URL, fallbackURL: URL?) {
         // If app dose not use scenes this method will be called instead `openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene)`
         
-        guard let url = URL(string: url.absoluteString.removingPercentEncoding!), let host = url.host else {
+        guard let deepLinkURL = self.getDeepLinkURL(url: url), let host = deepLinkURL.host else {
             return
         }
         
-        if let products = URLComponents(url: url, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+        if let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
+           let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+            
             self.showAppDelegateDeepLink(product: product)
-        } else if let fallbackURL = URL(string: (fallbackURL?.absoluteString.removingPercentEncoding)!), let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+            
+        } else if let fallbackURL = self.getDeepLinkURL(url: fallbackURL),
+                  let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
+                  let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+            
             self.showAppDelegateDeepLink(product: product)
+            
         } else if let webpageUrl = URL(string: "https://\(host)/") {
+            
             UIApplication.shared.open(webpageUrl)
         }
     }
@@ -30,17 +38,40 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     @available(iOS 13.0, *)
     func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene) {
         
-        guard let url = URL(string: url.absoluteString.removingPercentEncoding!), let host = url.host else {
+        guard let deepLinkURL = self.getDeepLinkURL(url: url), let host = deepLinkURL.host else {
             return
         }
         
-        if let products = URLComponents(url: url, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+        if let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
+           let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+            
             self.showSceneDelegateDeepLink(product: product, scene: scene)
-        } else if fallbackURL != nil, let fallbackURL = URL(string: (fallbackURL?.absoluteString.removingPercentEncoding)!), let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true), let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+            
+        } else if let fallbackURL = self.getDeepLinkURL(url: fallbackURL),
+                  let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
+                  let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+            
             self.showSceneDelegateDeepLink(product: product, scene: scene)
+            
         } else if let webpageUrl = URL(string: "https://\(host)/") {
+            
             UIApplication.shared.open(webpageUrl)
         }
+    }
+    
+    private func getDeepLinkURL(url: URL?) -> URL? {
+        guard let dencodedURLString = url?.absoluteString.removingPercentEncoding else {
+            return nil
+        }
+        
+        let dencodedURLArray = dencodedURLString.split(separator: "?")
+        let deepLink = String(dencodedURLArray[0])
+        
+        guard let deepLinkURL = URL(string: deepLink) else {
+            return nil
+        }
+        
+        return deepLinkURL
     }
     
     private func showAppDelegateDeepLink(product: Product) {
