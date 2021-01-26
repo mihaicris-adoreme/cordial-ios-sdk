@@ -58,8 +58,13 @@ class NotificationManager {
         if self.isNotificationManagerHasNotBeenSettedUp {
             self.isNotificationManagerHasNotBeenSettedUp = false
             
-            notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
-            notificationCenter.addObserver(self, selector: #selector(handleDidFinishLaunch), name: UIApplication.didFinishLaunchingNotification, object: nil)
+            if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
+                notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+                notificationCenter.addObserver(self, selector: #selector(handleDidFinishLaunch), name: UIApplication.didBecomeActiveNotification, object: nil)
+            } else {
+                notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
+                notificationCenter.addObserver(self, selector: #selector(handleDidFinishLaunch), name: UIApplication.didFinishLaunchingNotification, object: nil)
+            }
         } 
     }
     
@@ -167,6 +172,11 @@ class NotificationManager {
         let notificationCenter = NotificationCenter.default
         
         if !self.isNotificationManagerHasNotBeenSettedUp {
+        
+            if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
+                notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+            }
+            
             self.appMovedFromBackground()
         }
         
