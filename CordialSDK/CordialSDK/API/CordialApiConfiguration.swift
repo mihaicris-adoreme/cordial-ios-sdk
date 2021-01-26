@@ -23,7 +23,6 @@ import CoreLocation
     var channelKey = String()
     var baseURL = String()
     
-    let cordialSwizzler = CordialSwizzler()
     let cordialPushNotification = CordialPushNotification()
     let cordialPushNotificationHandler = CordialPushNotificationHandler()
     
