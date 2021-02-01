@@ -20,12 +20,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
+        if let userActivity = connectionOptions.userActivities.first {
+            self.scene(scene, continue: userActivity)
+        }
+        
         guard let _ = (scene as? UIWindowScene) else { return }
         
         if !App.isGuestUser() {
             let catalogNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
             self.window?.rootViewController = catalogNavigationController
         }
+    }
+    
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        CordialDeepLinksAPI().openSceneDelegateUniversalLink(scene: scene, userActivity: userActivity)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
