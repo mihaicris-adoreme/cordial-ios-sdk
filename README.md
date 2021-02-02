@@ -615,6 +615,35 @@ YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImp
 [CordialApiConfiguration shared].cordialDeepLinksDelegate = cordialDeepLinksHandler;
 ```
 
+### Opening deep links from a killed application
+When an application is killed the process the iOS starts the app makes it impossible for the SDK to determine that the app is opened via clicking a deep link outside the app. To allow SDK to open deep links correcly and track its corresponding events when the app is killed, the application will need to let the SDK know that it is being started via opening a deep link. To do so insert the following snippets of code to your application.
+
+Since iOS 13 if the application uses scenes:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialDeepLinksAPI().openSceneDelegateUniversalLink(scene: scene, userActivity: userActivity)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialDeepLinksAPI alloc] openSceneDelegateUniversalLinkWithScene:scene userActivity:userActivity];
+```
+
+Since iOS 13 if the application does not use scenes:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialDeepLinksAPI().openAppDelegateUniversalLink(userActivity: userActivity)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialDeepLinksAPI alloc] openAppDelegateUniversalLinkWithUserActivity:userActivity];
+```
+
 ## Delaying In-App Messages
 
 Cordial SDK allows application developers to delay displaying of in-app messages. In case if in-app message is delayed it will be displayed the next time the application is opened. There are 3 delay modes in the SDK to control in-app messages display:
