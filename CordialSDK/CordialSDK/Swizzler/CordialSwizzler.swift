@@ -15,7 +15,6 @@ class CordialSwizzler {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
             self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
-            self.swizzleDidReceiveRemoteNotificationfetchCompletionHandler()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Push notification related functions swizzled successfully", log: OSLog.cordialPushNotification, type: .info)
@@ -59,19 +58,6 @@ class CordialSwizzler {
         
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
         let applicationSelector = #selector(UIApplicationDelegate.application(_:didFailToRegisterForRemoteNotificationsWithError:))
-        
-        if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector) {
-            method_exchangeImplementations(originalMethod, swizzleMethod)
-        } else {
-            class_addMethod(delegateClass, applicationSelector, method_getImplementation(swizzleMethod), method_getTypeEncoding(swizzleMethod))
-        }
-    }
-    
-    private func swizzleDidReceiveRemoteNotificationfetchCompletionHandler() {
-        guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didReceiveRemoteNotification:fetchCompletionHandler:))) else { return }
-        
-        let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
-        let applicationSelector = #selector(UIApplicationDelegate.application(_:didReceiveRemoteNotification:fetchCompletionHandler:))
         
         if let originalMethod = class_getInstanceMethod(delegateClass, applicationSelector) {
             method_exchangeImplementations(originalMethod, swizzleMethod)
@@ -171,13 +157,6 @@ class CordialSwizzler {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
             os_log("RegisterForRemoteNotifications fail with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
         }
-    }
-    
-    @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-
-        CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
-        
-        completionHandler(.noData)
     }
     
     // MARK: Swizzled AppDelegate universal links method.
