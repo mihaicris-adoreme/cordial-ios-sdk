@@ -11,8 +11,10 @@ import os.log
 
 class CordialEmailDeepLink {
     
+    let redirectsCountMax = 3
+    
     func open(url: URL) {
-        self.fetchDeepLink(url: url, onSuccess: { url in
+        self.fetchDeepLink(url: url, redirectsCount: 0, onSuccess: { url in
             InternalCordialAPI().openDeepLink(url: url)
             
             NotificationManager.shared.emailDeepLink = String()
@@ -39,42 +41,59 @@ class CordialEmailDeepLink {
         })
     }
     
-    private func fetchDeepLink(url: URL, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
-        DependencyConfiguration.shared.emailDeepLinkURLSession.dataTask(with: url) { data, response, error in
+    private func fetchDeepLink(url: URL, redirectsCount: Int, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+
+        CordialEmailDeepLinkURLSession().session.dataTask(with: url) { data, response, error in
             if let error = error {
                 onFailure("Fetching Email DeepLink failed. Error: [\(error.localizedDescription)]")
                 return
             }
             
-            if let httpResponse = response as? HTTPURLResponse {
-                if httpResponse.statusCode == 302,
-                   let location = httpResponse.allHeaderFields["Location"] as? String,
-                   let url = URL(string: location) {
-                    
-                    if let mcID = httpResponse.allHeaderFields["x-mcid"] as? String {
-                    
-                        var isTest = false
-                        if let isTestHeaderString = httpResponse.allHeaderFields["x-message-istest"] as? String,
-                           isTestHeaderString.trimmingCharacters(in: .whitespacesAndNewlines) != "0" {
-                            
-                            isTest = true
-                        }
+            if let httpResponse = response as? HTTPURLResponse,
+               httpResponse.statusCode == 302 {
+            
+                self.parseDeepLink(httpResponse: httpResponse, onSuccess: { url in
+                    if let host = url.host,
+                       CordialApiConfiguration.shared.vanityDomains.contains(host),
+                       redirectsCount < self.redirectsCountMax {
                         
-                        if !isTest {
-                            CordialAPI().setCurrentMcID(mcID: mcID)
-                        }
+                        self.fetchDeepLink(url: url, redirectsCount: redirectsCount + 1, onSuccess: onSuccess, onFailure: onFailure)
+                    } else {
+                        onSuccess(url)
                     }
-                    
-                    onSuccess(url)
-                } else {
-                    let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                    
-                    onFailure("Fetching Email DeepLink failed. \(message)")
-                }
+                }, onFailure: { error in
+                    onFailure("Parsing Email DeepLink failed. Error: [Unexpected error]")
+                })
             } else {
                 onFailure("Fetching Email DeepLink failed. Error: [Unexpected error]")
             }
         }.resume()
     }
     
+    private func parseDeepLink(httpResponse: HTTPURLResponse, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+        
+        if let location = httpResponse.allHeaderFields["Location"] as? String,
+           let url = URL(string: location) {
+            
+            if let mcID = httpResponse.allHeaderFields["x-mcid"] as? String {
+            
+                var isTest = false
+                if let isTestHeaderString = httpResponse.allHeaderFields["x-message-istest"] as? String,
+                   isTestHeaderString.trimmingCharacters(in: .whitespacesAndNewlines) != "0" {
+                    
+                    isTest = true
+                }
+                
+                if !isTest {
+                    CordialAPI().setCurrentMcID(mcID: mcID)
+                }
+            }
+            
+            onSuccess(url)
+        } else {
+            let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
+            
+            onFailure("Fetching Email DeepLink failed. \(message)")
+        }
+    }
 }

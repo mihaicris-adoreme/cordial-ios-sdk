@@ -117,8 +117,6 @@ class NotificationManager {
     }
     
     @objc func handleDidFinishLaunch(notification: NSNotification) {
-        // This code will be called immediately after application:didFinishLaunchingWithOptions:
-        
         let notificationCenter = NotificationCenter.default
         
         if !self.isNotificationManagerHasNotBeenSettedUp {
