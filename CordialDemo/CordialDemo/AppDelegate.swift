@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ProductViewController.self, CartViewController.self])
         CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = CordialDeepLinksHandler()
-        CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "events-handling-svc.cordial-core.cp-7796-x-mcid-header.cordialdev.com"]
+        CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "s.cordial.com"]
                 
         self.setupCordialSDKLogicErrorHandler()
         
