@@ -31,6 +31,8 @@ import Foundation
     }
     
     @objc public func processSilentPushDelivery(userInfo: [AnyHashable : Any]) {
-        CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        if self.isCordialMessage(userInfo: userInfo) {
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
     }
 }
