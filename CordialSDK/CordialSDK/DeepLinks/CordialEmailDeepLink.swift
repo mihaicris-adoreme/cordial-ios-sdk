@@ -11,7 +11,7 @@ import os.log
 
 class CordialEmailDeepLink {
     
-    let redirectsCountMax = 2
+    let redirectsCountMax = 3
     
     func open(url: URL) {
         self.fetchDeepLink(url: url, redirectsCount: 0, onSuccess: { url in
