@@ -14,14 +14,13 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     let deepLinksHost = "tjs.cordialdev.com"
     
     func openDeepLink(url: URL, fallbackURL: URL?) {
-        // If app dose not use scenes this method will be called instead `openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene)`
-        
-        guard let deepLinkURL = self.getDeepLinkURL(url: url), let host = deepLinkURL.host else {
-             return
-         }
+        guard let host = self.getHost(url: url, fallbackURL: fallbackURL) else {
+            return
+        }
         
         if host == self.deepLinksHost {
-            if let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
+            if let deepLinkURL = self.getDeepLinkURL(url: url),
+               let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
                let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
                 
                 self.showAppDelegateDeepLink(product: product)
@@ -43,13 +42,13 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     
     @available(iOS 13.0, *)
     func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene) {
-        
-        guard let deepLinkURL = self.getDeepLinkURL(url: url), let host = deepLinkURL.host else {
-             return
-         }
+        guard let host = self.getHost(url: url, fallbackURL: fallbackURL) else {
+            return
+        }
         
         if host == self.deepLinksHost {
-            if let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
+            if let deepLinkURL = self.getDeepLinkURL(url: url),
+               let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
                let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
                 
                 self.showSceneDelegateDeepLink(product: product, scene: scene)
@@ -67,6 +66,18 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
         } else {
             UIApplication.shared.open(url)
         }
+    }
+    
+    private func getHost(url: URL, fallbackURL: URL?) -> String? {
+        if url.host != nil  {
+            return url.host
+        }
+        
+        if fallbackURL?.host != nil {
+            return fallbackURL?.host
+        }
+        
+        return nil
     }
     
     private func getDeepLinkURL(url: URL?) -> URL? {
