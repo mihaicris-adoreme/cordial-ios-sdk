@@ -520,6 +520,19 @@ YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationO
 [CordialApiConfiguration shared].pushNotificationDelegate = pushNotificationHandler;
 ```
 
+3. Let the SDK know when your app receives a silent push notification. Silent push notifications are used for notifying the app of a new in-app or inbox message:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialPushNotificationHandler().processSilentPushDelivery(userInfo: userInfo)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[[CordialPushNotificationHandler alloc] init] processSilentPushDeliveryWithUserInfo:userInfo];
+```
+
 ## Multiple Push Notification Providers
 Cordial SDK supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
 
@@ -558,7 +571,7 @@ if ([[[CordialPushNotificationHandler alloc] init] isCordialMessageWithUserInfo:
 
 After enabling multiple push notification providers the app should pass an APNS token to the SDK once it’s received and start passing push notifications sent by Cordial to the SDK. Note, it is really important to pass the token otherwise the SDK will not be tracking any user behaviour on the device.
 
-To handle Cordial push notifications after enabling multiple notification providers support the app needs to do four additional steps:
+To handle Cordial push notifications after enabling multiple notification providers support the app needs to do three additional steps:
 
 1. Pass push notification token to the Cordial SDK:
 
@@ -597,19 +610,6 @@ CordialPushNotificationHandler().processNotificationDeliveryInForeground(userInf
 ___
 ```
 [[[CordialPushNotificationHandler alloc] init] processNotificationDeliveryInForegroundWithUserInfo:userInfo completionHandler:completionHandler];
-```
-
-4. Call method `processSilentPushDelivery` if app recived silent push notification:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-CordialPushNotificationHandler().processSilentPushDelivery(userInfo: userInfo)
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-[[[CordialPushNotificationHandler alloc] init] processSilentPushDeliveryWithUserInfo:userInfo];
 ```
 
 ##  Deep Links 
