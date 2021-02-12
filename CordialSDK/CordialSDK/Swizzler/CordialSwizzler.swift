@@ -15,7 +15,7 @@ class CordialSwizzler {
     
     private init() {}
     
-    func swizzleAppDelegateMethods() {
+    func swizzleAppAndSceneDelegateMethods() {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
             self.swizzleDidFailToRegisterForRemoteNotificationsWithError()

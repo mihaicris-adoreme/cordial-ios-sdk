@@ -145,7 +145,7 @@ class NotificationManager {
         notificationCenter.removeObserver(self, name: .cordialConnectionSettingsHasBeenChange, object: nil)
         notificationCenter.addObserver(self, selector: #selector(connectionSettingsHasBeenChangeHandler), name: .cordialConnectionSettingsHasBeenChange, object: nil)
         
-        CordialSwizzler.shared.swizzleAppDelegateMethods()
+        CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
     }
 
 }

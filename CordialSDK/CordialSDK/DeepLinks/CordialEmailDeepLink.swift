@@ -43,7 +43,7 @@ class CordialEmailDeepLink {
     
     private func fetchDeepLink(url: URL, redirectsCount: Int, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
 
-        CordialEmailDeepLinkURLSession().session.dataTask(with: url) { data, response, error in
+        DependencyConfiguration.shared.emailDeepLinkURLSession.dataTask(with: url) { data, response, error in
             if let error = error {
                 onFailure("Fetching Email DeepLink failed. Error: [\(error.localizedDescription)]")
                 return

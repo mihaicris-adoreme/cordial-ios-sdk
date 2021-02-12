@@ -24,6 +24,7 @@ class CordialSDKTests: XCTestCase {
     var testSilentAndPushNotifications = String()
     let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
     let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
+    let testEmailDeepLinkURL = "https://e.a45.clients.cordialdev.com/c/45:5ffdd4ba20c3e66cfb62ecdc:ot:5e6b9936102e517f8c04870a:1/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA0NzA2OTAsImNkIjoiLmE0NS5jbGllbnRzLmNvcmRpYWxkZXYuY29tIiwiY2UiOjg2NDAwLCJ0ayI6ImNvcmRpYWxkZXYiLCJtdGxJRCI6IjVmZmRkNTIyZTg0ZWYxMmViNzI0OTk4NSIsIm1jTGlua0lEIjoiOWM4MTg2NDEiLCJsaW5rVXJsIjoiaHR0cHM6XC9cL3Rqcy5jb3JkaWFsZGV2LmNvbVwvcHJlcC10ajEuaHRtbD91dG1fY2FtcGFpZ249YXNoaWVsZHMrZGVlcCtsaW5rK3Rlc3QmdXRtX3NvdXJjZT1jb3JkaWFsJnV0bV9tZWRpdW09ZW1haWwmbWNpRD00NSUzQTVmZmRkNGJhMjBjM2U2NmNmYjYyZWNkYyUzQW90JTNBNWU2Yjk5MzYxMDJlNTE3ZjhjMDQ4NzBhJTNBMSYlMjRsaW5rPSYlN0Vjb250YWN0PTVlNmI5OTM2MTAyZTUxN2Y4YzA0ODcwYSJ9.eKSz8ys89tesz5dK8JulvznPDCAwDxDXz5exU255Irc"
     var testInboxMessagesPayload = String()
     var testInboxMessagePayload = String()
     var testInboxMessageContentPayload = "Cordial"
@@ -38,6 +39,7 @@ class CordialSDKTests: XCTestCase {
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 30
         CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = DeepLinksHandler()
+        CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "s.cordial.com"]
         
         self.testPushNotification = """
             {
@@ -1223,7 +1225,7 @@ class CordialSDKTests: XCTestCase {
             
             InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().userClickedInAppMessageActionButton(messageBody: messageBody)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 XCTAssert(mock.isVerified)
                 
                 InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -1232,7 +1234,7 @@ class CordialSDKTests: XCTestCase {
             }
         }
 
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 4)
     }
     
     func testInAppMessageExpirationTime() {
@@ -1780,5 +1782,48 @@ class CordialSDKTests: XCTestCase {
         }
         
         XCTAssert(isVerified)
+    }
+    
+    func testAppDelegateEmailDeepLinks() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        // DeepLink Mock
+        let mock = MockRequestSenderDeepLinkHasBeenOpen()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        // Email DeepLink Mock
+        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        userActivity.webpageURL = URL(string: self.testEmailDeepLinkURL)
+        
+        let headerFields = [
+            "Location": self.testDeepLinkURL,
+            "x-mcid": self.testMcID
+        ]
+        
+        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+            
+            let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
+            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            
+            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+        }
+        
+        // DeepLink Click
+        self.testCase.processAppDelegateUniversalLinks(application: UIApplication.shared, userActivity: userActivity)
+        self.testCase.appMovedFromBackground()
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
 }

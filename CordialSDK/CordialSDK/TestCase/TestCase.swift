@@ -100,6 +100,10 @@ public class TestCase {
         NotificationManager.shared.appMovedToBackgroundProceed()
     }
     
+    public func appMovedFromBackground() {
+        NotificationManager.shared.appMovedFromBackgroundProceed()
+    }
+    
     public func reachabilitySenderMakeAllNeededHTTPCalls() {
         ReachabilitySender.shared.makeAllNeededHTTPCalls()
     }
@@ -248,4 +252,18 @@ public class TestCase {
     public func getInboxMessageURL(contactKey: String, mcID: String) -> URL? {
         return URL(string: CordialApiEndpoints().getInboxMessageURL(contactKey: contactKey, mcID: mcID))
     }
+    
+    public func swizzleAppAndSceneDelegateMethods() {
+        CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
+    }
+    
+    public func processAppDelegateUniversalLinks(application: UIApplication, userActivity: NSUserActivity) {
+        let _ = CordialSwizzler.shared.application(application, continue: userActivity, restorationHandler: { _ in })
+    }
+
+    @available(iOS 13.0, *)
+    public func processSceneDelegateUniversalLinks(scene: UIScene, userActivity: NSUserActivity) {
+        CordialSwizzler.shared.scene(scene, continue: userActivity)
+    }
+    
 }
