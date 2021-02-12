@@ -155,6 +155,7 @@
 		9EB17AC222930D7B00EEAB7D /* ContactLogout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17AB822930D7A00EEAB7D /* ContactLogout+CoreDataProperties.swift */; };
 		9EB17AC322930D7B00EEAB7D /* ContactCartRequest+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17AB922930D7A00EEAB7D /* ContactCartRequest+CoreDataClass.swift */; };
 		9EB17AC422930D7B00EEAB7D /* ContactCartRequest+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17ABA22930D7B00EEAB7D /* ContactCartRequest+CoreDataProperties.swift */; };
+		9EB2718A25D6C320001EF46F /* MockRequestSenderTestEmailDeepLinksNotSaveMcID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB2718925D6C320001EF46F /* MockRequestSenderTestEmailDeepLinksNotSaveMcID.swift */; };
 		9EB448B622E9B6160043C256 /* InAppMessageDisplayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB448B522E9B6160043C256 /* InAppMessageDisplayType.swift */; };
 		9EB5C80022FC6C090024F5A6 /* SendContactOrdersURLSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB5C7FF22FC6C090024F5A6 /* SendContactOrdersURLSessionData.swift */; };
 		9EB5C80222FC6E840024F5A6 /* SendContactOrdersURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB5C80122FC6E840024F5A6 /* SendContactOrdersURLSessionManager.swift */; };
@@ -416,6 +417,7 @@
 		9EB17AB822930D7A00EEAB7D /* ContactLogout+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactLogout+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9EB17AB922930D7A00EEAB7D /* ContactCartRequest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactCartRequest+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9EB17ABA22930D7B00EEAB7D /* ContactCartRequest+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactCartRequest+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9EB2718925D6C320001EF46F /* MockRequestSenderTestEmailDeepLinksNotSaveMcID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderTestEmailDeepLinksNotSaveMcID.swift; sourceTree = "<group>"; };
 		9EB448B522E9B6160043C256 /* InAppMessageDisplayType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDisplayType.swift; sourceTree = "<group>"; };
 		9EB5C7FF22FC6C090024F5A6 /* SendContactOrdersURLSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactOrdersURLSessionData.swift; sourceTree = "<group>"; };
 		9EB5C80122FC6E840024F5A6 /* SendContactOrdersURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactOrdersURLSessionManager.swift; sourceTree = "<group>"; };
@@ -1031,6 +1033,7 @@
 				9EA785CA258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift */,
 				9EA785D5259150C600F02C64 /* MockRequestSenderInboxMessageReadEvent.swift */,
 				9E8546E325D652C800C04741 /* MockRequestSenderDeepLinkHasBeenOpen.swift */,
+				9EB2718925D6C320001EF46F /* MockRequestSenderTestEmailDeepLinksNotSaveMcID.swift */,
 			);
 			path = RequestSender;
 			sourceTree = "<group>";
@@ -1620,6 +1623,7 @@
 				9E411E0A241152BD00D850B0 /* MockRequestSenderNotSaveMcIdAfterSetContact.swift in Sources */,
 				9E41A93B24100BF600C9F8B6 /* MockRequestSenderRemoteNotificationsHasBeenTappedWithMcId.swift in Sources */,
 				9E411E062411345000D850B0 /* MockRequestSenderSaveMcIdAfterSetContact.swift in Sources */,
+				9EB2718A25D6C320001EF46F /* MockRequestSenderTestEmailDeepLinksNotSaveMcID.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
