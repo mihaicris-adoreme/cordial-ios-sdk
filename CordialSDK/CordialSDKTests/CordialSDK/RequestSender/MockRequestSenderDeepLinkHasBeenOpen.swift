@@ -19,7 +19,10 @@ class MockRequestSenderDeepLinkHasBeenOpen: RequestSender {
         let httpBody = task.originalRequest!.httpBody!
         
         if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
-            if jsonArray.contains(where: { ($0["event"]?.isEqual(self.sdkTests.testCase.getEventNameDeepLinkOpen()))! }) {
+            if jsonArray.contains(where: {
+              ($0["event"]?.isEqual(self.sdkTests.testCase.getEventNameDeepLinkOpen()))! &&
+              ($0["mcID"]?.isEqual(self.sdkTests.testMcID))! }) {
+                
                 self.isVerified = true
             }
         }

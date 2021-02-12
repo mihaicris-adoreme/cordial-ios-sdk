@@ -1796,9 +1796,6 @@ class CordialSDKTests: XCTestCase {
         self.testCase.markUserAsLoggedIn()
         
         // Email DeepLink Mock
-        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
-        userActivity.webpageURL = URL(string: self.testEmailDeepLinkURL)
-        
         let headerFields = [
             "Location": self.testDeepLinkURL,
             "x-mcid": self.testMcID
@@ -1814,7 +1811,54 @@ class CordialSDKTests: XCTestCase {
         }
         
         // DeepLink Click
-        self.testCase.processAppDelegateUniversalLinks(application: UIApplication.shared, userActivity: userActivity)
+        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        userActivity.webpageURL = URL(string: self.testEmailDeepLinkURL)
+        
+        self.testCase.processAppDelegateUniversalLinks(userActivity: userActivity)
+        self.testCase.appMovedFromBackground()
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    @available(iOS 13.0, *)
+    func testSceneDelegateEmailDeepLinks() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        // DeepLink Mock
+        let mock = MockRequestSenderDeepLinkHasBeenOpen()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        // Email DeepLink Mock
+        let headerFields = [
+            "Location": self.testDeepLinkURL,
+            "x-mcid": self.testMcID
+        ]
+        
+        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+            
+            let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
+            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            
+            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+        }
+        
+        // DeepLink Click
+        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        userActivity.webpageURL = URL(string: self.testEmailDeepLinkURL)
+        
+        self.testCase.processSceneDelegateUniversalLinks(userActivity: userActivity)
         self.testCase.appMovedFromBackground()
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")

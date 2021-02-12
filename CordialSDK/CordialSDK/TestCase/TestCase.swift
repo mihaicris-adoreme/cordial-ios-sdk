@@ -257,13 +257,13 @@ public class TestCase {
         CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
     }
     
-    public func processAppDelegateUniversalLinks(application: UIApplication, userActivity: NSUserActivity) {
-        let _ = CordialSwizzler.shared.application(application, continue: userActivity, restorationHandler: { _ in })
+    public func processAppDelegateUniversalLinks(userActivity: NSUserActivity) {
+        let _ = CordialSwizzler.shared.application(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
     }
 
     @available(iOS 13.0, *)
-    public func processSceneDelegateUniversalLinks(scene: UIScene, userActivity: NSUserActivity) {
-        CordialSwizzler.shared.scene(scene, continue: userActivity)
+    public func processSceneDelegateUniversalLinks(userActivity: NSUserActivity) {
+        CordialSwizzler.shared.scene(UIApplication.shared.connectedScenes.first!, continue: userActivity)
     }
     
 }
