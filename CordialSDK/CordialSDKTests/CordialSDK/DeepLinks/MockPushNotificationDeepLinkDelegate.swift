@@ -1,5 +1,5 @@
 //
-//  MockPushNotificationHandlerDeepLinkDelegate.swift
+//  MockPushNotificationDeepLinkDelegate.swift
 //  CordialSDKTests
 //
 //  Created by Yan Malinovsky on 04.03.2020.
@@ -9,7 +9,7 @@
 import XCTest
 import CordialSDK
 
-class MockPushNotificationHandlerDeepLinkDelegate: CordialDeepLinksDelegate {
+class MockPushNotificationDeepLinkDelegate: CordialDeepLinksDelegate {
     
     var isVerified = false
     

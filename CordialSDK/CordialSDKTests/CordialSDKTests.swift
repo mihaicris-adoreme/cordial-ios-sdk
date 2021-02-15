@@ -282,7 +282,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     func testDeepLinkDelegate() {
-        let mock = MockPushNotificationHandlerDeepLinkDelegate()
+        let mock = MockPushNotificationDeepLinkDelegate()
         
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = mock
         DependencyConfiguration.shared.requestSender = EmptyMockRequestSender()
@@ -1913,6 +1913,52 @@ class CordialSDKTests: XCTestCase {
             expectation.fulfill()
         }
         
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    @available(iOS 13.0, *)
+    func testSceneDelegateEmailDeepLinksNotVanityDomain() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        // DeepLinkDelegate Mock
+        let mock = MockEmailDeepLinkDelegateNotVanityDomain()
+        CordialApiConfiguration.shared.cordialDeepLinksDelegate = mock
+
+        // DeepLink Mock
+        DependencyConfiguration.shared.requestSender = EmptyMockRequestSender()
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        // Email DeepLink Mock
+        let headerFields = [
+            "Location": self.testDeepLinkURL,
+            "x-mcid": self.testMcID
+        ]
+
+        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
+            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+
+            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+        }
+
+        // DeepLink Click
+        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        userActivity.webpageURL = URL(string: self.validStringURL)
+
+        self.testCase.processSceneDelegateUniversalLinks(userActivity: userActivity)
+        self.testCase.appMovedFromBackground()
+
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+
         wait(for: [expectation], timeout: 3)
     }
 }
