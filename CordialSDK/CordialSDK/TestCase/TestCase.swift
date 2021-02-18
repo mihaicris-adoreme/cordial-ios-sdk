@@ -266,4 +266,12 @@ public class TestCase {
         CordialSwizzler.shared.scene(UIApplication.shared.connectedScenes.first!, continue: userActivity)
     }
     
+    public func processAppDelegateURLSchemes(url: URL) {
+        let _ = CordialSwizzler.shared.application(UIApplication.shared, open: url, options: [UIApplication.OpenURLOptionsKey : Any]())
+    }
+    
+    @available(iOS 13.0, *)
+    public func processSceneDelegateURLSchemes(url: URL) {
+        InternalCordialAPI().openDeepLink(url: url)
+    }
 }

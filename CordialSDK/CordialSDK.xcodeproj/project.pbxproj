@@ -11,6 +11,7 @@
 		9E05637A22DC9AC000EECADD /* InternalCordialAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E05637922DC9AC000EECADD /* InternalCordialAPI.swift */; };
 		9E06C80325DBE5FA003D862E /* MockEmailDeepLinkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06C80225DBE5FA003D862E /* MockEmailDeepLinkDelegate.swift */; };
 		9E06C80725DBEF16003D862E /* MockSMSDeepLinkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06C80625DBEF16003D862E /* MockSMSDeepLinkDelegate.swift */; };
+		9E06C87325DEBC96003D862E /* MockRequestSenderURLSchemesDeepLinkHasBeenOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E06C87225DEBC96003D862E /* MockRequestSenderURLSchemesDeepLinkHasBeenOpen.swift */; };
 		9E0813842274523500BD1412 /* ContactsSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0813832274523500BD1412 /* ContactsSender.swift */; };
 		9E081386227458C800BD1412 /* UpsertContacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E081385227458C800BD1412 /* UpsertContacts.swift */; };
 		9E0813882274722000BD1412 /* ContactRequestsCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */; };
@@ -129,7 +130,7 @@
 		9E7DF22B24F93F7E005533A7 /* InboxMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7DF22A24F93F7E005533A7 /* InboxMessage.swift */; };
 		9E806DAC2271E05200A15F8E /* ReachabilitySender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E806DAB2271E05200A15F8E /* ReachabilitySender.swift */; };
 		9E806DAE2271EA8D00A15F8E /* ContactCartSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E806DAD2271EA8D00A15F8E /* ContactCartSender.swift */; };
-		9E8546E425D652C800C04741 /* MockRequestSenderDeepLinkHasBeenOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8546E325D652C800C04741 /* MockRequestSenderDeepLinkHasBeenOpen.swift */; };
+		9E8546E425D652C800C04741 /* MockRequestSenderEmailDeepLinkHasBeenOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8546E325D652C800C04741 /* MockRequestSenderEmailDeepLinkHasBeenOpen.swift */; };
 		9E92D3D2228EF26500D8AFE0 /* SendContactLogoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */; };
 		9E92D3D7228F01CA00D8AFE0 /* ContactLogoutSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D6228F01CA00D8AFE0 /* ContactLogoutSender.swift */; };
 		9E92D3D9228F022800D8AFE0 /* SendContactLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D8228F022800D8AFE0 /* SendContactLogout.swift */; };
@@ -273,6 +274,7 @@
 		9E05637922DC9AC000EECADD /* InternalCordialAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternalCordialAPI.swift; sourceTree = "<group>"; };
 		9E06C80225DBE5FA003D862E /* MockEmailDeepLinkDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEmailDeepLinkDelegate.swift; sourceTree = "<group>"; };
 		9E06C80625DBEF16003D862E /* MockSMSDeepLinkDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSMSDeepLinkDelegate.swift; sourceTree = "<group>"; };
+		9E06C87225DEBC96003D862E /* MockRequestSenderURLSchemesDeepLinkHasBeenOpen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderURLSchemesDeepLinkHasBeenOpen.swift; sourceTree = "<group>"; };
 		9E0813832274523500BD1412 /* ContactsSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSender.swift; sourceTree = "<group>"; };
 		9E081385227458C800BD1412 /* UpsertContacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContacts.swift; sourceTree = "<group>"; };
 		9E0813872274722000BD1412 /* ContactRequestsCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactRequestsCoreData.swift; sourceTree = "<group>"; };
@@ -394,7 +396,7 @@
 		9E7DF22A24F93F7E005533A7 /* InboxMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessage.swift; sourceTree = "<group>"; };
 		9E806DAB2271E05200A15F8E /* ReachabilitySender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilitySender.swift; sourceTree = "<group>"; };
 		9E806DAD2271EA8D00A15F8E /* ContactCartSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCartSender.swift; sourceTree = "<group>"; };
-		9E8546E325D652C800C04741 /* MockRequestSenderDeepLinkHasBeenOpen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderDeepLinkHasBeenOpen.swift; sourceTree = "<group>"; };
+		9E8546E325D652C800C04741 /* MockRequestSenderEmailDeepLinkHasBeenOpen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderEmailDeepLinkHasBeenOpen.swift; sourceTree = "<group>"; };
 		9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogoutRequest.swift; sourceTree = "<group>"; };
 		9E92D3D6228F01CA00D8AFE0 /* ContactLogoutSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLogoutSender.swift; sourceTree = "<group>"; };
 		9E92D3D8228F022800D8AFE0 /* SendContactLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogout.swift; sourceTree = "<group>"; };
@@ -1041,8 +1043,9 @@
 				9E39DCBB258D017300FCAE2C /* MockRequestSenderInboxMessagesMarkReadCache.swift */,
 				9EA785CA258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift */,
 				9EA785D5259150C600F02C64 /* MockRequestSenderInboxMessageReadEvent.swift */,
-				9E8546E325D652C800C04741 /* MockRequestSenderDeepLinkHasBeenOpen.swift */,
+				9E8546E325D652C800C04741 /* MockRequestSenderEmailDeepLinkHasBeenOpen.swift */,
 				9EB2718925D6C320001EF46F /* MockRequestSenderTestEmailDeepLinksNotSaveMcID.swift */,
+				9E06C87225DEBC96003D862E /* MockRequestSenderURLSchemesDeepLinkHasBeenOpen.swift */,
 			);
 			path = RequestSender;
 			sourceTree = "<group>";
@@ -1602,7 +1605,7 @@
 				9EBA1B1623FFE2F500005054 /* MockRequestSenderUpsertContact.swift in Sources */,
 				9E687EC724B94F0600D81322 /* MockRequestSenderInAppMessageUserClickedInAppMessageActionButton.swift in Sources */,
 				9EE78A5B246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift in Sources */,
-				9E8546E425D652C800C04741 /* MockRequestSenderDeepLinkHasBeenOpen.swift in Sources */,
+				9E8546E425D652C800C04741 /* MockRequestSenderEmailDeepLinkHasBeenOpen.swift in Sources */,
 				9E41A8F7240FEC1D00C9F8B6 /* MockPushNotificationDeepLinkDelegate.swift in Sources */,
 				9E63BE3A24B4DB0E00BB509B /* MockRequestSenderInAppMessageManualDismiss.swift in Sources */,
 				9EA785CB258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift in Sources */,
@@ -1621,6 +1624,7 @@
 				9ED6F86724321DB80084824C /* MockRequestSenderEventsBulkSizeCount.swift in Sources */,
 				9EBA1B1023FFE2C300005054 /* MockRequestSenderRemoteNotificationsDeviceToken.swift in Sources */,
 				9E06C80725DBEF16003D862E /* MockSMSDeepLinkDelegate.swift in Sources */,
+				9E06C87325DEBC96003D862E /* MockRequestSenderURLSchemesDeepLinkHasBeenOpen.swift in Sources */,
 				9EE8878F24853A7C001C3E45 /* MockRequestSenderSendContactOrder.swift in Sources */,
 				9EA785D02590DC8C00F02C64 /* InboxMessageHandler.swift in Sources */,
 				9EE84C062444B002009BAE25 /* MockRequestSenderSystemEventsProperties.swift in Sources */,

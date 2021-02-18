@@ -1789,7 +1789,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
-        let mock = MockRequestSenderDeepLinkHasBeenOpen()
+        let mock = MockRequestSenderEmailDeepLinkHasBeenOpen()
         
         DependencyConfiguration.shared.requestSender = mock
         
@@ -1833,7 +1833,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
-        let mock = MockRequestSenderDeepLinkHasBeenOpen()
+        let mock = MockRequestSenderEmailDeepLinkHasBeenOpen()
         
         DependencyConfiguration.shared.requestSender = mock
         
@@ -2054,5 +2054,50 @@ class CordialSDKTests: XCTestCase {
         }
         
         wait(for: [expectation], timeout: 5)
+    }
+    
+    func testAppDelegateURLSchemesDeepLinks() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        let mock = MockRequestSenderURLSchemesDeepLinkHasBeenOpen()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+                
+        self.testCase.processAppDelegateURLSchemes(url: URL(string: self.testDeepLinkURL)!)
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    @available(iOS 13.0, *)
+    func testSceneDelegateURLSchemesDeepLinks() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        let mock = MockRequestSenderURLSchemesDeepLinkHasBeenOpen()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        self.testCase.processSceneDelegateURLSchemes(url: URL(string: self.testDeepLinkURL)!)
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
     }
 }

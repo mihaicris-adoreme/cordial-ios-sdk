@@ -1,15 +1,15 @@
 //
-//  MockRequestSenderDeepLinkHasBeenOpen.swift
+//  MockRequestSenderURLSchemesDeepLinkHasBeenOpen.swift
 //  CordialSDKTests
 //
-//  Created by Yan Malinovsky on 12.02.2021.
+//  Created by Yan Malinovsky on 18.02.2021.
 //  Copyright © 2021 cordial.io. All rights reserved.
 //
 
 import XCTest
 import CordialSDK
 
-class MockRequestSenderDeepLinkHasBeenOpen: RequestSender {
+class MockRequestSenderURLSchemesDeepLinkHasBeenOpen: RequestSender {
     
     var isVerified = false
     
@@ -19,10 +19,7 @@ class MockRequestSenderDeepLinkHasBeenOpen: RequestSender {
         let httpBody = task.originalRequest!.httpBody!
         
         if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
-            if jsonArray.contains(where: {
-              ($0["event"]?.isEqual(self.sdkTests.testCase.getEventNameDeepLinkOpen()))! &&
-              ($0["mcID"]?.isEqual(self.sdkTests.testMcID))! }) {
-                
+            if jsonArray.contains(where: { ($0["event"]?.isEqual(self.sdkTests.testCase.getEventNameDeepLinkOpen()))! }) {
                 self.isVerified = true
             }
         }
