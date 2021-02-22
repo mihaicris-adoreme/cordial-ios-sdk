@@ -19,12 +19,14 @@ class MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink: RequestSend
         let httpBody = task.originalRequest!.httpBody!
         
         if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
-            let json = jsonArray.first! as! [String: AnyObject]
-             
-            if json["event"] as! String == self.sdkTests.testCase.getEventNameDeepLinkOpen() {
-                XCTAssertEqual(json["mcID"] as! String, self.sdkTests.testMcId, "mcIDs don't match")
+            jsonArray.forEach { json in
+                let jsonDicrionary = json as! [String: String]
                 
-                self.isVerified = true
+                if jsonDicrionary["event"] == self.sdkTests.testCase.getEventNameDeepLinkOpen() {
+                    XCTAssertEqual(jsonDicrionary["mcID"], self.sdkTests.testMcID, "mcIDs don't match")
+                    
+                    self.isVerified = true
+                }
             }
         }
     }

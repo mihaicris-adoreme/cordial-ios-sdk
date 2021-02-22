@@ -30,9 +30,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ProductViewController.self, CartViewController.self])
         CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = CordialDeepLinksHandler()
+        CordialApiConfiguration.shared.inboxMessageDelegate = InboxMessageHandler()
         CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "s.cordial.com"]
                 
-        self.setupCordialSDKLogicErrorHandler()
+        AppNotificationManager.shared.setupCordialSDKObservers()
+        AppNotificationManager.shared.setupCordialDemoObservers()
         
         guard #available(iOS 13.0, *) else {
             if !App.isGuestUser() {

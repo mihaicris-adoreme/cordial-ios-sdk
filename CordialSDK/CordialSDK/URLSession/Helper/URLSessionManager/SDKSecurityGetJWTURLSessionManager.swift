@@ -30,12 +30,12 @@ class SDKSecurityGetJWTURLSessionManager {
                         }
                     } else {
                         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                            os_log("Failed decode response data.", log: OSLog.cordialSDKSecurity, type: .error)
+                            os_log("Failed decode response data.", log: OSLog.cordialSecurity, type: .error)
                         }
                     }
                 } catch let error {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.localizedDescription)
+                        os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSecurity, type: .error, error.localizedDescription)
                     }
                 }
             default:
@@ -45,7 +45,7 @@ class SDKSecurityGetJWTURLSessionManager {
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.localizedDescription)
+                os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSecurity, type: .error, error.localizedDescription)
             }
         }
     }

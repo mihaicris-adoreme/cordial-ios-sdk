@@ -15,21 +15,21 @@ class MockRequestSenderInAppMessageHasBeenShownTwoTimes: RequestSender {
     
     let sdkTests = CordialSDKTests()
     
-    var testMcId_2 = String()
+    var testMcID_2 = String()
 
     var isFirstInAppMessage = true
     
     override init() {
-        self.testMcId_2 = "\(self.sdkTests.testMcId)_2"
+        self.testMcID_2 = "\(self.sdkTests.testMcID)_2"
     }
     
     override func sendRequest(task: URLSessionDownloadTask) {
         
         if let url = task.originalRequest?.url {
             switch url {
-            case self.sdkTests.testCase.getInAppMessageURL(mcID: self.sdkTests.testMcId):
+            case self.sdkTests.testCase.getInAppMessageURL(mcID: self.sdkTests.testMcID):
                 self.sdkTests.testCase.sendInAppMessageDataFetchRequest(task: task)
-            case self.sdkTests.testCase.getInAppMessageURL(mcID: self.testMcId_2):
+            case self.sdkTests.testCase.getInAppMessageURL(mcID: self.testMcID_2):
                 self.sdkTests.testCase.sendInAppMessageDataFetchRequest(task: task)
             default:
                 let httpBody = task.originalRequest!.httpBody!

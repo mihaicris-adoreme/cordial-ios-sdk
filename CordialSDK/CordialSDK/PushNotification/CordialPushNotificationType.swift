@@ -9,6 +9,6 @@
 import Foundation
 
 @objc public enum CordialPushNotificationType: Int {
-    case SDK = 1
-    case APP = 2
+    case SDK
+    case APP 
 }

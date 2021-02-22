@@ -16,7 +16,7 @@ class MockRequestSenderSaveMcIdAfterSetContact: RequestSender {
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        XCTAssertEqual(CordialAPI().getCurrentMcID(), self.sdkTests.testMcId, "mcIDs don't match")
+        XCTAssertEqual(CordialAPI().getCurrentMcID(), self.sdkTests.testMcID, "mcIDs don't match")
         
         self.isVerified = true
     }

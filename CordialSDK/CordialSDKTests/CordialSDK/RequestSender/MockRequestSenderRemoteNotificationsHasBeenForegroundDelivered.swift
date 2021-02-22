@@ -22,7 +22,7 @@ class MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered: RequestSen
             let json = jsonArray.first! as! [String: AnyObject]
             
             XCTAssertEqual(json["event"] as! String, self.sdkTests.testCase.getEventNamePushNotificationForegroundDelivered(), "Events don't match")
-            XCTAssertEqual(json["mcID"] as! String, self.sdkTests.testMcId, "mcIDs don't match") 
+            XCTAssertEqual(json["mcID"] as! String, self.sdkTests.testMcID, "mcIDs don't match") 
             
             self.isVerified = true
         }

@@ -17,7 +17,7 @@ class SendContactOrders {
     
     func sendContactOrders(sendContactOrderRequests: [SendContactOrderRequest]) {
         if let url = URL(string: CordialApiEndpoints().getOrdersURL()) {
-            var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+            var request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
             let sendContactOrderJSON = getSendContactOrderRequestsJSON(sendContactOrderRequests: sendContactOrderRequests)
             request.httpBody = sendContactOrderJSON.data(using: .utf8)

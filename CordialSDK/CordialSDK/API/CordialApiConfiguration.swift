@@ -31,6 +31,9 @@ import CoreLocation
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
     @objc public var pushesConfiguration: CordialPushNotificationType = .SDK
+    @objc public var inboxMessageDelegate: InboxMessageDelegate?
+    
+    @objc public let inboxMessageCache = InboxMessageCache.shared
     
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, String>?
@@ -61,7 +64,7 @@ import CoreLocation
 
     @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
-    private override init(){
+    private override init() {
         self.cordialPushNotification.getNotificationSettings()
     }
     

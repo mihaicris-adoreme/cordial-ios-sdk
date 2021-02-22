@@ -14,15 +14,21 @@ class CordialSDKTests: XCTestCase {
     let cordialAPI = CordialAPI()
     let testCase = TestCase()
     
+    let validStringURL = "https://cordial.com/"
     let testDeviceToken = "ffa29a48a76025c0ff73a2cb2a6ad50266114c03b3f612e824d61be7c9a0f4cb"
     let testPrimaryKey = "test_primary_key@gmail.com"
     let testJWT = "testJWT"
-    let testMcId = "test_mc_id"
+    let testMcID = "test_mc_id"
     var testPushNotification = String()
     var testSilentNotification = String()
     var testSilentAndPushNotifications = String()
     let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
     let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
+    let testEmailDeepLinkURL = "https://e.a45.clients.cordialdev.com/c/45:5ffdd4ba20c3e66cfb62ecdc:ot:5e6b9936102e517f8c04870a:1/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA0NzA2OTAsImNkIjoiLmE0NS5jbGllbnRzLmNvcmRpYWxkZXYuY29tIiwiY2UiOjg2NDAwLCJ0ayI6ImNvcmRpYWxkZXYiLCJtdGxJRCI6IjVmZmRkNTIyZTg0ZWYxMmViNzI0OTk4NSIsIm1jTGlua0lEIjoiOWM4MTg2NDEiLCJsaW5rVXJsIjoiaHR0cHM6XC9cL3Rqcy5jb3JkaWFsZGV2LmNvbVwvcHJlcC10ajEuaHRtbD91dG1fY2FtcGFpZ249YXNoaWVsZHMrZGVlcCtsaW5rK3Rlc3QmdXRtX3NvdXJjZT1jb3JkaWFsJnV0bV9tZWRpdW09ZW1haWwmbWNpRD00NSUzQTVmZmRkNGJhMjBjM2U2NmNmYjYyZWNkYyUzQW90JTNBNWU2Yjk5MzYxMDJlNTE3ZjhjMDQ4NzBhJTNBMSYlMjRsaW5rPSYlN0Vjb250YWN0PTVlNmI5OTM2MTAyZTUxN2Y4YzA0ODcwYSJ9.eKSz8ys89tesz5dK8JulvznPDCAwDxDXz5exU255Irc"
+    let testSMSDeepLinkURL = "https://s.cordial.com/3udMLK"
+    var testInboxMessagesPayload = String()
+    var testInboxMessagePayload = String()
+    var testInboxMessageContentPayload = "Cordial"
     
     override func setUp() {
         self.testCase.clearAllTestCaseData()
@@ -34,6 +40,7 @@ class CordialSDKTests: XCTestCase {
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 30
         CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = DeepLinksHandler()
+        CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "s.cordial.com"]
         
         self.testPushNotification = """
             {
@@ -44,7 +51,7 @@ class CordialSDKTests: XCTestCase {
                     "url": "\(self.testDeepLinkURL)",
                     "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
                 },
-                "mcID": "\(self.testMcId)"
+                "mcID": "\(self.testMcID)"
             }
         """
         
@@ -58,9 +65,10 @@ class CordialSDKTests: XCTestCase {
                         "type": "modal",
                         "displayType": "displayImmediately",
                         "inactiveSessionDisplay": "show-in-app"
-                    }
+                    },
+                    "inbox": {}
                 },
-                "mcID": "\(self.testMcId)"
+                "mcID": "\(self.testMcID)"
             }
         """
         
@@ -75,13 +83,62 @@ class CordialSDKTests: XCTestCase {
                         "type": "modal",
                         "displayType": "displayImmediately",
                         "inactiveSessionDisplay": "show-in-app"
-                    }
+                    },
+                    "inbox": {}
                 },
                 "deepLink": {
                     "url": "\(self.testDeepLinkURL)",
                     "fallbackUrl": "\(self.testDeepLinkFallbackURL)"
                 },
-                "mcID": "\(self.testMcId)"
+                "mcID": "\(self.testMcID)"
+            }
+        """
+        
+        self.testInboxMessagesPayload = """
+            {
+                "currentPage": 1,
+                "lastPage": 1,
+                "perPage": 10,
+                "total": 1,
+                "success": true,
+                "messages": [
+                    {
+                        "_id": "\(self.testMcID)",
+                        "url": "\(self.validStringURL)",
+                        "urlExpireAt": "\(CordialDateFormatter().getCurrentTimestamp())",
+                        "read": true,
+                        "sentAt": "\(CordialDateFormatter().getCurrentTimestamp())",
+                        "metadata":
+                            {
+                                "title": "Title",
+                                "subtitle": "Subtitle",
+                                "url": "\(self.validStringURL)"
+                            }
+                    }
+                ]
+            }
+        """
+        
+        self.testInboxMessagePayload = self.getTestInboxMessagePayload()
+    }
+    
+    private func getTestInboxMessagePayload() -> String {
+        return """
+            {
+                "success": true,
+                "message":
+                    {
+                        "url": "\(self.validStringURL)",
+                        "urlExpireAt": "\(CordialDateFormatter().getCurrentTimestamp())",
+                        "read": true,
+                        "sentAt": "\(CordialDateFormatter().getCurrentTimestamp())",
+                        "metadata":
+                            {
+                                "title": "Title",
+                                "subtitle": "Subtitle",
+                                "url": "\(self.validStringURL)"
+                            }
+                    }
             }
         """
     }
@@ -92,6 +149,7 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
         
         if let deviceToken = Data(base64Encoded: self.testDeviceToken) {
             CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
@@ -113,10 +171,9 @@ class CordialSDKTests: XCTestCase {
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         
-        if let deviceToken = Data(base64Encoded: self.testDeviceToken) {
-            CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
-        }
+        self.testCase.prepareCurrentPushNotificationStatus()
         
         let expectation = XCTestExpectation(description: "Expectation for ending token preparing")
         
@@ -142,7 +199,7 @@ class CordialSDKTests: XCTestCase {
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -166,7 +223,7 @@ class CordialSDKTests: XCTestCase {
             CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
         }
 
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -175,6 +232,31 @@ class CordialSDKTests: XCTestCase {
         
         wait(for: [expectation], timeout: 3)
     }
+    
+    func testRemoteNotificationsHasBeenTappedWithDeepLink() {
+        let mock = MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
+            
+            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
+        }
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+
     
     func testRemoteNotificationsHasBeenTappedWithMcId() {
         let mock = MockRequestSenderRemoteNotificationsHasBeenTappedWithMcId()
@@ -190,7 +272,7 @@ class CordialSDKTests: XCTestCase {
             CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
         }
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -201,7 +283,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     func testDeepLinkDelegate() {
-        let mock = MockPushNotificationHandlerDeepLinkDelegate()
+        let mock = MockPushNotificationDeepLinkDelegate()
         
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = mock
         DependencyConfiguration.shared.requestSender = EmptyMockRequestSender()
@@ -226,23 +308,6 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         
-        self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
-        
-        XCTAssert(mock.isVerified)
-    }
-    
-    func testSetContactWithoutNotificationToken() {
-        let mock = MockRequestSenderSetContactWithoutNotificationToken()
-        
-        DependencyConfiguration.shared.requestSender = mock
-
-        self.testCase.setTestJWT(token: self.testJWT)
-        
-        self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
-        
-        XCTAssert(!mock.isCalled)
-        
-        self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
         XCTAssert(mock.isVerified)
@@ -305,7 +370,7 @@ class CordialSDKTests: XCTestCase {
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -325,7 +390,7 @@ class CordialSDKTests: XCTestCase {
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -345,7 +410,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.markUserAsLoggedIn()
         
-        CordialAPI().setCurrentMcID(mcID: self.testMcId)
+        CordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
@@ -362,7 +427,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.markUserAsLoggedIn()
         
-        CordialAPI().setCurrentMcID(mcID: self.testMcId)
+        CordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: nil)
         
@@ -380,7 +445,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        CordialAPI().setCurrentMcID(mcID: self.testMcId)
+        CordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: self.testPrimaryKey)
         
@@ -398,7 +463,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        CordialAPI().setCurrentMcID(mcID: self.testMcId)
+        CordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: nil)
         
@@ -416,7 +481,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
         self.testCase.markUserAsLoggedIn()
         
-        CordialAPI().setCurrentMcID(mcID: self.testMcId)
+        CordialAPI().setCurrentMcID(mcID: self.testMcID)
         
         self.cordialAPI.setContact(primaryKey: "new_\(self.testPrimaryKey)")
         
@@ -440,7 +505,7 @@ class CordialSDKTests: XCTestCase {
             CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         }
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -488,7 +553,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.appMovedToBackground()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -515,7 +580,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -545,7 +610,7 @@ class CordialSDKTests: XCTestCase {
         
         self.cordialAPI.flushEvents(reason: "Test qty cached events queue")
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -570,7 +635,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.appMovedToBackground()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -602,7 +667,7 @@ class CordialSDKTests: XCTestCase {
             CordialAPI().sendCustomEvent(eventName: validEventName, properties: nil)
         }
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -666,7 +731,7 @@ class CordialSDKTests: XCTestCase {
 
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -699,7 +764,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -721,7 +786,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.appMovedToBackground()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             XCTAssert(mock.isVerified)
@@ -782,7 +847,7 @@ class CordialSDKTests: XCTestCase {
 
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -824,7 +889,7 @@ class CordialSDKTests: XCTestCase {
 
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending event")
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(mock.isVerified)
@@ -874,7 +939,7 @@ class CordialSDKTests: XCTestCase {
             
             if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
-                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcId)
+                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcID)
             }
         }
         
@@ -910,16 +975,16 @@ class CordialSDKTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            let testMcId_2 = "\(self.testMcId)_2"
+            let testMcID_2 = "\(self.testMcID)_2"
             
-            let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: self.testMcId, with: testMcId_2)
+            let testSilentNotification = self.testSilentNotification.replacingOccurrences(of: self.testMcID, with: testMcID_2)
             
             if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
                 let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
 
                 if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                     InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
-                    CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: testMcId_2)
+                    CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: testMcID_2)
                 }
             }
 
@@ -980,21 +1045,21 @@ class CordialSDKTests: XCTestCase {
 
         let testSilentAndPushNotifications = self.testSilentAndPushNotifications.replacingOccurrences(of: "show-in-app", with: "hide-in-app")
 
-        if let testSilentNotificationData = testSilentAndPushNotifications.data(using: .utf8),
-            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+        if let testSilentAndPushNotificationsData = testSilentAndPushNotifications.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentAndPushNotificationsData, options: []) as? [AnyHashable : Any] {
 
             if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
-                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcId)
+                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcID)
                 
-                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcId), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
+                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     
-                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: self.testMcId)
+                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: self.testMcID)
                 }
             }
         }
 
-        if CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcId) == nil {
+        if CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcID) == nil {
             XCTAssert(true, "IAM has been removed successfully")
         } else {
             XCTAssert(false, "IAM has not been removed")
@@ -1088,7 +1153,7 @@ class CordialSDKTests: XCTestCase {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             
-            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
+            InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 XCTAssert(mock.isVerified)
@@ -1122,7 +1187,7 @@ class CordialSDKTests: XCTestCase {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
-            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.dismissModalInAppMessage()
+            InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().dismissModalInAppMessage()
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 XCTAssert(mock.isVerified)
@@ -1159,9 +1224,9 @@ class CordialSDKTests: XCTestCase {
             
             let messageBody = ["deepLink": self.testDeepLinkURL,  "eventName": eventName]
             
-            InAppMessageProcess.shared.inAppMessageManager.inAppMessageViewController.userClickedInAppMessageActionButton(messageBody: messageBody)
+            InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().userClickedInAppMessageActionButton(messageBody: messageBody)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 XCTAssert(mock.isVerified)
                 
                 InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -1170,7 +1235,7 @@ class CordialSDKTests: XCTestCase {
             }
         }
 
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 4)
     }
     
     func testInAppMessageExpirationTime() {
@@ -1202,6 +1267,837 @@ class CordialSDKTests: XCTestCase {
              }
         }
 
+        wait(for: [expectation], timeout: 3)
+    }
+            
+    func testInboxMessagesCache() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+        
+        if let testInboxMessagesPayloadData = self.testInboxMessagesPayload.data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+            
+            let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSession = MockURLSession(completionHandler: (testInboxMessagesPayloadData, response, nil))
+            
+            DependencyConfiguration.shared.inboxMessagesURLSession = mockSession
+            
+            let pageRequest = PageRequest(page: 1, size: 10)
+            let inboxFilter = InboxFilter(isRead: .yes, fromDate: Date(), toDate: Date())
+            CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, onSuccess: { inboxPage in
+                if inboxPage.content.count == 1,
+                   let inboxMessage = inboxPage.content.first,
+                   CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
+                    isVerified = true
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+            }, onFailure: { error in
+                XCTAssert(false, error)
+            })
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessageCache() {
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+
+        if let testInboxMessagesPayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSession = MockURLSession(completionHandler: (testInboxMessagesPayloadData, response, nil))
+
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSession
+
+            CordialInboxMessageAPI().fetchInboxMessage(mcID: self.testMcID, onSuccess: { inboxMessage in
+                if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
+                    isVerified = true
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+            }, onFailure: { error in
+                XCTAssert(false, error)
+            })
+        }
+        
+        XCTAssert(isVerified)
+    }
+
+    func testInboxMessageCacheExpire() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+
+        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
+            
+            let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
+
+            CordialInboxMessageAPI().fetchInboxMessage(mcID: self.testMcID, onSuccess: { inboxMessage in
+                
+                let testInboxMessagePayload2 = self.getTestInboxMessagePayload()
+                
+                if let testInboxMessagePayloadData2 = testInboxMessagePayload2.data(using: .utf8),
+                   let testInboxMessageContentPayloadData2 = "\(self.testInboxMessageContentPayload)_2".data(using: .utf8) {
+                        
+                    let responseInboxMessage2 = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+                    let mockSessionInboxMessage2 = MockURLSession(completionHandler: (testInboxMessagePayloadData2, responseInboxMessage2, nil))
+                    DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage2
+                    
+                    let responseInboxMessageContent2 = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+                    let mockSessionInboxMessageContent2 = MockURLSession(completionHandler: (testInboxMessageContentPayloadData2, responseInboxMessageContent2, nil))
+                    DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent2
+                    
+                    CordialInboxMessageAPI().fetchInboxMessage(mcID: self.testMcID, onSuccess: { inboxMessage in
+                        CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
+                            if content != self.testInboxMessageContentPayload {
+                                isVerified = true
+                                XCTAssert(true)
+                            } else {
+                                XCTAssert(false)
+                            }
+                        }, onFailure: { error in
+                            XCTAssert(false, error)
+                        })
+                    }, onFailure: { error in
+                        XCTAssert(false, error)
+                    })
+                } else {
+                    XCTAssert(false)
+                }
+            }, onFailure: { error in
+                XCTAssert(false, error)
+            })
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessageContent() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+        
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: "\(self.testInboxMessageContentPayload)_2")
+        
+        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
+            
+            let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
+
+            CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
+                
+                if let content = CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID),
+                   content != self.testInboxMessageContentPayload {
+                    
+                    isVerified = true
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+            }, onFailure: { error in
+                XCTAssert(false, error)
+            })
+        }
+    
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessageContentCache() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+
+        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
+            
+            let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
+
+            CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
+                
+                if let content = CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID),
+                   content == self.testInboxMessageContentPayload {
+                    
+                    isVerified = true
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+            }, onFailure: { error in
+                XCTAssert(false, error)
+            })
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessageContent403Status() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+
+        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
+            
+            let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 403, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
+
+            CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
+                XCTAssert(false)
+            }, onFailure: { error in
+                if InboxMessageContentGetter.shared.is403StatusReceived {
+                    isVerified = true
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+            })
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessageContent500Status() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+
+        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
+            
+            let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 500, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
+
+            CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
+                XCTAssert(false)
+            }, onFailure: { error in
+                if !InboxMessageContentGetter.shared.is403StatusReceived {
+                    isVerified = true
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+            })
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessagesMarkRead() {
+        let mock = MockRequestSenderInboxMessagesMarkReadUnread()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+
+        CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.testMcID])
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testInboxMessagesMarkUnread() {
+        let mock = MockRequestSenderInboxMessagesMarkReadUnread()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+
+        CordialInboxMessageAPI().markInboxMessagesUnread(mcIDs: [self.testMcID])
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testInboxMessagesMarkReadInvalidMcID() {
+        let mock = MockRequestSenderInboxMessagesMarkReadInvalidMcID()
+        
+        let invalidMcID = "\(self.testMcID)_invalid"
+        mock.invalidMcID = invalidMcID
+        
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+
+        let mcIDs = [invalidMcID, self.testMcID]
+        CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: mcIDs)
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testInboxMessagesMarkUnreadInvalidMcID() {
+        let mock = MockRequestSenderInboxMessagesMarkUnreadInvalidMcID()
+        
+        let invalidMcID = "\(self.testMcID)_invalid"
+        mock.invalidMcID = invalidMcID
+        
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+
+        let mcIDs = [invalidMcID, self.testMcID]
+        CordialInboxMessageAPI().markInboxMessagesUnread(mcIDs: mcIDs)
+        
+        XCTAssert(mock.isVerified)
+    }
+    
+    func testInboxMessagesMarkReadCache() {
+        let mock = MockRequestSenderInboxMessagesMarkReadCache()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        let markAsReadMcIDs_1 = ["\(self.testMcID)_1", "\(self.testMcID)_2"]
+        let markAsReadMcIDs_2 = ["\(self.testMcID)_3", "\(self.testMcID)_4"]
+        
+        let inboxMessagesMarkReadRequest_1 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: markAsReadMcIDs_1, markAsUnreadMcIDs: [])
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_1)
+
+        let inboxMessagesMarkReadRequest_2 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: markAsReadMcIDs_2, markAsUnreadMcIDs: [])
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_2)
+        
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
+    
+    func testInboxMessagesMarkUnreadCache() {
+        let mock = MockRequestSenderInboxMessagesMarkUnreadCache()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        let markAsUnreadMcIDs_1 = ["\(self.testMcID)_1", "\(self.testMcID)_2"]
+        let markAsUnreadMcIDs_2 = ["\(self.testMcID)_3", "\(self.testMcID)_4"]
+        
+        let inboxMessagesMarkUnreadRequest_1 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: markAsUnreadMcIDs_1)
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_1)
+
+        let inboxMessagesMarkUnreadRequest_2 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: markAsUnreadMcIDs_2)
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_2)
+        
+        self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
+    
+    func testInboxMessageDelete() {
+        let mock = MockRequestSenderInboxMessageDelete()
+        
+        mock.contactKey = self.testPrimaryKey
+        mock.mcID = self.testMcID
+        
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        let inboxMessage = InboxMessage(mcID: self.testMcID, url: String(), urlExpireAt: Date(), isRead: true, sentAt: Date(), metadata: String())
+        CoreDataManager.shared.inboxMessagesCache.putInboxMessageToCoreData(inboxMessage: inboxMessage)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
+        
+        CordialInboxMessageAPI().deleteInboxMessage(mcID: self.testMcID)
+        
+        if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: self.testMcID) == nil,
+           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil,
+           mock.isVerified {
+            
+            XCTAssert(true)
+        }
+    }
+    
+    func testInboxMessageDelegate() {
+        let inboxMessageHandler = InboxMessageHandler()
+        inboxMessageHandler.testMcID = self.testMcID
+        
+        CordialApiConfiguration.shared.inboxMessageDelegate = inboxMessageHandler
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        XCTAssert(inboxMessageHandler.isVerified)
+    }
+    
+    func testInboxMessageReadEvent() {
+        let mock = MockRequestSenderInboxMessageReadEvent()
+         
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.testMcID)
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    func testInboxMessageMaxCacheSize() {
+        var isVerified = false
+        
+        CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = self.testInboxMessageContentPayload.data(using: .utf8)!.count - 1
+        
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
+        
+        if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil {
+            isVerified = true
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessageMaxCachableMessageSize() {
+        var isVerified = false
+        
+        CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize = self.testInboxMessageContentPayload.data(using: .utf8)!.count + 1
+        
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_2", content: "\(self.testInboxMessageContentPayload)_2")
+        
+        if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == self.testInboxMessageContentPayload,
+           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_2") == nil {
+            
+            isVerified = true
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
+    func testInboxMessageMaxCacheSizeAndMaxCachableMessageSize() {
+        var isVerified = false
+        
+        CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = (self.testInboxMessageContentPayload.data(using: .utf8)!.count + 1) * 2
+        CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize = self.testInboxMessageContentPayload.data(using: .utf8)!.count + 1
+        
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_2", content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_3", content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_4", content: self.testInboxMessageContentPayload)
+        
+        if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil,
+           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_2") == self.testInboxMessageContentPayload,
+           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_3") == self.testInboxMessageContentPayload,
+           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_4") == self.testInboxMessageContentPayload {
+            
+            isVerified = true
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
+    func testAppDelegateEmailDeepLinks() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        // DeepLink Mock
+        let mock = MockRequestSenderEmailDeepLinkHasBeenOpen()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        // Email DeepLink Mock
+        let headerFields = [
+            "Location": self.testDeepLinkURL,
+            "x-mcid": self.testMcID
+        ]
+        
+        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+            
+            let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
+            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            
+            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+        }
+        
+        // DeepLink Click
+        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        userActivity.webpageURL = URL(string: self.testEmailDeepLinkURL)
+        
+        self.testCase.processAppDelegateUniversalLinks(userActivity: userActivity)
+        self.testCase.appMovedFromBackground()
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    @available(iOS 13.0, *)
+    func testSceneDelegateEmailDeepLinks() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        // DeepLink Mock
+        let mock = MockRequestSenderEmailDeepLinkHasBeenOpen()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        // Email DeepLink Mock
+        let headerFields = [
+            "Location": self.testDeepLinkURL,
+            "x-mcid": self.testMcID
+        ]
+        
+        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+            
+            let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
+            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            
+            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+        }
+        
+        // DeepLink Click
+        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        userActivity.webpageURL = URL(string: self.testEmailDeepLinkURL)
+        
+        self.testCase.processSceneDelegateUniversalLinks(userActivity: userActivity)
+        self.testCase.appMovedFromBackground()
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    @available(iOS 13.0, *)
+    func testSceneDelegateEmailDeepLinksTestClickNotSaveMcID() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        // DeepLink Mock
+        let mock = MockRequestSenderTestEmailDeepLinksNotSaveMcID()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        // Email DeepLink Mock
+        let headerFields = [
+            "Location": self.testDeepLinkURL,
+            "x-mcid": self.testMcID,
+            "x-message-istest": "1"
+        ]
+        
+        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+            
+            let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
+            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            
+            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+        }
+        
+        // DeepLink Click
+        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        userActivity.webpageURL = URL(string: self.testEmailDeepLinkURL)
+        
+        self.testCase.processSceneDelegateUniversalLinks(userActivity: userActivity)
+        self.testCase.appMovedFromBackground()
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    @available(iOS 13.0, *)
+    func testSceneDelegateEmailDeepLinksNotVanityDomain() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        // DeepLinkDelegate Mock
+        let mock = MockEmailDeepLinkDelegateNotVanityDomain()
+        CordialApiConfiguration.shared.cordialDeepLinksDelegate = mock
+
+        // DeepLink Mock
+        DependencyConfiguration.shared.requestSender = EmptyMockRequestSender()
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        // Email DeepLink Mock
+        let headerFields = [
+            "Location": self.testDeepLinkURL,
+            "x-mcid": self.testMcID
+        ]
+
+        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
+            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+
+            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+        }
+
+        // DeepLink Click
+        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        userActivity.webpageURL = URL(string: self.validStringURL)
+
+        self.testCase.processSceneDelegateUniversalLinks(userActivity: userActivity)
+        self.testCase.appMovedFromBackground()
+
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    @available(iOS 13.0, *)
+    func testSceneDelegateEmailDeepLinksNot302Status() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        // DeepLinkDelegate Mock
+        let mock = MockEmailDeepLinkDelegate()
+        CordialApiConfiguration.shared.cordialDeepLinksDelegate = mock
+
+        // DeepLink Mock
+        DependencyConfiguration.shared.requestSender = EmptyMockRequestSender()
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+
+        // Email DeepLink Mock
+        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let response = HTTPURLResponse(url: url, statusCode: 500, httpVersion: nil, headerFields: nil)
+            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+
+            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+        }
+
+        // DeepLink Click
+        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        userActivity.webpageURL = URL(string: self.testDeepLinkURL)
+
+        self.testCase.processSceneDelegateUniversalLinks(userActivity: userActivity)
+        self.testCase.appMovedFromBackground()
+
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    @available(iOS 13.0, *)
+    func testSceneDelegateSMSDeepLinks() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        // DeepLinkDelegate Mock
+        let mock = MockSMSDeepLinkDelegate()
+        CordialApiConfiguration.shared.cordialDeepLinksDelegate = mock
+
+        // DeepLink Mock
+        DependencyConfiguration.shared.requestSender = EmptyMockRequestSender()
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        // Email DeepLink Mock
+        let headerFields = [
+            "Location": self.testEmailDeepLinkURL,
+            "x-mcid": self.testMcID
+        ]
+        
+        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+            
+            let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
+            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            
+            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+        }
+        
+        // DeepLink Click
+        let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+        userActivity.webpageURL = URL(string: self.testSMSDeepLinkURL)
+        
+        self.testCase.processSceneDelegateUniversalLinks(userActivity: userActivity)
+        self.testCase.appMovedFromBackground()
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            CordialApiConfiguration.shared.vanityDomains = ["s.cordial.com"]
+            
+            self.testCase.appMovedFromBackground()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                XCTAssert(mock.isVerified)
+                expectation.fulfill()
+            }
+        }
+        
+        wait(for: [expectation], timeout: 5)
+    }
+    
+    func testAppDelegateURLSchemesDeepLinks() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        let mock = MockRequestSenderURLSchemesDeepLinkHasBeenOpen()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+                
+        self.testCase.processAppDelegateURLSchemes(url: URL(string: self.testDeepLinkURL)!)
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 3)
+    }
+    
+    @available(iOS 13.0, *)
+    func testSceneDelegateURLSchemesDeepLinks() {
+        self.testCase.swizzleAppAndSceneDelegateMethods()
+        
+        let mock = MockRequestSenderURLSchemesDeepLinkHasBeenOpen()
+        
+        DependencyConfiguration.shared.requestSender = mock
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.markUserAsLoggedIn()
+        
+        self.testCase.processSceneDelegateURLSchemes(url: URL(string: self.testDeepLinkURL)!)
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssert(mock.isVerified)
+            expectation.fulfill()
+        }
+        
         wait(for: [expectation], timeout: 3)
     }
 }

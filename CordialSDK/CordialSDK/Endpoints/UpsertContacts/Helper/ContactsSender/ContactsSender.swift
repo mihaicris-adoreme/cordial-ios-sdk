@@ -15,9 +15,9 @@ class ContactsSender {
     
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
 
-        let upsertContactRequests = ContactsSenderHelper().prepareDataBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
-        
-        if upsertContactRequests.count > 0 {
+        let upsertContactRequests = ContactsSenderHelper().prepareCoreDataCacheBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
+         
+        if !upsertContactRequests.isEmpty {
             self.upsertContactsData(upsertContactRequests: upsertContactRequests)
         }
     }
@@ -29,11 +29,9 @@ class ContactsSender {
         
         if ReachabilityManager.shared.isConnectedToInternet {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                upsertContactRequests.forEach({ upsertContactRequest in
-                    os_log("Sending contact. Request ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
-                    
+                upsertContactRequests.forEach({ upsertContactRequest in                    
                     let payload = self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest)
-                    os_log("Payload: %{public}@", log: OSLog.cordialUpsertContacts, type: .info, payload)
+                    os_log("Sending contact. Request ID: [%{public}@] Payload: %{public}@", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID, payload)
                 })
             }
         
@@ -70,6 +68,8 @@ class ContactsSender {
                 CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
             }
         })
+        
+        CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
         
         DispatchQueue.main.async {
             CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()

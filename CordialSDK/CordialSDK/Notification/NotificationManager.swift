@@ -14,15 +14,16 @@ public extension Notification.Name {
     static let cordialConnectedToInternet = Notification.Name("CordialConnectedToInternet")
     static let cordialNotConnectedToInternet = Notification.Name("CordialNotConnectedToInternet")
     
-    static let cordialConnectionSettingsHasBeenChange = Notification.Name("CordialConnectionSettingsHasBeenChange")
+    static let cordialConnectionSettingsHasBeenChange = Notification.Name("CordialSDKConnectionSettingsHasBeenChange")
     
-    static let cordialSendCustomEventsLogicError = Notification.Name("CordialSendCustomEventsLogicError")
-    static let cordialUpsertContactCartLogicError = Notification.Name("CordialUpsertContactCartLogicError")
-    static let cordialSendContactOrdersLogicError = Notification.Name("CordialSendContactOrdersLogicError")
-    static let cordialUpsertContactsLogicError = Notification.Name("CordialUpsertContactsLogicError")
-    static let cordialSendContactLogoutLogicError = Notification.Name("CordialSendContactLogoutLogicError")
-    static let cordialInAppMessageLogicError = Notification.Name("CordialInAppMessageLogicError")
-    
+    static let cordialSendCustomEventsLogicError = Notification.Name("CordialSDKSendCustomEventsLogicError")
+    static let cordialUpsertContactCartLogicError = Notification.Name("CordialSDKUpsertContactCartLogicError")
+    static let cordialSendContactOrdersLogicError = Notification.Name("CordialSDKSendContactOrdersLogicError")
+    static let cordialUpsertContactsLogicError = Notification.Name("CordialSDKUpsertContactsLogicError")
+    static let cordialSendContactLogoutLogicError = Notification.Name("CordialSDKSendContactLogoutLogicError")
+    static let cordialInAppMessageLogicError = Notification.Name("CordialSDKInAppMessageLogicError")
+    static let cordialInboxMessagesMarkReadUnreadLogicError = Notification.Name("CordialSDKInboxMessagesMarkReadUnreadLogicError")
+    static let cordialInboxMessageDeleteRequestLogicError = Notification.Name("CordialSDKInboxMessageDeleteRequestLogicError")
 }
 
 @objc public extension NSNotification {
@@ -37,6 +38,7 @@ public extension Notification.Name {
     static let cordialUpsertContactsLogicError = Notification.Name.cordialUpsertContactsLogicError
     static let cordialSendContactLogoutLogicError = Notification.Name.cordialSendContactLogoutLogicError
     static let cordialInAppMessageLogicError = Notification.Name.cordialInAppMessageLogicError
+    static let cordialInboxMessagesMarkReadUnreadLogicError = Notification.Name.cordialInboxMessagesMarkReadUnreadLogicError
 }
 
 class NotificationManager {
@@ -47,10 +49,7 @@ class NotificationManager {
     
     var emailDeepLink = String()
     
-    let appMovedToBackgroundThrottler = Throttler(minimumDelay: 1)
     var appMovedToBackgroundBackgroundTaskID: UIBackgroundTaskIdentifier?
-    
-    let appMovedFromBackgroundThrottler = Throttler(minimumDelay: 1)
 
     private init() {
         let notificationCenter = NotificationCenter.default
@@ -74,7 +73,7 @@ class NotificationManager {
             UIApplication.shared.endBackgroundTask(backgroundTaskID)
         })
         
-        self.appMovedToBackgroundThrottler.throttle {
+        ThrottlerManager.shared.appMovedToBackground.throttle {
             self.appMovedToBackgroundProceed()
             
             if let backgroundTaskID = self.appMovedToBackgroundBackgroundTaskID {
@@ -92,7 +91,7 @@ class NotificationManager {
     }
     
     @objc func appMovedFromBackground() {
-        self.appMovedFromBackgroundThrottler.throttle {
+        ThrottlerManager.shared.appMovedFromBackground.throttle {
             self.appMovedFromBackgroundProceed()
         }
     }
@@ -103,7 +102,7 @@ class NotificationManager {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        self.prepareCurrentPushNotificationStatus()
+        CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
         
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
         InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
@@ -115,55 +114,6 @@ class NotificationManager {
     
     @objc func connectionSettingsHasBeenChangeHandler() {
         InternalCordialAPI().removeCurrentMcID()
-    }
-    
-    private func prepareCurrentPushNotificationStatus() {
-        DispatchQueue.main.async {
-            let current = UNUserNotificationCenter.current()
-            
-            current.getNotificationSettings(completionHandler: { (settings) in
-                let internalCordialAPI = InternalCordialAPI()
-                
-                let token = internalCordialAPI.getPushNotificationToken()
-                let primaryKey = CordialAPI().getContactPrimaryKey()
-                
-                if settings.authorizationStatus == .authorized {
-                    if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
-                        let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
-                        
-                        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-                        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
-                        
-                        internalCordialAPI.setPushNotificationStatus(status: status)
-                    }
-                } else {
-                    if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
-                        let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
-                        
-                        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-                        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
-                        
-                        internalCordialAPI.setPushNotificationStatus(status: status)
-                    }
-                }
-            })
-        }
-    }
-    
-    private func isSentUpsertContactsWithin24Hours() -> Bool {
-        if let lastUpdateDateTimestamp = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE),
-            let lastUpdateDate = CordialDateFormatter().getDateFromTimestamp(timestamp: lastUpdateDateTimestamp) {
-            
-            let distanceBetweenDates = abs(lastUpdateDate.timeIntervalSinceNow)
-            let secondsInAnHour = 3600.0
-            let hoursBetweenDates = distanceBetweenDates / secondsInAnHour
-
-            if hoursBetweenDates < 24 {
-                return true
-            }
-        }
-        
-        return false
     }
     
     @objc func handleDidFinishLaunch(notification: NSNotification) {
@@ -195,7 +145,7 @@ class NotificationManager {
         notificationCenter.removeObserver(self, name: .cordialConnectionSettingsHasBeenChange, object: nil)
         notificationCenter.addObserver(self, selector: #selector(connectionSettingsHasBeenChangeHandler), name: .cordialConnectionSettingsHasBeenChange, object: nil)
         
-        CordialSwizzler.shared.swizzleAppDelegateMethods()
+        CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
     }
 
 }

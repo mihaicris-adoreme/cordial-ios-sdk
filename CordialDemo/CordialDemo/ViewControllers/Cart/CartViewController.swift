@@ -80,7 +80,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     }
     
     func upsertCartTableFooterView() {
-        if self.products.count > 0 {
+        if !self.products.isEmpty {
             var totalQty: Int64 = 0
             var totalPrice: Double = 0
             self.products.forEach { product in
@@ -114,8 +114,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         products.forEach { product in
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.cart.getCartItemQtyBySKU(appDelegate: appDelegate, sku: product.sku) {
                 
-                let categoryName = "Mens" // tmp value, must be not required.
-                let cartItem = CartItem(productID: product.id, name: product.name, sku: product.sku, category: categoryName, url: nil, itemDescription: nil, qty: qty, itemPrice: product.price, salePrice: product.price, attr: nil, images: nil, properties: nil)
+                let cartItem = CartItem(productID: product.id, name: product.name, sku: product.sku, category: nil, url: nil, itemDescription: nil, qty: qty, itemPrice: product.price, salePrice: product.price, attr: nil, images: nil, properties: nil)
                 
                 cartItems.append(cartItem)
             }
@@ -131,7 +130,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if products.count > 0 {
+        if !products.isEmpty {
             let productHeight = self.tableView.frame.size.height / 3
             let productsHeight = productHeight * CGFloat(self.products.count)
             let calculatedHeightForFooter = self.tableView.frame.size.height - productsHeight

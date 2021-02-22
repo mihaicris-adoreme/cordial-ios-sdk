@@ -6,7 +6,6 @@
 //  Copyright © 2020 cordial.io. All rights reserved.
 //
 
-
 import XCTest
 import CordialSDK
 

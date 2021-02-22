@@ -18,7 +18,7 @@ class MockRequestSenderRemoteNotificationStatus: RequestSender {
     override func sendRequest(task: URLSessionDownloadTask) {
         let httpBody = task.originalRequest!.httpBody!
         
-        if let status = sdkTests.testCase.getPushNotificationStatus() {
+        if let status = self.sdkTests.testCase.getPushNotificationStatus() {
             if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
                 let json = jsonArray.first! as! [String: AnyObject]
                 

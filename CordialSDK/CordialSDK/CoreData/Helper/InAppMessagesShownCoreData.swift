@@ -26,7 +26,7 @@ class InAppMessagesShownCoreData {
                 try context.save()
             } catch let error {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                    os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
                 }
             }
         }
@@ -42,12 +42,12 @@ class InAppMessagesShownCoreData {
         request.predicate = NSPredicate(format: "mcID = %@", mcID)
         
         do {
-            if let result = try context.fetch(request) as? [NSManagedObject], result.count > 0 {
+            if let result = try context.fetch(request) as? [NSManagedObject], !result.isEmpty {
                 return true
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
         
@@ -71,7 +71,7 @@ class InAppMessagesShownCoreData {
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
     }

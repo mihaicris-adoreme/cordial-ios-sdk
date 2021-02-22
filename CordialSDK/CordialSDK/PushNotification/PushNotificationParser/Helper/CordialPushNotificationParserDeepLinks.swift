@@ -31,7 +31,7 @@ class CordialPushNotificationParserDeepLinks {
                     }
                 } catch let error {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
                     }
                 }
         }
@@ -55,7 +55,7 @@ class CordialPushNotificationParserDeepLinks {
                     }
                 } catch let error {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
                     }
                 }
         }
@@ -83,7 +83,7 @@ class CordialPushNotificationParserDeepLinks {
                     }
                 } catch let error {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
                     }
                 }
         }
@@ -107,7 +107,7 @@ class CordialPushNotificationParserDeepLinks {
                     }
                 } catch let error {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
                     }
                 }
         }

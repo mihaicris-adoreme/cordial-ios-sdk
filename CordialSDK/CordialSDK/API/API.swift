@@ -35,6 +35,8 @@ struct API {
     static let DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT = "DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT"
     static let DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART = "DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART"
     static let DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS = "DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS"
+    static let DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS = "DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS"
+    static let DOWNLOAD_TASK_NAME_DELETE_INBOX_MESSAGE = "DOWNLOAD_TASK_NAME_DELETE_INBOX_MESSAGE"
     
     static let SYSTEM_EVENT_PREFIX = "crdl_"
     
@@ -47,6 +49,7 @@ struct API {
     static let EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_shown"
     static let EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_auto_dismiss"
     static let EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_manual_dismiss"
+    static let EVENT_NAME_INBOX_MESSAGE_READ = "\(API.SYSTEM_EVENT_PREFIX)inbox_read"
     
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"
@@ -71,6 +74,14 @@ struct API {
         let stringContainer = stringArrayContainer.joined(separator: ", ")
         
         return "[ \(stringContainer) ]"
+    }
+    
+    static func isValidExpirationDate(date: Date) -> Bool {
+        if Int(date.timeIntervalSinceNow).signum() == 1 {
+            return true
+        }
+        
+        return false
     }
 }
 

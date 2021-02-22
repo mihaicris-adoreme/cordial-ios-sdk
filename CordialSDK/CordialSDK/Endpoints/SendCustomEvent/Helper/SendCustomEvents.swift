@@ -18,7 +18,7 @@ class SendCustomEvents {
     func sendCustomEvents(sendCustomEventRequests: [SendCustomEventRequest]) {
         
         if let url = URL(string: CordialApiEndpoints().getCustomEventsURL()) {
-            var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+            var request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
             let sendCustomEventsJSON = self.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
             
