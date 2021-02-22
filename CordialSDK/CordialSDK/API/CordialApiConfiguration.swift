@@ -23,7 +23,6 @@ import CoreLocation
     var channelKey = String()
     var baseURL = String()
     
-    let cordialSwizzler = CordialSwizzler()
     let cordialPushNotification = CordialPushNotification()
     let cordialPushNotificationHandler = CordialPushNotificationHandler()
     
@@ -35,6 +34,8 @@ import CoreLocation
     
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, String>?
+    
+    @objc public var vanityDomains = [String]()
     
     @objc public var eventsBulkSize: Int = 1 {
         didSet {

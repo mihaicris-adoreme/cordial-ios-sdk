@@ -13,29 +13,29 @@ struct CordialUserDefaults {
     private static let cordialUserDefaults = UserDefaults.init(suiteName: "io.cordial.sdk.UserDefaults")
 
     static func set(_ value: Any?, forKey key: String) {
-        cordialUserDefaults?.set(value, forKey: key)
+        self.cordialUserDefaults?.set(value, forKey: key)
     }
     
     static func removeObject(forKey key: String) {
-        cordialUserDefaults?.removeObject(forKey: key)
+        self.cordialUserDefaults?.removeObject(forKey: key)
     }
     
     static func string(forKey key: String) -> String? {
-        return cordialUserDefaults?.string(forKey: key)
+        return self.cordialUserDefaults?.string(forKey: key)
     }
     
     static func bool(forKey key: String) -> Bool? {
-        return cordialUserDefaults?.bool(forKey: key)
+        return self.cordialUserDefaults?.bool(forKey: key)
     }
     
     static func double(forKey key: String) -> Double? {
-        return cordialUserDefaults?.double(forKey: key)
+        return self.cordialUserDefaults?.double(forKey: key)
     }
     
     static func removeAllData() {
-        let dictionary = cordialUserDefaults?.dictionaryRepresentation()
+        let dictionary = self.cordialUserDefaults?.dictionaryRepresentation()
         dictionary?.keys.forEach { key in
-            cordialUserDefaults?.removeObject(forKey: key)
+            self.cordialUserDefaults?.removeObject(forKey: key)
         }
     }
 }
