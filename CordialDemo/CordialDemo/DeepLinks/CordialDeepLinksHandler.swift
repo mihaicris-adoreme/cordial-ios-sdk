@@ -69,12 +69,18 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     }
     
     private func getHost(url: URL, fallbackURL: URL?) -> String? {
-        if url.host != nil  {
-            return url.host
+        if let urlString = url.absoluteString.removingPercentEncoding,
+           let urlDecode = URL(string: urlString),
+           urlDecode.host != nil {
+            
+            return urlDecode.host
         }
         
-        if fallbackURL?.host != nil {
-            return fallbackURL?.host
+        if let fallbackURLString = fallbackURL?.absoluteString.removingPercentEncoding,
+           let fallbackURLDecode = URL(string: fallbackURLString),
+           fallbackURLDecode.host != nil {
+            
+            return fallbackURLDecode.host
         }
         
         return nil
