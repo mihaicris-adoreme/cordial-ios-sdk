@@ -31,13 +31,13 @@ class SDKSecurity {
                 
                 let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
                 
-                let sdkSecurityGetJWTDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+                let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
                 
                 let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT, taskData: nil)
-                CordialURLSession.shared.setOperation(taskIdentifier: sdkSecurityGetJWTDownloadTask.taskIdentifier, data: cordialURLSessionData)
+                CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
                 self.isCurrentlyFetchingJWT = true
                 
-                self.requestSender.sendRequest(task: sdkSecurityGetJWTDownloadTask)
+                self.requestSender.sendRequest(task: downloadTask)
             }
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {

@@ -16,13 +16,13 @@ class InAppMessage {
         if let url = URL(string: CordialApiEndpoints().getInAppMessageURL(mcID: mcID)) {
             let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
             
-            let inAppMessageDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+            let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
             
             let inAppMessageURLSessionData = InAppMessageURLSessionData(mcID: mcID)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE, taskData: inAppMessageURLSessionData)
-            CordialURLSession.shared.setOperation(taskIdentifier: inAppMessageDownloadTask.taskIdentifier, data: cordialURLSessionData)
+            CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            self.requestSender.sendRequest(task: inAppMessageDownloadTask)
+            self.requestSender.sendRequest(task: downloadTask)
         }
     }
 }

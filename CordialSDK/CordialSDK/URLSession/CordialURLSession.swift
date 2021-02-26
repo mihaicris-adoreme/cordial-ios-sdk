@@ -93,6 +93,8 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 if let inboxMessageDeleteURLSessionData = operation.taskData as? InboxMessageDeleteURLSessionData {
                     InboxMessageDeleteURLSessionManager().errorHandler(inboxMessageDeleteURLSessionData: inboxMessageDeleteURLSessionData, error: error)
                 }
+            case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS:
+                ContactTimestampsURLSessionManager().errorHandler(error: error)
             default: break
             }
         }
@@ -141,6 +143,8 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 if let inboxMessageDeleteURLSessionData = operation.taskData as? InboxMessageDeleteURLSessionData {
                     InboxMessageDeleteURLSessionManager().completionHandler(inboxMessageDeleteURLSessionData: inboxMessageDeleteURLSessionData, httpResponse: httpResponse, location: location)
                 }
+            case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS:
+                ContactTimestampsURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
             default: break
             }
         }

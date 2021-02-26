@@ -21,13 +21,13 @@ class UpsertContacts {
             
             request.httpBody = upsertContactRequestsJSON.data(using: .utf8)
             
-            let upsertContactsDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+            let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
             
             let upsertContactsURLSessionData = UpsertContactsURLSessionData(upsertContactRequests: upsertContactRequests)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS, taskData: upsertContactsURLSessionData)
-            CordialURLSession.shared.setOperation(taskIdentifier: upsertContactsDownloadTask.taskIdentifier, data: cordialURLSessionData)
+            CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            self.requestSender.sendRequest(task: upsertContactsDownloadTask)
+            self.requestSender.sendRequest(task: downloadTask)
         }
     }
     

@@ -16,13 +16,13 @@ class InboxMessageDelete {
         if let primaryKey = inboxMessageDeleteRequest.primaryKey, let url = URL(string: CordialApiEndpoints().getInboxMessageURL(contactKey: primaryKey, mcID: inboxMessageDeleteRequest.mcID)) {
             let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .DELETE)
             
-            let inboxMessageDeleteDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+            let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
             
             let inboxMessageDeleteURLSessionData = InboxMessageDeleteURLSessionData(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_DELETE_INBOX_MESSAGE, taskData: inboxMessageDeleteURLSessionData)
-            CordialURLSession.shared.setOperation(taskIdentifier: inboxMessageDeleteDownloadTask.taskIdentifier, data: cordialURLSessionData)
+            CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            self.requestSender.sendRequest(task: inboxMessageDeleteDownloadTask)
+            self.requestSender.sendRequest(task: downloadTask)
         }
     }
     

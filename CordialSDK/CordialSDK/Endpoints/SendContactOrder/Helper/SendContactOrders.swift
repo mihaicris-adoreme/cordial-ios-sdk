@@ -22,13 +22,13 @@ class SendContactOrders {
             let sendContactOrderJSON = getSendContactOrderRequestsJSON(sendContactOrderRequests: sendContactOrderRequests)
             request.httpBody = sendContactOrderJSON.data(using: .utf8)
             
-            let sendContactOrdersDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+            let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
             
             let sendContactOrdersURLSessionData = SendContactOrdersURLSessionData(sendContactOrderRequests: sendContactOrderRequests)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS, taskData: sendContactOrdersURLSessionData)
-            CordialURLSession.shared.setOperation(taskIdentifier: sendContactOrdersDownloadTask.taskIdentifier, data: cordialURLSessionData)
+            CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            self.requestSender.sendRequest(task: sendContactOrdersDownloadTask)
+            self.requestSender.sendRequest(task: downloadTask)
         }
     }
     
