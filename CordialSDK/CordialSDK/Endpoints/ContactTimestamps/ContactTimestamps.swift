@@ -37,8 +37,25 @@ class ContactTimestamps {
     }
     
     func errorHandler(error: ResponseError) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Fetching contact timestamp failed. Error: [%{public}@]", log: OSLog.cordialContactTimestamps, type: .error, error.message)
+        if !self.isEmptyContactTimestamps(error: error) {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Fetching contact timestamp failed. Error: [%{public}@]", log: OSLog.cordialContactTimestamps, type: .error, error.message)
+            }
         }
+    }
+    
+    private func isEmptyContactTimestamps(error: ResponseError) -> Bool {
+        if error.statusCode == 404, let responseBody = error.responseBody {
+            if let responseBodyData = responseBody.data(using: .utf8),
+               let responseBodyJSON = try? JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
+               let error = responseBodyJSON["error"] as? [String: AnyObject],
+               let message = error["message"] as? String,
+               message == "Timestamps file has not been found" {
+                    
+                return true
+            }
+        }
+        
+        return false
     }
 }

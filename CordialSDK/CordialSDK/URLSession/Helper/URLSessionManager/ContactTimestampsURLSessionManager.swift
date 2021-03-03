@@ -38,12 +38,6 @@ class ContactTimestampsURLSessionManager {
                     let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                     self.contactTimestamps.errorHandler(error: responseError)
                 }
-            case 404: 
-                if !self.isContactTimestampsEmpty(responseBody: responseBody) {
-                    let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                    let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                    self.contactTimestamps.errorHandler(error: responseError)
-                }
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
@@ -61,20 +55,4 @@ class ContactTimestampsURLSessionManager {
         self.contactTimestamps.errorHandler(error: responseError)
     }
     
-    func isContactTimestampsEmpty(responseBody: String) -> Bool {
-        do {
-            if let responseBodyData = responseBody.data(using: .utf8),
-               let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
-               let error = responseBodyJSON["error"] as? [String: AnyObject],
-               let message = error["message"] as? String,
-               message == "Timestamps file has not been found" {
-                    
-                return true
-            }
-            
-            return false
-        } catch {
-            return false
-        }
-    }
 }
