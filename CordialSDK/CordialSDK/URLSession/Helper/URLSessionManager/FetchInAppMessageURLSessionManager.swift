@@ -23,9 +23,9 @@ class FetchInAppMessageURLSessionManager {
             case 200:
                 do {
                     if let responseBodyData = responseBody.data(using: .utf8),
-                        let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
-                        let html = responseBodyJSON["content"] as? String,
-                        let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
+                       let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
+                       let html = responseBodyJSON["content"] as? String,
+                       let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
                         
                         let type = inAppMessageParams.type
                         let displayType = inAppMessageParams.displayType

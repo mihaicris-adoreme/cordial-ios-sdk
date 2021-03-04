@@ -46,7 +46,7 @@ class ContactTimestamps {
         }
     }
        
-    func completionHandler(url: URL) {
+    func completionHandler(url: URL, urlExpireDate: Date) {
         self.isCurrentlyUpdatingContactTimestamps = false
         
         // TODO

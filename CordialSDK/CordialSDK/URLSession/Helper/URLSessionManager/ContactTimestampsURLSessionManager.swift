@@ -19,15 +19,15 @@ class ContactTimestampsURLSessionManager {
             switch httpResponse.statusCode {
             case 200:
                 do {
-                    if let responseBodyData = responseBody.data(using: .utf8), let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject] {
-                        if let urlString = responseBodyJSON["url"] as? String,
-                           let url = URL(string: urlString) {
-                            self.contactTimestamps.completionHandler(url: url)
-                        } else {
-                            let message = "Contact timestamps URL is absent"
-                            let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                            self.contactTimestamps.errorHandler(error: responseError)
-                        }
+                    if let responseBodyData = responseBody.data(using: .utf8),
+                       let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
+                       let urlString = responseBodyJSON["url"] as? String,
+                       let url = URL(string: urlString),
+                       let urlExpireTimestamp = responseBodyJSON["urlExpireAt"] as? String,
+                       let urlExpireDate = CordialDateFormatter().getDateFromTimestamp(timestamp: urlExpireTimestamp) {
+                        
+                        self.contactTimestamps.completionHandler(url: url, urlExpireDate: urlExpireDate)
+                        
                     } else {
                         let message = "Failed decode response data."
                         let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)

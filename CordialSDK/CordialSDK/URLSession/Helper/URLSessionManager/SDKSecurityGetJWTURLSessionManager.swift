@@ -19,7 +19,9 @@ class SDKSecurityGetJWTURLSessionManager {
             switch httpResponse.statusCode {
             case 200:
                 do {
-                    if let responseBodyData = responseBody.data(using: .utf8), let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject] {
+                    if let responseBodyData = responseBody.data(using: .utf8),
+                       let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject] {
+                        
                         if let JWT = responseBodyJSON["token"] as? String {
                             SDKSecurity.shared.completionHandler(JWT: JWT)
                         } else {
