@@ -37,6 +37,8 @@ class CoreDataSender {
         self.sendCachedContactLogoutRequest()
         
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
+        
+        ContactTimestamps.shared.updateIfNeeded()
     }
     
     func sendCachedUpsertContactRequests() {

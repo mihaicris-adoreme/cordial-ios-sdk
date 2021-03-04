@@ -10,7 +10,7 @@ import Foundation
 
 class ContactTimestampsURLSessionManager {
     
-    let contactTimestamps = ContactTimestamps()
+    let contactTimestamps = ContactTimestamps.shared
     
     func completionHandler(httpResponse: HTTPURLResponse, location: URL) {
         do {
@@ -38,6 +38,10 @@ class ContactTimestampsURLSessionManager {
                     let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                     self.contactTimestamps.errorHandler(error: responseError)
                 }
+            case 401:
+                self.contactTimestamps.isCurrentlyUpdatingContactTimestamps = false
+                
+                SDKSecurity.shared.updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)

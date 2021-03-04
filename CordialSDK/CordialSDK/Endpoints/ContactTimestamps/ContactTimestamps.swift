@@ -11,9 +11,23 @@ import os.log
 
 class ContactTimestamps {
     
+    static let shared = ContactTimestamps()
+    
+    private init() {}
+    
     let requestSender = DependencyConfiguration.shared.requestSender
     
-    func update() {
+    var isCurrentlyUpdatingContactTimestamps = false
+    
+    func updateIfNeeded() {
+        if !self.isCurrentlyUpdatingContactTimestamps {
+            self.updateContactTimestamps()
+        }
+    }
+    
+    private func updateContactTimestamps() {
+        self.isCurrentlyUpdatingContactTimestamps = true
+        
         if let contactKey = InternalCordialAPI().getContactKey(),
            let url = URL(string: CordialApiEndpoints().getContactTimestampsURL(contactKey: contactKey)) {
             
@@ -26,17 +40,21 @@ class ContactTimestamps {
 
             self.requestSender.sendRequest(task: downloadTask)
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Fetching contact timestamp failed. Error: [Unexpected error]", log: OSLog.cordialContactTimestamps, type: .info)
-            }
+            let message = "Fetching contact timestamp failed. Error: [Unexpected error]"
+            let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
+            self.errorHandler(error: responseError)
         }
     }
        
     func completionHandler(url: URL) {
+        self.isCurrentlyUpdatingContactTimestamps = false
+        
         // TODO
     }
     
     func errorHandler(error: ResponseError) {
+        self.isCurrentlyUpdatingContactTimestamps = false
+        
         if !self.isEmptyContactTimestamps(error: error) {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Fetching contact timestamp failed. Error: [%{public}@]", log: OSLog.cordialContactTimestamps, type: .error, error.message)
