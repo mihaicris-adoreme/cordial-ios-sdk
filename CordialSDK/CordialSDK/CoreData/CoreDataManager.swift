@@ -20,6 +20,7 @@ class CoreDataManager {
     
     let modelName = "CoreDataModel"
     
+    let contactTimestampsURL = ContactTimestampsURLCoreData()
     let customEventRequests = CustomEventRequestsCoreData()
     let contactCartRequest = ContactCartRequestCoreData()
     let contactOrderRequests = ContactOrderRequestsCoreData()
@@ -88,6 +89,10 @@ class CoreDataManager {
     }
     
     func deleteAllCoreData() {
+        ThreadQueues.shared.queueContactTimestamps.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.contactTimestampsURL.entityName)
+        }
+        
         ThreadQueues.shared.queueSendCustomEvent.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.customEventRequests.entityName)
         }

@@ -12,6 +12,7 @@ class ThreadQueues {
     
     static let shared = ThreadQueues()
    
+    let queueContactTimestamps = DispatchQueue(label: "CordialCoreDataContactTimestampsThreadQueue", attributes: .concurrent)
     let queueUpsertContact = DispatchQueue(label: "CordialCoreDataUpsertContactThreadQueue", attributes: .concurrent)
     let queueSendCustomEvent = DispatchQueue(label: "CordialCoreDataSendCustomEventThreadQueue", attributes: .concurrent)
     let queueUpsertContactCart = DispatchQueue(label: "CordialCoreDataUpsertContactCartThreadQueue", attributes: .concurrent)
@@ -22,7 +23,6 @@ class ThreadQueues {
     let queueInboxMessagesCache = DispatchQueue(label: "CordialCoreDataInboxMessagesCacheThreadQueue", attributes: .concurrent)
     let queueInboxMessagesContent = DispatchQueue(label: "CordialCoreDataInboxMessagesContentThreadQueue", attributes: .concurrent)
     let queueSendContactLogout = DispatchQueue(label: "CordialCoreDataSendContactLogoutThreadQueue", attributes: .concurrent)
-    
     
     private init() {}
     

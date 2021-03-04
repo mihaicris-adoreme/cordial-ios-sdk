@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17192" systemVersion="19H2" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="19H524" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ContactCartRequest" representedClassName="ContactCartRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
     </entity>
@@ -11,6 +11,10 @@
     </entity>
     <entity name="ContactRequest" representedClassName="ContactRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="ContactTimestampsURL" representedClassName="ContactTimestampsURL" syncable="YES" codeGenerationType="class">
+        <attribute name="expireDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
     </entity>
     <entity name="CustomEventRequest" representedClassName="CustomEventRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
@@ -72,5 +76,6 @@
         <element name="InboxMessagesCache" positionX="-27" positionY="108" width="128" height="73"/>
         <element name="InboxMessagesContent" positionX="-36" positionY="99" width="128" height="88"/>
         <element name="InboxMessagesReadUnreadMarks" positionX="-36" positionY="99" width="128" height="73"/>
+        <element name="ContactTimestampsURL" positionX="-36" positionY="99" width="128" height="73"/>
     </elements>
 </model>

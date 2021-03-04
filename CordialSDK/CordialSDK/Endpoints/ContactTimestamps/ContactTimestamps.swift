@@ -21,7 +21,16 @@ class ContactTimestamps {
     
     func updateIfNeeded() {
         if !self.isCurrentlyUpdatingContactTimestamps {
-            self.updateContactTimestamps()
+            
+            if let contactTimestamp = ContactTimestampsURLCoreData().getContactTimestampFromCoreData() {
+                
+                if !API.isValidExpirationDate(date: contactTimestamp.expireDate) {
+                    self.updateContactTimestamps()
+                }
+                
+            } else {
+                self.updateContactTimestamps()
+            }
         }
     }
     
@@ -46,10 +55,10 @@ class ContactTimestamps {
         }
     }
        
-    func completionHandler(url: URL, urlExpireDate: Date) {
+    func completionHandler(contactTimestamp: ContactTimestamp) {
         self.isCurrentlyUpdatingContactTimestamps = false
         
-        // TODO
+        ContactTimestampsURLCoreData().putContactTimestampToCoreData(contactTimestamp: contactTimestamp)
     }
     
     func errorHandler(error: ResponseError) {

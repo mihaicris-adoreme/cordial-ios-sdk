@@ -23,11 +23,11 @@ class ContactTimestampsURLSessionManager {
                        let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
                        let urlString = responseBodyJSON["url"] as? String,
                        let url = URL(string: urlString),
-                       let urlExpireTimestamp = responseBodyJSON["urlExpireAt"] as? String,
-                       let urlExpireDate = CordialDateFormatter().getDateFromTimestamp(timestamp: urlExpireTimestamp) {
+                       let expireTimestamp = responseBodyJSON["urlExpireAt"] as? String,
+                       let expireDate = CordialDateFormatter().getDateFromTimestamp(timestamp: expireTimestamp) {
                         
-                        self.contactTimestamps.completionHandler(url: url, urlExpireDate: urlExpireDate)
-                        
+                        let contactTimestamp = ContactTimestamp(url: url, expireDate: expireDate)
+                        self.contactTimestamps.completionHandler(contactTimestamp: contactTimestamp)
                     } else {
                         let message = "Failed decode response data."
                         let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
