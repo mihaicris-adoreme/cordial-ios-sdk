@@ -229,6 +229,10 @@ public class TestCase {
         }
     }
     
+    public func getContactsURL() -> URL? {
+        return URL(string: CordialApiEndpoints().getContactsURL())
+    }
+    
     public func getInAppMessageURL(mcID: String) -> URL? {
         return URL(string: CordialApiEndpoints().getInAppMessageURL(mcID: mcID))
     }
