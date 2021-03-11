@@ -70,6 +70,14 @@ class CordialApiEndpoints {
         return "\(baseURL)timestamps/\(contactKey)/\(deviceID)"
     }
     
+    func getInAppMessagesURL(contactKey: String) -> String {
+        let baseURL = self.getMessageHubBaseURL()
+        
+        let deviceID = InternalCordialAPI().getDeviceIdentifier()
+        
+        return "\(baseURL)mobile/messages/\(contactKey)/\(deviceID)"
+    }
+    
     func getInAppMessageURL(mcID: String) -> String {
         let baseURL = self.getMessageHubBaseURL()
         

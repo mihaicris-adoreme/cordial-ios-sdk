@@ -25,6 +25,7 @@ extension OSLog {
     static let cordialUpsertContacts = OSLog(subsystem: subsystem, category: "CordialSDKUpsertContacts")
     static let cordialSendContactLogout = OSLog(subsystem: subsystem, category: "CordialSDKSendContactLogout")
     static let cordialInAppMessage = OSLog(subsystem: subsystem, category: "CordialSDKInAppMessage")
+    static let cordialInAppMessages = OSLog(subsystem: subsystem, category: "CordialSDKInAppMessages")
     static let cordialSecurity = OSLog(subsystem: subsystem, category: "CordialSDKSecurity")
     static let cordialInboxMessages = OSLog(subsystem: subsystem, category: "CordialSDKInboxMessages")
     static let cordialContactTimestamps = OSLog(subsystem: subsystem, category: "CordialSDKContactTimestamps")

@@ -15,12 +15,12 @@ class InAppMessageGetter {
     
     func startFetchInAppMessage(userInfo: [AnyHashable : Any]) {
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
-            self.setInAppMessagesParamsToCoreData(userInfo: userInfo)
+            self.setInAppMessageParamsToCoreData(userInfo: userInfo)
             self.fetchInAppMessage(mcID: mcID)
         }
     }
     
-    func setInAppMessagesParamsToCoreData(userInfo: [AnyHashable : Any]) {
+    func setInAppMessageParamsToCoreData(userInfo: [AnyHashable : Any]) {
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             let typeString = self.pushNotificationParser.getTypeIAM(userInfo: userInfo)
             let displayTypeString = self.pushNotificationParser.getDisplayTypeIAM(userInfo: userInfo)
@@ -77,11 +77,7 @@ class InAppMessageGetter {
     }
     
     private func InAppMessageOptionalParams(userInfo: [AnyHashable : Any]) -> (Int16, Int16, Int16, Int16, Int16, Date?) {
-        var height = Int16(20)
-        var top = Int16(15)
-        var right = Int16(10)
-        var bottom = Int16(20)
-        var left = Int16(10)
+        var (height, top, right, bottom, left) = self.InAppMessageOptionalParamsDefaultValues()
         var expirationTime: Date?
         
         if let userInfoHeight = self.pushNotificationParser.getBannerHeightIAM(userInfo: userInfo) {
@@ -104,11 +100,21 @@ class InAppMessageGetter {
             left = userInfoLeft
         }
         
-        if let timestamp = self.pushNotificationParser.getExpirationTimeIAM(userInfo: userInfo) {
-            expirationTime = CordialDateFormatter().getDateFromTimestamp(timestamp: timestamp)
+        if let expirationTimeTimestamp = self.pushNotificationParser.getExpirationTimeIAM(userInfo: userInfo) {
+            expirationTime = CordialDateFormatter().getDateFromTimestamp(timestamp: expirationTimeTimestamp)
         }
         
         return (height, top, right, bottom, left, expirationTime)
+    }
+    
+    func InAppMessageOptionalParamsDefaultValues() -> (Int16, Int16, Int16, Int16, Int16) {
+        let height = Int16(20)
+        let top = Int16(15)
+        let right = Int16(10)
+        let bottom = Int16(20)
+        let left = Int16(10)
+        
+        return (height, top, right, bottom, left)
     }
     
     func fetchInAppMessage(mcID: String) {

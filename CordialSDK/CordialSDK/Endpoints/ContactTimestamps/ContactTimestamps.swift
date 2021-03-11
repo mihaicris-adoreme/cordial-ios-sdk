@@ -66,7 +66,7 @@ class ContactTimestamps {
         
         if !self.isEmptyContactTimestamps(error: error) {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Fetching contact timestamp failed. Error: [%{public}@]", log: OSLog.cordialContactTimestamps, type: .error, error.message)
+                os_log("%{public}@", log: OSLog.cordialContactTimestamps, type: .error, error.message)
             }
         }
     }
