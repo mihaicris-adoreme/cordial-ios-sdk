@@ -120,7 +120,7 @@ class InboxMessageGetter {
                                 {
                                   "title": "Title",
                                   "subtitle": "Subtitle",
-                                  "url": "https://i.imgur.com/UJYcRg4.jpg"
+                                  "imageUrl": "https://i.imgur.com/UJYcRg4.jpg"
                                 }
                             """
                     
