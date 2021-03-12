@@ -12,7 +12,7 @@
     <entity name="ContactRequest" representedClassName="ContactRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
     </entity>
-    <entity name="ContactTimestampsURL" representedClassName="ContactTimestampsURL" syncable="YES" codeGenerationType="class">
+    <entity name="ContactTimestampsURL" representedClassName="ContactTimestampsURL" syncable="YES">
         <attribute name="expireDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="url" optional="YES" attributeType="URI"/>
     </entity>
@@ -67,6 +67,7 @@
         <element name="ContactLogout" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="ContactOrderRequest" positionX="-45" positionY="9" width="128" height="60"/>
         <element name="ContactRequest" positionX="-45" positionY="9" width="128" height="60"/>
+        <element name="ContactTimestampsURL" positionX="-36" positionY="99" width="128" height="28"/>
         <element name="CustomEventRequest" positionX="-45" positionY="0" width="128" height="73"/>
         <element name="InAppMessagesCache" positionX="-45" positionY="9" width="128" height="103"/>
         <element name="InAppMessagesParam" positionX="-36" positionY="27" width="128" height="208"/>
@@ -76,6 +77,5 @@
         <element name="InboxMessagesCache" positionX="-27" positionY="108" width="128" height="73"/>
         <element name="InboxMessagesContent" positionX="-36" positionY="99" width="128" height="88"/>
         <element name="InboxMessagesReadUnreadMarks" positionX="-36" positionY="99" width="128" height="73"/>
-        <element name="ContactTimestampsURL" positionX="-36" positionY="99" width="128" height="73"/>
     </elements>
 </model>

@@ -160,6 +160,8 @@
 		9EAA8D6125FB843E00E4A691 /* ContactTimestampURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D6025FB843E00E4A691 /* ContactTimestampURLSessionManager.swift */; };
 		9EAA8D9725FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D9625FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift */; };
 		9EAA8D9D25FB93DD00E4A691 /* ContactTimestampData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D9C25FB93DD00E4A691 /* ContactTimestampData.swift */; };
+		9EAF003A25FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF003825FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataClass.swift */; };
+		9EAF003B25FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF003925FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataProperties.swift */; };
 		9EB004CF253E299100156E8E /* InboxFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB004CE253E299100156E8E /* InboxFilter.swift */; };
 		9EB004D5253E33B100156E8E /* InboxFilterIsReadType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB004D4253E33B100156E8E /* InboxFilterIsReadType.swift */; };
 		9EB17ABD22930D7B00EEAB7D /* ContactRequest+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17AB322930D7A00EEAB7D /* ContactRequest+CoreDataClass.swift */; };
@@ -437,6 +439,8 @@
 		9EAA8D6025FB843E00E4A691 /* ContactTimestampURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTimestampURLSessionManager.swift; sourceTree = "<group>"; };
 		9EAA8D9625FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessagesDeliveryType.swift; sourceTree = "<group>"; };
 		9EAA8D9C25FB93DD00E4A691 /* ContactTimestampData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTimestampData.swift; sourceTree = "<group>"; };
+		9EAF003825FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactTimestampsURL+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9EAF003925FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactTimestampsURL+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9EB004CE253E299100156E8E /* InboxFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxFilter.swift; sourceTree = "<group>"; };
 		9EB004D4253E33B100156E8E /* InboxFilterIsReadType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxFilterIsReadType.swift; sourceTree = "<group>"; };
 		9EB17AB322930D7A00EEAB7D /* ContactRequest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactRequest+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -1227,6 +1231,8 @@
 		9EDB6DF82289D4C300A77BBE /* ManagedObjects */ = {
 			isa = PBXGroup;
 			children = (
+				9EAF003825FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataClass.swift */,
+				9EAF003925FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataProperties.swift */,
 				9E44F424255C8A3500D163E6 /* InboxMessagesContent+CoreDataClass.swift */,
 				9E44F425255C8A3500D163E6 /* InboxMessagesContent+CoreDataProperties.swift */,
 				9E44F20E2551BF9A00D163E6 /* InboxMessagesCache+CoreDataClass.swift */,
@@ -1530,8 +1536,10 @@
 				9EE29BE922F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift in Sources */,
 				9E01C6842594FE4A001C6165 /* SDKSecurityURLSession.swift in Sources */,
 				9EC0ACDC2327C76A002545D8 /* InAppMessageParams.swift in Sources */,
+				9EAF003B25FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataProperties.swift in Sources */,
 				9E5D0D9A24B36ED200BD1C24 /* ContactsSenderHelper.swift in Sources */,
 				9E51EF13249A83F4009649C3 /* CordialPushNotificationParserInAppMessage.swift in Sources */,
+				9EAF003A25FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataClass.swift in Sources */,
 				9EB17AC322930D7B00EEAB7D /* ContactCartRequest+CoreDataClass.swift in Sources */,
 				9E1E987A2417D2FE00A28CA7 /* UpsertContactsAttributeTypes.swift in Sources */,
 				9EB62A7E24EF1C8500745D6D /* InboxMessagesGetter.swift in Sources */,
