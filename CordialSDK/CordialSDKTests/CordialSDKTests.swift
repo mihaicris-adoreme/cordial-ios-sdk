@@ -938,7 +938,7 @@ class CordialSDKTests: XCTestCase {
             let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
             
             if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
-                InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
+                InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
                 CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcID)
             }
         }
@@ -983,7 +983,7 @@ class CordialSDKTests: XCTestCase {
                 let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
 
                 if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
-                    InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
+                    InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
                     CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: testMcID_2)
                 }
             }
@@ -1049,7 +1049,7 @@ class CordialSDKTests: XCTestCase {
             let userInfo = try? JSONSerialization.jsonObject(with: testSilentAndPushNotificationsData, options: []) as? [AnyHashable : Any] {
 
             if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
-                InAppMessageGetter().setInAppMessagesParamsToCoreData(userInfo: userInfo)
+                InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
                 CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: self.testMcID)
                 
                 if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
@@ -1105,6 +1105,8 @@ class CordialSDKTests: XCTestCase {
     }
     
     func testInAppMessageBannerAutoDismiss() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryType = .silentPushes
+        
         let mock = MockRequestSenderInAppMessageBannerAutoDismiss()
 
         DependencyConfiguration.shared.requestSender = mock
