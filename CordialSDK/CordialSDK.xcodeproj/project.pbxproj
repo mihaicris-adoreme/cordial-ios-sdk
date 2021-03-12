@@ -156,6 +156,10 @@
 		9EAA8D2225F7B93200E4A691 /* InAppMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D2125F7B93200E4A691 /* InAppMessages.swift */; };
 		9EAA8D2625F7C72E00E4A691 /* InAppMessagesURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D2525F7C72E00E4A691 /* InAppMessagesURLSessionManager.swift */; };
 		9EAA8D4825FA59F300E4A691 /* InAppMessagesGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D4725FA59F300E4A691 /* InAppMessagesGetter.swift */; };
+		9EAA8D5B25FB7FD500E4A691 /* ContactTimestampURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D5A25FB7FD400E4A691 /* ContactTimestampURL.swift */; };
+		9EAA8D6125FB843E00E4A691 /* ContactTimestampURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D6025FB843E00E4A691 /* ContactTimestampURLSessionManager.swift */; };
+		9EAA8D9725FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D9625FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift */; };
+		9EAA8D9D25FB93DD00E4A691 /* ContactTimestampData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D9C25FB93DD00E4A691 /* ContactTimestampData.swift */; };
 		9EB004CF253E299100156E8E /* InboxFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB004CE253E299100156E8E /* InboxFilter.swift */; };
 		9EB004D5253E33B100156E8E /* InboxFilterIsReadType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB004D4253E33B100156E8E /* InboxFilterIsReadType.swift */; };
 		9EB17ABD22930D7B00EEAB7D /* ContactRequest+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB17AB322930D7A00EEAB7D /* ContactRequest+CoreDataClass.swift */; };
@@ -429,6 +433,10 @@
 		9EAA8D2125F7B93200E4A691 /* InAppMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessages.swift; sourceTree = "<group>"; };
 		9EAA8D2525F7C72E00E4A691 /* InAppMessagesURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessagesURLSessionManager.swift; sourceTree = "<group>"; };
 		9EAA8D4725FA59F300E4A691 /* InAppMessagesGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessagesGetter.swift; sourceTree = "<group>"; };
+		9EAA8D5A25FB7FD400E4A691 /* ContactTimestampURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTimestampURL.swift; sourceTree = "<group>"; };
+		9EAA8D6025FB843E00E4A691 /* ContactTimestampURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTimestampURLSessionManager.swift; sourceTree = "<group>"; };
+		9EAA8D9625FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessagesDeliveryType.swift; sourceTree = "<group>"; };
+		9EAA8D9C25FB93DD00E4A691 /* ContactTimestampData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTimestampData.swift; sourceTree = "<group>"; };
 		9EB004CE253E299100156E8E /* InboxFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxFilter.swift; sourceTree = "<group>"; };
 		9EB004D4253E33B100156E8E /* InboxFilterIsReadType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxFilterIsReadType.swift; sourceTree = "<group>"; };
 		9EB17AB322930D7A00EEAB7D /* ContactRequest+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactRequest+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -542,6 +550,8 @@
 			isa = PBXGroup;
 			children = (
 				9E06C9E525E93E7E003D862E /* ContactTimestamps.swift */,
+				9EAA8D5A25FB7FD400E4A691 /* ContactTimestampURL.swift */,
+				9EAA8D9C25FB93DD00E4A691 /* ContactTimestampData.swift */,
 				9EAA8CE125F180BD00E4A691 /* ContactTimestamp.swift */,
 			);
 			path = ContactTimestamps;
@@ -996,6 +1006,7 @@
 			isa = PBXGroup;
 			children = (
 				9EAA8D4725FA59F300E4A691 /* InAppMessagesGetter.swift */,
+				9EAA8D9625FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift */,
 				9EAA8D2125F7B93200E4A691 /* InAppMessages.swift */,
 			);
 			path = InAppMessages;
@@ -1259,6 +1270,7 @@
 				9E6D1DBC2507D95700940363 /* InboxMessagesMarkReadUnreadURLSessionManager.swift */,
 				9E6D1E2D250ECB2500940363 /* InboxMessageDeleteURLSessionManager.swift */,
 				9E06C9EF25E99A95003D862E /* ContactTimestampsURLSessionManager.swift */,
+				9EAA8D6025FB843E00E4A691 /* ContactTimestampURLSessionManager.swift */,
 				9EAA8D2525F7C72E00E4A691 /* InAppMessagesURLSessionManager.swift */,
 			);
 			path = URLSessionManager;
@@ -1490,9 +1502,11 @@
 				9EB17AC022930D7B00EEAB7D /* ContactOrderRequest+CoreDataProperties.swift in Sources */,
 				9E6D1E25250A710C00940363 /* InboxMessageDeleteRequest.swift in Sources */,
 				9E7DF22B24F93F7E005533A7 /* InboxMessage.swift in Sources */,
+				9EAA8D5B25FB7FD500E4A691 /* ContactTimestampURL.swift in Sources */,
 				9ED621DB22CE017E00A55DB2 /* InAppMessagesCacheCoreData.swift in Sources */,
 				9EA31A302292D5E80037B786 /* ContactLogoutRequestCoreData.swift in Sources */,
 				9E565B8E225B7198005EC4AF /* SendCustomEvents.swift in Sources */,
+				9EAA8D6125FB843E00E4A691 /* ContactTimestampURLSessionManager.swift in Sources */,
 				9E6D1DA3250115A700940363 /* InboxMessagesMarkReadUnreadRequest.swift in Sources */,
 				9E51EF02249A6177009649C3 /* CordialPushNotificationParser.swift in Sources */,
 				9EF40DC6252B797E00DE7623 /* InboxMessageGetter.swift in Sources */,
@@ -1503,6 +1517,7 @@
 				9E5147CA22FC4DFD00977278 /* SendContactLogoutURLSessionManager.swift in Sources */,
 				9EC86A5D22DDCA1A00ACF996 /* CordialURLSession.swift in Sources */,
 				9EEC9D8022896F9900B40FFB /* UserAgentBuilder.swift in Sources */,
+				9EAA8D9725FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift in Sources */,
 				9E5147AC22FC358E00977278 /* UpsertContactsURLSessionManager.swift in Sources */,
 				9E6980A325376FEA00BABC82 /* PageRequest.swift in Sources */,
 				9E565BA0225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld in Sources */,
@@ -1597,6 +1612,7 @@
 				9EF40F00252D00B500DE7623 /* InboxMessageContentGetter.swift in Sources */,
 				9E92D3D7228F01CA00D8AFE0 /* ContactLogoutSender.swift in Sources */,
 				9EFFB9F224EAD4D300DF9D5A /* CordialInboxMessageAPI.swift in Sources */,
+				9EAA8D9D25FB93DD00E4A691 /* ContactTimestampData.swift in Sources */,
 				9E05637A22DC9AC000EECADD /* InternalCordialAPI.swift in Sources */,
 				9EBF4AA42252559900CA24C7 /* CordialSwizzler.swift in Sources */,
 				9E51EF11249A7CF3009649C3 /* CordialPushNotificationParserMessageAttribution.swift in Sources */,

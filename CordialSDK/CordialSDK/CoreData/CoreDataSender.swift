@@ -40,8 +40,13 @@ class CoreDataSender {
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
         
         // IAMs
-        ContactTimestamps.shared.updateIfNeeded()
         InAppMessages.shared.updateIfNeeded()
+        
+        // Contact Timestamps
+        ContactTimestamps.shared.updateIfNeeded()
+        
+        // Contact Timestamp URL
+        ContactTimestampURL.shared.updateIfNeeded(nil)
     }
     
     func sendCachedUpsertContactRequests() {

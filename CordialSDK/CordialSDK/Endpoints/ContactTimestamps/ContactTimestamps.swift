@@ -59,6 +59,8 @@ class ContactTimestamps {
         self.isCurrentlyUpdatingContactTimestamps = false
         
         ContactTimestampsURLCoreData().putContactTimestampToCoreData(contactTimestamp: contactTimestamp)
+        
+        ContactTimestampURL.shared.updateIfNeeded(contactTimestamp.url)
     }
     
     func errorHandler(error: ResponseError) {

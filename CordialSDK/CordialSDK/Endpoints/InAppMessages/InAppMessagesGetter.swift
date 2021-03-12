@@ -13,10 +13,27 @@ class InAppMessagesGetter {
     let inAppMessage = InAppMessage()
     let inAppMessageGetter = InAppMessageGetter()
     
+    func startFetchInAppMessages(isSilentPushDeliveryEvent: Bool) {
+        if isSilentPushDeliveryEvent {
+            InAppMessages.shared.updateIfNeeded()
+        } else if let contactTimestamp = ContactTimestampsURLCoreData().getContactTimestampFromCoreData(),
+           API.isValidExpirationDate(date: contactTimestamp.expireDate) {
+            
+            ContactTimestampURL.shared.updateIfNeeded(contactTimestamp.url)
+        } else {
+            ContactTimestamps.shared.updateIfNeeded()
+        }
+    }
+    
     func setInAppMessagesParamsToCoreData(messages: [Dictionary<String, AnyObject>]) {
+        let cordialDateFormatter = CordialDateFormatter()
+        
         for message in messages {
             guard let mcID = message["_id"] as? String else { continue }
-            guard let sentAt = message["sentAt"] as? String else { continue }
+            
+            guard let sentAtTimestamp = message["sentAt"] as? String else { continue }
+            guard let sentAt = cordialDateFormatter.getDateFromTimestamp(timestamp: sentAtTimestamp) else { continue }
+            self.inAppMessage.prepareAndSaveTheLatestSentAtInAppMessageDate(sentAt: sentAt)
             
             // TODO
 //                guard let url = message["url"] as? String else { continue }
@@ -53,8 +70,8 @@ class InAppMessagesGetter {
                 left = modalLeftMargin
             }
             
-            if let expirationTimeTimestamp = InAppMessage().getExpirationTimeIAM(payload: message) {
-                expirationTime = CordialDateFormatter().getDateFromTimestamp(timestamp: expirationTimeTimestamp)
+            if let expirationTimeTimestamp = self.inAppMessage.getExpirationTimeIAM(payload: message) {
+                expirationTime = cordialDateFormatter.getDateFromTimestamp(timestamp: expirationTimeTimestamp)
             }
             
             let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)

@@ -26,6 +26,25 @@ class InAppMessage {
         }
     }
     
+    func prepareAndSaveTheLatestSentAtInAppMessageDate(sentAt: Date) {
+        let internalCordialAPI = InternalCordialAPI()
+        let cordialDateFormatter = CordialDateFormatter()
+        
+        let sentAtTimestamp = cordialDateFormatter.getTimestampFromDate(date: sentAt)
+        guard let previousSentAtTimestamp = internalCordialAPI.getTheLatestSentAtInAppMessageDate() else {
+            internalCordialAPI.setTheLatestSentAtInAppMessageDate(sentAtTimestamp: sentAtTimestamp)
+            
+            return
+        }
+        
+        if let previousSentAt = cordialDateFormatter.getDateFromTimestamp(timestamp: previousSentAtTimestamp),
+           sentAt.timeIntervalSince1970 > previousSentAt.timeIntervalSince1970 {
+            
+            internalCordialAPI.setTheLatestSentAtInAppMessageDate(sentAtTimestamp: sentAtTimestamp)
+        }
+        
+    }
+    
     // MARK: Get in app message params
     
     func getTypeIAM(payload: [String: AnyObject]) -> String? {

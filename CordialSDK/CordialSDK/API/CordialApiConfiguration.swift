@@ -30,8 +30,11 @@ import CoreLocation
     
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
-    @objc public var pushesConfiguration: CordialPushNotificationType = .SDK
     @objc public var inboxMessageDelegate: InboxMessageDelegate?
+    
+    @objc public var pushesConfiguration: CordialPushNotificationType = .SDK
+    @objc public var inAppMessagesDeliveryType: InAppMessagesDeliveryType = .directDelivery
+    
     
     @objc public let inboxMessageCache = InboxMessageCache.shared
     

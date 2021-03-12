@@ -20,7 +20,6 @@ class InAppMessages {
     var isCurrentlyUpdatingInAppMessages = false
     
     func updateIfNeeded() {
-        // TODO
         if !self.isCurrentlyUpdatingInAppMessages {
             self.fetchInAppMessages()
         }

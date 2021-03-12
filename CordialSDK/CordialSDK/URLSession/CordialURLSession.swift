@@ -63,6 +63,8 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 SDKSecurityGetJWTURLSessionManager().errorHandler(error: error)
             case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS:
                 ContactTimestampsURLSessionManager().errorHandler(error: error)
+            case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP:
+                ContactTimestampURLSessionManager().errorHandler(error: error)
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES:
                 InAppMessagesURLSessionManager().errorHandler(error: error)
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
@@ -115,6 +117,8 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 SDKSecurityGetJWTURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
             case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS:
                 ContactTimestampsURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
+            case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP:
+                ContactTimestampURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES:
                 InAppMessagesURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
