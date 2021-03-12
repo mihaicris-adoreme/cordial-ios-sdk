@@ -76,7 +76,8 @@ class ContactTimestamps {
     private func isEmptyContactTimestamps(error: ResponseError) -> Bool {
         if error.statusCode == 404, let responseBody = error.responseBody {
             if let responseBodyData = responseBody.data(using: .utf8),
-               let responseBodyJSON = try? JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
+               let responseBodyJSONSerialization = try? JSONSerialization.jsonObject(with: responseBodyData, options: []),
+               let responseBodyJSON = responseBodyJSONSerialization as? [String: AnyObject],
                let error = responseBodyJSON["error"] as? [String: AnyObject],
                let message = error["message"] as? String,
                message == "Timestamps file has not been found" {
