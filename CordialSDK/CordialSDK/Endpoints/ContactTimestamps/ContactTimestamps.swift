@@ -22,7 +22,7 @@ class ContactTimestamps {
     func updateIfNeeded() {
         if !self.isCurrentlyUpdatingContactTimestamps {
             
-            if let contactTimestamp = ContactTimestampsURLCoreData().getContactTimestampFromCoreData() {
+            if let contactTimestamp = CoreDataManager.shared.contactTimestampsURL.getContactTimestampFromCoreData() {
                 
                 if !API.isValidExpirationDate(date: contactTimestamp.expireDate) {
                     self.updateContactTimestamps()
@@ -58,7 +58,7 @@ class ContactTimestamps {
     func completionHandler(contactTimestamp: ContactTimestamp) {
         self.isCurrentlyUpdatingContactTimestamps = false
         
-        ContactTimestampsURLCoreData().putContactTimestampToCoreData(contactTimestamp: contactTimestamp)
+        CoreDataManager.shared.contactTimestampsURL.putContactTimestampToCoreData(contactTimestamp: contactTimestamp)
         
         ContactTimestampURL.shared.updateIfNeeded(contactTimestamp.url)
     }

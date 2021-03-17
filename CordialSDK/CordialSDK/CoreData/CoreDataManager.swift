@@ -26,6 +26,7 @@ class CoreDataManager {
     let contactOrderRequests = ContactOrderRequestsCoreData()
     let contactRequests = ContactRequestsCoreData()
     let contactLogoutRequest = ContactLogoutRequestCoreData()
+    let inAppMessageContentURL = InAppMessageContentURLCoreData()
     let inAppMessagesCache = InAppMessagesCacheCoreData()
     let inAppMessagesQueue = InAppMessagesQueueCoreData()
     let inAppMessagesParam = InAppMessagesParamCoreData()
@@ -110,6 +111,7 @@ class CoreDataManager {
         }
             
         ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inAppMessageContentURL.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)

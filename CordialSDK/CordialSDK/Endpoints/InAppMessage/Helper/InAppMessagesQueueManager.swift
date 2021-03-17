@@ -14,7 +14,12 @@ class InAppMessagesQueueManager {
         ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
             let mcIDs = CoreDataManager.shared.inAppMessagesQueue.getMcIDsFromCoreDataInAppMessagesQueue()
             mcIDs.forEach { mcID in
-                InAppMessageGetter().fetchInAppMessage(mcID: mcID)
+                if let inAppMessageContent = CoreDataManager.shared.inAppMessageContentURL.getInAppMessageContentFromCoreDataByMcID(mcID: mcID) {
+                        
+                    InAppMessageContentGetter().fetchInAppMessageContent(mcID: mcID, url: inAppMessageContent.url)
+                } else {
+                    InAppMessageGetter().fetchInAppMessage(mcID: mcID)
+                }
             }
         }
     }

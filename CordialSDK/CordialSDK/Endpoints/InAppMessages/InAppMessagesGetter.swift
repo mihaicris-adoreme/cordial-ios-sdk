@@ -16,7 +16,7 @@ class InAppMessagesGetter {
     func startFetchInAppMessages(isSilentPushDeliveryEvent: Bool) {
         if isSilentPushDeliveryEvent {
             InAppMessages.shared.updateIfNeeded()
-        } else if let contactTimestamp = ContactTimestampsURLCoreData().getContactTimestampFromCoreData(),
+        } else if let contactTimestamp = CoreDataManager.shared.contactTimestampsURL.getContactTimestampFromCoreData(),
            API.isValidExpirationDate(date: contactTimestamp.expireDate) {
             
             ContactTimestampURL.shared.updateIfNeeded(contactTimestamp.url)
@@ -35,9 +35,15 @@ class InAppMessagesGetter {
             guard let sentAt = cordialDateFormatter.getDateFromTimestamp(timestamp: sentAtTimestamp) else { continue }
             self.inAppMessage.prepareAndSaveTheLatestSentAtInAppMessageDate(sentAt: sentAt)
             
-            // TODO
-//                guard let url = message["url"] as? String else { continue }
-//                guard let urlExpireAt = message["urlExpireAt"] as? String else { continue }
+            guard let contentURLString = message["url"] as? String else { continue }
+            guard let contentURLExpireAtTimestamp = message["urlExpireAt"] as? String else { continue }
+            
+            if let contentURL = URL(string: contentURLString),
+               let contentURLExpireAt = cordialDateFormatter.getDateFromTimestamp(timestamp: contentURLExpireAtTimestamp) {
+                
+                let inAppMessageContent = InAppMessageContent(mcID: mcID, url: contentURL, expireDate: contentURLExpireAt)
+                CoreDataManager.shared.inAppMessageContentURL.putInAppMessageContentToCoreData(inAppMessageContent: inAppMessageContent)
+            }
             
             let typeString = self.inAppMessage.getTypeIAM(payload: message)
             let displayTypeString = self.inAppMessage.getDisplayTypeIAM(payload: message)

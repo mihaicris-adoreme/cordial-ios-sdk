@@ -71,6 +71,10 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
                     FetchInAppMessageURLSessionManager().errorHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, error: error)
                 }
+            case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT:
+                if let inAppMessageContentURLSessionData = operation.taskData as? InAppMessageContentURLSessionData {
+                    InAppMessageContentURLSessionManager().errorHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, error: error)
+                }
             case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
                 if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData {
                     SendCustomEventsURLSessionManager().errorHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, error: error)
@@ -124,6 +128,10 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
                 if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
                     FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, httpResponse: httpResponse, location: location)
+                }
+            case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT:
+                if let inAppMessageContentURLSessionData = operation.taskData as? InAppMessageContentURLSessionData {
+                    InAppMessageContentURLSessionManager().completionHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, httpResponse: httpResponse, location: location)
                 }
             case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
                 if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData {

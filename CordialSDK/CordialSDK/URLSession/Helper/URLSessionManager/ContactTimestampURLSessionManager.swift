@@ -50,10 +50,6 @@ class ContactTimestampURLSessionManager {
                 self.contactTimestampURL.isCurrentlyUpdatingContactTimestampURL = false
                 
                 ContactTimestamps.shared.updateIfNeeded()
-            case 401:
-                self.contactTimestampURL.isCurrentlyUpdatingContactTimestampURL = false
-                
-                SDKSecurity.shared.updateJWT()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)

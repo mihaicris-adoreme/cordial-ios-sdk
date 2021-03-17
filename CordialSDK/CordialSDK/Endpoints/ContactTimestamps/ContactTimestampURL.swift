@@ -24,7 +24,7 @@ class ContactTimestampURL {
             
             if let url = url {
                 self.fetchContactTimestampURL(url: url)
-            } else if let contactTimestamp = ContactTimestampsURLCoreData().getContactTimestampFromCoreData(),
+            } else if let contactTimestamp = CoreDataManager.shared.contactTimestampsURL.getContactTimestampFromCoreData(),
                       API.isValidExpirationDate(date: contactTimestamp.expireDate) {
                     
                 self.fetchContactTimestampURL(url: contactTimestamp.url)
