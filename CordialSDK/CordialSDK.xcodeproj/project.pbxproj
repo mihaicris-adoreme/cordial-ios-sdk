@@ -1289,6 +1289,9 @@
 			isa = PBXGroup;
 			children = (
 				9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */,
+				9E06C9EF25E99A95003D862E /* ContactTimestampsURLSessionManager.swift */,
+				9EAA8D6025FB843E00E4A691 /* ContactTimestampURLSessionManager.swift */,
+				9EAA8D2525F7C72E00E4A691 /* InAppMessagesURLSessionManager.swift */,
 				9E4957642602425700E187EB /* InAppMessageContentURLSessionManager.swift */,
 				9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */,
 				9E4FA37F22FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift */,
@@ -1298,9 +1301,6 @@
 				9EB5C80122FC6E840024F5A6 /* SendContactOrdersURLSessionManager.swift */,
 				9E6D1DBC2507D95700940363 /* InboxMessagesMarkReadUnreadURLSessionManager.swift */,
 				9E6D1E2D250ECB2500940363 /* InboxMessageDeleteURLSessionManager.swift */,
-				9E06C9EF25E99A95003D862E /* ContactTimestampsURLSessionManager.swift */,
-				9EAA8D6025FB843E00E4A691 /* ContactTimestampURLSessionManager.swift */,
-				9EAA8D2525F7C72E00E4A691 /* InAppMessagesURLSessionManager.swift */,
 			);
 			path = URLSessionManager;
 			sourceTree = "<group>";

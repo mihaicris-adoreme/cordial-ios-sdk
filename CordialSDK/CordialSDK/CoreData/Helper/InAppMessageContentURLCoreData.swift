@@ -46,10 +46,10 @@ class InAppMessageContentURLCoreData {
         do {
             if let result = try context.fetch(request) as? [NSManagedObject],
                !result.isEmpty,
-               let managedObject = result.first,
-               let expireDateManagedObject = managedObject.value(forKey: "expireDate"),
-               let expireDate = expireDateManagedObject as? Date,
-               API.isValidExpirationDate(date: expireDate) {
+               let managedObject = result.first {
+                
+                guard let expireDateManagedObject = managedObject.value(forKey: "expireDate") else { return nil }
+                let expireDate = expireDateManagedObject as! Date
                 
                 guard let urlManagedObject = managedObject.value(forKey: "url") else { return nil }
                 let url = urlManagedObject as! URL

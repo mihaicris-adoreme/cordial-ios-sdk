@@ -118,30 +118,36 @@ class InAppMessageGetter {
     }
     
     func fetchInAppMessage(mcID: String) {
-        if ReachabilityManager.shared.isConnectedToInternet {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
-            }
-            
-            if InternalCordialAPI().getCurrentJWT() != nil {
-                InAppMessage().getInAppMessage(mcID: mcID)
-            } else {
-                let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
-                self.systemErrorHandler(mcID: mcID, error: responseError)
+        if InternalCordialAPI().isUserLogin() {
+            if ReachabilityManager.shared.isConnectedToInternet {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
+                }
                 
-                SDKSecurity.shared.updateJWT()
+                if InternalCordialAPI().getCurrentJWT() != nil {
+                    InAppMessage().getInAppMessage(mcID: mcID)
+                } else {
+                    let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
+                    self.systemErrorHandler(mcID: mcID, error: responseError)
+                    
+                    SDKSecurity.shared.updateJWT()
+                }
+            } else {
+                let responseError = ResponseError(message: "No Internet connection", statusCode: nil, responseBody: nil, systemError: nil)
+                self.systemErrorHandler(mcID: mcID, error: responseError)
             }
         } else {
-            CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
-            
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Fetching IAM failed. Saved to retry later. mcID: [%{public}@] Error: [No Internet connection]", log: OSLog.cordialInAppMessage, type: .info, mcID)
-            }
+            let responseError = ResponseError(message: "User no login", statusCode: nil, responseBody: nil, systemError: nil)
+            self.systemErrorHandler(mcID: mcID, error: responseError)
         }
     }
     
     func completionHandler(inAppMessageData: InAppMessageData) {
         InAppMessage().prepareAndShowInAppMessage(inAppMessageData: inAppMessageData)
+        
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("IAM with mcID: [%{public}@] has been successfully fetch.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID)
+        }
     }
     
     func systemErrorHandler(mcID: String, error: ResponseError) {

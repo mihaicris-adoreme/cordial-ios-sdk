@@ -39,9 +39,6 @@ class CoreDataSender {
         // IAM
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
         
-        // IAMs
-        InAppMessages.shared.updateIfNeeded()
-        
         // Contact Timestamps
         ContactTimestamps.shared.updateIfNeeded()
         
