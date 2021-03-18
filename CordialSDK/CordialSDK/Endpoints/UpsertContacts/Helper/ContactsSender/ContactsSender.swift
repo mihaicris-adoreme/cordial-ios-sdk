@@ -58,7 +58,9 @@ class ContactsSender {
     }
     
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
-        InternalCordialAPI().setIsCurrentlyUpsertingContacts(false)
+        let internalCordialAPI = InternalCordialAPI()
+        
+        internalCordialAPI.setIsCurrentlyUpsertingContacts(false)
         
         CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         
@@ -74,6 +76,10 @@ class ContactsSender {
         CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
         
         DispatchQueue.main.async {
+            // IAMs
+            CoreDataManager.shared.contactTimestampsURL.removeContactTimestampFromCoreData()
+            internalCordialAPI.removeTheLatestSentAtInAppMessageDate()
+            
             CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
         
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {

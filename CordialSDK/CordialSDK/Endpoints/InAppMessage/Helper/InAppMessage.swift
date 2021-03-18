@@ -111,7 +111,7 @@ class InAppMessage {
         
         let sentAtTimestamp = cordialDateFormatter.getTimestampFromDate(date: sentAt)
         guard let previousSentAtTimestamp = internalCordialAPI.getTheLatestSentAtInAppMessageDate() else {
-            internalCordialAPI.setTheLatestSentAtInAppMessageDate(sentAtTimestamp: sentAtTimestamp)
+            self.initTheLatestSentAtInAppMessageDate()
             
             return
         }
@@ -122,6 +122,18 @@ class InAppMessage {
             internalCordialAPI.setTheLatestSentAtInAppMessageDate(sentAtTimestamp: sentAtTimestamp)
         }
         
+    }
+    
+    // MARK: Init the latest sentAt IAM date
+    
+    func initTheLatestSentAtInAppMessageDate() {
+        let cordialDateFormatter = CordialDateFormatter()
+        let currentTimestamp = cordialDateFormatter.getCurrentTimestamp()
+        guard let currentDate = cordialDateFormatter.getDateFromTimestamp(timestamp: currentTimestamp) else { return }
+        let currentDateMinusOneMinute = currentDate.adding(minutes: -1)
+        let currentTimestampMinusOneMinute = cordialDateFormatter.getTimestampFromDate(date: currentDateMinusOneMinute)
+        
+        InternalCordialAPI().setTheLatestSentAtInAppMessageDate(sentAtTimestamp: currentTimestampMinusOneMinute)
     }
     
     // MARK: Get in app message params

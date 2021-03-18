@@ -67,11 +67,16 @@ class ContactTimestampURL {
         
         let cordialDateFormatter = CordialDateFormatter()
         
-        if let currentSentAtTimestampIAM = InternalCordialAPI().getTheLatestSentAtInAppMessageDate(),
-           let currentSentAtIAM = cordialDateFormatter.getDateFromTimestamp(timestamp: currentSentAtTimestampIAM),
-           let contactSentAtIAM = contactTimestampData.inApp,
-           contactSentAtIAM.timeIntervalSince1970 > currentSentAtIAM.timeIntervalSince1970 {
+        if let currentSentAtTimestampIAM = InternalCordialAPI().getTheLatestSentAtInAppMessageDate() {
             
+            if let currentSentAtIAM = cordialDateFormatter.getDateFromTimestamp(timestamp: currentSentAtTimestampIAM),
+               let contactSentAtIAM = contactTimestampData.inApp,
+               contactSentAtIAM.timeIntervalSince1970 > currentSentAtIAM.timeIntervalSince1970 {
+               
+                InAppMessages.shared.updateIfNeeded()
+            }
+
+        } else {
             InAppMessages.shared.updateIfNeeded()
         }
     }

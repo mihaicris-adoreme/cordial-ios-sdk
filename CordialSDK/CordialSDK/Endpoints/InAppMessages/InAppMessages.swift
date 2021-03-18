@@ -74,7 +74,9 @@ class InAppMessages {
     func completionHandler(messages: [Dictionary<String, AnyObject>]) {
         self.isCurrentlyUpdatingInAppMessages = false
         
-        if !messages.isEmpty {
+        if messages.isEmpty {
+            InAppMessage().initTheLatestSentAtInAppMessageDate()
+        } else {
             InAppMessagesGetter().setInAppMessagesParamsToCoreData(messages: messages)
         }
         

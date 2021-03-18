@@ -62,4 +62,8 @@ class ContactTimestampsURLCoreData {
         return nil
     }
     
+    func removeContactTimestampFromCoreData() {
+        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+    }
+    
 }
