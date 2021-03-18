@@ -27,56 +27,14 @@ class FetchInAppMessageURLSessionManager {
                        let html = responseBodyJSON["content"] as? String,
                        let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
                         
-                        let type = inAppMessageParams.type
-                        let displayType = inAppMessageParams.displayType
-                        let expirationTime = inAppMessageParams.expirationTime
+                        let inAppMessageData = InAppMessage().getInAppMessageData(inAppMessageParams: inAppMessageParams, html: html)
                         
-                        var inAppMessageData: InAppMessageData?
+                        self.inAppMessageGetter.completionHandler(inAppMessageData: inAppMessageData)
                         
-                        switch type {
-                        case InAppMessageType.modal:
-                            let top = Int(inAppMessageParams.top)
-                            let right = Int(inAppMessageParams.right)
-                            let bottom = Int(inAppMessageParams.bottom)
-                            let left = Int(inAppMessageParams.left)
-                            
-                            inAppMessageData = InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
-                        case InAppMessageType.fullscreen:
-                            let top = 0
-                            let right = 0
-                            let bottom = 0
-                            let left = 0
-                            
-                            inAppMessageData = InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
-                        case InAppMessageType.banner_up:
-                            let height = inAppMessageParams.height
-                            
-                            let top = 5
-                            let right = 5
-                            let bottom = Int(100 - Double(height) / 100.0 * 100)
-                            let left = 5
-                            
-                            inAppMessageData = InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
-                        case InAppMessageType.banner_bottom:
-                            let height = inAppMessageParams.height
-                            
-                            let top = Int(100 - Double(height) / 100.0 * 100)
-                            let right = 5
-                            let bottom = 5
-                            let left = 5
-                            
-                            inAppMessageData = InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
-                        }
-                        
-                        if let inAppMessageData = inAppMessageData {
-                            self.inAppMessageGetter.completionHandler(inAppMessageData: inAppMessageData)
-                        }
                     } else {
                         let message = "Failed to parse IAM response."
                         let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                         self.inAppMessageGetter.logicErrorHandler(mcID: mcID, error: responseError)
-                        
-                        CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
                     }
                 } catch let error {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
@@ -93,8 +51,6 @@ class FetchInAppMessageURLSessionManager {
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                 self.inAppMessageGetter.logicErrorHandler(mcID: mcID, error: responseError)
-                
-                CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {

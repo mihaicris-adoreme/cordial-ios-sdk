@@ -26,8 +26,8 @@ class InAppMessageContentGetter {
         self.requestSender.sendRequest(task: downloadTask)
     }
     
-    func completionHandler() {
-        // TODO
+    func completionHandler(inAppMessageData: InAppMessageData) {
+        InAppMessage().prepareAndShowInAppMessage(inAppMessageData: inAppMessageData)
     }
     
     func errorHandler(mcID: String, error: ResponseError) {

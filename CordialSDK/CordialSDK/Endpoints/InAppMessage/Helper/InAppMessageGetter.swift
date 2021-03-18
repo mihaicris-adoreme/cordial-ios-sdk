@@ -141,32 +141,7 @@ class InAppMessageGetter {
     }
     
     func completionHandler(inAppMessageData: InAppMessageData) {
-        DispatchQueue.main.async {
-            CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-            
-            if UIApplication.shared.applicationState == .active {
-                switch inAppMessageData.displayType {
-                case InAppMessageDisplayType.displayOnAppOpenEvent:
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                    }
-                case InAppMessageDisplayType.displayImmediately:
-                    if InAppMessageProcess.shared.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
-                        InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
-                    } else {
-                        InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
-                        
-                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                            os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                        }
-                    }
-                }
-            } else {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                }
-            }
-        }
+        InAppMessage().prepareAndShowInAppMessage(inAppMessageData: inAppMessageData)
     }
     
     func systemErrorHandler(mcID: String, error: ResponseError) {
@@ -178,6 +153,8 @@ class InAppMessageGetter {
     }
     
     func logicErrorHandler(mcID: String, error: ResponseError) {
+        InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
+        
         NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
