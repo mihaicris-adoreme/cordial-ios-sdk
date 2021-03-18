@@ -28,15 +28,17 @@ class ContactsSender {
         internalCordialAPI.setIsCurrentlyUpsertingContacts(true)
         
         if ReachabilityManager.shared.isConnectedToInternet {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                upsertContactRequests.forEach({ upsertContactRequest in                    
-                    let payload = self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest)
-                    os_log("Sending contact. Request ID: [%{public}@] Payload: %{public}@", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID, payload)
-                })
-            }
-        
             if internalCordialAPI.getCurrentJWT() != nil {
+                
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    upsertContactRequests.forEach({ upsertContactRequest in
+                        let payload = self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest)
+                        os_log("Sending contact. Request ID: [%{public}@] Payload: %{public}@", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID, payload)
+                    })
+                }
+                
                 self.upsertContacts.upsertContacts(upsertContactRequests: upsertContactRequests)
+                
             } else {
                 let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
                 self.systemErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)

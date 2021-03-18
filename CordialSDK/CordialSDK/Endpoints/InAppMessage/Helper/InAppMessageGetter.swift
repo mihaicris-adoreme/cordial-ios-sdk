@@ -120,11 +120,12 @@ class InAppMessageGetter {
     func fetchInAppMessage(mcID: String) {
         if InternalCordialAPI().isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
-                }
-                
                 if InternalCordialAPI().getCurrentJWT() != nil {
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
+                    }
+                    
                     InAppMessage().getInAppMessage(mcID: mcID)
                 } else {
                     let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)

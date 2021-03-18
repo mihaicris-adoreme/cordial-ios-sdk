@@ -16,6 +16,8 @@ class InAppMessageContentGetter {
     func fetchInAppMessageContent(mcID: String, url: URL) {
         if InternalCordialAPI().isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
+                // This is S3 - No need check JWT 
+                
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     os_log("Fetching IAM content has been start.", log: OSLog.cordialInAppMessageContent, type: .info)
                 }

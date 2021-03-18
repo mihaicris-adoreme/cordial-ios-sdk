@@ -37,19 +37,41 @@ class ContactTimestamps {
     private func updateContactTimestamps() {
         self.isCurrentlyUpdatingContactTimestamps = true
         
-        if let contactKey = InternalCordialAPI().getContactKey(),
-           let url = URL(string: CordialApiEndpoints().getContactTimestampsURL(contactKey: contactKey)) {
-            
-            let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
+        if InternalCordialAPI().isUserLogin() {
+            if ReachabilityManager.shared.isConnectedToInternet {
+                if InternalCordialAPI().getCurrentJWT() != nil {
+                    
+                    if let contactKey = InternalCordialAPI().getContactKey(),
+                       let url = URL(string: CordialApiEndpoints().getContactTimestampsURL(contactKey: contactKey)) {
+                        
+                        let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
 
-            let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+                        let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
 
-            let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS, taskData: nil)
-            CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
+                        let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS, taskData: nil)
+                        CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
 
-            self.requestSender.sendRequest(task: downloadTask)
+                        self.requestSender.sendRequest(task: downloadTask)
+                    } else {
+                        let message = "Fetching contact timestamp failed. Error: [Unexpected error]"
+                        let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
+                        self.errorHandler(error: responseError)
+                    }
+                    
+                } else {
+                    let message = "Fetching contact timestamp failed. Error: [JWT is absent]"
+                    let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
+                    self.errorHandler(error: responseError)
+                    
+                    SDKSecurity.shared.updateJWT()
+                }
+            } else {
+                let message = "Fetching contact timestamp failed. Error: [No Internet connection]"
+                let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
+                self.errorHandler(error: responseError)
+            }
         } else {
-            let message = "Fetching contact timestamp failed. Error: [Unexpected error]"
+            let message = "Fetching contact timestamp failed. Error: [User no login]"
             let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
             self.errorHandler(error: responseError)
         }

@@ -37,14 +37,29 @@ class ContactTimestampURL {
     private func fetchContactTimestampURL(url: URL) {
         self.isCurrentlyUpdatingContactTimestampURL = true
         
-        let request = CordialRequestFactory().getBaseURLRequest(url: url, httpMethod: .GET)
+        if InternalCordialAPI().isUserLogin() {
+            if ReachabilityManager.shared.isConnectedToInternet {
+                // This is S3 - No need check JWT
+                
+                let request = CordialRequestFactory().getBaseURLRequest(url: url, httpMethod: .GET)
 
-        let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+                let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
 
-        let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP, taskData: nil)
-        CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
+                let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP, taskData: nil)
+                CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
 
-        self.requestSender.sendRequest(task: downloadTask)
+                self.requestSender.sendRequest(task: downloadTask)
+                
+            } else {
+                let message = "Fetching timestamp URL failed. Error: [No Internet connection]"
+                let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
+                self.errorHandler(error: responseError)
+            }
+        } else {
+            let message = "Fetching timestamp URL failed. Error: [User no login]"
+            let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
+            self.errorHandler(error: responseError)
+        }
     }
     
     func completionHandler(contactTimestampData: ContactTimestampData) {

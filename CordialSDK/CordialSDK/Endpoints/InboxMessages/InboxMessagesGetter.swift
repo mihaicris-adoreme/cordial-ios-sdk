@@ -17,11 +17,12 @@ class InboxMessagesGetter {
         
         if internalCordialAPI.isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Fetching inbox messages", log: OSLog.cordialInboxMessages, type: .info)
-                }
-                
                 if internalCordialAPI.getCurrentJWT() != nil {
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Fetching inbox messages", log: OSLog.cordialInboxMessages, type: .info)
+                    }
+                    
                     InboxMessages().getInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, contactKey: contactKey, onSuccess: { response in
                         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                             os_log("Inbox messages have been received successfully", log: OSLog.cordialInboxMessages, type: .info)

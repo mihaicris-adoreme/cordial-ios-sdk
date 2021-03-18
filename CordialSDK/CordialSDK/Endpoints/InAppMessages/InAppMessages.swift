@@ -30,25 +30,34 @@ class InAppMessages {
         
         if InternalCordialAPI().isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Fetching IAMs has been start.", log: OSLog.cordialInAppMessages, type: .info)
-                }
-                
-                if let contactKey = InternalCordialAPI().getContactKey(),
-                   let url = URL(string: CordialApiEndpoints().getInAppMessagesURL(contactKey: contactKey)) {
+                if InternalCordialAPI().getCurrentJWT() != nil {
                     
-                    let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("Fetching IAMs has been start.", log: OSLog.cordialInAppMessages, type: .info)
+                    }
+                    
+                    if let contactKey = InternalCordialAPI().getContactKey(),
+                       let url = URL(string: CordialApiEndpoints().getInAppMessagesURL(contactKey: contactKey)) {
+                        
+                        let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
 
-                    let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+                        let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
 
-                    let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES, taskData: nil)
-                    CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
+                        let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES, taskData: nil)
+                        CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
 
-                    self.requestSender.sendRequest(task: downloadTask)
+                        self.requestSender.sendRequest(task: downloadTask)
+                    } else {
+                        let message = "Fetching IAMs failed. Error: [Unexpected error]"
+                        let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
+                        self.errorHandler(error: responseError)
+                    }
                 } else {
-                    let message = "Fetching IAMs failed. Error: [Unexpected error]"
+                    let message = "Fetching IAMs failed. Error: [JWT is absent]"
                     let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
                     self.errorHandler(error: responseError)
+                    
+                    SDKSecurity.shared.updateJWT()
                 }
             } else {
                 let message = "Fetching IAMs failed. Error: [No Internet connection]"
