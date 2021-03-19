@@ -71,9 +71,7 @@ class ContactTimestamps {
                 self.errorHandler(error: responseError)
             }
         } else {
-            let message = "Fetching contact timestamp failed. Error: [User no login]"
-            let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
-            self.errorHandler(error: responseError)
+            self.isCurrentlyUpdatingContactTimestamps = false
         }
     }
        
@@ -100,9 +98,9 @@ class ContactTimestamps {
             if let responseBodyData = responseBody.data(using: .utf8),
                let responseBodyJSONSerialization = try? JSONSerialization.jsonObject(with: responseBodyData, options: []),
                let responseBodyJSON = responseBodyJSONSerialization as? [String: AnyObject],
-               let error = responseBodyJSON["error"] as? [String: AnyObject],
-               let message = error["message"] as? String,
-               message == "Timestamps file has not been found" {
+               let message = responseBodyJSON["message"] as? [String: AnyObject],
+               let errorCode = message["errorCode"] as? String,
+               errorCode == "no_timestamps_file" {
                     
                 return true
             }

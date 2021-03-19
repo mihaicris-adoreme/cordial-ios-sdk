@@ -75,11 +75,7 @@ class ContactsSender {
         
         CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
         
-        DispatchQueue.main.async {
-            // IAMs
-            CoreDataManager.shared.contactTimestampsURL.removeContactTimestampFromCoreData()
-            internalCordialAPI.removeTheLatestSentAtInAppMessageDate()
-            
+        DispatchQueue.main.async {            
             CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
         
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
