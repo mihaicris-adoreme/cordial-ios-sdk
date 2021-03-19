@@ -20,7 +20,7 @@
         <attribute name="data" optional="YES" attributeType="Binary"/>
         <attribute name="requestID" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="InAppMessageContentURL" representedClassName="InAppMessageContentURL" syncable="YES" codeGenerationType="class">
+    <entity name="InAppMessageContentURL" representedClassName="InAppMessageContentURL" syncable="YES">
         <attribute name="expireDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="mcID" optional="YES" attributeType="String"/>
         <attribute name="url" optional="YES" attributeType="URI"/>
