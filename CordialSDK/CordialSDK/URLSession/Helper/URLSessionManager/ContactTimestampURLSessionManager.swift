@@ -49,6 +49,8 @@ class ContactTimestampURLSessionManager {
             case 400:
                 self.contactTimestampURL.isCurrentlyUpdatingContactTimestampURL = false
                 
+                InternalCordialAPI().removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate()
+                
                 ContactTimestamps.shared.updateIfNeeded()
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
