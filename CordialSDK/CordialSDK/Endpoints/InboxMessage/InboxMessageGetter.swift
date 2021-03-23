@@ -115,7 +115,6 @@ class InboxMessageGetter {
                     var sentAt: String?
                     var metadata: String?
                     
-                    // TMP
                     metadata = """
                                 {
                                   "title": "Title",
@@ -187,8 +186,8 @@ class InboxMessageGetter {
                                     messageError += "sentAt IS NIL"
                                 }
                             case "metadata":
-                                if let valueMetadata = value as? String {
-                                    metadata = valueMetadata
+                                if let valueData = try? JSONSerialization.data(withJSONObject: value, options: .prettyPrinted) {
+                                    metadata = String(decoding: valueData, as: UTF8.self)
                                 } else {
                                     if !messageError.isEmpty {
                                         messageError += ". "
