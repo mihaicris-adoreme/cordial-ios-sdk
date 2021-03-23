@@ -199,7 +199,7 @@ class InboxMessages {
                                         messageError += "sentAt IS NIL"
                                     }
                                 case "metadata":
-                                    if !value.isEmpty,
+                                    if value.count > 0,
                                        let valueData = try? JSONSerialization.data(withJSONObject: value, options: .prettyPrinted) {
                                         
                                         metadata = String(decoding: valueData, as: UTF8.self)
