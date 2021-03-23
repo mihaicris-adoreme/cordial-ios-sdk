@@ -125,15 +125,7 @@ class InboxMessages {
                         var read: Bool?
                         var sentAt: String?
                         var metadata: String?
-                        
-                        metadata = """
-                                    {
-                                      "title": "Title",
-                                      "subtitle": "Subtitle",
-                                      "imageUrl": "https://i.imgur.com/UJYcRg4.jpg"
-                                    }
-                                """
-                        
+                                                
                         var messageError = String()
                         
                         let cordialDateFormatter = CordialDateFormatter()
@@ -207,7 +199,9 @@ class InboxMessages {
                                         messageError += "sentAt IS NIL"
                                     }
                                 case "metadata":
-                                    if let valueData = try? JSONSerialization.data(withJSONObject: value, options: .prettyPrinted) {
+                                    if !value.isEmpty,
+                                       let valueData = try? JSONSerialization.data(withJSONObject: value, options: .prettyPrinted) {
+                                        
                                         metadata = String(decoding: valueData, as: UTF8.self)
                                     } else {
                                         if !messageError.isEmpty {
@@ -226,10 +220,9 @@ class InboxMessages {
                             let messageDateUrlExpireAt = cordialDateFormatter.getDateFromTimestamp(timestamp: messageUrlExpireAt),
                             let messageRead = read,
                             let messageSentAt = sentAt,
-                            let messageDateSentAt = cordialDateFormatter.getDateFromTimestamp(timestamp: messageSentAt),
-                            let messageMetadata = metadata {
+                            let messageDateSentAt = cordialDateFormatter.getDateFromTimestamp(timestamp: messageSentAt) {
                             
-                            let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, urlExpireAt: messageDateUrlExpireAt, isRead: messageRead, sentAt: messageDateSentAt, metadata: messageMetadata)
+                            let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, urlExpireAt: messageDateUrlExpireAt, isRead: messageRead, sentAt: messageDateSentAt, metadata: metadata)
                             
                             CoreDataManager.shared.inboxMessagesCache.putInboxMessageToCoreData(inboxMessage: inboxMessage)
                             
