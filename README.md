@@ -19,7 +19,7 @@
 [Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
 [Deep Links](#deep-links)<br>
 [Delaying In-App Messages](#delaying-in-app-messages)<br>
-[In Development](#in-development)<br>
+[Inbox Messages API](#inbox-messages-api)<br>
 
 ## Installation
 
@@ -630,7 +630,7 @@ YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImp
 [CordialApiConfiguration shared].cordialDeepLinksDelegate = cordialDeepLinksHandler;
 ```
 
-##### Opening deep links from a killed application
+#### Opening deep links from a killed application
 
 When an application is killed the process the iOS starts the app makes it impossible for the SDK to determine that the app is opened via clicking a deep link outside the app. To allow SDK to open deep links correcly and track its corresponding events when the app is killed, the application will need to let the SDK know that it is being started via opening a deep link. To do so insert the following snippets of code to your application.
 
@@ -692,7 +692,7 @@ Note, disallowed ViewControllers should inherit from the `InAppMessageDelayViewC
 
 To work with inbox messages you will have to use the `InboxMessageAPI` class. It is the entry point to all inbox messages related functionality. The API supports the following operations:
 
-##### Fetch all inbox messages for currently logged in contact
+#### Fetch all inbox messages for currently logged in contact
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -752,7 +752,7 @@ InboxFilter *inboxFilter = [[InboxFilter alloc] initWithIsRead:InboxFilterIsRead
     If the inbox message was sent before the specified date
     If the inbox message was sent after the specified date
 
-##### Send up an inbox message is read event. 
+#### Send up an inbox message is read event. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -769,7 +769,7 @@ NSString *mcID = @"example_mc_id";
 
 This is the method to be called to signal a message is read by the user and should be triggered every time a contact reads (or opens) a message.
 
-##### Mark a message as read/unread
+#### Mark a message as read/unread
 
 This operations actually marks a message as read or unread which toggles the `isRead` flag on the corresponding `InboxMessage` object.
 
@@ -788,7 +788,7 @@ NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 [[[InboxMessageAPI alloc] init] markInboxMessagesReadWithMcIDs:mcIDs];
 ```
 
-##### To mark messages as unread:
+#### To mark messages as unread:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -803,7 +803,7 @@ NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 [[[InboxMessageAPI alloc] init] markInboxMessagesUnreadWithMcIDs:mcIDs];
 ```
 
-##### To delete an inbox message:
+#### To delete an inbox message:
 
 To remove an inbox message from user's inbox, call
 
@@ -820,7 +820,7 @@ NSString *mcID = @"example_mc_id";
 [[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
 ```
 
-##### Notifications about new incoming inbox message
+#### Notifications about new incoming inbox message
 
 The SDK can notify when a new inbox message has been delivered to the device. In order to be notified set a `InboxMessageDelegate`:
 
@@ -837,7 +837,7 @@ YourImplementationOfInboxMessageDelegate *inboxMessageHandler = [[YourImplementa
 [CordialApiConfiguration shared].inboxMessageDelegate = inboxMessageHandler;
 ```
 
-##### Inbox messages cache
+#### Inbox messages cache
 
 The SDK caches inbox messages in order to limit the number of requests the SDK makes. To control the size of the cache so that it doesn't grow unlimited the SDK configures the cache with two values:
 
