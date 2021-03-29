@@ -660,6 +660,27 @@ ___
 [[CordialDeepLinksAPI alloc] openAppDelegateUniversalLinkWithUserActivity:userActivity];
 ```
 
+#### Configure vanity domains for link tracking
+
+In order for SDK to support opening deep links with tracking on the SDK should be configured with links vanity domain. Vanity domain to be provided by Cordial.
+
+In order to configure the SDK with a vanity domain:
+
+1. You app must add the domain to the list of active domains.
+
+2. The domain should be added to SDK as a vanity domain:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.vanityDomains = ["vanity.domain.com"]
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].vanityDomains = @[@"vanity.domain.com"];
+```
+
 ## Delaying In-App Messages
 
 Cordial SDK allows application developers to delay displaying of in-app messages. In case if in-app message is delayed it will be displayed the next time the application is opened. There are 3 delay modes in the SDK to control in-app messages display:
