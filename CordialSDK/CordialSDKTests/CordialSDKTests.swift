@@ -112,7 +112,7 @@ class CordialSDKTests: XCTestCase {
                             {
                                 "title": "Title",
                                 "subtitle": "Subtitle",
-                                "url": "\(self.validStringURL)"
+                                "imageUrl": "\(self.validStringURL)"
                             }
                     }
                 ]

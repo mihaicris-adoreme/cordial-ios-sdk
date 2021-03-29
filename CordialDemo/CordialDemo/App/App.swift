@@ -15,6 +15,14 @@ struct App {
     static private let USER_DEFAULTS_KEY_FOR_IS_GUEST_USER = "USER_DEFAULTS_KEY_FOR_IS_GUEST_USER"
     static private let USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE = "USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE"
     
+    static let inboxMessageMetadata = """
+                        {
+                          "title": "No title provided",
+                          "subtitle": "No subtitle provided",
+                          "imageUrl": "https://i.imgur.com/bhjRMtD.png"
+                        }
+                    """
+    
     static func isGuestUser() -> Bool {
         if UserDefaults.standard.object(forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER) == nil {
             return true

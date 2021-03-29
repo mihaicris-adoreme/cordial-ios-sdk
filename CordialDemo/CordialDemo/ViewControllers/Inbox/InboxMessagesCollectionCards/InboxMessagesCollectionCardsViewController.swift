@@ -146,10 +146,15 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
         
         let inboxMessage = self.inboxMessages[indexPath.row]
         
+        var inboxMessageMetadata = inboxMessage.metadata
+        if inboxMessageMetadata == nil {
+            inboxMessageMetadata = App.inboxMessageMetadata
+        }
+        
         do {
-            if let inboxMessageMetadataData = inboxMessage.metadata.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
+            if let inboxMessageMetadataData = inboxMessageMetadata?.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
                 
-                if let image = inboxMessageMetadataJSON["url"], let imageURL = URL(string: image) {
+                if let image = inboxMessageMetadataJSON["imageUrl"], let imageURL = URL(string: image) {
                     cell.imageView.asyncImage(url: imageURL)
                     cell.imageView.contentMode = .scaleAspectFill
                     cell.imageView.clipsToBounds = true
