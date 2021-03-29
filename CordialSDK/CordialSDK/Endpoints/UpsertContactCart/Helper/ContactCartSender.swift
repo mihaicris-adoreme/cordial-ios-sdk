@@ -36,16 +36,18 @@ class ContactCartSender {
     
     private func upsertContactCartData(upsertContactCartRequest: UpsertContactCartRequest) {
         let upsertContactCart = UpsertContactCart()
-        
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending contact cart. Request ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID)
-            
-            let payload = self.upsertContactCart.getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
-            os_log("Payload: %{public}@", log: OSLog.cordialUpsertContactCart, type: .info, payload)
-        }
-        
+                
         if InternalCordialAPI().getCurrentJWT() != nil {
+            
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Sending contact cart. Request ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID)
+                
+                let payload = self.upsertContactCart.getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
+                os_log("Payload: %{public}@", log: OSLog.cordialUpsertContactCart, type: .info, payload)
+            }
+            
             upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
+            
         } else {
             let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
             self.systemErrorHandler(upsertContactCartRequest: upsertContactCartRequest, error: responseError)

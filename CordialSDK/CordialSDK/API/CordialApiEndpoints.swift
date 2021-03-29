@@ -62,6 +62,22 @@ class CordialApiEndpoints {
         return baseURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
     }
     
+    func getContactTimestampsURL(contactKey: String) -> String {
+        let baseURL = self.getMessageHubBaseURL()
+        
+        let deviceID = InternalCordialAPI().getDeviceIdentifier()
+        
+        return "\(baseURL)timestamps/\(contactKey)/\(deviceID)"
+    }
+    
+    func getInAppMessagesURL(contactKey: String) -> String {
+        let baseURL = self.getMessageHubBaseURL()
+        
+        let deviceID = InternalCordialAPI().getDeviceIdentifier()
+        
+        return "\(baseURL)mobile/messages/\(contactKey)/\(deviceID)"
+    }
+    
     func getInAppMessageURL(mcID: String) -> String {
         let baseURL = self.getMessageHubBaseURL()
         

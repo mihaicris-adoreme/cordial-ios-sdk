@@ -104,9 +104,13 @@ class NotificationManager {
         
         CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
         
+        // IAM
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
         InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
               
+        // IAMs
+        InAppMessagesGetter().startFetchInAppMessages(isSilentPushDeliveryEvent: false)
+        
         if let emailDeepLinkURL = URL(string: self.emailDeepLink) {
             CordialEmailDeepLink().open(url: emailDeepLinkURL)
         }

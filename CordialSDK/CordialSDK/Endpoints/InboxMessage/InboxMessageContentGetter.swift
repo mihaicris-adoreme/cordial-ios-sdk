@@ -23,6 +23,8 @@ class InboxMessageContentGetter {
         
         if internalCordialAPI.isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
+                // This is S3 - No need check JWT
+                
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     os_log("Fetching inbox message content", log: OSLog.cordialInboxMessages, type: .info)
                 }

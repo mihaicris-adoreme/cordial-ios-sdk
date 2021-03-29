@@ -38,16 +38,18 @@ class CustomEventsSender {
     }
     
     private func sendCustomEventsData(sendCustomEventRequests: [SendCustomEventRequest]) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
-            os_log("Sending events: { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
-            
-            let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
-            os_log("Payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
-        }
-        
         if InternalCordialAPI().getCurrentJWT() != nil {
+            
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
+                os_log("Sending events: { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
+                
+                let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
+                os_log("Payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
+            }
+            
             SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
+            
         } else {
             let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
             self.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)

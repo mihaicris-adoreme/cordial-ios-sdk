@@ -20,7 +20,12 @@ class CordialSwizzlerHelper {
         let pushNotificationParser = CordialPushNotificationParser()
         
         if pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
-            InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
+            switch CordialApiConfiguration.shared.inAppMessagesDeliveryType {
+            case .silentPushes:
+                InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
+            case .directDelivery:
+                InAppMessagesGetter().startFetchInAppMessages(isSilentPushDeliveryEvent: true)
+            }
         }
         
         if pushNotificationParser.isPayloadContainInboxMessage(userInfo: userInfo),

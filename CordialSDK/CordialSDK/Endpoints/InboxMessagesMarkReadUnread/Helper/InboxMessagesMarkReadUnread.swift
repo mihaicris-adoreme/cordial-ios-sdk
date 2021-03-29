@@ -20,13 +20,13 @@ class InboxMessagesMarkReadUnread {
             
             request.httpBody = inboxMessagesMarkReadUnreadJSON.data(using: .utf8)
             
-            let inboxMessagesMarkReadUnreadDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+            let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
             
             let inboxMessagesMarkReadUnreadURLSessionData = InboxMessagesMarkReadUnreadURLSessionData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS, taskData: inboxMessagesMarkReadUnreadURLSessionData)
-            CordialURLSession.shared.setOperation(taskIdentifier: inboxMessagesMarkReadUnreadDownloadTask.taskIdentifier, data: cordialURLSessionData)
+            CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            self.requestSender.sendRequest(task: inboxMessagesMarkReadUnreadDownloadTask)
+            self.requestSender.sendRequest(task: downloadTask)
         }
     }
     

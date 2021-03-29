@@ -304,4 +304,26 @@ class InternalCordialAPI {
     func setPushNotificationToken(token: String) {
         CordialUserDefaults.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
     }
+    
+    // MARK: Get the latest sentAt IAM
+    
+    func getTheLatestSentAtInAppMessageDate() -> String? {        
+        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE)
+    }
+    
+    // MARK: Set the latest sentAt IAM
+    
+    func setTheLatestSentAtInAppMessageDate(sentAtTimestamp: String) {
+        CordialUserDefaults.set(sentAtTimestamp, forKey: API.USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE)
+    }
+    
+    func removeTheLatestSentAtInAppMessageDate() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE)
+    }
+    
+    func removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate() {
+        CoreDataManager.shared.contactTimestampsURL.removeContactTimestampFromCoreData()
+        self.removeTheLatestSentAtInAppMessageDate()
+    }
+
 }

@@ -20,11 +20,13 @@ class CoreDataManager {
     
     let modelName = "CoreDataModel"
     
+    let contactTimestampsURL = ContactTimestampsURLCoreData()
     let customEventRequests = CustomEventRequestsCoreData()
     let contactCartRequest = ContactCartRequestCoreData()
     let contactOrderRequests = ContactOrderRequestsCoreData()
     let contactRequests = ContactRequestsCoreData()
     let contactLogoutRequest = ContactLogoutRequestCoreData()
+    let inAppMessageContentURL = InAppMessageContentURLCoreData()
     let inAppMessagesCache = InAppMessagesCacheCoreData()
     let inAppMessagesQueue = InAppMessagesQueueCoreData()
     let inAppMessagesParam = InAppMessagesParamCoreData()
@@ -88,6 +90,10 @@ class CoreDataManager {
     }
     
     func deleteAllCoreData() {
+        ThreadQueues.shared.queueContactTimestamps.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.contactTimestampsURL.entityName)
+        }
+        
         ThreadQueues.shared.queueSendCustomEvent.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.customEventRequests.entityName)
         }
@@ -105,6 +111,7 @@ class CoreDataManager {
         }
             
         ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inAppMessageContentURL.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)

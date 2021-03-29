@@ -59,12 +59,22 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let error = error, let operation = self.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
+            case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
+                SDKSecurityGetJWTURLSessionManager().errorHandler(error: error)
+            case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS:
+                ContactTimestampsURLSessionManager().errorHandler(error: error)
+            case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP:
+                ContactTimestampURLSessionManager().errorHandler(error: error)
+            case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES:
+                InAppMessagesURLSessionManager().errorHandler(error: error)
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
                 if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
                     FetchInAppMessageURLSessionManager().errorHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, error: error)
                 }
-            case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
-                SDKSecurityGetJWTURLSessionManager().errorHandler(error: error)
+            case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT:
+                if let inAppMessageContentURLSessionData = operation.taskData as? InAppMessageContentURLSessionData {
+                    InAppMessageContentURLSessionManager().errorHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, error: error)
+                }
             case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
                 if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData {
                     SendCustomEventsURLSessionManager().errorHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, error: error)
@@ -107,12 +117,22 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
         
         if let operation = self.getOperation(taskIdentifier: downloadTask.taskIdentifier) {
             switch operation.taskName {
+            case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
+                SDKSecurityGetJWTURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
+            case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS:
+                ContactTimestampsURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
+            case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP:
+                ContactTimestampURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
+            case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES:
+                InAppMessagesURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
                 if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
                     FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, httpResponse: httpResponse, location: location)
                 }
-            case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
-                SDKSecurityGetJWTURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
+            case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT:
+                if let inAppMessageContentURLSessionData = operation.taskData as? InAppMessageContentURLSessionData {
+                    InAppMessageContentURLSessionManager().completionHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, httpResponse: httpResponse, location: location)
+                }
             case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
                 if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData {
                     SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, httpResponse: httpResponse, location: location)

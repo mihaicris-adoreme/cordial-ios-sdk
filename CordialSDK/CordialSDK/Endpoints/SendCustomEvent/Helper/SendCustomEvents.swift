@@ -24,13 +24,13 @@ class SendCustomEvents {
             
             request.httpBody = sendCustomEventsJSON.data(using: .utf8)
             
-            let sendCustomEventsDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+            let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
             
             let sendCustomEventsURLSessionData = SendCustomEventsURLSessionData(sendCustomEventRequests: sendCustomEventRequests)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS, taskData: sendCustomEventsURLSessionData)
-            CordialURLSession.shared.setOperation(taskIdentifier: sendCustomEventsDownloadTask.taskIdentifier, data: cordialURLSessionData)
+            CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            self.requestSender.sendRequest(task: sendCustomEventsDownloadTask)
+            self.requestSender.sendRequest(task: downloadTask)
         }
     }
     
