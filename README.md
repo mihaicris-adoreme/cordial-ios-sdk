@@ -630,7 +630,8 @@ YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImp
 [CordialApiConfiguration shared].cordialDeepLinksDelegate = cordialDeepLinksHandler;
 ```
 
-### Opening deep links from a killed application
+##### Opening deep links from a killed application
+
 When an application is killed the process the iOS starts the app makes it impossible for the SDK to determine that the app is opened via clicking a deep link outside the app. To allow SDK to open deep links correcly and track its corresponding events when the app is killed, the application will need to let the SDK know that it is being started via opening a deep link. To do so insert the following snippets of code to your application.
 
 Since iOS 13 if the application uses scenes:
@@ -686,13 +687,12 @@ ___
 
 Note, disallowed ViewControllers should inherit from the `InAppMessageDelayViewController` class or otherwise delayed in-app message will be attempted to be shown on next app open.
 
-## In Development
 
-### Inbox Messages API
+## Inbox Messages API
 
 To work with inbox messages you will have to use the `InboxMessageAPI` class. It is the entry point to all inbox messages related functionality. The API supports the following operations:
 
-#### Fetch all inbox messages for currently logged in contact
+##### Fetch all inbox messages for currently logged in contact
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -752,7 +752,7 @@ InboxFilter *inboxFilter = [[InboxFilter alloc] initWithIsRead:InboxFilterIsRead
     If the inbox message was sent before the specified date
     If the inbox message was sent after the specified date
 
-#### Send up an inbox message is read event. 
+##### Send up an inbox message is read event. 
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -769,7 +769,7 @@ NSString *mcID = @"example_mc_id";
 
 This is the method to be called to signal a message is read by the user and should be triggered every time a contact reads (or opens) a message.
 
-#### Mark a message as read/unread
+##### Mark a message as read/unread
 
 This operations actually marks a message as read or unread which toggles the `isRead` flag on the corresponding `InboxMessage` object.
 
@@ -788,7 +788,7 @@ NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 [[[InboxMessageAPI alloc] init] markInboxMessagesReadWithMcIDs:mcIDs];
 ```
 
-#### To mark messages as unread:
+##### To mark messages as unread:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -803,7 +803,7 @@ NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 [[[InboxMessageAPI alloc] init] markInboxMessagesUnreadWithMcIDs:mcIDs];
 ```
 
-#### To delete an inbox message:
+##### To delete an inbox message:
 
 To remove an inbox message from user's inbox, call
 
@@ -820,7 +820,7 @@ NSString *mcID = @"example_mc_id";
 [[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
 ```
 
-#### Notifications about new incoming inbox message
+##### Notifications about new incoming inbox message
 
 The SDK can notify when a new inbox message has been delivered to the device. In order to be notified set a `InboxMessageDelegate`:
 
@@ -835,6 +835,28 @@ ___
 ```
 YourImplementationOfInboxMessageDelegate *inboxMessageHandler = [[YourImplementationOfInboxMessageDelegate alloc] init];
 [CordialApiConfiguration shared].inboxMessageDelegate = inboxMessageHandler;
+```
+
+##### Inbox messages cache
+
+The SDK caches inbox messages in order to limit the number of requests the SDK makes. To control the size of the cache so that it doesn't grow unlimited the SDK configures the cache with two values:
+
+- max size of each inbox message in bytes. Messages bigger than max size will not be cached. Default value is 200 kB
+- total cache size in bytes. As soon as the cache reaches it max size, the SDK will replace the least used inbox messages with the new ones. Default value is 10 MB.
+
+To override default values, set them via:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = 10 * 1024 * 1024 // 10 MB
+CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize = 200 * 1024 // 200 KB
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialApiConfiguration shared] inboxMessageCache].maxCacheSize = 10 * 1024 * 1024; // 10 MB
+[[CordialApiConfiguration shared] inboxMessageCache].maxCachableMessageSize = 200 * 1024; // 200 KB
 ```
 
 [Top](#contents)
