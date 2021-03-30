@@ -23,7 +23,6 @@ import CoreLocation
     var channelKey = String()
     var baseURL = String()
     
-    let cordialSwizzler = CordialSwizzler()
     let cordialPushNotification = CordialPushNotification()
     let cordialPushNotificationHandler = CordialPushNotificationHandler()
     
@@ -31,10 +30,18 @@ import CoreLocation
     
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
+    @objc public var inboxMessageDelegate: InboxMessageDelegate?
+    
     @objc public var pushesConfiguration: CordialPushNotificationType = .SDK
+    @objc public var inAppMessagesDeliveryType: InAppMessagesDeliveryType = .directDelivery
+    
+    
+    @objc public let inboxMessageCache = InboxMessageCache.shared
     
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, String>?
+    
+    @objc public var vanityDomains = [String]()
     
     @objc public var eventsBulkSize: Int = 1 {
         didSet {
@@ -60,7 +67,7 @@ import CoreLocation
 
     @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
-    private override init(){
+    private override init() {
         self.cordialPushNotification.getNotificationSettings()
     }
     

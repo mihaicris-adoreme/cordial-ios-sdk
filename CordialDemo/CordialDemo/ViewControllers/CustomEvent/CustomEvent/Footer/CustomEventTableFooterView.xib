@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,48 +15,64 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMx-5F-vwq">
-                    <rect key="frame" x="16" y="78" width="382" height="52"/>
-                    <color key="backgroundColor" red="0.99589020009999996" green="0.7934958339" blue="0.46328103539999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nV2-EP-oeU">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="160"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMx-5F-vwq">
+                            <rect key="frame" x="20" y="78" width="374" height="62"/>
+                            <color key="backgroundColor" red="0.99589020009999996" green="0.7934958339" blue="0.46328103539999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Send Custom Event">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="sendCustomEventAction:" destination="-1" eventType="touchUpInside" id="sn1-RQ-0B3"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flush events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WoI-yl-aUY">
+                            <rect key="frame" x="20" y="25" width="313" height="21"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ATb-JB-477">
+                            <rect key="frame" x="339" y="20" width="51" height="31"/>
+                        </switch>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="52" id="AJb-U3-OEQ"/>
+                        <constraint firstAttribute="bottom" secondItem="DMx-5F-vwq" secondAttribute="bottom" constant="20" id="ITS-4r-Luf"/>
+                        <constraint firstItem="ATb-JB-477" firstAttribute="leading" secondItem="WoI-yl-aUY" secondAttribute="trailing" constant="6" id="Mpe-YY-8oE"/>
+                        <constraint firstItem="DMx-5F-vwq" firstAttribute="centerX" secondItem="nV2-EP-oeU" secondAttribute="centerX" id="O7P-cU-rTZ"/>
+                        <constraint firstItem="WoI-yl-aUY" firstAttribute="leading" secondItem="nV2-EP-oeU" secondAttribute="leading" constant="20" id="YNS-oi-LdH"/>
+                        <constraint firstItem="WoI-yl-aUY" firstAttribute="leading" secondItem="DMx-5F-vwq" secondAttribute="leading" id="bxJ-Oc-m3T"/>
+                        <constraint firstItem="DMx-5F-vwq" firstAttribute="top" secondItem="ATb-JB-477" secondAttribute="bottom" constant="27" id="cKT-X2-aEx"/>
+                        <constraint firstItem="WoI-yl-aUY" firstAttribute="centerY" secondItem="ATb-JB-477" secondAttribute="centerY" id="kxg-m7-xBu"/>
+                        <constraint firstItem="ATb-JB-477" firstAttribute="top" secondItem="nV2-EP-oeU" secondAttribute="top" constant="20" id="rEu-Dy-5hQ"/>
+                        <constraint firstAttribute="trailing" secondItem="ATb-JB-477" secondAttribute="trailing" constant="26" id="xVZ-Hy-CPo"/>
                     </constraints>
-                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <state key="normal" title="Send Custom Event">
-                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="sendCustomEventAction:" destination="-1" eventType="touchUpInside" id="sn1-RQ-0B3"/>
-                    </connections>
-                </button>
-                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ATb-JB-477">
-                    <rect key="frame" x="343" y="20" width="51" height="31"/>
-                </switch>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flush events" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WoI-yl-aUY">
-                    <rect key="frame" x="16" y="25" width="321" height="21"/>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </view>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="DMx-5F-vwq" firstAttribute="top" secondItem="ATb-JB-477" secondAttribute="bottom" constant="27" id="36i-bc-5nM"/>
-                <constraint firstItem="DMx-5F-vwq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="9LI-Fd-yta"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="DMx-5F-vwq" secondAttribute="bottom" constant="30" id="NQI-nm-c4d"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ATb-JB-477" secondAttribute="trailing" constant="22" id="O4D-om-863"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="DMx-5F-vwq" secondAttribute="trailing" constant="16" id="Q8y-xC-bKm"/>
-                <constraint firstItem="ATb-JB-477" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="cXe-cc-QH9"/>
-                <constraint firstItem="ATb-JB-477" firstAttribute="leading" secondItem="WoI-yl-aUY" secondAttribute="trailing" constant="6" id="llh-Ia-KRs"/>
-                <constraint firstItem="WoI-yl-aUY" firstAttribute="centerY" secondItem="ATb-JB-477" secondAttribute="centerY" id="mUa-WS-yAI"/>
-                <constraint firstItem="WoI-yl-aUY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="zcg-eF-SQa"/>
+                <constraint firstItem="nV2-EP-oeU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="52n-4u-sLO"/>
+                <constraint firstAttribute="trailing" secondItem="nV2-EP-oeU" secondAttribute="trailing" id="BtM-KW-gEX"/>
+                <constraint firstItem="nV2-EP-oeU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="YS5-WJ-fC3"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="nV2-EP-oeU" secondAttribute="bottom" id="dNd-D0-3dv"/>
+                <constraint firstItem="nV2-EP-oeU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="gov-VK-zEs"/>
+                <constraint firstItem="nV2-EP-oeU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="iei-g7-cTT"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="flushEventsSwitch" destination="ATb-JB-477" id="M1w-wg-EcB"/>
             </connections>
             <point key="canvasLocation" x="138.75" y="505.98591549295776"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

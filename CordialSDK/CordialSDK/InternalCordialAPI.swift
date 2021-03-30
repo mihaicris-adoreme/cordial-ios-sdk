@@ -103,6 +103,22 @@ class InternalCordialAPI {
         return tokenParts.joined()
     }
     
+    // MARK: Get contact key
+    
+    func getContactKey() -> String? {
+        let cordialAPI = CordialAPI()
+        
+        var key: String?
+        if let primaryKey = cordialAPI.getContactPrimaryKey() {
+            key = primaryKey
+        } else if let token = InternalCordialAPI().getPushNotificationToken() {
+            let channelKey = cordialAPI.getChannelKey()
+            key = "\(channelKey):\(token)"
+        }
+        
+        return key
+    }
+    
     // MARK: Set primary key
     
     func setContactPrimaryKey(primaryKey: String) {
@@ -127,14 +143,7 @@ class InternalCordialAPI {
         CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
-    
-    // MARK: Set current mcID
-    
-    func setCurrentMcID(mcID: String) {
-        CordialUserDefaults.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
-        CordialUserDefaults.set(CordialDateFormatter().getCurrentTimestamp(), forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
-    }
-    
+        
     // MARK: Remove current mcID
     
     @objc public func removeCurrentMcID() {
@@ -183,7 +192,7 @@ class InternalCordialAPI {
     // MARK: Send Any Custom Event
     
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendCustomEvent.sync(flags: .barrier) {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
         }
         
@@ -254,19 +263,21 @@ class InternalCordialAPI {
     // MARK: Open deep link
     
     func openDeepLink(url: URL) {
-        if let scheme = url.scheme, scheme.contains("http") {
-            let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
-            userActivity.webpageURL = url
-            
-            if #available(iOS 13.0, *), self.isAppUseScenes(),
-                let scene = UIApplication.shared.connectedScenes.first {
+        DispatchQueue.main.async {
+            if let scheme = url.scheme, scheme.contains("http") {
+                let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
+                userActivity.webpageURL = url
                 
-                scene.delegate?.scene?(scene, continue: userActivity)
+                if #available(iOS 13.0, *), self.isAppUseScenes(),
+                    let scene = UIApplication.shared.connectedScenes.first {
+                    
+                    scene.delegate?.scene?(scene, continue: userActivity)
+                } else {
+                    let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+                }
             } else {
-                let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+                UIApplication.shared.open(url, options:[:], completionHandler: nil)
             }
-        } else {
-            UIApplication.shared.open(url, options:[:], completionHandler: nil)
         }
     }
     
@@ -293,4 +304,26 @@ class InternalCordialAPI {
     func setPushNotificationToken(token: String) {
         CordialUserDefaults.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
     }
+    
+    // MARK: Get the latest sentAt IAM
+    
+    func getTheLatestSentAtInAppMessageDate() -> String? {        
+        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE)
+    }
+    
+    // MARK: Set the latest sentAt IAM
+    
+    func setTheLatestSentAtInAppMessageDate(sentAtTimestamp: String) {
+        CordialUserDefaults.set(sentAtTimestamp, forKey: API.USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE)
+    }
+    
+    func removeTheLatestSentAtInAppMessageDate() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE)
+    }
+    
+    func removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate() {
+        CoreDataManager.shared.contactTimestampsURL.removeContactTimestampFromCoreData()
+        self.removeTheLatestSentAtInAppMessageDate()
+    }
+
 }

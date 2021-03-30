@@ -19,7 +19,7 @@
 [Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
 [Deep Links](#deep-links)<br>
 [Delaying In-App Messages](#delaying-in-app-messages)<br>
-[In Development](#in-development)<br>
+[Inbox Messages API](#inbox-messages-api)<br>
 
 ## Installation
 
@@ -630,6 +630,57 @@ YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImp
 [CordialApiConfiguration shared].cordialDeepLinksDelegate = cordialDeepLinksHandler;
 ```
 
+#### Opening deep links from a killed application
+
+When an application is killed the process the iOS starts the app makes it impossible for the SDK to determine that the app is opened via clicking a deep link outside the app. To allow SDK to open deep links correcly and track its corresponding events when the app is killed, the application will need to let the SDK know that it is being started via opening a deep link. To do so insert the following snippets of code to your application.
+
+Since iOS 13 if the application uses scenes:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialDeepLinksAPI().openSceneDelegateUniversalLink(scene: scene, userActivity: userActivity)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialDeepLinksAPI alloc] openSceneDelegateUniversalLinkWithScene:scene userActivity:userActivity];
+```
+
+Since iOS 13 if the application does not use scenes:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialDeepLinksAPI().openAppDelegateUniversalLink(userActivity: userActivity)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialDeepLinksAPI alloc] openAppDelegateUniversalLinkWithUserActivity:userActivity];
+```
+
+#### Configure vanity domains for link tracking
+
+In order for SDK to support opening deep links with tracking on the SDK should be configured with links vanity domain. Vanity domain to be provided by Cordial.
+
+In order to configure the SDK with a vanity domain:
+
+1. You app must add the domain to the list of active domains.
+
+2. The domain should be added to SDK as a vanity domain:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.vanityDomains = ["vanity.domain.com"]
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].vanityDomains = @[@"vanity.domain.com"];
+```
+
 ## Delaying In-App Messages
 
 Cordial SDK allows application developers to delay displaying of in-app messages. In case if in-app message is delayed it will be displayed the next time the application is opened. There are 3 delay modes in the SDK to control in-app messages display:
@@ -657,9 +708,8 @@ ___
 
 Note, disallowed ViewControllers should inherit from the `InAppMessageDelayViewController` class or otherwise delayed in-app message will be attempted to be shown on next app open.
 
-## In Development
 
-### Inbox Messages API
+## Inbox Messages API
 
 To work with inbox messages you will have to use the `InboxMessageAPI` class. It is the entry point to all inbox messages related functionality. The API supports the following operations:
 
@@ -668,7 +718,8 @@ To work with inbox messages you will have to use the `InboxMessageAPI` class. It
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-InboxMessageAPI().fetchInboxMessages(onSuccess: { response in
+let pageRequest = PageRequest(page: 1, size: 10) 
+CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, onSuccess: { inboxPage in
     // your code
 }, onFailure: { error in
     // your code
@@ -677,13 +728,50 @@ InboxMessageAPI().fetchInboxMessages(onSuccess: { response in
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[[InboxMessageAPI alloc] init] fetchInboxMessagesOnSuccess:^(NSArray<InboxMessage *> *response) {
+PageRequest *pageRequest = [[PageRequest alloc] initWithPage:1 size:10];
+[[[CordialInboxMessageAPI alloc] init] fetchInboxMessagesWithPageRequest:pageRequest inboxFilter:nil onSuccess:^(InboxPage *inboxPage) {
     // your code
 } onFailure:^(NSString *error) {
     // your code
 }];
 ``` 
-`response` is an array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its id, title, body, custom key values pairs, if the message is read and when it was sent.
+
+Response is an `InboxPage` object wich contains pagination parameters. `InboxPage` property `content` is an array of `InboxMessage` objects. `InboxMessage` represents one inbox message, containing its mcID, if the message is read and when it was sent.
+
+To filter inbox messages, pass an `InboxFilter` instance to the `fetchInboxMessages` method:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let pageRequest = PageRequest(page: 1, size: 10) 
+let fromDate = Date()
+let toDate = Date()
+let inboxFilter = InboxFilter(isRead: .yes, fromDate: fromDate, toDate: toDate)
+CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, onSuccess: { inboxPage in
+    // your code
+}, onFailure: { error in
+    // your code
+})
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+PageRequest *pageRequest = [[PageRequest alloc] initWithPage:1 size:10];
+NSDate *fromDate = [[NSDate alloc] init];
+NSDate *toDate = [[NSDate alloc] init];
+InboxFilter *inboxFilter = [[InboxFilter alloc] initWithIsRead:InboxFilterIsReadTypeYes fromDate:fromDate toDate:toDate];
+[[[CordialInboxMessageAPI alloc] init] fetchInboxMessagesWithPageRequest:pageRequest inboxFilter:inboxFilter onSuccess:^(InboxPage *inboxPage) {
+    // your code
+} onFailure:^(NSString *error) {
+    // your code
+}];
+``` 
+
+`InboxFilter` contains the following filter parameters:
+
+    If the inbox message is read
+    If the inbox message was sent before the specified date
+    If the inbox message was sent after the specified date
 
 #### Send up an inbox message is read event. 
 
@@ -704,7 +792,7 @@ This is the method to be called to signal a message is read by the user and shou
 
 #### Mark a message as read/unread
 
-This operations actually marks a message as read or unread which toggles the `read` flag on the corresponding `InboxMessage` object.
+This operations actually marks a message as read or unread which toggles the `isRead` flag on the corresponding `InboxMessage` object.
 
 To mark messages as read:
 
@@ -753,5 +841,58 @@ NSString *mcID = @"example_mc_id";
 [[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
 ```
 
+#### Notifications about new incoming inbox message
+
+The SDK can notify when a new inbox message has been delivered to the device. In order to be notified set a `InboxMessageDelegate`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let inboxMessageHandler = YourImplementationOfInboxMessageDelegate()
+CordialApiConfiguration.shared.inboxMessageDelegate = inboxMessageHandler
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+YourImplementationOfInboxMessageDelegate *inboxMessageHandler = [[YourImplementationOfInboxMessageDelegate alloc] init];
+[CordialApiConfiguration shared].inboxMessageDelegate = inboxMessageHandler;
+```
+
+#### Inbox messages cache
+
+The SDK caches inbox messages in order to limit the number of requests the SDK makes. To control the size of the cache so that it doesn't grow unlimited the SDK configures the cache with two values:
+
+- max size of each inbox message in bytes. Messages bigger than max size will not be cached. Default value is 200 kB
+- total cache size in bytes. As soon as the cache reaches it max size, the SDK will replace the least used inbox messages with the new ones. Default value is 10 MB.
+
+To override default values, set them via:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = 10 * 1024 * 1024 // 10 MB
+CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize = 200 * 1024 // 200 kB
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialApiConfiguration shared] inboxMessageCache].maxCacheSize = 10 * 1024 * 1024; // 10 MB
+[[CordialApiConfiguration shared] inboxMessageCache].maxCachableMessageSize = 200 * 1024; // 200 kB
+```
+
+#### Inbox message attribution
+
+To attribute future events the SDK sends to an inbox message, a client app should explicitly set mcID of the inbox message:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+cordialAPI.setCurrentMcID(mcID: "mcID")
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[cordialAPI setCurrentMcIDWithMcID:@"mcID"];
+```
 
 [Top](#contents)

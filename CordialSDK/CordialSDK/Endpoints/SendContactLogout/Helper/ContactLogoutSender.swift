@@ -30,15 +30,17 @@ class ContactLogoutSender {
     
     private func sendContactLogoutData(sendContactLogoutRequest: SendContactLogoutRequest) {
         if ReachabilityManager.shared.isConnectedToInternet {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact logout. Request ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
-                
-                let payload = self.sendContactLogout.getSendContactLogoutJSON(sendContactLogoutRequest: sendContactLogoutRequest)
-                os_log("Payload: %{public}@", log: OSLog.cordialSendContactLogout, type: .info, payload)
-            }
-            
             if InternalCordialAPI().getCurrentJWT() != nil {
+                
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    os_log("Sending contact logout. Request ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
+                    
+                    let payload = self.sendContactLogout.getSendContactLogoutJSON(sendContactLogoutRequest: sendContactLogoutRequest)
+                    os_log("Payload: %{public}@", log: OSLog.cordialSendContactLogout, type: .info, payload)
+                }
+                
                 SendContactLogout().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
+                
             } else {
                 let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
                 self.systemErrorHandler(sendContactLogoutRequest: sendContactLogoutRequest, error: responseError)

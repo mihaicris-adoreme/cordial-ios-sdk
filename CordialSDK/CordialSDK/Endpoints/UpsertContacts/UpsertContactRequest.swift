@@ -20,7 +20,6 @@ class UpsertContactRequest: NSObject, NSCoding {
     
     enum Key: String {
         case requestID = "requestID"
-        case token = "token"
         case primaryKey = "primaryKey"
         case status = "status"
         case attributes = "attributes"
@@ -34,9 +33,9 @@ class UpsertContactRequest: NSObject, NSCoding {
         self.attributes = attributes
     }
     
-    private init(requestID: String, token: String?, primaryKey: String?, status: String, attributes: Dictionary<String, AttributeValue>?) {
+    private init(requestID: String, primaryKey: String?, status: String, attributes: Dictionary<String, AttributeValue>?) {
         self.requestID = requestID
-        self.token = token
+        self.token = InternalCordialAPI().getPushNotificationToken()
         self.primaryKey = primaryKey
         self.status = status
         self.attributes = attributes
@@ -44,7 +43,6 @@ class UpsertContactRequest: NSObject, NSCoding {
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
-        aCoder.encode(self.token, forKey: Key.token.rawValue)
         aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
         aCoder.encode(self.status, forKey: Key.status.rawValue)
         aCoder.encode(self.attributes, forKey: Key.attributes.rawValue)
@@ -52,14 +50,13 @@ class UpsertContactRequest: NSObject, NSCoding {
     
     required convenience init?(coder aDecoder: NSCoder) {
         if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String, let status = aDecoder.decodeObject(forKey: Key.status.rawValue) as? String {
-            let token = aDecoder.decodeObject(forKey: Key.token.rawValue) as! String?
             let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
             
             let attributes = aDecoder.decodeObject(forKey: Key.attributes.rawValue) as! Dictionary<String, AttributeValue>?
             
-            self.init(requestID: requestID, token: token, primaryKey: primaryKey, status: status, attributes: attributes)
+            self.init(requestID: requestID, primaryKey: primaryKey, status: status, attributes: attributes)
         } else {
-            self.init(requestID: String(), token: nil, primaryKey: nil, status: String(), attributes: nil)
+            self.init(requestID: String(), primaryKey: nil, status: String(), attributes: nil)
             
             self.isError = true
         }

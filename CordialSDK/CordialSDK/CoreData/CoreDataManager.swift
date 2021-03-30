@@ -20,15 +20,21 @@ class CoreDataManager {
     
     let modelName = "CoreDataModel"
     
+    let contactTimestampsURL = ContactTimestampsURLCoreData()
     let customEventRequests = CustomEventRequestsCoreData()
     let contactCartRequest = ContactCartRequestCoreData()
     let contactOrderRequests = ContactOrderRequestsCoreData()
     let contactRequests = ContactRequestsCoreData()
     let contactLogoutRequest = ContactLogoutRequestCoreData()
+    let inAppMessageContentURL = InAppMessageContentURLCoreData()
     let inAppMessagesCache = InAppMessagesCacheCoreData()
     let inAppMessagesQueue = InAppMessagesQueueCoreData()
     let inAppMessagesParam = InAppMessagesParamCoreData()
     let inAppMessagesShown = InAppMessagesShownCoreData()
+    let inboxMessagesMarkReadUnread = InboxMessagesMarkReadUnreadCoreData()
+    let inboxMessageDelete = InboxMessageDeleteCoreData()
+    let inboxMessagesCache = InboxMessagesCacheCoreData()
+    let inboxMessagesContent = InboxMessagesContentCoreData()
     
     lazy var persistentContainer: NSPersistentContainer = {
     
@@ -46,7 +52,7 @@ class CoreDataManager {
         
         guard let resourceBundle = InternalCordialAPI().getResourceBundle() else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [Could not get bundle that contains the model]", log: OSLog.cordialError, type: .error)
+                os_log("CoreData Error: [Could not get bundle that contains the model]", log: OSLog.cordialCoreDataError, type: .error)
             }
             
             return NSManagedObjectModel()
@@ -56,7 +62,7 @@ class CoreDataManager {
             let model = NSManagedObjectModel(contentsOf: modelURL) else {
                 
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [Could not get bundle for managed object model]", log: OSLog.cordialError, type: .error)
+                os_log("CoreData Error: [Could not get bundle for managed object model]", log: OSLog.cordialCoreDataError, type: .error)
             }
             
             return NSManagedObjectModel()
@@ -78,38 +84,60 @@ class CoreDataManager {
             try context.save()
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Delete CoreData by entity failed with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("Delete CoreData Entity Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, entityName)
             }
         }
     }
     
     func deleteAllCoreData() {
-        ThreadQueues.shared.queueSendCustomEventRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueContactTimestamps.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.contactTimestampsURL.entityName)
+        }
+        
+        ThreadQueues.shared.queueSendCustomEvent.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.customEventRequests.entityName)
         }
         
-        ThreadQueues.shared.queueUpsertContactCartRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueUpsertContactCart.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.contactCartRequest.entityName)
         }
         
-        ThreadQueues.shared.queueSendContactOrderRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendContactOrder.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.contactOrderRequests.entityName)
         }
             
-        ThreadQueues.shared.queueUpsertContactRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueUpsertContact.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.contactRequests.entityName)
         }
             
         ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inAppMessageContentURL.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesShown.entityName)
         }
         
-        ThreadQueues.shared.queueSendContactLogoutRequest.sync(flags: .barrier) {
+        ThreadQueues.shared.queueSendContactLogout.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.contactLogoutRequest.entityName)
         }
+        
+        ThreadQueues.shared.queueInboxMessagesMarkReadUnread.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inboxMessagesMarkReadUnread.entityName)
+        }
+        
+        ThreadQueues.shared.queueInboxMessageDelete.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inboxMessageDelete.entityName)
+        }
+        
+        ThreadQueues.shared.queueInboxMessagesCache.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inboxMessagesCache.entityName)
+        }
+        
+        ThreadQueues.shared.queueInboxMessagesContent.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inboxMessagesContent.entityName)
+        }
+        
     }
     
 }

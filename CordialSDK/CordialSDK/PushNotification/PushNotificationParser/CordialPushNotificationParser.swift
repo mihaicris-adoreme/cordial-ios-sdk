@@ -13,6 +13,7 @@ class CordialPushNotificationParser {
     private let deepLinksParser = CordialPushNotificationParserDeepLinks()
     private let messageAttributionParser = CordialPushNotificationParserMessageAttribution()
     private let inAppMessageParser = CordialPushNotificationParserInAppMessage()
+    private let pushNotificationParserInboxMessage = CordialPushNotificationParserInboxMessage()
     
     // MARK: Get deep link URL
     
@@ -104,5 +105,10 @@ class CordialPushNotificationParser {
         return self.inAppMessageParser.getModalLeftMarginIAMCurrentPayloadType(userInfo: userInfo)
     }
 
+    // MARK: Is payload contain inbox message
+    
+    func isPayloadContainInboxMessage(userInfo: [AnyHashable : Any]) -> Bool {
+        return self.pushNotificationParserInboxMessage.isPayloadContainInboxMessageCurrentPayloadType(userInfo: userInfo)
+    }
 }
 

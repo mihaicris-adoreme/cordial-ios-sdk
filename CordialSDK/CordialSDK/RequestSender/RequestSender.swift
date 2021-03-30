@@ -8,9 +8,9 @@
 
 import Foundation
 
-@objc open class RequestSender: NSObject {
+open class RequestSender: NSObject {
     
-    @objc open func sendRequest(task: URLSessionDownloadTask) {
+    open func sendRequest(task: URLSessionDownloadTask) {
         task.resume()
     }
     

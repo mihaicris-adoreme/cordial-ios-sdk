@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class SDKSecurityGetJWTURLSessionManager {
     
@@ -20,7 +19,9 @@ class SDKSecurityGetJWTURLSessionManager {
             switch httpResponse.statusCode {
             case 200:
                 do {
-                    if let responseBodyData = responseBody.data(using: .utf8), let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject] {
+                    if let responseBodyData = responseBody.data(using: .utf8),
+                       let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject] {
+                        
                         if let JWT = responseBodyJSON["token"] as? String {
                             SDKSecurity.shared.completionHandler(JWT: JWT)
                         } else {
@@ -29,14 +30,14 @@ class SDKSecurityGetJWTURLSessionManager {
                             SDKSecurity.shared.errorHandler(error: responseError)
                         }
                     } else {
-                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                            os_log("Failed decode response data.", log: OSLog.cordialSDKSecurity, type: .error)
-                        }
+                        let message = "Failed decode response data."
+                        let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                        SDKSecurity.shared.errorHandler(error: responseError)
                     }
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.localizedDescription)
-                    }
+                    let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
+                    let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                    SDKSecurity.shared.errorHandler(error: responseError)
                 }
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
@@ -44,9 +45,9 @@ class SDKSecurityGetJWTURLSessionManager {
                 SDKSecurity.shared.errorHandler(error: responseError)
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialSDKSecurity, type: .error, error.localizedDescription)
-            }
+            let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
+            let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: nil, systemError: nil)
+            SDKSecurity.shared.errorHandler(error: responseError)
         }
     }
     

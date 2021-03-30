@@ -11,15 +11,18 @@ import CordialSDK
 
 class CatalogCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     let cordialAPI = CordialAPI()
     
-    let reuseIdentifier = "catalogCell"
+    let reuseIdentifier = "catalogCollectionCell"
     let segueToProductIdentifier = "segueToProduct"
     let segueToCartIdentifier = "segueToCart"
     let segueToProfileIdentifier = "segueToProfile"
     let segueToCustomEventIdentifier = "segueToCustomEvent"
-    
-    @IBOutlet weak var collectionView: UICollectionView!
+    let segueToInboxTableIdentifier = "segueToInboxTable"
+    let segueToInboxTableListIdentifier = "segueToInboxTableList"
+    let segueToInboxCollectionIdentifier = "segueToInboxCollection"
     
     let catalogName = "Mens"
     
@@ -30,13 +33,14 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = self.catalogName
+        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         
         let cartButton = UIBarButtonItem(image: UIImage(named: "cart"), style: .plain, target: self, action: #selector(cartButtonAction))
         navigationItem.rightBarButtonItems = [cartButton]
         
-        self.title = catalogName
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,7 +51,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     
     func sendBrowseCategoryCustomEvent() {
         let eventName = "browse_category"
-        self.cordialAPI.sendCustomEvent(eventName: eventName, properties: ["catalogName": catalogName])
+        self.cordialAPI.sendCustomEvent(eventName: eventName, properties: ["catalogName": self.catalogName])
     }
     
     @objc func cartButtonAction() {
@@ -58,6 +62,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         let activities: [UIActivity] = [
             CustomUIActivityProfile(sender: self),
             CustomUIActivityCustomEvent(sender: self),
+            CustomUIActivityInbox(sender: self),
             CustomUIActivityLogin(sender: self),
             CustomUIActivityLogout(sender: self)
         ]
@@ -93,10 +98,10 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         switch segue.identifier {
         case self.segueToProductIdentifier:
             if let productViewController = segue.destination as? ProductViewController {
-                productViewController.catalogName = catalogName
+                productViewController.catalogName = self.catalogName
                 
                 if let cell = sender as? CatalogCollectionViewCell, let selectedIndexPath = collectionView.indexPath(for: cell) {
-                    productViewController.product = products[selectedIndexPath.row] as Product
+                    productViewController.product = self.products[selectedIndexPath.row] as Product
                 }
             }
         default:
@@ -108,17 +113,17 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     // MARK: UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return products.count
+        return self.products.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CatalogCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! CatalogCollectionViewCell
         
-        cell.nameLabel.text = products[indexPath.row].name
-        cell.brandLabel.text = products[indexPath.row].brand
-        cell.priceLabel.text = "$ \(products[indexPath.row].price)" 
+        cell.nameLabel.text = self.products[indexPath.row].name
+        cell.brandLabel.text = self.products[indexPath.row].brand
+        cell.priceLabel.text = "$ \(self.products[indexPath.row].price)"
         
-        if let image = UIImage(named: products[indexPath.row].img) {
+        if let image = UIImage(named: self.products[indexPath.row].img) {
             cell.catalogImageView.contentMode = .scaleAspectFit
             cell.catalogImageView.image = image
         }

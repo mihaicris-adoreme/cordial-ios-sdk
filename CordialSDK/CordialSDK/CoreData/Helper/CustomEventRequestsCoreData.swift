@@ -38,22 +38,15 @@ class CustomEventRequestsCoreData {
                     let newRow = NSManagedObject(entity: entity, insertInto: context)
 
                     do {
-                        if #available(iOS 11.0, *) {
-                            let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: false)
-                            
-                            newRow.setValue(sendCustomEventRequestData, forKey: "data")
-                            newRow.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
-                        } else {
-                            let sendCustomEventRequestData = NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest)
-                            
-                            newRow.setValue(sendCustomEventRequestData, forKey: "data")
-                            newRow.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
-                        }
+                        let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: false)
+                        
+                        newRow.setValue(sendCustomEventRequestData, forKey: "data")
+                        newRow.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
 
                         try context.save()
                     } catch let error {
                         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                            os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                            os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
                         }
                     }
                 }
@@ -83,7 +76,7 @@ class CustomEventRequestsCoreData {
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
     }
@@ -114,7 +107,7 @@ class CustomEventRequestsCoreData {
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
 
@@ -137,7 +130,7 @@ class CustomEventRequestsCoreData {
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
 
@@ -166,7 +159,7 @@ class CustomEventRequestsCoreData {
             
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
         

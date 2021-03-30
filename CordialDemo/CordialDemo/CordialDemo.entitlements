@@ -7,6 +7,12 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:tjs.cordialdev.com</string>
+		<string>applinks:e.a45.clients.cordialdev.com</string>
+		<string>applinks:s.cordial.com</string>
+		<string>applinks:s.a1105.clients.cordialdev.com</string>
+		<string>applinks:s.a1003.clients.cordialdev.com</string>
+		<string>applinks:events-handling-svc.stg.cordialdev.com</string>
+		<string>applinks:events-handling-svc.cordial-core.mobile-sdk-1-12-2.cordialdev.com</string>
 	</array>
 </dict>
 </plist>

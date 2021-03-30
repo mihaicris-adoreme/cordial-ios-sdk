@@ -103,6 +103,13 @@ import os.log
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
     }
     
+    // MARK: Set current mcID
+    
+    @objc public func setCurrentMcID(mcID: String) {
+        CordialUserDefaults.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+        CordialUserDefaults.set(CordialDateFormatter().getCurrentTimestamp(), forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
+    }
+    
     // MARK: Set Contact
     
     @objc public func setContact(primaryKey: String?) {
@@ -113,6 +120,8 @@ import os.log
         internalCordialAPI.setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: previousPrimaryKey)
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
+        
+        InternalCordialAPI().removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate()
         
         let token = internalCordialAPI.getPushNotificationToken()
         let status = internalCordialAPI.getPushNotificationStatus()
@@ -125,6 +134,8 @@ import os.log
     
     @objc public func unsetContact() {
         CordialUserDefaults.set(false, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+        
+        InternalCordialAPI().removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate()
         
         let previousPrimaryKey = self.getContactPrimaryKey()
         

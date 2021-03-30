@@ -17,18 +17,18 @@ class UpsertContactCart {
     
     func upsertContactCart(upsertContactCartRequest: UpsertContactCartRequest) {
         if let url = URL(string: CordialApiEndpoints().getContactCartURL()) {
-            var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+            var request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
             let upsertContactCartJSON = getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
             request.httpBody = upsertContactCartJSON.data(using: .utf8)
             
-            let upsertContactCartDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+            let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
             
             let upsertContactCartURLSessionData = UpsertContactCartURLSessionData(upsertContactCartRequest: upsertContactCartRequest)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART, taskData: upsertContactCartURLSessionData)
-            CordialURLSession.shared.setOperation(taskIdentifier: upsertContactCartDownloadTask.taskIdentifier, data: cordialURLSessionData)
+            CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            self.requestSender.sendRequest(task: upsertContactCartDownloadTask)
+            self.requestSender.sendRequest(task: downloadTask)
         }
     }
     

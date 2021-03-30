@@ -26,7 +26,7 @@ class CordialPushNotificationParserInAppMessage {
     func getTypeIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> String? {
         if let system = userInfo["system"] as? [String: AnyObject],
             let iam = system["iam"] as? [String: AnyObject],
-            let typeIAM = iam["type"] as? String {
+            let typeIAM = InAppMessage().getTypeIAM(payload: iam) {
                 return typeIAM
         }
         
@@ -38,7 +38,7 @@ class CordialPushNotificationParserInAppMessage {
     func getDisplayTypeIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> String? {
         if let system = userInfo["system"] as? [String: AnyObject],
             let iam = system["iam"] as? [String: AnyObject],
-            let displayTypeIAM = iam["displayType"] as? String {
+            let displayTypeIAM = InAppMessage().getDisplayTypeIAM(payload: iam) {
                 return displayTypeIAM
         }
         
@@ -50,7 +50,7 @@ class CordialPushNotificationParserInAppMessage {
     func getInactiveSessionDisplayIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> String? {
         if let system = userInfo["system"] as? [String: AnyObject],
             let iam = system["iam"] as? [String: AnyObject],
-            let inactiveSessionDisplayString = iam["inactiveSessionDisplay"] as? String {
+            let inactiveSessionDisplayString = InAppMessage().getInactiveSessionDisplayIAM(payload: iam) {
                 return inactiveSessionDisplayString
         }
         
@@ -62,7 +62,7 @@ class CordialPushNotificationParserInAppMessage {
     func getExpirationTimeIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> String? {
         if let system = userInfo["system"] as? [String: AnyObject],
             let iam = system["iam"] as? [String: AnyObject],
-            let expirationTime = iam["expirationTime"] as? String {
+            let expirationTime = InAppMessage().getExpirationTimeIAM(payload: iam) {
                 return expirationTime
         }
         
@@ -74,7 +74,7 @@ class CordialPushNotificationParserInAppMessage {
     func getBannerHeightIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
         if let system = userInfo["system"] as? [String: AnyObject],
             let iam = system["iam"] as? [String: AnyObject],
-            let height = iam["height"] as? Int16 {
+            let height = InAppMessage().getBannerHeightIAM(payload: iam) {
                 return height
         }
         
@@ -86,7 +86,7 @@ class CordialPushNotificationParserInAppMessage {
     func getModalTopMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
         if let system = userInfo["system"] as? [String: AnyObject],
             let iam = system["iam"] as? [String: AnyObject],
-            let top = iam["top"] as? Int16 {
+            let top = InAppMessage().getModalTopMarginIAM(payload: iam) {
                 return top
         }
         
@@ -98,7 +98,7 @@ class CordialPushNotificationParserInAppMessage {
     func getModalRightMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
         if let system = userInfo["system"] as? [String: AnyObject],
             let iam = system["iam"] as? [String: AnyObject],
-            let right = iam["right"] as? Int16 {
+            let right = InAppMessage().getModalRightMarginIAM(payload: iam) {
                 return right
         }
         
@@ -110,7 +110,7 @@ class CordialPushNotificationParserInAppMessage {
     func getModalBottomMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
         if let system = userInfo["system"] as? [String: AnyObject],
             let iam = system["iam"] as? [String: AnyObject],
-            let bottom = iam["bottom"] as? Int16 {
+            let bottom = InAppMessage().getModalBottomMarginIAM(payload: iam) {
                 return bottom
         }
         
@@ -122,7 +122,7 @@ class CordialPushNotificationParserInAppMessage {
     func getModalLeftMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
         if let system = userInfo["system"] as? [String: AnyObject],
             let iam = system["iam"] as? [String: AnyObject],
-            let left = iam["left"] as? Int16 {
+            let left = InAppMessage().getModalLeftMarginIAM(payload: iam) {
                 return left
         }
         

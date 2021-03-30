@@ -17,6 +17,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var qtyCachedEventQueueTextField: UITextField!
     @IBOutlet weak var eventsBulkSizeTextField: UITextField!
     @IBOutlet weak var eventsBulkUploadIntervalTextField: UITextField!
+    @IBOutlet weak var inboxMaxCacheSizeTextField: UITextField!
+    @IBOutlet weak var inboxMaxCachableMessageSizeTextField: UITextField!
     
     let cordialAPI = CordialAPI()
     
@@ -29,6 +31,8 @@ class SettingsViewController: UIViewController {
         self.qtyCachedEventQueueTextField.text = String(CordialApiConfiguration.shared.qtyCachedEventQueue)
         self.eventsBulkSizeTextField.text = String(CordialApiConfiguration.shared.eventsBulkSize)
         self.eventsBulkUploadIntervalTextField.text = String(Int(CordialApiConfiguration.shared.eventsBulkUploadInterval))
+        self.inboxMaxCacheSizeTextField.text = String(CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize)
+        self.inboxMaxCachableMessageSizeTextField.text = String(CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize)
         
         self.updateSettingsPage()
     }
@@ -77,13 +81,28 @@ class SettingsViewController: UIViewController {
     }
     
     func saveTestInitData() {
-        if let baseURL = self.baseURLTextField.text, let accountKey = self.accountKeyTextField.text, let channelKey = self.channelKeyTextField.text, let qtyCachedEventQueueString = self.qtyCachedEventQueueTextField.text, let qtyCachedEventQueue = Int(qtyCachedEventQueueString), let eventsBulkSizeString = self.eventsBulkSizeTextField.text, let eventsBulkSize = Int(eventsBulkSizeString), let eventsBulkUploadIntervalString = self.eventsBulkUploadIntervalTextField.text, let eventsBulkUploadInterval = TimeInterval(eventsBulkUploadIntervalString) {
+        if let baseURL = self.baseURLTextField.text,
+           let accountKey = self.accountKeyTextField.text,
+           let channelKey = self.channelKeyTextField.text,
+           let qtyCachedEventQueueString = self.qtyCachedEventQueueTextField.text,
+           let qtyCachedEventQueue = Int(qtyCachedEventQueueString),
+           let eventsBulkSizeString = self.eventsBulkSizeTextField.text,
+           let eventsBulkSize = Int(eventsBulkSizeString),
+           let eventsBulkUploadIntervalString = self.eventsBulkUploadIntervalTextField.text,
+           let eventsBulkUploadInterval = TimeInterval(eventsBulkUploadIntervalString),
+           let maxCacheSizeString = self.inboxMaxCacheSizeTextField.text,
+           let maxCacheSize = Int(maxCacheSizeString),
+           let maxCachableMessageSizeString = self.inboxMaxCachableMessageSizeTextField.text,
+           let maxCachableMessageSize = Int(maxCachableMessageSizeString) {
+            
             self.cordialAPI.setBaseURL(baseURL: baseURL)
             self.cordialAPI.setAccountKey(accountKey: accountKey)
             self.cordialAPI.setChannelKey(channelKey: channelKey)
-            CordialApiConfiguration.shared.qtyCachedEventQueue = qtyCachedEventQueue
-            CordialApiConfiguration.shared.eventsBulkSize = eventsBulkSize
-            CordialApiConfiguration.shared.eventsBulkUploadInterval = eventsBulkUploadInterval
+            CordialApiConfiguration.shared.qtyCachedEventQueue = abs(qtyCachedEventQueue)
+            CordialApiConfiguration.shared.eventsBulkSize = abs(eventsBulkSize)
+            CordialApiConfiguration.shared.eventsBulkUploadInterval = abs(eventsBulkUploadInterval)
+            CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = abs(maxCacheSize)
+            CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize = abs(maxCachableMessageSize)
         }
     }
     
@@ -127,8 +146,8 @@ class SettingsViewController: UIViewController {
     }
     
     func getQCSettings() -> Credentials {
-        let baseURL = "https://events-stream-svc.cordial-core.mobile-sdk-1-11-2.cordialdev.com/"
-        let accountKey = "qc-all-channels"
+        let baseURL = "https://events-stream-svc.cordial-core.mobile-sdk-1-12-2.cordialdev.com/"
+        let accountKey = "qc-all-channels-cID-pk"
         let channelKey = "push"
         
         return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey)
@@ -157,6 +176,8 @@ class SettingsViewController: UIViewController {
         self.qtyCachedEventQueueTextField.isUserInteractionEnabled = true
         self.eventsBulkSizeTextField.isUserInteractionEnabled = true
         self.eventsBulkUploadIntervalTextField.isUserInteractionEnabled = true
+        self.inboxMaxCacheSizeTextField.isUserInteractionEnabled = true
+        self.inboxMaxCachableMessageSizeTextField.isUserInteractionEnabled = true
         
         self.baseURLTextField.textColor = .darkGray
         self.accountKeyTextField.textColor = .darkGray
@@ -164,6 +185,8 @@ class SettingsViewController: UIViewController {
         self.qtyCachedEventQueueTextField.textColor = .darkGray
         self.eventsBulkSizeTextField.textColor = .darkGray
         self.eventsBulkUploadIntervalTextField.textColor = .darkGray
+        self.inboxMaxCacheSizeTextField.textColor = .darkGray
+        self.inboxMaxCachableMessageSizeTextField.textColor = .darkGray
         
         self.baseURLTextField.setBottomBorder(color: .black)
         self.accountKeyTextField.setBottomBorder(color: .black)
@@ -171,6 +194,8 @@ class SettingsViewController: UIViewController {
         self.qtyCachedEventQueueTextField.setBottomBorder(color: .black)
         self.eventsBulkSizeTextField.setBottomBorder(color: .black)
         self.eventsBulkUploadIntervalTextField.setBottomBorder(color: .black)
+        self.inboxMaxCacheSizeTextField.setBottomBorder(color: .black)
+        self.inboxMaxCachableMessageSizeTextField.setBottomBorder(color: .black)
     }
     
     func disableEditing() {
@@ -180,6 +205,8 @@ class SettingsViewController: UIViewController {
         self.qtyCachedEventQueueTextField.isUserInteractionEnabled = false
         self.eventsBulkSizeTextField.isUserInteractionEnabled = false
         self.eventsBulkUploadIntervalTextField.isUserInteractionEnabled = false
+        self.inboxMaxCacheSizeTextField.isUserInteractionEnabled = false
+        self.inboxMaxCachableMessageSizeTextField.isUserInteractionEnabled = false
         
         self.baseURLTextField.textColor = .lightGray
         self.accountKeyTextField.textColor = .lightGray
@@ -187,6 +214,8 @@ class SettingsViewController: UIViewController {
         self.qtyCachedEventQueueTextField.textColor = .lightGray
         self.eventsBulkSizeTextField.textColor = .lightGray
         self.eventsBulkUploadIntervalTextField.textColor = .lightGray
+        self.inboxMaxCacheSizeTextField.textColor = .lightGray
+        self.inboxMaxCachableMessageSizeTextField.textColor = .lightGray
         
         self.baseURLTextField.setBottomBorder(color: .lightGray)
         self.accountKeyTextField.setBottomBorder(color: .lightGray)
@@ -194,5 +223,7 @@ class SettingsViewController: UIViewController {
         self.qtyCachedEventQueueTextField.setBottomBorder(color: .lightGray)
         self.eventsBulkSizeTextField.setBottomBorder(color: .lightGray)
         self.eventsBulkUploadIntervalTextField.setBottomBorder(color: .lightGray)
+        self.inboxMaxCacheSizeTextField.setBottomBorder(color: .lightGray)
+        self.inboxMaxCachableMessageSizeTextField.setBottomBorder(color: .lightGray)
     }
 }

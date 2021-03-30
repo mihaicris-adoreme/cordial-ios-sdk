@@ -10,26 +10,24 @@ import Foundation
 
 class UpsertContacts {
     
-    let internalCordialAPI = InternalCordialAPI()
-    
     let requestSender = DependencyConfiguration.shared.requestSender
     
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
     
         if let url = URL(string: CordialApiEndpoints().getContactsURL()) {
-            var request = CordialRequestFactory().getURLRequest(url: url, httpMethod: .POST)
+            var request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
             let upsertContactRequestsJSON = self.getUpsertContactRequestsJSON(upsertContactRequests: upsertContactRequests)
             
             request.httpBody = upsertContactRequestsJSON.data(using: .utf8)
             
-            let upsertContactsDownloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
+            let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
             
             let upsertContactsURLSessionData = UpsertContactsURLSessionData(upsertContactRequests: upsertContactRequests)
             let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS, taskData: upsertContactsURLSessionData)
-            CordialURLSession.shared.setOperation(taskIdentifier: upsertContactsDownloadTask.taskIdentifier, data: cordialURLSessionData)
+            CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
             
-            self.requestSender.sendRequest(task: upsertContactsDownloadTask)
+            self.requestSender.sendRequest(task: downloadTask)
         }
     }
     
@@ -53,7 +51,7 @@ class UpsertContacts {
     internal func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest) -> String {
         
         var rootContainer  = [
-            "\"deviceId\": \"\(internalCordialAPI.getDeviceIdentifier())\"",
+            "\"deviceId\": \"\(InternalCordialAPI().getDeviceIdentifier())\"",
             "\"status\": \"\(upsertContactRequest.status)\""
         ]
         

@@ -16,7 +16,15 @@ import Foundation
     
     // MARK: Request Sender Init
     
-    @objc public var requestSender = RequestSender()
+    var requestSender = RequestSender()
+    
+    // MARK: URLSessionProtocol Init
+    
+    var inboxMessagesURLSession = InboxMessagesURLSession().session
+    var inboxMessageURLSession = InboxMessageURLSession().session
+    var inboxMessageContentURLSession = InboxMessageContentURLSession().session
+    var updateJWTURLSession = SDKSecurityURLSession().session
+    var emailDeepLinkURLSession = CordialEmailDeepLinkURLSession().session
     
     // MARK: Get Custom Event JSON
     

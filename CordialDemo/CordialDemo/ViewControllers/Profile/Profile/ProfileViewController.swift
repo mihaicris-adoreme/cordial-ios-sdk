@@ -57,7 +57,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if self.attributes.count > 0 {
+        if !self.attributes.isEmpty {
             return self.profileTableFooterView.frame.size.height
         }
         
