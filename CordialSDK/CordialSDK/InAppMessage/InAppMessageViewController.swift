@@ -115,6 +115,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             contentController.addUserScript(staticUserScript)
             
             contentController.add(self, name: "crdlAction")
+            contentController.add(self, name: "crdlCaptureAllInputs")
             
             webConfiguration.userContentController = contentController
             
@@ -213,12 +214,16 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     // MARK: WKScriptMessageHandler
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "crdlAction" {
-            self.userClickedInAppMessageActionButton(messageBody: message.body)
+        switch message.name {
+        case "crdlAction":
+            self.userClickedAnyInAppMessageButton(messageBody: message.body)
+        case "crdlCaptureAllInputs":
+            self.userClickedAnyInAppMessageButton(messageBody: message.body)
+        default: break
         }
     }
     
-    func userClickedInAppMessageActionButton(messageBody: Any) {
+    func userClickedAnyInAppMessageButton(messageBody: Any) {
         if let dict = messageBody as? NSDictionary {
             let mcID = self.inAppMessageData.mcID
             
@@ -230,8 +235,13 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             if let eventName = dict["eventName"] as? String {
                 self.cordialAPI.setCurrentMcID(mcID: mcID)
                 
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
-                self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                if let inputsMapping = dict["inputsMapping"] as? [String: String] {
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: inputsMapping)
+                    self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                } else {
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+                    self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                }
             }
         }
         
