@@ -45,3 +45,9 @@ function crdlCaptureAllInputs(eventName = null) {
         }
     }
 }
+
+// IAM disable zoom input text fields
+var style = document.createElement('style');
+style.innerHTML = "input,select:focus, textarea {font-size: 3pc;}";
+
+document.head.appendChild(style);
