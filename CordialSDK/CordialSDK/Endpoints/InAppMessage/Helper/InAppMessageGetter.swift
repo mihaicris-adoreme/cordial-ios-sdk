@@ -147,7 +147,10 @@ class InAppMessageGetter {
         InAppMessage().prepareAndShowInAppMessage(inAppMessageData: inAppMessageData)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("IAM with mcID: [%{public}@] has been successfully fetch.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID)
+            guard let htmlData = inAppMessageData.html.data(using: .utf8) else { return }
+            let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
+            
+            os_log("IAM with mcID: [%{public}@] has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID, payloadSize)
         }
     }
     

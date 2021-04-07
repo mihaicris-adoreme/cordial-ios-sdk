@@ -48,7 +48,10 @@ class InAppMessageContentGetter {
         InAppMessage().prepareAndShowInAppMessage(inAppMessageData: inAppMessageData)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("IAM content has been successfully fetch.", log: OSLog.cordialInAppMessageContent, type: .info)
+            guard let htmlData = inAppMessageData.html.data(using: .utf8) else { return }
+            let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
+            
+            os_log("IAM content has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessageContent, type: .info, payloadSize)
         }
     }
     
