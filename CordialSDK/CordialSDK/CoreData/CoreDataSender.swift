@@ -37,7 +37,9 @@ class CoreDataSender {
         self.sendCachedContactLogoutRequest()
         
         // IAM
-        InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
+        ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
+            InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
+        }
         
         // Contact Timestamps
         ContactTimestamps.shared.updateIfNeeded()

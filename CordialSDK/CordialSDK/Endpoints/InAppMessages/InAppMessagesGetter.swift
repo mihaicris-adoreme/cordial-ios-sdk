@@ -82,10 +82,13 @@ class InAppMessagesGetter {
             
             let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
             
-            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessageParams: inAppMessageParams)
-            CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
+            ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
+                CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessageParams: inAppMessageParams)
+                CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
+            }
         }
         
+        // Function has been called through barrier queue. No need additional barrier.
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
     }
     
