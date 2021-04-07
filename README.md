@@ -18,6 +18,7 @@
 [Push Notifications](#push-notifications)<br>
 [Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
 [Deep Links](#deep-links)<br>
+[In-App Messaging Link Actions](#in-app-messaging-link-actions)<br>
 [Delaying In-App Messages](#delaying-in-app-messages)<br>
 [Inbox Messages API](#inbox-messages-api)<br>
 
@@ -680,6 +681,14 @@ ___
 ```
 [CordialApiConfiguration shared].vanityDomains = @[@"vanity.domain.com"];
 ```
+
+## In-App Messaging Link Actions
+
+Cordial SDK can handle actions from a designated HTML object. Using `crdlAction` function you can create buttons that deep link to specific content within your app or send custom events such as cart, browse, discount_applied, and dismissed. Using `crdlCaptureAllInputs` function you can capture inputs from input and select html elements and send them as properties of specified custom event. 
+
+To be able to handle deep links from an in-app message, see [Deep Links](#deep-links) section.
+
+For more information, see  [Cordial Knowledge Base](https://support.cordial.com/hc/en-us/articles/360046096752#linkActions).
 
 ## Delaying In-App Messages
 
