@@ -2,12 +2,18 @@
 
 The latest version of this file can be found at the master branch.
 
+## 2.1.0 (2021-04-07)
+### Added
+
+-  The SDK capture inputs from In-App messages
+
 ## 2.0.0 (2021-03-30)
+
 ### Added
 
 - Inbox messages
 - Handling deep links with link tracking on
-- In-app reliability
+- In-App messages reliability
 - Current mcID can be set from a client app
 
 ## 0.4.25 (2021-02-09)
