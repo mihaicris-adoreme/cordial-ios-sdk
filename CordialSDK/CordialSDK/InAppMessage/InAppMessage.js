@@ -1,4 +1,4 @@
-// Action function for user interaction with app
+// IAM action function for user interaction with app
 function crdlAction(deepLink = null, eventName = null) {
    try {
        webkit.messageHandlers.crdlAction.postMessage({
@@ -10,11 +10,44 @@ function crdlAction(deepLink = null, eventName = null) {
    }
 }
 
-// Init head variable
-var head = document.head || document.getElementsByTagName('head')[0];
+// IAM action function for capture all HTML inputs
+function crdlCaptureAllInputs(eventName = null) {
+    if (eventName) {
+        var inputs, index;
+        var inputsMapping = {};
 
-// Disable users selecting text in WKWebView
+        inputs = document.getElementsByTagName('input');
+        for (index = 0; index < inputs.length; ++index) {
+            if (inputs[index].getAttribute('id')) {
+                if (inputs[index].type === 'radio' || inputs[index].type === 'checkbox') {
+                    inputsMapping[inputs[index].getAttribute('id')] = inputs[index].checked;
+                } else {
+                    inputsMapping[inputs[index].getAttribute('id')] = inputs[index].value;
+                }
+            }
+        }
+
+        selects = document.getElementsByTagName('select');
+        
+        for (index = 0; index < selects.length; ++index) {
+            if (selects[index].getAttribute('id')) {
+                inputsMapping[selects[index].getAttribute('id')] = selects[index].value;
+            }
+        }
+           
+        try {
+            webkit.messageHandlers.crdlCaptureAllInputs.postMessage({
+                inputsMapping: inputsMapping,
+                eventName: eventName
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+
+// IAM disable zoom input text fields
 var style = document.createElement('style');
-style.type = 'text/css';
-style.appendChild(document.createTextNode('*{-webkit-touch-callout:none;-webkit-user-select:none}'));
-head.appendChild(style);
+style.innerHTML = "input,select:focus, textarea {font-size: 3pc;}";
+
+document.head.appendChild(style);

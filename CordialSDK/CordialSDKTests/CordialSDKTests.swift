@@ -1226,7 +1226,7 @@ class CordialSDKTests: XCTestCase {
             
             let messageBody = ["deepLink": self.testDeepLinkURL,  "eventName": eventName]
             
-            InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().userClickedInAppMessageActionButton(messageBody: messageBody)
+            InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().userClickedAnyInAppMessageButton(messageBody: messageBody)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 XCTAssert(mock.isVerified)

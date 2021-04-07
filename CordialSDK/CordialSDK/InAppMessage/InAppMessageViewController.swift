@@ -115,6 +115,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             contentController.addUserScript(staticUserScript)
             
             contentController.add(self, name: "crdlAction")
+            contentController.add(self, name: "crdlCaptureAllInputs")
             
             webConfiguration.userContentController = contentController
             
@@ -213,12 +214,16 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     // MARK: WKScriptMessageHandler
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "crdlAction" {
-            self.userClickedInAppMessageActionButton(messageBody: message.body)
+        switch message.name {
+        case "crdlAction":
+            self.userClickedAnyInAppMessageButton(messageBody: message.body)
+        case "crdlCaptureAllInputs":
+            self.userClickedAnyInAppMessageButton(messageBody: message.body)
+        default: break
         }
     }
     
-    func userClickedInAppMessageActionButton(messageBody: Any) {
+    func userClickedAnyInAppMessageButton(messageBody: Any) {
         if let dict = messageBody as? NSDictionary {
             let mcID = self.inAppMessageData.mcID
             
@@ -230,8 +235,32 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             if let eventName = dict["eventName"] as? String {
                 self.cordialAPI.setCurrentMcID(mcID: mcID)
                 
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
-                self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                if let inputsMapping = dict["inputsMapping"] as? [String: AnyObject] {
+                    var properties = [String: String]()
+                    
+                    inputsMapping.forEach { (key, value) in
+                        switch value {
+                        case is String:
+                            guard let valueString = value as? String else { return }
+                            properties[key] = valueString 
+                        case is Bool:
+                            guard let valueBool = value as? Bool else { return }
+                            let valueString = String(valueBool)
+                            properties[key] = valueString
+                        case is Int:
+                            guard let valueInt = value as? Int else { return }
+                            let valueString = String(valueInt)
+                            properties[key] = valueString
+                        default: break
+                        }
+                    }
+                    
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
+                    self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                } else {
+                    let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: nil)
+                    self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+                }
             }
         }
         
