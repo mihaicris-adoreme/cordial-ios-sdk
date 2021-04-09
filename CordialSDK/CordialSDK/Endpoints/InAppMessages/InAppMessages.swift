@@ -33,7 +33,7 @@ class InAppMessages {
                 if InternalCordialAPI().getCurrentJWT() != nil {
                     
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("Fetching IAMs has been start.", log: OSLog.cordialInAppMessages, type: .info)
+                        os_log("Fetching IAMs has been started.", log: OSLog.cordialInAppMessages, type: .info)
                     }
                     
                     if let contactKey = InternalCordialAPI().getContactKey(),

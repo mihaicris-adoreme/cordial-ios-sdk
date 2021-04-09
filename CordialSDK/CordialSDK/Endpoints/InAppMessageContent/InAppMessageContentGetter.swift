@@ -19,7 +19,7 @@ class InAppMessageContentGetter {
                 // This is S3 - No need check JWT 
                 
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Fetching IAM content has been start.", log: OSLog.cordialInAppMessageContent, type: .info)
+                    os_log("Fetching IAM content has been started.", log: OSLog.cordialInAppMessageContent, type: .info)
                 }
                 
                 let request = CordialRequestFactory().getBaseURLRequest(url: url, httpMethod: .GET)
