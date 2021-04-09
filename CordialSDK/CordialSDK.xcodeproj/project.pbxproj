@@ -165,6 +165,7 @@
 		9EAA8D6125FB843E00E4A691 /* ContactTimestampURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D6025FB843E00E4A691 /* ContactTimestampURLSessionManager.swift */; };
 		9EAA8D9725FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D9625FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift */; };
 		9EAA8D9D25FB93DD00E4A691 /* ContactTimestampData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAA8D9C25FB93DD00E4A691 /* ContactTimestampData.swift */; };
+		9EABE8412620811A0066BADC /* InAppMessageInputsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABE8402620811A0066BADC /* InAppMessageInputsDelegate.swift */; };
 		9EAF003A25FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF003825FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataClass.swift */; };
 		9EAF003B25FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF003925FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataProperties.swift */; };
 		9EAF00942600CFAD00AD2EE4 /* InAppMessageContentURLCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF00932600CFAD00AD2EE4 /* InAppMessageContentURLCoreData.swift */; };
@@ -451,6 +452,7 @@
 		9EAA8D6025FB843E00E4A691 /* ContactTimestampURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTimestampURLSessionManager.swift; sourceTree = "<group>"; };
 		9EAA8D9625FB8D2D00E4A691 /* InAppMessagesDeliveryType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessagesDeliveryType.swift; sourceTree = "<group>"; };
 		9EAA8D9C25FB93DD00E4A691 /* ContactTimestampData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTimestampData.swift; sourceTree = "<group>"; };
+		9EABE8402620811A0066BADC /* InAppMessageInputsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageInputsDelegate.swift; sourceTree = "<group>"; };
 		9EAF003825FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactTimestampsURL+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9EAF003925FC1E4A00AD2EE4 /* ContactTimestampsURL+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContactTimestampsURL+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9EAF00932600CFAD00AD2EE4 /* InAppMessageContentURLCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageContentURLCoreData.swift; sourceTree = "<group>"; };
@@ -1013,6 +1015,7 @@
 				9E9F2FDE238BF6CC0034F811 /* InAppMessageDelayViewController.swift */,
 				9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */,
 				9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */,
+				9EABE8402620811A0066BADC /* InAppMessageInputsDelegate.swift */,
 				9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */,
 				9EE94E2C233CF8C9009651DF /* InAppMessageInactiveSessionDisplayType.swift */,
 				9EB448B522E9B6160043C256 /* InAppMessageDisplayType.swift */,
@@ -1614,6 +1617,7 @@
 				9EAA8CDC25F17B5700E4A691 /* ContactTimestampsURLCoreData.swift in Sources */,
 				9E06C9E625E93E7E003D862E /* ContactTimestamps.swift in Sources */,
 				9E3EA6272257A02400ECE52E /* CustomEventsSender.swift in Sources */,
+				9EABE8412620811A0066BADC /* InAppMessageInputsDelegate.swift in Sources */,
 				9EB448B622E9B6160043C256 /* InAppMessageDisplayType.swift in Sources */,
 				9E4FA38022FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift in Sources */,
 				9EBE676322732A930065AA06 /* ContactOrderRequestsCoreData.swift in Sources */,

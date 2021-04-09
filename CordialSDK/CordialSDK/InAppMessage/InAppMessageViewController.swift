@@ -255,6 +255,10 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                         }
                     }
                     
+                    if let inAppMessageInputsDelegate = CordialApiConfiguration.shared.inAppMessageInputsDelegate {
+                        inAppMessageInputsDelegate.inputsCaptured(eventName: eventName, properties: properties)
+                    }
+                    
                     let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
                     self.internalCordialAPI.sendCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 } else {

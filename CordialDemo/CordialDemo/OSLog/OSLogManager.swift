@@ -13,6 +13,6 @@ extension OSLog {
     
     private static var subsystem = Bundle.main.bundleIdentifier!
     
-    static let сordialSDKDemoInboxMessages = OSLog(subsystem: subsystem, category: "CordialSDKDemoInboxMessages")
+    static let сordialSDKDemo = OSLog(subsystem: subsystem, category: "CordialSDKDemo")
     
 }
