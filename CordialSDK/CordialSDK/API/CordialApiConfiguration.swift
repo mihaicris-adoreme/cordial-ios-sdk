@@ -68,7 +68,7 @@ import CoreLocation
     @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
     private override init() {
-        self.cordialPushNotification.getNotificationSettings()
+        self.cordialPushNotification.registerForSilentPushNotifications()
     }
     
     @objc public func initialize(accountKey: String, channelKey: String) {
