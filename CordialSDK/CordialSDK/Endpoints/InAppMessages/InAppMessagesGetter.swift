@@ -86,6 +86,7 @@ class InAppMessagesGetter {
             CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
         }
         
+        // Function has been called through barrier queue. No need additional barrier.
         InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
     }
     
