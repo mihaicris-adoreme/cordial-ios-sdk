@@ -2,6 +2,11 @@
 
 The latest version of this file can be found at the master branch.
 
+## 2.1.1 (2021-04-14)
+### Fixed
+
+- Fixed resending failed upsert contact requests
+
 ## 2.1.0 (2021-04-07)
 ### Added
 
