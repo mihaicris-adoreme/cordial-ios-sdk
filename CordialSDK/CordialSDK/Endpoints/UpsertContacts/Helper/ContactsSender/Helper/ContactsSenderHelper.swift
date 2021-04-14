@@ -34,24 +34,23 @@ class ContactsSenderHelper {
     
     private func removeUpsertContactRequestIfNotificationTokenNotPresented(upsertContactRequests: [UpsertContactRequest]) -> [UpsertContactRequest] {
         
-        var upsertContactRequests = upsertContactRequests
+        var returnUpsertContactRequests = [UpsertContactRequest]()
         
-        for index in 0...(upsertContactRequests.count - 1) {
-            if upsertContactRequests[index].token == nil {
-                
-                CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: [upsertContactRequests[index]])
+        upsertContactRequests.forEach { upsertContactRequest in
+            if upsertContactRequest.token != nil {
+                returnUpsertContactRequests.append(upsertContactRequest)
+            } else {
+                CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: [upsertContactRequest])
                 
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     upsertContactRequests.forEach({ upsertContactRequest in
                         os_log("Sending contact failed. Saved to retry later. Request ID: [%{public}@] Error: [Device token is absent]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
                     })
                 }
-                
-                upsertContactRequests.remove(at: index)
             }
         }
         
-        return upsertContactRequests
+        return returnUpsertContactRequests
     }
 
 }
