@@ -35,7 +35,7 @@ class CoreDataSender {
             
             // IAM
             ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
-                InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
+                InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
             }
             
             // Contact Timestamps

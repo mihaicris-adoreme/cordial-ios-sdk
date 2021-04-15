@@ -10,9 +10,8 @@ import Foundation
 
 class InAppMessagesQueueManager {
     
-    func fetchInAppMessagesFromQueue() {
-        let mcIDs = CoreDataManager.shared.inAppMessagesQueue.getMcIDsFromCoreDataInAppMessagesQueue()
-        mcIDs.forEach { mcID in
+    func fetchInAppMessageDataFromQueue() {
+        if let mcID = CoreDataManager.shared.inAppMessagesQueue.getMcIdFromCoreDataInAppMessagesQueue() {
             if let inAppMessageContent = CoreDataManager.shared.inAppMessageContentURL.getInAppMessageContentFromCoreDataByMcID(mcID: mcID),
                API.isValidExpirationDate(date: inAppMessageContent.expireDate) {
                     

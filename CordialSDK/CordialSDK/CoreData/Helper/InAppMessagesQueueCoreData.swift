@@ -40,21 +40,24 @@ class InAppMessagesQueueCoreData {
         }
     }
     
-    func getMcIDsFromCoreDataInAppMessagesQueue() -> [String] {
+    func getMcIdFromCoreDataInAppMessagesQueue() -> String? {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        request.fetchLimit = 1
         
-        var mcIDs = [String]()
         do {
             let result = try context.fetch(request)
             for managedObject in result as! [NSManagedObject] {
                 guard let anyData = managedObject.value(forKey: "mcID") else { continue }
                 let mcID = anyData as! String
                 
-                mcIDs.append(mcID)
+                context.delete(managedObject)
+                try context.save()
+                
+                return mcID
             }
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
@@ -64,7 +67,7 @@ class InAppMessagesQueueCoreData {
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
-        return mcIDs
+        return nil
     }
     
 }

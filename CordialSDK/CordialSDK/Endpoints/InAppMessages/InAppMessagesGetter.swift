@@ -94,7 +94,7 @@ class InAppMessagesGetter {
             
             CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: mcIDs)
             
-            InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
+            InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
         }
     }
     

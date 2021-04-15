@@ -17,6 +17,7 @@ class ThreadQueues {
     let queueSendCustomEvent = DispatchQueue(label: "CordialCoreDataSendCustomEventThreadQueue", attributes: .concurrent)
     let queueUpsertContactCart = DispatchQueue(label: "CordialCoreDataUpsertContactCartThreadQueue", attributes: .concurrent)
     let queueSendContactOrder = DispatchQueue(label: "CordialCoreDataSendContactOrderThreadQueue", attributes: .concurrent)
+    let queueInAppMessageCache = DispatchQueue(label: "CordialCoreDataFetchInAppMessageDataThreadQueue", attributes: .concurrent)
     let queueFetchInAppMessages = DispatchQueue(label: "CordialCoreDataFetchInAppMessagesThreadQueue", attributes: .concurrent)
     let queueFetchInAppMessageContent = DispatchQueue(label: "CordialCoreDataFetchInAppMessageContentThreadQueue", attributes: .concurrent)
     let queueInboxMessagesMarkReadUnread = DispatchQueue(label: "CordialCoreDataInboxMessagesMarkReadUnreadThreadQueue", attributes: .concurrent)

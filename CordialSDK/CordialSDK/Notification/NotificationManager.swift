@@ -106,7 +106,7 @@ class NotificationManager {
         
         // IAM
         ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
-            InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
+            InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
         }
               
         // IAMs
