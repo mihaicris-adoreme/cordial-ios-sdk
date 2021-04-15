@@ -16,7 +16,9 @@ class InAppMessagesQueueManager {
             if let inAppMessageContent = CoreDataManager.shared.inAppMessageContentURL.getInAppMessageContentFromCoreDataByMcID(mcID: mcID),
                API.isValidExpirationDate(date: inAppMessageContent.expireDate) {
                     
-                InAppMessageContentGetter().fetchInAppMessageContent(mcID: mcID, url: inAppMessageContent.url)
+                ThreadQueues.shared.queueFetchInAppMessageContent.sync(flags: .barrier) {
+                    InAppMessageContentGetter().fetchInAppMessageContent(mcID: mcID, url: inAppMessageContent.url)
+                }
             } else {
                 InAppMessageGetter().fetchInAppMessage(mcID: mcID)
             }

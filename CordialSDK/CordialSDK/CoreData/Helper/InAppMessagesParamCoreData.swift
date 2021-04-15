@@ -14,29 +14,34 @@ class InAppMessagesParamCoreData {
     
     let entityName = "InAppMessagesParam"
  
-    func setParamsToCoreDataInAppMessagesParam(inAppMessageParams: InAppMessageParams) {
+    func setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: [InAppMessageParams]) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            let newRow = NSManagedObject(entity: entity, insertInto: context)
             
-            do {
-                newRow.setValue(inAppMessageParams.mcID, forKey: "mcID")
-                newRow.setValue(inAppMessageParams.date, forKey: "date")
-                newRow.setValue(inAppMessageParams.type.rawValue, forKey: "type")
-                newRow.setValue(inAppMessageParams.height, forKey: "height")
-                newRow.setValue(inAppMessageParams.top, forKey: "top")
-                newRow.setValue(inAppMessageParams.right, forKey: "right")
-                newRow.setValue(inAppMessageParams.bottom, forKey: "bottom")
-                newRow.setValue(inAppMessageParams.left, forKey: "left")
-                newRow.setValue(inAppMessageParams.displayType.rawValue, forKey: "displayType")
-                newRow.setValue(inAppMessageParams.expirationTime, forKey: "expirationTime")
-                newRow.setValue(inAppMessageParams.inactiveSessionDisplay.rawValue, forKey: "inactiveSessionDisplay")
+            if !inAppMessagesParams.isEmpty {
+                inAppMessagesParams.forEach { inAppMessageParams in
+                    let newRow = NSManagedObject(entity: entity, insertInto: context)
+                                
+                    newRow.setValue(inAppMessageParams.mcID, forKey: "mcID")
+                    newRow.setValue(inAppMessageParams.date, forKey: "date")
+                    newRow.setValue(inAppMessageParams.type.rawValue, forKey: "type")
+                    newRow.setValue(inAppMessageParams.height, forKey: "height")
+                    newRow.setValue(inAppMessageParams.top, forKey: "top")
+                    newRow.setValue(inAppMessageParams.right, forKey: "right")
+                    newRow.setValue(inAppMessageParams.bottom, forKey: "bottom")
+                    newRow.setValue(inAppMessageParams.left, forKey: "left")
+                    newRow.setValue(inAppMessageParams.displayType.rawValue, forKey: "displayType")
+                    newRow.setValue(inAppMessageParams.expirationTime, forKey: "expirationTime")
+                    newRow.setValue(inAppMessageParams.inactiveSessionDisplay.rawValue, forKey: "inactiveSessionDisplay")
+                }
                 
-                try context.save()
-            } catch let error {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                do {
+                    try context.save()
+                } catch let error {
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                    }
                 }
             }
         }

@@ -14,17 +14,22 @@ class InAppMessagesQueueCoreData {
     
     let entityName = "InAppMessagesQueue"
     
-    func setMcIdToCoreDataInAppMessagesQueue(mcID: String) {
+    func setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [String]) {
         let context = CoreDataManager.shared.persistentContainer.viewContext
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            let newRow = NSManagedObject(entity: entity, insertInto: context)
             
-            if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
-                do {
-                    newRow.setValue(mcID, forKey: "mcID")
-                    newRow.setValue(date, forKey: "date")
+            if !mcIDs.isEmpty {
+                mcIDs.forEach { mcID in
+                    let newRow = NSManagedObject(entity: entity, insertInto: context)
                     
+                    if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
+                        newRow.setValue(mcID, forKey: "mcID")
+                        newRow.setValue(date, forKey: "date")
+                    }
+                }
+                
+                do {
                     try context.save()
                 } catch let error {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {

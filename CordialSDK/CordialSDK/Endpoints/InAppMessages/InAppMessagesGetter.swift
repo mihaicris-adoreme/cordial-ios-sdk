@@ -28,6 +28,9 @@ class InAppMessagesGetter {
     func setInAppMessagesParamsToCoreData(messages: [Dictionary<String, AnyObject>]) {
         let cordialDateFormatter = CordialDateFormatter()
         
+        var inAppMessagesParams = [InAppMessageParams]()
+        var mcIDs = [String]()
+        
         for message in messages {
             guard let mcID = message["_id"] as? String else { continue }
             
@@ -82,12 +85,17 @@ class InAppMessagesGetter {
             
             let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
             
-            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessageParams: inAppMessageParams)
-            CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
+            inAppMessagesParams.append(inAppMessageParams)
+            mcIDs.append(mcID)
         }
         
-        // Function has been called through barrier queue. No need additional barrier.
-        InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
+        DispatchQueue.main.async {
+            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: inAppMessagesParams)
+            
+            CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: mcIDs)
+            
+            InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
+        }
     }
     
 }
