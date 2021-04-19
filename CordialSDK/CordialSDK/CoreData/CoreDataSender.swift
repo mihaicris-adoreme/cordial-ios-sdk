@@ -48,7 +48,7 @@ class CoreDataSender {
         self.sendCachedContactLogoutRequest()
     }
     
-    func sendCachedUpsertContactRequests() {
+    private func sendCachedUpsertContactRequests() {
         ThreadQueues.shared.queueUpsertContact.sync(flags: .barrier) {
             let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
             if !upsertContactRequests.isEmpty {

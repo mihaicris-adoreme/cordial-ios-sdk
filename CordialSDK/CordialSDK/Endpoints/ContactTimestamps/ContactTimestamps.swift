@@ -94,16 +94,27 @@ class ContactTimestamps {
     }
     
     private func isEmptyContactTimestamps(error: ResponseError) -> Bool {
-        if error.statusCode == 404, let responseBody = error.responseBody {
-            if let responseBodyData = responseBody.data(using: .utf8),
-               let responseBodyJSONSerialization = try? JSONSerialization.jsonObject(with: responseBodyData, options: []),
-               let responseBodyJSON = responseBodyJSONSerialization as? [String: AnyObject],
-               let message = responseBodyJSON["message"] as? [String: AnyObject],
-               let errorCode = message["errorCode"] as? String,
-               errorCode == "no_timestamps_file" {
-                    
-                return true
+        
+        switch error.statusCode {
+        case 400:
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("No timestamps URL yet", log: OSLog.cordialContactTimestamps, type: .info)
             }
+            
+            return true
+        case 404:
+            if let responseBody = error.responseBody {
+                if let responseBodyData = responseBody.data(using: .utf8),
+                   let responseBodyJSONSerialization = try? JSONSerialization.jsonObject(with: responseBodyData, options: []),
+                   let responseBodyJSON = responseBodyJSONSerialization as? [String: AnyObject],
+                   let message = responseBodyJSON["message"] as? [String: AnyObject],
+                   let errorCode = message["errorCode"] as? String,
+                   errorCode == "no_timestamps_file" {
+                        
+                    return true
+                }
+            }
+        default: break
         }
         
         return false

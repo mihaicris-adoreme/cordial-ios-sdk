@@ -58,6 +58,8 @@ class ContactsSender {
     }
     
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
+        CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+        
         let internalCordialAPI = InternalCordialAPI()
         
         internalCordialAPI.setIsCurrentlyUpsertingContacts(false)
