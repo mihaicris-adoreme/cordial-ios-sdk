@@ -113,6 +113,8 @@ import os.log
     // MARK: Set Contact
     
     @objc public func setContact(primaryKey: String?) {
+        CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+        
         let internalCordialAPI = InternalCordialAPI()
         
         let previousPrimaryKey = self.getContactPrimaryKey()

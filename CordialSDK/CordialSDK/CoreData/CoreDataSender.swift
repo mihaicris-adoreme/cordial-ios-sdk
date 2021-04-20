@@ -32,18 +32,20 @@ class CoreDataSender {
             self.sendCachedInboxMessagesMarkReadUnreadRequests()
             
             self.sendCachedInboxMessageDeleteRequests()
+            
+            // IAM
+            ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
+                InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
+            }
+            
+            // Contact Timestamps
+            ContactTimestamps.shared.updateIfNeeded()
+            
+            // Contact Timestamp URL
+            ContactTimestampURL.shared.updateIfNeeded(nil)
         }
         
         self.sendCachedContactLogoutRequest()
-        
-        // IAM
-        InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
-        
-        // Contact Timestamps
-        ContactTimestamps.shared.updateIfNeeded()
-        
-        // Contact Timestamp URL
-        ContactTimestampURL.shared.updateIfNeeded(nil)
     }
     
     func sendCachedUpsertContactRequests() {

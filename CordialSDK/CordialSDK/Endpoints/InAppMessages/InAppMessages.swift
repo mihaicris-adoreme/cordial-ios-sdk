@@ -33,7 +33,7 @@ class InAppMessages {
                 if InternalCordialAPI().getCurrentJWT() != nil {
                     
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("Fetching IAMs has been start.", log: OSLog.cordialInAppMessages, type: .info)
+                        os_log("Fetching IAMs has been started.", log: OSLog.cordialInAppMessages, type: .info)
                     }
                     
                     if let contactKey = InternalCordialAPI().getContactKey(),
@@ -81,7 +81,10 @@ class InAppMessages {
         }
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("IAMs has been successfully fetch.", log: OSLog.cordialInAppMessages, type: .info)
+            guard let htmlData = messages.description.data(using: .utf8) else { return }
+            let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
+            
+            os_log("IAMs has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessages, type: .info, payloadSize)
         }
     }
     

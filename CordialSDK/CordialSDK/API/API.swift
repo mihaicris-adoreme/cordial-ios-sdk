@@ -88,6 +88,15 @@ struct API {
         
         return false
     }
+        
+    static func sizeFormatter(data: Data, formatter: ByteCountFormatter.Units) -> String {
+        let byteCountFormatter = ByteCountFormatter()
+        
+        byteCountFormatter.allowedUnits = formatter
+        byteCountFormatter.countStyle = .file
+        
+        return byteCountFormatter.string(fromByteCount: Int64(data.count))
+    }
 }
 
 extension String {
