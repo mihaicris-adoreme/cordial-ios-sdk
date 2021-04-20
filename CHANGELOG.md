@@ -12,6 +12,7 @@ The latest version of this file can be found at the master branch.
 
 - Do not send in-app message dismiss events on action clicks and input capturing
 - Requesting push notification token and anonymously logging in a contact by default
+- In-app messages content fetched sequentially
 
 ## 2.1.1 (2021-04-14)
 
