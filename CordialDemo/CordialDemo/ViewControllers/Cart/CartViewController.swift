@@ -37,11 +37,6 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         self.tableView.register(UINib(nibName: "CartTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: self.cartFooterIdentifier)
         self.cartTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: self.cartFooterIdentifier) as? CartTableFooterView
         self.cartTableFooterView.checkoutButton.addTarget(self, action: #selector(checkoutAction), for: .touchUpInside)
-        
-        self.cartTableFooterView.layer.shadowColor = UIColor.gray.cgColor
-        self.cartTableFooterView.layer.shadowOpacity = 1
-        self.cartTableFooterView.layer.shadowOffset = .zero
-        self.cartTableFooterView.layer.shadowRadius = 10
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,6 +121,15 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     // MARK: UITableViewDelegate
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.white
+        self.cartTableFooterView.backgroundView = backgroundView
+        
+        self.cartTableFooterView.checkoutButtonView.layer.shadowColor = UIColor.gray.cgColor
+        self.cartTableFooterView.checkoutButtonView.layer.shadowOpacity = 1
+        self.cartTableFooterView.checkoutButtonView.layer.shadowOffset = .zero
+        self.cartTableFooterView.checkoutButtonView.layer.shadowRadius = 10
+        
         return self.cartTableFooterView
     }
     

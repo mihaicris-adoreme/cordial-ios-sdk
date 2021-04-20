@@ -903,7 +903,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Iz0-K3-5Pe">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="Iz0-K3-5Pe">
                                 <rect key="frame" x="0.0" y="221" width="320" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="140" id="Bqm-pl-ydh"/>
@@ -937,7 +937,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="zA2-TE-FbW">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="zA2-TE-FbW">
                                 <rect key="frame" x="0.0" y="429" width="320" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="140" id="vYH-Tm-nzz"/>
@@ -1869,8 +1869,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qgl-5n-UFL"/>
-        <segue reference="75C-Gr-WT6"/>
+        <segue reference="s5i-HI-zGc"/>
+        <segue reference="h0i-X5-r8G"/>
         <segue reference="AlP-xG-MIL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.25567400455474854" green="0.42760902643203735" blue="0.56480115652084351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

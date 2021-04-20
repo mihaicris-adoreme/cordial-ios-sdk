@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -47,7 +48,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="up3-x7-fPT">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="up3-x7-fPT">
                             <rect key="frame" x="20" y="97.5" width="280" height="48.5"/>
                             <color key="backgroundColor" red="0.77821618319999997" green="0.16530567409999999" blue="0.19212961200000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <constraints>
@@ -58,7 +59,7 @@
                             </state>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="up3-x7-fPT" secondAttribute="bottom" constant="20" id="3Gp-qC-tHQ"/>
                         <constraint firstItem="up3-x7-fPT" firstAttribute="trailing" secondItem="SW2-hQ-eLt" secondAttribute="trailing" id="3v3-64-2p5"/>
@@ -77,6 +78,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
                 <constraint firstItem="Knz-ot-ftO" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="1XV-cP-tR7"/>
                 <constraint firstItem="Knz-ot-ftO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="HSg-1L-axh"/>
@@ -84,13 +86,18 @@
                 <constraint firstItem="Knz-ot-ftO" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="uoD-XJ-IPA"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="checkoutButton" destination="up3-x7-fPT" id="TPc-TC-D1D"/>
+                <outlet property="checkoutButtonView" destination="Knz-ot-ftO" id="iEe-kC-2Yf"/>
                 <outlet property="totalPriceLabel" destination="CxP-hF-TkS" id="m7l-KA-s9s"/>
                 <outlet property="totalQtyLabel" destination="SW2-hQ-eLt" id="dvJ-bl-nqf"/>
             </connections>
             <point key="canvasLocation" x="0.0" y="-100.35211267605634"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
