@@ -65,17 +65,19 @@ class CordialPushNotificationHelper {
             let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_DEEP_LINK_OPEN, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
-                if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                    cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, scene: scene)
+            DispatchQueue.main.async {
+                if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
+                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, scene: scene)
+                    } else {
+                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
+                    }
                 } else {
-                    cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
-                }
-            } else {
-                if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                    cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, scene: scene)
-                } else {
-                    cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil)
+                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, scene: scene)
+                    } else {
+                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil)
+                    }
                 }
             }
         }
@@ -115,25 +117,24 @@ class CordialPushNotificationHelper {
                     if settings.authorizationStatus == .authorized {
                         if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
                             let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
-                            
-                            internalCordialAPI.setPushNotificationStatus(status: status)
-                            
-                            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-                            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+                            self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
                         }
                     } else {
                         if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
                             let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
-                            
-                            internalCordialAPI.setPushNotificationStatus(status: status)
-                            
-                            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-                            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+                            self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
                         }
                     }
                 }
             })
         }
+    }
+    
+    private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String) {
+        internalCordialAPI.setPushNotificationStatus(status: status)
+        
+        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
     private func isSentUpsertContactsWithin24Hours() -> Bool {

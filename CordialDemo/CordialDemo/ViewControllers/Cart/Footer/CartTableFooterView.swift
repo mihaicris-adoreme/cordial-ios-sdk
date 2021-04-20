@@ -13,5 +13,6 @@ class CartTableFooterView: UITableViewHeaderFooterView {
     @IBOutlet weak var totalQtyLabel: UILabel!
     @IBOutlet weak var totalPriceLabel: UILabel!
     @IBOutlet weak var checkoutButton: UIButton!
+    @IBOutlet weak var checkoutButtonView: UIView!
     
 }

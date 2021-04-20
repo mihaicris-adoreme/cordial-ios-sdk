@@ -19,7 +19,7 @@ class InAppMessageContentGetter {
                 // This is S3 - No need check JWT 
                 
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Fetching IAM content has been start.", log: OSLog.cordialInAppMessageContent, type: .info)
+                    os_log("Fetching IAM content has been started with mcID: [%{public}@]", log: OSLog.cordialInAppMessageContent, type: .info, mcID)
                 }
                 
                 let request = CordialRequestFactory().getBaseURLRequest(url: url, httpMethod: .GET)
@@ -33,12 +33,12 @@ class InAppMessageContentGetter {
 
                 self.requestSender.sendRequest(task: downloadTask)
             } else {
-                let message = "Fetching IAM content failed. Error: [No Internet connection]"
+                let message = "Fetching IAM content failed with mcID: [\(mcID)]. Error: [No Internet connection]"
                 let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
                 self.errorHandler(mcID: mcID, error: responseError)
             }
         } else {
-            let message = "Fetching IAM content failed. Error: [User no login]"
+            let message = "Fetching IAM content failed with mcID: [\(mcID)]. Error: [User no login]"
             let responseError = ResponseError(message: message, statusCode: nil, responseBody: nil, systemError: nil)
             self.errorHandler(mcID: mcID, error: responseError)
         }
@@ -48,7 +48,10 @@ class InAppMessageContentGetter {
         InAppMessage().prepareAndShowInAppMessage(inAppMessageData: inAppMessageData)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("IAM content has been successfully fetch.", log: OSLog.cordialInAppMessageContent, type: .info)
+            guard let htmlData = inAppMessageData.html.data(using: .utf8) else { return }
+            let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
+            
+            os_log("IAM content has been successfully fetch with mcID: [%{public}@]. Payload size: %{public}@.", log: OSLog.cordialInAppMessageContent, type: .info, inAppMessageData.mcID, payloadSize)
         }
     }
     

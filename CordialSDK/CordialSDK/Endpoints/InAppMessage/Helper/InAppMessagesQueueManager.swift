@@ -10,17 +10,16 @@ import Foundation
 
 class InAppMessagesQueueManager {
     
-    func fetchInAppMessagesFromQueue() {
-        ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
-            let mcIDs = CoreDataManager.shared.inAppMessagesQueue.getMcIDsFromCoreDataInAppMessagesQueue()
-            mcIDs.forEach { mcID in
-                if let inAppMessageContent = CoreDataManager.shared.inAppMessageContentURL.getInAppMessageContentFromCoreDataByMcID(mcID: mcID),
-                   API.isValidExpirationDate(date: inAppMessageContent.expireDate) {
-                        
+    func fetchInAppMessageDataFromQueue() {
+        if let mcID = CoreDataManager.shared.inAppMessagesQueue.getMcIdFromCoreDataInAppMessagesQueue() {
+            if let inAppMessageContent = CoreDataManager.shared.inAppMessageContentURL.getInAppMessageContentFromCoreDataByMcID(mcID: mcID),
+               API.isValidExpirationDate(date: inAppMessageContent.expireDate) {
+                    
+                ThreadQueues.shared.queueFetchInAppMessageContent.sync(flags: .barrier) {
                     InAppMessageContentGetter().fetchInAppMessageContent(mcID: mcID, url: inAppMessageContent.url)
-                } else {
-                    InAppMessageGetter().fetchInAppMessage(mcID: mcID)
                 }
+            } else {
+                InAppMessageGetter().fetchInAppMessage(mcID: mcID)
             }
         }
     }

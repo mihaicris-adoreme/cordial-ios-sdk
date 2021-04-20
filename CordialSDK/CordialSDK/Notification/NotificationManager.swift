@@ -105,11 +105,15 @@ class NotificationManager {
         CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
         
         // IAM
-        InAppMessagesQueueManager().fetchInAppMessagesFromQueue()
-        InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
+        ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
+            InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
+        }
               
         // IAMs
         InAppMessagesGetter().startFetchInAppMessages(isSilentPushDeliveryEvent: false)
+        
+        // IAM show
+        InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
         
         if let emailDeepLinkURL = URL(string: self.emailDeepLink) {
             CordialEmailDeepLink().open(url: emailDeepLinkURL)
@@ -150,6 +154,7 @@ class NotificationManager {
         notificationCenter.addObserver(self, selector: #selector(connectionSettingsHasBeenChangeHandler), name: .cordialConnectionSettingsHasBeenChange, object: nil)
         
         CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
+        CordialApiConfiguration.shared.cordialPushNotification.registerForSilentPushNotifications()
     }
 
 }

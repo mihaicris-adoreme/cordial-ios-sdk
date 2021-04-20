@@ -69,9 +69,9 @@ class CordialSwizzlerHelper {
                     status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                 }
                 
-                self.sendPushNotificationToken(token: token, status: status)
+                InternalCordialAPI().setPushNotificationStatus(status: status)
                 
-                CoreDataManager.shared.coreDataSender.sendCachedUpsertContactRequests()
+                self.sendPushNotificationToken(token: token, status: status)
             })
         }
     }
@@ -83,12 +83,10 @@ class CordialSwizzlerHelper {
             
             internalCordialAPI.setPushNotificationToken(token: token)
             
-            if InternalCordialAPI().isUserLogin() {
-                let primaryKey = CordialAPI().getContactPrimaryKey()
-                
-                let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-                ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
-            }
+            let primaryKey = CordialAPI().getContactPrimaryKey()
+            
+            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
         }
     }
         

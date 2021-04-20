@@ -30,6 +30,7 @@ import CoreLocation
     
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
+    @objc public var inAppMessageInputsDelegate: InAppMessageInputsDelegate?
     @objc public var inboxMessageDelegate: InboxMessageDelegate?
     
     @objc public var pushesConfiguration: CordialPushNotificationType = .SDK
@@ -66,10 +67,6 @@ import CoreLocation
     }
 
     @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
-    
-    private override init() {
-        self.cordialPushNotification.getNotificationSettings()
-    }
     
     @objc public func initialize(accountKey: String, channelKey: String) {
         self.accountKey = accountKey

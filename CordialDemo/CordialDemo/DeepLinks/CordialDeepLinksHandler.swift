@@ -18,25 +18,27 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
             return
         }
         
-        if host == self.deepLinksHost {
-            if let deepLinkURL = self.getDeepLinkURL(url: url),
-               let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
-               let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-                
-                self.showAppDelegateDeepLink(product: product)
-                
-            } else if let fallbackURL = self.getDeepLinkURL(url: fallbackURL),
-                      let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
-                      let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-                
-                self.showAppDelegateDeepLink(product: product)
-                
-            } else if let webpageUrl = URL(string: "https://\(host)/") {
-                
-                UIApplication.shared.open(webpageUrl)
+        DispatchQueue.main.async {
+            if host == self.deepLinksHost {
+                if let deepLinkURL = self.getDeepLinkURL(url: url),
+                   let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
+                   let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+                    
+                    self.showAppDelegateDeepLink(product: product)
+                    
+                } else if let fallbackURL = self.getDeepLinkURL(url: fallbackURL),
+                          let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
+                          let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+                    
+                    self.showAppDelegateDeepLink(product: product)
+                    
+                } else if let webpageUrl = URL(string: "https://\(host)/") {
+                    
+                    UIApplication.shared.open(webpageUrl)
+                }
+            } else {
+                UIApplication.shared.open(url)
             }
-        } else {
-            UIApplication.shared.open(url)
         }
     }
     
@@ -46,25 +48,27 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
             return
         }
         
-        if host == self.deepLinksHost {
-            if let deepLinkURL = self.getDeepLinkURL(url: url),
-               let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
-               let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-                
-                self.showSceneDelegateDeepLink(product: product, scene: scene)
-                
-            } else if let fallbackURL = self.getDeepLinkURL(url: fallbackURL),
-                      let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
-                      let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-                
-                self.showSceneDelegateDeepLink(product: product, scene: scene)
-                
-            } else if let webpageUrl = URL(string: "https://\(host)/") {
-                
-                UIApplication.shared.open(webpageUrl)
+        DispatchQueue.main.async {
+            if host == self.deepLinksHost {
+                if let deepLinkURL = self.getDeepLinkURL(url: url),
+                   let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
+                   let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+                    
+                    self.showSceneDelegateDeepLink(product: product, scene: scene)
+                    
+                } else if let fallbackURL = self.getDeepLinkURL(url: fallbackURL),
+                          let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
+                          let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
+                    
+                    self.showSceneDelegateDeepLink(product: product, scene: scene)
+                    
+                } else if let webpageUrl = URL(string: "https://\(host)/") {
+                    
+                    UIApplication.shared.open(webpageUrl)
+                }
+            } else {
+                UIApplication.shared.open(url)
             }
-        } else {
-            UIApplication.shared.open(url)
         }
     }
     

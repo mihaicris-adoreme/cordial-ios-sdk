@@ -2,12 +2,26 @@
 
 The latest version of this file can be found at the master branch.
 
+## 2.2.0 (2021-04-20)
+
+### Added
+
+- Capturing inputs values from in-app messages
+
+### Changed
+
+- Do not send in-app message dismiss events on action clicks and input capturing
+- Requesting push notification token and anonymously logging in a contact by default
+- In-app messages content fetched sequentially
+
 ## 2.1.1 (2021-04-14)
+
 ### Fixed
 
 - Fixed resending failed upsert contact requests
 
 ## 2.1.0 (2021-04-07)
+
 ### Added
 
 -  Capturing inputs values from in-app messages
