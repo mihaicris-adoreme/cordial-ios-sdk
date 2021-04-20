@@ -115,25 +115,24 @@ class CordialPushNotificationHelper {
                     if settings.authorizationStatus == .authorized {
                         if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
                             let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
-                            
-                            internalCordialAPI.setPushNotificationStatus(status: status)
-                            
-                            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-                            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+                            self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
                         }
                     } else {
                         if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
                             let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
-                            
-                            internalCordialAPI.setPushNotificationStatus(status: status)
-                            
-                            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-                            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+                            self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
                         }
                     }
                 }
             })
         }
+    }
+    
+    private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String) {
+        internalCordialAPI.setPushNotificationStatus(status: status)
+        
+        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
     private func isSentUpsertContactsWithin24Hours() -> Bool {
