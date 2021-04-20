@@ -29,18 +29,12 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         notificationCenter.delegate = self
     }
     
-    func getNotificationSettings() {
-        let notificationCenter = UNUserNotificationCenter.current()
-        
-        notificationCenter.getNotificationSettings { settings in
-            guard settings.authorizationStatus == .authorized else { return }
-            
-            DispatchQueue.main.async {
-                UIApplication.shared.registerForRemoteNotifications()
-            }
+    func registerForSilentPushNotifications() {
+        DispatchQueue.main.async {
+            UIApplication.shared.registerForRemoteNotifications()
         }
         
-        notificationCenter.delegate = self
+        UNUserNotificationCenter.current().delegate = self
     }
     
     // MARK: UNUserNotificationCenterDelegate

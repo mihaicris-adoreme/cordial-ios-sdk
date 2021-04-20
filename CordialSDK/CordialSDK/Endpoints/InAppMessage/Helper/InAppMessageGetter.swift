@@ -35,7 +35,7 @@ class InAppMessageGetter {
             
             let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
             
-            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessageParams: inAppMessageParams)
+            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: [inAppMessageParams])
         }
     }
     
@@ -147,12 +147,15 @@ class InAppMessageGetter {
         InAppMessage().prepareAndShowInAppMessage(inAppMessageData: inAppMessageData)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("IAM with mcID: [%{public}@] has been successfully fetch.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID)
+            guard let htmlData = inAppMessageData.html.data(using: .utf8) else { return }
+            let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
+            
+            os_log("IAM with mcID: [%{public}@] has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID, payloadSize)
         }
     }
     
     func systemErrorHandler(mcID: String, error: ResponseError) {
-        CoreDataManager.shared.inAppMessagesQueue.setMcIdToCoreDataInAppMessagesQueue(mcID: mcID)
+        CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [mcID])
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Fetching IAM failed. Saved to retry later. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID, error.message)
