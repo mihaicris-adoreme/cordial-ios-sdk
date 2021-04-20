@@ -154,6 +154,7 @@ class NotificationManager {
         notificationCenter.addObserver(self, selector: #selector(connectionSettingsHasBeenChangeHandler), name: .cordialConnectionSettingsHasBeenChange, object: nil)
         
         CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
+        CordialApiConfiguration.shared.cordialPushNotification.registerForSilentPushNotifications()
     }
 
 }
