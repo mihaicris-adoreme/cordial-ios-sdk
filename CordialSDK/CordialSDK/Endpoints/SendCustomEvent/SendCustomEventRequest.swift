@@ -16,7 +16,7 @@ class SendCustomEventRequest: NSObject, NSCoding {
     let mcID: String?
     let latitude: Double?
     let longitude: Double?
-    let properties: Dictionary<String, String>?
+    let properties: Dictionary<String, Any>?
     let primaryKey: String?
     
     var isError = false
@@ -32,7 +32,7 @@ class SendCustomEventRequest: NSObject, NSCoding {
         case primaryKey = "primaryKey"
     }
     
-    init(eventName: String, mcID: String?, properties: Dictionary<String, String>?) {
+    init(eventName: String, mcID: String?, properties: Dictionary<String, Any>?) {
         self.requestID = UUID().uuidString
         self.eventName = eventName
         self.timestamp = CordialDateFormatter().getCurrentTimestamp()
@@ -43,7 +43,7 @@ class SendCustomEventRequest: NSObject, NSCoding {
         self.primaryKey = CordialAPI().getContactPrimaryKey()
     }
     
-    private init(requestID: String, eventName: String, timestamp: String, mcID: String?, latitude: Double?, longitude: Double?, properties: Dictionary<String, String>?, primaryKey: String?) {
+    private init(requestID: String, eventName: String, timestamp: String, mcID: String?, latitude: Double?, longitude: Double?, properties: Dictionary<String, Any>?, primaryKey: String?) {
         self.requestID = requestID
         self.eventName = eventName
         self.timestamp = timestamp
@@ -79,7 +79,7 @@ class SendCustomEventRequest: NSObject, NSCoding {
                 longitude = decodedLongitudeNumber.doubleValue
             }
             
-            let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, String>?
+            let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, Any>?
             
             let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
             

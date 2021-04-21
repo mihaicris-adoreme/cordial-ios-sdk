@@ -7,3 +7,94 @@
 //
 
 import Foundation
+
+extension Int: Boxable {
+    var mustacheBox: Box {
+        return Box(
+            value: self,
+            walk: { print("Int(\(self))") }
+        )
+    }
+}
+
+extension Double: Boxable {
+    var mustacheBox: Box {
+        return Box(
+            value: self,
+            walk: { print("Double(\(self))") }
+        )
+    }
+}
+
+extension String: Boxable {
+    var mustacheBox: Box {
+        return Box(
+            value: self,
+            walk: { print("String(\(self))") }
+        )
+    }
+}
+
+extension Bool: Boxable {
+    var mustacheBox: Box {
+        return Box(
+            value: self,
+            walk: { print("Bool(\(self))") }
+        )
+    }
+}
+
+extension Box: Boxable {
+    var mustacheBox: Box {
+        return self
+    }
+}
+
+extension NSNumber: ObjCBoxable {
+    var mustacheBoxWrapper: ObjCBoxWrapper {
+        let objCType = self.objCType
+        let str = String(cString:objCType)
+        switch str {
+        case "c", "i", "s", "l", "q", "C", "I", "S", "L", "Q":
+            return ObjCBoxWrapper(box(Int(int64Value)))
+        case "f", "d":
+            return ObjCBoxWrapper(box(doubleValue))
+        case "B":
+            return ObjCBoxWrapper(box(boolValue))
+        default:
+            fatalError("Not implemented yet")
+        }
+    }
+}
+
+extension NSString: ObjCBoxable {
+    var mustacheBoxWrapper: ObjCBoxWrapper {
+        return ObjCBoxWrapper(box(self as String))
+    }
+}
+
+extension NSDictionary: ObjCBoxable {
+    var mustacheBoxWrapper: ObjCBoxWrapper {
+        var boxedDictionary: [String: Box] = [:]
+        for (key, value) in self {
+            if let key = key as? String {
+                if let objCBoxable = value as? ObjCBoxable {
+                    boxedDictionary[key] = objCBoxable.mustacheBoxWrapper.box
+                }
+            }
+        }
+        return ObjCBoxWrapper(box(boxedDictionary))
+    }
+}
+
+extension NSArray: ObjCBoxable {
+    var mustacheBoxWrapper: ObjCBoxWrapper {
+        var boxedArray: [Box] = []
+        for value in self {
+            if let objCBoxable = value as? ObjCBoxable {
+                boxedArray.append(objCBoxable.mustacheBoxWrapper.box)
+            }
+        }
+        return ObjCBoxWrapper(box(boxedArray))
+    }
+}
