@@ -9,12 +9,12 @@
 import Foundation
 
 class JSONStructure {
+    // Boxing Swift type and ObjC class (array of values and dictionaries of values)
     // box(Boxable) -> Box
     func box<T: Boxable>(_ boxable: T) -> Box {
         return boxable.mustacheBox
     }
     
-    // =============================================================================
     // Boxing Swift arrays
     // box([Boxable]) -> Box
     func box<S: Sequence>(_ sequence: S) -> Box where S.Iterator.Element: Boxable {
@@ -41,7 +41,6 @@ class JSONStructure {
         )
     }
     
-    // =============================================================================
     // Boxing Swift dictionaries
     // box([String: Boxable]) -> Box
     func box<T: Boxable>(_ dictionary: [String: T]) -> Box {
@@ -79,22 +78,18 @@ class JSONStructure {
     }
 }
 
-// =============================================================================
-// Boxing Swift type and ObjC class (array of values and dictionaries of values)
 // The Box
 struct Box {
     let value: Any
     let walk: () -> String
 }
 
-// =============================================================================
 // Boxing simple Swift types
 // Boxable object can produce a Box
 protocol Boxable {
     var mustacheBox: Box { get }
 }
 
-// =============================================================================
 // Boxing Objctive-C objects
 // The Boxable protocol can not be used by Objc classes, because the Box struct
 // is not compatible with ObjC. So let's define another protocol.
