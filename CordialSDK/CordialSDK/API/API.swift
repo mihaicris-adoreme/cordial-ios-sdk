@@ -59,15 +59,10 @@ struct API {
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"
     
-    static func getDictionaryJSON(stringDictionary: Dictionary<String, String>) -> String {
-        var stringDictionaryContainer = [String]()
-        stringDictionary.forEach { (key: String, value: String) in
-            stringDictionaryContainer.append("\"\(key)\": \"\(value)\"")
-        }
-        
-        let stringContainer = stringDictionaryContainer.joined(separator: ", ")
-        
-        return "{ \(stringContainer) }"
+    static func getDictionaryJSON(properties: Dictionary<String, Any>?) -> String {
+        guard let propertiesJSON = properties as NSDictionary? else { return "{ }" }
+                
+        return JSONStructure().box(propertiesJSON).walk()
     }
     
     static func getStringArrayJSON(stringArray: [String]) -> String {

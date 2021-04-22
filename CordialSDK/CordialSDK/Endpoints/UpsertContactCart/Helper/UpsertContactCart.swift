@@ -88,7 +88,7 @@ class UpsertContactCart {
             }
             
             if let attr = cartItem.attr {
-                cartItemContainer.append("\"attr\": \(API.getDictionaryJSON(stringDictionary: attr))")
+                cartItemContainer.append("\"attr\": \(API.getDictionaryJSON(properties: attr))")
             }
             
             if let images = cartItem.images {
@@ -96,7 +96,7 @@ class UpsertContactCart {
             }
             
             if let properties = cartItem.properties {
-                cartItemContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
+                cartItemContainer.append("\"properties\": \(API.getDictionaryJSON(properties: properties))")
             }
             
             let cartItemContainerString = cartItemContainer.joined(separator: ", ")

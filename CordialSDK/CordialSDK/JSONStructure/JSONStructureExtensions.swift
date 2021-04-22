@@ -12,7 +12,7 @@ extension Int: Boxable {
     var mustacheBox: Box {
         return Box(
             value: self,
-            walk: { print("Int(\(self))") }
+            walk: { return "\(self)" }
         )
     }
 }
@@ -21,7 +21,7 @@ extension Double: Boxable {
     var mustacheBox: Box {
         return Box(
             value: self,
-            walk: { print("Double(\(self))") }
+            walk: { return "\(self)" }
         )
     }
 }
@@ -30,7 +30,7 @@ extension String: Boxable {
     var mustacheBox: Box {
         return Box(
             value: self,
-            walk: { print("String(\(self))") }
+            walk: { return "\"\(self)\"" }
         )
     }
 }
@@ -39,7 +39,7 @@ extension Bool: Boxable {
     var mustacheBox: Box {
         return Box(
             value: self,
-            walk: { print("Bool(\(self))") }
+            walk: { return "\(self)" }
         )
     }
 }

@@ -21,21 +21,22 @@ class JSONStructure {
         return Box(
             value: sequence.map { $0.mustacheBox },
             walk: {
-                print("[")
+                var walk = "[ "
                 
                 var count = 0
-                
                 for boxable in sequence {
                     count += 1
                     
-                    boxable.mustacheBox.walk()
+                    walk += boxable.mustacheBox.walk()
                     
                     if count != sequence.count {
-                        print(",")
+                        walk += ","
                     }
                 }
                 
-                print("]")
+                walk += " ]"
+                
+                return walk
             }
         )
     }
@@ -51,22 +52,23 @@ class JSONStructure {
         return Box(
             value: boxedDictionary,
             walk: {
-                print("[")
+                var walk = "{ "
                 
                 var count = 0
-                
                 for (key, boxable) in dictionary {
                     count += 1
                     
-                    print("\(key):")
-                    boxable.mustacheBox.walk()
+                    walk += "\"\(key)\": "
+                    walk += boxable.mustacheBox.walk()
                     
                     if count != dictionary.count {
-                        print(",")
+                        walk += ","
                     }
                 }
                 
-                print("]")
+                walk += " }"
+                
+                return walk
             }
         )
     }
@@ -82,7 +84,7 @@ class JSONStructure {
 // The Box
 struct Box {
     let value: Any
-    let walk: () -> ()
+    let walk: () -> String
 }
 
 // =============================================================================

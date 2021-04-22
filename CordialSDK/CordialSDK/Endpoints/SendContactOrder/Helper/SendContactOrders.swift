@@ -92,7 +92,7 @@ class SendContactOrders {
         }
     
         if let properties = order.properties {
-            orderContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
+            orderContainer.append("\"properties\": \(API.getDictionaryJSON(properties: properties))")
         }
         
         let orderContainerString = orderContainer.joined(separator: ", ")

@@ -72,7 +72,7 @@ class SendCustomEvents {
         }
         
         if let properties = sendCustomEventRequest.properties {
-            rootContainer.append("\"properties\": \(self.getProperties(properties: properties))")
+            rootContainer.append("\"properties\": \(API.getDictionaryJSON(properties: properties))")
         }
         
         let rootContainerString = rootContainer.joined(separator: ", ")
@@ -80,14 +80,4 @@ class SendCustomEvents {
         return "{ \(rootContainerString) }"
     }
     
-    func getProperties(properties: Dictionary<String, Any>?) -> String {
-        
-        guard let propertiesJSON = properties as NSDictionary? else { return "{ }" }
-        
-        let box = JSONStructure().box(propertiesJSON)
-
-        print(box.walk())
-        
-        return "{ }"
-    }
 }
