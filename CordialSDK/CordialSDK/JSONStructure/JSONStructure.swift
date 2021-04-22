@@ -30,7 +30,7 @@ class JSONStructure {
                     walk += boxable.mustacheBox.walk()
                     
                     if count != sequence.count {
-                        walk += ","
+                        walk += ", "
                     }
                 }
                 
@@ -62,7 +62,7 @@ class JSONStructure {
                     walk += boxable.mustacheBox.walk()
                     
                     if count != dictionary.count {
-                        walk += ","
+                        walk += ", "
                     }
                 }
                 

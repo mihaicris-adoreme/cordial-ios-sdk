@@ -87,7 +87,7 @@ class UpsertContacts {
                 container.append("\"\(key)\": \(booleanValue.value)")
             case is ArrayValue:
                 let arrayValue = value as! ArrayValue
-                container.append("\"\(key)\": \(API.getStringArrayJSON(stringArray: arrayValue.value))")
+                container.append("\"\(key)\": \(API.getArrayJSON(arrayValue.value))")
             case is StringValue:
                 let stringValue = value as! StringValue
                 container.append("\"\(key)\": \"\(stringValue.value)\"")

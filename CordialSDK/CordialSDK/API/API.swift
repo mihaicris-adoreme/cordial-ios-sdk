@@ -59,21 +59,16 @@ struct API {
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"
     
-    static func getDictionaryJSON(properties: Dictionary<String, Any>?) -> String {
-        guard let propertiesJSON = properties as NSDictionary? else { return "{ }" }
+    static func getDictionaryJSON(_ dictionary: Dictionary<String, Any>?) -> String {
+        guard let json = dictionary as NSDictionary? else { return "{ }" }
                 
-        return JSONStructure().box(propertiesJSON).walk()
+        return JSONStructure().box(json).walk()
     }
     
-    static func getStringArrayJSON(stringArray: [String]) -> String {
-        var stringArrayContainer = [String]()
-        stringArray.forEach({ string in
-            stringArrayContainer.append("\"\(string)\"")
-        })
+    static func getArrayJSON(_ array: [Any]?) -> String {
+        guard let json = array as NSArray? else { return "[ ]" }
         
-        let stringContainer = stringArrayContainer.joined(separator: ", ")
-        
-        return "[ \(stringContainer) ]"
+        return JSONStructure().box(json).walk()
     }
     
     static func isValidExpirationDate(date: Date) -> Bool {

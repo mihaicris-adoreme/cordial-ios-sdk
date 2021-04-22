@@ -72,7 +72,7 @@ class SendCustomEvents {
         }
         
         if let properties = sendCustomEventRequest.properties {
-            rootContainer.append("\"properties\": \(API.getDictionaryJSON(properties: properties))")
+            rootContainer.append("\"properties\": \(API.getDictionaryJSON(properties))")
         }
         
         let rootContainerString = rootContainer.joined(separator: ", ")
