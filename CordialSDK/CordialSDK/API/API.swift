@@ -113,3 +113,7 @@ extension Date {
         return Calendar.current.date(byAdding: .minute, value: minutes, to: self)!
     }
 }
+
+extension Sequence {
+    var count: Int { return reduce(0) { acc, row in acc + 1 } }
+}

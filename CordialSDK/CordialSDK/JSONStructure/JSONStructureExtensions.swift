@@ -56,11 +56,11 @@ extension NSNumber: ObjCBoxable {
         let str = String(cString:objCType)
         switch str {
         case "c", "i", "s", "l", "q", "C", "I", "S", "L", "Q":
-            return ObjCBoxWrapper(box(Int(int64Value)))
+            return ObjCBoxWrapper(JSONStructure().box(Int(int64Value)))
         case "f", "d":
-            return ObjCBoxWrapper(box(doubleValue))
+            return ObjCBoxWrapper(JSONStructure().box(doubleValue))
         case "B":
-            return ObjCBoxWrapper(box(boolValue))
+            return ObjCBoxWrapper(JSONStructure().box(boolValue))
         default:
             fatalError("Not implemented yet")
         }
@@ -69,7 +69,7 @@ extension NSNumber: ObjCBoxable {
 
 extension NSString: ObjCBoxable {
     var mustacheBoxWrapper: ObjCBoxWrapper {
-        return ObjCBoxWrapper(box(self as String))
+        return ObjCBoxWrapper(JSONStructure().box(self as String))
     }
 }
 
@@ -83,7 +83,7 @@ extension NSDictionary: ObjCBoxable {
                 }
             }
         }
-        return ObjCBoxWrapper(box(boxedDictionary))
+        return ObjCBoxWrapper(JSONStructure().box(boxedDictionary))
     }
 }
 
@@ -95,6 +95,6 @@ extension NSArray: ObjCBoxable {
                 boxedArray.append(objCBoxable.mustacheBoxWrapper.box)
             }
         }
-        return ObjCBoxWrapper(box(boxedArray))
+        return ObjCBoxWrapper(JSONStructure().box(boxedArray))
     }
 }

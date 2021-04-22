@@ -8,6 +8,75 @@
 
 import Foundation
 
+class JSONStructure {
+    // box(Boxable) -> Box
+    func box<T: Boxable>(_ boxable: T) -> Box {
+        return boxable.mustacheBox
+    }
+    
+    // =============================================================================
+    // Boxing Swift arrays
+    // box([Boxable]) -> Box
+    func box<S: Sequence>(_ sequence: S) -> Box where S.Iterator.Element: Boxable {
+        return Box(
+            value: sequence.map { $0.mustacheBox },
+            walk: {
+                print("[")
+                
+                var count = 0
+                
+                for boxable in sequence {
+                    count += 1
+                    
+                    boxable.mustacheBox.walk()
+                    
+                    if count != sequence.count {
+                        print(",")
+                    }
+                }
+                
+                print("]")
+            }
+        )
+    }
+    
+    // =============================================================================
+    // Boxing Swift dictionaries
+    // box([String: Boxable]) -> Box
+    func box<T: Boxable>(_ dictionary: [String: T]) -> Box {
+        var boxedDictionary: [String: Box] = [:]
+        for (key, value) in dictionary {
+            boxedDictionary[key] = box(value)
+        }
+        return Box(
+            value: boxedDictionary,
+            walk: {
+                print("[")
+                
+                var count = 0
+                
+                for (key, boxable) in dictionary {
+                    count += 1
+                    
+                    print("\(key):")
+                    boxable.mustacheBox.walk()
+                    
+                    if count != dictionary.count {
+                        print(",")
+                    }
+                }
+                
+                print("]")
+            }
+        )
+    }
+    
+    // box(ObjCBoxable) -> Box
+    func box(_ boxable: ObjCBoxable) -> Box {
+        return boxable.mustacheBoxWrapper.box
+    }
+}
+
 // =============================================================================
 // Boxing Swift type and ObjC class (array of values and dictionaries of values)
 // The Box
@@ -21,50 +90,6 @@ struct Box {
 // Boxable object can produce a Box
 protocol Boxable {
     var mustacheBox: Box { get }
-}
-
-// box(Boxable) -> Box
-func box<T: Boxable>(_ boxable: T) -> Box {
-    return boxable.mustacheBox
-}
-
-// =============================================================================
-// Boxing Swift arrays
-// box([Boxable]) -> Box
-func box<S: Sequence>(_ sequence: S) -> Box where S.Iterator.Element: Boxable {
-    return Box(
-        value: sequence.map { $0.mustacheBox },
-        walk: {
-            print("[")
-            for boxable in sequence {
-                boxable.mustacheBox.walk()
-                print(",")
-            }
-            print("]")
-        }
-    )
-}
-
-// =============================================================================
-// Boxing Swift dictionaries
-// box([String: Boxable]) -> Box
-func box<T: Boxable>(_ dictionary: [String: T]) -> Box {
-    var boxedDictionary: [String: Box] = [:]
-    for (key, value) in dictionary {
-        boxedDictionary[key] = box(value)
-    }
-    return Box(
-        value: boxedDictionary,
-        walk: {
-            print("[")
-            for (key, boxable) in dictionary {
-                print("\(key):")
-                boxable.mustacheBox.walk()
-                print(",")
-            }
-            print("]")
-        }
-    )
 }
 
 // =============================================================================
@@ -85,7 +110,3 @@ class ObjCBoxWrapper: NSObject {
     }
 }
 
-// box(ObjCBoxable) -> Box
-func box(_ boxable: ObjCBoxable) -> Box {
-    return boxable.mustacheBoxWrapper.box
-}

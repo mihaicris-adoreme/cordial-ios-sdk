@@ -82,7 +82,11 @@ class SendCustomEvents {
     
     func getProperties(properties: Dictionary<String, Any>?) -> String {
         
-        // TODO
+        guard let propertiesJSON = properties as NSDictionary? else { return "{ }" }
+        
+        let box = JSONStructure().box(propertiesJSON)
+
+        print(box.walk())
         
         return "{ }"
     }
