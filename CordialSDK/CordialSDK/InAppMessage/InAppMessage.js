@@ -21,6 +21,8 @@ function crdlCaptureAllInputs(eventName = null) {
             if (inputs[index].getAttribute('id')) {
                 if (inputs[index].type === 'radio' || inputs[index].type === 'checkbox') {
                     inputsMapping[inputs[index].getAttribute('id')] = inputs[index].checked;
+                } else if (inputs[index].type === 'number') {
+                    inputsMapping[inputs[index].getAttribute('id')] = parseFloat(inputs[index].value);
                 } else {
                     inputsMapping[inputs[index].getAttribute('id')] = inputs[index].value;
                 }

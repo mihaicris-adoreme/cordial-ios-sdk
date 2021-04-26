@@ -52,17 +52,48 @@ extension Box: Boxable {
 
 extension NSNumber: ObjCBoxable {
     var mustacheBoxWrapper: ObjCBoxWrapper {
-        let objCType = self.objCType
-        let str = String(cString:objCType)
-        switch str {
-        case "c", "i", "s", "l", "q", "C", "I", "S", "L", "Q":
-            return ObjCBoxWrapper(JSONStructure().box(Int(int64Value)))
-        case "f", "d":
-            return ObjCBoxWrapper(JSONStructure().box(doubleValue))
-        case "B":
-            return ObjCBoxWrapper(JSONStructure().box(boolValue))
-        default:
-            fatalError("Not implemented yet")
+        switch CFGetTypeID(self as CFTypeRef) {
+            case CFBooleanGetTypeID():
+                return ObjCBoxWrapper(JSONStructure().box(boolValue))
+            case CFNumberGetTypeID():
+                switch CFNumberGetType(self as CFNumber) {
+                case .sInt8Type:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(int8Value)))
+                case .sInt16Type:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(int16Value)))
+                case .sInt32Type:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(int32Value)))
+                case .sInt64Type:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(int64Value)))
+                case .float32Type:
+                    return ObjCBoxWrapper(JSONStructure().box(doubleValue))
+                case .float64Type:
+                    return ObjCBoxWrapper(JSONStructure().box(doubleValue))
+                case .charType:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(intValue)))
+                case .shortType:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(intValue)))
+                case .intType:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(intValue)))
+                case .longType:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(intValue)))
+                case .longLongType:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(intValue)))
+                case .floatType:
+                    return ObjCBoxWrapper(JSONStructure().box(doubleValue))
+                case .doubleType:
+                    return ObjCBoxWrapper(JSONStructure().box(doubleValue))
+                case .cfIndexType:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(intValue)))
+                case .nsIntegerType:
+                    return ObjCBoxWrapper(JSONStructure().box(Int(intValue)))
+                case .cgFloatType:
+                    return ObjCBoxWrapper(JSONStructure().box(doubleValue))
+                default:
+                    fatalError("Not implemented yet")
+                }
+            default:
+                fatalError("Not implemented yet")
         }
     }
 }

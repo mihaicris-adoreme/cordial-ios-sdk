@@ -12,7 +12,7 @@ import os.log
 
 class InAppMessageInputsHandler: InAppMessageInputsDelegate {
     
-    func inputsCaptured(eventName: String, properties: Dictionary<String, String>) {
+    func inputsCaptured(eventName: String, properties: Dictionary<String, Any>) {
         os_log("IAM inputs successfully captured. Event name: [%{public}@]. Properties: %{public}@", log: OSLog.сordialSDKDemo, type: .info, eventName, properties.description)
     }
     
