@@ -21,7 +21,7 @@
 [In-App Messages](#in-app-messages)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[In-App Messaging Link Actions](#in-app-messaging-link-actions)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Delaying In-App Messages](#delaying-in-app-messages)<br>
-[Inbox Messages API](#inbox-messages-api)<br>
+[Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
 [Configuring Location Tracking Updates](#configuring-location-tracking-updates)<br>
 
@@ -709,7 +709,7 @@ ___
 
 Note, disallowed ViewControllers should inherit from the `InAppMessageDelayViewController` class or otherwise delayed in-app message will be attempted to be shown on next app open.
 
-## Inbox Messages API
+## Inbox Messages
 
 To work with inbox messages you will have to use the `InboxMessageAPI` class. It is the entry point to all inbox messages related functionality. The API supports the following operations:
 
