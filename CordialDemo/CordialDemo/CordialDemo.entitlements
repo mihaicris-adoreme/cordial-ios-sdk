@@ -12,7 +12,7 @@
 		<string>applinks:s.a1105.clients.cordialdev.com</string>
 		<string>applinks:s.a1003.clients.cordialdev.com</string>
 		<string>applinks:events-handling-svc.stg.cordialdev.com</string>
-		<string>applinks:events-handling-svc.cordial-core.mobile-sdk-1-12-2.cordialdev.com</string>
+		<string>applinks:events-handling-svc.cordial-core.cp-8305-inapp-link-tracing.cordialdev.com</string>
 	</array>
 </dict>
 </plist>
