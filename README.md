@@ -18,12 +18,12 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[Event Caching](#event-caching)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Events Bulking](#events-bulking)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Events Flushing](#events-flushing)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Configuring Location Tracking Updates](#configuring-location-tracking-updates)<br>
 [In-App Messages](#in-app-messages)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[In-App Messaging Link Actions](#in-app-messaging-link-actions)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Delaying In-App Messages](#delaying-in-app-messages)<br>
 [Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
-[Configuring Location Tracking Updates](#configuring-location-tracking-updates)<br>
 
 # Installation
 
@@ -672,6 +672,23 @@ ___
 [cordialAPI flushEventsWithReason:@"Flush events from the app"];
 ```
 
+### Configuring Location Tracking Updates
+You can expand custom events data by setting geo locations to be sent with each custom event. To enable the delivery of location-related events to your app, simply complete these two steps::
+1. Add `NSLocationAlwaysAndWhenInUseUsageDescription` and/or `NSLocationWhenInUseUsageDescription` properties to your project `Info.plist` file.
+2. Initialize SDK location manager by adding the following to the end of  `AppDelegate.didFinishLaunchingWithOptions`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
+```
+The above example configures the location manager for maximum geo accuracy. To increase phone battery life, you can configure SDK location manager by changing the `desiredAccuracy`, `distanceFilter`, `untilTraveled`, and `timeout` properties.
+
 ## In-App Messages
 
 ### In-App Messaging Link Actions
@@ -894,22 +911,5 @@ ___
 ```
 [cordialAPI setCurrentMcIDWithMcID:@"mcID"];
 ```
-
-## Configuring Location Tracking Updates
-You can expand custom events data by adding geo locations to each custom event. To enable the delivery of location-related events to your app, simply complete these two steps:
-1. Add `NSLocationAlwaysAndWhenInUseUsageDescription` and/or `NSLocationWhenInUseUsageDescription` properties to your project `Info.plist` file.
-2. Initialize SDK location manager by adding the following to the end of  `AppDelegate.didFinishLaunchingWithOptions`:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-[[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
-```
-The above example configures the location manager for maximum geo accuracy. To increase phone battery life, you can configure SDK location manager by changing the `desiredAccuracy`, `distanceFilter`, `untilTraveled`, and `timeout` properties.
 
 [Top](#contents)
