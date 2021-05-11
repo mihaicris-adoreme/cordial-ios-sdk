@@ -410,11 +410,47 @@
                         <outlet property="tableView" destination="E7i-dT-2CB" id="fVq-lA-ALT"/>
                         <segue destination="uvD-dl-1b0" kind="show" identifier="segueFromInboxTableListToInboxMessage" id="Y7Z-D7-M5p"/>
                         <segue destination="CnG-HZ-MFa" kind="show" identifier="segueFromInboxTableListToInboxFilter" id="JcU-il-0pm"/>
+                        <segue destination="IHP-So-kKR" kind="show" identifier="segueFromInboxTableListToInboxMessageWeb" id="D7C-kh-rDS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2wL-FO-fDt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="952.5" y="-2138.0281690140846"/>
+        </scene>
+        <!--Inbox Message Web View Controller-->
+        <scene sceneID="fT2-lm-7G6">
+            <objects>
+                <viewController id="IHP-So-kKR" customClass="InboxMessageWebViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vx5-cs-jWm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDM-o1-tVq">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="qIx-YE-bCu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uDM-o1-tVq" firstAttribute="leading" secondItem="qIx-YE-bCu" secondAttribute="leading" id="DHv-MY-n7w"/>
+                            <constraint firstItem="uDM-o1-tVq" firstAttribute="bottom" secondItem="qIx-YE-bCu" secondAttribute="bottom" id="DU0-xk-hi5"/>
+                            <constraint firstItem="uDM-o1-tVq" firstAttribute="top" secondItem="qIx-YE-bCu" secondAttribute="top" id="ImL-tH-erH"/>
+                            <constraint firstItem="uDM-o1-tVq" firstAttribute="trailing" secondItem="qIx-YE-bCu" secondAttribute="trailing" id="Q5O-nb-3Ts"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="6PL-pz-th8"/>
+                    <connections>
+                        <outlet property="inboxMessageContentWebView" destination="uDM-o1-tVq" id="AZn-ic-j9k"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NpY-eN-e2w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="-2138"/>
         </scene>
         <!--Inbox Messages Collection Cards View Controller-->
         <scene sceneID="36O-pU-vU8">
@@ -1869,8 +1905,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="s5i-HI-zGc"/>
-        <segue reference="h0i-X5-r8G"/>
+        <segue reference="Y7Z-D7-M5p"/>
+        <segue reference="JcU-il-0pm"/>
         <segue reference="AlP-xG-MIL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.25567400455474854" green="0.42760902643203735" blue="0.56480115652084351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

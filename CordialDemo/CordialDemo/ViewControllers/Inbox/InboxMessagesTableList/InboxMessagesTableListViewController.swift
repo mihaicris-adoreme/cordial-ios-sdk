@@ -15,6 +15,8 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
     
     let reuseIdentifier = "inboxMessagesTableListCell"
     
+    let segueToInboxMessageWebIdentifier = "segueFromInboxTableListToInboxMessageWeb"
+    
     let segueToInboxMessageIdentifier = "segueFromInboxTableListToInboxMessage"
     let segueToInboxFilterIdentifier = "segueFromInboxTableListToInboxFilter"
     
@@ -113,6 +115,21 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
+        case self.segueToInboxMessageWebIdentifier:
+            if let inboxMessageWebViewController = segue.destination as? InboxMessageWebViewController {
+                
+                if !self.chosenInboxMessage.isRead {
+                    CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.chosenInboxMessage.mcID])
+                    inboxMessageWebViewController.isNeededInboxMessagesUpdate = true
+                } else {
+                    inboxMessageWebViewController.isNeededInboxMessagesUpdate = false
+                }
+
+                CordialAPI().setCurrentMcID(mcID: self.chosenInboxMessage.mcID)
+                CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.mcID)
+                
+                inboxMessageWebViewController.inboxMessage = self.chosenInboxMessage
+            }
         case self.segueToInboxMessageIdentifier:
             if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
 
@@ -193,7 +210,7 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.chosenInboxMessage = self.inboxMessages[indexPath.row]
 
-        self.performSegue(withIdentifier: self.segueToInboxMessageIdentifier, sender: self)
+        self.performSegue(withIdentifier: self.segueToInboxMessageWebIdentifier, sender: self)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
