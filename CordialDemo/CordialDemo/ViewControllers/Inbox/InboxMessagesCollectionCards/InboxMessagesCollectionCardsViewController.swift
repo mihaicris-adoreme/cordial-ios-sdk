@@ -150,6 +150,12 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesCollectionCardsViewCell
         
+        cell.inboxMessageView.layer.shadowColor = UIColor.gray.cgColor
+        cell.inboxMessageView.layer.shadowOpacity = 1
+        cell.inboxMessageView.layer.shadowOffset = .zero
+        cell.inboxMessageView.layer.shadowRadius = 3
+        cell.inboxMessageView.layer.cornerRadius = 10
+        
         let inboxMessage = self.inboxMessages[indexPath.row]
         
         do {
@@ -160,7 +166,7 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
                     cell.imageView.asyncImage(url: imageURL)
                     cell.imageView.contentMode = .scaleAspectFill
                     cell.imageView.clipsToBounds = true
-                    cell.imageView.layer.cornerRadius = 20
+                    cell.imageView.layer.cornerRadius = 10
                 }
                 
                 cell.titleLabel.text = inboxMessageMetadataJSON["title"]
