@@ -167,13 +167,13 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
                 cell.timestampLabel.text = dateFormatter.string(from: inboxMessage.sentAt)
                 
                 if inboxMessage.isRead {
-                    cell.titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-                    cell.subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-                    cell.timestampLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-                } else {
                     cell.titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
                     cell.subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
                     cell.timestampLabel.font = UIFont.systemFont(ofSize: 13, weight: .light)
+                } else {
+                    cell.titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+                    cell.subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+                    cell.timestampLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
                 }
                 
             } else {
