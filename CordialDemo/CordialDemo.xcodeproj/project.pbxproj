@@ -478,8 +478,8 @@
 		9E7EC41D2510CD4900314A18 /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
-				9EB806F4264A9D45004C0B02 /* InboxMessageWeb */,
 				9E8F1B482511800A00B90139 /* InboxMessage */,
+				9EB806F4264A9D45004C0B02 /* InboxMessageWeb */,
 				9EB0058E253E5E9900156E8E /* InboxMessagesFilter */,
 				9E7F28F0256BEA1E006D3BED /* InboxMessagesTableRaw */,
 				9E0F46F02573DBD300E2FA95 /* InboxMessagesTableList */,

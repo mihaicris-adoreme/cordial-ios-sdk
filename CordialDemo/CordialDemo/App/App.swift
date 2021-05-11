@@ -15,13 +15,21 @@ struct App {
     static private let USER_DEFAULTS_KEY_FOR_IS_GUEST_USER = "USER_DEFAULTS_KEY_FOR_IS_GUEST_USER"
     static private let USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE = "USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE"
     
-    static let inboxMessageMetadata = """
+    static func getInboxMessageMetadata(inboxMessage: InboxMessage) -> String? {
+        var inboxMessageMetadata = inboxMessage.metadata
+        if inboxMessageMetadata == nil {
+            inboxMessageMetadata = """
                         {
                           "title": "No title provided",
                           "subtitle": "No subtitle provided",
-                          "imageUrl": "https://i.imgur.com/bhjRMtD.png"
+                          "imageUrl": "https://i.imgur.com/bhjRMtD.png",
+                          "deepLink": "https://tjs.cordialdev.com/prep-tj1.html"
                         }
                     """
+        }
+        
+        return inboxMessageMetadata
+    }
     
     static func isGuestUser() -> Bool {
         if UserDefaults.standard.object(forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER) == nil {

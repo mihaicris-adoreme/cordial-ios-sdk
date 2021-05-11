@@ -136,7 +136,7 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
             break
         }
     }
-    
+        
     // MARK: UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -148,13 +148,9 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
         
         let inboxMessage = self.inboxMessages[indexPath.row]
         
-        var inboxMessageMetadata = inboxMessage.metadata
-        if inboxMessageMetadata == nil {
-            inboxMessageMetadata = App.inboxMessageMetadata
-        }
-        
         do {
-            if let inboxMessageMetadataData = inboxMessageMetadata?.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
+            if let inboxMessageMetadata = App.getInboxMessageMetadata(inboxMessage: inboxMessage),
+               let inboxMessageMetadataData = inboxMessageMetadata.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
                 
                 if let image = inboxMessageMetadataJSON["imageUrl"], let imageURL = URL(string: image) {
                     cell.imagePreview.asyncImage(url: imageURL)
