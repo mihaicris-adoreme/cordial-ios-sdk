@@ -16,8 +16,6 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
     let reuseIdentifier = "inboxMessagesTableListCell"
     
     let segueToInboxMessageWebIdentifier = "segueFromInboxTableListToInboxMessageWeb"
-    
-    let segueToInboxMessageIdentifier = "segueFromInboxTableListToInboxMessage"
     let segueToInboxFilterIdentifier = "segueFromInboxTableListToInboxFilter"
     
     var inboxMessages = [InboxMessage]()
@@ -129,21 +127,6 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
                 CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.mcID)
                 
                 inboxMessageWebViewController.inboxMessage = self.chosenInboxMessage
-            }
-        case self.segueToInboxMessageIdentifier:
-            if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
-
-                if !self.chosenInboxMessage.isRead {
-                    CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.chosenInboxMessage.mcID])
-                    inboxMessageViewController.isNeededInboxMessagesUpdate = true
-                } else {
-                    inboxMessageViewController.isNeededInboxMessagesUpdate = false
-                }
-
-                CordialAPI().setCurrentMcID(mcID: self.chosenInboxMessage.mcID)
-                CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.mcID)
-
-                inboxMessageViewController.inboxMessage = self.chosenInboxMessage
             }
         case self.segueToInboxFilterIdentifier:
             if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesFilterViewController {

@@ -408,7 +408,6 @@
                     <navigationItem key="navigationItem" id="Re2-8d-apd"/>
                     <connections>
                         <outlet property="tableView" destination="E7i-dT-2CB" id="fVq-lA-ALT"/>
-                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueFromInboxTableListToInboxMessage" id="Y7Z-D7-M5p"/>
                         <segue destination="CnG-HZ-MFa" kind="show" identifier="segueFromInboxTableListToInboxFilter" id="JcU-il-0pm"/>
                         <segue destination="IHP-So-kKR" kind="show" identifier="segueFromInboxTableListToInboxMessageWeb" id="D7C-kh-rDS"/>
                     </connections>
@@ -1905,7 +1904,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Y7Z-D7-M5p"/>
+        <segue reference="qgl-5n-UFL"/>
         <segue reference="JcU-il-0pm"/>
         <segue reference="AlP-xG-MIL"/>
     </inferredMetricsTieBreakers>
