@@ -28,7 +28,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     var isBannerRemovingWithAnimation = false
     
     override func loadView() {
-        self.webView.loadHTMLString(self.inAppMessageData.html, baseURL: nil)
+        self.webView.loadHTMLString(self.inAppMessageData.html, baseURL: URL(string: API.IAM_WEB_VIEW_BASE_URL))
         
         self.inAppMessageView.addSubview(self.webView)
         self.view = inAppMessageView
@@ -196,6 +196,36 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
     }
     
+    func removeInAppMessage() {
+        if self.isBanner {
+            self.removeBannerFromSuperviewWithAnimation(eventName: nil, duration: InAppMessageProcess.shared.bannerAnimationDuration)
+        } else {
+            self.removeInAppMessageFromSuperview()
+        }
+    }
+    
+    // MARK: WKNavigationDelegate
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.cancel)
+            return
+        }
+        
+        if url.absoluteString == API.IAM_WEB_VIEW_BASE_URL {
+            decisionHandler(.allow)
+        } else {
+            let mcID = self.inAppMessageData.mcID
+            
+            self.cordialAPI.setCurrentMcID(mcID: mcID)
+            CordialEmailDeepLink().open(url: url)
+            
+            self.removeInAppMessage()
+            
+            decisionHandler(.cancel)
+        }
+    }
+    
     // MARK: UIScrollViewDelegate
     
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
@@ -229,7 +259,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
                 self.cordialAPI.setCurrentMcID(mcID: mcID)
-                self.internalCordialAPI.openDeepLink(url: url)
+                CordialEmailDeepLink().open(url: url)
             }
             
             if let eventName = dict["eventName"] as? String {
@@ -268,10 +298,6 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             }
         }
         
-        if self.isBanner {
-            self.removeBannerFromSuperviewWithAnimation(eventName: nil, duration: InAppMessageProcess.shared.bannerAnimationDuration)
-        } else {
-            self.removeInAppMessageFromSuperview()
-        }
+        self.removeInAppMessage()
     }
 }

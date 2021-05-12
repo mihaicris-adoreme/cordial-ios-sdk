@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = CordialDeepLinksHandler()
         CordialApiConfiguration.shared.inAppMessageInputsDelegate = InAppMessageInputsHandler()
         CordialApiConfiguration.shared.inboxMessageDelegate = InboxMessageHandler()
-        CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "s.cordial.com", "s.a1105.clients.cordialdev.com", "s.a1003.clients.cordialdev.com", "events-handling-svc.stg.cordialdev.com", "events-handling-svc.cordial-core.mobile-sdk-1-12-2.cordialdev.com"]
+        CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "s.cordial.com", "s.a1105.clients.cordialdev.com", "s.a1003.clients.cordialdev.com", "events-handling-svc.stg.cordialdev.com", "events-handling-svc.cordial-core.cp-8305-inapp-link-tracing.cordialdev.com"]
                 
         AppNotificationManager.shared.setupCordialSDKObservers()
         AppNotificationManager.shared.setupCordialDemoObservers()
