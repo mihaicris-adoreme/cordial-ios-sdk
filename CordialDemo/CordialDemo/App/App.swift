@@ -22,8 +22,7 @@ struct App {
                         {
                           "title": "No title provided",
                           "subtitle": "No subtitle provided",
-                          "imageUrl": "https://i.imgur.com/bhjRMtD.png",
-                          "deepLink": "https://tjs.cordialdev.com/prep-tj1.html"
+                          "imageUrl": "https://i.imgur.com/bhjRMtD.png"
                         }
                     """
         }
