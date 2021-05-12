@@ -43,11 +43,11 @@ class InboxMessagesMarkReadUnread {
         }
         
         if !inboxMessagesMarkReadUnreadRequest.markAsReadMcIDs.isEmpty {
-            rootContainer.append("\"markAsReadIds\": \(API.getStringArrayJSON(stringArray: inboxMessagesMarkReadUnreadRequest.markAsReadMcIDs))")
+            rootContainer.append("\"markAsReadIds\": \(API.getArrayJSON(inboxMessagesMarkReadUnreadRequest.markAsReadMcIDs))")
         }
         
         if !inboxMessagesMarkReadUnreadRequest.markAsUnreadMcIDs.isEmpty {
-            rootContainer.append("\"markAsUnReadIds\": \(API.getStringArrayJSON(stringArray: inboxMessagesMarkReadUnreadRequest.markAsUnreadMcIDs))")
+            rootContainer.append("\"markAsUnReadIds\": \(API.getArrayJSON(inboxMessagesMarkReadUnreadRequest.markAsUnreadMcIDs))")
         }
         
         let rootContainerString = rootContainer.joined(separator: ", ")
