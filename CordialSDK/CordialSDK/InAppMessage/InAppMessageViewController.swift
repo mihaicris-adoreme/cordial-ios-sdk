@@ -265,23 +265,12 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             if let eventName = dict["eventName"] as? String {
                 self.cordialAPI.setCurrentMcID(mcID: mcID)
                 
-                if let inputsMapping = dict["inputsMapping"] as? [String: AnyObject] {
-                    var properties = [String: String]()
+                if let inputsMapping = dict["inputsMapping"] as? [String: Any] {
                     
-                    inputsMapping.forEach { (key, value) in
-                        switch value {
-                        case is String:
-                            guard let valueString = value as? String else { return }
-                            properties[key] = valueString 
-                        case is Bool:
-                            guard let valueBool = value as? Bool else { return }
-                            let valueString = String(valueBool)
-                            properties[key] = valueString
-                        case is Int:
-                            guard let valueInt = value as? Int else { return }
-                            let valueString = String(valueInt)
-                            properties[key] = valueString
-                        default: break
+                    var properties = [String: Any]()
+                    inputsMapping.forEach { (key: String, value: Any) in
+                        if let boxValue = value as? ObjCBoxable {
+                            properties[key] = JSONStructure().box(boxValue).value
                         }
                     }
                     

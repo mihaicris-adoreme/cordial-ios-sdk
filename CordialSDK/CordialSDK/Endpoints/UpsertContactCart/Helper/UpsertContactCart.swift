@@ -88,15 +88,15 @@ class UpsertContactCart {
             }
             
             if let attr = cartItem.attr {
-                cartItemContainer.append("\"attr\": \(API.getDictionaryJSON(stringDictionary: attr))")
+                cartItemContainer.append("\"attr\": \(API.getDictionaryJSON(attr))")
             }
             
             if let images = cartItem.images {
-                cartItemContainer.append("\"images\": \(API.getStringArrayJSON(stringArray: images))")
+                cartItemContainer.append("\"images\": \(API.getArrayJSON(images))")
             }
             
             if let properties = cartItem.properties {
-                cartItemContainer.append("\"properties\": \(API.getDictionaryJSON(stringDictionary: properties))")
+                cartItemContainer.append("\"properties\": \(API.getDictionaryJSON(properties))")
             }
             
             let cartItemContainerString = cartItemContainer.joined(separator: ", ")

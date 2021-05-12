@@ -10,6 +10,6 @@ import Foundation
 
 @objc public protocol InAppMessageInputsDelegate {
     
-    @objc func inputsCaptured(eventName: String, properties: Dictionary<String, String>)
+    @objc func inputsCaptured(eventName: String, properties: Dictionary<String, Any>)
     
 }

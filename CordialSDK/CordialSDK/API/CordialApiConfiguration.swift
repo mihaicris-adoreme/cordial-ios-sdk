@@ -40,7 +40,7 @@ import CoreLocation
     @objc public let inboxMessageCache = InboxMessageCache.shared
     
     @objc public var qtyCachedEventQueue = 1000
-    @objc public var systemEventsProperties: Dictionary<String, String>?
+    @objc public var systemEventsProperties: Dictionary<String, Any>?
     
     @objc public var vanityDomains = [String]()
     

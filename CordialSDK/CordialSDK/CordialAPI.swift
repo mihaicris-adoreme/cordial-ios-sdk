@@ -161,7 +161,7 @@ import os.log
     
     // MARK: Send Custom Event
         
-    @objc public func sendCustomEvent(eventName: String, properties: Dictionary<String, String>?) {
+    @objc public func sendCustomEvent(eventName: String, properties: Dictionary<String, Any>?) {
         let mcID = self.getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
         
