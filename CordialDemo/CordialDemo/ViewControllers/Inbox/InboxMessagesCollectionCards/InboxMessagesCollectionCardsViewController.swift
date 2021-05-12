@@ -118,7 +118,7 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
                     
                     CordialAPI().openDeepLink(url: deepLinkURL)
                 } else {
-                    popupSimpleNoteAlert(title: "No deep link associated with this card.", message: "mcID: \(inboxMessage.mcID)", controller: self)
+                    popupSimpleNoteAlert(title: "No deep link associated with this card", message: nil, controller: self)
                 }
             } else {
                 popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID)", controller: self)
