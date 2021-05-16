@@ -37,12 +37,12 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
                     
                     self.showAppDelegateDeepLink(product: product)
                     
-                } else if let webpageUrl = URL(string: "https://\(host)/") {
+                } else if let webpageURL = URL(string: "https://\(host)/") {
                     
-                    UIApplication.shared.open(webpageUrl)
+                    self.openWebpageURL(url: webpageURL)
                 }
             } else {
-                UIApplication.shared.open(url)
+                self.openWebpageURL(url: url)
             }
         }
     }
@@ -72,13 +72,21 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
                     
                     self.showSceneDelegateDeepLink(product: product, scene: scene)
                     
-                } else if let webpageUrl = URL(string: "https://\(host)/") {
+                } else if let webpageURL = URL(string: "https://\(host)/") {
                     
-                    UIApplication.shared.open(webpageUrl)
+                    self.openWebpageURL(url: webpageURL)
                 }
             } else {
-                UIApplication.shared.open(url)
+                self.openWebpageURL(url: url)
             }
+        }
+    }
+    
+    private func openWebpageURL(url: URL) {
+        if let urlString = url.absoluteString.removingPercentEncoding,
+           let urlDecode = URL(string: urlString) {
+            
+            UIApplication.shared.open(urlDecode)
         }
     }
     
