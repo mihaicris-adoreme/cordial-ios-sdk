@@ -14,11 +14,16 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     let deepLinksHost = "tjs.cordialdev.com"
     
     func openDeepLink(url: URL, fallbackURL: URL?) {
-        guard let host = self.getHost(url: url, fallbackURL: fallbackURL) else {
-            return
-        }
-        
         DispatchQueue.main.async {
+            if url.absoluteString.contains("notification-settings") {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                return
+            }
+            
+            guard let host = self.getHost(url: url, fallbackURL: fallbackURL) else {
+                return
+            }
+            
             if host == self.deepLinksHost {
                 if let deepLinkURL = self.getDeepLinkURL(url: url),
                    let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
@@ -44,11 +49,16 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     
     @available(iOS 13.0, *)
     func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene) {
-        guard let host = self.getHost(url: url, fallbackURL: fallbackURL) else {
-            return
-        }
-        
         DispatchQueue.main.async {
+            if url.absoluteString.contains("notification-settings") {
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                return
+            }
+            
+            guard let host = self.getHost(url: url, fallbackURL: fallbackURL) else {
+                return
+            }
+            
             if host == self.deepLinksHost {
                 if let deepLinkURL = self.getDeepLinkURL(url: url),
                    let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),

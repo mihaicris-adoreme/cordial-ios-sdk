@@ -2,6 +2,13 @@
 
 The latest version of this file can be found at the master branch.
 
+## 2.3.0 (2021-05-12)
+
+### Added
+
+- Link tracking for in-app message links
+- Handling html hyperlinks in in-app messages
+
 ## 2.2.0 (2021-04-20)
 
 ### Added

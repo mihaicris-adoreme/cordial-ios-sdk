@@ -56,29 +56,21 @@ struct API {
     static let EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_manual_dismiss"
     static let EVENT_NAME_INBOX_MESSAGE_READ = "\(API.SYSTEM_EVENT_PREFIX)inbox_read"
     
+    static let IAM_WEB_VIEW_BASE_URL = "IAM_WEB_VIEW_BASE_URL"
+    
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"
     
-    static func getDictionaryJSON(stringDictionary: Dictionary<String, String>) -> String {
-        var stringDictionaryContainer = [String]()
-        stringDictionary.forEach { (key: String, value: String) in
-            stringDictionaryContainer.append("\"\(key)\": \"\(value)\"")
-        }
-        
-        let stringContainer = stringDictionaryContainer.joined(separator: ", ")
-        
-        return "{ \(stringContainer) }"
+    static func getDictionaryJSON(_ dictionary: Dictionary<String, Any>?) -> String {
+        guard let json = dictionary as NSDictionary? else { return "{ }" }
+                
+        return JSONStructure().box(json).walk()
     }
     
-    static func getStringArrayJSON(stringArray: [String]) -> String {
-        var stringArrayContainer = [String]()
-        stringArray.forEach({ string in
-            stringArrayContainer.append("\"\(string)\"")
-        })
+    static func getArrayJSON(_ array: [Any]?) -> String {
+        guard let json = array as NSArray? else { return "[ ]" }
         
-        let stringContainer = stringArrayContainer.joined(separator: ", ")
-        
-        return "[ \(stringContainer) ]"
+        return JSONStructure().box(json).walk()
     }
     
     static func isValidExpirationDate(date: Date) -> Bool {
@@ -112,4 +104,8 @@ extension Date {
     func adding(minutes: Int) -> Date {
         return Calendar.current.date(byAdding: .minute, value: minutes, to: self)!
     }
+}
+
+extension Sequence {
+    var count: Int { return reduce(0) { acc, row in acc + 1 } }
 }
