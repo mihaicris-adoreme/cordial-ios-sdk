@@ -75,6 +75,7 @@ import os.log
         } else {
             self.fetchInboxMessage(mcID: mcID, onSuccess: { inboxMessage in
                 if let url = URL(string: inboxMessage.url) {
+                    InboxMessageContentGetter.shared.is400StatusReceived = false
                     InboxMessageContentGetter.shared.is403StatusReceived = false
                     InboxMessageContentGetter.shared.fetchInboxMessageContent(url: url, mcID: mcID, onSuccess: { response in
                         onSuccess(response)

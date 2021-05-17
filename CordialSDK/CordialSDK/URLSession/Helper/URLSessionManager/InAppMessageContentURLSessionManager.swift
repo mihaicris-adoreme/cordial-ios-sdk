@@ -39,6 +39,10 @@ class InAppMessageContentURLSessionManager {
                     let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
                     self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
                 }
+            case 400:
+                let message = "Fetching IAM content failed. Error: [URL has been expired]. mcID: [\(mcID)]"
+                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
             default:
                 let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
                 let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
