@@ -179,7 +179,7 @@ class InternalCordialAPI {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
     
-    // Is user login
+    // MARK: Is user login
     
     func isUserLogin() -> Bool {
         if let isUserLogin = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) {
@@ -187,6 +187,16 @@ class InternalCordialAPI {
         }
         
         return false
+    }
+    
+    // MARK: Is user has been ever login
+    
+    func isUserHasBeenEverLogin() -> Bool {
+        if CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) == nil {
+            return false
+        }
+        
+        return true
     }
     
     // MARK: Send Any Custom Event

@@ -115,12 +115,12 @@ class CordialPushNotificationHelper {
                     let primaryKey = CordialAPI().getContactPrimaryKey()
                     
                     if settings.authorizationStatus == .authorized {
-                        if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
+                        if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
                             let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
                             self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
                         }
                     } else {
-                        if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || !self.isSentUpsertContactsWithin24Hours() {
+                        if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
                             let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                             self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
                         }
@@ -137,19 +137,23 @@ class CordialPushNotificationHelper {
         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
-    private func isSentUpsertContactsWithin24Hours() -> Bool {
-        if let lastUpdateDateTimestamp = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE),
-            let lastUpdateDate = CordialDateFormatter().getDateFromTimestamp(timestamp: lastUpdateDateTimestamp) {
-            
-            let distanceBetweenDates = abs(lastUpdateDate.timeIntervalSinceNow)
-            let secondsInAnHour = 3600.0
-            let hoursBetweenDates = distanceBetweenDates / secondsInAnHour
+    private func isUpsertContacts24HoursSelfHealingCanBeProcessed() -> Bool {
+        if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.isUserHasBeenEverLogin() {
+            if let lastUpdateDateTimestamp = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE),
+                let lastUpdateDate = CordialDateFormatter().getDateFromTimestamp(timestamp: lastUpdateDateTimestamp) {
+                
+                let distanceBetweenDates = abs(lastUpdateDate.timeIntervalSinceNow)
+                let secondsInAnHour = 3600.0
+                let hoursBetweenDates = distanceBetweenDates / secondsInAnHour
 
-            if hoursBetweenDates < 24 {
-                return true
+                if hoursBetweenDates < 24 {
+                    return false
+                }
             }
+        } else {
+            return false
         }
         
-        return false
+        return true
     }
 }
