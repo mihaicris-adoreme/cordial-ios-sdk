@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 2.4.0 (2021-05-20)
+
+### Added
+
+- Public function openDeepLink to CordialAPI
+
 ## 2.3.0 (2021-05-12)
 
 ### Added
