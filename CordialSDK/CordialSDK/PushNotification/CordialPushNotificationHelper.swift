@@ -133,25 +133,23 @@ class CordialPushNotificationHelper {
     private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String) {
         self.internalCordialAPI.setPushNotificationStatus(status: status)
         
-        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+        if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.isUserHasBeenEverLogin() {
+            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+        }
     }
     
     private func isUpsertContacts24HoursSelfHealingCanBeProcessed() -> Bool {
-        if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.isUserHasBeenEverLogin() {
-            if let lastUpdateDateTimestamp = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE),
-                let lastUpdateDate = CordialDateFormatter().getDateFromTimestamp(timestamp: lastUpdateDateTimestamp) {
-                
-                let distanceBetweenDates = abs(lastUpdateDate.timeIntervalSinceNow)
-                let secondsInAnHour = 3600.0
-                let hoursBetweenDates = distanceBetweenDates / secondsInAnHour
+        if let lastUpdateDateTimestamp = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE),
+            let lastUpdateDate = CordialDateFormatter().getDateFromTimestamp(timestamp: lastUpdateDateTimestamp) {
+            
+            let distanceBetweenDates = abs(lastUpdateDate.timeIntervalSinceNow)
+            let secondsInAnHour = 3600.0
+            let hoursBetweenDates = distanceBetweenDates / secondsInAnHour
 
-                if hoursBetweenDates < 24 {
-                    return false
-                }
+            if hoursBetweenDates < 24 {
+                return false
             }
-        } else {
-            return false
         }
         
         return true
