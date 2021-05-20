@@ -107,10 +107,8 @@ class CordialPushNotificationHelper {
             let current = UNUserNotificationCenter.current()
             
             current.getNotificationSettings(completionHandler: { (settings) in
-                let internalCordialAPI = InternalCordialAPI()
-                
-                if !InternalCordialAPI().isCurrentlyUpsertingContacts(),
-                   let token = internalCordialAPI.getPushNotificationToken() {
+                if !self.internalCordialAPI.isCurrentlyUpsertingContacts(),
+                   let token = self.internalCordialAPI.getPushNotificationToken() {
                     
                     let primaryKey = CordialAPI().getContactPrimaryKey()
                     
@@ -131,7 +129,7 @@ class CordialPushNotificationHelper {
     }
     
     private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String) {
-        internalCordialAPI.setPushNotificationStatus(status: status)
+        self.internalCordialAPI.setPushNotificationStatus(status: status)
         
         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])

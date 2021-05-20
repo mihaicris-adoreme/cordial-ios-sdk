@@ -192,7 +192,7 @@ class InternalCordialAPI {
     // MARK: Is user has been ever login
     
     func isUserHasBeenEverLogin() -> Bool {
-        if CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) == nil {
+        if CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) == nil {
             return false
         }
         
