@@ -63,6 +63,7 @@
 		9EABE878262083100066BADC /* InAppMessageInputsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABE877262083100066BADC /* InAppMessageInputsHandler.swift */; };
 		9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */; };
 		9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB260CA229FF489005786BD /* SettingsViewController.swift */; };
+		9EB806FE264A9DBF004C0B02 /* InboxMessageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB806FD264A9DBF004C0B02 /* InboxMessageWebViewController.swift */; };
 		9EC1E141245051E500A4C756 /* CustomEventProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E140245051E500A4C756 /* CustomEventProperty.swift */; };
 		9EC1E1472450891B00A4C756 /* CustomEventTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */; };
 		9EC1E1492450892F00A4C756 /* CustomEventTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */; };
@@ -198,6 +199,7 @@
 		9EABE877262083100066BADC /* InAppMessageInputsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageInputsHandler.swift; sourceTree = "<group>"; };
 		9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesFilterViewController.swift; sourceTree = "<group>"; };
 		9EB260CA229FF489005786BD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		9EB806FD264A9DBF004C0B02 /* InboxMessageWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageWebViewController.swift; sourceTree = "<group>"; };
 		9EC1E140245051E500A4C756 /* CustomEventProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventProperty.swift; sourceTree = "<group>"; };
 		9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventTableFooterView.swift; sourceTree = "<group>"; };
 		9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomEventTableFooterView.xib; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 			isa = PBXGroup;
 			children = (
 				9E8F1B482511800A00B90139 /* InboxMessage */,
+				9EB806F4264A9D45004C0B02 /* InboxMessageWeb */,
 				9EB0058E253E5E9900156E8E /* InboxMessagesFilter */,
 				9E7F28F0256BEA1E006D3BED /* InboxMessagesTableRaw */,
 				9E0F46F02573DBD300E2FA95 /* InboxMessagesTableList */,
@@ -592,6 +595,14 @@
 				9EDAEA0C234CD23F008A7B2F /* Settings.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		9EB806F4264A9D45004C0B02 /* InboxMessageWeb */ = {
+			isa = PBXGroup;
+			children = (
+				9EB806FD264A9DBF004C0B02 /* InboxMessageWebViewController.swift */,
+			);
+			path = InboxMessageWeb;
 			sourceTree = "<group>";
 		};
 		9EC1E1452450874C00A4C756 /* Footer */ = {
@@ -998,6 +1009,7 @@
 				9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */,
 				9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */,
 				9E7EC4242510CE5C00314A18 /* InboxMessagesTableRawViewCell.swift in Sources */,
+				9EB806FE264A9DBF004C0B02 /* InboxMessageWebViewController.swift in Sources */,
 				9E30BDE9244FA6AA00040974 /* CustomUIActivityLogout.swift in Sources */,
 				9E1EB39C241DC61E004CAD90 /* Attribute.swift in Sources */,
 				9EC1E141245051E500A4C756 /* CustomEventProperty.swift in Sources */,

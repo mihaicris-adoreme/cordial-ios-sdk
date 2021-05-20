@@ -51,21 +51,26 @@ class CordialEmailDeepLink {
                 return
             }
             
-            if let httpResponse = response as? HTTPURLResponse,
-               httpResponse.statusCode == 302 {
-            
-                self.parseDeepLink(httpResponse: httpResponse, onSuccess: { url in
-                    if let host = url.host,
-                       CordialApiConfiguration.shared.vanityDomains.contains(host),
-                       redirectsCount < self.redirectsCountMax {
-                        
-                        self.fetchDeepLink(url: url, redirectsCount: redirectsCount + 1, onSuccess: onSuccess, onFailure: onFailure)
-                    } else {
-                        onSuccess(url)
-                    }
-                }, onFailure: { error in
-                    onFailure("Parsing Email DeepLink failed. Error: [Unexpected error]")
-                })
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 200:
+                    onSuccess(url)
+                case 302:
+                    self.parseDeepLink(httpResponse: httpResponse, onSuccess: { url in
+                        if let host = url.host,
+                           CordialApiConfiguration.shared.vanityDomains.contains(host),
+                           redirectsCount < self.redirectsCountMax {
+                            
+                            self.fetchDeepLink(url: url, redirectsCount: redirectsCount + 1, onSuccess: onSuccess, onFailure: onFailure)
+                        } else {
+                            onSuccess(url)
+                        }
+                    }, onFailure: { error in
+                        onFailure("Parsing Email DeepLink failed. Error: [Unexpected error]")
+                    })
+                default:
+                    onFailure("Fetching Email DeepLink failed. Error: [Unexpected error]")
+                }
             } else {
                 onFailure("Fetching Email DeepLink failed. Error: [Unexpected error]")
             }

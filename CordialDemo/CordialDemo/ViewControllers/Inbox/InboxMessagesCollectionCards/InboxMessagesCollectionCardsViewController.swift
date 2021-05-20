@@ -15,11 +15,9 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
     
     let reuseIdentifier = "inboxMessagesCollectionCardsCell"
     
-    let segueToInboxMessageIdentifier = "segueFromInboxCollectionCardsToInboxMessage"
     let segueToInboxFilterIdentifier = "segueFromInboxCollectionCardsToInboxFilter"
     
     var inboxMessages = [InboxMessage]()
-    var chosenInboxMessage: InboxMessage!
     
     var inboxFilter: InboxFilter?
     
@@ -107,25 +105,33 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
         })
     }
     
+    func openInboxMessageDeepLink(inboxMessage: InboxMessage) {
+        CordialAPI().setCurrentMcID(mcID: inboxMessage.mcID)
+        CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: inboxMessage.mcID)
+        
+        do {
+            if let inboxMessageMetadata = App.getInboxMessageMetadata(inboxMessage: inboxMessage),
+               let inboxMessageMetadataData = inboxMessageMetadata.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
+                
+                if let deepLink = inboxMessageMetadataJSON["deepLink"],
+                   let deepLinkURL = URL(string: deepLink) {
+                    
+                    CordialAPI().openDeepLink(url: deepLinkURL)
+                } else {
+                    popupSimpleNoteAlert(title: "No deep link associated with this card", message: nil, controller: self)
+                }
+            } else {
+                popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID)", controller: self)
+            }
+        } catch let error {
+            popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID) Error: \(error.localizedDescription)", controller: self)
+        }
+    }
+    
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case self.segueToInboxMessageIdentifier:
-            if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
-                
-                if !self.chosenInboxMessage.isRead {
-                    CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.chosenInboxMessage.mcID])
-                    inboxMessageViewController.isNeededInboxMessagesUpdate = true
-                } else {
-                    inboxMessageViewController.isNeededInboxMessagesUpdate = false
-                }
-                
-                CordialAPI().setCurrentMcID(mcID: self.chosenInboxMessage.mcID)
-                CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.mcID)
-                
-                inboxMessageViewController.inboxMessage = self.chosenInboxMessage
-            }
         case self.segueToInboxFilterIdentifier:
             if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesFilterViewController {
                 inboxMessagesFilterViewController.inboxFilter = self.inboxFilter
@@ -144,21 +150,23 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesCollectionCardsViewCell
         
+        cell.inboxMessageView.layer.shadowColor = UIColor.gray.cgColor
+        cell.inboxMessageView.layer.shadowOpacity = 1
+        cell.inboxMessageView.layer.shadowOffset = .zero
+        cell.inboxMessageView.layer.shadowRadius = 3
+        cell.inboxMessageView.layer.cornerRadius = 10
+        
         let inboxMessage = self.inboxMessages[indexPath.row]
         
-        var inboxMessageMetadata = inboxMessage.metadata
-        if inboxMessageMetadata == nil {
-            inboxMessageMetadata = App.inboxMessageMetadata
-        }
-        
         do {
-            if let inboxMessageMetadataData = inboxMessageMetadata?.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
+            if let inboxMessageMetadata = App.getInboxMessageMetadata(inboxMessage: inboxMessage),
+               let inboxMessageMetadataData = inboxMessageMetadata.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
                 
                 if let image = inboxMessageMetadataJSON["imageUrl"], let imageURL = URL(string: image) {
                     cell.imageView.asyncImage(url: imageURL)
                     cell.imageView.contentMode = .scaleAspectFill
                     cell.imageView.clipsToBounds = true
-                    cell.imageView.layer.cornerRadius = 20
+                    cell.imageView.layer.cornerRadius = 10
                 }
                 
                 cell.titleLabel.text = inboxMessageMetadataJSON["title"]
@@ -175,9 +183,9 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.chosenInboxMessage = self.inboxMessages[indexPath.row]
+        let inboxMessage = self.inboxMessages[indexPath.row]
         
-        self.performSegue(withIdentifier: self.segueToInboxMessageIdentifier, sender: self)
+        self.openInboxMessageDeepLink(inboxMessage: inboxMessage)
     }
     
     // MARK: UICollectionViewDelegateFlowLayout

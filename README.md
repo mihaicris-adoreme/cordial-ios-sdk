@@ -456,6 +456,28 @@ ___
 [CordialApiConfiguration shared].vanityDomains = @[@"vanity.domain.com"];
 ```
 
+#### Opening deep links received from Cordial
+
+In case the app receives a deep link from Cordial, for example as part of inbox message metadata, instead of trying to process the deep link itself, the app should open it via Cordial SDK. Cordial SDK will do regular deep link processing that is required when opening the deep link and pass the final deep link to `CordialDeepLinksDelegate`. Deep link processing includes:
+
+- Send system deep link open event to Cordial
+- Unwrap deep link in case it is shortened or wrapped up for click tracking
+
+To ask the SDK to open deep links received from Cordial use `openDeepLink` function on `CordialAPI`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let url = URL(string: "https://appdomain.com/link")!
+cordialAPI.openDeepLink(url: url)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+NSURL *url = [NSURL URLWithString: @"https://appdomain.com/link"];
+[cordialAPI openDeepLinkWithUrl:url];
+```
+
 ## Contacts
 
 ### Setting a Contact

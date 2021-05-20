@@ -15,7 +15,7 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
     
     let reuseIdentifier = "inboxMessagesTableListCell"
     
-    let segueToInboxMessageIdentifier = "segueFromInboxTableListToInboxMessage"
+    let segueToInboxMessageWebIdentifier = "segueFromInboxTableListToInboxMessageWeb"
     let segueToInboxFilterIdentifier = "segueFromInboxTableListToInboxFilter"
     
     var inboxMessages = [InboxMessage]()
@@ -113,20 +113,20 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
-        case self.segueToInboxMessageIdentifier:
-            if let inboxMessageViewController = segue.destination as? InboxMessageViewController {
-
+        case self.segueToInboxMessageWebIdentifier:
+            if let inboxMessageWebViewController = segue.destination as? InboxMessageWebViewController {
+                
                 if !self.chosenInboxMessage.isRead {
                     CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: [self.chosenInboxMessage.mcID])
-                    inboxMessageViewController.isNeededInboxMessagesUpdate = true
+                    inboxMessageWebViewController.isNeededInboxMessagesUpdate = true
                 } else {
-                    inboxMessageViewController.isNeededInboxMessagesUpdate = false
+                    inboxMessageWebViewController.isNeededInboxMessagesUpdate = false
                 }
 
                 CordialAPI().setCurrentMcID(mcID: self.chosenInboxMessage.mcID)
                 CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.chosenInboxMessage.mcID)
-
-                inboxMessageViewController.inboxMessage = self.chosenInboxMessage
+                
+                inboxMessageWebViewController.inboxMessage = self.chosenInboxMessage
             }
         case self.segueToInboxFilterIdentifier:
             if let inboxMessagesFilterViewController = segue.destination as? InboxMessagesFilterViewController {
@@ -136,7 +136,7 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
             break
         }
     }
-    
+        
     // MARK: UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -148,13 +148,9 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
         
         let inboxMessage = self.inboxMessages[indexPath.row]
         
-        var inboxMessageMetadata = inboxMessage.metadata
-        if inboxMessageMetadata == nil {
-            inboxMessageMetadata = App.inboxMessageMetadata
-        }
-        
         do {
-            if let inboxMessageMetadataData = inboxMessageMetadata?.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
+            if let inboxMessageMetadata = App.getInboxMessageMetadata(inboxMessage: inboxMessage),
+               let inboxMessageMetadataData = inboxMessageMetadata.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
                 
                 if let image = inboxMessageMetadataJSON["imageUrl"], let imageURL = URL(string: image) {
                     cell.imagePreview.asyncImage(url: imageURL)
@@ -171,13 +167,13 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
                 cell.timestampLabel.text = dateFormatter.string(from: inboxMessage.sentAt)
                 
                 if inboxMessage.isRead {
-                    cell.titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-                    cell.subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-                    cell.timestampLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
-                } else {
                     cell.titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .light)
                     cell.subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .light)
                     cell.timestampLabel.font = UIFont.systemFont(ofSize: 13, weight: .light)
+                } else {
+                    cell.titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+                    cell.subtitleLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+                    cell.timestampLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
                 }
                 
             } else {
@@ -193,7 +189,7 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.chosenInboxMessage = self.inboxMessages[indexPath.row]
 
-        self.performSegue(withIdentifier: self.segueToInboxMessageIdentifier, sender: self)
+        self.performSegue(withIdentifier: self.segueToInboxMessageWebIdentifier, sender: self)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

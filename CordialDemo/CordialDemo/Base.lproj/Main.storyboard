@@ -324,7 +324,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E7i-dT-2CB">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="E7i-dT-2CB">
                                 <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -408,13 +408,48 @@
                     <navigationItem key="navigationItem" id="Re2-8d-apd"/>
                     <connections>
                         <outlet property="tableView" destination="E7i-dT-2CB" id="fVq-lA-ALT"/>
-                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueFromInboxTableListToInboxMessage" id="Y7Z-D7-M5p"/>
                         <segue destination="CnG-HZ-MFa" kind="show" identifier="segueFromInboxTableListToInboxFilter" id="JcU-il-0pm"/>
+                        <segue destination="IHP-So-kKR" kind="show" identifier="segueFromInboxTableListToInboxMessageWeb" id="D7C-kh-rDS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2wL-FO-fDt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="952.5" y="-2138.0281690140846"/>
+        </scene>
+        <!--Inbox Message Web View Controller-->
+        <scene sceneID="fT2-lm-7G6">
+            <objects>
+                <viewController id="IHP-So-kKR" customClass="InboxMessageWebViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vx5-cs-jWm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uDM-o1-tVq">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="qIx-YE-bCu"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uDM-o1-tVq" firstAttribute="leading" secondItem="qIx-YE-bCu" secondAttribute="leading" id="DHv-MY-n7w"/>
+                            <constraint firstItem="uDM-o1-tVq" firstAttribute="bottom" secondItem="qIx-YE-bCu" secondAttribute="bottom" id="DU0-xk-hi5"/>
+                            <constraint firstItem="uDM-o1-tVq" firstAttribute="top" secondItem="qIx-YE-bCu" secondAttribute="top" id="ImL-tH-erH"/>
+                            <constraint firstItem="uDM-o1-tVq" firstAttribute="trailing" secondItem="qIx-YE-bCu" secondAttribute="trailing" id="Q5O-nb-3Ts"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="6PL-pz-th8"/>
+                    <connections>
+                        <outlet property="inboxMessageContentWebView" destination="uDM-o1-tVq" id="AZn-ic-j9k"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NpY-eN-e2w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2644" y="-2138"/>
         </scene>
         <!--Inbox Messages Collection Cards View Controller-->
         <scene sceneID="36O-pU-vU8">
@@ -424,7 +459,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Lhh-ew-UpC">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Lhh-ew-UpC">
                                 <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3kP-b7-c1V">
@@ -442,16 +477,16 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Euk-EH-zgi">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="240"/>
+                                                    <rect key="frame" x="8" y="8" width="304" height="224"/>
                                                     <subviews>
                                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="FRz-TQ-r7N">
-                                                            <rect key="frame" x="150" y="72" width="20" height="20"/>
+                                                            <rect key="frame" x="142" y="64" width="20" height="20"/>
                                                         </activityIndicatorView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="10M-lh-Btw">
-                                                            <rect key="frame" x="8" y="8" width="304" height="147.5"/>
+                                                            <rect key="frame" x="8" y="8" width="288" height="131.5"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XyI-MS-OHQ">
-                                                            <rect key="frame" x="140.5" y="163.5" width="39" height="19.5"/>
+                                                            <rect key="frame" x="132.5" y="147.5" width="39" height="19.5"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="19.5" id="4MY-lp-yHc"/>
                                                             </constraints>
@@ -460,7 +495,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hq-KM-e1o">
-                                                            <rect key="frame" x="142.5" y="191" width="35" height="17"/>
+                                                            <rect key="frame" x="134.5" y="175" width="35" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="Gy7-IT-jW8"/>
                                                             </constraints>
@@ -485,15 +520,16 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Euk-EH-zgi" firstAttribute="leading" secondItem="Oi3-7Y-A4d" secondAttribute="leading" id="3pf-6U-izd"/>
-                                                <constraint firstAttribute="bottom" secondItem="Euk-EH-zgi" secondAttribute="bottom" id="CTJ-lB-ESL"/>
-                                                <constraint firstItem="Euk-EH-zgi" firstAttribute="top" secondItem="Oi3-7Y-A4d" secondAttribute="top" id="Kba-Sr-oKO"/>
-                                                <constraint firstAttribute="trailing" secondItem="Euk-EH-zgi" secondAttribute="trailing" id="xrP-Zi-gwL"/>
+                                                <constraint firstItem="Euk-EH-zgi" firstAttribute="leading" secondItem="Oi3-7Y-A4d" secondAttribute="leading" constant="8" id="3pf-6U-izd"/>
+                                                <constraint firstAttribute="bottom" secondItem="Euk-EH-zgi" secondAttribute="bottom" constant="8" id="CTJ-lB-ESL"/>
+                                                <constraint firstItem="Euk-EH-zgi" firstAttribute="top" secondItem="Oi3-7Y-A4d" secondAttribute="top" constant="8" id="Kba-Sr-oKO"/>
+                                                <constraint firstAttribute="trailing" secondItem="Euk-EH-zgi" secondAttribute="trailing" constant="8" id="xrP-Zi-gwL"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <size key="customSize" width="320" height="240"/>
                                         <connections>
                                             <outlet property="imageView" destination="10M-lh-Btw" id="ao4-yH-utz"/>
+                                            <outlet property="inboxMessageView" destination="Euk-EH-zgi" id="br1-Eu-wiS"/>
                                             <outlet property="subtitleLabel" destination="4hq-KM-e1o" id="OVs-hj-g2q"/>
                                             <outlet property="titleLabel" destination="XyI-MS-OHQ" id="vUT-oU-u06"/>
                                         </connections>
@@ -514,7 +550,6 @@
                     <connections>
                         <outlet property="collectionView" destination="Lhh-ew-UpC" id="7tq-4j-ib0"/>
                         <segue destination="CnG-HZ-MFa" kind="show" identifier="segueFromInboxCollectionCardsToInboxFilter" id="75C-Gr-WT6"/>
-                        <segue destination="uvD-dl-1b0" kind="show" identifier="segueFromInboxCollectionCardsToInboxMessage" id="qgl-5n-UFL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vKV-wZ-CW9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1004,7 +1039,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JUU-4P-D9T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2644" y="-2138"/>
+            <point key="canvasLocation" x="1766" y="-1407"/>
         </scene>
         <!--Inbox Messages Table Raw View Controller-->
         <scene sceneID="4x6-EM-US8">
@@ -1014,7 +1049,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jrf-jM-J5p">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jrf-jM-J5p">
                                 <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
@@ -1098,7 +1133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i4L-pS-UbI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2646" y="-1405"/>
+            <point key="canvasLocation" x="2644" y="-1407"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="0Hs-AQ-9Zi">
@@ -1869,7 +1904,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="s5i-HI-zGc"/>
         <segue reference="h0i-X5-r8G"/>
         <segue reference="AlP-xG-MIL"/>
     </inferredMetricsTieBreakers>
