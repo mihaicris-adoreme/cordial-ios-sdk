@@ -6,7 +6,7 @@ The latest version of this file can be found at the master branch.
 
 ### Added
 
-- Public function openDeepLink to CordialAPI for opening deep links from client apps through SDK
+- Public function `openDeepLink` to `CordialAPI` for opening deep links from client apps through SDK
 
 ## 2.3.0 (2021-05-12)
 
