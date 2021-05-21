@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 2.4.1 (2021-05-21)
+
+### Fixed
+
+- Opening deep links with link tracking off from in-app messages
+
 ## 2.4.0 (2021-05-20)
 
 ### Added

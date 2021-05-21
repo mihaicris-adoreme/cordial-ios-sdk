@@ -14,7 +14,7 @@ class CordialEmailDeepLink {
     let redirectsCountMax = 3
     
     func open(url: URL) {
-        self.fetchDeepLink(url: url, redirectsCount: 0, onSuccess: { url in
+        self.getDeepLink(url: url, onSuccess: { url in
             InternalCordialAPI().openDeepLink(url: url)
             
             NotificationManager.shared.emailDeepLink = String()
@@ -41,6 +41,20 @@ class CordialEmailDeepLink {
                 os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
             }
         })
+    }
+    
+    private func getDeepLink(url: URL, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+        if let host = url.host,
+           CordialApiConfiguration.shared.vanityDomains.contains(host) {
+            
+            self.fetchDeepLink(url: url, redirectsCount: 0, onSuccess: { url in
+                onSuccess(url)
+            }, onFailure: { error in
+                onFailure(error)
+            })
+        } else {
+            onSuccess(url)
+        }
     }
     
     private func fetchDeepLink(url: URL, redirectsCount: Int, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
