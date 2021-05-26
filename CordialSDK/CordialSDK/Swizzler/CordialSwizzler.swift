@@ -53,7 +53,17 @@ class CordialSwizzler {
             }
         }
         
-        self.swizzleHandleEventsForBackgroundURLSessionCompletionHandler()
+        if CordialApiConfiguration.shared.backgroundURLSessionConfiguration == .SDK {
+            self.swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler()
+            
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Background URLSession related function swizzled successfully", log: OSLog.cordialBackgroundURLSession, type: .info)
+            }
+        } else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Background URLSession related function not swizzled: backgroundURLSessionConfiguration not equals to SDK value", log: OSLog.cordialBackgroundURLSession, type: .info)
+            }
+        }
     }
     
     // MARK: - Swizzle AppDelegate remote notification registration methods.
@@ -152,7 +162,7 @@ class CordialSwizzler {
     
     // MARK: Swizzle AppDelegate background URLSession method.
     
-    private func swizzleHandleEventsForBackgroundURLSessionCompletionHandler() {
+    private func swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler() {
         guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:handleEventsForBackgroundURLSession:completionHandler:))) else { return }
         
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
@@ -180,7 +190,6 @@ class CordialSwizzler {
     // MARK: Swizzled AppDelegate universal links method.
     
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        
         return CordialSwizzlerHelper().processAppContinueRestorationHandler(userActivity: userActivity)
     }
     
@@ -188,14 +197,12 @@ class CordialSwizzler {
     
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        
         CordialSwizzlerHelper().processSceneContinue(userActivity: userActivity, scene: scene)
     }
     
     // MARK: Swizzled AppDelegate URL schemes method.
     
     @objc func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        
         return CordialSwizzlerHelper().processAppOpenOptions(url: url)
     }
     
@@ -203,13 +210,12 @@ class CordialSwizzler {
     
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        
         CordialSwizzlerHelper().processSceneOpenURLContexts(URLContexts: URLContexts, scene: scene)
     }
     
     // MARK: Swizzled AppDelegate background URLSession method.
     
     @objc func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
-        CordialURLSession.shared.backgroundCompletionHandler = completionHandler
+        CordialSwizzlerHelper().swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler(identifier: identifier, completionHandler: completionHandler)
     }
 }

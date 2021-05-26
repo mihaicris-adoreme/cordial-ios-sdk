@@ -1114,7 +1114,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     func testInAppMessageBannerAutoDismiss() {
-        CordialApiConfiguration.shared.inAppMessagesDeliveryType = .silentPushes
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
         
         let mock = MockRequestSenderInAppMessageBannerAutoDismiss()
 

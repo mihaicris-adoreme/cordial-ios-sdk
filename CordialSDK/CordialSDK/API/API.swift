@@ -56,6 +56,8 @@ struct API {
     static let EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_manual_dismiss"
     static let EVENT_NAME_INBOX_MESSAGE_READ = "\(API.SYSTEM_EVENT_PREFIX)inbox_read"
     
+    static let BACKGROUND_URL_SESSION_IDENTIFIER = "CordialSDKBackgroundURLSession"
+    
     static let IAM_WEB_VIEW_BASE_URL = "IAM_WEB_VIEW_BASE_URL"
     
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"

@@ -35,8 +35,8 @@ import CoreLocation
     
     @objc public var pushesConfiguration: CordialPushNotificationType = .SDK
     @objc public var deepLinksConfiguration: CordialDeepLinksConfigurationType = .SDK
-    @objc public var inAppMessagesDeliveryType: InAppMessagesDeliveryType = .directDelivery
-    
+    @objc public var backgroundURLSessionConfiguration: CordialURLSessionConfigurationType = .SDK
+    @objc public var inAppMessagesDeliveryConfiguration: InAppMessagesDeliveryConfigurationType = .directDelivery
     
     @objc public let inboxMessageCache = InboxMessageCache.shared
     

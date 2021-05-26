@@ -1,5 +1,5 @@
 //
-//  InAppMessagesDeliveryType.swift
+//  InAppMessagesDeliveryConfigurationType.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 12.03.2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public enum InAppMessagesDeliveryType: Int {
+@objc public enum InAppMessagesDeliveryConfigurationType: Int {
     case silentPushes
     case directDelivery
 }

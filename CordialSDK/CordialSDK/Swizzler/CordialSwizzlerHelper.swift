@@ -22,7 +22,7 @@ class CordialSwizzlerHelper {
         let pushNotificationParser = CordialPushNotificationParser()
         
         if pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
-            switch CordialApiConfiguration.shared.inAppMessagesDeliveryType {
+            switch CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration {
             case .silentPushes:
                 InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
             case .directDelivery:
@@ -94,7 +94,7 @@ class CordialSwizzlerHelper {
     
     // MARK: Deep links
 
-    public func processAppContinueRestorationHandler(userActivity: NSUserActivity) -> Bool {
+    func processAppContinueRestorationHandler(userActivity: NSUserActivity) -> Bool {
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
                 return false
@@ -105,7 +105,7 @@ class CordialSwizzlerHelper {
                 
                 NotificationManager.shared.emailDeepLink = url.absoluteString
             } else {
-                self.sentEventDeepLinlkOpen()
+                self.sentEventDeepLinkOpen()
                 cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
             }
             
@@ -115,7 +115,7 @@ class CordialSwizzlerHelper {
         return false
     }
 
-    public func processAppOpenOptions(url: URL) -> Bool {
+    func processAppOpenOptions(url: URL) -> Bool {
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
             let mcID = CordialAPI().getCurrentMcID()
@@ -131,7 +131,7 @@ class CordialSwizzlerHelper {
     }
     
     @available(iOS 13.0, *)
-    public func processSceneContinue(userActivity: NSUserActivity, scene: UIScene) {
+    func processSceneContinue(userActivity: NSUserActivity, scene: UIScene) {
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
                 return
@@ -142,14 +142,14 @@ class CordialSwizzlerHelper {
                 
                 NotificationManager.shared.emailDeepLink = url.absoluteString
             } else {
-                self.sentEventDeepLinlkOpen()
+                self.sentEventDeepLinkOpen()
                 cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
             }
         }
     }
     
     @available(iOS 13.0, *)
-    public func processSceneOpenURLContexts(URLContexts: Set<UIOpenURLContext>, scene: UIScene) {
+    func processSceneOpenURLContexts(URLContexts: Set<UIOpenURLContext>, scene: UIScene) {
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate, let url = URLContexts.first?.url {
             let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
             let mcID = CordialAPI().getCurrentMcID()
@@ -160,11 +160,19 @@ class CordialSwizzlerHelper {
         }
     }
         
-    private func sentEventDeepLinlkOpen() {
+    private func sentEventDeepLinkOpen() {
         let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+    }
+    
+    // MARK: Background URL session
+    
+    func swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler(identifier: String, completionHandler: @escaping () -> Void) {
+        if CordialURLSessionConfigurationHandler().isCordialURLSession(identifier: identifier) {
+            CordialURLSession.shared.backgroundCompletionHandler = completionHandler
+        }
     }
 
 }

@@ -10,21 +10,21 @@ import Foundation
 
 @objc public class CordialDeepLinksConfigurationHandler: NSObject {
     
-    public func processAppContinueRestorationHandler(userActivity: NSUserActivity) -> Bool {
+    @objc public func processAppContinueRestorationHandler(userActivity: NSUserActivity) -> Bool {
         return CordialSwizzlerHelper().processAppContinueRestorationHandler(userActivity: userActivity)
     }
 
-    public func processAppOpenOptions(url: URL) -> Bool {
+    @objc public func processAppOpenOptions(url: URL) -> Bool {
         return CordialSwizzlerHelper().processAppOpenOptions(url: url)
     }
     
     @available(iOS 13.0, *)
-    public func processSceneContinue(userActivity: NSUserActivity, scene: UIScene) {
+    @objc public func processSceneContinue(userActivity: NSUserActivity, scene: UIScene) {
         CordialSwizzlerHelper().processSceneContinue(userActivity: userActivity, scene: scene)
     }
     
     @available(iOS 13.0, *)
-    public func processSceneOpenURLContexts(URLContexts: Set<UIOpenURLContext>, scene: UIScene) {
+    @objc public func processSceneOpenURLContexts(URLContexts: Set<UIOpenURLContext>, scene: UIScene) {
         CordialSwizzlerHelper().processSceneOpenURLContexts(URLContexts: URLContexts, scene: scene)
     }
 }
