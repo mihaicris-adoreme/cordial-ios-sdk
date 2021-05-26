@@ -34,6 +34,7 @@ import CoreLocation
     @objc public var inboxMessageDelegate: InboxMessageDelegate?
     
     @objc public var pushesConfiguration: CordialPushNotificationType = .SDK
+    @objc public var deepLinksConfiguration: CordialDeepLinksConfigurationType = .SDK
     @objc public var inAppMessagesDeliveryType: InAppMessagesDeliveryType = .directDelivery
     
     
