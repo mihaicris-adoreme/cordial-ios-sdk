@@ -226,7 +226,7 @@ CordialApiConfiguration.shared.pushesConfiguration = .APP
 [CordialApiConfiguration shared].backgroundURLSessionConfiguration = CordialURLSessionConfigurationTypeSDK;
 ```
 
-The value can be either `SDK` or `APP`. To switch swizzling for any area off, set the corresponding value to `APP`, meaning that the app will take care of passing the required data to the SDK, instead of SDK doing it itself.
+The value can be either `SDK` or `APP`. To switch swizzling for an area off, set the corresponding value to `APP`, meaning that the app will take care of passing the required data to the SDK, instead of SDK doing it itself.
 
 Below are the details on how to disable swizzling for each specific area
 
