@@ -289,19 +289,19 @@ Otherwise call the SDK from these methods:
 ___
 ```
 // application(_:continue:restorationHandler:)
-retutn CordialDeepLinksConfigurationHandler().processAppContinueRestorationHandler(userActivity: userActivity)
+CordialDeepLinksConfigurationHandler().processAppContinueRestorationHandler(userActivity: userActivity)
 
 // application(_:open:options:)
-return CordialDeepLinksConfigurationHandler().processAppOpenOptions(url: url)
+CordialDeepLinksConfigurationHandler().processAppOpenOptions(url: url)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
 // application(_:continue:restorationHandler:)
-return [[CordialDeepLinksConfigurationHandler alloc] processAppContinueRestorationHandlerWithUserActivity:userActivity];
+[[CordialDeepLinksConfigurationHandler alloc] processAppContinueRestorationHandlerWithUserActivity:userActivity];
 
 // application(_:open:options:)
-return [[CordialDeepLinksConfigurationHandler alloc] processAppOpenOptionsWithUrl:url];
+[[CordialDeepLinksConfigurationHandler alloc] processAppOpenOptionsWithUrl:url];
 ```
 
 #### Disable swizzling for processing events from completing a URL session request
