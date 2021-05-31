@@ -4,7 +4,7 @@
 [Installation](#installation)<br>
 [Initialize the SDK](#initialize-the-sdk)<br>
 [Push Notifications](#push-notifications)<br>
-[Method swizzling](#method-swizzling)<br>
+[Method Swizzling](#method-swizzling)<br>
 [Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
 [Post a Cart](#post-a-cart)<br>
 [Post an Order](#post-an-order)<br>
@@ -198,7 +198,7 @@ ___
 [[[CordialPushNotificationHandler alloc] init] processSilentPushDeliveryWithUserInfo:userInfo];
 ```
 
-## Method swizzling
+## Method Swizzling
 
 Cordial SDK does swizzling in three areas:
 
