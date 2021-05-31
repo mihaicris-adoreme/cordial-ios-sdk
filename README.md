@@ -4,6 +4,7 @@
 [Installation](#installation)<br>
 [Initialize the SDK](#initialize-the-sdk)<br>
 [Push Notifications](#push-notifications)<br>
+[Method swizzling](#method-swizzling)<br>
 [Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
 [Post a Cart](#post-a-cart)<br>
 [Post an Order](#post-an-order)<br>
@@ -195,6 +196,144 @@ CordialPushNotificationHandler().processSilentPushDelivery(userInfo: userInfo)
 ___
 ```
 [[[CordialPushNotificationHandler alloc] init] processSilentPushDeliveryWithUserInfo:userInfo];
+```
+
+## Method swizzling
+
+Cordial SDK does swizzling in three areas:
+
+- Registering for and receiving push notifications
+- Handling deep links
+- Processing events from completing a URL session request
+
+Swizzling allows minimum SDK configuration by the container app. Developers who prefer not to use swizzling can disable swizzling for these areas individually. In case swizzling is disabled for an area, there are methods in the SDK to be called by the app after specific events in the app occur.
+
+If swizzling for the three areas is enabled is controlled by three fields:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.pushesConfiguration = .APP
+CordialApiConfiguration.shared.deepLinksConfiguration = .SDK
+CordialApiConfiguration.shared.backgroundURLSessionConfiguration = .SDK
+
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+CordialApiConfiguration.shared.pushesConfiguration = .APP
+[CordialApiConfiguration shared].deepLinksConfiguration = CordialDeepLinksConfigurationTypeSDK;
+[CordialApiConfiguration shared].backgroundURLSessionConfiguration = CordialURLSessionConfigurationTypeSDK;
+```
+
+The value can be either `SDK` or `APP`. To switch swizzling for any area off, set the corresponding value to `APP`, meaning that the app will take care of passing the required data to the SDK, instead of SDK doing it itself.
+
+Below are the details on how to disable swizzling for each specific area
+
+#### Disable swizzling for registering and receiving push notifications
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.pushesConfiguration = .APP
+
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationTypeAPP;
+```
+
+In order to disable swizzling for registering and receiving push notifications see [Multiple Push Notification Providers](#multiple-push-notification-providers)
+
+#### Disable swizzling for handling deep links
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.deepLinksConfiguration = .APP
+
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].deepLinksConfiguration = CordialDeepLinksConfigurationTypeAPP;
+```
+
+Depending on iOS version and if your app use scenes, you should call corresponding method of the SDK.
+
+In case the app is iOS 13 and greater and the app uses scenes, call the SDK from these two methods:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+// scene(_:continue:)
+CordialDeepLinksConfigurationHandler().processSceneContinue(userActivity: userActivity, scene: scene)
+
+// scene(_:openURLContexts:)
+CordialDeepLinksConfigurationHandler().processSceneOpenURLContexts(URLContexts: URLContexts, scene: scene)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+// scene(_:continue:)
+[[CordialDeepLinksConfigurationHandler alloc] processSceneContinueWithUserActivity:userActivity scene:scene];
+
+// scene(_:openURLContexts:)
+[[CordialDeepLinksConfigurationHandler alloc] processSceneOpenURLContextsWithURLContexts:URLContexts scene:scene];
+```
+
+Otherwise call the SDK from these methods:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+// application(_:continue:restorationHandler:)
+retutn CordialDeepLinksConfigurationHandler().processAppContinueRestorationHandler(userActivity: userActivity)
+
+// application(_:open:options:)
+return CordialDeepLinksConfigurationHandler().processAppOpenOptions(url: url)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+// application(_:continue:restorationHandler:)
+return [[CordialDeepLinksConfigurationHandler alloc] processAppContinueRestorationHandlerWithUserActivity:userActivity];
+
+// application(_:open:options:)
+return [[CordialDeepLinksConfigurationHandler alloc] processAppOpenOptionsWithUrl:url];
+```
+
+#### Disable swizzling for processing events from completing a URL session request
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.backgroundURLSessionConfiguration = .APP
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].backgroundURLSessionConfiguration = CordialURLSessionConfigurationTypeAPP;
+```
+
+To turn off swizzling for processing events from completing a URL session, call `processURLSessionCompletionHandler` from your `application(_:handleEventsForBackgroundURLSession:completionHandler:)` method:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let cordialURLSessionConfigurationHandler = CordialURLSessionConfigurationHandler()
+if cordialURLSessionConfigurationHandler.isCordialURLSession(identifier: identifier) {
+    cordialURLSessionConfigurationHandler.processURLSessionCompletionHandler(identifier: identifier, completionHandler: completionHandler)
+}
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+CordialURLSessionConfigurationHandler *cordialURLSessionConfigurationHandler = [CordialURLSessionConfigurationHandler alloc];
+if ([cordialURLSessionConfigurationHandler isCordialURLSessionWithIdentifier:identifier]) {
+    [cordialURLSessionConfigurationHandler processURLSessionCompletionHandlerWithIdentifier:identifier completionHandler:completionHandler];
+}
 ```
 
 ## Multiple Push Notification Providers
