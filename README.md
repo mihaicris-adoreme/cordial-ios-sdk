@@ -244,7 +244,7 @@ ___
 [CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationTypeAPP;
 ```
 
-In order to disable swizzling for registering and receiving push notifications see [Multiple Push Notification Providers](#multiple-push-notification-providers)
+In order to disable swizzling for registering and receiving push notifications see [Multiple Push Notification Providers](#multiple-push-notification-providers).
 
 #### Disable swizzling for handling deep links
 
