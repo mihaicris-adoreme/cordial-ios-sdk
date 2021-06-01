@@ -33,7 +33,7 @@ import CoreLocation
     @objc public var inAppMessageInputsDelegate: InAppMessageInputsDelegate?
     @objc public var inboxMessageDelegate: InboxMessageDelegate?
     
-    @objc public var pushesConfiguration: CordialPushNotificationType = .SDK
+    @objc public var pushesConfiguration: CordialPushNotificationConfigurationType = .SDK
     @objc public var deepLinksConfiguration: CordialDeepLinksConfigurationType = .SDK
     @objc public var backgroundURLSessionConfiguration: CordialURLSessionConfigurationType = .SDK
     @objc public var inAppMessagesDeliveryConfiguration: InAppMessagesDeliveryConfigurationType = .directDelivery

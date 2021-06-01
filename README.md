@@ -221,7 +221,7 @@ CordialApiConfiguration.shared.backgroundURLSessionConfiguration = .SDK
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-CordialApiConfiguration.shared.pushesConfiguration = .APP
+[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationConfigurationTypeAPP;
 [CordialApiConfiguration shared].deepLinksConfiguration = CordialDeepLinksConfigurationTypeSDK;
 [CordialApiConfiguration shared].backgroundURLSessionConfiguration = CordialURLSessionConfigurationTypeSDK;
 ```
@@ -241,7 +241,7 @@ CordialApiConfiguration.shared.pushesConfiguration = .APP
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationTypeAPP;
+[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationConfigurationTypeAPP;
 ```
 
 In order to disable swizzling for registering and receiving push notifications see [Multiple Push Notification Providers](#multiple-push-notification-providers).
@@ -351,7 +351,7 @@ CordialApiConfiguration.shared.pushesConfiguration = .APP
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationTypeAPP;
+[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationConfigurationTypeAPP;
 ```
 
 After enabling multiple push notification providers support the application needs to know if a push notification is from Cordial. To check if push notification is from Cordial use `isCordialMessage` function:
