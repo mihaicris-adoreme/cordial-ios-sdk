@@ -28,26 +28,42 @@ class CordialSwizzler {
                 os_log("Push notification related functions not swizzled: pushesConfiguration not equals to SDK value", log: OSLog.cordialPushNotification, type: .info)
             }
         }
+        
+        if CordialApiConfiguration.shared.deepLinksConfiguration == .SDK {
+            if CordialApiConfiguration.shared.cordialDeepLinksDelegate != nil {
+                if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
+                    self.swizzleSceneContinue()
+                    self.swizzleSceneOpenURLContexts()
+                } else {
+                    self.swizzleAppContinueRestorationHandler()
+                    self.swizzleAppOpenOptions()
+                }
                 
-        if CordialApiConfiguration.shared.cordialDeepLinksDelegate != nil {
-            if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
-                self.swizzleSceneContinue()
-                self.swizzleSceneOpenURLContexts()
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    os_log("Deep links related functions swizzled successfully", log: OSLog.cordialDeepLinks, type: .info)
+                }
             } else {
-                self.swizzleContinueRestorationHandler()
-                self.swizzleOpenOptions()
-            }
-            
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Deep links related functions swizzled successfully", log: OSLog.cordialDeepLinks, type: .info)
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    os_log("Deep links related functions not swizzled: Deep links delegate not setted up", log: OSLog.cordialDeepLinks, type: .info)
+                }
             }
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Deep links related functions not swizzled: Deep links delegate not setted up", log: OSLog.cordialDeepLinks, type: .info)
+                os_log("Deep links related functions not swizzled: deepLinksConfiguration not equals to SDK value", log: OSLog.cordialDeepLinks, type: .info)
             }
         }
         
-        self.swizzleHandleEventsForBackgroundURLSessionCompletionHandler()
+        if CordialApiConfiguration.shared.backgroundURLSessionConfiguration == .SDK {
+            self.swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler()
+            
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Background URLSession related function swizzled successfully", log: OSLog.cordialBackgroundURLSession, type: .info)
+            }
+        } else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Background URLSession related function not swizzled: backgroundURLSessionConfiguration not equals to SDK value", log: OSLog.cordialBackgroundURLSession, type: .info)
+            }
+        }
     }
     
     // MARK: - Swizzle AppDelegate remote notification registration methods.
@@ -80,7 +96,7 @@ class CordialSwizzler {
     
     // MARK: Swizzle AppDelegate universal links method.
     
-    private func swizzleContinueRestorationHandler() {
+    private func swizzleAppContinueRestorationHandler() {
         guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:continue:restorationHandler:))) else { return }
         
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
@@ -113,7 +129,7 @@ class CordialSwizzler {
     
     // MARK: Swizzle AppDelegate URL schemes method.
     
-    private func swizzleOpenOptions() {
+    private func swizzleAppOpenOptions() {
         guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:open:options:))) else { return }
         
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
@@ -146,7 +162,7 @@ class CordialSwizzler {
     
     // MARK: Swizzle AppDelegate background URLSession method.
     
-    private func swizzleHandleEventsForBackgroundURLSessionCompletionHandler() {
+    private func swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler() {
         guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:handleEventsForBackgroundURLSession:completionHandler:))) else { return }
         
         let delegateClass: AnyClass! = object_getClass(UIApplication.shared.delegate)
@@ -174,88 +190,32 @@ class CordialSwizzler {
     // MARK: Swizzled AppDelegate universal links method.
     
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        
-        let cordialSwizzlerHelper = CordialSwizzlerHelper()
-        
-        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
-            guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
-                return false
-            }
-            
-            if let host = url.host,
-               CordialApiConfiguration.shared.vanityDomains.contains(host) {
-                
-                NotificationManager.shared.emailDeepLink = url.absoluteString
-            } else {
-                cordialSwizzlerHelper.sentEventDeepLinlkOpen()
-                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
-            }
-            
-            return true
-        }
-        
-        return false
+        return CordialSwizzlerHelper().processAppContinueRestorationHandler(userActivity: userActivity)
     }
     
     // MARK: Swizzled SceneDelegate universal links method.
     
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        
-        let cordialSwizzlerHelper = CordialSwizzlerHelper()
-        
-        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
-            guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
-                return
-            }
-            
-            if let host = url.host,
-               CordialApiConfiguration.shared.vanityDomains.contains(host) {
-                
-                NotificationManager.shared.emailDeepLink = url.absoluteString
-            } else {
-                cordialSwizzlerHelper.sentEventDeepLinlkOpen()
-                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
-            }
-        }
+        CordialSwizzlerHelper().processSceneContinue(userActivity: userActivity, scene: scene)
     }
     
     // MARK: Swizzled AppDelegate URL schemes method.
     
     @objc func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        
-        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
-            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
-            let mcID = CordialAPI().getCurrentMcID()
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
-            InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-            
-            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
-            
-            return true
-        }
-        
-        return false
+        return CordialSwizzlerHelper().processAppOpenOptions(url: url)
     }
     
     // MARK: Swizzle SceneDelegate URL schemes method.
     
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        
-        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate, let url = URLContexts.first?.url {
-            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
-            let mcID = CordialAPI().getCurrentMcID()
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
-            InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-            
-            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
-        }
+        CordialSwizzlerHelper().processSceneOpenURLContexts(URLContexts: URLContexts, scene: scene)
     }
     
     // MARK: Swizzled AppDelegate background URLSession method.
     
     @objc func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
-        CordialURLSession.shared.backgroundCompletionHandler = completionHandler
+        CordialSwizzlerHelper().swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler(identifier: identifier, completionHandler: completionHandler)
     }
 }

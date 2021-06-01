@@ -2,6 +2,17 @@
 
 The latest version of this file can be found at the master branch.
 
+## 2.5.0 (2021-06-01)
+
+### Added
+
+- Ability to run SDK without swizzling
+
+### Fixed
+
+- Handling expired S3 urls for in-app message content
+- Automatic logins after logging out
+
 ## 2.4.1 (2021-05-21)
 
 ### Fixed

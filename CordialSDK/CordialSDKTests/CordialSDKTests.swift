@@ -1114,7 +1114,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     func testInAppMessageBannerAutoDismiss() {
-        CordialApiConfiguration.shared.inAppMessagesDeliveryType = .silentPushes
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
         
         let mock = MockRequestSenderInAppMessageBannerAutoDismiss()
 
@@ -1520,6 +1520,41 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
+    func testInboxMessageContent400Status() {
+        
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+        
+        var isVerified = false
+
+        if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
+           let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
+           let url = URL(string: self.validStringURL) {
+
+            let responseInboxMessage = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessage = MockURLSession(completionHandler: (testInboxMessagePayloadData, responseInboxMessage, nil))
+            DependencyConfiguration.shared.inboxMessageURLSession = mockSessionInboxMessage
+            
+            let responseInboxMessageContent = HTTPURLResponse(url: url, statusCode: 400, httpVersion: nil, headerFields: nil)
+            let mockSessionInboxMessageContent = MockURLSession(completionHandler: (testInboxMessageContentPayloadData, responseInboxMessageContent, nil))
+            DependencyConfiguration.shared.inboxMessageContentURLSession = mockSessionInboxMessageContent
+
+            CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
+                XCTAssert(false)
+            }, onFailure: { error in
+                if InboxMessageContentGetter.shared.is400StatusReceived {
+                    isVerified = true
+                    XCTAssert(true)
+                } else {
+                    XCTAssert(false)
+                }
+            })
+        }
+        
+        XCTAssert(isVerified)
+    }
+    
     func testInboxMessageContent500Status() {
         
         self.testCase.setTestJWT(token: self.testJWT)
@@ -1543,7 +1578,7 @@ class CordialSDKTests: XCTestCase {
             CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
                 XCTAssert(false)
             }, onFailure: { error in
-                if !InboxMessageContentGetter.shared.is403StatusReceived {
+                if !InboxMessageContentGetter.shared.is400StatusReceived && !InboxMessageContentGetter.shared.is403StatusReceived {
                     isVerified = true
                     XCTAssert(true)
                 } else {

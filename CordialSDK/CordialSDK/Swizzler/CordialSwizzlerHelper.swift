@@ -11,6 +11,8 @@ import os.log
 
 class CordialSwizzlerHelper {
     
+    // MARK: Push notification
+    
     func didReceiveRemoteNotification(userInfo: [AnyHashable : Any]) {
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -20,7 +22,7 @@ class CordialSwizzlerHelper {
         let pushNotificationParser = CordialPushNotificationParser()
         
         if pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
-            switch CordialApiConfiguration.shared.inAppMessagesDeliveryType {
+            switch CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration {
             case .silentPushes:
                 InAppMessageGetter().startFetchInAppMessage(userInfo: userInfo)
             case .directDelivery:
@@ -53,7 +55,9 @@ class CordialSwizzlerHelper {
             os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
         }
         
-        self.preparePushNotificationStatus(token: token)
+        if internalCordialAPI.isUserLogin() || !internalCordialAPI.isUserHasBeenEverLogin() {
+            self.preparePushNotificationStatus(token: token)
+        }
     }
     
     private func preparePushNotificationStatus(token: String) {
@@ -89,12 +93,88 @@ class CordialSwizzlerHelper {
             ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
         }
     }
+    
+    // MARK: Deep links
+
+    func processAppContinueRestorationHandler(userActivity: NSUserActivity) -> Bool {
+        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
+            guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
+                return false
+            }
+            
+            if let host = url.host,
+               CordialApiConfiguration.shared.vanityDomains.contains(host) {
+                
+                NotificationManager.shared.emailDeepLink = url.absoluteString
+            } else {
+                self.sentEventDeepLinkOpen()
+                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
+            }
+            
+            return true
+        }
         
-    func sentEventDeepLinlkOpen() {
+        return false
+    }
+
+    func processAppOpenOptions(url: URL) -> Bool {
+        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
+            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
+            InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            
+            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
+            
+            return true
+        }
+        
+        return false
+    }
+    
+    @available(iOS 13.0, *)
+    func processSceneContinue(userActivity: NSUserActivity, scene: UIScene) {
+        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
+            guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else {
+                return
+            }
+            
+            if let host = url.host,
+               CordialApiConfiguration.shared.vanityDomains.contains(host) {
+                
+                NotificationManager.shared.emailDeepLink = url.absoluteString
+            } else {
+                self.sentEventDeepLinkOpen()
+                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+            }
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func processSceneOpenURLContexts(URLContexts: Set<UIOpenURLContext>, scene: UIScene) {
+        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate, let url = URLContexts.first?.url {
+            let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
+            let mcID = CordialAPI().getCurrentMcID()
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
+            InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            
+            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+        }
+    }
+        
+    private func sentEventDeepLinkOpen() {
         let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
         let mcID = CordialAPI().getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+    }
+    
+    // MARK: Background URL session
+    
+    func swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler(identifier: String, completionHandler: @escaping () -> Void) {
+        if CordialURLSessionConfigurationHandler().isCordialURLSession(identifier: identifier) {
+            CordialURLSession.shared.backgroundCompletionHandler = completionHandler
+        }
     }
 
 }

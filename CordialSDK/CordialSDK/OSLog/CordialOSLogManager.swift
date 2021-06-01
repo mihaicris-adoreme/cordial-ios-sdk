@@ -17,6 +17,7 @@ extension OSLog {
     static let cordialCoreDataError = OSLog(subsystem: subsystem, category: "CordialSDKCoreDataError")
     
     static let cordialPushNotification = OSLog(subsystem: subsystem, category: "CordialSDKPushNotification")
+    static let cordialBackgroundURLSession = OSLog(subsystem: subsystem, category: "CordialSDKBackgroundURLSession")
     static let cordialDeepLinks = OSLog(subsystem: subsystem, category: "CordialSDKDeepLinks")
     
     static let cordialSendCustomEvents = OSLog(subsystem: subsystem, category: "CordialSDKSendCustomEvents")

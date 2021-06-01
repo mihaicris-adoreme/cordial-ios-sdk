@@ -23,11 +23,15 @@ import Foundation
     }
     
     @objc public func processAppOpenViaPushNotificationTap(userInfo: [AnyHashable : Any], completionHandler: () -> Void) {
-        CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: completionHandler)
+        if self.isCordialMessage(userInfo: userInfo) {
+            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: completionHandler)
+        }
     }
     
     @objc public func processNotificationDeliveryInForeground(userInfo: [AnyHashable : Any], completionHandler: (UNNotificationPresentationOptions) -> Void) {
-        CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: completionHandler)
+        if self.isCordialMessage(userInfo: userInfo) {
+            CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: completionHandler)
+        }
     }
     
     @objc public func processSilentPushDelivery(userInfo: [AnyHashable : Any]) {

@@ -179,7 +179,7 @@ class InternalCordialAPI {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
     
-    // Is user login
+    // MARK: Is user login
     
     func isUserLogin() -> Bool {
         if let isUserLogin = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) {
@@ -187,6 +187,16 @@ class InternalCordialAPI {
         }
         
         return false
+    }
+    
+    // MARK: Is user has been ever login
+    
+    func isUserHasBeenEverLogin() -> Bool {
+        if CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) == nil {
+            return false
+        }
+        
+        return true
     }
     
     // MARK: Send Any Custom Event
@@ -271,9 +281,9 @@ class InternalCordialAPI {
                 if #available(iOS 13.0, *), self.isAppUseScenes(),
                     let scene = UIApplication.shared.connectedScenes.first {
                     
-                    scene.delegate?.scene?(scene, continue: userActivity)
+                    CordialSwizzler.shared.scene(scene, continue: userActivity)
                 } else {
-                    let _ = UIApplication.shared.delegate?.application?(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
+                    let _ = CordialSwizzler.shared.application(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
                 }
             } else {
                 UIApplication.shared.open(url, options:[:], completionHandler: nil)

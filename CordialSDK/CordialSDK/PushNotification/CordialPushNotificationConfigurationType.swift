@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationType.swift
+//  CordialPushNotificationConfigurationType.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 23.07.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public enum CordialPushNotificationType: Int {
+@objc public enum CordialPushNotificationConfigurationType: Int {
     case SDK
     case APP 
 }
