@@ -55,7 +55,9 @@ class CordialSwizzlerHelper {
             os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
         }
         
-        self.preparePushNotificationStatus(token: token)
+        if internalCordialAPI.isUserLogin() || !internalCordialAPI.isUserHasBeenEverLogin() {
+            self.preparePushNotificationStatus(token: token)
+        }
     }
     
     private func preparePushNotificationStatus(token: String) {
