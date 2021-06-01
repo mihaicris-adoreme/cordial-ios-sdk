@@ -15,6 +15,7 @@ class InboxMessageContentGetter {
     
     private init() {}
     
+    var is400StatusReceived = false
     var is403StatusReceived = false
     
     func fetchInboxMessageContent(url: URL, mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
@@ -66,6 +67,19 @@ class InboxMessageContentGetter {
                     CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: mcID, content: response)
                     
                     onSuccess(response)
+                case 400:
+                    if !self.is400StatusReceived {
+                        
+                        self.is400StatusReceived = true
+                        
+                        self.getInboxMessageContentTroughthoutUpdatedURL(mcID: mcID, onSuccess: { response in
+                            onSuccess(response)
+                        }, onFailure: { error in
+                            onFailure(error)
+                        })
+                    } else {
+                        onFailure("Fetching inbox message content failed. Error: [URL has been expired]")
+                    }
                 case 403:
                     if !self.is403StatusReceived {
                         
