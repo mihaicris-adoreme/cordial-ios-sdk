@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 2.5.1 (2021-06-03)
+
+### Fixed
+
+- Reduced requests quantity to timestamps endpoint 
+
 ## 2.5.0 (2021-06-01)
 
 ### Added
