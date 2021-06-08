@@ -40,9 +40,6 @@ class CoreDataSender {
             
             // Contact Timestamps
             ContactTimestamps.shared.updateIfNeeded()
-            
-            // Contact Timestamp URL
-            ContactTimestampURL.shared.updateIfNeeded(nil)
         }
         
         self.sendCachedContactLogoutRequest()

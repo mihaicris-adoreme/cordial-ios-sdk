@@ -19,18 +19,9 @@ class ContactTimestampURL {
     
     var isCurrentlyUpdatingContactTimestampURL = false
     
-    func updateIfNeeded(_ url: URL?) {
+    func updateIfNeeded(_ url: URL) {
         if !self.isCurrentlyUpdatingContactTimestampURL {
-            
-            if let url = url {
-                self.fetchContactTimestampURL(url: url)
-            } else if let contactTimestamp = CoreDataManager.shared.contactTimestampsURL.getContactTimestampFromCoreData(),
-                      API.isValidExpirationDate(date: contactTimestamp.expireDate) {
-                    
-                self.fetchContactTimestampURL(url: contactTimestamp.url)
-                
-            }
-            
+            self.fetchContactTimestampURL(url: url)
         }
     }
     
