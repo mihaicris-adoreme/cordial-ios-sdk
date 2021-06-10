@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
-        CatalogView()
-            .onOpenURL(perform: { url in
-                print(url)
-            })
+//        DeepLinksView(url: URL(string: "https://tjs.cordialdev.com/prep-tj1.html")!)
+        CatalogView().onOpenURL(perform: { url in
+            print(url.absoluteURL)
+            DeepLinksView(url: url)
+        })
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

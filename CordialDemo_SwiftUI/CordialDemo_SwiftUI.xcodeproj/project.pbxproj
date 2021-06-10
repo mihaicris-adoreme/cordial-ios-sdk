@@ -15,6 +15,10 @@
 		9E40179A26710ABB00D269CC /* CordialDemo_SwiftUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40179926710ABB00D269CC /* CordialDemo_SwiftUIUITests.swift */; };
 		9E4018562672356800D269CC /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4018552672356800D269CC /* CatalogView.swift */; };
 		9E40185E2672360100D269CC /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40185D2672360100D269CC /* ProductView.swift */; };
+		9E40188D26728C1300D269CC /* DeepLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40188C26728C1300D269CC /* DeepLinksView.swift */; };
+		9E40189326728C5F00D269CC /* ProductHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40189226728C5F00D269CC /* ProductHandler.swift */; };
+		9E40189826728C8700D269CC /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40189726728C8700D269CC /* Product.swift */; };
+		9E4018B926729BCC00D269CC /* DeepLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4018B826729BCC00D269CC /* DeepLinks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +54,10 @@
 		9E4018552672356800D269CC /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		9E40185D2672360100D269CC /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		9E40187B2672509200D269CC /* CordialDemo_SwiftUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CordialDemo_SwiftUI.entitlements; sourceTree = "<group>"; };
+		9E40188C26728C1300D269CC /* DeepLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinksView.swift; sourceTree = "<group>"; };
+		9E40189226728C5F00D269CC /* ProductHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHandler.swift; sourceTree = "<group>"; };
+		9E40189726728C8700D269CC /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		9E4018B826729BCC00D269CC /* DeepLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinks.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +108,8 @@
 		9E40177B26710AB800D269CC /* CordialDemo_SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				9E40189126728C5200D269CC /* ProductHandler */,
+				9E40188B26728BBA00D269CC /* DeepLinks */,
 				9E40187B2672509200D269CC /* CordialDemo_SwiftUI.entitlements */,
 				9E4018542672354000D269CC /* Views */,
 				9E40177C26710AB800D269CC /* CordialDemo_SwiftUIApp.swift */,
@@ -140,10 +150,28 @@
 		9E4018542672354000D269CC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9E40188C26728C1300D269CC /* DeepLinksView.swift */,
 				9E4018552672356800D269CC /* CatalogView.swift */,
 				9E40185D2672360100D269CC /* ProductView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		9E40188B26728BBA00D269CC /* DeepLinks */ = {
+			isa = PBXGroup;
+			children = (
+				9E4018B826729BCC00D269CC /* DeepLinks.swift */,
+			);
+			path = DeepLinks;
+			sourceTree = "<group>";
+		};
+		9E40189126728C5200D269CC /* ProductHandler */ = {
+			isa = PBXGroup;
+			children = (
+				9E40189226728C5F00D269CC /* ProductHandler.swift */,
+				9E40189726728C8700D269CC /* Product.swift */,
+			);
+			path = ProductHandler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,9 +304,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E40185E2672360100D269CC /* ProductView.swift in Sources */,
+				9E4018B926729BCC00D269CC /* DeepLinks.swift in Sources */,
 				9E40177F26710AB800D269CC /* ContentView.swift in Sources */,
+				9E40189326728C5F00D269CC /* ProductHandler.swift in Sources */,
 				9E4018562672356800D269CC /* CatalogView.swift in Sources */,
+				9E40188D26728C1300D269CC /* DeepLinksView.swift in Sources */,
 				9E40177D26710AB800D269CC /* CordialDemo_SwiftUIApp.swift in Sources */,
+				9E40189826728C8700D269CC /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
