@@ -49,6 +49,7 @@
 		9E40179B26710ABB00D269CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E4018552672356800D269CC /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		9E40185D2672360100D269CC /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		9E40187B2672509200D269CC /* CordialDemo_SwiftUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CordialDemo_SwiftUI.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +100,7 @@
 		9E40177B26710AB800D269CC /* CordialDemo_SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				9E40187B2672509200D269CC /* CordialDemo_SwiftUI.entitlements */,
 				9E4018542672354000D269CC /* Views */,
 				9E40177C26710AB800D269CC /* CordialDemo_SwiftUIApp.swift */,
 				9E40177E26710AB800D269CC /* ContentView.swift */,
@@ -433,6 +435,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CordialDemo_SwiftUI/CordialDemo_SwiftUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CordialDemo_SwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
@@ -443,7 +446,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.cordial.sdk.demo.app.swiftUI.CordialDemo-SwiftUI";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.cordial.sdk.demo.app.swift-ui";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,6 +458,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CordialDemo_SwiftUI/CordialDemo_SwiftUI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CordialDemo_SwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
@@ -465,7 +469,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "io.cordial.sdk.demo.app.swiftUI.CordialDemo-SwiftUI";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.cordial.sdk.demo.app.swift-ui";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

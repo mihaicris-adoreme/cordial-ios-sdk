@@ -10,6 +10,9 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         CatalogView()
+            .onOpenURL(perform: { url in
+                print(url)
+            })
     }
 }
 
