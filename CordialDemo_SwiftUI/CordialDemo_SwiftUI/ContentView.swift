@@ -9,12 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @State private var deepLinkURL: URL?
+    
     var body: some View {
-//        DeepLinksView(url: URL(string: "https://tjs.cordialdev.com/prep-tj1.html")!)
-        CatalogView().onOpenURL(perform: { url in
-            print(url.absoluteURL)
-            DeepLinksView(url: url)
-        })
+        if let deepLinkURL = deepLinkURL {
+            DeepLinksView(url: deepLinkURL)
+        } else {
+            CatalogView().onOpenURL(perform: { url in
+                deepLinkURL = url
+            })
+        }
     }
 }
 

@@ -110,10 +110,10 @@
 			children = (
 				9E40189126728C5200D269CC /* ProductHandler */,
 				9E40188B26728BBA00D269CC /* DeepLinks */,
-				9E40187B2672509200D269CC /* CordialDemo_SwiftUI.entitlements */,
 				9E4018542672354000D269CC /* Views */,
 				9E40177C26710AB800D269CC /* CordialDemo_SwiftUIApp.swift */,
 				9E40177E26710AB800D269CC /* ContentView.swift */,
+				9E40187B2672509200D269CC /* CordialDemo_SwiftUI.entitlements */,
 				9E40178026710ABA00D269CC /* Assets.xcassets */,
 				9E40178526710ABA00D269CC /* Info.plist */,
 				9E40178226710ABA00D269CC /* Preview Content */,

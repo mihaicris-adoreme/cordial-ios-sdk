@@ -17,7 +17,7 @@ struct CatalogView: View {
                 HStack {
                     NavigationLink(destination: ProductView(productID: 1)) {
                         Text("\t\tProduct 1\t\t")
-                            .navigationBarTitle(self.title, displayMode: .inline)
+                            .navigationBarTitle(title, displayMode: .inline)
                     }
                     
                     Divider()
@@ -25,7 +25,7 @@ struct CatalogView: View {
                     NavigationLink(destination: ProductView(productID: 2)) {
                         HStack {
                             Text("\t\tProduct 2\t\t")
-                                .navigationBarTitle(self.title, displayMode: .inline)
+                                .navigationBarTitle(title, displayMode: .inline)
                         }
                     }
                 }
@@ -35,14 +35,14 @@ struct CatalogView: View {
                 HStack {
                     NavigationLink(destination: ProductView(productID: 3)) {
                         Text("\t\tProduct 3\t\t")
-                            .navigationBarTitle(self.title, displayMode: .inline)
+                            .navigationBarTitle(title, displayMode: .inline)
                     }
                     
                     Divider()
                     
                     NavigationLink(destination: ProductView(productID: 4)) {
                         Text("\t\tProduct 4\t\t")
-                            .navigationBarTitle(self.title, displayMode: .inline)
+                            .navigationBarTitle(title, displayMode: .inline)
                     }
                 }
                 

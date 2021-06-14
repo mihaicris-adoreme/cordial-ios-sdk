@@ -17,5 +17,5 @@ struct DeepLinksView: View {
         if let productID = DeepLinks().getProductID(url: url) {
             ProductView(productID: productID)
         }
-    }    
+    }
 }
