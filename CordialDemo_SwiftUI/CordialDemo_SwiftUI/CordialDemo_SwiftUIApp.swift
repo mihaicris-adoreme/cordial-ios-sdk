@@ -6,9 +6,23 @@
 //
 
 import SwiftUI
+import CoreLocation
+import CordialSDK
 
 @main
 struct CordialDemo_SwiftUIApp: App {
+    
+    init() {
+        CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels-cID-pk", channelKey: "push")
+        CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
+        CordialApiConfiguration.shared.qtyCachedEventQueue = 100
+        CordialApiConfiguration.shared.eventsBulkSize = 3
+        CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
+        CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
+        CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
+        CordialApiConfiguration.shared.cordialDeepLinksDelegate = DeepLinksHandler()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
