@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 @objc public class CordialDeepLinksAPI: NSObject {
     
@@ -17,5 +18,24 @@ import Foundation
     @available(iOS 13.0, *)
     @objc public func openSceneDelegateUniversalLink(scene: UIScene, userActivity: NSUserActivity) {
         CordialSwizzler.shared.scene(scene, continue: userActivity)
+    }
+    
+    public func openSwiftUIAppDeepLink(url: URL, completionHandler: @escaping (_ response: URL) -> Void) {
+        InternalCordialAPI().sentEventDeepLinkOpen()
+        
+        CordialEmailDeepLink().getDeepLink(url: url, onSuccess: { url in
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Email DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
+            }
+            
+            completionHandler(url)
+            
+        }, onFailure: { error in
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
+            }
+            
+            completionHandler(url)
+        })
     }
 }

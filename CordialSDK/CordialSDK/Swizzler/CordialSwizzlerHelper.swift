@@ -107,7 +107,7 @@ class CordialSwizzlerHelper {
                 
                 NotificationManager.shared.emailDeepLink = url.absoluteString
             } else {
-                self.sentEventDeepLinkOpen()
+                InternalCordialAPI().sentEventDeepLinkOpen()
                 cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
             }
             
@@ -144,7 +144,7 @@ class CordialSwizzlerHelper {
                 
                 NotificationManager.shared.emailDeepLink = url.absoluteString
             } else {
-                self.sentEventDeepLinkOpen()
+                InternalCordialAPI().sentEventDeepLinkOpen()
                 cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
             }
         }
@@ -162,13 +162,6 @@ class CordialSwizzlerHelper {
         }
     }
         
-    private func sentEventDeepLinkOpen() {
-        let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
-        let mcID = CordialAPI().getCurrentMcID()
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
-        InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-    }
-    
     // MARK: Background URL session
     
     func swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler(identifier: String, completionHandler: @escaping () -> Void) {

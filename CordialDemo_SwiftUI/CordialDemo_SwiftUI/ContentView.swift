@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CordialSDK 
 
 struct ContentView: View {
     
@@ -16,7 +17,9 @@ struct ContentView: View {
             DeepLinksView(url: deepLinkURL)
         } else {
             CatalogView().onOpenURL(perform: { url in
-                deepLinkURL = url
+                CordialDeepLinksAPI().openSwiftUIAppDeepLink(url: url, completionHandler: { url in
+                    deepLinkURL = url
+                })
             })
         }
     }

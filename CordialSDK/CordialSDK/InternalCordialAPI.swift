@@ -291,6 +291,15 @@ class InternalCordialAPI {
         }
     }
     
+    // MARK: Sent event deep link open
+    
+    func sentEventDeepLinkOpen() {
+        let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
+        let mcID = CordialAPI().getCurrentMcID()
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
+        InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+    }
+    
     // MARK: Get push notification authorization status
     
     func getPushNotificationStatus() -> String {

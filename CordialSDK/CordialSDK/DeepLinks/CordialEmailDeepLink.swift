@@ -43,7 +43,7 @@ class CordialEmailDeepLink {
         })
     }
     
-    private func getDeepLink(url: URL, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+    func getDeepLink(url: URL, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         if let host = url.host,
            CordialApiConfiguration.shared.vanityDomains.contains(host) {
             
