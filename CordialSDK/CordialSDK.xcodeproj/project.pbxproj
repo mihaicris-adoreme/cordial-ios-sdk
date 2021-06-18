@@ -74,6 +74,7 @@
 		9E49576926024BDA00E187EB /* InAppMessageContentURLSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E49576826024BDA00E187EB /* InAppMessageContentURLSessionData.swift */; };
 		9E49595D2604F70A00E187EB /* InAppMessageContentURL+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E49595B2604F70A00E187EB /* InAppMessageContentURL+CoreDataClass.swift */; };
 		9E49595E2604F70A00E187EB /* InAppMessageContentURL+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E49595C2604F70A00E187EB /* InAppMessageContentURL+CoreDataProperties.swift */; };
+		9E4D2491267CAF4800B25B45 /* CordialSwiftUIAppDeepLinksHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D2490267CAF4800B25B45 /* CordialSwiftUIAppDeepLinksHandler.swift */; };
 		9E4D401F25DACC86006D15D4 /* MockEmailDeepLinkDelegateNotVanityDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4D401E25DACC86006D15D4 /* MockEmailDeepLinkDelegateNotVanityDomain.swift */; };
 		9E4FA38022FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4FA37F22FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift */; };
 		9E4FA38822FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4FA38722FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift */; };
@@ -364,6 +365,7 @@
 		9E49576826024BDA00E187EB /* InAppMessageContentURLSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageContentURLSessionData.swift; sourceTree = "<group>"; };
 		9E49595B2604F70A00E187EB /* InAppMessageContentURL+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessageContentURL+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9E49595C2604F70A00E187EB /* InAppMessageContentURL+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessageContentURL+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9E4D2490267CAF4800B25B45 /* CordialSwiftUIAppDeepLinksHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialSwiftUIAppDeepLinksHandler.swift; sourceTree = "<group>"; };
 		9E4D401E25DACC86006D15D4 /* MockEmailDeepLinkDelegateNotVanityDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEmailDeepLinkDelegateNotVanityDomain.swift; sourceTree = "<group>"; };
 		9E4FA37F22FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCustomEventsURLSessionManager.swift; sourceTree = "<group>"; };
 		9E4FA38722FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendCustomEventsURLSessionData.swift; sourceTree = "<group>"; };
@@ -701,6 +703,25 @@
 				9E45FE7A22538194006A5A6B /* CordialPushNotification.swift */,
 			);
 			path = PushNotification;
+			sourceTree = "<group>";
+		};
+		9E4D2492267CB93F00B25B45 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				9EA7098C25C83EC7001E277F /* CordialDeepLinksAPI.swift */,
+				9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */,
+				9EAAAC89265D2D4B005AD01C /* CordialDeepLinksConfigurationType.swift */,
+				9EAAAC8D265D2F0D005AD01C /* CordialDeepLinksConfigurationHandler.swift */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		9E4D2493267CB9C500B25B45 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				9E4D2490267CAF4800B25B45 /* CordialSwiftUIAppDeepLinksHandler.swift */,
+			);
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		9E4FA38522FB1D7300D630A7 /* Helper */ = {
@@ -1263,11 +1284,9 @@
 		9ECF6B77229836E700E6E88F /* DeepLinks */ = {
 			isa = PBXGroup;
 			children = (
-				9EA7098C25C83EC7001E277F /* CordialDeepLinksAPI.swift */,
-				9E6DB89A234E168700711A2A /* CordialDeepLinksDelegate.swift */,
+				9E4D2493267CB9C500B25B45 /* SwiftUI */,
+				9E4D2492267CB93F00B25B45 /* UIKit */,
 				9E5C5CDD25AF85900098A249 /* CordialEmailDeepLink.swift */,
-				9EAAAC89265D2D4B005AD01C /* CordialDeepLinksConfigurationType.swift */,
-				9EAAAC8D265D2F0D005AD01C /* CordialDeepLinksConfigurationHandler.swift */,
 				9E125FBC25AF9B1B00B75140 /* CordialEmailDeepLinkURLSession.swift */,
 			);
 			path = DeepLinks;
@@ -1712,6 +1731,7 @@
 				9EE94E2D233CF8C9009651DF /* InAppMessageInactiveSessionDisplayType.swift in Sources */,
 				9E52A63E254AEF110090F29F /* CustomEventRequest+CoreDataProperties.swift in Sources */,
 				9EA2EFA622C4F0700047314C /* InAppMessageManager.swift in Sources */,
+				9E4D2491267CAF4800B25B45 /* CordialSwiftUIAppDeepLinksHandler.swift in Sources */,
 				9E92D3D9228F022800D8AFE0 /* SendContactLogout.swift in Sources */,
 				9E44F1EC25518A2100D163E6 /* InboxMessagesCacheCoreData.swift in Sources */,
 				9EFCA9DA225F8C8B005A8AC8 /* CordialApiEndpoints.swift in Sources */,

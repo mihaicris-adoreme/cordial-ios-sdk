@@ -17,7 +17,7 @@ struct ContentView: View {
             DeepLinksView(url: deepLinkURL)
         } else {
             CatalogView().onOpenURL(perform: { url in
-                CordialDeepLinksAPI().openSwiftUIAppDeepLink(url: url, completionHandler: { url in
+                CordialSwiftUIAppDeepLinksHandler().processDeepLink(url: url, completionHandler: { url in
                     deepLinkURL = url
                 })
             })
