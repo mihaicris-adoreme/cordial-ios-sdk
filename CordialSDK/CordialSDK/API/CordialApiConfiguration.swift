@@ -13,6 +13,8 @@ import CoreLocation
     
     @objc public static let shared = CordialApiConfiguration()
     
+    private override init(){}
+    
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initNotificationManager = NotificationManager.shared
@@ -73,6 +75,7 @@ import CoreLocation
         self.accountKey = accountKey
         self.channelKey = channelKey
         self.baseURL = "https://events-stream-svc.cordial.com/"
+//        self.baseURL = "https://events-stream-svc.stg.cordialdev.com/"
         
 //        CoreDataManager.shared.deleteAllCoreData()
         
