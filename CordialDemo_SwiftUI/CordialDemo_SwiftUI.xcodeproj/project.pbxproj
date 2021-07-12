@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,7 +22,6 @@
 		9E40189326728C5F00D269CC /* ProductHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40189226728C5F00D269CC /* ProductHandler.swift */; };
 		9E40189826728C8700D269CC /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40189726728C8700D269CC /* Product.swift */; };
 		9E4018B926729BCC00D269CC /* DeepLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4018B826729BCC00D269CC /* DeepLinks.swift */; };
-		9ECE054B2678C63D00864428 /* DeepLinksHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE054A2678C63D00864428 /* DeepLinksHandler.swift */; };
 		9ECE054E2678C89700864428 /* PushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE054D2678C89700864428 /* PushNotificationHandler.swift */; };
 /* End PBXBuildFile section */
 
@@ -80,7 +79,6 @@
 		9E40189226728C5F00D269CC /* ProductHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHandler.swift; sourceTree = "<group>"; };
 		9E40189726728C8700D269CC /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		9E4018B826729BCC00D269CC /* DeepLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinks.swift; sourceTree = "<group>"; };
-		9ECE054A2678C63D00864428 /* DeepLinksHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinksHandler.swift; sourceTree = "<group>"; };
 		9ECE054D2678C89700864428 /* PushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationHandler.swift; sourceTree = "<group>"; };
 		BEA3F38223157E342215839E /* Pods-CordialDemo_SwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_SwiftUI.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI.release.xcconfig"; sourceTree = "<group>"; };
 		C8BAB9BC650ACFC36540B80F /* Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -209,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				9E4018B826729BCC00D269CC /* DeepLinks.swift */,
-				9ECE054A2678C63D00864428 /* DeepLinksHandler.swift */,
 			);
 			path = DeepLinks;
 			sourceTree = "<group>";
@@ -253,7 +250,7 @@
 				9E40177626710AB800D269CC /* Frameworks */,
 				9E40177726710AB800D269CC /* Resources */,
 				9ECE05342677BB5E00864428 /* Embed Frameworks */,
-				DE15B1F61C8A99192DEB0EF2 /* [CP] Embed Pods Frameworks */,
+				2B0789E0DEDB5A5A9D5A75FD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -291,7 +288,7 @@
 				9E40179126710ABB00D269CC /* Sources */,
 				9E40179226710ABB00D269CC /* Frameworks */,
 				9E40179326710ABB00D269CC /* Resources */,
-				401D93C3A3F34177602C0624 /* [CP] Embed Pods Frameworks */,
+				CB3AAD6484515451C6CF11B8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -394,21 +391,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		401D93C3A3F34177602C0624 /* [CP] Embed Pods Frameworks */ = {
+		2B0789E0DEDB5A5A9D5A75FD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8960226594B3399BB49C75F3 /* [CP] Check Pods Manifest.lock */ = {
@@ -433,21 +430,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DE15B1F61C8A99192DEB0EF2 /* [CP] Embed Pods Frameworks */ = {
+		CB3AAD6484515451C6CF11B8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F1115451D850B137D90B35E4 /* [CP] Check Pods Manifest.lock */ = {
@@ -480,7 +477,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E40185E2672360100D269CC /* ProductView.swift in Sources */,
-				9ECE054B2678C63D00864428 /* DeepLinksHandler.swift in Sources */,
 				9E4018B926729BCC00D269CC /* DeepLinks.swift in Sources */,
 				9ECE054E2678C89700864428 /* PushNotificationHandler.swift in Sources */,
 				9E40177F26710AB800D269CC /* ContentView.swift in Sources */,

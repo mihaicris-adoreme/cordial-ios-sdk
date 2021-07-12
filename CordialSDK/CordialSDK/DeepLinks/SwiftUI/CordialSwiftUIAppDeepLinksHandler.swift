@@ -17,21 +17,19 @@ public class CordialSwiftUIAppDeepLinksHandler {
     public func processDeepLink(url: URL) {
         InternalCordialAPI().sentEventDeepLinkOpen()
         
-        let deepLinksPublisher = CordialSwiftUIAppDeepLinksPublisher.shared
-        
         CordialEmailDeepLink().getDeepLink(url: url, onSuccess: { url in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Email DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
             }
             
-            deepLinksPublisher.publishDeepLink(deepLink: url, fallbackURL: nil)
+            CordialSwiftUIAppDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
             
         }, onFailure: { error in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
             }
             
-            deepLinksPublisher.publishDeepLink(deepLink: url, fallbackURL: nil)
+            CordialSwiftUIAppDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
         })
     }
 }

@@ -19,8 +19,8 @@ public class CordialSwiftUIAppDeepLinksPublisher: ObservableObject {
     
     public let deepLinks = PassthroughSubject<CordialSwiftUIAppDeepLinks, Never>()
     
-    public func publishDeepLink(deepLink: URL, fallbackURL: URL?) {
-        let deepLinks = CordialSwiftUIAppDeepLinks(deepLink: deepLink, fallbackURL: fallbackURL)
+    func publishDeepLink(url: URL, fallbackURL: URL?) {
+        let deepLinks = CordialSwiftUIAppDeepLinks(deepLink: url, fallbackURL: fallbackURL)
         
         self.deepLinks.send(deepLinks)
     }

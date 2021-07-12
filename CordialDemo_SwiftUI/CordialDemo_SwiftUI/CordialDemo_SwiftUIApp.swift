@@ -22,7 +22,6 @@ struct CordialDemo_SwiftUIApp: App {
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
         CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
-        CordialApiConfiguration.shared.cordialDeepLinksDelegate = DeepLinksHandler()
         
         CordialAPI().setContact(primaryKey: "email:www2@ex.ua")
         CordialAPI().registerForPushNotifications(options: [.alert, .sound])

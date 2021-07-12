@@ -57,26 +57,39 @@ class CordialPushNotificationHelper {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        if let deepLinkURL = self.pushNotificationParser.getDeepLinkURL(userInfo: userInfo),
-            let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
+        if let deepLinkURL = self.pushNotificationParser.getDeepLinkURL(userInfo: userInfo) {
     
             InAppMessageProcess.shared.isPresentedInAppMessage = false
             
             let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_DEEP_LINK_OPEN, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            DispatchQueue.main.async {
-                if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
-                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, scene: scene)
+            // UIKit
+            if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
+                DispatchQueue.main.async {
+                    if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
+                        if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, scene: scene)
+                        } else {
+                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
+                        }
                     } else {
-                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
+                        if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, scene: scene)
+                        } else {
+                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil)
+                        }
                     }
-                } else {
-                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, scene: scene)
+                }
+            }
+            
+            // SwiftUI App
+            if #available(iOS 13.0, *) {
+                DispatchQueue.main.async {
+                    if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
+                        CordialSwiftUIAppDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
                     } else {
-                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil)
+                        CordialSwiftUIAppDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: nil)
                     }
                 }
             }
