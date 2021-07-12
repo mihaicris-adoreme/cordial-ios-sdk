@@ -15,7 +15,9 @@ class DeepLinksHandler: CordialDeepLinksDelegate {
     }
     
     func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene) {
-        CordialSwiftUIAppDeepLinksPublisher.shared.deepLink = url
+        print(url.absoluteString)
+        
+        CordialSwiftUIAppDeepLinksPublisher.shared.publishDeepLink(deepLink: url, fallbackURL: fallbackURL)
     }
     
 }

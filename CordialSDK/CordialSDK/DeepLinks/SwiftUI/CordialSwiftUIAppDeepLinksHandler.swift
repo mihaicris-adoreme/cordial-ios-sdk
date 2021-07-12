@@ -13,22 +13,25 @@ public class CordialSwiftUIAppDeepLinksHandler {
     
     public init() {}
     
-    public func processDeepLink(url: URL, completionHandler: @escaping (_ response: URL) -> Void) {
+    @available(iOS 13.0, *)
+    public func processDeepLink(url: URL) {
         InternalCordialAPI().sentEventDeepLinkOpen()
+        
+        let deepLinksPublisher = CordialSwiftUIAppDeepLinksPublisher.shared
         
         CordialEmailDeepLink().getDeepLink(url: url, onSuccess: { url in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Email DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
             }
             
-            completionHandler(url)
+            deepLinksPublisher.publishDeepLink(deepLink: url, fallbackURL: nil)
             
         }, onFailure: { error in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
             }
             
-            completionHandler(url)
+            deepLinksPublisher.publishDeepLink(deepLink: url, fallbackURL: nil)
         })
     }
 }

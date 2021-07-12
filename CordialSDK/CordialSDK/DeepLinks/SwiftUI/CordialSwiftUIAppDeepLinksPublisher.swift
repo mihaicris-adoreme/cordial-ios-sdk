@@ -7,16 +7,21 @@
 //
 
 import Foundation
+import Combine
 import SwiftUI
 
 @available(iOS 13.0, *)
 public class CordialSwiftUIAppDeepLinksPublisher: ObservableObject {
-    
+
     public static let shared = CordialSwiftUIAppDeepLinksPublisher()
-    
+
     private init() {}
     
-    @Published public var deepLink: URL?
+    public let deepLinks = PassthroughSubject<CordialSwiftUIAppDeepLinks, Never>()
     
+    public func publishDeepLink(deepLink: URL, fallbackURL: URL?) {
+        let deepLinks = CordialSwiftUIAppDeepLinks(deepLink: deepLink, fallbackURL: fallbackURL)
+        
+        self.deepLinks.send(deepLinks)
+    }
 }
-
