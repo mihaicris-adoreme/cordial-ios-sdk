@@ -9,6 +9,6 @@
 import Foundation
 
 public struct CordialSwiftUIAppDeepLinks {
-    public let deepLink: URL
+    public let url: URL
     public let fallbackURL: URL?
 }

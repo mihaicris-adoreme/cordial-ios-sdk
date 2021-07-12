@@ -23,7 +23,7 @@ struct ContentView: View {
                     CordialSwiftUIAppDeepLinksHandler().processDeepLink(url: url)
                 })
                 .onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
-                    self.deepLinkURL = deepLinks.deepLink
+                    self.deepLinkURL = deepLinks.url
                 }
         }
     }
