@@ -273,6 +273,7 @@ class InternalCordialAPI {
     // MARK: Open deep link
     
     func openDeepLink(url: URL) {
+        // UIKit
         DispatchQueue.main.async {
             if let scheme = url.scheme, scheme.contains("http") {
                 let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
@@ -286,7 +287,14 @@ class InternalCordialAPI {
                     let _ = CordialSwizzler.shared.application(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
                 }
             } else {
-                UIApplication.shared.open(url, options:[:], completionHandler: nil)
+                UIApplication.shared.open(url)
+            }
+        }
+        
+        // SwiftUI
+        if #available(iOS 13.0, *) {
+            DispatchQueue.main.async {
+                CordialSwiftUIAppDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
             }
         }
     }

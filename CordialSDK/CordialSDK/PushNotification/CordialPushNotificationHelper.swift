@@ -83,7 +83,7 @@ class CordialPushNotificationHelper {
                 }
             }
             
-            // SwiftUI App
+            // SwiftUI
             if #available(iOS 13.0, *) {
                 DispatchQueue.main.async {
                     if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
