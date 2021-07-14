@@ -87,9 +87,9 @@ class CordialPushNotificationHelper {
             if #available(iOS 13.0, *) {
                 DispatchQueue.main.async {
                     if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
-                        CordialSwiftUIAppDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
+                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
                     } else {
-                        CordialSwiftUIAppDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: nil)
+                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: nil)
                     }
                 }
             }

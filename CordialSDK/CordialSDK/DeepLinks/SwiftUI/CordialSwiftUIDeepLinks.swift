@@ -1,5 +1,5 @@
 //
-//  CordialSwiftUIAppDeepLinks.swift
+//  CordialSwiftUIDeepLinks.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 12.07.2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CordialSwiftUIAppDeepLinks {
+public struct CordialSwiftUIDeepLinks {
     public let url: URL
     public let fallbackURL: URL?
 }

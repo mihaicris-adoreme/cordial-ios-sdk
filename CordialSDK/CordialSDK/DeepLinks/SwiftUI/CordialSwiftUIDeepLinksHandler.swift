@@ -1,5 +1,5 @@
 //
-//  CordialSwiftUIAppDeepLinksHandler.swift
+//  CordialSwiftUIDeepLinksHandler.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 18.06.2021.
@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-public class CordialSwiftUIAppDeepLinksHandler {
+public class CordialSwiftUIDeepLinksHandler {
     
     public init() {}
     
@@ -22,14 +22,14 @@ public class CordialSwiftUIAppDeepLinksHandler {
                 os_log("Email DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
             }
             
-            CordialSwiftUIAppDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
+            CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
             
         }, onFailure: { error in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
             }
             
-            CordialSwiftUIAppDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
+            CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
         })
     }
 }

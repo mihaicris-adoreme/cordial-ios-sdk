@@ -30,7 +30,7 @@ struct CordialDemo_SwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(CordialSwiftUIAppDeepLinksPublisher.shared)
+                .environmentObject(CordialSwiftUIDeepLinksPublisher.shared)
         }
     }
 }

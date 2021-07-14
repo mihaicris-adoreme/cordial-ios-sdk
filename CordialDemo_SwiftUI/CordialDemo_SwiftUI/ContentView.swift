@@ -12,7 +12,7 @@ struct ContentView: View {
     
     @State private var deepLinkURL: URL?
     
-    @EnvironmentObject var deepLinksPublisher: CordialSwiftUIAppDeepLinksPublisher
+    @EnvironmentObject var deepLinksPublisher: CordialSwiftUIDeepLinksPublisher
     
     var body: some View {
         if let deepLinkURL = self.deepLinkURL {
@@ -20,7 +20,7 @@ struct ContentView: View {
         } else {
             CatalogView()
                 .onOpenURL(perform: { url in
-                    CordialSwiftUIAppDeepLinksHandler().processDeepLink(url: url)
+                    CordialSwiftUIDeepLinksHandler().processDeepLink(url: url)
                 })
                 .onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
                     self.deepLinkURL = deepLinks.url
