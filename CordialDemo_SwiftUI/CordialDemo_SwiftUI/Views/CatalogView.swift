@@ -11,9 +11,16 @@ struct CatalogView: View {
     
     let title = "Catalog"
     
+    @Binding var deepLink: URL?
+    
     var body: some View {
         NavigationView {
             VStack {
+                
+                if let url = self.deepLink, let productID = DeepLinks().getProductID(url: url) {
+                    NavigationLink(destination: ProductView(productID: productID), tag: url, selection: self.$deepLink) { EmptyView() }
+                }
+                
                 HStack {
                     NavigationLink(destination: ProductView(productID: 1)) {
                         Text("\t\tProduct 1\t\t")
@@ -53,7 +60,10 @@ struct CatalogView: View {
 }
 
 struct CatalogView_Previews: PreviewProvider {
+    
+    @State static private var deepLink: URL?
+    
     static var previews: some View {
-        CatalogView()
+        CatalogView(deepLink: self.$deepLink)
     }
 }

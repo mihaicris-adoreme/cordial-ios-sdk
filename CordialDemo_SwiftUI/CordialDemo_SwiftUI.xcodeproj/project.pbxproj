@@ -18,7 +18,6 @@
 		9E40179A26710ABB00D269CC /* CordialDemo_SwiftUIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40179926710ABB00D269CC /* CordialDemo_SwiftUIUITests.swift */; };
 		9E4018562672356800D269CC /* CatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4018552672356800D269CC /* CatalogView.swift */; };
 		9E40185E2672360100D269CC /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40185D2672360100D269CC /* ProductView.swift */; };
-		9E40188D26728C1300D269CC /* DeepLinksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40188C26728C1300D269CC /* DeepLinksView.swift */; };
 		9E40189326728C5F00D269CC /* ProductHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40189226728C5F00D269CC /* ProductHandler.swift */; };
 		9E40189826728C8700D269CC /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40189726728C8700D269CC /* Product.swift */; };
 		9E4018B926729BCC00D269CC /* DeepLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4018B826729BCC00D269CC /* DeepLinks.swift */; };
@@ -75,7 +74,6 @@
 		9E4018552672356800D269CC /* CatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogView.swift; sourceTree = "<group>"; };
 		9E40185D2672360100D269CC /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
 		9E40187B2672509200D269CC /* CordialDemo_SwiftUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CordialDemo_SwiftUI.entitlements; sourceTree = "<group>"; };
-		9E40188C26728C1300D269CC /* DeepLinksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinksView.swift; sourceTree = "<group>"; };
 		9E40189226728C5F00D269CC /* ProductHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHandler.swift; sourceTree = "<group>"; };
 		9E40189726728C8700D269CC /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		9E4018B826729BCC00D269CC /* DeepLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinks.swift; sourceTree = "<group>"; };
@@ -196,7 +194,6 @@
 		9E4018542672354000D269CC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				9E40188C26728C1300D269CC /* DeepLinksView.swift */,
 				9E4018552672356800D269CC /* CatalogView.swift */,
 				9E40185D2672360100D269CC /* ProductView.swift */,
 			);
@@ -250,7 +247,7 @@
 				9E40177626710AB800D269CC /* Frameworks */,
 				9E40177726710AB800D269CC /* Resources */,
 				9ECE05342677BB5E00864428 /* Embed Frameworks */,
-				C9C6DB40C33D2B693F42E99F /* [CP] Embed Pods Frameworks */,
+				A8281DE95D4BDD106C93F426 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -288,7 +285,7 @@
 				9E40179126710ABB00D269CC /* Sources */,
 				9E40179226710ABB00D269CC /* Frameworks */,
 				9E40179326710ABB00D269CC /* Resources */,
-				E76CEA69EFDD5BBCBB8004D2 /* [CP] Embed Pods Frameworks */,
+				B2816CE3AD220C93C28C9E26 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -413,7 +410,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C9C6DB40C33D2B693F42E99F /* [CP] Embed Pods Frameworks */ = {
+		A8281DE95D4BDD106C93F426 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -430,7 +427,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E76CEA69EFDD5BBCBB8004D2 /* [CP] Embed Pods Frameworks */ = {
+		B2816CE3AD220C93C28C9E26 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -482,7 +479,6 @@
 				9E40177F26710AB800D269CC /* ContentView.swift in Sources */,
 				9E40189326728C5F00D269CC /* ProductHandler.swift in Sources */,
 				9E4018562672356800D269CC /* CatalogView.swift in Sources */,
-				9E40188D26728C1300D269CC /* DeepLinksView.swift in Sources */,
 				9E40177D26710AB800D269CC /* CordialDemo_SwiftUIApp.swift in Sources */,
 				9E40189826728C8700D269CC /* Product.swift in Sources */,
 			);
