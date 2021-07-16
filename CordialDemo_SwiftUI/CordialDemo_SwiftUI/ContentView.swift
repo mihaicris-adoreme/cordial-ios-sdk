@@ -46,6 +46,13 @@ struct ContentView: View {
                             
                             self.cordialAPI.registerForPushNotifications(options: [.alert, .sound])
                         }.padding()
+                    } else {
+                        Button("Guest") {
+                            self.appHandler.userLogIn(username: self.username)
+                            self.cordialAPI.setContact(primaryKey: nil)
+                            
+                            self.cordialAPI.registerForPushNotifications(options: [.alert, .sound])
+                        }.padding()
                     }
                 }
             }
