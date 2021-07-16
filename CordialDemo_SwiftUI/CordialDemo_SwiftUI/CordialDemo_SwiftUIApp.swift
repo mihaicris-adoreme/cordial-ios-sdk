@@ -23,7 +23,6 @@ struct CordialDemo_SwiftUIApp: App {
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
         CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
         
-        CordialAPI().setContact(primaryKey: "email:www2@ex.ua")
         CordialAPI().registerForPushNotifications(options: [.alert, .sound])
     }
     
@@ -31,6 +30,7 @@ struct CordialDemo_SwiftUIApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(CordialSwiftUIDeepLinksPublisher.shared)
+                .environmentObject(AppHandler.shared)
         }
     }
 }
