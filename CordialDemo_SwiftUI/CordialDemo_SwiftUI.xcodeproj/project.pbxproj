@@ -258,7 +258,7 @@
 				9E40177626710AB800D269CC /* Frameworks */,
 				9E40177726710AB800D269CC /* Resources */,
 				9ECE05342677BB5E00864428 /* Embed Frameworks */,
-				DB1677149ECE39E996AE3E63 /* [CP] Embed Pods Frameworks */,
+				879D406969284561019C1A64 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -296,7 +296,7 @@
 				9E40179126710ABB00D269CC /* Sources */,
 				9E40179226710ABB00D269CC /* Frameworks */,
 				9E40179326710ABB00D269CC /* Resources */,
-				B729CE0592E0D11953CEFDA7 /* [CP] Embed Pods Frameworks */,
+				9DAC158134A61CF41C19DE21 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -399,6 +399,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		879D406969284561019C1A64 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8960226594B3399BB49C75F3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -421,7 +438,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B729CE0592E0D11953CEFDA7 /* [CP] Embed Pods Frameworks */ = {
+		9DAC158134A61CF41C19DE21 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -436,23 +453,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DB1677149ECE39E996AE3E63 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F1115451D850B137D90B35E4 /* [CP] Check Pods Manifest.lock */ = {

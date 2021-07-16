@@ -43,6 +43,8 @@ struct ContentView: View {
                         Button("Login") {
                             self.appHandler.userLogIn(username: self.username)
                             self.cordialAPI.setContact(primaryKey: self.username)
+                            
+                            self.cordialAPI.registerForPushNotifications(options: [.alert, .sound])
                         }.padding()
                     }
                 }

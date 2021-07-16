@@ -22,8 +22,6 @@ struct CordialDemo_SwiftUIApp: App {
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
         CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
-        
-        CordialAPI().registerForPushNotifications(options: [.alert, .sound])
     }
     
     var body: some Scene {
