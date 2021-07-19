@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42A86177B9B6A3E1F27C3DE5 /* Pods_CordialDemo_SwiftUI_NotificationServiceExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC1743A46B831F1E4056269 /* Pods_CordialDemo_SwiftUI_NotificationServiceExtension.framework */; };
 		788EB39107CA71F008FF3481 /* Pods_CordialDemo_SwiftUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B348EDCC677698A62131954 /* Pods_CordialDemo_SwiftUITests.framework */; };
 		8A157E175C7F10FC0E04784C /* Pods_CordialDemo_SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0FBF1A437281B31A76AD317 /* Pods_CordialDemo_SwiftUI.framework */; };
 		9DAE2F9C2E162AAE33F8925F /* Pods_CordialDemo_SwiftUI_CordialDemo_SwiftUIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59AEE76A5DF5B9FA75AE71E8 /* Pods_CordialDemo_SwiftUI_CordialDemo_SwiftUIUITests.framework */; };
@@ -21,6 +22,8 @@
 		9E40189326728C5F00D269CC /* ProductHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40189226728C5F00D269CC /* ProductHandler.swift */; };
 		9E40189826728C8700D269CC /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40189726728C8700D269CC /* Product.swift */; };
 		9E4018B926729BCC00D269CC /* DeepLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4018B826729BCC00D269CC /* DeepLinks.swift */; };
+		9E91B1A626A345D50052AB19 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E91B1A526A345D50052AB19 /* NotificationService.swift */; };
+		9E91B1AA26A345D50052AB19 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9E91B1A326A345D50052AB19 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9E9DD74F26A1B68400EDB438 /* AppHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9DD74E26A1B68400EDB438 /* AppHandler.swift */; };
 		9ECE054E2678C89700864428 /* PushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECE054D2678C89700864428 /* PushNotificationHandler.swift */; };
 /* End PBXBuildFile section */
@@ -40,9 +43,27 @@
 			remoteGlobalIDString = 9E40177826710AB800D269CC;
 			remoteInfo = CordialDemo_SwiftUI;
 		};
+		9E91B1A826A345D50052AB19 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E40177126710AB800D269CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9E91B1A226A345D50052AB19;
+			remoteInfo = NotificationServiceExtension;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		9E91B1AE26A345D50052AB19 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9E91B1AA26A345D50052AB19 /* NotificationServiceExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9ECE05342677BB5E00864428 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -57,6 +78,7 @@
 
 /* Begin PBXFileReference section */
 		2757C95BD5712BEE695A2BDD /* Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		4AC1743A46B831F1E4056269 /* Pods_CordialDemo_SwiftUI_NotificationServiceExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_SwiftUI_NotificationServiceExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B348EDCC677698A62131954 /* Pods_CordialDemo_SwiftUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_SwiftUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		59AEE76A5DF5B9FA75AE71E8 /* Pods_CordialDemo_SwiftUI_CordialDemo_SwiftUIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_SwiftUI_CordialDemo_SwiftUIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E3560CFCED369ABD4818BA9 /* Pods-CordialDemo_SwiftUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_SwiftUITests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_SwiftUITests/Pods-CordialDemo_SwiftUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -78,9 +100,14 @@
 		9E40189226728C5F00D269CC /* ProductHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHandler.swift; sourceTree = "<group>"; };
 		9E40189726728C8700D269CC /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		9E4018B826729BCC00D269CC /* DeepLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinks.swift; sourceTree = "<group>"; };
+		9E91B1A326A345D50052AB19 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E91B1A526A345D50052AB19 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		9E91B1A726A345D50052AB19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E9DD74E26A1B68400EDB438 /* AppHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppHandler.swift; sourceTree = "<group>"; };
 		9ECE054D2678C89700864428 /* PushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationHandler.swift; sourceTree = "<group>"; };
+		A735C82B69FB0D71E9C11A5F /* Pods-CordialDemo_SwiftUI-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_SwiftUI-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_SwiftUI-NotificationServiceExtension/Pods-CordialDemo_SwiftUI-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		BEA3F38223157E342215839E /* Pods-CordialDemo_SwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_SwiftUI.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI.release.xcconfig"; sourceTree = "<group>"; };
+		C160757A8FF820A69902309E /* Pods-CordialDemo_SwiftUI-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_SwiftUI-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo_SwiftUI-NotificationServiceExtension/Pods-CordialDemo_SwiftUI-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		C8BAB9BC650ACFC36540B80F /* Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests.release.xcconfig"; path = "Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E6F9EAF4C9E5FCAA49DF241B /* Pods-CordialDemo_SwiftUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CordialDemo_SwiftUITests.debug.xcconfig"; path = "Target Support Files/Pods-CordialDemo_SwiftUITests/Pods-CordialDemo_SwiftUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F0FBF1A437281B31A76AD317 /* Pods_CordialDemo_SwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CordialDemo_SwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +139,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9E91B1A026A345D50052AB19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42A86177B9B6A3E1F27C3DE5 /* Pods_CordialDemo_SwiftUI_NotificationServiceExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -124,6 +159,8 @@
 				C8BAB9BC650ACFC36540B80F /* Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests.release.xcconfig */,
 				E6F9EAF4C9E5FCAA49DF241B /* Pods-CordialDemo_SwiftUITests.debug.xcconfig */,
 				5E3560CFCED369ABD4818BA9 /* Pods-CordialDemo_SwiftUITests.release.xcconfig */,
+				C160757A8FF820A69902309E /* Pods-CordialDemo_SwiftUI-NotificationServiceExtension.debug.xcconfig */,
+				A735C82B69FB0D71E9C11A5F /* Pods-CordialDemo_SwiftUI-NotificationServiceExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -134,6 +171,7 @@
 				9E40177B26710AB800D269CC /* CordialDemo_SwiftUI */,
 				9E40178D26710ABB00D269CC /* CordialDemo_SwiftUITests */,
 				9E40179826710ABB00D269CC /* CordialDemo_SwiftUIUITests */,
+				9E91B1A426A345D50052AB19 /* NotificationServiceExtension */,
 				9E40177A26710AB800D269CC /* Products */,
 				531EF49D8E1BA921B416E598 /* Pods */,
 				C6ECD836EAF48D1A9185DB71 /* Frameworks */,
@@ -146,6 +184,7 @@
 				9E40177926710AB800D269CC /* CordialDemo_SwiftUI.app */,
 				9E40178A26710ABB00D269CC /* CordialDemo_SwiftUITests.xctest */,
 				9E40179526710ABB00D269CC /* CordialDemo_SwiftUIUITests.xctest */,
+				9E91B1A326A345D50052AB19 /* NotificationServiceExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -220,6 +259,15 @@
 			path = ProductHandler;
 			sourceTree = "<group>";
 		};
+		9E91B1A426A345D50052AB19 /* NotificationServiceExtension */ = {
+			isa = PBXGroup;
+			children = (
+				9E91B1A526A345D50052AB19 /* NotificationService.swift */,
+				9E91B1A726A345D50052AB19 /* Info.plist */,
+			);
+			path = NotificationServiceExtension;
+			sourceTree = "<group>";
+		};
 		9E9DD74D26A1B67800EDB438 /* AppHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +290,7 @@
 				F0FBF1A437281B31A76AD317 /* Pods_CordialDemo_SwiftUI.framework */,
 				59AEE76A5DF5B9FA75AE71E8 /* Pods_CordialDemo_SwiftUI_CordialDemo_SwiftUIUITests.framework */,
 				4B348EDCC677698A62131954 /* Pods_CordialDemo_SwiftUITests.framework */,
+				4AC1743A46B831F1E4056269 /* Pods_CordialDemo_SwiftUI_NotificationServiceExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -258,11 +307,13 @@
 				9E40177626710AB800D269CC /* Frameworks */,
 				9E40177726710AB800D269CC /* Resources */,
 				9ECE05342677BB5E00864428 /* Embed Frameworks */,
-				B96C4A274A5F4F4C47194EFF /* [CP] Embed Pods Frameworks */,
+				9E91B1AE26A345D50052AB19 /* Embed App Extensions */,
+				F574C70155CB449B4FAB7C7F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9E91B1A926A345D50052AB19 /* PBXTargetDependency */,
 			);
 			name = CordialDemo_SwiftUI;
 			productName = CordialDemo_SwiftUI;
@@ -296,7 +347,7 @@
 				9E40179126710ABB00D269CC /* Sources */,
 				9E40179226710ABB00D269CC /* Frameworks */,
 				9E40179326710ABB00D269CC /* Resources */,
-				844F1A909A92CFED9C95F879 /* [CP] Embed Pods Frameworks */,
+				024AABA67D4DF7FC1E0DB30E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -308,13 +359,31 @@
 			productReference = 9E40179526710ABB00D269CC /* CordialDemo_SwiftUIUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		9E91B1A226A345D50052AB19 /* NotificationServiceExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9E91B1AB26A345D50052AB19 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
+			buildPhases = (
+				8F1B547EF2CD5E62617964E9 /* [CP] Check Pods Manifest.lock */,
+				9E91B19F26A345D50052AB19 /* Sources */,
+				9E91B1A026A345D50052AB19 /* Frameworks */,
+				9E91B1A126A345D50052AB19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationServiceExtension;
+			productName = NotificationServiceExtension;
+			productReference = 9E91B1A326A345D50052AB19 /* NotificationServiceExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		9E40177126710AB800D269CC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
 					9E40177826710AB800D269CC = {
@@ -327,6 +396,9 @@
 					9E40179426710ABB00D269CC = {
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 9E40177826710AB800D269CC;
+					};
+					9E91B1A226A345D50052AB19 = {
+						CreatedOnToolsVersion = 12.5.1;
 					};
 				};
 			};
@@ -346,6 +418,7 @@
 				9E40177826710AB800D269CC /* CordialDemo_SwiftUI */,
 				9E40178926710ABB00D269CC /* CordialDemo_SwiftUITests */,
 				9E40179426710ABB00D269CC /* CordialDemo_SwiftUIUITests */,
+				9E91B1A226A345D50052AB19 /* NotificationServiceExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -374,9 +447,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9E91B1A126A345D50052AB19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		024AABA67D4DF7FC1E0DB30E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		28BDE623479E1F4085B38549 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -397,23 +494,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		844F1A909A92CFED9C95F879 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests/Pods-CordialDemo_SwiftUI-CordialDemo_SwiftUIUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8960226594B3399BB49C75F3 /* [CP] Check Pods Manifest.lock */ = {
@@ -438,21 +518,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B96C4A274A5F4F4C47194EFF /* [CP] Embed Pods Frameworks */ = {
+		8F1B547EF2CD5E62617964E9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CordialDemo_SwiftUI-NotificationServiceExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F1115451D850B137D90B35E4 /* [CP] Check Pods Manifest.lock */ = {
@@ -475,6 +560,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F574C70155CB449B4FAB7C7F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CordialDemo_SwiftUI/Pods-CordialDemo_SwiftUI-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -512,6 +614,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9E91B19F26A345D50052AB19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E91B1A626A345D50052AB19 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -524,6 +634,11 @@
 			isa = PBXTargetDependency;
 			target = 9E40177826710AB800D269CC /* CordialDemo_SwiftUI */;
 			targetProxy = 9E40179626710ABB00D269CC /* PBXContainerItemProxy */;
+		};
+		9E91B1A926A345D50052AB19 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9E91B1A226A345D50052AB19 /* NotificationServiceExtension */;
+			targetProxy = 9E91B1A826A345D50052AB19 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -786,6 +901,48 @@
 			};
 			name = Release;
 		};
+		9E91B1AC26A345D50052AB19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C160757A8FF820A69902309E /* Pods-CordialDemo_SwiftUI-NotificationServiceExtension.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk.demo.app.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9E91B1AD26A345D50052AB19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A735C82B69FB0D71E9C11A5F /* Pods-CordialDemo_SwiftUI-NotificationServiceExtension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
+				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk.demo.app.NotificationServiceExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -821,6 +978,15 @@
 			buildConfigurations = (
 				9E4017A526710ABB00D269CC /* Debug */,
 				9E4017A626710ABB00D269CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9E91B1AB26A345D50052AB19 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E91B1AC26A345D50052AB19 /* Debug */,
+				9E91B1AD26A345D50052AB19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

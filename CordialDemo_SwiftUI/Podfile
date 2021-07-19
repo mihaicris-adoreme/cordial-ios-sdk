@@ -6,6 +6,11 @@ target 'CordialDemo_SwiftUI' do
   use_frameworks!
   pod 'CordialSDK', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git'
 
+  target "NotificationServiceExtension" do
+      use_frameworks!
+      pod 'CordialAppExtensions-Swift'
+  end
+
   target 'CordialDemo_SwiftUITests' do
     inherit! :search_paths
     # Pods for testing
