@@ -8,7 +8,6 @@
 
 import Foundation
 import Combine
-import SwiftUI
 
 @available(iOS 13.0, *)
 public class CordialSwiftUIDeepLinksPublisher: ObservableObject {

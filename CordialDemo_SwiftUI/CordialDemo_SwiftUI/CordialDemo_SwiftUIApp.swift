@@ -21,14 +21,14 @@ struct CordialDemo_SwiftUIApp: App {
         CordialApiConfiguration.shared.eventsBulkSize = 3
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
-        CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
     }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(CordialSwiftUIDeepLinksPublisher.shared)
                 .environmentObject(AppHandler.shared)
+                .environmentObject(CordialSwiftUIPushNotificationPublisher.shared)
+                .environmentObject(CordialSwiftUIDeepLinksPublisher.shared)
         }
     }
 }

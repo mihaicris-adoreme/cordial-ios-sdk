@@ -23,8 +23,16 @@ class CordialPushNotificationHelper {
     }
     
     func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
+        //UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.appOpenViaNotificationTap(notificationContent: userInfo)
+        }
+        
+        //SwiftUI
+        if #available(iOS 13.0, *) {
+            DispatchQueue.main.async {
+                CordialSwiftUIPushNotificationPublisher.shared.publishAppOpenViaNotificationTap(notificationContent: userInfo)
+            }
         }
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -105,8 +113,16 @@ class CordialPushNotificationHelper {
     }
     
     func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
+        //UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.notificationDeliveredInForeground(notificationContent: userInfo)
+        }
+        
+        //SwiftUI
+        if #available(iOS 13.0, *) {
+            DispatchQueue.main.async {
+                CordialSwiftUIPushNotificationPublisher.shared.publishNotificationDeliveredInForeground(notificationContent: userInfo)
+            }
         }
         
         let eventName = API.EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND

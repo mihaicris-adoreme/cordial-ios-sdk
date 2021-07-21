@@ -47,8 +47,16 @@ class CordialSwizzlerHelper {
         
         let token = internalCordialAPI.getPreparedRemoteNotificationsDeviceToken(deviceToken: deviceToken)
         
+        //UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.apnsTokenReceived(token: token)
+        }
+        
+        //SwiftUI
+        if #available(iOS 13.0, *) {
+            DispatchQueue.main.async {
+                CordialSwiftUIPushNotificationPublisher.shared.publishApnsTokenReceived(token: token)
+            }
         }
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {

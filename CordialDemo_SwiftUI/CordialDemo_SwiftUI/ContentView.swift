@@ -13,8 +13,11 @@ struct ContentView: View {
     @State private var deepLinkURL: URL?
     @State private var username = String()
     
-    @EnvironmentObject var deepLinksPublisher: CordialSwiftUIDeepLinksPublisher
     @EnvironmentObject var appHandler: AppHandler
+    
+    @EnvironmentObject var pushNotificationPublisher: CordialSwiftUIPushNotificationPublisher
+    @EnvironmentObject var deepLinksPublisher: CordialSwiftUIDeepLinksPublisher
+    
     
     let cordialAPI = CordialAPI()
     
@@ -61,16 +64,24 @@ struct ContentView: View {
         
         if self.appHandler.isUserLogin {
             CatalogView(deepLink: self.$deepLinkURL)
-                .onOpenURL(perform: { url in
+                .onOpenURL { url in
                     CordialSwiftUIDeepLinksHandler().processDeepLink(url: url)
-                })
+                }
                 .onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
                     self.deepLinkURL = deepLinks.url
+                }
+                .onReceive(self.pushNotificationPublisher.appOpenViaNotificationTap) { appOpenViaNotificationTap in
+                    print("SwiftUIApp: appOpenViaNotificationTap")
+                }
+                .onReceive(self.pushNotificationPublisher.notificationDeliveredInForeground) { notificationDeliveredInForeground in
+                    print("SwiftUIApp: notificationDeliveredInForeground")
+                }
+                .onReceive(self.pushNotificationPublisher.apnsTokenReceived) { apnsTokenReceived in
+                    print("SwiftUIApp: apnsTokenReceived")
                 }
         }
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
