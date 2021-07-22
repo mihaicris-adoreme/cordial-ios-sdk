@@ -18,6 +18,7 @@ struct ContentView: View {
     @EnvironmentObject var pushNotificationPublisher: CordialSwiftUIPushNotificationPublisher
     @EnvironmentObject var deepLinksPublisher: CordialSwiftUIDeepLinksPublisher
     @EnvironmentObject var inboxMessagePublisher: CordialSwiftUIInboxMessagePublisher
+    @EnvironmentObject var inAppMessagePublisher: CordialSwiftUIInAppMessagePublisher
     
     let cordialAPI = CordialAPI()
     
@@ -81,6 +82,9 @@ struct ContentView: View {
                 }
                 .onReceive(self.inboxMessagePublisher.newInboxMessageDelivered) { newInboxMessageDelivered in
                     print("SwiftUIApp: newInboxMessageDelivered, mcID: \(newInboxMessageDelivered.mcID)")
+                }
+                .onReceive(self.inAppMessagePublisher.inputsCaptured) { inputsCaptured in
+                    print("SwiftUIApp: inputsCaptured, eventName: \(inputsCaptured.eventName), properties: \(inputsCaptured.properties.description)")
                 }
         }
     }

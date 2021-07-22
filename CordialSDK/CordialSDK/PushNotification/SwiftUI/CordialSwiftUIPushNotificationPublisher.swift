@@ -17,7 +17,7 @@ public class CordialSwiftUIPushNotificationPublisher: ObservableObject {
     private init() {}
     
     public let appOpenViaNotificationTap = PassthroughSubject<CordialSwiftUIPushNotificationAppOpenViaNotificationTap, Never>()
-    public let notificationDeliveredInForeground = PassthroughSubject<CordialSwiftUIPushNotificationNotificationDeliveredInForeground, Never>()
+    public let notificationDeliveredInForeground = PassthroughSubject<CordialSwiftUIPushNotificationDeliveredInForeground, Never>()
     public let apnsTokenReceived = PassthroughSubject<CordialSwiftUIPushNotificationApnsTokenReceived, Never>()
     
     func publishAppOpenViaNotificationTap(notificationContent: [AnyHashable : Any]) {
@@ -27,7 +27,7 @@ public class CordialSwiftUIPushNotificationPublisher: ObservableObject {
     }
     
     func publishNotificationDeliveredInForeground(notificationContent: [AnyHashable : Any]) {
-        let notificationDeliveredInForeground = CordialSwiftUIPushNotificationNotificationDeliveredInForeground(notificationContent: notificationContent)
+        let notificationDeliveredInForeground = CordialSwiftUIPushNotificationDeliveredInForeground(notificationContent: notificationContent)
         
         self.notificationDeliveredInForeground.send(notificationDeliveredInForeground)
     }

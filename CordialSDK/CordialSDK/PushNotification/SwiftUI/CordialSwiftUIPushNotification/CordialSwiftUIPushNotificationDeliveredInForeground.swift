@@ -1,5 +1,5 @@
 //
-//  CordialSwiftUIPushNotificationNotificationDeliveredInForeground.swift
+//  CordialSwiftUIPushNotificationDeliveredInForeground.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 21.07.2021.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-public struct CordialSwiftUIPushNotificationNotificationDeliveredInForeground {
+public struct CordialSwiftUIPushNotificationDeliveredInForeground {
     public let notificationContent: [AnyHashable : Any]
 }
