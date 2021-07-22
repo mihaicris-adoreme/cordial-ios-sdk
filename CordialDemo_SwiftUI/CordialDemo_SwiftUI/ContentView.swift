@@ -17,7 +17,7 @@ struct ContentView: View {
     
     @EnvironmentObject var pushNotificationPublisher: CordialSwiftUIPushNotificationPublisher
     @EnvironmentObject var deepLinksPublisher: CordialSwiftUIDeepLinksPublisher
-    
+    @EnvironmentObject var inboxMessagePublisher: CordialSwiftUIInboxMessagePublisher
     
     let cordialAPI = CordialAPI()
     
@@ -71,13 +71,16 @@ struct ContentView: View {
                     self.deepLinkURL = deepLinks.url
                 }
                 .onReceive(self.pushNotificationPublisher.appOpenViaNotificationTap) { appOpenViaNotificationTap in
-                    print("SwiftUIApp: appOpenViaNotificationTap")
+                    print("SwiftUIApp: appOpenViaNotificationTap, notificationContent: \(appOpenViaNotificationTap.notificationContent)")
                 }
                 .onReceive(self.pushNotificationPublisher.notificationDeliveredInForeground) { notificationDeliveredInForeground in
-                    print("SwiftUIApp: notificationDeliveredInForeground")
+                    print("SwiftUIApp: notificationDeliveredInForeground, notificationContent: \(notificationDeliveredInForeground.notificationContent)")
                 }
                 .onReceive(self.pushNotificationPublisher.apnsTokenReceived) { apnsTokenReceived in
-                    print("SwiftUIApp: apnsTokenReceived")
+                    print("SwiftUIApp: apnsTokenReceived, token: \(apnsTokenReceived.token)")
+                }
+                .onReceive(self.inboxMessagePublisher.newInboxMessageDelivered) { newInboxMessageDelivered in
+                    print("SwiftUIApp: newInboxMessageDelivered, mcID: \(newInboxMessageDelivered.mcID)")
                 }
         }
     }

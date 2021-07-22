@@ -29,6 +29,7 @@ struct CordialDemo_SwiftUIApp: App {
                 .environmentObject(AppHandler.shared)
                 .environmentObject(CordialSwiftUIPushNotificationPublisher.shared)
                 .environmentObject(CordialSwiftUIDeepLinksPublisher.shared)
+                .environmentObject(CordialSwiftUIInboxMessagePublisher.shared)
         }
     }
 }

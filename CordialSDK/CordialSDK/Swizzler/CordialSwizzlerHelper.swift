@@ -36,8 +36,16 @@ class CordialSwizzlerHelper {
             CoreDataManager.shared.inboxMessagesCache.removeInboxMessageFromCoreData(mcID: mcID)
             CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContentFromCoreData(mcID: mcID)
             
+            //UIKit
             if let inboxMessageDelegate = CordialApiConfiguration.shared.inboxMessageDelegate {
                 inboxMessageDelegate.newInboxMessageDelivered(mcID: mcID)
+            }
+            
+            //SwiftUI
+            if #available(iOS 13.0, *) {
+                DispatchQueue.main.async {
+                    CordialSwiftUIInboxMessagePublisher.shared.publishNewInboxMessageDelivered(mcID: mcID)
+                }
             }
         }
     }
