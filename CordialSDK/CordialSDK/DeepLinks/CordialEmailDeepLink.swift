@@ -23,18 +23,6 @@ class CordialEmailDeepLink {
                 os_log("Email DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
             }
         }, onFailure: { error in
-            if let emailDeepLinkURL = URL(string: NotificationManager.shared.emailDeepLink),
-               let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
-                
-                DispatchQueue.main.async {
-                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                        cordialDeepLinksDelegate.openDeepLink(url: emailDeepLinkURL, fallbackURL: nil, scene: scene)
-                    } else {
-                        cordialDeepLinksDelegate.openDeepLink(url: emailDeepLinkURL, fallbackURL: nil)
-                    }
-                }
-            }
-            
             NotificationManager.shared.emailDeepLink = String()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
@@ -43,7 +31,7 @@ class CordialEmailDeepLink {
         })
     }
     
-    private func getDeepLink(url: URL, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
+    func getDeepLink(url: URL, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         if let host = url.host,
            CordialApiConfiguration.shared.vanityDomains.contains(host) {
             
