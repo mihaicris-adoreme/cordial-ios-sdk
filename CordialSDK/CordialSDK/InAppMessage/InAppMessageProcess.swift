@@ -57,6 +57,18 @@ class InAppMessageProcess {
     }
     
     func showInAppMessage(inAppMessageData: InAppMessageData) {
+        if CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: inAppMessageData.mcID) {
+            InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
+            
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID)
+            }
+        } else {
+            self.showInAppMessageProcess(inAppMessageData: inAppMessageData)
+        }
+    }
+    
+    private func showInAppMessageProcess(inAppMessageData: InAppMessageData) {
         if InternalCordialAPI().isUserLogin() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 if !self.isPresentedInAppMessage {
