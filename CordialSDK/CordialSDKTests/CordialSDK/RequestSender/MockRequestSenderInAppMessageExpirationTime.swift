@@ -21,7 +21,7 @@ class MockRequestSenderInAppMessageExpirationTime: RequestSender {
             let inAppMessageRequestURL = task.originalRequest?.url,
             inAppMessageURL == inAppMessageRequestURL {
             
-            self.sdkTests.testCase.sendInAppMessageDataFetchRequest(task: task)
+            self.sdkTests.testCase.sendInAppMessageDataFetchRequestSilentPushes(task: task)
             
             self.isVerified = true
         } else {

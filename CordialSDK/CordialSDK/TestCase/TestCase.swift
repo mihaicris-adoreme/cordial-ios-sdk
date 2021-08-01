@@ -205,7 +205,7 @@ public class TestCase {
         return UserAgentBuilder().getUserAgent()
     }
     
-    public func sendInAppMessageDataFetchRequest(task: URLSessionDownloadTask) {
+    public func sendInAppMessageDataFetchRequestSilentPushes(task: URLSessionDownloadTask) {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
@@ -229,12 +229,20 @@ public class TestCase {
         }
     }
     
+    public func sendInAppMessageDataFetchRequestDirectDelivery(task: URLSessionDownloadTask) {
+        // TODO
+    }
+    
     public func getContactsURL() -> URL? {
         return URL(string: CordialApiEndpoints().getContactsURL())
     }
     
     public func getInAppMessageURL(mcID: String) -> URL? {
         return URL(string: CordialApiEndpoints().getInAppMessageURL(mcID: mcID))
+    }
+    
+    public func getInboxMessagesURL(contactKey: String) -> URL? {
+        return URL(string: CordialApiEndpoints().getInAppMessagesURL(contactKey: contactKey))
     }
     
     public func getEventNameInAppMessageShown() -> String {

@@ -1,5 +1,5 @@
 //
-//  MockRequestSenderInAppMessageHasBeenShown.swift
+//  MockRequestSenderInAppMessageHasBeenShownSilentPushes.swift
 //  CordialSDKTests
 //
 //  Created by Yan Malinovsky on 24.06.2020.
@@ -9,7 +9,7 @@
 import XCTest
 import CordialSDK
 
-class MockRequestSenderInAppMessageHasBeenShown: RequestSender {
+class MockRequestSenderInAppMessageHasBeenShownSilentPushes: RequestSender {
     
     var isVerified = false
     
@@ -21,7 +21,7 @@ class MockRequestSenderInAppMessageHasBeenShown: RequestSender {
             let inAppMessageRequestURL = task.originalRequest?.url,
             inAppMessageURL == inAppMessageRequestURL {
             
-            self.sdkTests.testCase.sendInAppMessageDataFetchRequest(task: task)
+            self.sdkTests.testCase.sendInAppMessageDataFetchRequestSilentPushes(task: task)
         } else {
             let httpBody = task.originalRequest!.httpBody!
             
