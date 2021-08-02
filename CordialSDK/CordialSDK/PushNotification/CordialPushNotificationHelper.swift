@@ -42,12 +42,13 @@ class CordialPushNotificationHelper {
                 }
             }
             
-            if self.pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
-                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID),
-                   inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
-                   
+            if self.pushNotificationParser.isPayloadContainIAM(userInfo: userInfo),
+               let inactiveSessionDisplayString = self.pushNotificationParser.getInactiveSessionDisplayIAM(userInfo: userInfo) {
+                
+                let inactiveSessionDisplay = InAppMessageGetter().getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
+                
+                if inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
-
                 }
             }
         }
