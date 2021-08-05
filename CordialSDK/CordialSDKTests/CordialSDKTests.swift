@@ -939,7 +939,7 @@ class CordialSDKTests: XCTestCase {
     
     func testInAppMessageHasBeenShownDirectDelivery() {
         CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .directDelivery
-        
+
         let mock = MockRequestSenderInAppMessageHasBeenShownDirectDelivery()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -958,9 +958,9 @@ class CordialSDKTests: XCTestCase {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             XCTAssert(mock.isVerified)
-            
+
             InAppMessageProcess.shared.isPresentedInAppMessage = false
-            
+
             expectation.fulfill()
         }
 

@@ -229,8 +229,64 @@ public class TestCase {
         }
     }
     
-    public func sendInAppMessageDataFetchRequestDirectDelivery(task: URLSessionDownloadTask) {
-        // TODO
+    public func sendInAppMessagesDataFetchRequestDirectDelivery(task: URLSessionDownloadTask) {
+        if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
+            switch operation.taskName {
+            case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES:
+                if let request = task.originalRequest,
+                   let url = request.url, let headerFields = request.allHTTPHeaderFields,
+                   let httpResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: headerFields),
+                   let httpBody = """
+                            {
+                                "messages": [
+                                    {
+                                        "sentAt": "\(CordialDateFormatter().getCurrentTimestamp())",
+                                        "_id": "test_mc_id",
+                                        "inactiveSessionDisplay": "show-in-app",
+                                        "expirationTime": "\(CordialDateFormatter().getTimestampFromDate(date: Date().addingTimeInterval(TimeInterval(60)))))",
+                                        "url": "https://cordial.com/in-app-message-content/",
+                                        "urlExpireAt": "\(CordialDateFormatter().getTimestampFromDate(date: Date().addingTimeInterval(TimeInterval(60))))"
+                                    }
+                                ]
+                            }
+                        """.data(using: .utf8) {
+                    
+                    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
+                    do {
+                        try httpBody.write(to: location, options: .atomic)
+                        
+                        InAppMessagesURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                }
+            default: break
+            }
+        }
+    }
+    
+    public func sendInAppMessageContentDataFetchRequestDirectDelivery(task: URLSessionDownloadTask) {
+        if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
+            switch operation.taskName {
+            case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT:
+                if let inAppMessageContentURLSessionData = operation.taskData as? InAppMessageContentURLSessionData,
+                    let request = task.originalRequest,
+                    let url = request.url, let headerFields = request.allHTTPHeaderFields,
+                    let httpResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: headerFields),
+                    let httpBody = "{ \"content\": \"Hello, I am IAM!\" }".data(using: .utf8) {
+                    
+                    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
+                    do {
+                        try httpBody.write(to: location, options: .atomic)
+                        
+                        InAppMessageContentURLSessionManager().completionHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, httpResponse: httpResponse, location: location)
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                }
+            default: break
+            }
+        }
     }
     
     public func getContactsURL() -> URL? {
