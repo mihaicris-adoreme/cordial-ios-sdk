@@ -625,7 +625,7 @@ Every app is assumed to be operating on behalf of a specific contact. Contact is
 
 Every piece of information (internal or custom events, updating a contact, etc.) that is passed by SDK to Cordial backend, has a device ID automatically associated with it. Later, when the user logs into the app and their primary key becomes known, the client application must pass that primary key to the backend by calling the `setContact` method. When the backend receives a contact update with the primary key, it associates the device ID with the primary key of that contact. That association is crucial for effectively using Cordial.
 
-In the event the contact's primary key is unknown, all requests associated with the device ID will be cached until the contact is identified using `setContact`.
+There are two states in the SDK: `Logged in` and `Logged out`. The difference is that the `Logged in` state sends requests and receives push messages, while the `Logged out` state caches requests and does not receive push messages. The `Logged out` state is described in "Unsetting a contact" section. The `Logged in` state can be with and without a primary key. By default, the SDK is automatically set to `Logged in` state without primary key.
 
 `setContact` with primary key usage:
 
