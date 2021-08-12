@@ -25,6 +25,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[Delaying In-App Messages](#delaying-in-app-messages)<br>
 [Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
+[SwiftUI apps](#swiftui-apps)<br>
 
 # Installation
 
@@ -1072,5 +1073,39 @@ ___
 ```
 [cordialAPI setCurrentMcIDWithMcID:@"mcID"];
 ```
+
+# SwiftUI apps
+
+Cordial SDK supports SwiftUI apps. All sections above still hold for SwiftUI apps except deep links which are described below. Additionally, the SDK adds several classes to make it easier to work with it from SwiftUI app. 
+
+## Initialization
+
+Initialization of the SDK is done in the same way as it is for UIKit application with one difference that it is possible to run SDK initialization code within `init` method of your `App` class.
+
+## Deep links
+
+To handle deep links in a SwiftUI app, subscribe your views to `CordialSwiftUIDeepLinksPublisher.deepLinks` `PassthroughSubject`. The subject will publish deep links that the app should open.
+
+In addition to subscribing to `CordialSwiftUIDeepLinksPublisher`, SwiftUI app should let the SDK know that a deep link is being opened from outside of the app. To let the SDK know that a deep link is being opened, in your `onOpenURL` methods, pass the deep link to `CordialSwiftUIDeepLinksHandler.processDeepLink` method. The SDK will then track the link, meaning it will send required system events as well as follow possible redirects that a deep link might contain, and will publish the resultant deep url link via `CordialSwiftUIDeepLinksPublisher`. 
+
+For example, here is a typical view definition that is capable of opening deep links:
+
+```
+AppliationView()
+    .onOpenURL { url in
+        CordialSwiftUIDeepLinksHandler().processDeepLink(url: url)
+    }.onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
+    	// deepLinkURL is the @State variable that will trigger view refresh
+        self.deepLinkURL = deepLinks.url
+    }
+```
+
+## Additional publishers
+
+In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additional publishers:
+
+- `CordialSwiftUIInAppMessagePublisher` - notifies the app of the inputs that were captured in an in-app message
+- `CordialSwiftUIInboxMessagePublisher` - notifies the app of new inbox messages
+- `CordialSwiftUIPushNotificationPublisher` - notifies the app that a new push notification token is received, push notification delivered when an app is on the foreground and app opened via push notification tap
 
 [Top](#contents)
