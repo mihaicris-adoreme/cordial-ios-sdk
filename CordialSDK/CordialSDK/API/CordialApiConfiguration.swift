@@ -13,7 +13,9 @@ import CoreLocation
     
     @objc public static let shared = CordialApiConfiguration()
     
-    private override init(){}
+    private override init() {
+        CordialPushNotification.shared.registerForSilentPushNotifications()
+    }
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
@@ -25,7 +27,7 @@ import CoreLocation
     var channelKey = String()
     var baseURL = String()
     
-    let cordialPushNotification = CordialPushNotification()
+    let cordialPushNotification = CordialPushNotification.shared
     let cordialPushNotificationHandler = CordialPushNotificationHandler()
     
     @objc public let osLogManager = CordialOSLogManager()

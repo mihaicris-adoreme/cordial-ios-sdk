@@ -57,40 +57,40 @@ class InAppMessageProcess {
     }
     
     func showInAppMessage(inAppMessageData: InAppMessageData) {
-        if CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: inAppMessageData.mcID) {
-            InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
-            
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID)
-            }
-        } else {
-            self.showInAppMessageProcess(inAppMessageData: inAppMessageData)
-        }
-    }
-    
-    private func showInAppMessageProcess(inAppMessageData: InAppMessageData) {
         if InternalCordialAPI().isUserLogin() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if !self.isPresentedInAppMessage {
-                    switch inAppMessageData.type {
-                    case InAppMessageType.modal:
-                        self.showModalInAppMessage(inAppMessageData: inAppMessageData)
-                    case InAppMessageType.fullscreen:
-                        self.showModalInAppMessage(inAppMessageData: inAppMessageData)
-                    case InAppMessageType.banner_up:
-                        self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
-                    case InAppMessageType.banner_bottom:
-                        self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+                if CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: inAppMessageData.mcID) {
+                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID)
                     }
                 } else {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                    }
+                    self.showInAppMessageProcess(inAppMessageData: inAppMessageData)
                 }
             }
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("IAM: [User no login]. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
+            }
+        }
+    }
+    
+    private func showInAppMessageProcess(inAppMessageData: InAppMessageData) {
+        if !self.isPresentedInAppMessage {
+            switch inAppMessageData.type {
+            case InAppMessageType.modal:
+                self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+            case InAppMessageType.fullscreen:
+                self.showModalInAppMessage(inAppMessageData: inAppMessageData)
+            case InAppMessageType.banner_up:
+                self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+            case InAppMessageType.banner_bottom:
+                self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
+            }
+        } else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
             }
         }
     }
@@ -205,19 +205,23 @@ class InAppMessageProcess {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     os_log("Showing %{public}@ IAM modal with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                 }
-                
-                let mcID = inAppMessageData.mcID
-                if !CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID) {
-                    CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
-                    
-                    let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
-                    self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-                }
+    
+                self.sendSystemEventInAppMessageHasBeenShown(inAppMessageData: inAppMessageData)
             } else {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                 }
             }
+        }
+    }
+    
+    private func sendSystemEventInAppMessageHasBeenShown(inAppMessageData: InAppMessageData) {
+        let mcID = inAppMessageData.mcID
+        if !CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID) {
+            CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
+            
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
+            self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         }
     }
     
@@ -253,13 +257,7 @@ class InAppMessageProcess {
                     os_log("Showing %{public}@ IAM banner with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
                 }
                 
-                let mcID = inAppMessageData.mcID
-                if !CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID) {
-                    CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
-                    
-                    let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
-                    self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-                }
+                self.sendSystemEventInAppMessageHasBeenShown(inAppMessageData: inAppMessageData)
             } else {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
