@@ -109,7 +109,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         products.forEach { product in
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.cart.getCartItemQtyBySKU(appDelegate: appDelegate, sku: product.sku) {
                 
-                let cartItem = CartItem(productID: product.id, name: product.name, sku: product.sku, category: nil, url: nil, itemDescription: nil, qty: qty, itemPrice: product.price, salePrice: product.price, attr: nil, images: nil, properties: nil)
+                let cartItem = CartItem(productID: product.id, name: product.name, sku: product.sku, category: "Mens", url: nil, itemDescription: nil, qty: qty, itemPrice: product.price, salePrice: product.price, attr: nil, images: nil, properties: nil)
                 
                 cartItems.append(cartItem)
             }
