@@ -16,13 +16,15 @@ import Foundation
     let category: String
     let url: String?
     let itemDescription: String?
-    let qty: Int64?
+    let qty: Int64
     let itemPrice: Double?
     let salePrice: Double?
     var timestamp: String
     let attr: Dictionary<String, String>?
     let images: [String]?
     let properties: Dictionary<String, Any>?
+    
+    var isError = false
         
     enum Key: String {
         case productID = "productID"
@@ -40,11 +42,27 @@ import Foundation
         case properties = "properties"
     }
     
-    @objc public convenience init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qtyNumber: NSNumber?, itemPriceNumber: NSNumber?, salePriceNumber: NSNumber?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
-        self.init(productID: productID, name: name, sku: sku, category: category, url: url, itemDescription: itemDescription, qty: qtyNumber?.int64Value, itemPrice: itemPriceNumber?.doubleValue, salePrice: salePriceNumber?.doubleValue, attr: attr, images: images, properties: properties)
+    @objc public convenience init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qtyNumber: NSNumber, itemPriceNumber: NSNumber?, salePriceNumber: NSNumber?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
+        self.init(productID: productID, name: name, sku: sku, category: category, url: url, itemDescription: itemDescription, qty: qtyNumber.int64Value, itemPrice: itemPriceNumber?.doubleValue, salePrice: salePriceNumber?.doubleValue, attr: attr, images: images, properties: properties)
     }
     
-    public init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qty: Int64?, itemPrice: Double?, salePrice: Double?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
+    @available(*, deprecated, message: "Deprecated. Use constructor in which 'category' and 'qty' parameters are non-optional.")
+    public convenience init(productID: String, name: String, sku: String, category: String?, url: String?, itemDescription: String?, qty: Int64?, itemPrice: Double?, salePrice: Double?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
+        
+        var categoryString: String = String()
+        if category != nil {
+            categoryString = category!
+        }
+        
+        var qtyInt64: Int64 = 1
+        if qty != nil {
+            qtyInt64 = qty!
+        }
+        
+        self.init(productID: productID, name: name, sku: sku, category: categoryString, url: url, itemDescription: itemDescription, qty: qtyInt64, itemPrice: itemPrice, salePrice: salePrice, attr: attr, images: images, properties: properties)
+    }
+    
+    public init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qty: Int64, itemPrice: Double?, salePrice: Double?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
         self.productID = productID
         self.name = name
         self.sku = sku
@@ -86,7 +104,7 @@ import Foundation
         aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
-    private init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qty: Int64?, itemPrice: Double?, salePrice: Double?, timestamp: String, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
+    private init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qty: Int64, itemPrice: Double?, salePrice: Double?, timestamp: String, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
         self.productID = productID
         self.name = name
         self.sku = sku
@@ -103,20 +121,26 @@ import Foundation
     }
     
     @objc public required convenience init?(coder aDecoder: NSCoder) {
-        let productID = aDecoder.decodeObject(forKey: Key.productID.rawValue) as! String
-        let name = aDecoder.decodeObject(forKey: Key.name.rawValue) as! String
-        let sku = aDecoder.decodeObject(forKey: Key.sku.rawValue) as! String
-        let category = aDecoder.decodeObject(forKey: Key.category.rawValue) as! String
-        let url = aDecoder.decodeObject(forKey: Key.url.rawValue) as! String?
-        let itemDescription = aDecoder.decodeObject(forKey: Key.itemDescription.rawValue) as! String?
-        let qty = aDecoder.decodeObject(forKey: Key.qty.rawValue) as! Int64?
-        let itemPrice = aDecoder.decodeObject(forKey: Key.itemPrice.rawValue) as! Double?
-        let salePrice = aDecoder.decodeObject(forKey: Key.salePrice.rawValue) as! Double?
-        let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as! String
-        let attr = aDecoder.decodeObject(forKey: Key.attr.rawValue) as! Dictionary<String, String>?
-        let images = aDecoder.decodeObject(forKey: Key.images.rawValue) as! [String]?
-        let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, Any>?
-        
-        self.init(productID: productID, name: name, sku: sku, category: category, url: url, itemDescription: itemDescription, qty: qty, itemPrice: itemPrice, salePrice: salePrice, timestamp: timestamp, attr: attr, images: images, properties: properties)
+        if let productID = aDecoder.decodeObject(forKey: Key.productID.rawValue) as? String,
+           let name = aDecoder.decodeObject(forKey: Key.name.rawValue) as? String,
+           let sku = aDecoder.decodeObject(forKey: Key.sku.rawValue) as? String,
+           let category = aDecoder.decodeObject(forKey: Key.category.rawValue) as? String,
+           let url = aDecoder.decodeObject(forKey: Key.url.rawValue) as? String?,
+           let itemDescription = aDecoder.decodeObject(forKey: Key.itemDescription.rawValue) as? String?,
+           let itemPrice = aDecoder.decodeObject(forKey: Key.itemPrice.rawValue) as? Double?,
+           let salePrice = aDecoder.decodeObject(forKey: Key.salePrice.rawValue) as? Double?,
+           let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as? String,
+           let attr = aDecoder.decodeObject(forKey: Key.attr.rawValue) as? Dictionary<String, String>?,
+           let images = aDecoder.decodeObject(forKey: Key.images.rawValue) as? [String]?,
+           let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as? Dictionary<String, Any>? {
+            
+            let qty = aDecoder.decodeInt64(forKey: Key.qty.rawValue)
+            
+            self.init(productID: productID, name: name, sku: sku, category: category, url: url, itemDescription: itemDescription, qty: qty, itemPrice: itemPrice, salePrice: salePrice, timestamp: timestamp, attr: attr, images: images, properties: properties)
+        } else {
+            self.init(productID: String(), name: String(), sku: String(), category: String(), url: nil, itemDescription: nil, qty: 1, itemPrice: nil, salePrice: nil, attr: nil, images: nil, properties: nil)
+            
+            self.isError = true
+        }
     }
 }
