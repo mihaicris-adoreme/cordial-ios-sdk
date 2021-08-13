@@ -13,7 +13,7 @@ import Foundation
     let productID: String
     let name: String
     let sku: String
-    let category: String?
+    let category: String
     let url: String?
     let itemDescription: String?
     let qty: Int64?
@@ -40,11 +40,11 @@ import Foundation
         case properties = "properties"
     }
     
-    @objc public convenience init(productID: String, name: String, sku: String, category: String?, url: String?, itemDescription: String?, qtyNumber: NSNumber?, itemPriceNumber: NSNumber?, salePriceNumber: NSNumber?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
+    @objc public convenience init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qtyNumber: NSNumber?, itemPriceNumber: NSNumber?, salePriceNumber: NSNumber?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
         self.init(productID: productID, name: name, sku: sku, category: category, url: url, itemDescription: itemDescription, qty: qtyNumber?.int64Value, itemPrice: itemPriceNumber?.doubleValue, salePrice: salePriceNumber?.doubleValue, attr: attr, images: images, properties: properties)
     }
     
-    public init(productID: String, name: String, sku: String, category: String?, url: String?, itemDescription: String?, qty: Int64?, itemPrice: Double?, salePrice: Double?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
+    public init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qty: Int64?, itemPrice: Double?, salePrice: Double?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
         self.productID = productID
         self.name = name
         self.sku = sku
@@ -86,7 +86,7 @@ import Foundation
         aCoder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
-    private init(productID: String, name: String, sku: String, category: String?, url: String?, itemDescription: String?, qty: Int64?, itemPrice: Double?, salePrice: Double?, timestamp: String, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
+    private init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qty: Int64?, itemPrice: Double?, salePrice: Double?, timestamp: String, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
         self.productID = productID
         self.name = name
         self.sku = sku
@@ -106,7 +106,7 @@ import Foundation
         let productID = aDecoder.decodeObject(forKey: Key.productID.rawValue) as! String
         let name = aDecoder.decodeObject(forKey: Key.name.rawValue) as! String
         let sku = aDecoder.decodeObject(forKey: Key.sku.rawValue) as! String
-        let category = aDecoder.decodeObject(forKey: Key.category.rawValue) as! String?
+        let category = aDecoder.decodeObject(forKey: Key.category.rawValue) as! String
         let url = aDecoder.decodeObject(forKey: Key.url.rawValue) as! String?
         let itemDescription = aDecoder.decodeObject(forKey: Key.itemDescription.rawValue) as! String?
         let qty = aDecoder.decodeObject(forKey: Key.qty.rawValue) as! Int64?
