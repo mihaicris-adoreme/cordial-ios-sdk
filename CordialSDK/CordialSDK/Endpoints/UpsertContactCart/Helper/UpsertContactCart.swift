@@ -62,6 +62,7 @@ class UpsertContactCart {
             cartItemContainer.append("\"name\": \"\(cartItem.name)\"")
             cartItemContainer.append("\"sku\": \"\(cartItem.sku)\"")
             cartItemContainer.append("\"category\": \"\(cartItem.category)\"")
+            cartItemContainer.append("\"qty\": \(cartItem.qty)")
             cartItemContainer.append("\"timestamp\": \"\(cartItem.timestamp)\"")
             
             if let url = cartItem.url {
@@ -70,10 +71,6 @@ class UpsertContactCart {
             
             if let itemDescription = cartItem.itemDescription {
                 cartItemContainer.append("\"description\": \"\(itemDescription)\"")
-            }
-            
-            if let qty = cartItem.qty {
-                cartItemContainer.append("\"qty\": \(qty)")
             }
             
             if let itemPrice = cartItem.itemPrice {

@@ -2,6 +2,19 @@
 
 The latest version of this file can be found at the master branch.
 
+## 2.6.0 (2021-08-18)
+
+### Added
+
+- SwiftUI support
+- Category and quantity fields in `CartItem` are made mandatory
+
+## 2.5.2 (2021-08-17)
+
+### Fixed
+
+- Removed `deviceID` from the `mcID` part when sending a push notifications
+
 ## 2.5.1 (2021-06-03)
 
 ### Fixed
