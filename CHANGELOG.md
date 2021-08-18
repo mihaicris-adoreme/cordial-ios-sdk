@@ -2,7 +2,7 @@
 
 The latest version of this file can be found at the master branch.
 
-## 2.5.3 (2021-08-18)
+## 2.6.0 (2021-08-18)
 
 ### Added
 
