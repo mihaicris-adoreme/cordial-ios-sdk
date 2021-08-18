@@ -434,7 +434,7 @@ ___
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: nil, url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: "productCategory", url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
 
 let cartItems = [cartItem]
 ```
@@ -444,7 +444,7 @@ ___
 NSNumber *qty = [NSNumber numberWithInteger:1];
 NSNumber *price = [NSNumber numberWithDouble:20.00];
 
-CartItem *cartItem = [[CartItem alloc] initWithProductID:@"productID" name:@"productName" sku:@"productSKU" category:nil url:nil itemDescription:nil qtyNumber:qty itemPriceNumber:price salePriceNumber:price attr:nil images:nil properties:nil];
+CartItem *cartItem = [[CartItem alloc] initWithProductID:@"productID" name:@"productName" sku:@"productSKU" category:@"productCategory" url:nil itemDescription:nil qtyNumber:qty itemPriceNumber:price salePriceNumber:price attr:nil images:nil properties:nil];
 
 NSArray *cartItems = [[NSArray alloc] initWithObjects:cartItem, nil];
 ```
