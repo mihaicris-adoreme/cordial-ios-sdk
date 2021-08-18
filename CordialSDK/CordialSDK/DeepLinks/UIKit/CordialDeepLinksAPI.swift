@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 @objc public class CordialDeepLinksAPI: NSObject {
     
@@ -18,4 +19,5 @@ import Foundation
     @objc public func openSceneDelegateUniversalLink(scene: UIScene, userActivity: NSUserActivity) {
         CordialSwizzler.shared.scene(scene, continue: userActivity)
     }
+    
 }

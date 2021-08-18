@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name          = "CordialSDK"
-  spec.version       = "2.5.2"
+  spec.version       = "2.6.0"
   spec.summary       = "CordialSDK"
 
   spec.description   = <<-DESC

@@ -273,6 +273,7 @@ class InternalCordialAPI {
     // MARK: Open deep link
     
     func openDeepLink(url: URL) {
+        // UIKit
         DispatchQueue.main.async {
             if let scheme = url.scheme, scheme.contains("http") {
                 let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
@@ -286,9 +287,25 @@ class InternalCordialAPI {
                     let _ = CordialSwizzler.shared.application(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
                 }
             } else {
-                UIApplication.shared.open(url, options:[:], completionHandler: nil)
+                UIApplication.shared.open(url)
             }
         }
+        
+        // SwiftUI
+        if #available(iOS 13.0, *) {
+            DispatchQueue.main.async {
+                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
+            }
+        }
+    }
+    
+    // MARK: Sent event deep link open
+    
+    func sentEventDeepLinkOpen() {
+        let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
+        let mcID = CordialAPI().getCurrentMcID()
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
+        InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
     // MARK: Get push notification authorization status

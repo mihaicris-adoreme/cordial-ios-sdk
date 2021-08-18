@@ -72,7 +72,7 @@
 - (NSArray<CartItem *>*)getCartItems {
     NSNumber *qty = [NSNumber numberWithInteger:1];
     NSNumber *price = [NSNumber numberWithDouble:148.00];
-    CartItem *cartItem = [[CartItem alloc] initWithProductID:@"1" name:@"men1" sku:@"ab26ec3a-6110-11e9-8647-d663bd873d93" category:nil url:nil itemDescription:nil qtyNumber:qty itemPriceNumber:price salePriceNumber:price attr:nil images:nil properties:nil];
+    CartItem *cartItem = [[CartItem alloc] initWithProductID:@"1" name:@"men1" sku:@"ab26ec3a-6110-11e9-8647-d663bd873d93" category:@"Mens" url:nil itemDescription:nil qtyNumber:qty itemPriceNumber:price salePriceNumber:price attr:nil images:nil properties:nil];
     
     NSArray *cartItems = [[NSArray alloc] initWithObjects:cartItem, nil];
     
