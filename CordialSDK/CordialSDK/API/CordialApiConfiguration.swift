@@ -77,6 +77,7 @@ import CoreLocation
         self.accountKey = accountKey
         self.channelKey = channelKey
         self.baseURL = "https://events-stream-svc.cordial.com/"
+//        self.baseURL = "https://events-stream-svc.stg.cordialdev.com/"
         
 //        CoreDataManager.shared.deleteAllCoreData()
         
