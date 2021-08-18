@@ -41,14 +41,25 @@ class UpsertContactCartRequest: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String, let cartItems = aDecoder.decodeObject(forKey: Key.cartItems.rawValue) as? [CartItem] {
+        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String,
+           let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String?,
+           let cartItems = aDecoder.decodeObject(forKey: Key.cartItems.rawValue) as? [CartItem] {
             
-            let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
+            var isCartItemError = false
+            cartItems.forEach { cartItem in
+                if cartItem.isError {
+                    isCartItemError = true
+                }
+            }
             
-            self.init(requestID: requestID, cartItems: cartItems, primaryKey: primaryKey)
+            if !isCartItemError {
+                self.init(requestID: requestID, cartItems: cartItems, primaryKey: primaryKey)
+            } else {
+                self.init(requestID: String(), cartItems: [CartItem](), primaryKey: nil)
+                self.isError = true
+            }
         } else {
             self.init(requestID: String(), cartItems: [CartItem](), primaryKey: nil)
-            
             self.isError = true
         }
     }
