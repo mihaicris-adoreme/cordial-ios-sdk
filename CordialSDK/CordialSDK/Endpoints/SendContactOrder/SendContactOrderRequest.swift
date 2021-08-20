@@ -41,9 +41,10 @@ class SendContactOrderRequest: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        if let order = aDecoder.decodeObject(forKey: Key.order.rawValue) as? Order {
-            let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as! String?
-            let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
+        if let order = aDecoder.decodeObject(forKey: Key.order.rawValue) as? Order,
+           let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as? String?,
+           let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String?,
+           !order.isError {
             
             self.init(mcID: mcID, order: order, primaryKey: primaryKey)
         } else {

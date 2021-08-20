@@ -22,6 +22,8 @@ import Foundation
     let shippingAndHandling: Double?
     let properties: Dictionary<String, Any>?
     
+    var isError = false
+    
     enum Key: String {
         case orderID = "orderID"
         case status = "status"
@@ -91,25 +93,47 @@ import Foundation
     }
     
     @objc public required convenience init?(coder aDecoder: NSCoder) {
-        let orderID = aDecoder.decodeObject(forKey: Key.orderID.rawValue) as! String
-        let status = aDecoder.decodeObject(forKey: Key.status.rawValue) as! String
-        let storeID = aDecoder.decodeObject(forKey: Key.storeID.rawValue) as! String
-        let customerID = aDecoder.decodeObject(forKey: Key.customerID.rawValue) as! String
-        let purchaseDate = aDecoder.decodeObject(forKey: Key.purchaseDate.rawValue) as! Date
-        let shippingAddress = aDecoder.decodeObject(forKey: Key.shippingAddress.rawValue) as! Address
-        let billingAddress = aDecoder.decodeObject(forKey: Key.billingAddress.rawValue) as! Address
-        let items = aDecoder.decodeObject(forKey: Key.items.rawValue) as! [CartItem]
-        let tax = aDecoder.decodeObject(forKey: Key.tax.rawValue) as! Double?
-        
-        var shippingAndHandling: Double?
-        if let shippingAndHandlingString = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as? String {
-            shippingAndHandling = Double(shippingAndHandlingString)
+        if let orderID = aDecoder.decodeObject(forKey: Key.orderID.rawValue) as? String,
+           let status = aDecoder.decodeObject(forKey: Key.status.rawValue) as? String,
+           let storeID = aDecoder.decodeObject(forKey: Key.storeID.rawValue) as? String,
+           let customerID = aDecoder.decodeObject(forKey: Key.customerID.rawValue) as? String,
+           let purchaseDate = aDecoder.decodeObject(forKey: Key.purchaseDate.rawValue) as? Date,
+           let shippingAddress = aDecoder.decodeObject(forKey: Key.shippingAddress.rawValue) as? Address,
+           let billingAddress = aDecoder.decodeObject(forKey: Key.billingAddress.rawValue) as? Address,
+           let items = aDecoder.decodeObject(forKey: Key.items.rawValue) as? [CartItem],
+           let tax = aDecoder.decodeObject(forKey: Key.tax.rawValue) as? Double? {
+            
+            var isItemError = false
+            items.forEach { item in
+                if item.isError {
+                    isItemError = true
+                }
+            }
+            
+            if !isItemError, !shippingAddress.isError, !billingAddress.isError {
+                var shippingAndHandling: Double?
+                if let shippingAndHandlingString = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as? String {
+                    shippingAndHandling = Double(shippingAndHandlingString)
+                } else {
+                    shippingAndHandling = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as! Double?
+                }
+                
+                let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, Any>?
+                
+                self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, purchaseDate: purchaseDate, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: tax, shippingAndHandling: shippingAndHandling, properties: properties)
+            } else {
+                let address = Address(name: String(), address: String(), city: String(), state: String(), postalCode: String(), country: String())
+                let cartItem = CartItem(productID: String(), name: String(), sku: String(), category: String(), url: nil, itemDescription: nil, qty: 1, itemPrice: nil, salePrice: nil, attr: nil, images: nil, properties: nil)
+                self.init(orderID: String(), status: String(), storeID: String(), customerID: String(), shippingAddress: address, billingAddress: address, items: [cartItem], tax: nil, shippingAndHandling: nil, properties: nil)
+                
+                self.isError = true
+            }
         } else {
-            shippingAndHandling = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as! Double?
+            let address = Address(name: String(), address: String(), city: String(), state: String(), postalCode: String(), country: String())
+            let cartItem = CartItem(productID: String(), name: String(), sku: String(), category: String(), url: nil, itemDescription: nil, qty: 1, itemPrice: nil, salePrice: nil, attr: nil, images: nil, properties: nil)
+            self.init(orderID: String(), status: String(), storeID: String(), customerID: String(), shippingAddress: address, billingAddress: address, items: [cartItem], tax: nil, shippingAndHandling: nil, properties: nil)
+            
+            self.isError = true
         }
-        
-        let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, Any>?
-        
-        self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, purchaseDate: purchaseDate, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: tax, shippingAndHandling: shippingAndHandling, properties: properties)
     }
 }
