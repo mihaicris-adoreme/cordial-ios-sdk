@@ -101,7 +101,9 @@ import Foundation
            let shippingAddress = aDecoder.decodeObject(forKey: Key.shippingAddress.rawValue) as? Address,
            let billingAddress = aDecoder.decodeObject(forKey: Key.billingAddress.rawValue) as? Address,
            let items = aDecoder.decodeObject(forKey: Key.items.rawValue) as? [CartItem],
-           let tax = aDecoder.decodeObject(forKey: Key.tax.rawValue) as? Double? {
+           let tax = aDecoder.decodeObject(forKey: Key.tax.rawValue) as? Double?,
+           let shippingAndHandling = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as? Double?,
+           let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as? Dictionary<String, Any>? {
             
             var isItemError = false
             items.forEach { item in
@@ -111,15 +113,7 @@ import Foundation
             }
             
             if !isItemError, !shippingAddress.isError, !billingAddress.isError {
-                var shippingAndHandling: Double?
-                if let shippingAndHandlingString = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as? String {
-                    shippingAndHandling = Double(shippingAndHandlingString)
-                } else {
-                    shippingAndHandling = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as! Double?
-                }
-                
-                let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, Any>?
-                
+
                 self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, purchaseDate: purchaseDate, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: tax, shippingAndHandling: shippingAndHandling, properties: properties)
             } else {
                 let address = Address(name: String(), address: String(), city: String(), state: String(), postalCode: String(), country: String())

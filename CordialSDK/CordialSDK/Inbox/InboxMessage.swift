@@ -50,9 +50,9 @@ import Foundation
         if let mcID = coder.decodeObject(forKey: Key.mcID.rawValue) as? String,
            let url = coder.decodeObject(forKey: Key.url.rawValue) as? String,
            let urlExpireAt = coder.decodeObject(forKey: Key.urlExpireAt.rawValue) as? Date,
-           let sentAt = coder.decodeObject(forKey: Key.sentAt.rawValue) as? Date {
+           let sentAt = coder.decodeObject(forKey: Key.sentAt.rawValue) as? Date,
+           let metadata = coder.decodeObject(forKey: Key.metadata.rawValue) as? String? {
             
-            let metadata = coder.decodeObject(forKey: Key.metadata.rawValue) as! String?
             let isRead = coder.decodeBool(forKey: Key.isRead.rawValue)
             
             self.init(mcID: mcID, url: url, urlExpireAt: urlExpireAt, isRead: isRead, sentAt: sentAt, metadata: metadata)

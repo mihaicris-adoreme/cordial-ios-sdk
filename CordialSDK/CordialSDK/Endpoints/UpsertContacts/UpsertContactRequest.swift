@@ -49,10 +49,10 @@ class UpsertContactRequest: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String, let status = aDecoder.decodeObject(forKey: Key.status.rawValue) as? String {
-            let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
-            
-            let attributes = aDecoder.decodeObject(forKey: Key.attributes.rawValue) as! Dictionary<String, AttributeValue>?
+        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String,
+           let status = aDecoder.decodeObject(forKey: Key.status.rawValue) as? String,
+           let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String?,
+           let attributes = aDecoder.decodeObject(forKey: Key.attributes.rawValue) as? Dictionary<String, AttributeValue>? {
             
             self.init(requestID: requestID, primaryKey: primaryKey, status: status, attributes: attributes)
         } else {
