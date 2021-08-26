@@ -23,7 +23,7 @@ import os.log
     
     // MARK: Set account key
     
-    @objc public func setAccountKey(accountKey: String) {
+    @objc public func setAccountKey(_ accountKey: String) {
         if accountKey != self.getAccountKey() {
             CordialUserDefaults.set(accountKey, forKey: API.USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY)
             
@@ -43,7 +43,7 @@ import os.log
     
     // MARK: Set channel key
     
-    @objc public func setChannelKey(channelKey: String) {
+    @objc public func setChannelKey(_ channelKey: String) {
         if channelKey != self.getChannelKey() {
             CordialUserDefaults.set(channelKey, forKey: API.USER_DEFAULTS_KEY_FOR_CHANNEL_KEY)
             

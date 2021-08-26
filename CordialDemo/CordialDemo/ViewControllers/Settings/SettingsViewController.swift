@@ -11,7 +11,7 @@ import CordialSDK
 
 class SettingsViewController: UIViewController {
 
-    @IBOutlet weak var baseURLTextField: UITextField!
+    @IBOutlet weak var eventsStreamURLTextField: UITextField!
     @IBOutlet weak var accountKeyTextField: UITextField!
     @IBOutlet weak var channelKeyTextField: UITextField!
     @IBOutlet weak var qtyCachedEventQueueTextField: UITextField!
@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.baseURLTextField.text = self.cordialAPI.getEventsStreamURL()
+        self.eventsStreamURLTextField.text = self.cordialAPI.getEventsStreamURL()
         self.accountKeyTextField.text = self.cordialAPI.getAccountKey()
         self.channelKeyTextField.text = self.cordialAPI.getChannelKey()
         self.qtyCachedEventQueueTextField.text = String(CordialApiConfiguration.shared.qtyCachedEventQueue)
@@ -81,7 +81,7 @@ class SettingsViewController: UIViewController {
     }
     
     func saveTestInitData() {
-        if let baseURL = self.baseURLTextField.text,
+        if let eventsStreamURL = self.eventsStreamURLTextField.text,
            let accountKey = self.accountKeyTextField.text,
            let channelKey = self.channelKeyTextField.text,
            let qtyCachedEventQueueString = self.qtyCachedEventQueueTextField.text,
@@ -95,9 +95,9 @@ class SettingsViewController: UIViewController {
            let maxCachableMessageSizeString = self.inboxMaxCachableMessageSizeTextField.text,
            let maxCachableMessageSize = Int(maxCachableMessageSizeString) {
             
-            self.cordialAPI.setEventsStreamURL(baseURL)
-            self.cordialAPI.setAccountKey(accountKey: accountKey)
-            self.cordialAPI.setChannelKey(channelKey: channelKey)
+            self.cordialAPI.setEventsStreamURL(eventsStreamURL)
+            self.cordialAPI.setAccountKey(accountKey)
+            self.cordialAPI.setChannelKey(channelKey)
             CordialApiConfiguration.shared.qtyCachedEventQueue = abs(qtyCachedEventQueue)
             CordialApiConfiguration.shared.eventsBulkSize = abs(eventsBulkSize)
             CordialApiConfiguration.shared.eventsBulkUploadInterval = abs(eventsBulkUploadInterval)
@@ -113,7 +113,7 @@ class SettingsViewController: UIViewController {
             
             let qcSettings = self.getQCSettings()
             
-            self.baseURLTextField.text = qcSettings.baseURL
+            self.eventsStreamURLTextField.text = qcSettings.eventsStreamURL
             self.accountKeyTextField.text = qcSettings.accountKey
             self.channelKeyTextField.text = qcSettings.channelKey
             
@@ -123,7 +123,7 @@ class SettingsViewController: UIViewController {
             
             let stagingSettings = self.getStagingSettings()
             
-            self.baseURLTextField.text = stagingSettings.baseURL
+            self.eventsStreamURLTextField.text = stagingSettings.eventsStreamURL
             self.accountKeyTextField.text = stagingSettings.accountKey
             self.channelKeyTextField.text = stagingSettings.channelKey
             
@@ -133,7 +133,7 @@ class SettingsViewController: UIViewController {
             
             let productionSettings = self.getProductionSettings()
             
-            self.baseURLTextField.text = productionSettings.baseURL
+            self.eventsStreamURLTextField.text = productionSettings.eventsStreamURL
             self.accountKeyTextField.text = productionSettings.accountKey
             self.channelKeyTextField.text = productionSettings.channelKey
             
@@ -146,31 +146,34 @@ class SettingsViewController: UIViewController {
     }
     
     func getQCSettings() -> Credentials {
-        let baseURL = "https://events-stream-svc.cordial-core.mobile-sdk-1-12-2.cordialdev.com/"
+        let eventsStreamURL = "https://events-stream-svc.cordial-core.mobile-sdk-1-12-2.cordialdev.com/"
+        let messageHubURL = "https://message-hub-svc.cordial-core.mobile-sdk-1-12-2.cordialdev.com/"
         let accountKey = "qc-all-channels-cID-pk"
         let channelKey = "push"
         
-        return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey)
+        return Credentials(eventsStreamURL: eventsStreamURL, messageHubURL: messageHubURL, accountKey: accountKey, channelKey: channelKey)
     }
     
     func getStagingSettings() -> Credentials {
-        let baseURL = "https://events-stream-svc.stg.cordialdev.com/"
+        let eventsStreamURL = "https://events-stream-svc.stg.cordialdev.com/"
+        let messageHubURL = "https://message-hub-svc.stg.cordialdev.com/"
         let accountKey = "stgtaras"
         let channelKey = "sdk"
         
-        return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey)
+        return Credentials(eventsStreamURL: eventsStreamURL, messageHubURL: messageHubURL, accountKey: accountKey, channelKey: channelKey)
     }
     
     func getProductionSettings() -> Credentials {
-        let baseURL = "https://events-stream-svc.cordial.com/"
+        let eventsStreamURL = "https://events-stream-svc.cordial.com/"
+        let messageHubURL = "https://message-hub-svc.cordial.com/"
         let accountKey = "cordialdev"
         let channelKey = "push"
         
-        return Credentials(baseURL: baseURL, accountKey: accountKey, channelKey: channelKey)
+        return Credentials(eventsStreamURL: eventsStreamURL, messageHubURL: messageHubURL, accountKey: accountKey, channelKey: channelKey)
     }
     
     func enableEditing() {
-        self.baseURLTextField.isUserInteractionEnabled = true
+        self.eventsStreamURLTextField.isUserInteractionEnabled = true
         self.accountKeyTextField.isUserInteractionEnabled = true
         self.channelKeyTextField.isUserInteractionEnabled = true
         self.qtyCachedEventQueueTextField.isUserInteractionEnabled = true
@@ -179,7 +182,7 @@ class SettingsViewController: UIViewController {
         self.inboxMaxCacheSizeTextField.isUserInteractionEnabled = true
         self.inboxMaxCachableMessageSizeTextField.isUserInteractionEnabled = true
         
-        self.baseURLTextField.textColor = .darkGray
+        self.eventsStreamURLTextField.textColor = .darkGray
         self.accountKeyTextField.textColor = .darkGray
         self.channelKeyTextField.textColor = .darkGray
         self.qtyCachedEventQueueTextField.textColor = .darkGray
@@ -188,7 +191,7 @@ class SettingsViewController: UIViewController {
         self.inboxMaxCacheSizeTextField.textColor = .darkGray
         self.inboxMaxCachableMessageSizeTextField.textColor = .darkGray
         
-        self.baseURLTextField.setBottomBorder(color: .black)
+        self.eventsStreamURLTextField.setBottomBorder(color: .black)
         self.accountKeyTextField.setBottomBorder(color: .black)
         self.channelKeyTextField.setBottomBorder(color: .black)
         self.qtyCachedEventQueueTextField.setBottomBorder(color: .black)
@@ -199,7 +202,7 @@ class SettingsViewController: UIViewController {
     }
     
     func disableEditing() {
-        self.baseURLTextField.isUserInteractionEnabled = false
+        self.eventsStreamURLTextField.isUserInteractionEnabled = false
         self.accountKeyTextField.isUserInteractionEnabled = false
         self.channelKeyTextField.isUserInteractionEnabled = false
         self.qtyCachedEventQueueTextField.isUserInteractionEnabled = false
@@ -208,7 +211,7 @@ class SettingsViewController: UIViewController {
         self.inboxMaxCacheSizeTextField.isUserInteractionEnabled = false
         self.inboxMaxCachableMessageSizeTextField.isUserInteractionEnabled = false
         
-        self.baseURLTextField.textColor = .lightGray
+        self.eventsStreamURLTextField.textColor = .lightGray
         self.accountKeyTextField.textColor = .lightGray
         self.channelKeyTextField.textColor = .lightGray
         self.qtyCachedEventQueueTextField.textColor = .lightGray
@@ -217,7 +220,7 @@ class SettingsViewController: UIViewController {
         self.inboxMaxCacheSizeTextField.textColor = .lightGray
         self.inboxMaxCachableMessageSizeTextField.textColor = .lightGray
         
-        self.baseURLTextField.setBottomBorder(color: .lightGray)
+        self.eventsStreamURLTextField.setBottomBorder(color: .lightGray)
         self.accountKeyTextField.setBottomBorder(color: .lightGray)
         self.channelKeyTextField.setBottomBorder(color: .lightGray)
         self.qtyCachedEventQueueTextField.setBottomBorder(color: .lightGray)
