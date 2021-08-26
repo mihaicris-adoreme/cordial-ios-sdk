@@ -51,24 +51,50 @@ import os.log
         }
     }
     
-    // MARK: Get base URL
+    // MARK: Get events stream URL
     
-    @objc public func getBaseURL() -> String {
-        if let baseURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL) {
-            return baseURL
+    @objc public func getEventsStreamURL() -> String {
+        if let eventsStreamURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL) {
+            return eventsStreamURL
         }
         
-        return CordialApiConfiguration.shared.baseURL
+        return CordialApiConfiguration.shared.eventsStreamURL
     }
     
-    // MARK: Set base URL
+    // MARK: Set events stream URL
     
-    @objc public func setBaseURL(baseURL: String) {
-        if baseURL != self.getBaseURL() {
-            if baseURL.last != "/" {
-                CordialUserDefaults.set("\(baseURL)/", forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL)
+    @objc public func setEventsStreamURL(_ url: String) {
+        if url != self.getEventsStreamURL() {
+            if url.last != "/" {
+                CordialUserDefaults.set("\(url)/", forKey: API.USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL)
             } else {
-                CordialUserDefaults.set(baseURL, forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL)
+                CordialUserDefaults.set(url, forKey: API.USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL)
+            }
+            
+            InternalCordialAPI().removeCurrentJWT()
+            
+            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
+        }
+    }
+    
+    // MARK: Get message hub URL
+    
+    @objc public func getMessageHubURL() -> String {
+        if let messageHubURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL) {
+            return messageHubURL
+        }
+        
+        return CordialApiConfiguration.shared.messageHubURL
+    }
+    
+    // MARK: Set message hub URL
+    
+    @objc public func setMessageHubURL(_ url: String) {
+        if url != self.getEventsStreamURL() {
+            if url.last != "/" {
+                CordialUserDefaults.set("\(url)/", forKey: API.USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL)
+            } else {
+                CordialUserDefaults.set(url, forKey: API.USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL)
             }
             
             InternalCordialAPI().removeCurrentJWT()

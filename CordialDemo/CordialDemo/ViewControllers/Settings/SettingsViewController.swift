@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.baseURLTextField.text = self.cordialAPI.getBaseURL()
+        self.baseURLTextField.text = self.cordialAPI.getEventsStreamURL()
         self.accountKeyTextField.text = self.cordialAPI.getAccountKey()
         self.channelKeyTextField.text = self.cordialAPI.getChannelKey()
         self.qtyCachedEventQueueTextField.text = String(CordialApiConfiguration.shared.qtyCachedEventQueue)
@@ -95,7 +95,7 @@ class SettingsViewController: UIViewController {
            let maxCachableMessageSizeString = self.inboxMaxCachableMessageSizeTextField.text,
            let maxCachableMessageSize = Int(maxCachableMessageSizeString) {
             
-            self.cordialAPI.setBaseURL(baseURL: baseURL)
+            self.cordialAPI.setEventsStreamURL(baseURL)
             self.cordialAPI.setAccountKey(accountKey: accountKey)
             self.cordialAPI.setChannelKey(channelKey: channelKey)
             CordialApiConfiguration.shared.qtyCachedEventQueue = abs(qtyCachedEventQueue)

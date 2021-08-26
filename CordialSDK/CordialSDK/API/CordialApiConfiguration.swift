@@ -25,7 +25,8 @@ import CoreLocation
     
     var accountKey = String()
     var channelKey = String()
-    var baseURL = String()
+    var eventsStreamURL = String()
+    var messageHubURL = String()
     
     let cordialPushNotification = CordialPushNotification.shared
     let cordialPushNotificationHandler = CordialPushNotificationHandler()
@@ -73,11 +74,21 @@ import CoreLocation
 
     @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
-    @objc public func initialize(accountKey: String, channelKey: String) {
+    @objc public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String = "", messageHubURL: String = "") {
         self.accountKey = accountKey
         self.channelKey = channelKey
-        self.baseURL = "https://events-stream-svc.cordial.com/"
-//        self.baseURL = "https://events-stream-svc.stg.cordialdev.com/"
+        
+        if eventsStreamURL.isEmpty {
+            self.eventsStreamURL = "https://events-stream-svc.cordial.com/"
+        } else {
+            self.eventsStreamURL = eventsStreamURL
+        }
+        
+        if messageHubURL.isEmpty {
+            self.messageHubURL = self.eventsStreamURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
+        } else {
+            self.messageHubURL = messageHubURL
+        }
         
 //        CoreDataManager.shared.deleteAllCoreData()
         
