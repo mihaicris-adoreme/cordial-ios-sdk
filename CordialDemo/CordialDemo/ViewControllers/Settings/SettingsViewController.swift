@@ -12,6 +12,7 @@ import CordialSDK
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var eventsStreamURLTextField: UITextField!
+    @IBOutlet weak var messageHubURLTextField: UITextField!
     @IBOutlet weak var accountKeyTextField: UITextField!
     @IBOutlet weak var channelKeyTextField: UITextField!
     @IBOutlet weak var qtyCachedEventQueueTextField: UITextField!
@@ -26,6 +27,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         
         self.eventsStreamURLTextField.text = self.cordialAPI.getEventsStreamURL()
+        self.messageHubURLTextField.text = self.cordialAPI.getMessageHubURL()
         self.accountKeyTextField.text = self.cordialAPI.getAccountKey()
         self.channelKeyTextField.text = self.cordialAPI.getChannelKey()
         self.qtyCachedEventQueueTextField.text = String(CordialApiConfiguration.shared.qtyCachedEventQueue)
@@ -82,6 +84,7 @@ class SettingsViewController: UIViewController {
     
     func saveTestInitData() {
         if let eventsStreamURL = self.eventsStreamURLTextField.text,
+           let messageHubURL = self.messageHubURLTextField.text,
            let accountKey = self.accountKeyTextField.text,
            let channelKey = self.channelKeyTextField.text,
            let qtyCachedEventQueueString = self.qtyCachedEventQueueTextField.text,
@@ -96,6 +99,7 @@ class SettingsViewController: UIViewController {
            let maxCachableMessageSize = Int(maxCachableMessageSizeString) {
             
             self.cordialAPI.setEventsStreamURL(eventsStreamURL)
+            self.cordialAPI.setMessageHubURL(messageHubURL)
             self.cordialAPI.setAccountKey(accountKey)
             self.cordialAPI.setChannelKey(channelKey)
             CordialApiConfiguration.shared.qtyCachedEventQueue = abs(qtyCachedEventQueue)
@@ -114,6 +118,7 @@ class SettingsViewController: UIViewController {
             let qcSettings = self.getQCSettings()
             
             self.eventsStreamURLTextField.text = qcSettings.eventsStreamURL
+            self.messageHubURLTextField.text = qcSettings.messageHubURL
             self.accountKeyTextField.text = qcSettings.accountKey
             self.channelKeyTextField.text = qcSettings.channelKey
             
@@ -124,6 +129,7 @@ class SettingsViewController: UIViewController {
             let stagingSettings = self.getStagingSettings()
             
             self.eventsStreamURLTextField.text = stagingSettings.eventsStreamURL
+            self.messageHubURLTextField.text = stagingSettings.messageHubURL
             self.accountKeyTextField.text = stagingSettings.accountKey
             self.channelKeyTextField.text = stagingSettings.channelKey
             
@@ -134,6 +140,7 @@ class SettingsViewController: UIViewController {
             let productionSettings = self.getProductionSettings()
             
             self.eventsStreamURLTextField.text = productionSettings.eventsStreamURL
+            self.messageHubURLTextField.text = productionSettings.messageHubURL
             self.accountKeyTextField.text = productionSettings.accountKey
             self.channelKeyTextField.text = productionSettings.channelKey
             
@@ -174,6 +181,7 @@ class SettingsViewController: UIViewController {
     
     func enableEditing() {
         self.eventsStreamURLTextField.isUserInteractionEnabled = true
+        self.messageHubURLTextField.isUserInteractionEnabled = true
         self.accountKeyTextField.isUserInteractionEnabled = true
         self.channelKeyTextField.isUserInteractionEnabled = true
         self.qtyCachedEventQueueTextField.isUserInteractionEnabled = true
@@ -183,6 +191,7 @@ class SettingsViewController: UIViewController {
         self.inboxMaxCachableMessageSizeTextField.isUserInteractionEnabled = true
         
         self.eventsStreamURLTextField.textColor = .darkGray
+        self.messageHubURLTextField.textColor = .darkGray
         self.accountKeyTextField.textColor = .darkGray
         self.channelKeyTextField.textColor = .darkGray
         self.qtyCachedEventQueueTextField.textColor = .darkGray
@@ -192,6 +201,7 @@ class SettingsViewController: UIViewController {
         self.inboxMaxCachableMessageSizeTextField.textColor = .darkGray
         
         self.eventsStreamURLTextField.setBottomBorder(color: .black)
+        self.messageHubURLTextField.setBottomBorder(color: .black)
         self.accountKeyTextField.setBottomBorder(color: .black)
         self.channelKeyTextField.setBottomBorder(color: .black)
         self.qtyCachedEventQueueTextField.setBottomBorder(color: .black)
@@ -203,6 +213,7 @@ class SettingsViewController: UIViewController {
     
     func disableEditing() {
         self.eventsStreamURLTextField.isUserInteractionEnabled = false
+        self.messageHubURLTextField.isUserInteractionEnabled = false
         self.accountKeyTextField.isUserInteractionEnabled = false
         self.channelKeyTextField.isUserInteractionEnabled = false
         self.qtyCachedEventQueueTextField.isUserInteractionEnabled = false
@@ -212,6 +223,7 @@ class SettingsViewController: UIViewController {
         self.inboxMaxCachableMessageSizeTextField.isUserInteractionEnabled = false
         
         self.eventsStreamURLTextField.textColor = .lightGray
+        self.messageHubURLTextField.textColor = .lightGray
         self.accountKeyTextField.textColor = .lightGray
         self.channelKeyTextField.textColor = .lightGray
         self.qtyCachedEventQueueTextField.textColor = .lightGray
@@ -221,6 +233,7 @@ class SettingsViewController: UIViewController {
         self.inboxMaxCachableMessageSizeTextField.textColor = .lightGray
         
         self.eventsStreamURLTextField.setBottomBorder(color: .lightGray)
+        self.messageHubURLTextField.setBottomBorder(color: .lightGray)
         self.accountKeyTextField.setBottomBorder(color: .lightGray)
         self.channelKeyTextField.setBottomBorder(color: .lightGray)
         self.qtyCachedEventQueueTextField.setBottomBorder(color: .lightGray)

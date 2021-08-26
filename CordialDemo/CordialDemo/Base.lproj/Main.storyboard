@@ -118,104 +118,116 @@
             <objects>
                 <viewController id="tGs-OP-bC2" customClass="SettingsViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wF6-BI-wJK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BF4-SP-GVS">
-                                <rect key="frame" x="0.0" y="44" width="320" height="647"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="722"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HiI-Dr-GUO">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events stream URL" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HiI-Dr-GUO">
                                         <rect key="frame" x="16" y="16" width="288" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Host" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZvR-1i-86o">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Events stream URL" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZvR-1i-86o">
                                         <rect key="frame" x="16" y="44.5" width="288" height="18.5"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account key" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFa-Cn-36j">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message hub URL" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WC-XB-eGD">
                                         <rect key="frame" x="16" y="95" width="288" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Account key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hs-dC-qKU">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Message hub URL" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JX5-bA-Mr5">
                                         <rect key="frame" x="16" y="123.5" width="288" height="18.5"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel key" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGs-ke-oVI">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account key" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFa-Cn-36j">
                                         <rect key="frame" x="16" y="174" width="288" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Channel key" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HSW-rz-9bB">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Account key" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9hs-dC-qKU">
                                         <rect key="frame" x="16" y="202.5" width="288" height="18.5"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qty cached event queue" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQp-Ij-iuB">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Channel key" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zGs-ke-oVI">
                                         <rect key="frame" x="16" y="253" width="288" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Qty cached event queue" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="trI-V3-xbA">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Channel key" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HSW-rz-9bB">
                                         <rect key="frame" x="16" y="281.5" width="288" height="18.5"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events bulk size" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vuh-mI-uqD">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Qty cached event queue" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQp-Ij-iuB">
                                         <rect key="frame" x="16" y="332" width="288" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Events bulk size" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bXZ-MC-hsv">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Qty cached event queue" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="trI-V3-xbA">
                                         <rect key="frame" x="16" y="360.5" width="288" height="18.5"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events bulk upload interval" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzK-P1-pCl">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events bulk size" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vuh-mI-uqD">
                                         <rect key="frame" x="16" y="411" width="288" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Events bulk upload interval" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zUq-1z-Uzl">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Events bulk size" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bXZ-MC-hsv">
                                         <rect key="frame" x="16" y="439.5" width="288" height="18.5"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inbox max cache size in bytes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKb-GX-D2c">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events bulk upload interval" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OzK-P1-pCl">
                                         <rect key="frame" x="16" y="490" width="288" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Inbox max cache size" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F6Z-hr-kYs">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Events bulk upload interval" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zUq-1z-Uzl">
                                         <rect key="frame" x="16" y="518.5" width="288" height="18.5"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inbox max message size in bytes" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEV-Ss-wlm">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inbox max cache size in bytes" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKb-GX-D2c">
                                         <rect key="frame" x="16" y="569" width="288" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Inbox max message size" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sly-8c-HIN">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Inbox max cache size" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F6Z-hr-kYs">
                                         <rect key="frame" x="16" y="597.5" width="288" height="18.5"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inbox max message size in bytes" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MEV-Ss-wlm">
+                                        <rect key="frame" x="16" y="648" width="288" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="highlightedColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Inbox max message size" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sly-8c-HIN">
+                                        <rect key="frame" x="16" y="676.5" width="288" height="18.5"/>
                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -228,8 +240,13 @@
                                     <constraint firstItem="bXZ-MC-hsv" firstAttribute="top" secondItem="Vuh-mI-uqD" secondAttribute="bottom" constant="8" id="4FV-7i-PmM"/>
                                     <constraint firstItem="Vuh-mI-uqD" firstAttribute="leading" secondItem="trI-V3-xbA" secondAttribute="leading" id="4P0-Fl-TpK"/>
                                     <constraint firstItem="OzK-P1-pCl" firstAttribute="top" secondItem="bXZ-MC-hsv" secondAttribute="bottom" constant="32" id="4oP-bL-uPo"/>
+                                    <constraint firstItem="ZvR-1i-86o" firstAttribute="trailing" secondItem="HiI-Dr-GUO" secondAttribute="trailing" id="6pW-Ok-gBR"/>
+                                    <constraint firstItem="JX5-bA-Mr5" firstAttribute="trailing" secondItem="ZvR-1i-86o" secondAttribute="trailing" id="7cK-Nu-DX5"/>
                                     <constraint firstItem="cKb-GX-D2c" firstAttribute="trailing" secondItem="zUq-1z-Uzl" secondAttribute="trailing" id="7cm-zH-wRj"/>
                                     <constraint firstItem="Sly-8c-HIN" firstAttribute="leading" secondItem="MEV-Ss-wlm" secondAttribute="leading" id="7uh-zC-0cP"/>
+                                    <constraint firstItem="9hs-dC-qKU" firstAttribute="leading" secondItem="JX5-bA-Mr5" secondAttribute="leading" id="9aN-60-ytt"/>
+                                    <constraint firstItem="OFa-Cn-36j" firstAttribute="leading" secondItem="JX5-bA-Mr5" secondAttribute="leading" id="CKB-VQ-Z2n"/>
+                                    <constraint firstItem="ZvR-1i-86o" firstAttribute="leading" secondItem="HiI-Dr-GUO" secondAttribute="leading" id="Dis-8d-hsP"/>
                                     <constraint firstItem="F6Z-hr-kYs" firstAttribute="trailing" secondItem="cKb-GX-D2c" secondAttribute="trailing" id="Ed8-w3-ymV"/>
                                     <constraint firstItem="bXZ-MC-hsv" firstAttribute="trailing" secondItem="Vuh-mI-uqD" secondAttribute="trailing" id="Eog-bE-uSw"/>
                                     <constraint firstItem="F6Z-hr-kYs" firstAttribute="leading" secondItem="cKb-GX-D2c" secondAttribute="leading" id="Fiq-Je-nI3"/>
@@ -243,15 +260,16 @@
                                     <constraint firstItem="Sly-8c-HIN" firstAttribute="trailing" secondItem="F6Z-hr-kYs" secondAttribute="trailing" id="LyN-wl-HOl"/>
                                     <constraint firstItem="HiI-Dr-GUO" firstAttribute="centerX" secondItem="BF4-SP-GVS" secondAttribute="centerX" id="MEw-yI-YIn"/>
                                     <constraint firstItem="Sly-8c-HIN" firstAttribute="trailing" secondItem="MEV-Ss-wlm" secondAttribute="trailing" id="NJ4-6j-kgZ"/>
-                                    <constraint firstItem="OFa-Cn-36j" firstAttribute="top" secondItem="ZvR-1i-86o" secondAttribute="bottom" constant="32" id="NOe-us-odb"/>
-                                    <constraint firstItem="ZvR-1i-86o" firstAttribute="trailing" secondItem="OFa-Cn-36j" secondAttribute="trailing" id="QGe-qO-lDQ"/>
                                     <constraint firstItem="FQp-Ij-iuB" firstAttribute="top" secondItem="HSW-rz-9bB" secondAttribute="bottom" constant="32" id="QMA-UL-zfk"/>
                                     <constraint firstItem="ZvR-1i-86o" firstAttribute="leading" secondItem="HiI-Dr-GUO" secondAttribute="leading" priority="750" id="QSC-QW-Rwf"/>
                                     <constraint firstItem="MEV-Ss-wlm" firstAttribute="trailing" secondItem="F6Z-hr-kYs" secondAttribute="trailing" id="Qag-iC-gJE"/>
                                     <constraint firstItem="bXZ-MC-hsv" firstAttribute="leading" secondItem="Vuh-mI-uqD" secondAttribute="leading" id="R3X-bS-XWK"/>
                                     <constraint firstItem="HiI-Dr-GUO" firstAttribute="top" secondItem="BF4-SP-GVS" secondAttribute="topMargin" constant="8" id="RZL-ai-iBq"/>
-                                    <constraint firstItem="ZvR-1i-86o" firstAttribute="leading" secondItem="OFa-Cn-36j" secondAttribute="leading" id="RzO-J9-l8W"/>
+                                    <constraint firstItem="JX5-bA-Mr5" firstAttribute="top" secondItem="0WC-XB-eGD" secondAttribute="bottom" constant="8" symbolic="YES" id="TK4-Q9-8UP"/>
                                     <constraint firstItem="OFa-Cn-36j" firstAttribute="trailing" secondItem="9hs-dC-qKU" secondAttribute="trailing" id="TKB-gN-r11"/>
+                                    <constraint firstItem="9hs-dC-qKU" firstAttribute="trailing" secondItem="JX5-bA-Mr5" secondAttribute="trailing" id="Tpt-JH-96Q"/>
+                                    <constraint firstItem="0WC-XB-eGD" firstAttribute="top" secondItem="ZvR-1i-86o" secondAttribute="bottom" constant="32" id="UpQ-hc-3JQ"/>
+                                    <constraint firstItem="0WC-XB-eGD" firstAttribute="leading" secondItem="ZvR-1i-86o" secondAttribute="leading" id="W2P-ef-LKT"/>
                                     <constraint firstItem="FQp-Ij-iuB" firstAttribute="leading" secondItem="HSW-rz-9bB" secondAttribute="leading" id="WV2-Lg-YlJ"/>
                                     <constraint firstItem="zUq-1z-Uzl" firstAttribute="top" secondItem="OzK-P1-pCl" secondAttribute="bottom" constant="8" id="XJz-v2-fG7"/>
                                     <constraint firstItem="MEV-Ss-wlm" firstAttribute="top" secondItem="F6Z-hr-kYs" secondAttribute="bottom" constant="32" id="YGy-5E-YM4"/>
@@ -259,10 +277,12 @@
                                     <constraint firstAttribute="bottom" secondItem="Sly-8c-HIN" secondAttribute="bottom" constant="32" id="YZi-ef-ffc"/>
                                     <constraint firstItem="Sly-8c-HIN" firstAttribute="top" secondItem="MEV-Ss-wlm" secondAttribute="bottom" constant="8" id="ZGM-Fh-9W2"/>
                                     <constraint firstItem="Vuh-mI-uqD" firstAttribute="top" secondItem="trI-V3-xbA" secondAttribute="bottom" constant="32" id="akX-W7-4yk"/>
+                                    <constraint firstItem="0WC-XB-eGD" firstAttribute="trailing" secondItem="JX5-bA-Mr5" secondAttribute="trailing" id="c2C-P7-LGD"/>
                                     <constraint firstItem="Sly-8c-HIN" firstAttribute="leading" secondItem="F6Z-hr-kYs" secondAttribute="leading" id="cd3-QR-376"/>
                                     <constraint firstItem="zGs-ke-oVI" firstAttribute="trailing" secondItem="HSW-rz-9bB" secondAttribute="trailing" id="duL-Jm-Vcu"/>
                                     <constraint firstItem="ZvR-1i-86o" firstAttribute="top" secondItem="HiI-Dr-GUO" secondAttribute="bottom" constant="8" symbolic="YES" id="eag-Jc-xCC"/>
                                     <constraint firstItem="HiI-Dr-GUO" firstAttribute="leading" secondItem="BF4-SP-GVS" secondAttribute="leading" constant="16" id="g34-01-33M"/>
+                                    <constraint firstItem="OFa-Cn-36j" firstAttribute="top" secondItem="JX5-bA-Mr5" secondAttribute="bottom" constant="32" id="gyr-bf-O5L"/>
                                     <constraint firstItem="F6Z-hr-kYs" firstAttribute="trailing" secondItem="zUq-1z-Uzl" secondAttribute="trailing" id="jik-TQ-Lwz"/>
                                     <constraint firstItem="OzK-P1-pCl" firstAttribute="leading" secondItem="bXZ-MC-hsv" secondAttribute="leading" id="lWx-O4-4yv"/>
                                     <constraint firstItem="9hs-dC-qKU" firstAttribute="trailing" secondItem="zGs-ke-oVI" secondAttribute="trailing" id="mKc-m7-jgM"/>
@@ -270,16 +290,20 @@
                                     <constraint firstItem="F6Z-hr-kYs" firstAttribute="leading" secondItem="zUq-1z-Uzl" secondAttribute="leading" id="nOp-DO-exB"/>
                                     <constraint firstItem="cKb-GX-D2c" firstAttribute="top" secondItem="zUq-1z-Uzl" secondAttribute="bottom" constant="32" id="ocH-MF-EnQ"/>
                                     <constraint firstItem="HSW-rz-9bB" firstAttribute="top" secondItem="zGs-ke-oVI" secondAttribute="bottom" constant="8" symbolic="YES" id="pW7-JN-ue0"/>
+                                    <constraint firstItem="0WC-XB-eGD" firstAttribute="leading" secondItem="JX5-bA-Mr5" secondAttribute="leading" id="peU-dP-8A6"/>
                                     <constraint firstItem="OzK-P1-pCl" firstAttribute="trailing" secondItem="bXZ-MC-hsv" secondAttribute="trailing" id="ss9-eg-VLO"/>
                                     <constraint firstItem="trI-V3-xbA" firstAttribute="leading" secondItem="HSW-rz-9bB" secondAttribute="leading" id="tdw-hy-04S"/>
+                                    <constraint firstItem="JX5-bA-Mr5" firstAttribute="leading" secondItem="ZvR-1i-86o" secondAttribute="leading" id="tej-Xk-LOB"/>
                                     <constraint firstItem="FQp-Ij-iuB" firstAttribute="trailing" secondItem="HSW-rz-9bB" secondAttribute="trailing" id="vs4-dC-19O"/>
                                     <constraint firstItem="ZvR-1i-86o" firstAttribute="trailing" secondItem="HiI-Dr-GUO" secondAttribute="trailing" priority="750" id="vxP-uT-2hQ"/>
                                     <constraint firstItem="MEV-Ss-wlm" firstAttribute="leading" secondItem="F6Z-hr-kYs" secondAttribute="leading" id="wgK-Fb-XIn"/>
+                                    <constraint firstItem="0WC-XB-eGD" firstAttribute="trailing" secondItem="ZvR-1i-86o" secondAttribute="trailing" id="yQB-6i-Zsd"/>
+                                    <constraint firstItem="OFa-Cn-36j" firstAttribute="trailing" secondItem="JX5-bA-Mr5" secondAttribute="trailing" id="zbc-xL-PFv"/>
                                     <constraint firstItem="zGs-ke-oVI" firstAttribute="top" secondItem="9hs-dC-qKU" secondAttribute="bottom" constant="32" id="zxM-jZ-x4W"/>
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QOd-gh-tbv">
-                                <rect key="frame" x="0.0" y="691" width="320" height="34"/>
+                                <rect key="frame" x="0.0" y="766" width="320" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <state key="normal" title="Choose Preset"/>
                                 <connections>
@@ -300,7 +324,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iAD-7M-mQV"/>
-                    <size key="freeformSize" width="320" height="725"/>
+                    <size key="freeformSize" width="320" height="800"/>
                     <connections>
                         <outlet property="accountKeyTextField" destination="9hs-dC-qKU" id="Wi5-Gg-Tw8"/>
                         <outlet property="channelKeyTextField" destination="HSW-rz-9bB" id="57C-Mc-T1P"/>
@@ -309,6 +333,7 @@
                         <outlet property="eventsStreamURLTextField" destination="ZvR-1i-86o" id="U4J-gr-x1O"/>
                         <outlet property="inboxMaxCachableMessageSizeTextField" destination="Sly-8c-HIN" id="FyI-6l-AJc"/>
                         <outlet property="inboxMaxCacheSizeTextField" destination="F6Z-hr-kYs" id="R9l-Th-SLw"/>
+                        <outlet property="messageHubURLTextField" destination="JX5-bA-Mr5" id="Ka1-5t-QmD"/>
                         <outlet property="qtyCachedEventQueueTextField" destination="trI-V3-xbA" id="8Nm-eO-oDn"/>
                     </connections>
                 </viewController>
