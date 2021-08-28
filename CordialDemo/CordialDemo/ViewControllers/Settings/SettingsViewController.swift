@@ -98,10 +98,7 @@ class SettingsViewController: UIViewController {
            let maxCachableMessageSizeString = self.inboxMaxCachableMessageSizeTextField.text,
            let maxCachableMessageSize = Int(maxCachableMessageSizeString) {
             
-            self.cordialAPI.setEventsStreamURL(eventsStreamURL)
-            self.cordialAPI.setMessageHubURL(messageHubURL)
-            self.cordialAPI.setAccountKey(accountKey)
-            self.cordialAPI.setChannelKey(channelKey)
+            CordialApiConfiguration.shared.initialize(accountKey: accountKey, channelKey: channelKey, eventsStreamURL: eventsStreamURL, messageHubURL: messageHubURL)
             CordialApiConfiguration.shared.qtyCachedEventQueue = abs(qtyCachedEventQueue)
             CordialApiConfiguration.shared.eventsBulkSize = abs(eventsBulkSize)
             CordialApiConfiguration.shared.eventsBulkUploadInterval = abs(eventsBulkUploadInterval)

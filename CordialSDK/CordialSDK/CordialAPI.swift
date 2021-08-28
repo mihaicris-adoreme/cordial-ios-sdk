@@ -21,16 +21,6 @@ import os.log
         return CordialApiConfiguration.shared.accountKey
     }
     
-    // MARK: Set account key
-    
-    @objc public func setAccountKey(_ accountKey: String) {
-        if accountKey != self.getAccountKey() {
-            CordialUserDefaults.set(accountKey, forKey: API.USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY)
-            
-            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
-        }
-    }
-    
     // MARK: Get channel key
     
     @objc public func getChannelKey() -> String {
@@ -39,16 +29,6 @@ import os.log
         }
         
         return CordialApiConfiguration.shared.channelKey
-    }
-    
-    // MARK: Set channel key
-    
-    @objc public func setChannelKey(_ channelKey: String) {
-        if channelKey != self.getChannelKey() {
-            CordialUserDefaults.set(channelKey, forKey: API.USER_DEFAULTS_KEY_FOR_CHANNEL_KEY)
-            
-            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
-        }
     }
     
     // MARK: Get events stream URL
@@ -61,22 +41,6 @@ import os.log
         return CordialApiConfiguration.shared.eventsStreamURL
     }
     
-    // MARK: Set events stream URL
-    
-    @objc public func setEventsStreamURL(_ url: String) {
-        if url != self.getEventsStreamURL() {
-            if url.last != "/" {
-                CordialUserDefaults.set("\(url)/", forKey: API.USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL)
-            } else {
-                CordialUserDefaults.set(url, forKey: API.USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL)
-            }
-            
-            InternalCordialAPI().removeCurrentJWT()
-            
-            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
-        }
-    }
-    
     // MARK: Get message hub URL
     
     @objc public func getMessageHubURL() -> String {
@@ -85,22 +49,6 @@ import os.log
         }
         
         return CordialApiConfiguration.shared.messageHubURL
-    }
-    
-    // MARK: Set message hub URL
-    
-    @objc public func setMessageHubURL(_ url: String) {
-        if url != self.getEventsStreamURL() {
-            if url.last != "/" {
-                CordialUserDefaults.set("\(url)/", forKey: API.USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL)
-            } else {
-                CordialUserDefaults.set(url, forKey: API.USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL)
-            }
-            
-            InternalCordialAPI().removeCurrentJWT()
-            
-            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
-        }
     }
     
     // MARK: Get primary key
