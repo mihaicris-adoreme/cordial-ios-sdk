@@ -4,7 +4,7 @@ The latest version of this file can be found at the master branch.
 
 ## 2.6.1 (2021-09-03)
 
-### Added
+### Fixed
 
 - Allow client apps to set their own `UNUserNotificationCenter` delegates
 
