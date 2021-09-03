@@ -13,9 +13,7 @@ import CoreLocation
     
     @objc public static let shared = CordialApiConfiguration()
     
-    private override init() {
-        CordialPushNotification.shared.registerForSilentPushNotifications()
-    }
+    private override init() {}
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
@@ -74,10 +72,11 @@ import CoreLocation
     @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
     @objc public func initialize(accountKey: String, channelKey: String) {
+        CordialPushNotification.shared.registerForSilentPushNotifications()
+        
         self.accountKey = accountKey
         self.channelKey = channelKey
         self.baseURL = "https://events-stream-svc.cordial.com/"
-//        self.baseURL = "https://events-stream-svc.stg.cordialdev.com/"
         
 //        CoreDataManager.shared.deleteAllCoreData()
         
