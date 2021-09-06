@@ -30,7 +30,9 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
             }
         }
         
-        notificationCenter.delegate = self
+        if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
+            notificationCenter.delegate = self
+        }
     }
     
     func registerForSilentPushNotifications() {
@@ -38,7 +40,9 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
             UIApplication.shared.registerForRemoteNotifications()
         }
         
-        UNUserNotificationCenter.current().delegate = self
+        if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
+            UNUserNotificationCenter.current().delegate = self
+        }
     }
     
     // MARK: UNUserNotificationCenterDelegate
