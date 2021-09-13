@@ -435,7 +435,7 @@ ___
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: "productCategory", url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: "productCategory", url: nil, itemDescription: nil, qty: 1, itemPrice: nil, salePrice: nil, attr: nil, images: nil, properties: nil)
 
 let cartItems = [cartItem]
 ```
@@ -443,9 +443,8 @@ let cartItems = [cartItem]
 ___
 ```
 NSNumber *qty = [NSNumber numberWithInteger:1];
-NSNumber *price = [NSNumber numberWithDouble:20.00];
 
-CartItem *cartItem = [[CartItem alloc] initWithProductID:@"productID" name:@"productName" sku:@"productSKU" category:@"productCategory" url:nil itemDescription:nil qtyNumber:qty itemPriceNumber:price salePriceNumber:price attr:nil images:nil properties:nil];
+CartItem *cartItem = [[CartItem alloc] initWithProductID:@"productID" name:@"productName" sku:@"productSKU" category:@"productCategory" url:nil itemDescription:nil qtyNumber:qty itemPriceNumber:nil salePriceNumber:nil attr:nil images:nil properties:nil];
 
 NSArray *cartItems = [[NSArray alloc] initWithObjects:cartItem, nil];
 ```
@@ -486,7 +485,7 @@ let shippingAddress = Address(name: "shippingAddressName", address: "shippingAdd
 
 let billingAddress = Address(name: "billingAddressName", address: "billingAddress", city: "billingAddressCity", state: "billingAddressState", postalCode: "billingAddressPostalCode", country: "billingAddressCountry")
 
-let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: "productCategory", url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
+let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: "productCategory", url: nil, itemDescription: nil, qty: 1, itemPrice: nil, salePrice: nil, attr: nil, images: nil, properties: nil)
 
 let cartItems = [cartItem]
 
@@ -502,9 +501,8 @@ Address *shippingAddress = [[Address alloc] initWithName:@"shippingAddressName" 
 Address *billingAddress = [[Address alloc] initWithName:@"billingAddressName" address:@"billingAddress" city:@"billingAddressCity" state:@"billingAddressState" postalCode:@"billingAddressPostalCode" country:@"billingAddressCountry"];
 
 NSNumber *qty = [NSNumber numberWithInteger:1];
-NSNumber *price = [NSNumber numberWithDouble:20.00];
 
-CartItem *cartItem = [[CartItem alloc] initWithProductID:@"productID" name:@"productName" sku:@"productSKU" category:@"productCategory" url:nil itemDescription:nil qtyNumber:qty itemPriceNumber:price salePriceNumber:price attr:nil images:nil properties:nil];
+CartItem *cartItem = [[CartItem alloc] initWithProductID:@"productID" name:@"productName" sku:@"productSKU" category:@"productCategory" url:nil itemDescription:nil qtyNumber:qty itemPriceNumber:nil salePriceNumber:nil attr:nil images:nil properties:nil];
 
 NSArray *cartItems = [[NSArray alloc] initWithObjects:cartItem, nil];
 

@@ -60,11 +60,10 @@ class InboxMessagesMarkReadUnreadRequest: NSObject, NSCoding {
     
     required convenience init?(coder: NSCoder) {        
         if let requestID = coder.decodeObject(forKey: Key.requestID.rawValue) as? String,
-            let markAsReadMcIDs = coder.decodeObject(forKey: Key.markAsReadMcIDs.rawValue) as? [String],
-            let markAsUnreadMcIDs = coder.decodeObject(forKey: Key.markAsUnreadMcIDs.rawValue) as? [String],
-            let date = coder.decodeObject(forKey: Key.date.rawValue) as? Date {
-            
-            let primaryKey = coder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
+           let markAsReadMcIDs = coder.decodeObject(forKey: Key.markAsReadMcIDs.rawValue) as? [String],
+           let markAsUnreadMcIDs = coder.decodeObject(forKey: Key.markAsUnreadMcIDs.rawValue) as? [String],
+           let date = coder.decodeObject(forKey: Key.date.rawValue) as? Date,
+           let primaryKey = coder.decodeObject(forKey: Key.primaryKey.rawValue) as? String? {
             
             self.init(requestID: requestID, primaryKey: primaryKey, markAsReadMcIDs: markAsReadMcIDs, markAsUnreadMcIDs: markAsUnreadMcIDs, date: date)
         } else {

@@ -66,8 +66,12 @@ class SendCustomEventRequest: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String, let eventName = aDecoder.decodeObject(forKey: Key.eventName.rawValue) as? String, let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as? String {
-            let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as! String?
+        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String,
+           let eventName = aDecoder.decodeObject(forKey: Key.eventName.rawValue) as? String,
+           let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as? String,
+           let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as? String?,
+           let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as? Dictionary<String, Any>?,
+           let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String? {
             
             var latitude: Double?
             if let decodedLatitudeNumber = aDecoder.decodeObject(forKey: Key.latitude.rawValue) as? NSNumber {
@@ -78,10 +82,6 @@ class SendCustomEventRequest: NSObject, NSCoding {
             if let decodedLongitudeNumber = aDecoder.decodeObject(forKey: Key.longitude.rawValue) as? NSNumber {
                 longitude = decodedLongitudeNumber.doubleValue
             }
-            
-            let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as! Dictionary<String, Any>?
-            
-            let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
             
             self.init(requestID: requestID, eventName: eventName, timestamp: timestamp, mcID: mcID, latitude: latitude, longitude: longitude, properties: properties, primaryKey: primaryKey)
         } else {

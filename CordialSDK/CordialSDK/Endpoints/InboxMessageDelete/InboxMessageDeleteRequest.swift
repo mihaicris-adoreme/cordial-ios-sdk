@@ -50,9 +50,8 @@ class InboxMessageDeleteRequest: NSObject, NSCoding {
     
     required convenience init?(coder: NSCoder) {
         if let requestID = coder.decodeObject(forKey: Key.requestID.rawValue) as? String,
-            let mcID = coder.decodeObject(forKey: Key.mcID.rawValue) as? String {
-            
-            let primaryKey = coder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
+           let mcID = coder.decodeObject(forKey: Key.mcID.rawValue) as? String,
+           let primaryKey = coder.decodeObject(forKey: Key.primaryKey.rawValue) as? String? {
             
             self.init(requestID: requestID, primaryKey: primaryKey, mcID: mcID)
         } else {

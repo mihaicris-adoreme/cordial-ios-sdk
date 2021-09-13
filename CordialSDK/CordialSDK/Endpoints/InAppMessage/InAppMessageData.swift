@@ -59,7 +59,12 @@ class InAppMessageData: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        if let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as? String, let html = aDecoder.decodeObject(forKey: Key.html.rawValue) as? String, let InAppMessageTypeString = aDecoder.decodeObject(forKey: Key.type.rawValue) as? String, let type = InAppMessageType(rawValue: InAppMessageTypeString), let displayTypeString = aDecoder.decodeObject(forKey: Key.displayType.rawValue) as? String, let displayType = InAppMessageDisplayType(rawValue: displayTypeString) {
+        if let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as? String,
+           let html = aDecoder.decodeObject(forKey: Key.html.rawValue) as? String,
+           let InAppMessageTypeString = aDecoder.decodeObject(forKey: Key.type.rawValue) as? String,
+           let type = InAppMessageType(rawValue: InAppMessageTypeString),
+           let displayTypeString = aDecoder.decodeObject(forKey: Key.displayType.rawValue) as? String,
+           let displayType = InAppMessageDisplayType(rawValue: displayTypeString) {
             
             let top = Int(aDecoder.decodeInt32(forKey: Key.top.rawValue))
             let right = Int(aDecoder.decodeInt32(forKey: Key.right.rawValue))

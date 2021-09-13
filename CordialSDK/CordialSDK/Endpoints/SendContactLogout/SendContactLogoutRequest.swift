@@ -36,8 +36,8 @@ class SendContactLogoutRequest: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String {
-            let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as! String?
+        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String,
+           let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String? {
             
             self.init(requestID: requestID, primaryKey: primaryKey)
         } else {
