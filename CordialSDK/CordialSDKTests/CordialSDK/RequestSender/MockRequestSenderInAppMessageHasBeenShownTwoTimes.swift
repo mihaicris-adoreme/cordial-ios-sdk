@@ -28,9 +28,9 @@ class MockRequestSenderInAppMessageHasBeenShownTwoTimes: RequestSender {
         if let url = task.originalRequest?.url {
             switch url {
             case self.sdkTests.testCase.getInAppMessageURL(mcID: self.sdkTests.testMcID):
-                self.sdkTests.testCase.sendInAppMessageDataFetchRequest(task: task)
+                self.sdkTests.testCase.sendInAppMessageDataFetchRequestSilentPushes(task: task)
             case self.sdkTests.testCase.getInAppMessageURL(mcID: self.testMcID_2):
-                self.sdkTests.testCase.sendInAppMessageDataFetchRequest(task: task)
+                self.sdkTests.testCase.sendInAppMessageDataFetchRequestSilentPushes(task: task)
             default:
                 let httpBody = task.originalRequest!.httpBody!
                 

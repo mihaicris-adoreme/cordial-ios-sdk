@@ -908,8 +908,10 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testInAppMessageHasBeenShown() {
-        let mock = MockRequestSenderInAppMessageHasBeenShown()
+    func testInAppMessageHasBeenShownSilentPushes() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
+        let mock = MockRequestSenderInAppMessageHasBeenShownSilentPushes()
 
         DependencyConfiguration.shared.requestSender = mock
 
@@ -924,7 +926,7 @@ class CordialSDKTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             XCTAssert(mock.isVerified)
             
             InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -932,11 +934,41 @@ class CordialSDKTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 4)
+    }
+    
+    func testInAppMessageHasBeenShownDirectDelivery() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .directDelivery
+
+        let mock = MockRequestSenderInAppMessageHasBeenShownDirectDelivery()
+
+        DependencyConfiguration.shared.requestSender = mock
+
+        self.testCase.setTestJWT(token: self.testJWT)
+        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
+
+        if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
+            let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
+
+            CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
+        }
+
+        let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            XCTAssert(mock.isVerified)
+
+            InAppMessageProcess.shared.isPresentedInAppMessage = false
+
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 4)
     }
     
     func testInAppMessageHasBeenShownReachability() {
-        let mock = MockRequestSenderInAppMessageHasBeenShown()
+        let mock = MockRequestSenderInAppMessageHasBeenShownSilentPushes()
         
         DependencyConfiguration.shared.requestSender = mock
         
@@ -1014,7 +1046,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     func testInAppMessageDelayedShow() {
-        let mock = MockRequestSenderInAppMessageHasBeenShown()
+        let mock = MockRequestSenderInAppMessageHasBeenShownSilentPushes()
 
         DependencyConfiguration.shared.requestSender = mock
 
@@ -1076,7 +1108,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     func testInAppMessageDisplayType() {
-        let mock = MockRequestSenderInAppMessageHasBeenShown()
+        let mock = MockRequestSenderInAppMessageHasBeenShownSilentPushes()
 
         DependencyConfiguration.shared.requestSender = mock
 
