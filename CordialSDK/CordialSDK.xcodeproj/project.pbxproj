@@ -165,6 +165,7 @@
 		9EA31A302292D5E80037B786 /* ContactLogoutRequestCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */; };
 		9EA43D3824C8734C000A1F45 /* CordialPushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA43D3724C8734C000A1F45 /* CordialPushNotificationHandler.swift */; };
 		9EA43D3A24C9A8B6000A1F45 /* CordialPushNotificationConfigurationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA43D3924C9A8B6000A1F45 /* CordialPushNotificationConfigurationType.swift */; };
+		9EA68D8A26EF8A6100D36C22 /* ResourceBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA68D8926EF8A6100D36C22 /* ResourceBundle.swift */; };
 		9EA7098D25C83EC7001E277F /* CordialDeepLinksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA7098C25C83EC7001E277F /* CordialDeepLinksAPI.swift */; };
 		9EA785CB258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA785CA258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift */; };
 		9EA785D02590DC8C00F02C64 /* InboxMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA785CF2590DC8C00F02C64 /* InboxMessageHandler.swift */; };
@@ -469,6 +470,7 @@
 		9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLogoutRequestCoreData.swift; sourceTree = "<group>"; };
 		9EA43D3724C8734C000A1F45 /* CordialPushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationHandler.swift; sourceTree = "<group>"; };
 		9EA43D3924C9A8B6000A1F45 /* CordialPushNotificationConfigurationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationConfigurationType.swift; sourceTree = "<group>"; };
+		9EA68D8926EF8A6100D36C22 /* ResourceBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBundle.swift; sourceTree = "<group>"; };
 		9EA7098C25C83EC7001E277F /* CordialDeepLinksAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksAPI.swift; sourceTree = "<group>"; };
 		9EA785CA258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInboxMessagesMarkUnreadCache.swift; sourceTree = "<group>"; };
 		9EA785CF2590DC8C00F02C64 /* InboxMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageHandler.swift; sourceTree = "<group>"; };
@@ -1013,6 +1015,7 @@
 		9E7A5A41222EB54D0020054F /* CordialSDK */ = {
 			isa = PBXGroup;
 			children = (
+				9EA68D8826EF8A4200D36C22 /* ResourceBundle */,
 				9E876C5E26307A7300FF2FE2 /* JSONStructure */,
 				9E654555254330380097F22F /* ThreadQueues */,
 				9E5F22A224584BA600CDFBCF /* Throttler */,
@@ -1160,6 +1163,14 @@
 				9ED9266922CB5BDF00809EC0 /* InAppMessage.js */,
 			);
 			path = InAppMessage;
+			sourceTree = "<group>";
+		};
+		9EA68D8826EF8A4200D36C22 /* ResourceBundle */ = {
+			isa = PBXGroup;
+			children = (
+				9EA68D8926EF8A6100D36C22 /* ResourceBundle.swift */,
+			);
+			path = ResourceBundle;
 			sourceTree = "<group>";
 		};
 		9EA785CE2590DC6B00F02C64 /* InboxMessage */ = {
@@ -1725,6 +1736,7 @@
 				9EBA1B1923FFE38600005054 /* RequestSender.swift in Sources */,
 				9E6A932B26A856A100C1990B /* CordialSwiftUIPushNotificationApnsTokenReceived.swift in Sources */,
 				9E4FA38822FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift in Sources */,
+				9EA68D8A26EF8A6100D36C22 /* ResourceBundle.swift in Sources */,
 				9EB17ABF22930D7B00EEAB7D /* ContactOrderRequest+CoreDataClass.swift in Sources */,
 				9EA43D3A24C9A8B6000A1F45 /* CordialPushNotificationConfigurationType.swift in Sources */,
 				9EBE675F22731EB70065AA06 /* CustomEventRequestsCoreData.swift in Sources */,
@@ -2101,7 +2113,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.1;
+				MARKETING_VERSION = 2.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2132,7 +2144,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.6.1;
+				MARKETING_VERSION = 2.6.2;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

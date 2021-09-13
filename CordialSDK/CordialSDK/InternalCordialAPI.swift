@@ -46,14 +46,19 @@ class InternalCordialAPI {
         let frameworkName = "CordialSDK"
         
         if let bundle = Bundle(identifier: frameworkIdentifier) {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Using resource bundle by framework identifier", log: OSLog.cordialInfo, type: .info)
+            }
+            
             return bundle
         }
         
         guard let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: frameworkName, withExtension: "bundle") else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("ResourceBundle Error: [resourceBundleURL is nil] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, frameworkName)
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                os_log("Using resource bundle found in SPM way", log: OSLog.cordialInfo, type: .info)
             }
-            return nil
+            
+            return Bundle.resourceBundle
         }
         
         guard let resourceBundle = Bundle(url: resourceBundleURL) else {
@@ -61,6 +66,10 @@ class InternalCordialAPI {
                 os_log("ResourceBundle Error: [resourceBundle is nil] resourceBundleURL: [%{public}@] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, resourceBundleURL.absoluteString, frameworkName)
             }
             return nil
+        }
+        
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Using resource bundle of self object", log: OSLog.cordialInfo, type: .info)
         }
         
         return resourceBundle

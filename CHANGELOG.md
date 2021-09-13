@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 2.6.2 (2021-09-13)
+
+### Added
+
+- Refactoring get resource bundle logic
+
 ## 2.6.1 (2021-09-03)
 
 ### Fixed
