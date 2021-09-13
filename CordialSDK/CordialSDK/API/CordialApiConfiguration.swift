@@ -21,9 +21,10 @@ import CoreLocation
     let initInAppMessageProcess = InAppMessageProcess.shared
     let initCoreDataManager = CoreDataManager.shared
     
-    var accountKey = String()
-    var channelKey = String()
-    var baseURL = String()
+    internal var accountKey = String()
+    internal var channelKey = String()
+    internal var eventsStreamURL = String()
+    internal var messageHubURL = String()
     
     let cordialPushNotification = CordialPushNotification.shared
     let cordialPushNotificationHandler = CordialPushNotificationHandler()
@@ -71,12 +72,33 @@ import CoreLocation
 
     @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
-    @objc public func initialize(accountKey: String, channelKey: String) {
+    @objc public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String = "", messageHubURL: String = "") {
+        
         CordialPushNotification.shared.registerForSilentPushNotifications()
         
         self.accountKey = accountKey
         self.channelKey = channelKey
-        self.baseURL = "https://events-stream-svc.cordial.com/"
+        
+        if eventsStreamURL.isEmpty {
+            self.eventsStreamURL = "https://events-stream-svc.cordial.com/"
+        } else if eventsStreamURL.last != "/" {
+            self.eventsStreamURL = "\(eventsStreamURL)/"
+        } else {
+            self.eventsStreamURL = eventsStreamURL
+        }
+        CordialUserDefaults.set(self.eventsStreamURL, forKey: API.USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL)
+        
+        if messageHubURL.isEmpty {
+            self.messageHubURL = self.eventsStreamURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
+        } else if messageHubURL.last != "/" {
+            self.messageHubURL = "\(messageHubURL)/"
+        } else {
+            self.messageHubURL = messageHubURL
+        }
+        CordialUserDefaults.set(self.messageHubURL, forKey: API.USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL)
+        
+        InternalCordialAPI().removeCurrentJWT()
+        InternalCordialAPI().removeCurrentMcID()
         
 //        CoreDataManager.shared.deleteAllCoreData()
         
@@ -94,3 +116,4 @@ import CoreLocation
     }
     
 }
+

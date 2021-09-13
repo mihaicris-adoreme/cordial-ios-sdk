@@ -21,16 +21,6 @@ import os.log
         return CordialApiConfiguration.shared.accountKey
     }
     
-    // MARK: Set account key
-    
-    @objc public func setAccountKey(accountKey: String) {
-        if accountKey != self.getAccountKey() {
-            CordialUserDefaults.set(accountKey, forKey: API.USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY)
-            
-            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
-        }
-    }
-    
     // MARK: Get channel key
     
     @objc public func getChannelKey() -> String {
@@ -41,40 +31,24 @@ import os.log
         return CordialApiConfiguration.shared.channelKey
     }
     
-    // MARK: Set channel key
+    // MARK: Get events stream URL
     
-    @objc public func setChannelKey(channelKey: String) {
-        if channelKey != self.getChannelKey() {
-            CordialUserDefaults.set(channelKey, forKey: API.USER_DEFAULTS_KEY_FOR_CHANNEL_KEY)
-            
-            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
-        }
-    }
-    
-    // MARK: Get base URL
-    
-    @objc public func getBaseURL() -> String {
-        if let baseURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL) {
-            return baseURL
+    @objc public func getEventsStreamURL() -> String {
+        if let eventsStreamURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL) {
+            return eventsStreamURL
         }
         
-        return CordialApiConfiguration.shared.baseURL
+        return CordialApiConfiguration.shared.eventsStreamURL
     }
     
-    // MARK: Set base URL
+    // MARK: Get message hub URL
     
-    @objc public func setBaseURL(baseURL: String) {
-        if baseURL != self.getBaseURL() {
-            if baseURL.last != "/" {
-                CordialUserDefaults.set("\(baseURL)/", forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL)
-            } else {
-                CordialUserDefaults.set(baseURL, forKey: API.USER_DEFAULTS_KEY_FOR_BASE_URL)
-            }
-            
-            InternalCordialAPI().removeCurrentJWT()
-            
-            NotificationCenter.default.post(name: .cordialConnectionSettingsHasBeenChange, object: nil)
+    @objc public func getMessageHubURL() -> String {
+        if let messageHubURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL) {
+            return messageHubURL
         }
+        
+        return CordialApiConfiguration.shared.messageHubURL
     }
     
     // MARK: Get primary key

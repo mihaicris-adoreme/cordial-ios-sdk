@@ -13,9 +13,7 @@ public extension Notification.Name {
     
     static let cordialConnectedToInternet = Notification.Name("CordialConnectedToInternet")
     static let cordialNotConnectedToInternet = Notification.Name("CordialNotConnectedToInternet")
-    
-    static let cordialConnectionSettingsHasBeenChange = Notification.Name("CordialSDKConnectionSettingsHasBeenChange")
-    
+        
     static let cordialSendCustomEventsLogicError = Notification.Name("CordialSDKSendCustomEventsLogicError")
     static let cordialUpsertContactCartLogicError = Notification.Name("CordialSDKUpsertContactCartLogicError")
     static let cordialSendContactOrdersLogicError = Notification.Name("CordialSDKSendContactOrdersLogicError")
@@ -29,8 +27,6 @@ public extension Notification.Name {
 @objc public extension NSNotification {
     static let cordialConnectedToInternet = Notification.Name.cordialConnectedToInternet
     static let cordialNotConnectedToInternet = Notification.Name.cordialNotConnectedToInternet
-    
-    static let cordialConnectionSettingsHasBeenChange = Notification.Name.cordialConnectionSettingsHasBeenChange
     
     static let cordialSendCustomEventsLogicError = Notification.Name.cordialSendCustomEventsLogicError
     static let cordialUpsertContactCartLogicError = Notification.Name.cordialUpsertContactCartLogicError
@@ -120,10 +116,6 @@ class NotificationManager {
         }
     }
     
-    @objc func connectionSettingsHasBeenChangeHandler() {
-        InternalCordialAPI().removeCurrentMcID()
-    }
-    
     @objc func handleDidFinishLaunch(notification: NSNotification) {
         let notificationCenter = NotificationCenter.default
         
@@ -149,9 +141,6 @@ class NotificationManager {
             notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
             notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
         }
-        
-        notificationCenter.removeObserver(self, name: .cordialConnectionSettingsHasBeenChange, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(connectionSettingsHasBeenChangeHandler), name: .cordialConnectionSettingsHasBeenChange, object: nil)
         
         CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
     }

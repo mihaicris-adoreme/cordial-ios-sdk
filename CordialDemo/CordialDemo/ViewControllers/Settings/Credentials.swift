@@ -9,12 +9,14 @@
 import Foundation
 
 struct Credentials {
-    let baseURL: String
+    let eventsStreamURL: String
+    let messageHubURL: String
     let accountKey: String
     let channelKey: String
     
-    init(baseURL: String, accountKey: String, channelKey: String) {
-        self.baseURL = baseURL
+    init(eventsStreamURL: String, messageHubURL: String, accountKey: String, channelKey: String) {
+        self.eventsStreamURL = eventsStreamURL
+        self.messageHubURL = messageHubURL
         self.accountKey = accountKey
         self.channelKey = channelKey
     }
