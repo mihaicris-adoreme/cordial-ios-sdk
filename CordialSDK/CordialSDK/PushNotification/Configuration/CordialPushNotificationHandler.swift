@@ -6,7 +6,7 @@
 //  Copyright © 2020 cordial.io. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @objc public class CordialPushNotificationHandler: NSObject {
     

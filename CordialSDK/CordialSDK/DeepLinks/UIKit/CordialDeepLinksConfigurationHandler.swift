@@ -6,7 +6,7 @@
 //  Copyright © 2021 cordial.io. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 @objc public class CordialDeepLinksConfigurationHandler: NSObject {
     

@@ -6,7 +6,7 @@
 //  Copyright © 2019 cordial.io. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class InAppMessageManager {
     

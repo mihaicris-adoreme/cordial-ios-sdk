@@ -4,4 +4,6 @@
 # Ignore JetBrains
 .idea/
 
+# Ignore SPM
+SPM/
 

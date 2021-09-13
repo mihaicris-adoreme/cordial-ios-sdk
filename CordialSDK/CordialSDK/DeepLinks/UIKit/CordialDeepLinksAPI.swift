@@ -6,7 +6,7 @@
 //  Copyright © 2021 cordial.io. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import os.log
 
 @objc public class CordialDeepLinksAPI: NSObject {
