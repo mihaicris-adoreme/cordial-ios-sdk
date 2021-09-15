@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -27,9 +27,6 @@
 		9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */; };
 		9E58D9F124FD904500075D76 /* CustomUIActivityInbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58D9F024FD904500075D76 /* CustomUIActivityInbox.swift */; };
 		9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E602D09226744CC00197CBD /* CartTableViewCell.swift */; };
-		9E60ACEF26F22F6000A621FD /* CordialSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 9E60ACEE26F22F6000A621FD /* CordialSDK */; };
-		9E60ACF126F22F6000A621FD /* CordialAppExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 9E60ACF026F22F6000A621FD /* CordialAppExtensions */; };
-		9E60ACF426F2300F00A621FD /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 9E60ACF326F2300F00A621FD /* IQKeyboardManagerSwift */; };
 		9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */; };
 		9E77896C22878C090089C986 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E77896B22878C090089C986 /* NotificationService.swift */; };
 		9E77897022878C090089C986 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9E77896922878C090089C986 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -208,7 +205,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E60ACF126F22F6000A621FD /* CordialAppExtensions in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,8 +212,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E60ACEF26F22F6000A621FD /* CordialSDK in Frameworks */,
-				9E60ACF426F2300F00A621FD /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,7 +657,6 @@
 			);
 			name = NotificationServiceExtension;
 			packageProductDependencies = (
-				9E60ACF026F22F6000A621FD /* CordialAppExtensions */,
 			);
 			productName = NotificationServiceExtension;
 			productReference = 9E77896922878C090089C986 /* NotificationServiceExtension.appex */;
@@ -686,8 +679,6 @@
 			);
 			name = CordialDemo;
 			packageProductDependencies = (
-				9E60ACEE26F22F6000A621FD /* CordialSDK */,
-				9E60ACF326F2300F00A621FD /* IQKeyboardManagerSwift */,
 			);
 			productName = CordialDemo;
 			productReference = 9E7A5A66222EB64B0020054F /* CordialDemo.app */;
@@ -780,8 +771,6 @@
 			);
 			mainGroup = 9E7A5A5D222EB64B0020054F;
 			packageReferences = (
-				9E60ACED26F22F6000A621FD /* XCRemoteSwiftPackageReference "ios-sdk" */,
-				9E60ACF226F2300F00A621FD /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 9E7A5A67222EB64B0020054F /* Products */;
 			projectDirPath = "";
@@ -1307,43 +1296,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		9E60ACED26F22F6000A621FD /* XCRemoteSwiftPackageReference "ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@gitlab.com:CordialExperiences/mobile/ios-sdk.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-		9E60ACF226F2300F00A621FD /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:hackiftekhar/IQKeyboardManager.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.5.6;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		9E60ACEE26F22F6000A621FD /* CordialSDK */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E60ACED26F22F6000A621FD /* XCRemoteSwiftPackageReference "ios-sdk" */;
-			productName = CordialSDK;
-		};
-		9E60ACF026F22F6000A621FD /* CordialAppExtensions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E60ACED26F22F6000A621FD /* XCRemoteSwiftPackageReference "ios-sdk" */;
-			productName = CordialAppExtensions;
-		};
-		9E60ACF326F2300F00A621FD /* IQKeyboardManagerSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 9E60ACF226F2300F00A621FD /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
-			productName = IQKeyboardManagerSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		9E7A5A70222EB64B0020054F /* CordialDemo.xcdatamodeld */ = {
