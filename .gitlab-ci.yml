@@ -4,11 +4,11 @@ stages:
 build_project:
   stage: build
   script:
-    - xcodebuild clean -project CordialSDK/CordialSDK.xcodeproj -scheme CordialSDK | xcpretty
-    - xcodebuild test -project CordialSDK/CordialSDK.xcodeproj -scheme CordialSDK -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty -s
-    - xcodebuild clean -project CordialAppExtensions/CordialAppExtensions.xcodeproj -scheme CordialAppExtensions | xcpretty
-    - xcodebuild test -project CordialAppExtensions/CordialAppExtensions.xcodeproj -scheme CordialAppExtensions -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty -s
-    - xcodebuild clean -project CordialAppExtensions_Objective-C/CordialAppExtensions_Objective-C.xcodeproj -scheme CordialAppExtensions_Objective-C | xcpretty
-    - xcodebuild test -project CordialAppExtensions_Objective-C/CordialAppExtensions_Objective-C.xcodeproj -scheme CordialAppExtensions_Objective-C -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty -s
+    - xcodebuild clean -project Projects/Frameworks/CordialSDK/CordialSDK.xcodeproj -scheme CordialSDK | xcpretty
+    - xcodebuild test -project Projects/Frameworks/CordialSDK/CordialSDK.xcodeproj -scheme CordialSDK -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty -s
+    - xcodebuild clean -project Projects/Frameworks/CordialAppExtensions/CordialAppExtensions.xcodeproj -scheme CordialAppExtensions | xcpretty
+    - xcodebuild test -project Projects/Frameworks/CordialAppExtensions/CordialAppExtensions.xcodeproj -scheme CordialAppExtensions -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty -s
+    - xcodebuild clean -project Projects/Frameworks/CordialAppExtensions_Objective-C/CordialAppExtensions_Objective-C.xcodeproj -scheme CordialAppExtensions_Objective-C | xcpretty
+    - xcodebuild test -project Projects/Frameworks/CordialAppExtensions_Objective-C/CordialAppExtensions_Objective-C.xcodeproj -scheme CordialAppExtensions_Objective-C -destination 'platform=iOS Simulator,name=iPhone 11 Pro Max' | xcpretty -s
   tags:
     - ios
