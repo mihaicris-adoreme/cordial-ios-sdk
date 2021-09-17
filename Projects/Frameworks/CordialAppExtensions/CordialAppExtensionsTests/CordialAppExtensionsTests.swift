@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import CordialAppExtensions_Swift
+@testable import CordialAppExtensions
 
 class CordialAppExtensionsTests: XCTestCase {
 
