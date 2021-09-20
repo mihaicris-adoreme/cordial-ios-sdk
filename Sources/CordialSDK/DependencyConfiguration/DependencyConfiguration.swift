@@ -24,7 +24,7 @@ import Foundation
     var inboxMessageURLSession = InboxMessageURLSession().session
     var inboxMessageContentURLSession = InboxMessageContentURLSession().session
     var updateJWTURLSession = SDKSecurityURLSession().session
-    var emailDeepLinkURLSession = CordialEmailDeepLinkURLSession().session
+    var vanityDeepLinkURLSession = CordialVanityDeepLinkURLSession().session
     
     // MARK: Get Custom Event JSON
     

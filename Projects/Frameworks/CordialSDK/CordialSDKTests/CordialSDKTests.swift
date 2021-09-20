@@ -1854,7 +1854,7 @@ class CordialSDKTests: XCTestCase {
             let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
             let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
             
-            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+            DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
         
         // DeepLink Click
@@ -1898,7 +1898,7 @@ class CordialSDKTests: XCTestCase {
             let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
             let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
             
-            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+            DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
         
         // DeepLink Click
@@ -1943,7 +1943,7 @@ class CordialSDKTests: XCTestCase {
             let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
             let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
             
-            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+            DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
         
         // DeepLink Click
@@ -1989,7 +1989,7 @@ class CordialSDKTests: XCTestCase {
             let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
             let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
 
-            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+            DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
 
         // DeepLink Click
@@ -2030,7 +2030,7 @@ class CordialSDKTests: XCTestCase {
             let response = HTTPURLResponse(url: url, statusCode: 500, httpVersion: nil, headerFields: nil)
             let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
 
-            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+            DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
 
         // DeepLink Click
@@ -2076,7 +2076,7 @@ class CordialSDKTests: XCTestCase {
             let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
             let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
             
-            DependencyConfiguration.shared.emailDeepLinkURLSession = mockSession
+            DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
         
         // DeepLink Click
