@@ -74,7 +74,7 @@ import os.log
     // MARK: Open deep link
     
     @objc public func openDeepLink(url: URL) {
-        CordialEmailDeepLink().open(url: url)
+        CordialVanityDeepLink().open(url: url)
     }
     
     // MARK: Get current mcID

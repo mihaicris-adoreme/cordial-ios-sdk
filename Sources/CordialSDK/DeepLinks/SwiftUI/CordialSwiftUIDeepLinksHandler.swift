@@ -17,7 +17,7 @@ public class CordialSwiftUIDeepLinksHandler {
     public func processDeepLink(url: URL) {
         InternalCordialAPI().sentEventDeepLinkOpen()
         
-        CordialEmailDeepLink().getDeepLink(url: url, onSuccess: { url in
+        CordialVanityDeepLink().getDeepLink(url: url, onSuccess: { url in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                 os_log("Email DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
             }

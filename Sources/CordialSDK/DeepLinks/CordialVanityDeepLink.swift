@@ -1,5 +1,5 @@
 //
-//  CordialEmailDeepLink.swift
+//  CordialVanityDeepLink.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 13.01.2021.
@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-class CordialEmailDeepLink {
+class CordialVanityDeepLink {
     
     let redirectsCountMax = 3
     
