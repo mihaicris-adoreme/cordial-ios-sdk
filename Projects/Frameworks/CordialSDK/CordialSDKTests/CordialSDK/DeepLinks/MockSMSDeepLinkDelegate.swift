@@ -15,12 +15,14 @@ class MockSMSDeepLinkDelegate: CordialDeepLinksDelegate {
     
     let sdkTests = CordialSDKTests()
     
-    func openDeepLink(url: URL, fallbackURL: URL?) {
+    func openDeepLink(url: URL, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+        
         self.testDeepLinks(url: url, fallbackURL: fallbackURL)
     }
     
     @available(iOS 13.0, *)
-    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene) {
+    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+        
         self.testDeepLinks(url: url, fallbackURL: fallbackURL)
     }
     

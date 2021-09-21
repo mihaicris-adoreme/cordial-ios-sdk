@@ -308,6 +308,18 @@ class InternalCordialAPI {
         }
     }
     
+    // MARK: Deep link action
+    
+    func deepLinkAction(deepLinkActionType: CordialDeepLinkActionType) {
+        switch deepLinkActionType {
+        case .OPEN_IN_BROWSER:
+            // TODO
+            break
+        case .NO_ACTION:
+            break
+        }
+    }
+    
     // MARK: Sent event deep link open
     
     func sentEventDeepLinkOpen() {
