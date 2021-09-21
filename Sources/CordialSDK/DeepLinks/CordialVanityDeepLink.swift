@@ -17,16 +17,16 @@ class CordialVanityDeepLink {
         self.getDeepLink(url: url, onSuccess: { url in
             InternalCordialAPI().openDeepLink(url: url)
             
-            NotificationManager.shared.emailDeepLink = String()
+            NotificationManager.shared.vanityDeepLink = String()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Email DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
+                os_log("Vanity DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
             }
         }, onFailure: { error in
-            NotificationManager.shared.emailDeepLink = String()
+            NotificationManager.shared.vanityDeepLink = String()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
+                os_log("Vanity DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
             }
         })
     }
@@ -49,7 +49,7 @@ class CordialVanityDeepLink {
 
         DependencyConfiguration.shared.vanityDeepLinkURLSession.dataTask(with: url) { data, response, error in
             if let error = error {
-                onFailure("Fetching Email DeepLink failed. Error: [\(error.localizedDescription)]")
+                onFailure("Fetching Vanity DeepLink failed. Error: [\(error.localizedDescription)]")
                 return
             }
             
@@ -68,13 +68,13 @@ class CordialVanityDeepLink {
                             onSuccess(url)
                         }
                     }, onFailure: { error in
-                        onFailure("Parsing Email DeepLink failed. Error: [Unexpected error]")
+                        onFailure("Parsing Vanity DeepLink failed. Error: [Unexpected error]")
                     })
                 default:
-                    onFailure("Fetching Email DeepLink failed. Error: [Unexpected error]")
+                    onFailure("Fetching Vanity DeepLink failed. Error: [Unexpected error]")
                 }
             } else {
-                onFailure("Fetching Email DeepLink failed. Error: [Unexpected error]")
+                onFailure("Fetching Vanity DeepLink failed. Error: [Unexpected error]")
             }
         }.resume()
     }
@@ -102,7 +102,7 @@ class CordialVanityDeepLink {
         } else {
             let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
             
-            onFailure("Fetching Email DeepLink failed. \(message)")
+            onFailure("Fetching Vanity DeepLink failed. \(message)")
         }
     }
 }

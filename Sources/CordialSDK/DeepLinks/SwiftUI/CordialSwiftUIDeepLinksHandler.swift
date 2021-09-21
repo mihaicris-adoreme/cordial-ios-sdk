@@ -19,14 +19,14 @@ public class CordialSwiftUIDeepLinksHandler {
         
         CordialVanityDeepLink().getDeepLink(url: url, onSuccess: { url in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Email DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
+                os_log("Vanity DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
             }
             
             CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
             
         }, onFailure: { error in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Email DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
+                os_log("Vanity DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
             }
             
             CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)

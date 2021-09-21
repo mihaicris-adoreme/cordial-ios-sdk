@@ -121,7 +121,7 @@ class CordialSwizzlerHelper {
             if let host = url.host,
                CordialApiConfiguration.shared.vanityDomains.contains(host) {
                 
-                NotificationManager.shared.emailDeepLink = url.absoluteString
+                NotificationManager.shared.vanityDeepLink = url.absoluteString
             } else {
                 InternalCordialAPI().sentEventDeepLinkOpen()
                 cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
@@ -158,7 +158,7 @@ class CordialSwizzlerHelper {
             if let host = url.host,
                CordialApiConfiguration.shared.vanityDomains.contains(host) {
                 
-                NotificationManager.shared.emailDeepLink = url.absoluteString
+                NotificationManager.shared.vanityDeepLink = url.absoluteString
             } else {
                 InternalCordialAPI().sentEventDeepLinkOpen()
                 cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
