@@ -24,7 +24,7 @@ class CordialSDKTests: XCTestCase {
     var testSilentAndPushNotifications = String()
     let testDeepLinkURL = "https://tjs.cordialdev.com/prep-tj1.html"
     let testDeepLinkFallbackURL = "https://tjs.cordialdev.com/prep-tj2.html"
-    let testEmailDeepLinkURL = "https://e.a45.clients.cordialdev.com/c/45:5ffdd4ba20c3e66cfb62ecdc:ot:5e6b9936102e517f8c04870a:1/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA0NzA2OTAsImNkIjoiLmE0NS5jbGllbnRzLmNvcmRpYWxkZXYuY29tIiwiY2UiOjg2NDAwLCJ0ayI6ImNvcmRpYWxkZXYiLCJtdGxJRCI6IjVmZmRkNTIyZTg0ZWYxMmViNzI0OTk4NSIsIm1jTGlua0lEIjoiOWM4MTg2NDEiLCJsaW5rVXJsIjoiaHR0cHM6XC9cL3Rqcy5jb3JkaWFsZGV2LmNvbVwvcHJlcC10ajEuaHRtbD91dG1fY2FtcGFpZ249YXNoaWVsZHMrZGVlcCtsaW5rK3Rlc3QmdXRtX3NvdXJjZT1jb3JkaWFsJnV0bV9tZWRpdW09ZW1haWwmbWNpRD00NSUzQTVmZmRkNGJhMjBjM2U2NmNmYjYyZWNkYyUzQW90JTNBNWU2Yjk5MzYxMDJlNTE3ZjhjMDQ4NzBhJTNBMSYlMjRsaW5rPSYlN0Vjb250YWN0PTVlNmI5OTM2MTAyZTUxN2Y4YzA0ODcwYSJ9.eKSz8ys89tesz5dK8JulvznPDCAwDxDXz5exU255Irc"
+    let testVanityDeepLinkURL = "https://e.a45.clients.cordialdev.com/c/45:5ffdd4ba20c3e66cfb62ecdc:ot:5e6b9936102e517f8c04870a:1/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MTA0NzA2OTAsImNkIjoiLmE0NS5jbGllbnRzLmNvcmRpYWxkZXYuY29tIiwiY2UiOjg2NDAwLCJ0ayI6ImNvcmRpYWxkZXYiLCJtdGxJRCI6IjVmZmRkNTIyZTg0ZWYxMmViNzI0OTk4NSIsIm1jTGlua0lEIjoiOWM4MTg2NDEiLCJsaW5rVXJsIjoiaHR0cHM6XC9cL3Rqcy5jb3JkaWFsZGV2LmNvbVwvcHJlcC10ajEuaHRtbD91dG1fY2FtcGFpZ249YXNoaWVsZHMrZGVlcCtsaW5rK3Rlc3QmdXRtX3NvdXJjZT1jb3JkaWFsJnV0bV9tZWRpdW09ZW1haWwmbWNpRD00NSUzQTVmZmRkNGJhMjBjM2U2NmNmYjYyZWNkYyUzQW90JTNBNWU2Yjk5MzYxMDJlNTE3ZjhjMDQ4NzBhJTNBMSYlMjRsaW5rPSYlN0Vjb250YWN0PTVlNmI5OTM2MTAyZTUxN2Y4YzA0ODcwYSJ9.eKSz8ys89tesz5dK8JulvznPDCAwDxDXz5exU255Irc"
     let testSMSDeepLinkURL = "https://s.cordial.com/3udMLK"
     var testInboxMessagesPayload = String()
     var testInboxMessagePayload = String()
@@ -1831,35 +1831,35 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func testAppDelegateEmailDeepLinks() {
+    func testAppDelegateVanityDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
-        let mock = MockRequestSenderEmailDeepLinkHasBeenOpen()
+        let mock = MockRequestSenderVanityDeepLinkHasBeenOpen()
         
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        // Email DeepLink Mock
+        // Vanity DeepLink Mock
         let headerFields = [
             "Location": self.testDeepLinkURL,
             "x-mcid": self.testMcID
         ]
         
-        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+        if let vanityDeepLinkPayloadData = String().data(using: .utf8),
            let url = URL(string: self.validStringURL) {
             
             let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
-            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            let mockSession = MockURLSession(completionHandler: (vanityDeepLinkPayloadData, response, nil))
             
             DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
         
         // DeepLink Click
         let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
-        userActivity.webpageURL = URL(string: self.testEmailDeepLinkURL)
+        userActivity.webpageURL = URL(string: self.testVanityDeepLinkURL)
         
         self.testCase.processAppDelegateUniversalLinks(userActivity: userActivity)
         self.testCase.appMovedFromBackground()
@@ -1875,35 +1875,35 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testSceneDelegateEmailDeepLinks() {
+    func testSceneDelegateVanityDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
-        let mock = MockRequestSenderEmailDeepLinkHasBeenOpen()
+        let mock = MockRequestSenderVanityDeepLinkHasBeenOpen()
         
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        // Email DeepLink Mock
+        // Vanity DeepLink Mock
         let headerFields = [
             "Location": self.testDeepLinkURL,
             "x-mcid": self.testMcID
         ]
         
-        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+        if let vanityDeepLinkPayloadData = String().data(using: .utf8),
            let url = URL(string: self.validStringURL) {
             
             let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
-            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            let mockSession = MockURLSession(completionHandler: (vanityDeepLinkPayloadData, response, nil))
             
             DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
         
         // DeepLink Click
         let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
-        userActivity.webpageURL = URL(string: self.testEmailDeepLinkURL)
+        userActivity.webpageURL = URL(string: self.testVanityDeepLinkURL)
         
         self.testCase.processSceneDelegateUniversalLinks(userActivity: userActivity)
         self.testCase.appMovedFromBackground()
@@ -1919,36 +1919,36 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testSceneDelegateEmailDeepLinksTestClickNotSaveMcID() {
+    func testSceneDelegateVanityDeepLinksTestClickNotSaveMcID() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
-        let mock = MockRequestSenderTestEmailDeepLinksNotSaveMcID()
+        let mock = MockRequestSenderTestVanityDeepLinksNotSaveMcID()
         
         DependencyConfiguration.shared.requestSender = mock
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        // Email DeepLink Mock
+        // Vanity DeepLink Mock
         let headerFields = [
             "Location": self.testDeepLinkURL,
             "x-mcid": self.testMcID,
             "x-message-istest": "1"
         ]
         
-        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+        if let vanityDeepLinkPayloadData = String().data(using: .utf8),
            let url = URL(string: self.validStringURL) {
             
             let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
-            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            let mockSession = MockURLSession(completionHandler: (vanityDeepLinkPayloadData, response, nil))
             
             DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
         
         // DeepLink Click
         let userActivity = NSUserActivity(activityType: NSUserActivityTypeBrowsingWeb)
-        userActivity.webpageURL = URL(string: self.testEmailDeepLinkURL)
+        userActivity.webpageURL = URL(string: self.testVanityDeepLinkURL)
         
         self.testCase.processSceneDelegateUniversalLinks(userActivity: userActivity)
         self.testCase.appMovedFromBackground()
@@ -1964,11 +1964,11 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testSceneDelegateEmailDeepLinksNotVanityDomain() {
+    func testSceneDelegateVanityDeepLinksNotVanityDomain() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLinkDelegate Mock
-        let mock = MockEmailDeepLinkDelegateNotVanityDomain()
+        let mock = MockVanityDeepLinkDelegateNotVanityDomain()
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = mock
 
         // DeepLink Mock
@@ -1977,17 +1977,17 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
 
-        // Email DeepLink Mock
+        // Vanity DeepLink Mock
         let headerFields = [
             "Location": self.testDeepLinkURL,
             "x-mcid": self.testMcID
         ]
 
-        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+        if let vanityDeepLinkPayloadData = String().data(using: .utf8),
            let url = URL(string: self.validStringURL) {
 
             let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
-            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            let mockSession = MockURLSession(completionHandler: (vanityDeepLinkPayloadData, response, nil))
 
             DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
@@ -2010,11 +2010,11 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testSceneDelegateEmailDeepLinksNot302Status() {
+    func testSceneDelegateVanityDeepLinksNot302Status() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLinkDelegate Mock
-        let mock = MockEmailDeepLinkDelegate()
+        let mock = MockVanityDeepLinkDelegate()
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = mock
 
         // DeepLink Mock
@@ -2023,12 +2023,12 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
 
-        // Email DeepLink Mock
-        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+        // Vanity DeepLink Mock
+        if let vanityDeepLinkPayloadData = String().data(using: .utf8),
            let url = URL(string: self.validStringURL) {
 
             let response = HTTPURLResponse(url: url, statusCode: 500, httpVersion: nil, headerFields: nil)
-            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            let mockSession = MockURLSession(completionHandler: (vanityDeepLinkPayloadData, response, nil))
 
             DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }
@@ -2064,17 +2064,17 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        // Email DeepLink Mock
+        // Vanity DeepLink Mock
         let headerFields = [
-            "Location": self.testEmailDeepLinkURL,
+            "Location": self.testVanityDeepLinkURL,
             "x-mcid": self.testMcID
         ]
         
-        if let emailDeepLinkPayloadData = String().data(using: .utf8),
+        if let vanityDeepLinkPayloadData = String().data(using: .utf8),
            let url = URL(string: self.validStringURL) {
             
             let response = HTTPURLResponse(url: url, statusCode: 302, httpVersion: nil, headerFields: headerFields)
-            let mockSession = MockURLSession(completionHandler: (emailDeepLinkPayloadData, response, nil))
+            let mockSession = MockURLSession(completionHandler: (vanityDeepLinkPayloadData, response, nil))
             
             DependencyConfiguration.shared.vanityDeepLinkURLSession = mockSession
         }

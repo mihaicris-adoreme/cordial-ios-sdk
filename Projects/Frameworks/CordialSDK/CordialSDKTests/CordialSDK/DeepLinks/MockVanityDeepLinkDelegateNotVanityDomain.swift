@@ -1,15 +1,15 @@
 //
-//  MockEmailDeepLinkDelegate.swift
+//  MockVanityDeepLinkDelegateNotVanityDomain.swift
 //  CordialSDKTests
 //
-//  Created by Yan Malinovsky on 16.02.2021.
+//  Created by Yan Malinovsky on 15.02.2021.
 //  Copyright © 2021 cordial.io. All rights reserved.
 //
 
 import XCTest
 import CordialSDK
 
-class MockEmailDeepLinkDelegate: CordialDeepLinksDelegate {
+class MockVanityDeepLinkDelegateNotVanityDomain: CordialDeepLinksDelegate {
     
     var isVerified = false
     
@@ -25,7 +25,7 @@ class MockEmailDeepLinkDelegate: CordialDeepLinksDelegate {
     }
     
     private func testDeepLinks(url: URL, fallbackURL: URL?) {
-        XCTAssertEqual(url.absoluteString, self.sdkTests.testDeepLinkURL, "DeepLinkURL keys don't match")
+        XCTAssertEqual(url.absoluteString, self.sdkTests.validStringURL, "DeepLinkURL keys don't match")
         
         self.isVerified = true
     }

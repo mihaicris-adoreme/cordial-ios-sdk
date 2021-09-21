@@ -1,5 +1,5 @@
 //
-//  MockRequestSenderTestEmailDeepLinksNotSaveMcID.swift
+//  MockRequestSenderVanityDeepLinkHasBeenOpen.swift
 //  CordialSDKTests
 //
 //  Created by Yan Malinovsky on 12.02.2021.
@@ -9,7 +9,7 @@
 import XCTest
 import CordialSDK
 
-class MockRequestSenderTestEmailDeepLinksNotSaveMcID: RequestSender {
+class MockRequestSenderVanityDeepLinkHasBeenOpen: RequestSender {
     
     var isVerified = false
     
@@ -21,7 +21,7 @@ class MockRequestSenderTestEmailDeepLinksNotSaveMcID: RequestSender {
         if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
             if jsonArray.contains(where: {
               ($0["event"]?.isEqual(self.sdkTests.testCase.getEventNameDeepLinkOpen()))! &&
-              ($0["mcID"] == nil) }) {
+              ($0["mcID"]?.isEqual(self.sdkTests.testMcID))! }) {
                 
                 self.isVerified = true
             }

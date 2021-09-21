@@ -25,7 +25,7 @@ class MockSMSDeepLinkDelegate: CordialDeepLinksDelegate {
     }
     
     private func testDeepLinks(url: URL, fallbackURL: URL?) {
-        XCTAssertEqual(url.absoluteString, self.sdkTests.testEmailDeepLinkURL, "DeepLinkURL keys don't match")
+        XCTAssertEqual(url.absoluteString, self.sdkTests.testVanityDeepLinkURL, "DeepLinkURL keys don't match")
         
         self.isVerified = true
     }
