@@ -13,33 +13,32 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     
     let deepLinksHost = "tjs.cordialdev.com"
     
-    func openDeepLink(url: URL, fallbackURL: URL?) {
+    func openDeepLink(url: URL, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
         DispatchQueue.main.async {
             if url.absoluteString.contains("notification-settings") {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                 return
             }
-            
+
             guard let host = self.getHost(url: url, fallbackURL: fallbackURL) else {
                 return
             }
-            
+
             if host == self.deepLinksHost {
                 if let deepLinkURL = self.getDeepLinkURL(url: url),
                    let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
                    let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-                    
+
                     self.showAppDelegateDeepLink(product: product)
-                    
+
                 } else if let fallbackURL = self.getDeepLinkURL(url: fallbackURL),
                           let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
                           let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-                    
+
                     self.showAppDelegateDeepLink(product: product)
-                    
-                } else if let webpageURL = URL(string: "https://\(host)/") {
-                    
-                    self.openWebpageURL(url: webpageURL)
+
+                } else {
+                    completionHandler(.OPEN_IN_BROWSER)
                 }
             } else {
                 self.openWebpageURL(url: url)
@@ -48,33 +47,32 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     }
     
     @available(iOS 13.0, *)
-    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene) {
+    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
         DispatchQueue.main.async {
             if url.absoluteString.contains("notification-settings") {
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                 return
             }
-            
+
             guard let host = self.getHost(url: url, fallbackURL: fallbackURL) else {
                 return
             }
-            
+
             if host == self.deepLinksHost {
                 if let deepLinkURL = self.getDeepLinkURL(url: url),
                    let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
                    let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-                    
+
                     self.showSceneDelegateDeepLink(product: product, scene: scene)
-                    
+
                 } else if let fallbackURL = self.getDeepLinkURL(url: fallbackURL),
                           let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
                           let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
-                    
+
                     self.showSceneDelegateDeepLink(product: product, scene: scene)
-                    
-                } else if let webpageURL = URL(string: "https://\(host)/") {
-                    
-                    self.openWebpageURL(url: webpageURL)
+
+                } else {
+                    completionHandler(.OPEN_IN_BROWSER)
                 }
             } else {
                 self.openWebpageURL(url: url)
