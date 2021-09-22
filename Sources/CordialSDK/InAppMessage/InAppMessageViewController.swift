@@ -274,12 +274,12 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                         }
                     }
                     
-                    //UIKit
+                    // UIKit
                     if let inAppMessageInputsDelegate = CordialApiConfiguration.shared.inAppMessageInputsDelegate {
                         inAppMessageInputsDelegate.inputsCaptured(eventName: eventName, properties: properties)
                     }
                     
-                    //SwiftUI
+                    // SwiftUI
                     if #available(iOS 13.0, *) {
                         DispatchQueue.main.async {
                             CordialSwiftUIInAppMessagePublisher.shared.publishInputsCaptured(eventName: eventName, properties: properties)

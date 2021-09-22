@@ -36,12 +36,12 @@ class CordialSwizzlerHelper {
             CoreDataManager.shared.inboxMessagesCache.removeInboxMessageFromCoreData(mcID: mcID)
             CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContentFromCoreData(mcID: mcID)
             
-            //UIKit
+            // UIKit
             if let inboxMessageDelegate = CordialApiConfiguration.shared.inboxMessageDelegate {
                 inboxMessageDelegate.newInboxMessageDelivered(mcID: mcID)
             }
             
-            //SwiftUI
+            // SwiftUI
             if #available(iOS 13.0, *) {
                 DispatchQueue.main.async {
                     CordialSwiftUIInboxMessagePublisher.shared.publishNewInboxMessageDelivered(mcID: mcID)
@@ -55,12 +55,12 @@ class CordialSwizzlerHelper {
         
         let token = internalCordialAPI.getPreparedRemoteNotificationsDeviceToken(deviceToken: deviceToken)
         
-        //UIKit
+        // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.apnsTokenReceived(token: token)
         }
         
-        //SwiftUI
+        // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
                 CordialSwiftUIPushNotificationPublisher.shared.publishApnsTokenReceived(token: token)

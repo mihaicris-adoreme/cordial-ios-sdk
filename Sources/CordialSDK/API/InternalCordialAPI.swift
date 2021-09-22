@@ -327,7 +327,10 @@ class InternalCordialAPI {
         // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
-                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
+                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                    
+                    InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                })
             }
         }
     }

@@ -23,12 +23,12 @@ class CordialPushNotificationHelper {
     }
     
     func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
-        //UIKit
+        // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.appOpenViaNotificationTap(notificationContent: userInfo)
         }
         
-        //SwiftUI
+        // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
                 CordialSwiftUIPushNotificationPublisher.shared.publishAppOpenViaNotificationTap(notificationContent: userInfo)
@@ -107,9 +107,15 @@ class CordialPushNotificationHelper {
             if #available(iOS 13.0, *) {
                 DispatchQueue.main.async {
                     if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
-                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
+                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
+                            
+                            InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                        })
                     } else {
-                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: nil)
+                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                            
+                            InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                        })
                     }
                 }
             }
@@ -125,12 +131,12 @@ class CordialPushNotificationHelper {
     }
     
     func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
-        //UIKit
+        // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.notificationDeliveredInForeground(notificationContent: userInfo)
         }
         
-        //SwiftUI
+        // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
                 CordialSwiftUIPushNotificationPublisher.shared.publishNotificationDeliveredInForeground(notificationContent: userInfo)

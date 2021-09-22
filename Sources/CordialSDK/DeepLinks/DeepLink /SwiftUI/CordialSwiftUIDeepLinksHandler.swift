@@ -15,6 +15,8 @@ public class CordialSwiftUIDeepLinksHandler {
     
     @available(iOS 13.0, *)
     public func processDeepLink(url: URL) {
+        NotificationManager.shared.originDeepLink = url.absoluteString
+        
         InternalCordialAPI().sentEventDeepLinkOpen()
         
         CordialVanityDeepLink().getDeepLink(url: url, onSuccess: { url in
@@ -22,14 +24,20 @@ public class CordialSwiftUIDeepLinksHandler {
                 os_log("Vanity DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
             }
             
-            CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
+            CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                
+                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+            })
             
         }, onFailure: { error in
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Vanity DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
             }
             
-            CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
+            CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                
+                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+            })
         })
     }
 }
