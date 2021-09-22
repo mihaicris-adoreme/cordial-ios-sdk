@@ -14,6 +14,8 @@ class CordialVanityDeepLink {
     let redirectsCountMax = 3
     
     func open(url: URL) {
+        NotificationManager.shared.originDeepLink = url.absoluteString
+        
         self.getDeepLink(url: url, onSuccess: { url in
             InternalCordialAPI().openDeepLink(url: url)
             

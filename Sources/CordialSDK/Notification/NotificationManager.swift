@@ -44,6 +44,7 @@ class NotificationManager {
     var isNotificationManagerHasNotBeenSettedUp = true
     
     var vanityDeepLink = String()
+    var originDeepLink = String()
     
     var appMovedToBackgroundBackgroundTaskID: UIBackgroundTaskIdentifier?
 

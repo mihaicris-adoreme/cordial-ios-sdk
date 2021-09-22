@@ -313,7 +313,9 @@ class InternalCordialAPI {
     func deepLinkAction(deepLinkActionType: CordialDeepLinkActionType) {
         switch deepLinkActionType {
         case .OPEN_IN_BROWSER:
-            // TODO
+            if let originDeepLinkURL = URL(string: NotificationManager.shared.originDeepLink) {
+                UIApplication.shared.open(originDeepLinkURL)
+            }
             break
         case .NO_ACTION:
             break
