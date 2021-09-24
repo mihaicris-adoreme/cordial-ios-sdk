@@ -351,7 +351,6 @@ class InternalCordialAPI {
                     UIApplication.shared.open(originDeepLinkURL)
                 }
             }
-            break
         case .NO_ACTION:
             break
         }
