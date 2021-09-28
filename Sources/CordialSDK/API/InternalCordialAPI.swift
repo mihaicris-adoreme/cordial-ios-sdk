@@ -347,8 +347,22 @@ class InternalCordialAPI {
                 
                 NotificationManager.shared.originDeepLink = String()
                 
+                guard var urlComponents = URLComponents(url: originDeepLinkURL, resolvingAgainstBaseURL: true) else {
+                    return
+                }
+                
+                let keyForSkipTracking = [URLQueryItem(name: "cookie-only", value: "1")]
+                if var queryItems = urlComponents.queryItems {
+                    queryItems += keyForSkipTracking
+                    urlComponents.queryItems = queryItems
+                } else {
+                    urlComponents.queryItems = keyForSkipTracking
+                }
+                
                 DispatchQueue.main.async {
-                    UIApplication.shared.open(originDeepLinkURL)
+                    if let url = urlComponents.url {
+                        UIApplication.shared.open(url)
+                    }
                 }
             }
         case .NO_ACTION:
