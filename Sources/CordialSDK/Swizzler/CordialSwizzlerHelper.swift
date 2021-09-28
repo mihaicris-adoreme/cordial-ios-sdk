@@ -97,17 +97,12 @@ class CordialSwizzlerHelper {
     }
     
     private func sendPushNotificationToken(token: String, status: String) {
-        let internalCordialAPI = InternalCordialAPI()
+        InternalCordialAPI().setPushNotificationToken(token: token)
         
-        if token != internalCordialAPI.getPushNotificationToken() {
-            
-            internalCordialAPI.setPushNotificationToken(token: token)
-            
-            let primaryKey = CordialAPI().getContactPrimaryKey()
-            
-            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
-        }
+        let primaryKey = CordialAPI().getContactPrimaryKey()
+        
+        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
     // MARK: Deep links
