@@ -14,40 +14,24 @@ import os.log
     // MARK: Get account key
     
     @objc public func getAccountKey() -> String {
-        if let accountKey = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY) {
-            return accountKey
-        }
-        
         return CordialApiConfiguration.shared.accountKey
     }
     
     // MARK: Get channel key
     
     @objc public func getChannelKey() -> String {
-        if let channelKey = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CHANNEL_KEY) {
-            return channelKey
-        }
-        
         return CordialApiConfiguration.shared.channelKey
     }
     
     // MARK: Get events stream URL
     
     @objc public func getEventsStreamURL() -> String {
-        if let eventsStreamURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL) {
-            return eventsStreamURL
-        }
-        
         return CordialApiConfiguration.shared.eventsStreamURL
     }
     
     // MARK: Get message hub URL
     
-    @objc public func getMessageHubURL() -> String {
-        if let messageHubURL = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL) {
-            return messageHubURL
-        }
-        
+    @objc public func getMessageHubURL() -> String {        
         return CordialApiConfiguration.shared.messageHubURL
     }
     

@@ -21,7 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.shared.enable = true
         
-        CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels-cID-pk", channelKey: "push")
+        let (accountKey, channelKey, eventsStreamURL, messageHubURL) = App.getCordialSDKInitParams()
+        CordialApiConfiguration.shared.initialize(accountKey: accountKey, channelKey: channelKey, eventsStreamURL: eventsStreamURL, messageHubURL: messageHubURL)
+        
         CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.eventsBulkSize = 3

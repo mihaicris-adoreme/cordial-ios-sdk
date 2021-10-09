@@ -88,7 +88,6 @@ import CoreLocation
         } else {
             self.eventsStreamURL = eventsStreamURL
         }
-        CordialUserDefaults.set(self.eventsStreamURL, forKey: API.USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL)
         
         if messageHubURL.isEmpty {
             self.messageHubURL = self.eventsStreamURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
@@ -97,7 +96,6 @@ import CoreLocation
         } else {
             self.messageHubURL = messageHubURL
         }
-        CordialUserDefaults.set(self.messageHubURL, forKey: API.USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL)
         
         InternalCordialAPI().removeCurrentJWT()
         InternalCordialAPI().removeCurrentMcID()

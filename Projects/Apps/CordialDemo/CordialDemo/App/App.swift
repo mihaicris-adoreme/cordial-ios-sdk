@@ -13,7 +13,97 @@ import CordialSDK
 struct App {
     
     static private let USER_DEFAULTS_KEY_FOR_IS_GUEST_USER = "USER_DEFAULTS_KEY_FOR_IS_GUEST_USER"
+    
     static private let USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE = "USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE"
+    
+    static private let USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL = "USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL"
+    static private let USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL = "USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL"
+    static private let USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY = "USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY"
+    static private let USER_DEFAULTS_KEY_FOR_CHANNEL_KEY = "USER_DEFAULTS_KEY_FOR_CHANNEL_KEY"
+     
+    // MARK: CordialSDK - Get Init Params
+    
+    static func getCordialSDKInitParams() -> (String, String, String, String) {
+        var accountKey = "qc-all-channels-cID-pk"
+        if !self.getAccountKey().isEmpty {
+            accountKey = self.getAccountKey()
+        }
+        
+        var channelKey = "push"
+        if !self.getChannelKey().isEmpty {
+            channelKey = self.getChannelKey()
+        }
+        
+        var eventsStreamURL = String()
+        if !self.getEventsStreamURL().isEmpty {
+            eventsStreamURL = self.getEventsStreamURL()
+        }
+        
+        var messageHubURL = String()
+        if !self.getMessageHubURL().isEmpty {
+            messageHubURL = self.getMessageHubURL()
+        }
+        
+        return (accountKey, channelKey, eventsStreamURL, messageHubURL)
+    }
+    
+    // MARK: CordialSDK - Account Key
+    
+    static private func getAccountKey() -> String {
+        if let accountKey = UserDefaults.standard.string(forKey: USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY) {
+            return accountKey
+        }
+        
+        return CordialAPI().getAccountKey()
+    }
+    
+    static func setAccountKey(accountKey: String) {
+        UserDefaults.standard.set(accountKey, forKey: USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY)
+    }
+    
+    // MARK: CordialSDK - Channel Key
+    
+    static private func getChannelKey() -> String {
+        if let channelKey = UserDefaults.standard.string(forKey: USER_DEFAULTS_KEY_FOR_CHANNEL_KEY) {
+            return channelKey
+        }
+        
+        return CordialAPI().getChannelKey()
+    }
+    
+    static func setChannelKey(channelKey: String) {
+        UserDefaults.standard.set(channelKey, forKey: USER_DEFAULTS_KEY_FOR_CHANNEL_KEY)
+    }
+    
+    // MARK: CordialSDK - Events Stream URL
+    
+    static private func getEventsStreamURL() -> String {
+        if let eventsStreamURL = UserDefaults.standard.string(forKey: USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL) {
+            return eventsStreamURL
+        }
+        
+        return CordialAPI().getEventsStreamURL()
+    }
+    
+    static func setEventsStreamURL(eventsStreamURL: String) {
+        UserDefaults.standard.set(eventsStreamURL, forKey: USER_DEFAULTS_KEY_FOR_EVENTS_STREAM_URL)
+    }
+    
+    // MARK: CordialSDK - Message Hub URL
+    
+    static private func getMessageHubURL() -> String {
+        if let messageHubURL = UserDefaults.standard.string(forKey: USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL) {
+            return messageHubURL
+        }
+        
+        return CordialAPI().getMessageHubURL()
+    }
+    
+    static func setMessageHubURL(messageHubURL: String) {
+        UserDefaults.standard.set(messageHubURL, forKey: USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL)
+    }
+    
+    // MARK: App
     
     static func getInboxMessageMetadata(inboxMessage: InboxMessage) -> String? {
         var inboxMessageMetadata = inboxMessage.metadata

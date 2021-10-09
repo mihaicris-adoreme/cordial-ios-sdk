@@ -40,7 +40,7 @@ class SettingsViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.saveTestInitData()
+        self.saveSettingsData()
     }
     
     @IBAction func choosePresetAction(_ sender: UIButton) {
@@ -82,7 +82,7 @@ class SettingsViewController: UIViewController {
 
     }
     
-    func saveTestInitData() {
+    func saveSettingsData() {
         if let eventsStreamURL = self.eventsStreamURLTextField.text,
            let messageHubURL = self.messageHubURLTextField.text,
            let accountKey = self.accountKeyTextField.text,
@@ -98,7 +98,13 @@ class SettingsViewController: UIViewController {
            let maxCachableMessageSizeString = self.inboxMaxCachableMessageSizeTextField.text,
            let maxCachableMessageSize = Int(maxCachableMessageSizeString) {
             
+            App.setAccountKey(accountKey: accountKey)
+            App.setChannelKey(channelKey: channelKey)
+            App.setEventsStreamURL(eventsStreamURL: eventsStreamURL)
+            App.setMessageHubURL(messageHubURL: messageHubURL)
+            
             CordialApiConfiguration.shared.initialize(accountKey: accountKey, channelKey: channelKey, eventsStreamURL: eventsStreamURL, messageHubURL: messageHubURL)
+            
             CordialApiConfiguration.shared.qtyCachedEventQueue = abs(qtyCachedEventQueue)
             CordialApiConfiguration.shared.eventsBulkSize = abs(eventsBulkSize)
             CordialApiConfiguration.shared.eventsBulkUploadInterval = abs(eventsBulkUploadInterval)
