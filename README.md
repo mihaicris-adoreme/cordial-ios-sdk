@@ -29,6 +29,10 @@
 
 # Installation
 
+## Swift Package Manager
+
+For adding CordialSDK to your project via Swift Package Manager use this repository: `git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git`
+
 ## Cocoapods
 
 Make sure you have access to CordialSDK gitlab repo. We recommend adding your SSH key to Gitlab. After that, specify CordialSDK in your Podfile:
@@ -107,8 +111,35 @@ CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channe
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"test_account_key" channelKey:@"test_channel_key"];
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:NULL messageHubURL:NULL];
 ```
+
+To change base host url, pass the new value as `eventsStreamURL` param via the `CordialApiConfiguration.initialize` method:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "your_events_stream_URL")
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"your_events_stream_URL" messageHubURL:NULL];
+```
+
+To change message hub host url, pass the new value as `messageHubURL` param next to `eventsStreamURL` param via the `CordialApiConfiguration.initialize` method:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "your_events_stream_URL", messageHubURL: "your_message_hub_URL")
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"your_events_stream_URL" messageHubURL:@"your_message_hub_URL"];
+```
+
 **Note**: The maximum number of cached events can be set during the initialization step. If not stated, the default limit will be set to 1,000 cached events.
 
 After initializing, the SDK will automatically start tracking internal events as they occur in the application. Those events are:
@@ -543,6 +574,19 @@ ___
 ```
 YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImplementationOfCordialDeepLinksHandler alloc] init];
 [CordialApiConfiguration shared].cordialDeepLinksDelegate = cordialDeepLinksHandler;
+```
+
+#### Have the SDK opening deep links unknown to the application
+In case the SDK calls `openDeepLink` function at the protocol `CordialDeepLinksDelegate` with a deep link url that the application doesn't know how to handle, the app should ask the SDK to open the deep link in a web browser. The application can open the deep link in a web browser itself but in this case revenue attribution flow may be lost. In order to tell the SDK to open an unknown deep link, call `completionHandler` callback in your `openDeepLink` method, passing it `OPEN_IN_BROWSER` option:
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+completionHandler(.OPEN_IN_BROWSER)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+completionHandler(CordialDeepLinkActionTypeOPEN_IN_BROWSER);
 ```
 
 #### Opening deep links from a killed application
@@ -1097,6 +1141,17 @@ AppliationView()
     }.onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
     	// deepLinkURL is the @State variable that will trigger view refresh
         self.deepLinkURL = deepLinks.url
+    }
+```
+
+Opening unknown deep links:
+
+```
+AppliationView()
+    .onOpenURL { url in
+        CordialSwiftUIDeepLinksHandler().processDeepLink(url: url)
+    }.onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
+        deepLinks.completionHandler(.OPEN_IN_BROWSER)
     }
 ```
 
