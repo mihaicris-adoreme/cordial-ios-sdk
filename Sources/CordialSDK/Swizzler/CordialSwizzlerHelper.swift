@@ -36,12 +36,12 @@ class CordialSwizzlerHelper {
             CoreDataManager.shared.inboxMessagesCache.removeInboxMessageFromCoreData(mcID: mcID)
             CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContentFromCoreData(mcID: mcID)
             
-            //UIKit
+            // UIKit
             if let inboxMessageDelegate = CordialApiConfiguration.shared.inboxMessageDelegate {
                 inboxMessageDelegate.newInboxMessageDelivered(mcID: mcID)
             }
             
-            //SwiftUI
+            // SwiftUI
             if #available(iOS 13.0, *) {
                 DispatchQueue.main.async {
                     CordialSwiftUIInboxMessagePublisher.shared.publishNewInboxMessageDelivered(mcID: mcID)
@@ -55,12 +55,12 @@ class CordialSwizzlerHelper {
         
         let token = internalCordialAPI.getPreparedRemoteNotificationsDeviceToken(deviceToken: deviceToken)
         
-        //UIKit
+        // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.apnsTokenReceived(token: token)
         }
         
-        //SwiftUI
+        // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
                 CordialSwiftUIPushNotificationPublisher.shared.publishApnsTokenReceived(token: token)
@@ -116,10 +116,13 @@ class CordialSwizzlerHelper {
             if let host = url.host,
                CordialApiConfiguration.shared.vanityDomains.contains(host) {
                 
-                NotificationManager.shared.emailDeepLink = url.absoluteString
+                NotificationManager.shared.vanityDeepLink = url.absoluteString
             } else {
                 InternalCordialAPI().sentEventDeepLinkOpen()
-                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
+                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+
+                    InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                })
             }
             
             return true
@@ -135,7 +138,10 @@ class CordialSwizzlerHelper {
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil)
+            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                
+                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+            })
             
             return true
         }
@@ -153,10 +159,13 @@ class CordialSwizzlerHelper {
             if let host = url.host,
                CordialApiConfiguration.shared.vanityDomains.contains(host) {
                 
-                NotificationManager.shared.emailDeepLink = url.absoluteString
+                NotificationManager.shared.vanityDeepLink = url.absoluteString
             } else {
                 InternalCordialAPI().sentEventDeepLinkOpen()
-                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
+                    
+                    InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                })
             }
         }
     }
@@ -169,7 +178,10 @@ class CordialSwizzlerHelper {
             let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene)
+            cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
+                
+                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+            })
         }
     }
         

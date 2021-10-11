@@ -162,8 +162,32 @@ class InternalCordialAPI {
     
     // MARK: Get mc tap time
     
-    func getMcTapTime() -> String? {
+    func getCurrentMcTapTime() -> String? {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
+    }
+    
+    // MARK: Move back to previous mcID
+    
+    func moveBackToPreviousMcID() {
+        if let mcID = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID) {
+            CordialUserDefaults.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
+        }
+        
+        if let mcTapTime = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID_TAP_TIME) {
+            CordialUserDefaults.set(mcTapTime, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
+        }
+    }
+    
+    // MARK: Save previous mcID
+    
+    func savePreviousMcID() {
+        if let mcID = CordialAPI().getCurrentMcID() {
+            CordialUserDefaults.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID)
+        }
+        
+        if let mcTapTime = self.getCurrentMcTapTime() {
+            CordialUserDefaults.set(mcTapTime, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID_TAP_TIME)
+        }
     }
     
     // MARK: Set JSON Web Token
@@ -303,8 +327,46 @@ class InternalCordialAPI {
         // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
-                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil)
+                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                    
+                    InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                })
             }
+        }
+    }
+    
+    // MARK: Deep link action
+    
+    func deepLinkAction(deepLinkActionType: CordialDeepLinkActionType) {
+        switch deepLinkActionType {
+        case .OPEN_IN_BROWSER:
+            if !NotificationManager.shared.originDeepLink.isEmpty,
+               let originDeepLinkURL = URL(string: NotificationManager.shared.originDeepLink) {
+                
+                self.moveBackToPreviousMcID()
+                
+                NotificationManager.shared.originDeepLink = String()
+                
+                guard var urlComponents = URLComponents(url: originDeepLinkURL, resolvingAgainstBaseURL: true) else {
+                    return
+                }
+                
+                let keyForSkipTracking = [URLQueryItem(name: "cookie-only", value: "1")]
+                if var queryItems = urlComponents.queryItems {
+                    queryItems += keyForSkipTracking
+                    urlComponents.queryItems = queryItems
+                } else {
+                    urlComponents.queryItems = keyForSkipTracking
+                }
+                
+                DispatchQueue.main.async {
+                    if let url = urlComponents.url {
+                        UIApplication.shared.open(url)
+                    }
+                }
+            }
+        case .NO_ACTION:
+            break
         }
     }
     

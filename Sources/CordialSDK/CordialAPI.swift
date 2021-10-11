@@ -58,7 +58,7 @@ import os.log
     // MARK: Open deep link
     
     @objc public func openDeepLink(url: URL) {
-        CordialEmailDeepLink().open(url: url)
+        CordialVanityDeepLink().open(url: url)
     }
     
     // MARK: Get current mcID
@@ -70,6 +70,8 @@ import os.log
     // MARK: Set current mcID
     
     @objc public func setCurrentMcID(mcID: String) {
+        InternalCordialAPI().savePreviousMcID()
+        
         CordialUserDefaults.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
         CordialUserDefaults.set(CordialDateFormatter().getCurrentTimestamp(), forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
     }

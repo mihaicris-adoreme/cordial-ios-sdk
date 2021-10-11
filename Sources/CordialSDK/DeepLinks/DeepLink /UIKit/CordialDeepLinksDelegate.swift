@@ -10,9 +10,9 @@ import UIKit
 
 @objc public protocol CordialDeepLinksDelegate {
     
-    @objc func openDeepLink(url: URL, fallbackURL: URL?)
+    @objc func openDeepLink(url: URL, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void)
     
     @available(iOS 13.0, *)
-    @objc func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene)
+    @objc func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void)
     
 }

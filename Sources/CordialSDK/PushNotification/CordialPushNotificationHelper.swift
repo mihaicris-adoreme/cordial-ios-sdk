@@ -23,12 +23,12 @@ class CordialPushNotificationHelper {
     }
     
     func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
-        //UIKit
+        // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.appOpenViaNotificationTap(notificationContent: userInfo)
         }
         
-        //SwiftUI
+        // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
                 CordialSwiftUIPushNotificationPublisher.shared.publishAppOpenViaNotificationTap(notificationContent: userInfo)
@@ -77,15 +77,27 @@ class CordialPushNotificationHelper {
                 DispatchQueue.main.async {
                     if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
                         if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, scene: scene)
+                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, scene: scene, completionHandler: { deepLinkActionType in
+                                
+                                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                            })
                         } else {
-                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
+                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
+                                
+                                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                            })
                         }
                     } else {
                         if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, scene: scene)
+                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
+                                
+                                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                            })
                         } else {
-                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil)
+                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                                
+                                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                            })
                         }
                     }
                 }
@@ -95,9 +107,15 @@ class CordialPushNotificationHelper {
             if #available(iOS 13.0, *) {
                 DispatchQueue.main.async {
                     if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
-                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: fallbackURL)
+                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
+                            
+                            InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                        })
                     } else {
-                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: nil)
+                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                            
+                            InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                        })
                     }
                 }
             }
@@ -113,12 +131,12 @@ class CordialPushNotificationHelper {
     }
     
     func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
-        //UIKit
+        // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.notificationDeliveredInForeground(notificationContent: userInfo)
         }
         
-        //SwiftUI
+        // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
                 CordialSwiftUIPushNotificationPublisher.shared.publishNotificationDeliveredInForeground(notificationContent: userInfo)

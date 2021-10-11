@@ -10,14 +10,13 @@ import Foundation
 import CordialSDK
 
 class DeepLinksHandler: CordialDeepLinksDelegate {
-    
-    func openDeepLink(url: URL, fallbackURL: URL?) {
-
+    func openDeepLink(url: URL, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+        
     }
     
     @available(iOS 13.0, *)
-    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene) {
-
+    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+        
     }
     
 }

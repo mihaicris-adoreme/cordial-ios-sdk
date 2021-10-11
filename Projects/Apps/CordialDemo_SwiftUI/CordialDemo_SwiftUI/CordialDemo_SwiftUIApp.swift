@@ -21,6 +21,7 @@ struct CordialDemo_SwiftUIApp: App {
         CordialApiConfiguration.shared.eventsBulkSize = 3
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
+        CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "events-handling-svc.cordial.io"]
     }
     
     var body: some Scene {

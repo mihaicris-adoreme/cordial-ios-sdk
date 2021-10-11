@@ -1,5 +1,5 @@
 //
-//  CordialEmailDeepLinkURLSession.swift
+//  CordialVanityDeepLinkURLSession.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 13.01.2021.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CordialEmailDeepLinkURLSession: NSObject, URLSessionDelegate, URLSessionTaskDelegate {
+class CordialVanityDeepLinkURLSession: NSObject, URLSessionDelegate, URLSessionTaskDelegate {
     
     lazy var session: URLSessionProtocol = {
         let config = URLSessionConfiguration.default

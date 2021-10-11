@@ -15,17 +15,19 @@ class MockSMSDeepLinkDelegate: CordialDeepLinksDelegate {
     
     let sdkTests = CordialSDKTests()
     
-    func openDeepLink(url: URL, fallbackURL: URL?) {
+    func openDeepLink(url: URL, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+        
         self.testDeepLinks(url: url, fallbackURL: fallbackURL)
     }
     
     @available(iOS 13.0, *)
-    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene) {
+    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+        
         self.testDeepLinks(url: url, fallbackURL: fallbackURL)
     }
     
     private func testDeepLinks(url: URL, fallbackURL: URL?) {
-        XCTAssertEqual(url.absoluteString, self.sdkTests.testEmailDeepLinkURL, "DeepLinkURL keys don't match")
+        XCTAssertEqual(url.absoluteString, self.sdkTests.testVanityDeepLinkURL, "DeepLinkURL keys don't match")
         
         self.isVerified = true
     }

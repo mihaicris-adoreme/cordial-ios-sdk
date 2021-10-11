@@ -43,7 +43,8 @@ class NotificationManager {
     
     var isNotificationManagerHasNotBeenSettedUp = true
     
-    var emailDeepLink = String()
+    var vanityDeepLink = String()
+    var originDeepLink = String()
     
     var appMovedToBackgroundBackgroundTaskID: UIBackgroundTaskIdentifier?
 
@@ -111,8 +112,8 @@ class NotificationManager {
         // IAM show
         InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
         
-        if let emailDeepLinkURL = URL(string: self.emailDeepLink) {
-            CordialEmailDeepLink().open(url: emailDeepLinkURL)
+        if let vanityDeepLinkURL = URL(string: self.vanityDeepLink) {
+            CordialVanityDeepLink().open(url: vanityDeepLinkURL)
         }
     }
     

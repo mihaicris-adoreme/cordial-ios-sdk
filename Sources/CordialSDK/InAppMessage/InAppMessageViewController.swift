@@ -218,7 +218,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             let mcID = self.inAppMessageData.mcID
             
             self.cordialAPI.setCurrentMcID(mcID: mcID)
-            CordialEmailDeepLink().open(url: url)
+            CordialVanityDeepLink().open(url: url)
             
             self.removeInAppMessage()
             
@@ -259,7 +259,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             if let deepLink = dict["deepLink"] as? String, let url = URL(string: deepLink) {
                 self.cordialAPI.setCurrentMcID(mcID: mcID)
-                CordialEmailDeepLink().open(url: url)
+                CordialVanityDeepLink().open(url: url)
             }
             
             if let eventName = dict["eventName"] as? String {
@@ -274,12 +274,12 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                         }
                     }
                     
-                    //UIKit
+                    // UIKit
                     if let inAppMessageInputsDelegate = CordialApiConfiguration.shared.inAppMessageInputsDelegate {
                         inAppMessageInputsDelegate.inputsCaptured(eventName: eventName, properties: properties)
                     }
                     
-                    //SwiftUI
+                    // SwiftUI
                     if #available(iOS 13.0, *) {
                         DispatchQueue.main.async {
                             CordialSwiftUIInAppMessagePublisher.shared.publishInputsCaptured(eventName: eventName, properties: properties)
