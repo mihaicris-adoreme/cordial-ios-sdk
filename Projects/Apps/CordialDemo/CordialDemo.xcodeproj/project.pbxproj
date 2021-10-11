@@ -232,6 +232,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E00A42C2714777600C14523 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		9E00ED32227080B200684F40 /* Footer */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,6 +338,7 @@
 				9E7A5A8B222EB64C0020054F /* CordialDemoUITests */,
 				9E77896A22878C090089C986 /* NotificationServiceExtension */,
 				9E7A5A67222EB64B0020054F /* Products */,
+				9E00A42C2714777600C14523 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
