@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name          = "CordialSDK"
-  spec.version       = "2.6.2"
+  spec.version       = "3.0.0"
   spec.summary       = "CordialSDK"
 
   spec.description   = <<-DESC
@@ -20,9 +20,9 @@ Pod::Spec.new do |spec|
 
   spec.source        = { :git => "https://gitlab.com/cordialinc/mobile-sdk/ios-sdk.git", :tag => "#{spec.version}" }
 
-  spec.source_files  = "CordialSDK", "CordialSDK/CordialSDK/**/*.{swift}", "CordialSDK/CordialSDK/CordialSDK.h"
+  spec.source_files  = "CordialSDK", "Sources/CordialSDK/**/*.{swift}", "Projects/Frameworks/CordialSDK/CordialSDK.h"
 
-  spec.resource_bundles = { "CordialSDK" => ["CordialSDK/CordialSDK/**/*.{xcdatamodeld}", "CordialSDK/CordialSDK/**/*.{js}"] }
+  spec.resource_bundles = { "CordialSDK" => ["Sources/CordialSDK/**/*.{xcdatamodeld}", "Sources/CordialSDK/**/*.{js}"] }
 
   spec.requires_arc  = true
 

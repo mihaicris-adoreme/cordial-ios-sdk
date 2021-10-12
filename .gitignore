@@ -4,4 +4,10 @@
 # Ignore JetBrains
 .idea/
 
-
+# Ignore SPM
+/.build
+/Packages
+/*.xcodeproj
+xcuserdata/
+DerivedData/
+.swiftpm/
