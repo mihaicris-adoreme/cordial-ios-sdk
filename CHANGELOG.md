@@ -2,15 +2,21 @@
 
 The latest version of this file can be found at the master branch.
 
-## 3.0.0 (2021-10-11)
+## 3.0.0 (2021-10-12)
 
 ### Added
 
-- Added Swift Package Manager support 
-- Created unified interface for setting events stream and message hub service urls
+- Swift Package Manager support
+- Unified interface for setting events stream and message hub service urls
 - Handle case where app developer wants to open a deep link in the web browser
-- Removed deprecated `CartItem` initialization
 - Prevent possible SDK crashes on deserializing `Order`, `Address` and `CartItem` objects
+
+### Removed
+
+- Deprecated `CartItem` initialization
+
+### Changed
+
 - Rename `CordialAppExtensions_Swift` to `CordialAppExtensions`
 
 ## 2.6.2 (2021-09-13)
