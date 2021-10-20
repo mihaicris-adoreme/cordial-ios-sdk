@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 3.0.1 (2021-10-20)
+
+### Fixed
+
+- Allow upserting a contact without having a primary key 
+
 ## 3.0.0 (2021-10-12)
 
 ### Added
