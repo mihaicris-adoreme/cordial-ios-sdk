@@ -15,7 +15,7 @@ import CoreLocation
     
     private override init() {}
     
-    let sdkVersion = "3.0.0"
+    let sdkVersion = "3.0.1"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
