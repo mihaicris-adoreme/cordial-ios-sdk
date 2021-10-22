@@ -27,6 +27,7 @@
                             </state>
                             <connections>
                                 <action selector="updateProfileAction:" destination="-1" eventType="touchUpInside" id="NND-DU-2aS"/>
+                                <action selector="updateProfileAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="WGQ-IV-E6W"/>
                                 <action selector="updateProfileAction:" destination="-2" eventType="touchUpInside" id="rkw-vS-2s2"/>
                             </connections>
                         </button>
