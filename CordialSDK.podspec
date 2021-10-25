@@ -24,6 +24,10 @@ Pod::Spec.new do |spec|
 
   spec.resource_bundles = { "CordialSDK" => ["Sources/CordialSDK/**/*.{xcdatamodeld}", "Sources/CordialSDK/**/*.{js}"] }
 
+  spec.ios.vendored_frameworks = "Sources/CordialSDK.framework"
+
+  spec.static_framework = true
+
   spec.requires_arc  = true
 
 end
