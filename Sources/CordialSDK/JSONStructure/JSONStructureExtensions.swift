@@ -51,7 +51,7 @@ extension Box: Boxable {
 }
 
 extension NSNumber: ObjCBoxable {
-    var mustacheBoxWrapper: ObjCBoxWrapper {
+    var mustacheBoxWrapper: ObjCBoxWrapper? {
         switch CFGetTypeID(self as CFTypeRef) {
             case CFBooleanGetTypeID():
                 return ObjCBoxWrapper(JSONStructure().box(boolValue))
@@ -90,27 +90,28 @@ extension NSNumber: ObjCBoxable {
                 case .cgFloatType:
                     return ObjCBoxWrapper(JSONStructure().box(doubleValue))
                 default:
-                    fatalError("Not implemented yet")
+                    return nil
                 }
             default:
-                fatalError("Not implemented yet")
+                return nil
         }
     }
 }
 
 extension NSString: ObjCBoxable {
-    var mustacheBoxWrapper: ObjCBoxWrapper {
+    var mustacheBoxWrapper: ObjCBoxWrapper? {
         return ObjCBoxWrapper(JSONStructure().box(self as String))
     }
 }
 
 extension NSDictionary: ObjCBoxable {
-    var mustacheBoxWrapper: ObjCBoxWrapper {
+    var mustacheBoxWrapper: ObjCBoxWrapper? {
         var boxedDictionary: [String: Box] = [:]
         for (key, value) in self {
             if let key = key as? String {
-                if let objCBoxable = value as? ObjCBoxable {
-                    boxedDictionary[key] = objCBoxable.mustacheBoxWrapper.box
+                if let objCBoxable = value as? ObjCBoxable,
+                   let box = objCBoxable.mustacheBoxWrapper?.box {
+                    boxedDictionary[key] = box
                 }
             }
         }
@@ -119,11 +120,12 @@ extension NSDictionary: ObjCBoxable {
 }
 
 extension NSArray: ObjCBoxable {
-    var mustacheBoxWrapper: ObjCBoxWrapper {
+    var mustacheBoxWrapper: ObjCBoxWrapper? {
         var boxedArray: [Box] = []
         for value in self {
-            if let objCBoxable = value as? ObjCBoxable {
-                boxedArray.append(objCBoxable.mustacheBoxWrapper.box)
+            if let objCBoxable = value as? ObjCBoxable,
+               let box = objCBoxable.mustacheBoxWrapper?.box {
+                boxedArray.append(box)
             }
         }
         return ObjCBoxWrapper(JSONStructure().box(boxedArray))

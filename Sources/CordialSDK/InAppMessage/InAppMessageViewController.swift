@@ -269,8 +269,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                     
                     var properties = [String: Any]()
                     inputsMapping.forEach { (key: String, value: Any) in
-                        if let boxValue = value as? ObjCBoxable {
-                            properties[key] = JSONStructure().box(boxValue).value
+                        if let boxValue = value as? ObjCBoxable,
+                           let value = JSONStructure().box(boxValue)?.value {
+                            properties[key] = value
                         }
                     }
                     
