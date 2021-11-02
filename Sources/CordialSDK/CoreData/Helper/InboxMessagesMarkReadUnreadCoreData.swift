@@ -15,7 +15,7 @@ class InboxMessagesMarkReadUnreadCoreData {
     let entityName = "InboxMessagesReadUnreadMarks"
     
     func putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
@@ -36,13 +36,14 @@ class InboxMessagesMarkReadUnreadCoreData {
     }
     
     func fetchInboxMessagesMarkReadUnreadDataFromCoreData() -> [InboxMessagesMarkReadUnreadRequest] {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        var inboxMessagesMarkReadUnreadRequests = [InboxMessagesMarkReadUnreadRequest]()
+        
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return inboxMessagesMarkReadUnreadRequests }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
-        var inboxMessagesMarkReadUnreadRequests = [InboxMessagesMarkReadUnreadRequest]()
         do {
             let result = try context.fetch(request)
             for managedObject in result as! [NSManagedObject] {

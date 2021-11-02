@@ -15,7 +15,7 @@ class InAppMessageContentURLCoreData {
     let entityName = "InAppMessageContentURL"
     
     func putInAppMessageContentToCoreData(inAppMessageContent: InAppMessageContent) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
@@ -35,7 +35,7 @@ class InAppMessageContentURLCoreData {
     }
     
     func getInAppMessageContentFromCoreDataByMcID(mcID: String) -> InAppMessageContent? {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
