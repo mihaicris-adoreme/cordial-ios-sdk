@@ -88,18 +88,14 @@ class InAppMessage {
             
             return InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
         case InAppMessageType.banner_up:
-            let height = inAppMessageParams.height
-            
             let top = 5
             let right = 5
-            let bottom = Int(100 - Double(height) / 100.0 * 100)
+            let bottom = 5
             let left = 5
             
             return InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
         case InAppMessageType.banner_bottom:
-            let height = inAppMessageParams.height
-            
-            let top = Int(100 - Double(height) / 100.0 * 100)
+            let top = 5
             let right = 5
             let bottom = 5
             let left = 5
