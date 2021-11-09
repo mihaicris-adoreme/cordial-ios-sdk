@@ -81,7 +81,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                         self.webView.center = CGPoint(x: self.webView.center.x, y: self.bannerCenterY)
                     })
                 } else if (self.inAppMessageData.type == InAppMessageType.banner_up && self.bannerCenterY > y) || (self.inAppMessageData.type == InAppMessageType.banner_bottom && self.bannerCenterY < y) {
-                    self.webView.bringSubviewToFront(self.webView)
+                    self.webView.superview?.bringSubviewToFront(self.webView)
                     self.webView.center = CGPoint(x: self.webView.center.x, y: y)
                     sender.setTranslation(CGPoint.zero, in: self.webView)
                 }
@@ -145,7 +145,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         
         UIView.animate(withDuration: duration, animations: {
             let x = self.webView.frame.origin.x
-            var y = self.webView.frame.origin.y + self.webView.frame.size.height
+            var y = self.webView.center.y + self.webView.frame.size.height
             
             if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top,
                let safeAreaInsetsBottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
