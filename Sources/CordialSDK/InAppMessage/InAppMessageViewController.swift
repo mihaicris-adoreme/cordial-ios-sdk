@@ -303,30 +303,26 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     private func determineContentHeightInternalAction(messageBody: Any) {
         if let dict = messageBody as? NSDictionary {
             
-            if let clientHeight = dict["clientHeight"] as? Double,
-               let scrollHeight = dict["scrollHeight"] as? Double {
-                                      
+            if var height = dict["clientHeight"] as? Double {
                 let screenBounds = UIScreen.main.bounds
                 
-                let width = screenBounds.size.width - screenBounds.size.width * (CGFloat(inAppMessageData.left) / 100 + CGFloat(inAppMessageData.right) / 100)
-//                let height = screenBounds.size.height - screenBounds.size.height * (CGFloat(inAppMessageData.top) / 100 + CGFloat(inAppMessageData.bottom) / 100)
-                let height = clientHeight
-                
-                let size = CGSize(width: width, height: height)
+                let width = screenBounds.size.width - screenBounds.size.width * (CGFloat(self.inAppMessageData.left) / 100 + CGFloat(self.inAppMessageData.right) / 100)
                 
                 if self.isBanner {
                     let x = (screenBounds.size.width - width) / 2
                     
                     var y = CGFloat()
-                    switch inAppMessageData.type {
+                    switch self.inAppMessageData.type {
                     case InAppMessageType.banner_up:
-                        y = screenBounds.size.height * CGFloat(inAppMessageData.top) / 100.0
+                        y = screenBounds.size.height * CGFloat(self.inAppMessageData.top) / 100.0
                     case InAppMessageType.banner_bottom:
-                        y = screenBounds.size.height - (screenBounds.size.height * CGFloat(inAppMessageData.top) / 100.0) - height
+                        y = screenBounds.size.height - (screenBounds.size.height * CGFloat(self.inAppMessageData.top) / 100.0) - height
                     default: break
                     }
                     
                     let origin = CGPoint(x: x, y: y)
+                    
+                    let size = CGSize(width: width, height: height)
                     
                     let inAppMessageSize = CGRect(origin: origin, size: size)
                     
@@ -335,8 +331,22 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                     self.bannerCenterY = self.webView.center.y
                 } else {
                     let x = (screenBounds.size.width - width) / 2
-                    let y = (screenBounds.size.height - clientHeight) / 2
+                    
+                    if height > screenBounds.size.height {
+                        height = screenBounds.size.height - screenBounds.size.height * (CGFloat(self.inAppMessageData.top) / 100 + CGFloat(self.inAppMessageData.bottom) / 100)
+                        
+                        self.webView.scrollView.isScrollEnabled = true
+                        self.webView.scrollView.showsHorizontalScrollIndicator = false
+                        self.webView.scrollView.showsVerticalScrollIndicator = false
+                    } else if self.inAppMessageData.type == .fullscreen {
+                        height = screenBounds.size.height
+                    }
+                    
+                    let y = (screenBounds.size.height - height) / 2
+                    
                     let origin = CGPoint(x: x, y: y)
+                                                    
+                    let size = CGSize(width: width, height: height)
                     
                     let inAppMessageSize = CGRect(origin: origin, size: size)
                     

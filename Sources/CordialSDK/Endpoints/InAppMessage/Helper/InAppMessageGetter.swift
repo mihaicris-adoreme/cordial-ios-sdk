@@ -109,9 +109,9 @@ class InAppMessageGetter {
     
     func InAppMessageOptionalParamsDefaultValues() -> (Int16, Int16, Int16, Int16, Int16) {
         let height = Int16(20)
-        let top = Int16(15)
+        let top = Int16(5)
         let right = Int16(10)
-        let bottom = Int16(20)
+        let bottom = Int16(5)
         let left = Int16(10)
         
         return (height, top, right, bottom, left)

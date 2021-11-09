@@ -73,13 +73,6 @@ class InAppMessage {
         let expirationTime = inAppMessageParams.expirationTime
         
         switch type {
-        case InAppMessageType.modal:
-            let top = Int(inAppMessageParams.top)
-            let right = Int(inAppMessageParams.right)
-            let bottom = Int(inAppMessageParams.bottom)
-            let left = Int(inAppMessageParams.left)
-            
-            return InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
         case InAppMessageType.fullscreen:
             let top = 0
             let right = 0
@@ -87,18 +80,11 @@ class InAppMessage {
             let left = 0
             
             return InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
-        case InAppMessageType.banner_up:
-            let top = 5
-            let right = 5
-            let bottom = 5
-            let left = 5
-            
-            return InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
-        case InAppMessageType.banner_bottom:
-            let top = 5
-            let right = 5
-            let bottom = 5
-            let left = 5
+        default:
+            let top = Int(inAppMessageParams.top)
+            let right = Int(inAppMessageParams.right)
+            let bottom = Int(inAppMessageParams.bottom)
+            let left = Int(inAppMessageParams.left)
             
             return InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
         }
