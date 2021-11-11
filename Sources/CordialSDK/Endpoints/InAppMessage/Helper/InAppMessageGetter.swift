@@ -29,11 +29,11 @@ class InAppMessageGetter {
             let type = self.getInAppMessageType(typeString: typeString)
             let displayType = self.getInAppMessageDisplayType(displayTypeString: displayTypeString)
             
-            let (height, top, right, bottom, left, expirationTime) = self.InAppMessageOptionalParams(userInfo: userInfo)
+            let (top, right, bottom, left, expirationTime) = self.InAppMessageOptionalParams(userInfo: userInfo)
             
             let inactiveSessionDisplay = self.getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
             
-            let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
+            let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
             
             CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: [inAppMessageParams])
         }
@@ -76,13 +76,9 @@ class InAppMessageGetter {
         }
     }
     
-    private func InAppMessageOptionalParams(userInfo: [AnyHashable : Any]) -> (Int16, Int16, Int16, Int16, Int16, Date?) {
-        var (height, top, right, bottom, left) = self.InAppMessageOptionalParamsDefaultValues()
+    private func InAppMessageOptionalParams(userInfo: [AnyHashable : Any]) -> (Int16, Int16, Int16, Int16, Date?) {
+        var (top, right, bottom, left) = self.InAppMessageOptionalParamsDefaultValues()
         var expirationTime: Date?
-        
-        if let userInfoHeight = self.pushNotificationParser.getBannerHeightIAM(userInfo: userInfo) {
-            height = userInfoHeight
-        }
         
         if let userInfoTop = self.pushNotificationParser.getModalTopMarginIAM(userInfo: userInfo) {
             top = userInfoTop
@@ -104,17 +100,16 @@ class InAppMessageGetter {
             expirationTime = CordialDateFormatter().getDateFromTimestamp(timestamp: expirationTimeTimestamp)
         }
         
-        return (height, top, right, bottom, left, expirationTime)
+        return (top, right, bottom, left, expirationTime)
     }
     
-    func InAppMessageOptionalParamsDefaultValues() -> (Int16, Int16, Int16, Int16, Int16) {
-        let height = Int16(20)
+    func InAppMessageOptionalParamsDefaultValues() -> (Int16, Int16, Int16, Int16) {
         let top = Int16(5)
         let right = Int16(10)
         let bottom = Int16(5)
         let left = Int16(10)
         
-        return (height, top, right, bottom, left)
+        return (top, right, bottom, left)
     }
     
     func fetchInAppMessage(mcID: String) {

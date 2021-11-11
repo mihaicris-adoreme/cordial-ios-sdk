@@ -56,12 +56,8 @@ class InAppMessagesGetter {
             let displayType = self.inAppMessageGetter.getInAppMessageDisplayType(displayTypeString: displayTypeString)
             let inactiveSessionDisplay = self.inAppMessageGetter.getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
             
-            var (height, top, right, bottom, left) = self.inAppMessageGetter.InAppMessageOptionalParamsDefaultValues()
+            var (top, right, bottom, left) = self.inAppMessageGetter.InAppMessageOptionalParamsDefaultValues()
             var expirationTime: Date?
-            
-            if let bannerHeight = self.inAppMessage.getBannerHeightIAM(payload: message) {
-                height = bannerHeight
-            }
             
             if let modalTopMargin = self.inAppMessage.getModalTopMarginIAM(payload: message) {
                 top = modalTopMargin
@@ -83,7 +79,7 @@ class InAppMessagesGetter {
                 expirationTime = cordialDateFormatter.getDateFromTimestamp(timestamp: expirationTimeTimestamp)
             }
             
-            let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
+            let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
             
             inAppMessagesParams.append(inAppMessageParams)
             mcIDs.append(mcID)

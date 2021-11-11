@@ -69,18 +69,6 @@ class CordialPushNotificationParserInAppMessage {
         return nil
     }
     
-    // MARK: Get in app message banner height
-    
-    func getBannerHeightIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
-        if let system = userInfo["system"] as? [String: AnyObject],
-            let iam = system["iam"] as? [String: AnyObject],
-            let height = InAppMessage().getBannerHeightIAM(payload: iam) {
-                return height
-        }
-        
-        return nil
-    }
-    
     // MARK: Get in app message modal top margin
     
     func getModalTopMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {

@@ -40,7 +40,21 @@ class CoreDataManager {
     
         if let managedObjectModel = self.getManagedObjectModel() {
             let container = NSPersistentContainer(name: self.modelName, managedObjectModel: managedObjectModel)
-            container.loadPersistentStores(completionHandler: { (storeDescription, error) in })
+            
+            let description = NSPersistentStoreDescription()
+
+            description.shouldInferMappingModelAutomatically = true
+            description.shouldMigrateStoreAutomatically = true
+
+            container.persistentStoreDescriptions.append(description)
+            
+            container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+                if let error = error as NSError? {
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("CoreData Unresolved Error: [%{public}@], Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, error.userInfo)
+                    }
+                 }
+            })
             
             return container
         }

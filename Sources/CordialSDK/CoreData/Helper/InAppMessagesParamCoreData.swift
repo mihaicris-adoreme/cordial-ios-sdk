@@ -26,7 +26,6 @@ class InAppMessagesParamCoreData {
                     newRow.setValue(inAppMessageParams.mcID, forKey: "mcID")
                     newRow.setValue(inAppMessageParams.date, forKey: "date")
                     newRow.setValue(inAppMessageParams.type.rawValue, forKey: "type")
-                    newRow.setValue(inAppMessageParams.height, forKey: "height")
                     newRow.setValue(inAppMessageParams.top, forKey: "top")
                     newRow.setValue(inAppMessageParams.right, forKey: "right")
                     newRow.setValue(inAppMessageParams.bottom, forKey: "bottom")
@@ -96,9 +95,6 @@ class InAppMessagesParamCoreData {
                 let typeString = managedObjectType as! String
                 let type = inAppMessageGetter.getInAppMessageType(typeString: typeString)
                 
-                guard let managedObjectHeight = managedObject.value(forKey: "height") else { continue }
-                let height = managedObjectHeight as! Int16
-                
                 guard let managedObjectTop = managedObject.value(forKey: "top") else { continue }
                 let top = managedObjectTop as! Int16
                 
@@ -122,7 +118,7 @@ class InAppMessagesParamCoreData {
                 let inactiveSessionDisplayString = managedObjectInactiveSessionDisplay as! String
                 let inactiveSessionDisplay = inAppMessageGetter.getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
                 
-                let inAppMessageParams = InAppMessageParams(mcID: mcID, date: date, type: type, height: height, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
+                let inAppMessageParams = InAppMessageParams(mcID: mcID, date: date, type: type, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
                 
                 return inAppMessageParams
             }
