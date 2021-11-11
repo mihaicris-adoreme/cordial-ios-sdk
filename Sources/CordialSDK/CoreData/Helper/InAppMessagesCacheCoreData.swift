@@ -15,7 +15,7 @@ class InAppMessagesCacheCoreData {
     let entityName = "InAppMessagesCache"
     
     func setInAppMessageDataToCoreData(inAppMessageData: InAppMessageData) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
@@ -76,7 +76,7 @@ class InAppMessagesCacheCoreData {
     }
 
     private func getInAppMessageData(request: NSFetchRequest<NSFetchRequestResult>) -> InAppMessageData? {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         do {
             let result = try context.fetch(request)
@@ -105,7 +105,7 @@ class InAppMessagesCacheCoreData {
     }
     
     func deleteInAppMessageDataByMcID(mcID: String) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false

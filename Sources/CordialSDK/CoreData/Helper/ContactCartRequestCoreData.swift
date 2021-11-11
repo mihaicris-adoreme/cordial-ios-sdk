@@ -15,7 +15,7 @@ class ContactCartRequestCoreData {
     let entityName = "ContactCartRequest"
     
     func setContactCartRequestToCoreData(upsertContactCartRequest: UpsertContactCartRequest) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
@@ -37,7 +37,7 @@ class ContactCartRequestCoreData {
     }
     
     func getContactCartRequestFromCoreData() -> UpsertContactCartRequest? {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false

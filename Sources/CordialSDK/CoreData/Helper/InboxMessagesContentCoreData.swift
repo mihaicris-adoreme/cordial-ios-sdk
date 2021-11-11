@@ -19,7 +19,9 @@ class InboxMessagesContentCoreData {
         if let contentSize = content.data(using: .utf8)?.count,
            InboxMessageCache.shared.maxCacheSize > contentSize {
             
-            if InboxMessageCache.shared.maxCacheSize > self.getInboxMessagesContentSizeAtCoreData() {
+            guard let inboxMessagesContentSize = self.getInboxMessagesContentSizeAtCoreData() else { return }
+            
+            if InboxMessageCache.shared.maxCacheSize > inboxMessagesContentSize {
                 self.saveInboxMessageContentToCoreData(mcID: mcID, content: content)
             } else {
                 self.removeLastInboxMessageContentFromCoreData()
@@ -38,7 +40,7 @@ class InboxMessagesContentCoreData {
     }
     
     func getInboxMessageContentFromCoreData(mcID: String) -> String? {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -65,7 +67,7 @@ class InboxMessagesContentCoreData {
     }
     
     func removeInboxMessageContentFromCoreData(mcID: String) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -89,7 +91,7 @@ class InboxMessagesContentCoreData {
     }
     
     func removeLastInboxMessageContentFromCoreData() {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -122,7 +124,7 @@ class InboxMessagesContentCoreData {
     }
     
     private func setInboxMessageContentToCoreData(mcID: String, content: String) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newObject = NSManagedObject(entity: entity, insertInto: context)
@@ -141,8 +143,8 @@ class InboxMessagesContentCoreData {
         }
     }
     
-    private func getInboxMessagesContentSizeAtCoreData() -> Int {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+    private func getInboxMessagesContentSizeAtCoreData() -> Int? {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false

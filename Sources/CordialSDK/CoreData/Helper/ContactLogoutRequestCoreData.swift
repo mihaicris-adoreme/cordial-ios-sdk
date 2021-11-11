@@ -15,7 +15,7 @@ class ContactLogoutRequestCoreData {
     let entityName = "ContactLogout"
     
     func setContactLogoutRequestToCoreData(sendContactLogoutRequest: SendContactLogoutRequest) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
@@ -37,7 +37,7 @@ class ContactLogoutRequestCoreData {
     }
     
     func getContactLogoutRequestFromCoreData() -> SendContactLogoutRequest? {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false

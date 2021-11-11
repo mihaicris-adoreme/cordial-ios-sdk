@@ -15,7 +15,7 @@ class InAppMessagesParamCoreData {
     let entityName = "InAppMessagesParam"
  
     func setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: [InAppMessageParams]) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             
@@ -48,7 +48,7 @@ class InAppMessagesParamCoreData {
     }
     
     func getInAppMessageDateByMcID(mcID: String) -> Date? {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -75,7 +75,7 @@ class InAppMessagesParamCoreData {
     }
     
     func fetchInAppMessageParamsByMcID(mcID: String) -> InAppMessageParams? {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -136,7 +136,7 @@ class InAppMessagesParamCoreData {
     }
     
     func deleteInAppMessageParamsByMcID(mcID: String) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false

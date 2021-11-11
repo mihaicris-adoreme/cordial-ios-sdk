@@ -14,7 +14,7 @@ class CoreDataManager {
 
     static let shared = CoreDataManager()
     
-    private init(){}
+    private init() {}
     
     let coreDataSender = CoreDataSender()
     
@@ -36,26 +36,25 @@ class CoreDataManager {
     let inboxMessagesCache = InboxMessagesCacheCoreData()
     let inboxMessagesContent = InboxMessagesContentCoreData()
     
-    lazy var persistentContainer: NSPersistentContainer = {
+    lazy var persistentContainer: NSPersistentContainer? = {
     
-        let container = NSPersistentContainer(name: self.modelName, managedObjectModel: self.managedObjectModel)
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
-        
-        return container
+        if let managedObjectModel = self.getManagedObjectModel() {
+            let container = NSPersistentContainer(name: self.modelName, managedObjectModel: managedObjectModel)
+            container.loadPersistentStores(completionHandler: { (storeDescription, error) in })
+            
+            return container
+        }
+
+        return nil
     }()
     
-    fileprivate lazy var managedObjectModel: NSManagedObjectModel = {
-        
+    private func getManagedObjectModel() -> NSManagedObjectModel? {
         guard let resourceBundle = InternalCordialAPI().getResourceBundle() else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("CoreData Error: [Could not get bundle that contains the model]", log: OSLog.cordialCoreDataError, type: .error)
             }
             
-            return NSManagedObjectModel()
+            return nil
         }
         
         guard let modelURL = resourceBundle.url(forResource: self.modelName, withExtension: "momd"),
@@ -65,14 +64,14 @@ class CoreDataManager {
                 os_log("CoreData Error: [Could not get bundle for managed object model]", log: OSLog.cordialCoreDataError, type: .error)
             }
             
-            return NSManagedObjectModel()
+            return nil
         }
         
         return model
-    }()
+    }
     
     func deleteAllCoreDataByEntity(entityName: String) {
-        let context = self.persistentContainer.viewContext
+        guard let context = self.persistentContainer?.viewContext else { return }
         
         context.mergePolicy = NSMergePolicyType.overwriteMergePolicyType
         
