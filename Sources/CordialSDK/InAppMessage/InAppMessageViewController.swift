@@ -302,71 +302,70 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     func determineContentHeightInternalAction(messageBody: Any) {
-        if let dict = messageBody as? NSDictionary {
+        if let dict = messageBody as? NSDictionary,
+           var height = dict["clientHeight"] as? CGFloat {
             
-            if var height = dict["clientHeight"] as? Double {
-                let screenBounds = UIScreen.main.bounds
+            let screenBounds = UIScreen.main.bounds
+            
+            let width = screenBounds.size.width - screenBounds.size.width * (CGFloat(self.inAppMessageData.left) / 100 + CGFloat(self.inAppMessageData.right) / 100)
+            
+            let minimumHeight = screenBounds.size.height * 0.15
+            if height < minimumHeight {
+                height = minimumHeight
+            }
+            
+            if self.isBanner {
+                let x = (screenBounds.size.width - width) / 2
                 
-                let width = screenBounds.size.width - screenBounds.size.width * (CGFloat(self.inAppMessageData.left) / 100 + CGFloat(self.inAppMessageData.right) / 100)
-                
-                let minimumHeight = screenBounds.size.height * 0.15
-                if height < minimumHeight {
-                    height = minimumHeight
+                var y = CGFloat()
+                switch self.inAppMessageData.type {
+                case InAppMessageType.banner_up:
+                    y = screenBounds.size.height * CGFloat(self.inAppMessageData.top) / 100.0
+                case InAppMessageType.banner_bottom:
+                    y = screenBounds.size.height - (screenBounds.size.height * CGFloat(self.inAppMessageData.top) / 100.0) - height
+                default: break
                 }
                 
-                if self.isBanner {
-                    let x = (screenBounds.size.width - width) / 2
-                    
-                    var y = CGFloat()
-                    switch self.inAppMessageData.type {
-                    case InAppMessageType.banner_up:
-                        y = screenBounds.size.height * CGFloat(self.inAppMessageData.top) / 100.0
-                    case InAppMessageType.banner_bottom:
-                        y = screenBounds.size.height - (screenBounds.size.height * CGFloat(self.inAppMessageData.top) / 100.0) - height
-                    default: break
+                let origin = CGPoint(x: x, y: y)
+                
+                let size = CGSize(width: width, height: height)
+                
+                let inAppMessageSize = CGRect(origin: origin, size: size)
+                
+                self.webView.frame = inAppMessageSize
+                
+                self.bannerCenterY = self.webView.center.y
+            } else {
+                let x = (screenBounds.size.width - width) / 2
+                
+                switch self.inAppMessageData.type {
+                case .fullscreen:
+                    if height > screenBounds.size.height {
+                        self.webView.scrollView.isScrollEnabled = true
+                        self.webView.scrollView.showsHorizontalScrollIndicator = false
+                        self.webView.scrollView.showsVerticalScrollIndicator = false
                     }
                     
-                    let origin = CGPoint(x: x, y: y)
-                    
-                    let size = CGSize(width: width, height: height)
-                    
-                    let inAppMessageSize = CGRect(origin: origin, size: size)
-                    
-                    self.webView.frame = inAppMessageSize
-                    
-                    self.bannerCenterY = self.webView.center.y
-                } else {
-                    let x = (screenBounds.size.width - width) / 2
-                    
-                    switch self.inAppMessageData.type {
-                    case .fullscreen:
-                        if height > screenBounds.size.height {
-                            self.webView.scrollView.isScrollEnabled = true
-                            self.webView.scrollView.showsHorizontalScrollIndicator = false
-                            self.webView.scrollView.showsVerticalScrollIndicator = false
-                        }
-                        
-                        height = screenBounds.size.height
-                    default:
-                        if height > screenBounds.size.height {
-                            height = screenBounds.size.height - screenBounds.size.height * (CGFloat(self.inAppMessageData.top) / 100 + CGFloat(self.inAppMessageData.bottom) / 100)
-                                                    
-                            self.webView.scrollView.isScrollEnabled = true
-                            self.webView.scrollView.showsHorizontalScrollIndicator = false
-                            self.webView.scrollView.showsVerticalScrollIndicator = false
-                        }
+                    height = screenBounds.size.height
+                default:
+                    if height > screenBounds.size.height {
+                        height = screenBounds.size.height - screenBounds.size.height * (CGFloat(self.inAppMessageData.top) / 100 + CGFloat(self.inAppMessageData.bottom) / 100)
+                                                
+                        self.webView.scrollView.isScrollEnabled = true
+                        self.webView.scrollView.showsHorizontalScrollIndicator = false
+                        self.webView.scrollView.showsVerticalScrollIndicator = false
                     }
-                    
-                    let y = (screenBounds.size.height - height) / 2
-                    
-                    let origin = CGPoint(x: x, y: y)
-                                                    
-                    let size = CGSize(width: width, height: height)
-                    
-                    let inAppMessageSize = CGRect(origin: origin, size: size)
-                    
-                    self.webView.frame = inAppMessageSize
                 }
+                
+                let y = (screenBounds.size.height - height) / 2
+                
+                let origin = CGPoint(x: x, y: y)
+                                                
+                let size = CGSize(width: width, height: height)
+                
+                let inAppMessageSize = CGRect(origin: origin, size: size)
+                
+                self.webView.frame = inAppMessageSize
             }
         }
     }
