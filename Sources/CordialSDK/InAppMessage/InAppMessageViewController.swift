@@ -255,7 +255,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         }
     }
     
-    private func userClickedAnyInAppMessageButton(messageBody: Any) {
+    func userClickedAnyInAppMessageButton(messageBody: Any) {
         if let dict = messageBody as? NSDictionary {
             let mcID = self.inAppMessageData.mcID
             
@@ -301,7 +301,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         self.removeInAppMessage()
     }
     
-    private func determineContentHeightInternalAction(messageBody: Any) {
+    func determineContentHeightInternalAction(messageBody: Any) {
         if let dict = messageBody as? NSDictionary {
             
             if var height = dict["clientHeight"] as? Double {
