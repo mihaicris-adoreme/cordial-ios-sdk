@@ -59,16 +59,8 @@ class InAppMessagesGetter {
             var (top, right, bottom, left) = self.inAppMessageGetter.InAppMessageOptionalParamsDefaultValues()
             var expirationTime: Date?
             
-            if let modalTopMargin = self.inAppMessage.getModalTopMarginIAM(payload: message) {
-                top = modalTopMargin
-            }
-            
             if let modalRightMargin = self.inAppMessage.getModalRightMarginIAM(payload: message) {
                 right = modalRightMargin
-            }
-            
-            if let modalBottomMargin = self.inAppMessage.getModalBottomMarginIAM(payload: message) {
-                bottom = modalBottomMargin
             }
             
             if let modalLeftMargin = self.inAppMessage.getModalLeftMarginIAM(payload: message) {

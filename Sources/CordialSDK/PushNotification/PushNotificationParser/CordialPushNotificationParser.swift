@@ -75,22 +75,10 @@ class CordialPushNotificationParser {
         return self.inAppMessageParser.getExpirationTimeIAMCurrentPayloadType(userInfo: userInfo)
     }
     
-    // MARK: Get in app message modal top margin
-    
-    func getModalTopMarginIAM(userInfo: [AnyHashable : Any]) -> Int16? {
-        return self.inAppMessageParser.getModalTopMarginIAMCurrentPayloadType(userInfo: userInfo)
-    }
-    
     // MARK: Get in app message modal right margin
     
     func getModalRightMarginIAM(userInfo: [AnyHashable : Any]) -> Int16? {
         return self.inAppMessageParser.getModalRightMarginIAMCurrentPayloadType(userInfo: userInfo)
-    }
-    
-    // MARK: Get in app message modal bottom margin
-    
-    func getModalBottomMarginIAM(userInfo: [AnyHashable : Any]) -> Int16? {
-        return self.inAppMessageParser.getModalBottomMarginIAMCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get in app message modal left margin

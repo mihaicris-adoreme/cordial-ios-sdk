@@ -158,33 +158,9 @@ class InAppMessage {
         return nil
     }
     
-    func getBannerHeightIAM(payload: [String: AnyObject]) -> Int16? {
-        if let height = payload["height"] as? Int16 {
-            return height
-        }
-        
-        return nil
-    }
-    
-    func getModalTopMarginIAM(payload: [String: AnyObject]) -> Int16? {
-        if let top = payload["top"] as? Int16 {
-            return top
-        }
-        
-        return nil
-    }
-    
     func getModalRightMarginIAM(payload: [String: AnyObject]) -> Int16? {
         if let right = payload["right"] as? Int16 {
             return right
-        }
-        
-        return nil
-    }
-    
-    func getModalBottomMarginIAM(payload: [String: AnyObject]) -> Int16? {
-        if let bottom = payload["bottom"] as? Int16 {
-            return bottom
         }
         
         return nil

@@ -80,16 +80,8 @@ class InAppMessageGetter {
         var (top, right, bottom, left) = self.InAppMessageOptionalParamsDefaultValues()
         var expirationTime: Date?
         
-        if let userInfoTop = self.pushNotificationParser.getModalTopMarginIAM(userInfo: userInfo) {
-            top = userInfoTop
-        }
-        
         if let userInfoRight = self.pushNotificationParser.getModalRightMarginIAM(userInfo: userInfo) {
             right = userInfoRight
-        }
-        
-        if let userInfoBottom = self.pushNotificationParser.getModalBottomMarginIAM(userInfo: userInfo) {
-            bottom = userInfoBottom
         }
         
         if let userInfoLeft = self.pushNotificationParser.getModalLeftMarginIAM(userInfo: userInfo) {
