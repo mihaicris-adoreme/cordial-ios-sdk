@@ -309,6 +309,11 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 
                 let width = screenBounds.size.width - screenBounds.size.width * (CGFloat(self.inAppMessageData.left) / 100 + CGFloat(self.inAppMessageData.right) / 100)
                 
+                let minimumHeight = screenBounds.size.height * 0.15
+                if height < minimumHeight {
+                    height = minimumHeight
+                }
+                
                 if self.isBanner {
                     let x = (screenBounds.size.width - width) / 2
                     
@@ -333,14 +338,23 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 } else {
                     let x = (screenBounds.size.width - width) / 2
                     
-                    if height > screenBounds.size.height {
-                        height = screenBounds.size.height - screenBounds.size.height * (CGFloat(self.inAppMessageData.top) / 100 + CGFloat(self.inAppMessageData.bottom) / 100)
+                    switch self.inAppMessageData.type {
+                    case .fullscreen:
+                        if height > screenBounds.size.height {
+                            self.webView.scrollView.isScrollEnabled = true
+                            self.webView.scrollView.showsHorizontalScrollIndicator = false
+                            self.webView.scrollView.showsVerticalScrollIndicator = false
+                        }
                         
-                        self.webView.scrollView.isScrollEnabled = true
-                        self.webView.scrollView.showsHorizontalScrollIndicator = false
-                        self.webView.scrollView.showsVerticalScrollIndicator = false
-                    } else if self.inAppMessageData.type == .fullscreen {
                         height = screenBounds.size.height
+                    default:
+                        if height > screenBounds.size.height {
+                            height = screenBounds.size.height - screenBounds.size.height * (CGFloat(self.inAppMessageData.top) / 100 + CGFloat(self.inAppMessageData.bottom) / 100)
+                                                    
+                            self.webView.scrollView.isScrollEnabled = true
+                            self.webView.scrollView.showsHorizontalScrollIndicator = false
+                            self.webView.scrollView.showsVerticalScrollIndicator = false
+                        }
                     }
                     
                     let y = (screenBounds.size.height - height) / 2
