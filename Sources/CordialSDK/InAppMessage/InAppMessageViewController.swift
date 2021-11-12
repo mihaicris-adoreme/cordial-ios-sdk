@@ -320,9 +320,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 var y = CGFloat()
                 switch self.inAppMessageData.type {
                 case InAppMessageType.banner_up:
-                    y = screenBounds.size.height * CGFloat(self.inAppMessageData.top) / 100.0
+                    y = screenBounds.size.height * 5 / 100
                 case InAppMessageType.banner_bottom:
-                    y = screenBounds.size.height - (screenBounds.size.height * CGFloat(self.inAppMessageData.top) / 100.0) - height
+                    y = screenBounds.size.height - (screenBounds.size.height * 5 / 100) - height
                 default: break
                 }
                 
@@ -348,8 +348,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                     
                     height = screenBounds.size.height
                 default:
-                    if height > screenBounds.size.height {
-                        height = screenBounds.size.height - screenBounds.size.height * (CGFloat(self.inAppMessageData.top) / 100 + CGFloat(self.inAppMessageData.bottom) / 100)
+                    let maximumHeight = screenBounds.size.height - screenBounds.size.height * (CGFloat(self.inAppMessageData.top) / 100 + CGFloat(self.inAppMessageData.bottom) / 100)
+                    if height > maximumHeight {
+                        height = maximumHeight
                                                 
                         self.webView.scrollView.isScrollEnabled = true
                         self.webView.scrollView.showsHorizontalScrollIndicator = false
