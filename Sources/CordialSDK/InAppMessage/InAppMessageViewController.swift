@@ -317,6 +317,11 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             if self.isBanner {
                 let x = (screenBounds.size.width - width) / 2
                 
+                let maximumHeight = screenBounds.size.height - screenBounds.size.height * (5 / 100 + 5 / 100)
+                if height > maximumHeight {
+                    height = maximumHeight
+                }
+                
                 var y = CGFloat()
                 switch self.inAppMessageData.type {
                 case InAppMessageType.banner_up:
