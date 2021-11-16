@@ -52,8 +52,7 @@ function crdlCaptureAllInputs(eventName = null) {
 window.onload = function() {
     try {
         webkit.messageHandlers.determineContentHeightInternalAction.postMessage({
-            clientHeight: document.documentElement.clientHeight,
-            scrollHeight: document.documentElement.scrollHeight
+            clientHeight: document.documentElement.clientHeight
         });
     } catch (error) {
         console.error(error);

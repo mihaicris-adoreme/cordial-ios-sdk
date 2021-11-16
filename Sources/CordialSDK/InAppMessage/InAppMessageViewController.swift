@@ -204,6 +204,15 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         }
     }
     
+    private func addSafeAreaTopMarginToModalInAppMessage() {
+        if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
+            if UIScreen.main.bounds.height - safeAreaInsetsTop < self.webView.frame.height {
+                self.view.frame.origin.y = safeAreaInsetsTop
+                self.view.frame.size.height -= safeAreaInsetsTop
+            }
+        }
+    }
+    
     // MARK: WKNavigationDelegate
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -372,6 +381,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 let inAppMessageSize = CGRect(origin: origin, size: size)
                 
                 self.webView.frame = inAppMessageSize
+                
+                self.addSafeAreaTopMarginToModalInAppMessage()
             }
         }
     }
