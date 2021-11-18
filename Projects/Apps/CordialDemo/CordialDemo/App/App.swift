@@ -12,7 +12,7 @@ import CordialSDK
 
 struct App {
     
-    static private let USER_DEFAULTS_KEY_FOR_IS_GUEST_USER = "USER_DEFAULTS_KEY_FOR_IS_GUEST_USER"
+    static private let USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN = "USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN"
     
     static private let USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE = "USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE"
     
@@ -120,20 +120,16 @@ struct App {
         return inboxMessageMetadata
     }
     
-    static func isGuestUser() -> Bool {
-        if UserDefaults.standard.object(forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER) == nil {
-            return true
-        }
-        
-        return UserDefaults.standard.bool(forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER)
+    static func isUserLogIn() -> Bool {
+        return UserDefaults.standard.bool(forKey: USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
     }
     
     static func userLogIn() {
-        UserDefaults.standard.set(false, forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER)
+        UserDefaults.standard.set(true, forKey: USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
     }
     
     static func userLogOut() {
-        UserDefaults.standard.set(true, forKey: USER_DEFAULTS_KEY_FOR_IS_GUEST_USER)
+        UserDefaults.standard.set(false, forKey: USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
     }
     
     static func setSavedSettingsType(settingsType: String) {
