@@ -148,6 +148,8 @@ struct App {
             return Settings.staging.rawValue
         case Settings.production.rawValue:
             return Settings.production.rawValue
+        case Settings.usWest2.rawValue:
+            return Settings.usWest2.rawValue
         case Settings.custom.rawValue:
             return Settings.custom.rawValue
         default:
