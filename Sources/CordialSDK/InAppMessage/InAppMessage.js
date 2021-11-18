@@ -52,15 +52,9 @@ function crdlCaptureAllInputs(eventName = null) {
 window.onload = function() {
     try {
         webkit.messageHandlers.determineContentHeightInternalAction.postMessage({
-            clientHeight: document.documentElement.clientHeight
+            height: document.documentElement.scrollHeight
         });
     } catch (error) {
         console.error(error);
     }
 };
-
-// IAM disable zoom input text fields
-var style = document.createElement('style');
-style.innerHTML = "input,select:focus, textarea {font-size: 3pc;}";
-
-document.head.appendChild(style);

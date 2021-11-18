@@ -205,12 +205,17 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     private func addSafeAreaTopMarginToModalInAppMessage() {
-        if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
-            if UIScreen.main.bounds.height - safeAreaInsetsTop < self.webView.frame.height {
-                self.view.frame.origin.y = safeAreaInsetsTop
-                self.view.frame.size.height -= safeAreaInsetsTop
-            }
+        let safeAreaTopMargin = self.getSafeAreaTopMargin()
+        let screenBounds = UIScreen.main.bounds
+        
+        if self.webView.frame.height > screenBounds.size.height - safeAreaTopMargin {
+            self.view.frame.origin.y = safeAreaTopMargin
+            self.view.frame.size.height -= safeAreaTopMargin
         }
+    }
+    
+    private func getSafeAreaTopMargin() -> CGFloat {
+        return UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0
     }
     
     // MARK: WKNavigationDelegate
@@ -312,7 +317,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     func determineContentHeightInternalAction(messageBody: Any) {
         if let dict = messageBody as? NSDictionary,
-           var height = dict["clientHeight"] as? CGFloat {
+           var height = dict["height"] as? CGFloat {
             
             let screenBounds = UIScreen.main.bounds
             
@@ -354,7 +359,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
                 
                 switch self.inAppMessageData.type {
                 case .fullscreen:
-                    if height > screenBounds.size.height {
+                    let safeAreaTopMargin = self.getSafeAreaTopMargin()
+                    
+                    if height > screenBounds.size.height - safeAreaTopMargin {
                         self.webView.scrollView.isScrollEnabled = true
                         self.webView.scrollView.showsHorizontalScrollIndicator = false
                         self.webView.scrollView.showsVerticalScrollIndicator = false
