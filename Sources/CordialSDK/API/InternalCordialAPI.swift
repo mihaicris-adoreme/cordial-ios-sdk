@@ -136,7 +136,7 @@ class InternalCordialAPI {
     
     // MARK: Get previous primary key
     
-    @objc public func getPreviousContactPrimaryKey() -> String? {
+    func getPreviousContactPrimaryKey() -> String? {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
     }
     
@@ -155,7 +155,7 @@ class InternalCordialAPI {
         
     // MARK: Remove current mcID
     
-    @objc public func removeCurrentMcID() {
+    func removeCurrentMcID() {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
     }
@@ -204,12 +204,6 @@ class InternalCordialAPI {
     
     func getCurrentJWT() -> String? {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
-    }
-    
-    // MARK: Remove JSON Web Token
-    
-    func removeCurrentJWT() {
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
     
     // MARK: Is user login

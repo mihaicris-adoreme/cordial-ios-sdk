@@ -97,9 +97,6 @@ import CoreLocation
             self.messageHubURL = messageHubURL
         }
         
-        InternalCordialAPI().removeCurrentJWT()
-        InternalCordialAPI().removeCurrentMcID()
-        
 //        CoreDataManager.shared.deleteAllCoreData()
         
         InternalCordialAPI().prepareDeviceIdentifier()
