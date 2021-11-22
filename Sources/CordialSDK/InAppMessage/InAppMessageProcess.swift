@@ -151,7 +151,7 @@ class InAppMessageProcess {
         }
     }
     
-    func showInAppMessageIfExistAndAvailable() {
+    private func showInAppMessageIfExistAndAvailable() {
         if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getLatestInAppMessageDataFromCoreData() {
             if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
