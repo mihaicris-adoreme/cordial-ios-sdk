@@ -102,9 +102,7 @@ class NotificationManager {
         CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
         
         // IAM
-        ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
-            InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
-        }
+        InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
               
         // IAMs
         InAppMessagesGetter().startFetchInAppMessages(isSilentPushDeliveryEvent: false)

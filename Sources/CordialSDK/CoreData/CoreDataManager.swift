@@ -110,7 +110,7 @@ class CoreDataManager {
             self.deleteAllCoreDataByEntity(entityName: self.contactRequests.entityName)
         }
             
-        ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessageContentURL.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
