@@ -96,9 +96,15 @@ class InAppMessageProcess {
     }
     
     func deleteInAppMessageFromCoreDataByMcID(mcID: String) {
-        CoreDataManager.shared.inAppMessagesCache.deleteInAppMessageDataByMcID(mcID: mcID)
-        CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
-        CoreDataManager.shared.inAppMessagesShown.deleteInAppMessagesShownStatusByMcID(mcID: mcID)
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+            CoreDataManager.shared.inAppMessagesCache.deleteInAppMessageDataByMcID(mcID: mcID)
+        }
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+            CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
+        }
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+            CoreDataManager.shared.inAppMessagesShown.deleteInAppMessagesShownStatusByMcID(mcID: mcID)
+        }
     }
     
     func addAnimationSubviewInAppMessageBanner(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, activeViewController: UIViewController) {

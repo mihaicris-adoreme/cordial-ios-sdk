@@ -112,9 +112,21 @@ class CoreDataManager {
             
         ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessageContentURL.entityName)
+        }
+        
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
+        }
+        
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
+        }
+        
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)
+        }
+        
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesShown.entityName)
         }
         
