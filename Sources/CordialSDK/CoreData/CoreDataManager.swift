@@ -71,6 +71,20 @@ class CoreDataManager {
         return model
     }()
     
+    func deleteManagedObjectByContext(managedObject: NSManagedObject, context: NSManagedObjectContext) {
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+            do {
+                context.delete(managedObject)
+                try context.save()
+            
+            } catch let error {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                    os_log("CoreData Error: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     func deleteAllCoreDataByEntity(entityName: String) {
         let context = self.persistentContainer.viewContext
         

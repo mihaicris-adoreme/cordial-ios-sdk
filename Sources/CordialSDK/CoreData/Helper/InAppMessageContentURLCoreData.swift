@@ -54,17 +54,7 @@ class InAppMessageContentURLCoreData {
                 guard let urlManagedObject = managedObject.value(forKey: "url") else { return nil }
                 let url = urlManagedObject as! URL
                 
-                ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
-                    do {
-                        context.delete(managedObject)
-                        try context.save()
-                    
-                    } catch let error {
-                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                            os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-                        }
-                    }
-                }
+                CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                 
                 return InAppMessageContent(mcID: mcID, url: url, expireDate: expireDate)
             }

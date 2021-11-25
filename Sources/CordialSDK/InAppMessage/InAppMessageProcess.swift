@@ -98,11 +98,7 @@ class InAppMessageProcess {
     func deleteInAppMessageFromCoreDataByMcID(mcID: String) {
         ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             CoreDataManager.shared.inAppMessagesCache.deleteInAppMessageDataByMcID(mcID: mcID)
-        }
-        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
-        }
-        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             CoreDataManager.shared.inAppMessagesShown.deleteInAppMessagesShownStatusByMcID(mcID: mcID)
         }
     }
