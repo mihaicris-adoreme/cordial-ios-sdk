@@ -54,8 +54,7 @@ class InAppMessagesQueueCoreData {
                 guard let anyData = managedObject.value(forKey: "mcID") else { continue }
                 let mcID = anyData as! String
                 
-                context.delete(managedObject)
-                try context.save()
+                CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                 
                 return mcID
             }
@@ -64,8 +63,6 @@ class InAppMessagesQueueCoreData {
                 os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
-        
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
         return nil
     }

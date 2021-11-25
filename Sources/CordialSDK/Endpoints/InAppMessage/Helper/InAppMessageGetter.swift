@@ -155,7 +155,9 @@ class InAppMessageGetter {
     }
     
     func systemErrorHandler(mcID: String, error: ResponseError) {
-        CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [mcID])
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+            CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [mcID])
+        }
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Fetching IAM failed. Saved to retry later. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID, error.message)
