@@ -101,8 +101,10 @@ class NotificationManager {
         
         CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
         
-        // IAM
-        InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
+        DispatchQueue.main.async {
+            // IAM
+            InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
+        }
               
         // IAMs
         InAppMessagesGetter().startFetchInAppMessages(isSilentPushDeliveryEvent: false)
