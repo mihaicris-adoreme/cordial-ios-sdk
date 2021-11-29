@@ -145,7 +145,7 @@ class CordialSDKTests: XCTestCase {
         """
     }
     
-    func testAPNsToken() {
+    func test01APNsToken() {
         let mock = MockRequestSenderRemoteNotificationsDeviceToken()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -167,7 +167,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testRemoteNotificationStatus() {
+    func test02RemoteNotificationStatus() {
         let mock = MockRequestSenderRemoteNotificationStatus()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -187,7 +187,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testRemoteNotificationsHasBeenTapped() {
+    func test03RemoteNotificationsHasBeenTapped() {
         let mock = MockRequestSenderRemoteNotificationsHasBeenTapped()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -211,7 +211,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testRemoteNotificationsHasBeenForegroundDelivered() {
+    func test04RemoteNotificationsHasBeenForegroundDelivered() {
         let mock = MockRequestSenderRemoteNotificationsHasBeenForegroundDelivered()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -235,7 +235,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testRemoteNotificationsHasBeenTappedWithDeepLink() {
+    func test05RemoteNotificationsHasBeenTappedWithDeepLink() {
         let mock = MockRequestSenderRemoteNotificationsHasBeenTappedWithDeepLink()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -260,7 +260,7 @@ class CordialSDKTests: XCTestCase {
     }
 
     
-    func testRemoteNotificationsHasBeenTappedWithMcId() {
+    func test06RemoteNotificationsHasBeenTappedWithMcId() {
         let mock = MockRequestSenderRemoteNotificationsHasBeenTappedWithMcId()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -284,7 +284,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testDeepLinkDelegate() {
+    func test07DeepLinkDelegate() {
         let mock = MockPushNotificationDeepLinkDelegate()
         
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = mock
@@ -309,7 +309,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testSetContact() {
+    func test08SetContact() {
         let mock = MockRequestSenderSetContact()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -322,7 +322,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
 
-    func testUpsertContact() {
+    func test09UpsertContact() {
         let mock = MockRequestSenderUpsertContact()
         
         var testContactAttributes = Dictionary<String, AttributeValue>()
@@ -356,7 +356,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testUnsetContact() {
+    func test10UnsetContact() {
         let mock = MockRequestSenderUnsetContact()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -370,7 +370,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testSDKSecurityAbsentJWT() {
+    func test11SDKSecurityAbsentJWT() {
         let mock = MockRequestSenderSDKSecurity()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -389,7 +389,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testSDKSecurityNotValidJWT() {
+    func test12SDKSecurityNotValidJWT() {
         let mock = MockRequestSenderSDKSecurity()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -410,7 +410,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     // Guest -> PK (BD - | mcID -)
-    func testNotClearMcIdIfLoginWithPrimaryKeyInGuestMode() {
+    func test13NotClearMcIdIfLoginWithPrimaryKeyInGuestMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -427,7 +427,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     // Guest -> Guest (BD - | mcID -)
-    func testNotClearMcIdIfLoginWithoutPrimaryKeyInGuestMode() {
+    func test14NotClearMcIdIfLoginWithoutPrimaryKeyInGuestMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -444,7 +444,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     // PK -> PK && PK == PK (BD - | mcID -)
-    func testNotClearMcIdIfLoginWithTheSamePrimaryKeyInLoginMode() {
+    func test15NotClearMcIdIfLoginWithTheSamePrimaryKeyInLoginMode() {
         let mock = MockRequestSenderSaveMcIdAfterSetContact()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -462,7 +462,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     // PK -> Guest (BD + | mcID +)
-    func testClearMcIdIfLoginWithoutPrimaryKeyInLoginMode() {
+    func test16ClearMcIdIfLoginWithoutPrimaryKeyInLoginMode() {
         let mock = MockRequestSenderNotSaveMcIdAfterSetContact()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -480,7 +480,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     // PK -> PK && PK != PK (BD + | mcID +)
-    func testClearMcIdIfLoginWithNotTheSamePrimaryKeyInLoginMode() {
+    func test17ClearMcIdIfLoginWithNotTheSamePrimaryKeyInLoginMode() {
         let mock = MockRequestSenderNotSaveMcIdAfterSetContact()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -497,7 +497,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testEventsBulkSizeCount() {
+    func test18EventsBulkSizeCount() {
         let mock = MockRequestSenderEventsBulkSizeCount()
         
         let events = ["test_custom_event_1", "test_custom_event_2", "test_custom_event_3"]
@@ -524,7 +524,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testEventsBulkSizeTimer() {
+    func test19EventsBulkSizeTimer() {
         let mock = MockRequestSenderEventsBulkSizeTimer()
         
         let event = "test_custom_event_1"
@@ -551,7 +551,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
     
-    func testEventsBulkSizeAppClose() {
+    func test20EventsBulkSizeAppClose() {
         let mock = MockRequestSenderEventsBulkSizeAppClose()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -572,7 +572,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testEventsBulkSizeReachability() {
+    func test21EventsBulkSizeReachability() {
         let mock = MockRequestSenderEventsBulkSizeReachability()
         
         let event = "test_custom_event_1"
@@ -599,37 +599,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testQtyCachedEventQueue() {
-        let mock = MockRequestSenderQtyCachedEventQueue()
-        
-        let events = ["test_custom_event_1", "test_custom_event_2", "test_custom_event_3", "test_custom_event_4", "test_custom_event_5"]
-
-        DependencyConfiguration.shared.requestSender = mock
-
-        CordialApiConfiguration.shared.qtyCachedEventQueue = 3
-        CordialApiConfiguration.shared.eventsBulkSize = 5
-        
-        self.testCase.setTestJWT(token: self.testJWT)
-        self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
-        self.testCase.markUserAsLoggedIn()
-        
-        events.forEach { event in
-            CordialAPI().sendCustomEvent(eventName: event, properties: nil)
-        }
-        
-        self.cordialAPI.flushEvents(reason: "Test qty cached events queue")
-        
-        let expectation = XCTestExpectation(description: "Expectation for sending request")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            XCTAssert(mock.isVerified)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: 3)
-    }
-    
-    func testSystemEventsProperties() {
+    func test22ystemEventsProperties() {
         let mock = MockRequestSenderSystemEventsProperties()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -655,7 +625,7 @@ class CordialSDKTests: XCTestCase {
     }
 
     
-    func testEventsIfRequestHasInvalidEvent() {
+    func test23EventsIfRequestHasInvalidEvent() {
         let mock = MockRequestSenderIfEventRequestHasInvalidEvent()
         
         let validEventNames = ["test_valid_event_1", "test_valid_event_2"]
@@ -686,7 +656,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testUpsertContactCartOneItem() {
+    func test24UpsertContactCartOneItem() {
         let mock = MockRequestSenderUpsertContactCartOneItem()
         
         let cartItemID = "test_ID"
@@ -707,7 +677,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testUpsertContactCartEmptyCart() {
+    func test25UpsertContactCartEmptyCart() {
         let mock = MockRequestSenderUpsertContactCartEmptyCart()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -722,7 +692,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testUpsertContactCartReachability() {
+    func test26UpsertContactCartReachability() {
         let mock = MockRequestSenderUpsertContactCartReachability()
         
         let cartItemID = "test_ID"
@@ -750,7 +720,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testUpsertContactCartReachabilityTwoCarts() {
+    func test27UpsertContactCartReachabilityTwoCarts() {
         let mock = MockRequestSenderUpsertContactCartReachabilityTwoCarts()
         
         let cartItemID_1 = "test_ID_1"
@@ -784,7 +754,7 @@ class CordialSDKTests: XCTestCase {
         
     }
     
-    func testUserAgent() {
+    func test28UserAgent() {
         let mock = MockRequestSenderUserAgent()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -805,7 +775,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testSendContactOrder() {
+    func test29SendContactOrder() {
         let mock = MockRequestSenderSendContactOrder()
         
         let orderID = "test_order_ID"
@@ -831,7 +801,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testSendContactOrderReachability() {
+    func test30SendContactOrderReachability() {
         let mock = MockRequestSenderSendContactOrder()
         
         let orderID = "test_order_ID"
@@ -866,7 +836,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testSendContactOrderReachabilityTwoOrders() {
+    func test31SendContactOrderReachabilityTwoOrders() {
         let mock = MockRequestSenderSendContactOrderTwoOrders()
         
         let orderID_1 = "test_order_ID_1"
@@ -908,7 +878,9 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testInAppMessageHasBeenShown() {
+    func test32InAppMessageHasBeenShown() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
         let mock = MockRequestSenderInAppMessageHasBeenShown()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -924,7 +896,7 @@ class CordialSDKTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             XCTAssert(mock.isVerified)
             
             InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -932,10 +904,12 @@ class CordialSDKTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 4)
     }
     
-    func testInAppMessageHasBeenShownReachability() {
+    func test33InAppMessageHasBeenShownReachability() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
         let mock = MockRequestSenderInAppMessageHasBeenShown()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -967,7 +941,9 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testInAppMessageHasBeenShownTwoTimes() {
+    func test34InAppMessageHasBeenShownTwoTimes() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
         let mock = MockRequestSenderInAppMessageHasBeenShownTwoTimes()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -1013,7 +989,9 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 4)
     }
     
-    func testInAppMessageDelayedShow() {
+    func test35InAppMessageDelayedShow() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
         let mock = MockRequestSenderInAppMessageHasBeenShown()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -1048,7 +1026,9 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
     
-    func testInAppMessageInactiveSessionDisplay() {
+    func test36InAppMessageInactiveSessionDisplay() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
 
@@ -1075,7 +1055,9 @@ class CordialSDKTests: XCTestCase {
         }
     }
     
-    func testInAppMessageDisplayType() {
+    func test37InAppMessageDisplayType() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
         let mock = MockRequestSenderInAppMessageHasBeenShown()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -1113,7 +1095,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
     
-    func testInAppMessageBannerAutoDismiss() {
+    func test38InAppMessageBannerAutoDismiss() {
         CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
         
         let mock = MockRequestSenderInAppMessageBannerAutoDismiss()
@@ -1144,7 +1126,9 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 20)
     }
     
-    func testInAppMessageBannerManualDismiss() {
+    func test39InAppMessageBannerManualDismiss() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
         let mock = MockRequestSenderInAppMessageManualDismiss()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -1178,7 +1162,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 6)
     }
     
-    func testInAppMessageFullscreenManualDismiss() {
+    func test40InAppMessageFullscreenManualDismiss() {
         CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
         
         let mock = MockRequestSenderInAppMessageManualDismiss()
@@ -1214,7 +1198,9 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
     
-    func testInAppMessageUserClickedInAppMessageActionButton() {
+    func test41InAppMessageUserClickedInAppMessageActionButton() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
         let mock = MockRequestSenderInAppMessageUserClickedInAppMessageActionButton()
         
         let eventName = "test_event_name"
@@ -1251,7 +1237,9 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 4)
     }
     
-    func testInAppMessageExpirationTime() {
+    func test42InAppMessageExpirationTime() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
         let mock = MockRequestSenderInAppMessageExpirationTime()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -1283,7 +1271,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
             
-    func testInboxMessagesCache() {
+    func test43InboxMessagesCache() {
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
@@ -1318,7 +1306,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func testInboxMessageCache() {
+    func test44InboxMessageCache() {
 
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
@@ -1349,7 +1337,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
 
-    func testInboxMessageCacheExpire() {
+    func test45InboxMessageCacheExpire() {
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
@@ -1409,7 +1397,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func testInboxMessageContent() {
+    func test46InboxMessageContent() {
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
@@ -1449,7 +1437,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func testInboxMessageContentCache() {
+    func test47InboxMessageContentCache() {
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
@@ -1487,7 +1475,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func testInboxMessageContent403Status() {
+    func test48InboxMessageContent403Status() {
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
@@ -1522,7 +1510,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func testInboxMessageContent400Status() {
+    func test49InboxMessageContent400Status() {
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
@@ -1557,7 +1545,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func testInboxMessageContent500Status() {
+    func test50InboxMessageContent500Status() {
         
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
@@ -1592,7 +1580,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func testInboxMessagesMarkRead() {
+    func test51InboxMessagesMarkRead() {
         let mock = MockRequestSenderInboxMessagesMarkReadUnread()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -1606,7 +1594,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testInboxMessagesMarkUnread() {
+    func test52InboxMessagesMarkUnread() {
         let mock = MockRequestSenderInboxMessagesMarkReadUnread()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -1620,7 +1608,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testInboxMessagesMarkReadInvalidMcID() {
+    func test53InboxMessagesMarkReadInvalidMcID() {
         let mock = MockRequestSenderInboxMessagesMarkReadInvalidMcID()
         
         let invalidMcID = "\(self.testMcID)_invalid"
@@ -1638,7 +1626,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testInboxMessagesMarkUnreadInvalidMcID() {
+    func test54InboxMessagesMarkUnreadInvalidMcID() {
         let mock = MockRequestSenderInboxMessagesMarkUnreadInvalidMcID()
         
         let invalidMcID = "\(self.testMcID)_invalid"
@@ -1656,7 +1644,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(mock.isVerified)
     }
     
-    func testInboxMessagesMarkReadCache() {
+    func test55InboxMessagesMarkReadCache() {
         let mock = MockRequestSenderInboxMessagesMarkReadCache()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -1686,7 +1674,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testInboxMessagesMarkUnreadCache() {
+    func test56InboxMessagesMarkUnreadCache() {
         let mock = MockRequestSenderInboxMessagesMarkUnreadCache()
         
         DependencyConfiguration.shared.requestSender = mock
@@ -1716,7 +1704,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
-    func testInboxMessageDelete() {
+    func test57InboxMessageDelete() {
         let mock = MockRequestSenderInboxMessageDelete()
         
         mock.contactKey = self.testPrimaryKey
@@ -1742,7 +1730,7 @@ class CordialSDKTests: XCTestCase {
         }
     }
     
-    func testInboxMessageDelegate() {
+    func test58InboxMessageDelegate() {
         let inboxMessageHandler = InboxMessageHandler()
         inboxMessageHandler.testMcID = self.testMcID
         
@@ -1760,7 +1748,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(inboxMessageHandler.isVerified)
     }
     
-    func testInboxMessageReadEvent() {
+    func test59InboxMessageReadEvent() {
         let mock = MockRequestSenderInboxMessageReadEvent()
          
         DependencyConfiguration.shared.requestSender = mock
@@ -1780,7 +1768,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 3)
     }
     
-    func testInboxMessageMaxCacheSize() {
+    func test60InboxMessageMaxCacheSize() {
         var isVerified = false
         
         CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = self.testInboxMessageContentPayload.data(using: .utf8)!.count - 1
@@ -1794,24 +1782,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func testInboxMessageMaxCachableMessageSize() {
-        var isVerified = false
-        
-        CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize = self.testInboxMessageContentPayload.data(using: .utf8)!.count + 1
-        
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_2", content: "\(self.testInboxMessageContentPayload)_2")
-        
-        if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == self.testInboxMessageContentPayload,
-           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_2") == nil {
-            
-            isVerified = true
-        }
-        
-        XCTAssert(isVerified)
-    }
-    
-    func testInboxMessageMaxCacheSizeAndMaxCachableMessageSize() {
+    func test61InboxMessageMaxCacheSizeAndMaxCachableMessageSize() {
         var isVerified = false
         
         CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = (self.testInboxMessageContentPayload.data(using: .utf8)!.count + 1) * 2
@@ -1833,7 +1804,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func testAppDelegateVanityDeepLinks() {
+    func test62AppDelegateVanityDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
@@ -1877,7 +1848,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testSceneDelegateVanityDeepLinks() {
+    func test63SceneDelegateVanityDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
@@ -1921,7 +1892,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testSceneDelegateVanityDeepLinksTestClickNotSaveMcID() {
+    func test64SceneDelegateVanityDeepLinksTestClickNotSaveMcID() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
@@ -1966,7 +1937,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testSceneDelegateVanityDeepLinksNotVanityDomain() {
+    func test65SceneDelegateVanityDeepLinksNotVanityDomain() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLinkDelegate Mock
@@ -2012,7 +1983,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testSceneDelegateVanityDeepLinksNot302Status() {
+    func test66SceneDelegateVanityDeepLinksNot302Status() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLinkDelegate Mock
@@ -2053,7 +2024,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testSceneDelegateSMSDeepLinks() {
+    func test67SceneDelegateSMSDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLinkDelegate Mock
@@ -2104,7 +2075,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 5)
     }
     
-    func testAppDelegateURLSchemesDeepLinks() {
+    func test68AppDelegateURLSchemesDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         let mock = MockRequestSenderURLSchemesDeepLinkHasBeenOpen()
@@ -2127,7 +2098,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func testSceneDelegateURLSchemesDeepLinks() {
+    func test69SceneDelegateURLSchemesDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         let mock = MockRequestSenderURLSchemesDeepLinkHasBeenOpen()
