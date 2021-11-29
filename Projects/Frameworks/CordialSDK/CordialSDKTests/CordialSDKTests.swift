@@ -543,12 +543,12 @@ class CordialSDKTests: XCTestCase {
         
         CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             XCTAssert(mock.isVerified)
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 5)
+        wait(for: [expectation], timeout: 6)
     }
     
     func test20EventsBulkSizeAppClose() {
