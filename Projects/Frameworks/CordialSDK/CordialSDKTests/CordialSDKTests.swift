@@ -1179,6 +1179,8 @@ class CordialSDKTests: XCTestCase {
     }
     
     func testInAppMessageFullscreenManualDismiss() {
+        CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration = .silentPushes
+        
         let mock = MockRequestSenderInAppMessageManualDismiss()
 
         DependencyConfiguration.shared.requestSender = mock
@@ -1196,11 +1198,11 @@ class CordialSDKTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             
             InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().dismissModalInAppMessage()
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 XCTAssert(mock.isVerified)
                 
                 InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -1209,7 +1211,7 @@ class CordialSDKTests: XCTestCase {
             }
         }
 
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 5)
     }
     
     func testInAppMessageUserClickedInAppMessageActionButton() {
