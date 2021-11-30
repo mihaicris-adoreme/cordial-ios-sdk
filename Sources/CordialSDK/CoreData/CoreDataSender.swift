@@ -34,9 +34,7 @@ class CoreDataSender {
             self.sendCachedInboxMessageDeleteRequests()
             
             // IAM
-            ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
-                InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
-            }
+            InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
             
             // Contact Timestamps
             ContactTimestamps.shared.updateIfNeeded()

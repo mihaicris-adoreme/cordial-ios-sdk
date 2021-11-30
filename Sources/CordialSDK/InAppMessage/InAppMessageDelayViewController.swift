@@ -13,6 +13,8 @@ import UIKit
     @objc override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
+        DispatchQueue.main.async {
+            InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
+        }
     }
 }
