@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 3.0.2 (2021-11-29)
+
+### Fixed
+
+- Synchronization of receiving multiple in-app messages
+
 ## 3.0.1 (2021-10-20)
 
 ### Fixed
