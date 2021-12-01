@@ -160,22 +160,24 @@ class CordialPushNotificationHelper {
             let current = UNUserNotificationCenter.current()
             
             current.getNotificationSettings(completionHandler: { (settings) in
-                if !self.internalCordialAPI.isCurrentlyUpsertingContacts(),
-                   let token = self.internalCordialAPI.getPushNotificationToken() {
-                    
-                    let primaryKey = CordialAPI().getContactPrimaryKey()
-                    
-                    if settings.authorizationStatus == .authorized {
-                        if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
-                            
-                            let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
-                            self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
-                        }
-                    } else {
-                        if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
-                            
-                            let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
-                            self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
+                DispatchQueue.main.async {
+                    if !self.internalCordialAPI.isCurrentlyUpsertingContacts(),
+                       let token = self.internalCordialAPI.getPushNotificationToken() {
+                        
+                        let primaryKey = CordialAPI().getContactPrimaryKey()
+                        
+                        if settings.authorizationStatus == .authorized {
+                            if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
+                                
+                                let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
+                                self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
+                            }
+                        } else {
+                            if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
+                                
+                                let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+                                self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
+                            }
                         }
                     }
                 }
