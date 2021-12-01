@@ -2,6 +2,13 @@
 
 The latest version of this file can be found at the master branch.
 
+## 3.0.3 (2021-12-01)
+
+### Fixed
+
+- Processing notification status updates on the main queue
+- Removed `fatalError` calls to prevent possible app crashes by the SDK
+
 ## 3.0.2 (2021-11-29)
 
 ### Fixed
