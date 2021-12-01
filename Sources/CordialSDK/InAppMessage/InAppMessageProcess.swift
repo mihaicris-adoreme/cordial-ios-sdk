@@ -98,9 +98,11 @@ class InAppMessageProcess {
     }
     
     func deleteInAppMessageFromCoreDataByMcID(mcID: String) {
-        CoreDataManager.shared.inAppMessagesCache.deleteInAppMessageDataByMcID(mcID: mcID)
-        CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
-        CoreDataManager.shared.inAppMessagesShown.deleteInAppMessagesShownStatusByMcID(mcID: mcID)
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+            CoreDataManager.shared.inAppMessagesCache.deleteInAppMessageDataByMcID(mcID: mcID)
+            CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
+            CoreDataManager.shared.inAppMessagesShown.deleteInAppMessagesShownStatusByMcID(mcID: mcID)
+        }
     }
     
     func addAnimationSubviewInAppMessageBanner(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, activeViewController: UIViewController) {
@@ -151,7 +153,7 @@ class InAppMessageProcess {
         }
     }
     
-    func showInAppMessageIfExistAndAvailable() {
+    private func showInAppMessageIfExistAndAvailable() {
         if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getLatestInAppMessageDataFromCoreData() {
             if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
@@ -191,7 +193,7 @@ class InAppMessageProcess {
         return true
     }
     
-    func showModalInAppMessage(inAppMessageData: InAppMessageData) {
+    private func showModalInAppMessage(inAppMessageData: InAppMessageData) {
         if let activeViewController = self.internalCordialAPI.getActiveViewController() {
             if self.inAppMessageManager.isActiveViewControllerCanPresentInAppMessage(activeViewController: activeViewController) {
                 let modalWebViewController = self.inAppMessageManager.getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
@@ -222,7 +224,9 @@ class InAppMessageProcess {
         if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID),
            !isInAppMessageHasBeenShown {
             
-            CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
+            ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+                CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
+            }
             
             let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
@@ -248,7 +252,7 @@ class InAppMessageProcess {
         modalWebViewController.webView.addSubview(closeButton)
     }
     
-    func showBannerInAppMessage(inAppMessageData: InAppMessageData) {
+    private func showBannerInAppMessage(inAppMessageData: InAppMessageData) {
         if let activeViewController = self.internalCordialAPI.getActiveViewController() {
             if self.inAppMessageManager.isActiveViewControllerCanPresentInAppMessage(activeViewController: activeViewController) {
                 let bannerWebViewController = self.inAppMessageManager.getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)

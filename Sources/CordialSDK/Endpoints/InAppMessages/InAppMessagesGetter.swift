@@ -28,6 +28,7 @@ class InAppMessagesGetter {
     func setInAppMessagesParamsToCoreData(messages: [Dictionary<String, AnyObject>]) {
         let cordialDateFormatter = CordialDateFormatter()
         
+        var inAppMessageContents = [InAppMessageContent]()
         var inAppMessagesParams = [InAppMessageParams]()
         var mcIDs = [String]()
         
@@ -41,12 +42,11 @@ class InAppMessagesGetter {
             guard let contentURLString = message["url"] as? String else { continue }
             guard let contentURLExpireAtTimestamp = message["urlExpireAt"] as? String else { continue }
             
-            if let contentURL = URL(string: contentURLString),
-               let contentURLExpireAt = cordialDateFormatter.getDateFromTimestamp(timestamp: contentURLExpireAtTimestamp) {
-                
-                let inAppMessageContent = InAppMessageContent(mcID: mcID, url: contentURL, expireDate: contentURLExpireAt)
-                CoreDataManager.shared.inAppMessageContentURL.putInAppMessageContentToCoreData(inAppMessageContent: inAppMessageContent)
-            }
+            guard let contentURL = URL(string: contentURLString) else { continue }
+            guard let contentURLExpireAt = cordialDateFormatter.getDateFromTimestamp(timestamp: contentURLExpireAtTimestamp) else { continue }
+            
+            let inAppMessageContent = InAppMessageContent(mcID: mcID, url: contentURL, expireDate: contentURLExpireAt)
+            inAppMessageContents.append(inAppMessageContent)
             
             let typeString = self.inAppMessage.getTypeIAM(payload: message)
             let displayTypeString = self.inAppMessage.getDisplayTypeIAM(payload: message)
@@ -90,10 +90,14 @@ class InAppMessagesGetter {
         }
         
         DispatchQueue.main.async {
+            inAppMessageContents.forEach { inAppMessageContent in
+                CoreDataManager.shared.inAppMessageContentURL.putInAppMessageContentToCoreData(inAppMessageContent: inAppMessageContent)
+            }
+            
             CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: inAppMessagesParams)
             
             CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: mcIDs)
-            
+
             InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
         }
     }

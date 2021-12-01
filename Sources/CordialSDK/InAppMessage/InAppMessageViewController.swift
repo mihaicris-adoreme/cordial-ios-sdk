@@ -193,7 +193,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         let mcID = self.inAppMessageData.mcID
         InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
         
-        InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
+        DispatchQueue.main.async {
+            InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
+        }
     }
     
     func removeInAppMessage() {

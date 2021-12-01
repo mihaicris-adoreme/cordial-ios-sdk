@@ -70,6 +70,20 @@ class CoreDataManager {
         return model
     }
     
+    func deleteManagedObjectByContext(managedObject: NSManagedObject, context: NSManagedObjectContext) {
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+            do {
+                context.delete(managedObject)
+                try context.save()
+            
+            } catch let error {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                    os_log("CoreData Error: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     func deleteAllCoreDataByEntity(entityName: String) {
         guard let context = self.persistentContainer?.viewContext else { return }
         
@@ -109,11 +123,23 @@ class CoreDataManager {
             self.deleteAllCoreDataByEntity(entityName: self.contactRequests.entityName)
         }
             
-        ThreadQueues.shared.queueFetchInAppMessages.sync(flags: .barrier) {
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessageContentURL.entityName)
+        }
+        
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
+        }
+        
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
+        }
+        
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)
+        }
+        
+        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesShown.entityName)
         }
         
