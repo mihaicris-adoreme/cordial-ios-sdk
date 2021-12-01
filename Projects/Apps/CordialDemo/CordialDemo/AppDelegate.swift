@@ -40,7 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppNotificationManager.shared.setupCordialDemoObservers()
         
         guard #available(iOS 13.0, *) else {
-            if !App.isGuestUser() {
+            if App.isUserLogIn() {
                 let catalogNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
                 self.window?.rootViewController = catalogNavigationController
             }
