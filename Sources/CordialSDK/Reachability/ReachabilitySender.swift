@@ -13,7 +13,7 @@ class ReachabilitySender {
     
     static let shared = ReachabilitySender()
     
-    private init(){
+    private init() {
         let notificationCenter = NotificationCenter.default
         
         notificationCenter.removeObserver(self, name: .cordialConnectedToInternet, object: nil)

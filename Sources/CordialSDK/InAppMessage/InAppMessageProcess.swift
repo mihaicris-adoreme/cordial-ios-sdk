@@ -13,7 +13,7 @@ class InAppMessageProcess {
     
     static let shared = InAppMessageProcess()
     
-    private init(){}
+    private init() {}
     
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
@@ -59,7 +59,9 @@ class InAppMessageProcess {
     func showInAppMessage(inAppMessageData: InAppMessageData) {
         if InternalCordialAPI().isUserLogin() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: inAppMessageData.mcID) {
+                if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: inAppMessageData.mcID),
+                   isInAppMessageHasBeenShown {
+                    
                     InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
                     
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
@@ -219,7 +221,9 @@ class InAppMessageProcess {
     
     private func sendSystemEventInAppMessageHasBeenShown(inAppMessageData: InAppMessageData) {
         let mcID = inAppMessageData.mcID
-        if !CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID) {
+        if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID),
+           !isInAppMessageHasBeenShown {
+            
             ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
                 CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
             }

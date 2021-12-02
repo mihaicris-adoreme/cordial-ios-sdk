@@ -15,7 +15,7 @@ import CoreLocation
     
     private override init() {}
     
-    let sdkVersion = "3.0.2"
+    let sdkVersion = "3.0.3"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
@@ -96,9 +96,6 @@ import CoreLocation
         } else {
             self.messageHubURL = messageHubURL
         }
-        
-        InternalCordialAPI().removeCurrentJWT()
-        InternalCordialAPI().removeCurrentMcID()
         
 //        CoreDataManager.shared.deleteAllCoreData()
         

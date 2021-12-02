@@ -12,5 +12,6 @@ enum Settings: String {
     case qc = "QC"
     case staging = "Staging"
     case production = "Production"
+    case usWest2 = "US West 2"
     case custom = "Custom"
 }
