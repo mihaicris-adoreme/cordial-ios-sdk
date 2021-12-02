@@ -15,7 +15,7 @@ class ContactOrderRequestsCoreData {
     let entityName = "ContactOrderRequest"
     
     func setContactOrderRequestsToCoreData(sendContactOrderRequests: [SendContactOrderRequest]) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             sendContactOrderRequests.forEach { sendContactOrderRequest in
@@ -37,12 +37,13 @@ class ContactOrderRequestsCoreData {
     }
     
     func getContactOrderRequestsFromCoreData() -> [SendContactOrderRequest] {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        var sendContactOrderRequests = [SendContactOrderRequest]()
+        
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return sendContactOrderRequests }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         
-        var sendContactOrderRequests = [SendContactOrderRequest]()
         do {
             let result = try context.fetch(request)
             for managedObject in result as! [NSManagedObject] {

@@ -12,7 +12,7 @@ import Foundation
     
     @objc public static let shared = DependencyConfiguration()
     
-    private override init(){}
+    private override init() {}
     
     // MARK: Request Sender Init
     

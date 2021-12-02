@@ -12,7 +12,7 @@ private class BundleFinder {}
 
 extension Foundation.Bundle {
     /// Returns the resource bundle associated with the current Swift module.
-    static var resourceBundle: Bundle = {
+    static var resourceBundle: Bundle? = {
         let bundleName = "CordialSDK_CordialSDK"
 
         let candidates = [
@@ -32,6 +32,7 @@ extension Foundation.Bundle {
                 return bundle
             }
         }
-        fatalError("unable to find bundle named CordialSDK_CordialSDK")
+        
+        return nil
     }()
 }

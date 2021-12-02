@@ -72,9 +72,9 @@ class JSONStructure {
         )
     }
     
-    // box(ObjCBoxable) -> Box
-    func box(_ boxable: ObjCBoxable) -> Box {
-        return boxable.mustacheBoxWrapper.box
+    // box(ObjCBoxable) -> Box?
+    func box(_ boxable: ObjCBoxable) -> Box? {
+        return boxable.mustacheBoxWrapper?.box
     }
 }
 
@@ -96,7 +96,7 @@ protocol Boxable {
 @objc protocol ObjCBoxable {
     // Can not return a Box, because Box is not compatible with ObjC.
     // So let's return an ObjC object which wraps a Box.
-    var mustacheBoxWrapper: ObjCBoxWrapper { get }
+    var mustacheBoxWrapper: ObjCBoxWrapper? { get }
 }
 
 // The ObjC object which wraps a Box (see ObjCBoxable)

@@ -15,7 +15,7 @@ class CustomEventRequestsCoreData {
     let entityName = "CustomEventRequest"
     
     func putCustomEventRequestsToCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
-        let qtyCachedCustomEventRequests = self.getQtyCachedCustomEventRequests()
+        guard let qtyCachedCustomEventRequests = self.getQtyCachedCustomEventRequests() else { return }
         
         let sendCustomEventRequestsQty = qtyCachedCustomEventRequests + sendCustomEventRequests.count
         
@@ -28,12 +28,12 @@ class CustomEventRequestsCoreData {
     }
     
     private func setCustomEventRequestsToCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             sendCustomEventRequests.forEach { sendCustomEventRequest in
-                
-                if !self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID) {
+                if let isCustomEventRequestExistAtCoreData = self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID),
+                   !isCustomEventRequestExistAtCoreData {
                     
                     let newRow = NSManagedObject(entity: entity, insertInto: context)
 
@@ -54,8 +54,8 @@ class CustomEventRequestsCoreData {
         }
     }
     
-    private func removeFirstCustomEventRequestsFromCoreData(removeTo id: Int){        
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+    private func removeFirstCustomEventRequestsFromCoreData(removeTo id: Int) {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -82,12 +82,13 @@ class CustomEventRequestsCoreData {
     }
     
     private func getCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        var sendCustomEventRequests = [SendCustomEventRequest]()
+        
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return sendCustomEventRequests }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
 
-        var sendCustomEventRequests = [SendCustomEventRequest]()
         do {
             let result = try context.fetch(request)
             for managedObject in result as! [NSManagedObject] {
@@ -114,8 +115,8 @@ class CustomEventRequestsCoreData {
         return sendCustomEventRequests
     }
     
-    private func isCustomEventRequestExistAtCoreData(requestID: String) -> Bool {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+    private func isCustomEventRequestExistAtCoreData(requestID: String) -> Bool? {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -146,8 +147,8 @@ class CustomEventRequestsCoreData {
         return sendCustomEventRequests
     }
 
-    func getQtyCachedCustomEventRequests() -> Int {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+    func getQtyCachedCustomEventRequests() -> Int? {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false

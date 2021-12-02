@@ -82,16 +82,18 @@ class CordialSwizzlerHelper {
             
             var status = String()
             
-            current.getNotificationSettings(completionHandler: { (settings) in                
-                if settings.authorizationStatus == .authorized {
-                    status = API.PUSH_NOTIFICATION_STATUS_ALLOW
-                } else {
-                    status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+            current.getNotificationSettings(completionHandler: { (settings) in
+                DispatchQueue.main.async {
+                    if settings.authorizationStatus == .authorized {
+                        status = API.PUSH_NOTIFICATION_STATUS_ALLOW
+                    } else {
+                        status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+                    }
+                    
+                    InternalCordialAPI().setPushNotificationStatus(status: status)
+                    
+                    self.sendPushNotificationToken(token: token, status: status)
                 }
-                
-                InternalCordialAPI().setPushNotificationStatus(status: status)
-                
-                self.sendPushNotificationToken(token: token, status: status)
             })
         }
     }

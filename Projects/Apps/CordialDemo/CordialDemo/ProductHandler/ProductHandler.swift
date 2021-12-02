@@ -11,7 +11,7 @@ import Foundation
 class ProductHandler {
     static let shared = ProductHandler()
     
-    private init(){}
+    private init() {}
     
     let products = [
         Product(id: "1", img: "men1", brand: "Robert Graham", name: "Alix Long Sleeve Woven Shirt", price: 148.00, sku: "ab26ec3a-6110-11e9-8647-d663bd873d93", shortDescription: "\u{00B7} Classic styling \n\u{00B7} Clean lines \n\u{00B7} Brand mark logo on center \n\u{00B7} 50% 50% mix \n\u{00B7} Washable \n\u{00B7} Imported \n\u{00B7} Measurements: Length: 10 \n\u{00B7} Product measurements were taken using size MD \n\u{00B7} Please note that measurements may vary by size", path: "/prep-tj1.html"),

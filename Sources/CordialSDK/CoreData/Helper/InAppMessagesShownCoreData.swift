@@ -15,7 +15,7 @@ class InAppMessagesShownCoreData {
     let entityName = "InAppMessagesShown"
     
     func setShownStatusToInAppMessagesShownCoreData(mcID: String) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
@@ -32,8 +32,8 @@ class InAppMessagesShownCoreData {
         }
     }
     
-    func isInAppMessageHasBeenShown(mcID: String) -> Bool {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+    func isInAppMessageHasBeenShown(mcID: String) -> Bool? {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -55,7 +55,7 @@ class InAppMessagesShownCoreData {
     }
     
     func deleteInAppMessagesShownStatusByMcID(mcID: String) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false

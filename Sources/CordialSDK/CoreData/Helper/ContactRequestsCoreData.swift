@@ -15,7 +15,7 @@ class ContactRequestsCoreData {
     let entityName = "ContactRequest"
     
     func setContactRequestsToCoreData(upsertContactRequests: [UpsertContactRequest]) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             upsertContactRequests.forEach { upsertContactRequest in
@@ -37,12 +37,13 @@ class ContactRequestsCoreData {
     }
     
     func getContactRequestsFromCoreData() -> [UpsertContactRequest] {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        var upsertContactRequests = [UpsertContactRequest]()
+        
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return upsertContactRequests }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         
-        var upsertContactRequests = [UpsertContactRequest]()
         do {
             let result = try context.fetch(request)
             for managedObject in result as! [NSManagedObject] {
