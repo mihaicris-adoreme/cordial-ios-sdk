@@ -15,7 +15,7 @@ class InboxMessageDeleteCoreData {
     let entityName = "InboxMessageDeleteRequests"
     
     func putInboxMessageDeleteRequestToCoreData(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
@@ -35,12 +35,13 @@ class InboxMessageDeleteCoreData {
     }
     
     func fetchInboxMessageDeleteRequestsFromCoreData() -> [InboxMessageDeleteRequest] {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        var inboxMessageDeleteRequests = [InboxMessageDeleteRequest]()
+        
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return inboxMessageDeleteRequests }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         
-        var inboxMessageDeleteRequests = [InboxMessageDeleteRequest]()
         do {
             let result = try context.fetch(request)
             for managedObject in result as! [NSManagedObject] {

@@ -15,7 +15,9 @@ class InboxMessagesCacheCoreData {
     let entityName = "InboxMessagesCache"
     
     func putInboxMessageToCoreData(inboxMessage: InboxMessage) {
-        if !self.isInboxMessageExistInCoreData(mcID: inboxMessage.mcID) {
+        guard let isInboxMessageExistInCoreData = self.isInboxMessageExistInCoreData(mcID: inboxMessage.mcID) else { return }
+        
+        if !isInboxMessageExistInCoreData {
             self.setInboxMessageToCoreData(inboxMessage: inboxMessage)
         } else {
             self.updateInboxMessageAtCoreData(inboxMessage: inboxMessage)
@@ -23,7 +25,7 @@ class InboxMessagesCacheCoreData {
     }
     
     func getInboxMessageFromCoreData(mcID: String) -> InboxMessage? {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -61,7 +63,7 @@ class InboxMessagesCacheCoreData {
     }
     
     func removeInboxMessageFromCoreData(mcID: String) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -85,7 +87,7 @@ class InboxMessagesCacheCoreData {
     }
     
     private func setInboxMessageToCoreData(inboxMessage: InboxMessage) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let newObject = NSManagedObject(entity: entity, insertInto: context)
@@ -95,7 +97,7 @@ class InboxMessagesCacheCoreData {
     }
     
     private func updateInboxMessageAtCoreData(inboxMessage: InboxMessage) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
@@ -132,8 +134,8 @@ class InboxMessagesCacheCoreData {
         }
     }
     
-    private func isInboxMessageExistInCoreData(mcID: String) -> Bool {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+    private func isInboxMessageExistInCoreData(mcID: String) -> Bool? {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false

@@ -13,6 +13,7 @@
 		<string>applinks:s.a1003.clients.cordialdev.com</string>
 		<string>applinks:events-handling-svc.stg.cordialdev.com</string>
 		<string>applinks:events-handling-svc.cordial-core.cp-8305-inapp-link-tracing.cordialdev.com</string>
+		<string>applinks:e.a1003.clients.cordialdev.com</string>
 	</array>
 </dict>
 </plist>

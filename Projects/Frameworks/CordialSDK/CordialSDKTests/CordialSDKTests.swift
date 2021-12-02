@@ -896,7 +896,7 @@ class CordialSDKTests: XCTestCase {
 
         let expectation = XCTestExpectation(description: "Expectation for IAM delay show")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
             XCTAssert(mock.isVerified)
             
             InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -904,7 +904,7 @@ class CordialSDKTests: XCTestCase {
             expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 4)
+        wait(for: [expectation], timeout: 5)
     }
     
     func test33InAppMessageHasBeenShownReachability() {
@@ -930,7 +930,7 @@ class CordialSDKTests: XCTestCase {
         
         self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             XCTAssert(mock.isVerified)
             
             InAppMessageProcess.shared.isPresentedInAppMessage = false
@@ -938,7 +938,7 @@ class CordialSDKTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 4)
     }
     
     func test34InAppMessageHasBeenShownTwoTimes() {

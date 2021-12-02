@@ -15,7 +15,7 @@ class InAppMessagesQueueCoreData {
     let entityName = "InAppMessagesQueue"
     
     func setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [String]) {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             
@@ -47,7 +47,7 @@ class InAppMessagesQueueCoreData {
     }
     
     func getMcIdFromCoreDataInAppMessagesQueue() -> String? {
-        let context = CoreDataManager.shared.persistentContainer.viewContext
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false

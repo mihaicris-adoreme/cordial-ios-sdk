@@ -14,7 +14,7 @@ class SDKSecurity {
     
     static let shared = SDKSecurity()
     
-    private init(){}
+    private init() {}
     
     let cordialAPI = CordialAPI()
     

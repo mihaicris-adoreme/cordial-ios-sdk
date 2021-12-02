@@ -12,7 +12,7 @@ class ThrottlerManager {
     
     static let shared = ThrottlerManager()
     
-    private init(){}
+    private init() {}
     
     let appMovedToBackground = Throttler(minimumDelay: 1)
     let appMovedFromBackground = Throttler(minimumDelay: 1)

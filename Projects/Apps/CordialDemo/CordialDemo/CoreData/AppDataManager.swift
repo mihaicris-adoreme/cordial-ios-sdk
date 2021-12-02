@@ -17,7 +17,7 @@ class AppDataManager {
     let attributes = AttributesCoreData()
     let geoAttributes = AttributesGeoCoreData()
     
-    private init(){}
+    private init() {}
     
     func deleteAllCoreDataByEntity(appDelegate: AppDelegate, entityName: String) {
         let context = appDelegate.persistentContainer.viewContext
