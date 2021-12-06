@@ -30,6 +30,7 @@ class CoreDataManager {
     let inAppMessagesCache = InAppMessagesCacheCoreData()
     let inAppMessagesQueue = InAppMessagesQueueCoreData()
     let inAppMessagesParam = InAppMessagesParamCoreData()
+    let inAppMessagesRelated = InAppMessagesRelatedCoreData()
     let inAppMessagesShown = InAppMessagesShownCoreData()
     let inboxMessagesMarkReadUnread = InboxMessagesMarkReadUnreadCoreData()
     let inboxMessageDelete = InboxMessageDeleteCoreData()
@@ -136,24 +137,13 @@ class CoreDataManager {
         ThreadQueues.shared.queueUpsertContact.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.contactRequests.entityName)
         }
-            
+                    
         ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessageContentURL.entityName)
-        }
-        
-        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
-        }
-        
-        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
-        }
-        
-        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)
-        }
-        
-        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+            self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesRelated.entityName)
             self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesShown.entityName)
         }
         

@@ -61,7 +61,7 @@ class CordialPushNotificationHelper {
                 
                 if inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
-                        CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
+                        CoreDataManager.shared.inAppMessagesRelated.setRelatedStatusToInAppMessagesRelatedCoreData(mcID: mcID)
                     }
                 }
             }

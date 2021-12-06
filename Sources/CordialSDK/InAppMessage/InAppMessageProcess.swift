@@ -59,8 +59,8 @@ class InAppMessageProcess {
     func showInAppMessage(inAppMessageData: InAppMessageData) {
         if InternalCordialAPI().isUserLogin() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: inAppMessageData.mcID),
-                   isInAppMessageHasBeenShown {
+                if let isInAppMessageRelated = CoreDataManager.shared.inAppMessagesRelated.isInAppMessageRelated(mcID: inAppMessageData.mcID),
+                   isInAppMessageRelated {
                     
                     InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
                     
@@ -101,7 +101,8 @@ class InAppMessageProcess {
         ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
             CoreDataManager.shared.inAppMessagesCache.deleteInAppMessageDataByMcID(mcID: mcID)
             CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
-            CoreDataManager.shared.inAppMessagesShown.deleteInAppMessagesShownStatusByMcID(mcID: mcID)
+            CoreDataManager.shared.inAppMessagesRelated.deleteInAppMessageRelatedStatusByMcID(mcID: mcID)
+            CoreDataManager.shared.inAppMessagesShown.deleteInAppMessageShownStatusByMcID(mcID: mcID)
         }
     }
     
