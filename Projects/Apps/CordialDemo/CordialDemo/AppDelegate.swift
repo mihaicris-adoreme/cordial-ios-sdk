@@ -34,13 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = CordialDeepLinksHandler()
         CordialApiConfiguration.shared.inAppMessageInputsDelegate = InAppMessageInputsHandler()
         CordialApiConfiguration.shared.inboxMessageDelegate = InboxMessageHandler()
-        CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "s.cordial.com", "s.a1105.clients.cordialdev.com", "s.a1003.clients.cordialdev.com", "events-handling-svc.stg.cordialdev.com", "events-handling-svc.cordial-core.cp-8305-inapp-link-tracing.cordialdev.com"]
+        CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "s.cordial.com", "s.a1105.clients.cordialdev.com", "s.a1003.clients.cordialdev.com", "events-handling-svc.stg.cordialdev.com", "events-handling-svc.cordial-core.cp-8305-inapp-link-tracing.cordialdev.com", "e.a1003.clients.cordialdev.com"]
                 
         AppNotificationManager.shared.setupCordialSDKObservers()
         AppNotificationManager.shared.setupCordialDemoObservers()
         
         guard #available(iOS 13.0, *) else {
-            if !App.isGuestUser() {
+            if App.isUserLogIn() {
                 let catalogNavigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController
                 self.window?.rootViewController = catalogNavigationController
             }

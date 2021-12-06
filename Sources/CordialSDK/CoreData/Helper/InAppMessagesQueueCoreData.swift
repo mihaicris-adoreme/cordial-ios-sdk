@@ -21,19 +21,25 @@ class InAppMessagesQueueCoreData {
             
             if !mcIDs.isEmpty {
                 mcIDs.forEach { mcID in
-                    let newRow = NSManagedObject(entity: entity, insertInto: context)
                     
-                    if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
-                        newRow.setValue(mcID, forKey: "mcID")
-                        newRow.setValue(date, forKey: "date")
-                    }
-                }
-                
-                do {
-                    try context.save()
-                } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                    DispatchQueue.main.async {
+                        if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
+                            
+                            ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+                                let newRow = NSManagedObject(entity: entity, insertInto: context)
+                                
+                                newRow.setValue(mcID, forKey: "mcID")
+                                newRow.setValue(date, forKey: "date")
+                                
+                                do {
+                                    try context.save()
+                                } catch let error {
+                                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                                        os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -54,8 +60,7 @@ class InAppMessagesQueueCoreData {
                 guard let anyData = managedObject.value(forKey: "mcID") else { continue }
                 let mcID = anyData as! String
                 
-                context.delete(managedObject)
-                try context.save()
+                CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                 
                 return mcID
             }
@@ -64,8 +69,6 @@ class InAppMessagesQueueCoreData {
                 os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
-        
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
         return nil
     }

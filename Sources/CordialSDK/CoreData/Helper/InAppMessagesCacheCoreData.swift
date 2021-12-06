@@ -22,19 +22,24 @@ class InAppMessagesCacheCoreData {
             
             let mcID = inAppMessageData.mcID
             
-            if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
-                do {
-                    let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
+            DispatchQueue.main.async {
+                if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
                     
-                    newRow.setValue(mcID, forKey: "mcID")
-                    newRow.setValue(inAppMessageArchivedData, forKey: "data")
-                    newRow.setValue(date, forKey: "date")
-                    newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
-                    
-                    try context.save()
-                } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                    ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+                        do {
+                            let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
+                            
+                            newRow.setValue(mcID, forKey: "mcID")
+                            newRow.setValue(inAppMessageArchivedData, forKey: "data")
+                            newRow.setValue(date, forKey: "date")
+                            newRow.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
+                            
+                            try context.save()
+                        } catch let error {
+                            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                            }
+                        }
                     }
                 }
             }
@@ -87,8 +92,7 @@ class InAppMessagesCacheCoreData {
                 if let inAppMessageData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InAppMessageData, !inAppMessageData.isError {
                     return inAppMessageData
                 } else {
-                    context.delete(managedObject)
-                    try context.save()
+                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                     
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                         os_log("Failed unarchiving InAppMessageData", log: OSLog.cordialError, type: .error)

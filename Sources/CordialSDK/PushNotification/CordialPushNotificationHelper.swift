@@ -42,13 +42,15 @@ class CordialPushNotificationHelper {
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             self.cordialAPI.setCurrentMcID(mcID: mcID)
             
-            if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID),
-               isInAppMessageHasBeenShown {
-                
-                InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
-                
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, mcID)
+            DispatchQueue.main.async {
+                if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID),
+                   isInAppMessageHasBeenShown {
+                    
+                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
+                    
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                        os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, mcID)
+                    }
                 }
             }
             
@@ -58,7 +60,9 @@ class CordialPushNotificationHelper {
                 let inactiveSessionDisplay = InAppMessageGetter().getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
                 
                 if inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
-                    CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
+                    ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
+                        CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
+                    }
                 }
             }
         }
@@ -156,22 +160,24 @@ class CordialPushNotificationHelper {
             let current = UNUserNotificationCenter.current()
             
             current.getNotificationSettings(completionHandler: { (settings) in
-                if !self.internalCordialAPI.isCurrentlyUpsertingContacts(),
-                   let token = self.internalCordialAPI.getPushNotificationToken() {
-                    
-                    let primaryKey = CordialAPI().getContactPrimaryKey()
-                    
-                    if settings.authorizationStatus == .authorized {
-                        if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
-                            
-                            let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
-                            self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
-                        }
-                    } else {
-                        if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
-                            
-                            let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
-                            self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
+                DispatchQueue.main.async {
+                    if !self.internalCordialAPI.isCurrentlyUpsertingContacts(),
+                       let token = self.internalCordialAPI.getPushNotificationToken() {
+                        
+                        let primaryKey = CordialAPI().getContactPrimaryKey()
+                        
+                        if settings.authorizationStatus == .authorized {
+                            if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
+                                
+                                let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
+                                self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
+                            }
+                        } else {
+                            if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
+                                
+                                let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+                                self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
+                            }
                         }
                     }
                 }

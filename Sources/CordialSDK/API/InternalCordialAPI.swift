@@ -136,7 +136,7 @@ class InternalCordialAPI {
     
     // MARK: Get previous primary key
     
-    @objc public func getPreviousContactPrimaryKey() -> String? {
+    func getPreviousContactPrimaryKey() -> String? {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
     }
     
@@ -155,7 +155,7 @@ class InternalCordialAPI {
         
     // MARK: Remove current mcID
     
-    @objc public func removeCurrentMcID() {
+    func removeCurrentMcID() {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME)
     }
@@ -206,12 +206,6 @@ class InternalCordialAPI {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
     }
     
-    // MARK: Remove JSON Web Token
-    
-    func removeCurrentJWT() {
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
-    }
-    
     // MARK: Is user login
     
     func isUserLogin() -> Bool {
@@ -235,21 +229,21 @@ class InternalCordialAPI {
     // MARK: Send Any Custom Event
     
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        ThreadQueues.shared.queueSendCustomEvent.sync(flags: .barrier) {
+        DispatchQueue.main.async {
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
-        }
-        
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            if CordialApiConfiguration.shared.eventsBulkSize != 1 {
-                os_log("Event [eventName: %{public}@, eventID: %{public}@] added to bulk", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
-            }
-        }
-        
-        ThrottlerManager.shared.sendCustomEventRequest.throttle {
-            guard let qtyCachedCustomEventRequests = CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() else { return }
             
-            if qtyCachedCustomEventRequests >= CordialApiConfiguration.shared.eventsBulkSize {
-                CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                if CordialApiConfiguration.shared.eventsBulkSize != 1 {
+                    os_log("Event [eventName: %{public}@, eventID: %{public}@] added to bulk", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
+                }
+            }
+            
+            ThrottlerManager.shared.sendCustomEventRequest.throttle {
+                guard let qtyCachedCustomEventRequests = CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() else { return }
+                
+                if qtyCachedCustomEventRequests >= CordialApiConfiguration.shared.eventsBulkSize {
+                    CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
+                }
             }
         }
     }

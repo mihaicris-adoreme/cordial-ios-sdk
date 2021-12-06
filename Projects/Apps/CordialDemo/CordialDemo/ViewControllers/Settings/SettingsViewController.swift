@@ -64,6 +64,12 @@ class SettingsViewController: UIViewController {
             self.updateSettingsPage()
         }
         
+        let usWest2 = UIAlertAction(title: Settings.usWest2.rawValue, style: .default) { action in
+            App.setSavedSettingsType(settingsType: Settings.usWest2.rawValue)
+            
+            self.updateSettingsPage()
+        }
+        
         let customAction = UIAlertAction(title: Settings.custom.rawValue, style: .default) { action in
             App.setSavedSettingsType(settingsType: Settings.custom.rawValue)
             
@@ -75,6 +81,7 @@ class SettingsViewController: UIViewController {
         alertController.addAction(qcAction)
         alertController.addAction(stagingAction)
         alertController.addAction(prodAction)
+        alertController.addAction(usWest2)
         alertController.addAction(customAction)
         alertController.addAction(cancelAction)
 
@@ -148,6 +155,17 @@ class SettingsViewController: UIViewController {
             self.channelKeyTextField.text = productionSettings.channelKey
             
             self.disableEditing()
+        case Settings.usWest2.rawValue:
+            self.title = Settings.usWest2.rawValue
+            
+            let usWest2Settings = self.getUSWest2Settings()
+            
+            self.eventsStreamURLTextField.text = usWest2Settings.eventsStreamURL
+            self.messageHubURLTextField.text = usWest2Settings.messageHubURL
+            self.accountKeyTextField.text = usWest2Settings.accountKey
+            self.channelKeyTextField.text = usWest2Settings.channelKey
+            
+            self.disableEditing()
         default:
             self.title = Settings.custom.rawValue
             
@@ -177,6 +195,15 @@ class SettingsViewController: UIViewController {
         let eventsStreamURL = "https://events-stream-svc.cordial.com/"
         let messageHubURL = "https://message-hub-svc.cordial.com/"
         let accountKey = "cordialdev"
+        let channelKey = "push"
+        
+        return Credentials(eventsStreamURL: eventsStreamURL, messageHubURL: messageHubURL, accountKey: accountKey, channelKey: channelKey)
+    }
+    
+    func getUSWest2Settings() -> Credentials {
+        let eventsStreamURL = "https://events-stream-svc.usw2.cordial.com/"
+        let messageHubURL = "https://message-hub-svc.usw2.cordial.com/"
+        let accountKey = "dev2"
         let channelKey = "push"
         
         return Credentials(eventsStreamURL: eventsStreamURL, messageHubURL: messageHubURL, accountKey: accountKey, channelKey: channelKey)
