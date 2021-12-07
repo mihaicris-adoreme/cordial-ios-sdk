@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 3.0.4 (2021-12-07)
+
+### Fixed
+
+- Not showing IAM after silent push notification arrived 
+
 ## 3.0.3 (2021-12-01)
 
 ### Fixed
