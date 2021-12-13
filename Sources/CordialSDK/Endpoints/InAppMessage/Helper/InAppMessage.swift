@@ -30,14 +30,12 @@ class InAppMessage {
     // MARK: Prepare and show IAM
     
     func prepareAndShowInAppMessage(inAppMessageData: InAppMessageData) {
-        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
-            CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-        }
+        CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
         
-        DispatchQueue.main.async {
-            InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
-            
-            if !InAppMessageProcess.shared.isPresentedInAppMessage {
+        InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
+        
+        if !InAppMessageProcess.shared.isPresentedInAppMessage {
+            DispatchQueue.main.async {
                 if UIApplication.shared.applicationState == .active {
                     switch inAppMessageData.displayType {
                     case InAppMessageDisplayType.displayOnAppOpenEvent:
