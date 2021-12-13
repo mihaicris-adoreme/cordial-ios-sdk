@@ -66,9 +66,7 @@ class CustomEventsSender {
     }
     
     func systemErrorHandler(sendCustomEventRequests: [SendCustomEventRequest], error: ResponseError) {
-        ThreadQueues.shared.queueSendCustomEvent.sync(flags: .barrier) {
-            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
-        }
+        CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
         
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)

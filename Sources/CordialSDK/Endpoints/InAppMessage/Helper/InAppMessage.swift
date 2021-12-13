@@ -30,9 +30,7 @@ class InAppMessage {
     // MARK: Prepare and show IAM
     
     func prepareAndShowInAppMessage(inAppMessageData: InAppMessageData) {
-        ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
-            CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
-        }
+        CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
         
         DispatchQueue.main.async {
             InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()

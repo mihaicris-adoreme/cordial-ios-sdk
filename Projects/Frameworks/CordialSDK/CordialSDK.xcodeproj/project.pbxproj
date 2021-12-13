@@ -106,7 +106,6 @@
 		9E5F22A424584BBF00CDFBCF /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F22A324584BBF00CDFBCF /* Throttler.swift */; };
 		9E63BE3824B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63BE3724B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift */; };
 		9E63BE3A24B4DB0E00BB509B /* MockRequestSenderInAppMessageManualDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63BE3924B4DB0E00BB509B /* MockRequestSenderInAppMessageManualDismiss.swift */; };
-		9E654557254330520097F22F /* ThreadQueues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E654556254330520097F22F /* ThreadQueues.swift */; };
 		9E65C1D3233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */; };
 		9E65C1D4233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */; };
 		9E687EC724B94F0600D81322 /* MockRequestSenderInAppMessageUserClickedInAppMessageActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E687EC624B94F0600D81322 /* MockRequestSenderInAppMessageUserClickedInAppMessageActionButton.swift */; };
@@ -408,7 +407,6 @@
 		9E5F22A324584BBF00CDFBCF /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		9E63BE3724B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageBannerAutoDismiss.swift; sourceTree = "<group>"; };
 		9E63BE3924B4DB0E00BB509B /* MockRequestSenderInAppMessageManualDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageManualDismiss.swift; sourceTree = "<group>"; };
-		9E654556254330520097F22F /* ThreadQueues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreadQueues.swift; sourceTree = "<group>"; };
 		9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataClass.swift"; sourceTree = "<group>"; };
 		9E65C1D2233D15E600679942 /* InAppMessagesCache+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9E687EC624B94F0600D81322 /* MockRequestSenderInAppMessageUserClickedInAppMessageActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageUserClickedInAppMessageActionButton.swift; sourceTree = "<group>"; };
@@ -840,14 +838,6 @@
 			path = Throttler;
 			sourceTree = "<group>";
 		};
-		9E654555254330380097F22F /* ThreadQueues */ = {
-			isa = PBXGroup;
-			children = (
-				9E654556254330520097F22F /* ThreadQueues.swift */,
-			);
-			path = ThreadQueues;
-			sourceTree = "<group>";
-		};
 		9E69809B25376E6300BABC82 /* Pagination */ = {
 			isa = PBXGroup;
 			children = (
@@ -1017,7 +1007,6 @@
 			children = (
 				9EA68D7626EA833C00D36C22 /* ResourceBundle */,
 				9E876C5E26307A7300FF2FE2 /* JSONStructure */,
-				9E654555254330380097F22F /* ThreadQueues */,
 				9E5F22A224584BA600CDFBCF /* Throttler */,
 				9E95842923C7539300061C21 /* UserDefaults */,
 				9EE8C5F1235DAE1F0045347B /* DateFormatter */,
@@ -1858,7 +1847,6 @@
 				9EB17ABD22930D7B00EEAB7D /* ContactRequest+CoreDataClass.swift in Sources */,
 				9E44F2122551BF9A00D163E6 /* InboxMessagesCache+CoreDataClass.swift in Sources */,
 				9E126DB122F85EF300A74143 /* SDKSecurity.swift in Sources */,
-				9E654557254330520097F22F /* ThreadQueues.swift in Sources */,
 				9EE94E2D233CF8C9009651DF /* InAppMessageInactiveSessionDisplayType.swift in Sources */,
 				9E6A932626A8563A00C1990B /* CordialSwiftUIPushNotificationAppOpenViaNotificationTap.swift in Sources */,
 				9E52A63E254AEF110090F29F /* CustomEventRequest+CoreDataProperties.swift in Sources */,
