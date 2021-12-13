@@ -42,7 +42,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     func removeInAppMessageBannerWithDelay() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 15.0, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15, execute: {
             if self.isBannerAvailable {
                 self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
             }
@@ -193,9 +193,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         let mcID = self.inAppMessageData.mcID
         InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
         
-        DispatchQueue.main.async {
-            InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
-        }
+        InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
     }
     
     func removeInAppMessage() {

@@ -25,17 +25,15 @@ class InAppMessageContentURLSessionManager {
                        let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
                        let html = responseBodyJSON["content"] as? String {
                        
-                        DispatchQueue.main.async {
-                            if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
-                                
-                                let inAppMessageData = InAppMessage().getInAppMessageData(inAppMessageParams: inAppMessageParams, html: html)
-                                
-                                self.inAppMessageContentGetter.completionHandler(inAppMessageData: inAppMessageData)
-                            } else {
-                                let message = "Failed to parse IAM response."
-                                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                                self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
-                            }
+                        if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
+                            
+                            let inAppMessageData = InAppMessage().getInAppMessageData(inAppMessageParams: inAppMessageParams, html: html)
+                            
+                            self.inAppMessageContentGetter.completionHandler(inAppMessageData: inAppMessageData)
+                        } else {
+                            let message = "Failed to parse IAM response."
+                            let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                            self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
                         }
                     } else {
                         let message = "Failed to parse IAM response."

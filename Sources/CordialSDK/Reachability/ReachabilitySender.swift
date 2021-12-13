@@ -21,9 +21,11 @@ class ReachabilitySender {
     }
     
     @objc func makeAllNeededHTTPCalls() {
-        CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         DispatchQueue.main.async {
+            CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
+            
             InternalCordialAPI().sendFirstLaunchCustomEvent()
+            
             CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
         }
     }

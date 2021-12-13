@@ -102,17 +102,13 @@ class NotificationManager {
         CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
         
         // IAM
-        DispatchQueue.main.async {
-            InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
-        }
+        InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
               
         // IAMs
         InAppMessagesGetter().startFetchInAppMessages(isSilentPushDeliveryEvent: false)
         
         // IAM show
-        DispatchQueue.main.async {
-            InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
-        }
+        InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
         
         if let vanityDeepLinkURL = URL(string: self.vanityDeepLink) {
             CordialVanityDeepLink().open(url: vanityDeepLinkURL)
