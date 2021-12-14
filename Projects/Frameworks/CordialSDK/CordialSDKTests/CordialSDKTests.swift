@@ -198,7 +198,7 @@ class CordialSDKTests: XCTestCase {
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
+            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
         }
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")
@@ -222,7 +222,7 @@ class CordialSDKTests: XCTestCase {
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
+            CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: {_ in })
         }
 
         let expectation = XCTestExpectation(description: "Expectation for sending request")
@@ -246,7 +246,7 @@ class CordialSDKTests: XCTestCase {
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
+            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
         }
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")
@@ -271,7 +271,7 @@ class CordialSDKTests: XCTestCase {
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
+            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
         }
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")
@@ -296,7 +296,7 @@ class CordialSDKTests: XCTestCase {
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo)
+            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
         }
         
         let expectation = XCTestExpectation(description: "Expectation for the func calling")
