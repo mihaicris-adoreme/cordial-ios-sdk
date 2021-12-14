@@ -17,12 +17,14 @@ class CordialPushNotificationHelper {
     let pushNotificationParser = CordialPushNotificationParser()
     
     func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any], completionHandler: () -> Void) {
-        self.pushNotificationHasBeenTapped(userInfo: userInfo)
+        DispatchQueue.main.async {
+            self.pushNotificationHasBeenTapped(userInfo: userInfo)
+        }
         
         completionHandler()
     }
     
-    func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
+    private func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
         // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.appOpenViaNotificationTap(notificationContent: userInfo)
@@ -125,14 +127,16 @@ class CordialPushNotificationHelper {
     }
     
     func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any], completionHandler: (UNNotificationPresentationOptions) -> Void) {
-        self.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
+        DispatchQueue.main.async {
+            self.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
+        }
         
         if !self.pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
             completionHandler([.alert])
         }
     }
     
-    func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
+    private func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
         // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.notificationDeliveredInForeground(notificationContent: userInfo)
