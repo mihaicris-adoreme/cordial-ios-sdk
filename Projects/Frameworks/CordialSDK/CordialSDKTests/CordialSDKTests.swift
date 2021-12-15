@@ -1304,9 +1304,9 @@ class CordialSDKTests: XCTestCase {
             }, onFailure: { error in
                 XCTAssert(false, error)
             })
-            
-            expectation.fulfill()
         }
+        
+        expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(isVerified)
@@ -1343,9 +1343,9 @@ class CordialSDKTests: XCTestCase {
             }, onFailure: { error in
                 XCTAssert(false, error)
             })
-                        
-            expectation.fulfill()
         }
+        
+        expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(isVerified)
@@ -1411,9 +1411,9 @@ class CordialSDKTests: XCTestCase {
             }, onFailure: { error in
                 XCTAssert(false, error)
             })
-                        
-            expectation.fulfill()
         }
+        
+        expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(isVerified)
@@ -1459,9 +1459,9 @@ class CordialSDKTests: XCTestCase {
             }, onFailure: { error in
                 XCTAssert(false, error)
             })
-            
-            expectation.fulfill()
         }
+        
+        expectation.fulfill()
     
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(isVerified)
@@ -1505,9 +1505,9 @@ class CordialSDKTests: XCTestCase {
             }, onFailure: { error in
                 XCTAssert(false, error)
             })
-            
-            expectation.fulfill()
         }
+        
+        expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(isVerified)
@@ -1548,9 +1548,9 @@ class CordialSDKTests: XCTestCase {
                     XCTAssert(false)
                 }
             })
-            
-            expectation.fulfill()
         }
+        
+        expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(isVerified)
@@ -1592,8 +1592,9 @@ class CordialSDKTests: XCTestCase {
                 }
             })
             
-            expectation.fulfill()
         }
+        
+        expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(isVerified)
@@ -1634,9 +1635,9 @@ class CordialSDKTests: XCTestCase {
                     XCTAssert(false)
                 }
             })
-            
-            expectation.fulfill()
         }
+        
+        expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             XCTAssert(isVerified)
