@@ -1225,16 +1225,16 @@ class CordialSDKTests: XCTestCase {
             
             InAppMessageProcess.shared.inAppMessageManager.getInAppMessageViewController().userClickedAnyInAppMessageButton(messageBody: messageBody)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            InAppMessageProcess.shared.isPresentedInAppMessage = false
+            
+            expectation.fulfill()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 XCTAssert(mock.isVerified)
-                
-                InAppMessageProcess.shared.isPresentedInAppMessage = false
-                
-                expectation.fulfill()
             }
         }
 
-        wait(for: [expectation], timeout: 4)
+        wait(for: [expectation], timeout: 3)
     }
     
     func test42InAppMessageExpirationTime() {
