@@ -10,43 +10,35 @@ import Foundation
 
 class SDKSecurityGetJWTURLSessionManager {
     
-    func completionHandler(statusCode: Int, location: URL) {
+    func completionHandler(statusCode: Int, responseBody: String) {
         SDKSecurity.shared.isCurrentlyFetchingJWT = false
         
-        do {
-            let responseBody = try String(contentsOfFile: location.path)
-            
-            switch statusCode {
-            case 200:
-                do {
-                    if let responseBodyData = responseBody.data(using: .utf8),
-                       let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject] {
-                        
-                        if let JWT = responseBodyJSON["token"] as? String {
-                            SDKSecurity.shared.completionHandler(JWT: JWT)
-                        } else {
-                            let message = "JWT is absent"
-                            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
-                            SDKSecurity.shared.errorHandler(error: responseError)
-                        }
+        switch statusCode {
+        case 200:
+            do {
+                if let responseBodyData = responseBody.data(using: .utf8),
+                   let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject] {
+                    
+                    if let JWT = responseBodyJSON["token"] as? String {
+                        SDKSecurity.shared.completionHandler(JWT: JWT)
                     } else {
-                        let message = "Failed decode response data."
+                        let message = "JWT is absent"
                         let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                         SDKSecurity.shared.errorHandler(error: responseError)
                     }
-                } catch let error {
-                    let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
+                } else {
+                    let message = "Failed decode response data."
                     let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                     SDKSecurity.shared.errorHandler(error: responseError)
                 }
-            default:
-                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            } catch let error {
+                let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
                 let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 SDKSecurity.shared.errorHandler(error: responseError)
             }
-        } catch let error {
-            let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
-            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: nil, systemError: nil)
+        default:
+            let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
             SDKSecurity.shared.errorHandler(error: responseError)
         }
     }

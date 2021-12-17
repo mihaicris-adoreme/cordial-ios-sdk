@@ -13,30 +13,22 @@ class SendContactLogoutURLSessionManager {
     
     let contactLogoutSender = ContactLogoutSender()
     
-    func completionHandler(sendContactLogoutURLSessionData: SendContactLogoutURLSessionData, statusCode: Int, location: URL) {
+    func completionHandler(sendContactLogoutURLSessionData: SendContactLogoutURLSessionData, statusCode: Int, responseBody: String) {
         let sendContactLogoutRequest = sendContactLogoutURLSessionData.sendContactLogoutRequest
         
-        do {
-            let responseBody = try String(contentsOfFile: location.path)
+        switch statusCode {
+        case 200:
+            contactLogoutSender.completionHandler(sendContactLogoutRequest: sendContactLogoutRequest)
+        case 401:
+            let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
+            contactLogoutSender.systemErrorHandler(sendContactLogoutRequest: sendContactLogoutRequest, error: responseError)
             
-            switch statusCode {
-            case 200:
-                contactLogoutSender.completionHandler(sendContactLogoutRequest: sendContactLogoutRequest)
-            case 401:
-                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
-                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
-                contactLogoutSender.systemErrorHandler(sendContactLogoutRequest: sendContactLogoutRequest, error: responseError)
-                
-                SDKSecurity.shared.updateJWT()
-            default:
-                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
-                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
-                contactLogoutSender.logicErrorHandler(sendContactLogoutRequest: sendContactLogoutRequest, error: responseError)
-            }
-        } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Failed decode send contact logout response data. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .error, sendContactLogoutRequest.requestID, error.localizedDescription)
-            }
+            SDKSecurity.shared.updateJWT()
+        default:
+            let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
+            contactLogoutSender.logicErrorHandler(sendContactLogoutRequest: sendContactLogoutRequest, error: responseError)
         }
     }
     

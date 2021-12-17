@@ -12,41 +12,33 @@ class InAppMessagesURLSessionManager {
     
     let inAppMessages = InAppMessages.shared
     
-    func completionHandler(statusCode: Int, location: URL) {
-        do {
-            let responseBody = try String(contentsOfFile: location.path)
-            
-            switch statusCode {
-            case 200:
-                do {
-                    if let responseBodyData = responseBody.data(using: .utf8),
-                       let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
-                       let messages = responseBodyJSON["messages"] as? [Dictionary<String, AnyObject>] {
-                        
-                        self.inAppMessages.completionHandler(messages: messages)
-                        
-                    } else {
-                        let message = "Failed decode response data."
-                        let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
-                        self.inAppMessages.errorHandler(error: responseError)
-                    }
-                } catch let error {
-                    let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
+    func completionHandler(statusCode: Int, responseBody: String) {
+        switch statusCode {
+        case 200:
+            do {
+                if let responseBodyData = responseBody.data(using: .utf8),
+                   let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
+                   let messages = responseBodyJSON["messages"] as? [Dictionary<String, AnyObject>] {
+                    
+                    self.inAppMessages.completionHandler(messages: messages)
+                    
+                } else {
+                    let message = "Failed decode response data."
                     let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                     self.inAppMessages.errorHandler(error: responseError)
                 }
-            case 401:
-                self.inAppMessages.isCurrentlyUpdatingInAppMessages = false
-                
-                SDKSecurity.shared.updateJWT()
-            default:
-                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            } catch let error {
+                let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
                 let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 self.inAppMessages.errorHandler(error: responseError)
             }
-        } catch let error {
-            let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
-            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: nil, systemError: nil)
+        case 401:
+            self.inAppMessages.isCurrentlyUpdatingInAppMessages = false
+            
+            SDKSecurity.shared.updateJWT()
+        default:
+            let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
             self.inAppMessages.errorHandler(error: responseError)
         }
     }
