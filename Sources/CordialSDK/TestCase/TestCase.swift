@@ -86,7 +86,7 @@ public class TestCase {
                     do {
                         try httpBody.write(to: location, options: .atomic)
                         
-                        UpsertContactsURLSessionManager().completionHandler(upsertContactsURLSessionData: upsertContactsURLSessionData, httpResponse: httpResponse, location: location)
+                        UpsertContactsURLSessionManager().completionHandler(upsertContactsURLSessionData: upsertContactsURLSessionData, statusCode: httpResponse.statusCode, location: location)
                     } catch let error {
                         print(error.localizedDescription)
                     }
@@ -143,7 +143,7 @@ public class TestCase {
                         let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
                         
                         try httpBody.write(to: location, options: .atomic)
-                        SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, httpResponse: httpResponse, location: location)
+                        SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, statusCode: httpResponse.statusCode, location: location)
                     } catch let error {
                         print(error.localizedDescription)
                     }
@@ -181,7 +181,7 @@ public class TestCase {
                         let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
                         
                         try httpBody.write(to: location, options: .atomic)
-                        InboxMessagesMarkReadUnreadURLSessionManager().completionHandler(inboxMessagesMarkReadUnreadURLSessionData: inboxMessagesMarkReadUnreadURLSessionData, httpResponse: httpResponse, location: location)
+                        InboxMessagesMarkReadUnreadURLSessionManager().completionHandler(inboxMessagesMarkReadUnreadURLSessionData: inboxMessagesMarkReadUnreadURLSessionData, statusCode: httpResponse.statusCode, location: location)
                     } catch let error {
                         print(error.localizedDescription)
                     }
@@ -219,7 +219,7 @@ public class TestCase {
                     do {
                         try httpBody.write(to: location, options: .atomic)
                         
-                        FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, httpResponse: httpResponse, location: location)
+                        FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, statusCode: httpResponse.statusCode, location: location)
                     } catch let error {
                         print(error.localizedDescription)
                     }
@@ -255,7 +255,7 @@ public class TestCase {
                     do {
                         try httpBody.write(to: location, options: .atomic)
                         
-                        InAppMessagesURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
+                        InAppMessagesURLSessionManager().completionHandler(statusCode: httpResponse.statusCode, location: location)
                     } catch let error {
                         print(error.localizedDescription)
                     }
@@ -279,7 +279,7 @@ public class TestCase {
                     do {
                         try httpBody.write(to: location, options: .atomic)
                         
-                        InAppMessageContentURLSessionManager().completionHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, httpResponse: httpResponse, location: location)
+                        InAppMessageContentURLSessionManager().completionHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, statusCode: httpResponse.statusCode, location: location)
                     } catch let error {
                         print(error.localizedDescription)
                     }

@@ -13,24 +13,24 @@ class UpsertContactsURLSessionManager {
     
     let contactsSender = ContactsSender()
     
-    func completionHandler(upsertContactsURLSessionData: UpsertContactsURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+    func completionHandler(upsertContactsURLSessionData: UpsertContactsURLSessionData, statusCode: Int, location: URL) {
         let upsertContactRequests = upsertContactsURLSessionData.upsertContactRequests
         
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
-            switch httpResponse.statusCode {
+            switch statusCode {
             case 200:
                 self.contactsSender.completionHandler(upsertContactRequests: upsertContactRequests)
             case 401:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 self.contactsSender.systemErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)
                 
                 SDKSecurity.shared.updateJWT()
             default:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 
                 self.contactsSender.logicErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)
             }

@@ -13,24 +13,24 @@ class SendCustomEventsURLSessionManager {
     
     let customEventsSender = CustomEventsSender()
     
-    func completionHandler(sendCustomEventsURLSessionData: SendCustomEventsURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+    func completionHandler(sendCustomEventsURLSessionData: SendCustomEventsURLSessionData, statusCode: Int, location: URL) {
         let sendCustomEventRequests = sendCustomEventsURLSessionData.sendCustomEventRequests
         
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
-            switch httpResponse.statusCode {
+            switch statusCode {
             case 200:
                 self.customEventsSender.completionHandler(sendCustomEventRequests: sendCustomEventRequests)
             case 401:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 self.customEventsSender.systemErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
                 
                 SDKSecurity.shared.updateJWT()
             default:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 self.customEventsSender.logicErrorHandler(sendCustomEventRequests: sendCustomEventRequests, error: responseError)
             }
         } catch let error {

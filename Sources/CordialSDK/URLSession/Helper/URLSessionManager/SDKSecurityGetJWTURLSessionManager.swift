@@ -10,13 +10,13 @@ import Foundation
 
 class SDKSecurityGetJWTURLSessionManager {
     
-    func completionHandler(httpResponse: HTTPURLResponse, location: URL) {
+    func completionHandler(statusCode: Int, location: URL) {
         SDKSecurity.shared.isCurrentlyFetchingJWT = false
         
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
-            switch httpResponse.statusCode {
+            switch statusCode {
             case 200:
                 do {
                     if let responseBodyData = responseBody.data(using: .utf8),
@@ -26,27 +26,27 @@ class SDKSecurityGetJWTURLSessionManager {
                             SDKSecurity.shared.completionHandler(JWT: JWT)
                         } else {
                             let message = "JWT is absent"
-                            let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                             SDKSecurity.shared.errorHandler(error: responseError)
                         }
                     } else {
                         let message = "Failed decode response data."
-                        let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                        let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                         SDKSecurity.shared.errorHandler(error: responseError)
                     }
                 } catch let error {
                     let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
-                    let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                    let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                     SDKSecurity.shared.errorHandler(error: responseError)
                 }
             default:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 SDKSecurity.shared.errorHandler(error: responseError)
             }
         } catch let error {
             let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
-            let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: nil, systemError: nil)
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: nil, systemError: nil)
             SDKSecurity.shared.errorHandler(error: responseError)
         }
     }

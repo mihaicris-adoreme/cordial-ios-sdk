@@ -13,24 +13,24 @@ class SendContactOrdersURLSessionManager {
     
     let contactOrdersSender = ContactOrdersSender()
     
-    func completionHandler(sendContactOrdersURLSessionData: SendContactOrdersURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+    func completionHandler(sendContactOrdersURLSessionData: SendContactOrdersURLSessionData, statusCode: Int, location: URL) {
         let sendContactOrderRequests = sendContactOrdersURLSessionData.sendContactOrderRequests
         
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
-            switch httpResponse.statusCode {
+            switch statusCode {
             case 200:
                 contactOrdersSender.completionHandler(sendContactOrderRequests: sendContactOrderRequests)
             case 401:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 contactOrdersSender.systemErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
                 
                 SDKSecurity.shared.updateJWT()
             default:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 contactOrdersSender.logicErrorHandler(sendContactOrderRequests: sendContactOrderRequests, error: responseError)
             }
         } catch let error {

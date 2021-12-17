@@ -13,24 +13,24 @@ class InboxMessagesMarkReadUnreadURLSessionManager {
     
     let inboxMessagesMarkReadUnreadSender = InboxMessagesMarkReadUnreadSender()
     
-    func completionHandler(inboxMessagesMarkReadUnreadURLSessionData: InboxMessagesMarkReadUnreadURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+    func completionHandler(inboxMessagesMarkReadUnreadURLSessionData: InboxMessagesMarkReadUnreadURLSessionData, statusCode: Int, location: URL) {
         let inboxMessagesMarkReadUnreadRequest = inboxMessagesMarkReadUnreadURLSessionData.inboxMessagesMarkReadUnreadRequest
         
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
-            switch httpResponse.statusCode {
+            switch statusCode {
             case 200:
                 self.inboxMessagesMarkReadUnreadSender.completionHandler(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
             case 401:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 self.inboxMessagesMarkReadUnreadSender.systemErrorHandler(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest, error: responseError)
                 
                 SDKSecurity.shared.updateJWT()
             default:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 self.inboxMessagesMarkReadUnreadSender.logicErrorHandler(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest, error: responseError)
             }
         } catch let error {

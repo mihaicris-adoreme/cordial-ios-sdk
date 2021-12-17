@@ -13,13 +13,13 @@ class FetchInAppMessageURLSessionManager {
     
     let inAppMessageGetter = InAppMessageGetter()
     
-    func completionHandler(inAppMessageURLSessionData: InAppMessageURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+    func completionHandler(inAppMessageURLSessionData: InAppMessageURLSessionData, statusCode: Int, location: URL) {
         let mcID = inAppMessageURLSessionData.mcID
         
         do {
             let responseBody = try String(contentsOfFile: location.path)
             
-            switch httpResponse.statusCode {
+            switch statusCode {
             case 200:
                 do {
                     if let responseBodyData = responseBody.data(using: .utf8),
@@ -33,12 +33,12 @@ class FetchInAppMessageURLSessionManager {
                             self.inAppMessageGetter.completionHandler(inAppMessageData: inAppMessageData)
                         } else {
                             let message = "Failed to parse IAM response."
-                            let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                             self.inAppMessageGetter.logicErrorHandler(mcID: mcID, error: responseError)
                         }
                     } else {
                         let message = "Failed to parse IAM response."
-                        let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                        let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                         self.inAppMessageGetter.logicErrorHandler(mcID: mcID, error: responseError)
                     }
                 } catch let error {
@@ -47,14 +47,14 @@ class FetchInAppMessageURLSessionManager {
                     }
                 }
             case 401:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 self.inAppMessageGetter.systemErrorHandler(mcID: mcID, error: responseError)
                 
                 SDKSecurity.shared.updateJWT()
             default:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 self.inAppMessageGetter.logicErrorHandler(mcID: mcID, error: responseError)
             }
         } catch let error {
