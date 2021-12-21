@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegate {
     
@@ -118,53 +119,63 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
         guard let httpResponse = downloadTask.response as? HTTPURLResponse else { return }
         
         if let operation = self.getOperation(taskIdentifier: downloadTask.taskIdentifier) {
-            DispatchQueue.main.async {
-                switch operation.taskName {
-                case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
-                    SDKSecurityGetJWTURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
-                case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS:
-                    ContactTimestampsURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
-                case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP:
-                    ContactTimestampURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
-                case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES:
-                    InAppMessagesURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
-                case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
-                    if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
-                        FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, httpResponse: httpResponse, location: location)
+            
+            do {
+                let responseBody = try String(contentsOfFile: location.path)
+                
+                DispatchQueue.main.async {
+                    switch operation.taskName {
+                    case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
+                        SDKSecurityGetJWTURLSessionManager().completionHandler(statusCode: httpResponse.statusCode, responseBody: responseBody)
+                    case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS:
+                        ContactTimestampsURLSessionManager().completionHandler(statusCode: httpResponse.statusCode, responseBody: responseBody)
+                    case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP:
+                        ContactTimestampURLSessionManager().completionHandler(statusCode: httpResponse.statusCode, responseBody: responseBody)
+                    case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES:
+                        InAppMessagesURLSessionManager().completionHandler(statusCode: httpResponse.statusCode, responseBody: responseBody)
+                    case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
+                        if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
+                            FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
+                        }
+                    case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT:
+                        if let inAppMessageContentURLSessionData = operation.taskData as? InAppMessageContentURLSessionData {
+                            InAppMessageContentURLSessionManager().completionHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
+                        }
+                    case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
+                        if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData {
+                            SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
+                        }
+                    case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS:
+                        if let upsertContactsURLSessionData = operation.taskData as? UpsertContactsURLSessionData {
+                            UpsertContactsURLSessionManager().completionHandler(upsertContactsURLSessionData: upsertContactsURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
+                        }
+                    case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT:
+                        if let sendContactLogoutURLSessionData = operation.taskData as? SendContactLogoutURLSessionData {
+                            SendContactLogoutURLSessionManager().completionHandler(sendContactLogoutURLSessionData: sendContactLogoutURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
+                        }
+                    case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART:
+                        if let upsertContactCartURLSessionData = operation.taskData as? UpsertContactCartURLSessionData {
+                            UpsertContactCartURLSessionManager().completionHandler(upsertContactCartURLSessionData: upsertContactCartURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
+                        }
+                    case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS:
+                        if let sendContactOrdersURLSessionData = operation.taskData as? SendContactOrdersURLSessionData {
+                            SendContactOrdersURLSessionManager().completionHandler(sendContactOrdersURLSessionData: sendContactOrdersURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
+                        }
+                    case API.DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS:
+                        if let inboxMessagesMarkReadUnreadURLSessionData = operation.taskData as? InboxMessagesMarkReadUnreadURLSessionData {
+                            InboxMessagesMarkReadUnreadURLSessionManager().completionHandler(inboxMessagesMarkReadUnreadURLSessionData: inboxMessagesMarkReadUnreadURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
+                        }
+                    case API.DOWNLOAD_TASK_NAME_DELETE_INBOX_MESSAGE:
+                        if let inboxMessageDeleteURLSessionData = operation.taskData as? InboxMessageDeleteURLSessionData {
+                            InboxMessageDeleteURLSessionManager().completionHandler(inboxMessageDeleteURLSessionData: inboxMessageDeleteURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
+                        }
+                    default: break
                     }
-                case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT:
-                    if let inAppMessageContentURLSessionData = operation.taskData as? InAppMessageContentURLSessionData {
-                        InAppMessageContentURLSessionManager().completionHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, httpResponse: httpResponse, location: location)
-                    }
-                case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
-                    if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData {
-                        SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, httpResponse: httpResponse, location: location)
-                    }
-                case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS:
-                    if let upsertContactsURLSessionData = operation.taskData as? UpsertContactsURLSessionData {
-                        UpsertContactsURLSessionManager().completionHandler(upsertContactsURLSessionData: upsertContactsURLSessionData, httpResponse: httpResponse, location: location)
-                    }
-                case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT:
-                    if let sendContactLogoutURLSessionData = operation.taskData as? SendContactLogoutURLSessionData {
-                        SendContactLogoutURLSessionManager().completionHandler(sendContactLogoutURLSessionData: sendContactLogoutURLSessionData, httpResponse: httpResponse, location: location)
-                    }
-                case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART:
-                    if let upsertContactCartURLSessionData = operation.taskData as? UpsertContactCartURLSessionData {
-                        UpsertContactCartURLSessionManager().completionHandler(upsertContactCartURLSessionData: upsertContactCartURLSessionData, httpResponse: httpResponse, location: location)
-                    }
-                case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS:
-                    if let sendContactOrdersURLSessionData = operation.taskData as? SendContactOrdersURLSessionData {
-                        SendContactOrdersURLSessionManager().completionHandler(sendContactOrdersURLSessionData: sendContactOrdersURLSessionData, httpResponse: httpResponse, location: location)
-                    }
-                case API.DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS:
-                    if let inboxMessagesMarkReadUnreadURLSessionData = operation.taskData as? InboxMessagesMarkReadUnreadURLSessionData {
-                        InboxMessagesMarkReadUnreadURLSessionManager().completionHandler(inboxMessagesMarkReadUnreadURLSessionData: inboxMessagesMarkReadUnreadURLSessionData, httpResponse: httpResponse, location: location)
-                    }
-                case API.DOWNLOAD_TASK_NAME_DELETE_INBOX_MESSAGE:
-                    if let inboxMessageDeleteURLSessionData = operation.taskData as? InboxMessageDeleteURLSessionData {
-                        InboxMessageDeleteURLSessionManager().completionHandler(inboxMessageDeleteURLSessionData: inboxMessageDeleteURLSessionData, httpResponse: httpResponse, location: location)
-                    }
-                default: break
+                }
+                
+            } catch let error {
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                    os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, error.localizedDescription)
                 }
             }
         }
