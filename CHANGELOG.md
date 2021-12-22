@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 3.0.5 (2021-12-22)
+
+### Fixed
+
+- Receiving JWT on iPadOS 15.2
+
 ## 3.0.4 (2021-12-07)
 
 ### Fixed

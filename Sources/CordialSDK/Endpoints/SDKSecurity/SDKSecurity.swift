@@ -50,9 +50,8 @@ class SDKSecurity {
         let accountKey = cordialAPI.getAccountKey()
         let channelKey = cordialAPI.getChannelKey()
         
-        let currentDevice = UIDevice.current
-        let systemName = currentDevice.systemName
-        let systemVersion = currentDevice.systemVersion
+        let systemName = "iOS"
+        let systemVersion = UIDevice.current.systemVersion
         
         let secretString = "{\"accountKey\":\"\(accountKey)\",\"channelKey\":\"\(channelKey)\",\"os\":\"\(systemName)\",\"version\":\"\(systemVersion)\"}"
         let secret = MD5().getHex(string: secretString)
