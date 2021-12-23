@@ -25,8 +25,7 @@ class UserAgentBuilder {
     }
     
     func deviceVersion() -> String {
-        let currentDevice = UIDevice.current
-        return "iOS/\(currentDevice.systemVersion)"
+        return "iOS/\(UIDevice.current.systemVersion)"
     }
     
     func deviceName() -> String {
