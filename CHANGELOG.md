@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 3.1.0 (2021-12-29)
+
+### Changed
+
+- CoreData is accessed from the same thread
+
 ## 3.0.5 (2021-12-22)
 
 ### Fixed
