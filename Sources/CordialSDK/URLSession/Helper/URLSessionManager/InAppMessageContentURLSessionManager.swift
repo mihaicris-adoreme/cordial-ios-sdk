@@ -12,53 +12,43 @@ class InAppMessageContentURLSessionManager {
     
     let inAppMessageContentGetter = InAppMessageContentGetter()
         
-    func completionHandler(inAppMessageContentURLSessionData: InAppMessageContentURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+    func completionHandler(inAppMessageContentURLSessionData: InAppMessageContentURLSessionData, statusCode: Int, responseBody: String) {
         let mcID = inAppMessageContentURLSessionData.mcID
         
-        do {
-            let responseBody = try String(contentsOfFile: location.path)
-            
-            switch httpResponse.statusCode {
-            case 200:
-                do {
-                    if let responseBodyData = responseBody.data(using: .utf8),
-                       let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
-                       let html = responseBodyJSON["content"] as? String {
-                       
-                        DispatchQueue.main.async {
-                            if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
-                                
-                                let inAppMessageData = InAppMessage().getInAppMessageData(inAppMessageParams: inAppMessageParams, html: html)
-                                
-                                self.inAppMessageContentGetter.completionHandler(inAppMessageData: inAppMessageData)
-                            } else {
-                                let message = "Failed to parse IAM response."
-                                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                                self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
-                            }
-                        }
+        switch statusCode {
+        case 200:
+            do {
+                if let responseBodyData = responseBody.data(using: .utf8),
+                   let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
+                   let html = responseBodyJSON["content"] as? String {
+                   
+                    if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
+                        
+                        let inAppMessageData = InAppMessage().getInAppMessageData(inAppMessageParams: inAppMessageParams, html: html)
+                        
+                        self.inAppMessageContentGetter.completionHandler(inAppMessageData: inAppMessageData)
                     } else {
                         let message = "Failed to parse IAM response."
-                        let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                        let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                         self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
                     }
-                } catch let error {
-                    let message = "Failed decode response data. mcID: [\(mcID)] Error: [\(error.localizedDescription)]"
-                    let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+                } else {
+                    let message = "Failed to parse IAM response."
+                    let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                     self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
                 }
-            case 400:
-                let message = "Fetching IAM content failed. Error: [URL has been expired]. mcID: [\(mcID)]"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
-            default:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
+            } catch let error {
+                let message = "Failed decode response data. mcID: [\(mcID)] Error: [\(error.localizedDescription)]"
+                let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
                 self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
             }
-        } catch let error {
-            let message = "Failed decode response data. Error: [\(error.localizedDescription)]"
-            let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: nil, systemError: nil)
+        case 400:
+            let message = "Fetching IAM content failed. Error: [URL has been expired]. mcID: [\(mcID)]"
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
+            self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
+        default:
+            let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
             self.inAppMessageContentGetter.errorHandler(mcID: mcID, error: responseError)
         }
     }

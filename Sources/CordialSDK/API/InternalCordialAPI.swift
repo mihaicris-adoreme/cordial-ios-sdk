@@ -195,9 +195,7 @@ class InternalCordialAPI {
     func setCurrentJWT(JWT: String) {
         CordialUserDefaults.set(JWT, forKey: API.USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT)
         
-        DispatchQueue.main.async {
-            CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
-        }
+        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
     }
     
     // MARK: Get JSON Web Token
@@ -229,21 +227,19 @@ class InternalCordialAPI {
     // MARK: Send Any Custom Event
     
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        DispatchQueue.main.async {
-            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
-            
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                if CordialApiConfiguration.shared.eventsBulkSize != 1 {
-                    os_log("Event [eventName: %{public}@, eventID: %{public}@] added to bulk", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
-                }
+        CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
+        
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            if CordialApiConfiguration.shared.eventsBulkSize != 1 {
+                os_log("Event [eventName: %{public}@, eventID: %{public}@] added to bulk", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
             }
+        }
+        
+        ThrottlerManager.shared.sendCustomEventRequest.throttle {
+            guard let qtyCachedCustomEventRequests = CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() else { return }
             
-            ThrottlerManager.shared.sendCustomEventRequest.throttle {
-                guard let qtyCachedCustomEventRequests = CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() else { return }
-                
-                if qtyCachedCustomEventRequests >= CordialApiConfiguration.shared.eventsBulkSize {
-                    CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
-                }
+            if qtyCachedCustomEventRequests >= CordialApiConfiguration.shared.eventsBulkSize {
+                CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
             }
         }
     }
