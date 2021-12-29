@@ -16,9 +16,7 @@ class MockRequestSenderInboxMessagesMarkUnreadCache: RequestSender {
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        let httpBody = task.originalRequest!.httpBody!
-        
-        if let inboxMessagesMarkReadUnreadURL = self.sdkTests.testCase.getInboxMessagesMarkReadUnreadURL(),
+        if let httpBody = task.originalRequest?.httpBody, let inboxMessagesMarkReadUnreadURL = self.sdkTests.testCase.getInboxMessagesMarkReadUnreadURL(),
            let inboxMessagesMarkReadUnreadRequestURL = task.originalRequest?.url,
            inboxMessagesMarkReadUnreadURL == inboxMessagesMarkReadUnreadRequestURL,
            let json = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [String: AnyObject],
@@ -30,8 +28,6 @@ class MockRequestSenderInboxMessagesMarkUnreadCache: RequestSender {
            markAsReadIds.count == 4 {
             
             self.isVerified = true
-        } else {
-            self.isVerified = false
-        }
+        } 
     }
 }

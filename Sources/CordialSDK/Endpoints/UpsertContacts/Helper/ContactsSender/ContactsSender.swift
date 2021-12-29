@@ -74,15 +74,13 @@ class ContactsSender {
         })
         
         CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
-        
-        DispatchQueue.main.async {            
-            CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
-        
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                upsertContactRequests.forEach({ upsertContactRequest in
-                    os_log("Contact has been sent. Request ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
-                })
-            }
+                 
+        CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
+    
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            upsertContactRequests.forEach({ upsertContactRequest in
+                os_log("Contact has been sent. Request ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
+            })
         }
     }
     

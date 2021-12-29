@@ -17,12 +17,14 @@ class CordialPushNotificationHelper {
     let pushNotificationParser = CordialPushNotificationParser()
     
     func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any], completionHandler: () -> Void) {
-        self.pushNotificationHasBeenTapped(userInfo: userInfo)
+        DispatchQueue.main.async {
+            self.pushNotificationHasBeenTapped(userInfo: userInfo)
+        }
         
         completionHandler()
     }
     
-    func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
+    private func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
         // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.appOpenViaNotificationTap(notificationContent: userInfo)
@@ -42,15 +44,13 @@ class CordialPushNotificationHelper {
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             self.cordialAPI.setCurrentMcID(mcID: mcID)
             
-            DispatchQueue.main.async {
-                if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID),
-                   isInAppMessageHasBeenShown {
-                    
-                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
-                    
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, mcID)
-                    }
+            if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID),
+               isInAppMessageHasBeenShown {
+                
+                InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
+                
+                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+                    os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, mcID)
                 }
             }
             
@@ -60,9 +60,7 @@ class CordialPushNotificationHelper {
                 let inactiveSessionDisplay = InAppMessageGetter().getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
                 
                 if inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
-                    ThreadQueues.shared.queueInAppMessage.sync(flags: .barrier) {
-                        CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
-                    }
+                    CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
                 }
             }
         }
@@ -129,14 +127,16 @@ class CordialPushNotificationHelper {
     }
     
     func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any], completionHandler: (UNNotificationPresentationOptions) -> Void) {
-        self.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
+        DispatchQueue.main.async {
+            self.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo)
+        }
         
         if !self.pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
             completionHandler([.alert])
         }
     }
     
-    func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
+    private func pushNotificationHasBeenForegroundDelivered(userInfo: [AnyHashable : Any]) {
         // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.notificationDeliveredInForeground(notificationContent: userInfo)
