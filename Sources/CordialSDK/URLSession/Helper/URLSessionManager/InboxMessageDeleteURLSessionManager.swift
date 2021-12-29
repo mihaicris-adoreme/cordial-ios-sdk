@@ -13,30 +13,22 @@ class InboxMessageDeleteURLSessionManager {
     
     let inboxMessageDeleteSender = InboxMessageDeleteSender()
     
-    func completionHandler(inboxMessageDeleteURLSessionData: InboxMessageDeleteURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+    func completionHandler(inboxMessageDeleteURLSessionData: InboxMessageDeleteURLSessionData, statusCode: Int, responseBody: String) {
         let inboxMessageDeleteRequest = inboxMessageDeleteURLSessionData.inboxMessageDeleteRequest
         
-        do {
-            let responseBody = try String(contentsOfFile: location.path)
+        switch statusCode {
+        case 200:
+            self.inboxMessageDeleteSender.completionHandler(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
+        case 401:
+            let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
+            self.inboxMessageDeleteSender.systemErrorHandler(inboxMessageDeleteRequest: inboxMessageDeleteRequest, error: responseError)
             
-            switch httpResponse.statusCode {
-            case 200:
-                self.inboxMessageDeleteSender.completionHandler(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
-            case 401:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                self.inboxMessageDeleteSender.systemErrorHandler(inboxMessageDeleteRequest: inboxMessageDeleteRequest, error: responseError)
-                
-                SDKSecurity.shared.updateJWT()
-            default:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                self.inboxMessageDeleteSender.logicErrorHandler(inboxMessageDeleteRequest: inboxMessageDeleteRequest, error: responseError)
-            }
-        } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Failed decode delete inbox message response data. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, inboxMessageDeleteRequest.requestID, error.localizedDescription)
-            }
+            SDKSecurity.shared.updateJWT()
+        default:
+            let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
+            self.inboxMessageDeleteSender.logicErrorHandler(inboxMessageDeleteRequest: inboxMessageDeleteRequest, error: responseError)
         }
     }
     

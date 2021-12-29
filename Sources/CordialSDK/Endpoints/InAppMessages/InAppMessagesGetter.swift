@@ -89,19 +89,15 @@ class InAppMessagesGetter {
             mcIDs.append(mcID)
         }
         
-        DispatchQueue.main.async {
-            inAppMessageContents.forEach { inAppMessageContent in
-                CoreDataManager.shared.inAppMessageContentURL.putInAppMessageContentToCoreData(inAppMessageContent: inAppMessageContent)
-            }
-            
-            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: inAppMessagesParams)
-            
-            CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: mcIDs)
-
-            DispatchQueue.main.async {
-                InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
-            }
+        inAppMessageContents.forEach { inAppMessageContent in
+            CoreDataManager.shared.inAppMessageContentURL.putInAppMessageContentToCoreData(inAppMessageContent: inAppMessageContent)
         }
+        
+        CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: inAppMessagesParams)
+        
+        CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: mcIDs)
+
+        InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
     }
     
 }
