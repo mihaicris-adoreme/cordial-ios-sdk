@@ -80,16 +80,12 @@ public class TestCase {
                 SDKSecurity.shared.isCurrentlyFetchingJWT = false
                 
             case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS:
-                if let upsertContactsURLSessionData = operation.taskData as? UpsertContactsURLSessionData, let request = task.originalRequest, let url = request.url, let headerFields = request.allHTTPHeaderFields, let httpResponse = HTTPURLResponse(url: url, statusCode: 401, httpVersion: "HTTP/1.1", headerFields: headerFields), let httpBody = request.httpBody {
+                if let upsertContactsURLSessionData = operation.taskData as? UpsertContactsURLSessionData {
                     
-                    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
-                    do {
-                        try httpBody.write(to: location, options: .atomic)
-                        
-                        UpsertContactsURLSessionManager().completionHandler(upsertContactsURLSessionData: upsertContactsURLSessionData, httpResponse: httpResponse, location: location)
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
+                    let responseBody = String()
+                    let statusCode = 401
+                    
+                    UpsertContactsURLSessionManager().completionHandler(upsertContactsURLSessionData: upsertContactsURLSessionData, statusCode: statusCode, responseBody: responseBody)
                 }
             default: break
             }
@@ -116,37 +112,27 @@ public class TestCase {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
-                if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData,
-                   let request = task.originalRequest,
-                   let url = request.url,
-                   let headerFields = request.allHTTPHeaderFields,
-                   let httpResponse = HTTPURLResponse(url: url, statusCode: 422, httpVersion: "HTTP/1.1", headerFields: headerFields),
-                   let httpBody = """
-                       {
-                         "success": false,
-                         "error": {
-                           "code": 422,
-                           "message": "The given data was invalid.",
-                           "errors": {
-                             "0.deviceId": [
-                               "The 0.deviceId field is required."
-                             ],
-                             "0.event": [
-                               "The 0.event field is required."
-                             ]
-                           }
-                         }
-                       }
-                   """.data(using: .utf8) {
+                if let sendCustomEventsURLSessionData = operation.taskData as? SendCustomEventsURLSessionData {
+                    let responseBody = """
+                            {
+                              "success": false,
+                              "error": {
+                                "code": 422,
+                                "message": "The given data was invalid.",
+                                "errors": {
+                                  "0.deviceId": [
+                                    "The 0.deviceId field is required."
+                                  ],
+                                  "0.event": [
+                                    "The 0.event field is required."
+                                  ]
+                                }
+                              }
+                            }
+                            """
+                    let statusCode = 422
                     
-                    do {
-                        let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
-                        
-                        try httpBody.write(to: location, options: .atomic)
-                        SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, httpResponse: httpResponse, location: location)
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
+                    SendCustomEventsURLSessionManager().completionHandler(sendCustomEventsURLSessionData: sendCustomEventsURLSessionData, statusCode: statusCode, responseBody: responseBody)
                 }
             default: break
             }
@@ -157,34 +143,25 @@ public class TestCase {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS:
-                if let inboxMessagesMarkReadUnreadURLSessionData = operation.taskData as? InboxMessagesMarkReadUnreadURLSessionData,
-                   let request = task.originalRequest,
-                   let url = request.url,
-                   let headerFields = request.allHTTPHeaderFields,
-                   let httpResponse = HTTPURLResponse(url: url, statusCode: 422, httpVersion: "HTTP/1.1", headerFields: headerFields),
-                   let httpBody = """
-                        {
-                          "success": false,
-                          "error": {
-                            "code": 422,
-                            "message": "The given data was invalid.",
-                            "errors": {
-                              "\(type).0": [
-                                "Unable to decrypt a mcID value from \(mcID)."
-                              ]
-                            }
-                          }
-                        }
-                   """.data(using: .utf8) {
+                if let inboxMessagesMarkReadUnreadURLSessionData = operation.taskData as? InboxMessagesMarkReadUnreadURLSessionData {
                     
-                    do {
-                        let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
-                        
-                        try httpBody.write(to: location, options: .atomic)
-                        InboxMessagesMarkReadUnreadURLSessionManager().completionHandler(inboxMessagesMarkReadUnreadURLSessionData: inboxMessagesMarkReadUnreadURLSessionData, httpResponse: httpResponse, location: location)
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
+                    let responseBody = """
+                                {
+                                  "success": false,
+                                  "error": {
+                                    "code": 422,
+                                    "message": "The given data was invalid.",
+                                    "errors": {
+                                      "\(type).0": [
+                                        "Unable to decrypt a mcID value from \(mcID)."
+                                      ]
+                                    }
+                                  }
+                                }
+                           """
+                    let statusCode = 422
+                    
+                    InboxMessagesMarkReadUnreadURLSessionManager().completionHandler(inboxMessagesMarkReadUnreadURLSessionData: inboxMessagesMarkReadUnreadURLSessionData, statusCode: statusCode, responseBody: responseBody)
                 }
             default: break
             }
@@ -209,20 +186,12 @@ public class TestCase {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
-                if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData,
-                    let request = task.originalRequest,
-                    let url = request.url, let headerFields = request.allHTTPHeaderFields,
-                    let httpResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: headerFields),
-                    let httpBody = "{ \"content\": \"Hello, I am IAM!\" }".data(using: .utf8) {
+                if let inAppMessageURLSessionData = operation.taskData as? InAppMessageURLSessionData {
                     
-                    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
-                    do {
-                        try httpBody.write(to: location, options: .atomic)
-                        
-                        FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, httpResponse: httpResponse, location: location)
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
+                    let responseBody = "{ \"content\": \"Hello, I am IAM!\" }"
+                    let statusCode = 200
+                    
+                    FetchInAppMessageURLSessionManager().completionHandler(inAppMessageURLSessionData: inAppMessageURLSessionData, statusCode: statusCode, responseBody: responseBody)
                 }
             default: break
             }
@@ -233,33 +202,24 @@ public class TestCase {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES:
-                if let request = task.originalRequest,
-                   let url = request.url, let headerFields = request.allHTTPHeaderFields,
-                   let httpResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: headerFields),
-                   let httpBody = """
-                            {
-                                "messages": [
-                                    {
-                                        "sentAt": "\(CordialDateFormatter().getCurrentTimestamp())",
-                                        "_id": "test_mc_id",
-                                        "inactiveSessionDisplay": "show-in-app",
-                                        "expirationTime": "\(CordialDateFormatter().getTimestampFromDate(date: Date().addingTimeInterval(TimeInterval(60)))))",
-                                        "url": "https://cordial.com/in-app-message-content/",
-                                        "urlExpireAt": "\(CordialDateFormatter().getTimestampFromDate(date: Date().addingTimeInterval(TimeInterval(60))))"
-                                    }
-                                ]
-                            }
-                        """.data(using: .utf8) {
-                    
-                    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
-                    do {
-                        try httpBody.write(to: location, options: .atomic)
-                        
-                        InAppMessagesURLSessionManager().completionHandler(httpResponse: httpResponse, location: location)
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
-                }
+                let responseBody = """
+                        {
+                            "messages": [
+                                {
+                                    "sentAt": "\(CordialDateFormatter().getCurrentTimestamp())",
+                                    "_id": "test_mc_id",
+                                    "inactiveSessionDisplay": "show-in-app",
+                                    "expirationTime": "\(CordialDateFormatter().getTimestampFromDate(date: Date().addingTimeInterval(TimeInterval(60)))))",
+                                    "url": "https://cordial.com/in-app-message-content/",
+                                    "urlExpireAt": "\(CordialDateFormatter().getTimestampFromDate(date: Date().addingTimeInterval(TimeInterval(60))))"
+                                }
+                            ]
+                        }
+                    """
+                let statusCode = 200
+                
+                InAppMessagesURLSessionManager().completionHandler(statusCode: statusCode, responseBody: responseBody)
+                
             default: break
             }
         }
@@ -269,20 +229,12 @@ public class TestCase {
         if let operation = CordialURLSession.shared.getOperation(taskIdentifier: task.taskIdentifier) {
             switch operation.taskName {
             case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT:
-                if let inAppMessageContentURLSessionData = operation.taskData as? InAppMessageContentURLSessionData,
-                    let request = task.originalRequest,
-                    let url = request.url, let headerFields = request.allHTTPHeaderFields,
-                    let httpResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: headerFields),
-                    let httpBody = "{ \"content\": \"Hello, I am IAM!\" }".data(using: .utf8) {
+                if let inAppMessageContentURLSessionData = operation.taskData as? InAppMessageContentURLSessionData {
+
+                    let responseBody = "{ \"content\": \"Hello, I am IAM!\" }"
+                    let statusCode = 200
                     
-                    let location = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("location.txt")
-                    do {
-                        try httpBody.write(to: location, options: .atomic)
-                        
-                        InAppMessageContentURLSessionManager().completionHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, httpResponse: httpResponse, location: location)
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
+                    InAppMessageContentURLSessionManager().completionHandler(inAppMessageContentURLSessionData: inAppMessageContentURLSessionData, statusCode: statusCode, responseBody: responseBody)
                 }
             default: break
             }

@@ -44,11 +44,9 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactRequests() {
-        ThreadQueues.shared.queueUpsertContact.sync(flags: .barrier) {
-            let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
-            if !upsertContactRequests.isEmpty {
-                ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
-            }
+        let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
+        if !upsertContactRequests.isEmpty {
+            ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
         }
     }
     
@@ -101,52 +99,46 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactCartRequest() {
-        ThreadQueues.shared.queueUpsertContactCart.sync(flags: .barrier) {
-            if InternalCordialAPI().isUserLogin() {
-                if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
-                    ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
-                }
+        if InternalCordialAPI().isUserLogin() {
+            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
+                ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
             }
         }
     }
     
     private func sendCachedContactOrderRequests() {
-        ThreadQueues.shared.queueSendContactOrder.sync(flags: .barrier) {
-            if InternalCordialAPI().isUserLogin() {
-                let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
-                if !sendContactOrderRequests.isEmpty {
-                    ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
-                }
+        if InternalCordialAPI().isUserLogin() {
+            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
+            if !sendContactOrderRequests.isEmpty {
+                ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
             }
         }
     }
     
     private func sendCachedInboxMessagesMarkReadUnreadRequests() {
-        ThreadQueues.shared.queueInboxMessagesMarkReadUnread.sync(flags: .barrier) {
-            if InternalCordialAPI().isUserLogin() {
-                var inboxMessagesMarkReadUnreadRequestsWithPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
-                var inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
-                
-                let inboxMessagesMarkReadUnreadRequests = CoreDataManager.shared.inboxMessagesMarkReadUnread.fetchInboxMessagesMarkReadUnreadDataFromCoreData()
-                inboxMessagesMarkReadUnreadRequests.forEach { inboxMessagesMarkReadUnreadRequest in
-                    if inboxMessagesMarkReadUnreadRequest.primaryKey == CordialAPI().getContactPrimaryKey() {
-                        inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
-                    } else if inboxMessagesMarkReadUnreadRequest.primaryKey == InternalCordialAPI().getContactKey() {
-                        inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
-                    }
+        if InternalCordialAPI().isUserLogin() {
+            var inboxMessagesMarkReadUnreadRequestsWithPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
+            var inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
+            
+            let inboxMessagesMarkReadUnreadRequests = CoreDataManager.shared.inboxMessagesMarkReadUnread.fetchInboxMessagesMarkReadUnreadDataFromCoreData()
+            inboxMessagesMarkReadUnreadRequests.forEach { inboxMessagesMarkReadUnreadRequest in
+                if inboxMessagesMarkReadUnreadRequest.primaryKey == CordialAPI().getContactPrimaryKey() {
+                    inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
+                } else if inboxMessagesMarkReadUnreadRequest.primaryKey == InternalCordialAPI().getContactKey() {
+                    inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
                 }
+            }
+            
+            if let firstInboxMessagesMarkReadUnreadRequestsWithPrimaryKey = inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.first {
+                let mergedInboxMessagesMarkReadUnreadRequest = self.getInboxMessagesMarkReadUnreadRequest(primaryKey: firstInboxMessagesMarkReadUnreadRequestsWithPrimaryKey.primaryKey, inboxMessagesMarkReadUnreadRequests: inboxMessagesMarkReadUnreadRequestsWithPrimaryKey)
                 
-                if let firstInboxMessagesMarkReadUnreadRequestsWithPrimaryKey = inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.first {
-                    let mergedInboxMessagesMarkReadUnreadRequest = self.getInboxMessagesMarkReadUnreadRequest(primaryKey: firstInboxMessagesMarkReadUnreadRequestsWithPrimaryKey.primaryKey, inboxMessagesMarkReadUnreadRequests: inboxMessagesMarkReadUnreadRequestsWithPrimaryKey)
-                    
-                    InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: mergedInboxMessagesMarkReadUnreadRequest)
-                }
+                InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: mergedInboxMessagesMarkReadUnreadRequest)
+            }
+            
+            if let firstInboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.first {
+                let mergedInboxMessagesMarkReadUnreadRequest = self.getInboxMessagesMarkReadUnreadRequest(primaryKey: firstInboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.primaryKey, inboxMessagesMarkReadUnreadRequests: inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey)
                 
-                if let firstInboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.first {
-                    let mergedInboxMessagesMarkReadUnreadRequest = self.getInboxMessagesMarkReadUnreadRequest(primaryKey: firstInboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey.primaryKey, inboxMessagesMarkReadUnreadRequests: inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey)
-                    
-                    InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: mergedInboxMessagesMarkReadUnreadRequest)
-                }
+                InboxMessagesMarkReadUnreadSender().sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: mergedInboxMessagesMarkReadUnreadRequest)
             }
         }
     }
@@ -173,21 +165,17 @@ class CoreDataSender {
     }
     
     private func sendCachedInboxMessageDeleteRequests() {
-        ThreadQueues.shared.queueInboxMessageDelete.sync(flags: .barrier) {
-            if InternalCordialAPI().isUserLogin() {
-                let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequestsFromCoreData()
-                inboxMessageDeleteRequests.forEach { inboxMessageDeleteRequest in
-                    InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
-                }
+        if InternalCordialAPI().isUserLogin() {
+            let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequestsFromCoreData()
+            inboxMessageDeleteRequests.forEach { inboxMessageDeleteRequest in
+                InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
             }
         }
     }
     
     private func sendCachedContactLogoutRequest() {
-        ThreadQueues.shared.queueSendContactLogout.sync(flags: .barrier) {
-            if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
-                ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
-            }
+        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
+            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         }
     }
 }

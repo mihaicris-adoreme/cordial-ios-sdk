@@ -13,33 +13,23 @@ class UpsertContactsURLSessionManager {
     
     let contactsSender = ContactsSender()
     
-    func completionHandler(upsertContactsURLSessionData: UpsertContactsURLSessionData, httpResponse: HTTPURLResponse, location: URL) {
+    func completionHandler(upsertContactsURLSessionData: UpsertContactsURLSessionData, statusCode: Int, responseBody: String) {
         let upsertContactRequests = upsertContactsURLSessionData.upsertContactRequests
         
-        do {
-            let responseBody = try String(contentsOfFile: location.path)
+        switch statusCode {
+        case 200:
+            self.contactsSender.completionHandler(upsertContactRequests: upsertContactRequests)
+        case 401:
+            let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
+            self.contactsSender.systemErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)
             
-            switch httpResponse.statusCode {
-            case 200:
-                self.contactsSender.completionHandler(upsertContactRequests: upsertContactRequests)
-            case 401:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                self.contactsSender.systemErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)
-                
-                SDKSecurity.shared.updateJWT()
-            default:
-                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                let responseError = ResponseError(message: message, statusCode: httpResponse.statusCode, responseBody: responseBody, systemError: nil)
-                
-                self.contactsSender.logicErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)
-            }
-        } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                upsertContactRequests.forEach({ upsertContactRequest in
-                    os_log("Failed decode upsert contacts response data. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .error, upsertContactRequest.requestID, error.localizedDescription)
-                })
-            }
+            SDKSecurity.shared.updateJWT()
+        default:
+            let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
+            let responseError = ResponseError(message: message, statusCode: statusCode, responseBody: responseBody, systemError: nil)
+            
+            self.contactsSender.logicErrorHandler(upsertContactRequests: upsertContactRequests, error: responseError)
         }
     }
     
