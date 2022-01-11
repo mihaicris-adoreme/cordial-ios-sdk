@@ -99,8 +99,6 @@ import CoreLocation
         
 //        CoreDataManager.shared.deleteAllCoreData()
         
-        InternalCordialAPI().prepareDeviceIdentifier()
-        
     }
     
     @objc public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance, untilTraveled: CLLocationDistance, timeout: TimeInterval) {
