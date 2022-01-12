@@ -1,20 +1,20 @@
 //
-//  InAppMessagesShownCoreData.swift
+//  InAppMessagesRelatedCoreData.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 05.12.2019.
-//  Copyright © 2019 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 06.12.2021.
+//  Copyright © 2021 cordial.io. All rights reserved.
 //
 
 import Foundation
 import CoreData
 import os.log
 
-class InAppMessagesShownCoreData {
+class InAppMessagesRelatedCoreData {
     
-    let entityName = "InAppMessagesShown"
+    let entityName = "InAppMessagesRelated"
     
-    func setShownStatusToInAppMessagesShownCoreData(mcID: String) {
+    func setRelatedStatusToInAppMessagesRelatedCoreData(mcID: String) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
@@ -32,7 +32,7 @@ class InAppMessagesShownCoreData {
         }
     }
     
-    func isInAppMessageHasBeenShown(mcID: String) -> Bool? {
+    func isInAppMessageRelated(mcID: String) -> Bool? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -54,7 +54,7 @@ class InAppMessagesShownCoreData {
         return false
     }
     
-    func deleteInAppMessageShownStatusByMcID(mcID: String) {
+    func deleteInAppMessageRelatedStatusByMcID(mcID: String) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -75,4 +75,5 @@ class InAppMessagesShownCoreData {
             }
         }
     }
+
 }

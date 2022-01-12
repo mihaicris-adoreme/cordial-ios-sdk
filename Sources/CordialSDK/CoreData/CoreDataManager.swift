@@ -30,6 +30,7 @@ class CoreDataManager {
     let inAppMessagesCache = InAppMessagesCacheCoreData()
     let inAppMessagesQueue = InAppMessagesQueueCoreData()
     let inAppMessagesParam = InAppMessagesParamCoreData()
+    let inAppMessagesRelated = InAppMessagesRelatedCoreData()
     let inAppMessagesShown = InAppMessagesShownCoreData()
     let inboxMessagesMarkReadUnread = InboxMessagesMarkReadUnreadCoreData()
     let inboxMessageDelete = InboxMessageDeleteCoreData()
@@ -40,7 +41,21 @@ class CoreDataManager {
     
         if let managedObjectModel = self.getManagedObjectModel() {
             let container = NSPersistentContainer(name: self.modelName, managedObjectModel: managedObjectModel)
-            container.loadPersistentStores(completionHandler: { (storeDescription, error) in })
+            
+            let description = NSPersistentStoreDescription()
+
+            description.shouldInferMappingModelAutomatically = true
+            description.shouldMigrateStoreAutomatically = true
+
+            container.persistentStoreDescriptions.append(description)
+            
+            container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+                if let error = error as NSError? {
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("CoreData Unresolved Error: [%{public}@], Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, error.userInfo)
+                    }
+                 }
+            })
             
             return container
         }
@@ -110,7 +125,7 @@ class CoreDataManager {
         self.deleteAllCoreDataByEntity(entityName: self.contactOrderRequests.entityName)
             
         self.deleteAllCoreDataByEntity(entityName: self.contactRequests.entityName)
-            
+                    
         self.deleteAllCoreDataByEntity(entityName: self.inAppMessageContentURL.entityName)
         
         self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
@@ -118,6 +133,8 @@ class CoreDataManager {
         self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
         
         self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)
+        
+        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesRelated.entityName)
         
         self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesShown.entityName)
         
