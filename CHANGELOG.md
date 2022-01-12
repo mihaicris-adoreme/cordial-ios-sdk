@@ -2,6 +2,16 @@
 
 The latest version of this file can be found at the master branch.
 
+## 3.1.1 (2022-01-12)
+
+### Changed
+
+- In-app message height dynamically set based on content
+
+### Fixed
+
+- In-app message displayed until dismissed
+
 ## 3.1.0 (2021-12-29)
 
 ### Changed
