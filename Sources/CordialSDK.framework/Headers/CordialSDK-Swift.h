@@ -603,7 +603,6 @@ SWIFT_CLASS_NAMED("InAppMessagesParam")
 @property (nonatomic, copy) NSDate * _Nullable date;
 @property (nonatomic, copy) NSString * _Nullable displayType;
 @property (nonatomic, copy) NSDate * _Nullable expirationTime;
-@property (nonatomic) int16_t height;
 @property (nonatomic, copy) NSString * _Nullable inactiveSessionDisplay;
 @property (nonatomic) int16_t left;
 @property (nonatomic, copy) NSString * _Nullable mcID;
@@ -621,6 +620,17 @@ SWIFT_CLASS_NAMED("InAppMessagesQueue")
 
 @interface InAppMessagesQueue (SWIFT_EXTENSION(CordialSDK))
 @property (nonatomic, strong) NSDate * _Nullable date;
+@property (nonatomic, copy) NSString * _Nullable mcID;
+@end
+
+
+SWIFT_CLASS_NAMED("InAppMessagesRelated")
+@interface InAppMessagesRelated : NSManagedObject
+- (nonnull instancetype)initWithEntity:(NSEntityDescription * _Nonnull)entity insertIntoManagedObjectContext:(NSManagedObjectContext * _Nullable)context OBJC_DESIGNATED_INITIALIZER;
+@end
+
+
+@interface InAppMessagesRelated (SWIFT_EXTENSION(CordialSDK))
 @property (nonatomic, copy) NSString * _Nullable mcID;
 @end
 
