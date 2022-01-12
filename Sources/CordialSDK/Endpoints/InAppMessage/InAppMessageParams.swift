@@ -12,7 +12,6 @@ struct InAppMessageParams {
     let mcID: String
     let date: Date
     let type: InAppMessageType
-    let height: Int16
     let top: Int16
     let right: Int16
     let bottom: Int16
@@ -21,11 +20,10 @@ struct InAppMessageParams {
     let expirationTime: Date?
     let inactiveSessionDisplay: InAppMessageInactiveSessionDisplayType
     
-    init(mcID: String, date: Date, type: InAppMessageType, height: Int16, top: Int16, right: Int16, bottom: Int16, left: Int16, displayType: InAppMessageDisplayType, expirationTime: Date?, inactiveSessionDisplay: InAppMessageInactiveSessionDisplayType) {
+    init(mcID: String, date: Date, type: InAppMessageType, top: Int16, right: Int16, bottom: Int16, left: Int16, displayType: InAppMessageDisplayType, expirationTime: Date?, inactiveSessionDisplay: InAppMessageInactiveSessionDisplayType) {
         self.mcID = mcID
         self.date = date
         self.type = type
-        self.height = height
         self.top = top
         self.right = right
         self.bottom = bottom

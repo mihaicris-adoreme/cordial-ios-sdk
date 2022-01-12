@@ -71,13 +71,6 @@ class InAppMessage {
         let expirationTime = inAppMessageParams.expirationTime
         
         switch type {
-        case InAppMessageType.modal:
-            let top = Int(inAppMessageParams.top)
-            let right = Int(inAppMessageParams.right)
-            let bottom = Int(inAppMessageParams.bottom)
-            let left = Int(inAppMessageParams.left)
-            
-            return InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
         case InAppMessageType.fullscreen:
             let top = 0
             let right = 0
@@ -85,22 +78,11 @@ class InAppMessage {
             let left = 0
             
             return InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
-        case InAppMessageType.banner_up:
-            let height = inAppMessageParams.height
-            
-            let top = 5
-            let right = 5
-            let bottom = Int(100 - Double(height) / 100.0 * 100)
-            let left = 5
-            
-            return InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
-        case InAppMessageType.banner_bottom:
-            let height = inAppMessageParams.height
-            
-            let top = Int(100 - Double(height) / 100.0 * 100)
-            let right = 5
-            let bottom = 5
-            let left = 5
+        default:
+            let top = Int(inAppMessageParams.top)
+            let right = Int(inAppMessageParams.right)
+            let bottom = Int(inAppMessageParams.bottom)
+            let left = Int(inAppMessageParams.left)
             
             return InAppMessageData(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
         }
@@ -174,33 +156,9 @@ class InAppMessage {
         return nil
     }
     
-    func getBannerHeightIAM(payload: [String: AnyObject]) -> Int16? {
-        if let height = payload["height"] as? Int16 {
-            return height
-        }
-        
-        return nil
-    }
-    
-    func getModalTopMarginIAM(payload: [String: AnyObject]) -> Int16? {
-        if let top = payload["top"] as? Int16 {
-            return top
-        }
-        
-        return nil
-    }
-    
     func getModalRightMarginIAM(payload: [String: AnyObject]) -> Int16? {
         if let right = payload["right"] as? Int16 {
             return right
-        }
-        
-        return nil
-    }
-    
-    func getModalBottomMarginIAM(payload: [String: AnyObject]) -> Int16? {
-        if let bottom = payload["bottom"] as? Int16 {
-            return bottom
         }
         
         return nil

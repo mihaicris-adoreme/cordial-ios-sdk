@@ -25,6 +25,12 @@ class CordialVanityDeepLink {
                 os_log("Vanity DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
             }
         }, onFailure: { error in
+            if !NotificationManager.shared.vanityDeepLink.isEmpty, let vanityDeepLinkURL = URL(string: NotificationManager.shared.vanityDeepLink) {
+                InternalCordialAPI().openDeepLink(url: vanityDeepLinkURL)
+            } else {
+                InternalCordialAPI().openDeepLink(url: url)
+            }
+            
             NotificationManager.shared.vanityDeepLink = String()
             
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {

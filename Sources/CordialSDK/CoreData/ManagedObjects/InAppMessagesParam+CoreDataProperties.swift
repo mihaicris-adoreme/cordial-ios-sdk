@@ -2,8 +2,8 @@
 //  InAppMessagesParam+CoreDataProperties.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 9/26/19.
-//  Copyright © 2019 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 11.11.2021.
+//  Copyright © 2021 cordial.io. All rights reserved.
 //
 //
 
@@ -21,7 +21,6 @@ extension InAppMessagesParam {
     @NSManaged public var date: Date?
     @NSManaged public var displayType: String?
     @NSManaged public var expirationTime: Date?
-    @NSManaged public var height: Int16
     @NSManaged public var inactiveSessionDisplay: String?
     @NSManaged public var left: Int16
     @NSManaged public var mcID: String?

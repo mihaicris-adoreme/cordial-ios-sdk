@@ -59,8 +59,8 @@ class InAppMessageProcess {
     func showInAppMessage(inAppMessageData: InAppMessageData) {
         if InternalCordialAPI().isUserLogin() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: inAppMessageData.mcID),
-                   isInAppMessageHasBeenShown {
+                if let isInAppMessageRelated = CoreDataManager.shared.inAppMessagesRelated.isInAppMessageRelated(mcID: inAppMessageData.mcID),
+                   isInAppMessageRelated {
                     
                     InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
                     
@@ -100,7 +100,8 @@ class InAppMessageProcess {
     func deleteInAppMessageFromCoreDataByMcID(mcID: String) {
         CoreDataManager.shared.inAppMessagesCache.deleteInAppMessageDataByMcID(mcID: mcID)
         CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
-        CoreDataManager.shared.inAppMessagesShown.deleteInAppMessagesShownStatusByMcID(mcID: mcID)
+        CoreDataManager.shared.inAppMessagesRelated.deleteInAppMessageRelatedStatusByMcID(mcID: mcID)
+        CoreDataManager.shared.inAppMessagesShown.deleteInAppMessageShownStatusByMcID(mcID: mcID)
     }
     
     func addAnimationSubviewInAppMessageBanner(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, activeViewController: UIViewController) {
@@ -195,9 +196,7 @@ class InAppMessageProcess {
         if let activeViewController = self.internalCordialAPI.getActiveViewController() {
             if self.inAppMessageManager.isActiveViewControllerCanPresentInAppMessage(activeViewController: activeViewController) {
                 let modalWebViewController = self.inAppMessageManager.getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
-                
-                self.addSafeAreaInsetsTopMarginToModalInAppMessageViewController(modalWebViewController: modalWebViewController)
-                
+                                
                 self.addDismissButtonToModalInAppMessageViewController(modalWebViewController: modalWebViewController)
                 
                 activeViewController.view.addSubview(modalWebViewController.view)
@@ -228,16 +227,7 @@ class InAppMessageProcess {
             self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         }
     }
-    
-    private func addSafeAreaInsetsTopMarginToModalInAppMessageViewController(modalWebViewController: InAppMessageViewController) {
-        if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
-            if UIScreen.main.bounds.height - safeAreaInsetsTop < modalWebViewController.webView.frame.height {
-                modalWebViewController.view.frame.origin.y = safeAreaInsetsTop
-                modalWebViewController.view.frame.size.height -= safeAreaInsetsTop
-            }
-        }
-    }
-    
+        
     private func addDismissButtonToModalInAppMessageViewController(modalWebViewController: InAppMessageViewController) {
         let closeButton = UIButton(frame: CGRect(x: modalWebViewController.webView.frame.width - 50, y: 0, width: 50, height: 50))
         closeButton.setTitle("✖️", for: .normal)
