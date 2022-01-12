@@ -54,7 +54,7 @@ class InAppMessagesShownCoreData {
         return false
     }
     
-    func deleteInAppMessagesShownStatusByMcID(mcID: String) {
+    func deleteInAppMessageShownStatusByMcID(mcID: String) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
