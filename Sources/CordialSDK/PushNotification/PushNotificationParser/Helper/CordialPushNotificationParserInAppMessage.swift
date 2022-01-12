@@ -69,30 +69,6 @@ class CordialPushNotificationParserInAppMessage {
         return nil
     }
     
-    // MARK: Get in app message banner height
-    
-    func getBannerHeightIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
-        if let system = userInfo["system"] as? [String: AnyObject],
-            let iam = system["iam"] as? [String: AnyObject],
-            let height = InAppMessage().getBannerHeightIAM(payload: iam) {
-                return height
-        }
-        
-        return nil
-    }
-    
-    // MARK: Get in app message modal top margin
-    
-    func getModalTopMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
-        if let system = userInfo["system"] as? [String: AnyObject],
-            let iam = system["iam"] as? [String: AnyObject],
-            let top = InAppMessage().getModalTopMarginIAM(payload: iam) {
-                return top
-        }
-        
-        return nil
-    }
-    
     // MARK: Get in app message modal right margin
     
     func getModalRightMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
@@ -100,18 +76,6 @@ class CordialPushNotificationParserInAppMessage {
             let iam = system["iam"] as? [String: AnyObject],
             let right = InAppMessage().getModalRightMarginIAM(payload: iam) {
                 return right
-        }
-        
-        return nil
-    }
-    
-    // MARK: Get in app message modal bottom margin
-    
-    func getModalBottomMarginIAMCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Int16? {
-        if let system = userInfo["system"] as? [String: AnyObject],
-            let iam = system["iam"] as? [String: AnyObject],
-            let bottom = InAppMessage().getModalBottomMarginIAM(payload: iam) {
-                return bottom
         }
         
         return nil
