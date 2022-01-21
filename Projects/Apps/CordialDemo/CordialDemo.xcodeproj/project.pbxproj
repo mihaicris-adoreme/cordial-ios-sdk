@@ -66,6 +66,7 @@
 		9EC1E1472450891B00A4C756 /* CustomEventTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */; };
 		9EC1E1492450892F00A4C756 /* CustomEventTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */; };
 		9EC1E1682450EB5C00A4C756 /* ImportCustomEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E1672450EB5C00A4C756 /* ImportCustomEventViewController.swift */; };
+		9EC2F0B3279ADEF300685490 /* notification_sound_long.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9EC2F0B2279ADEF200685490 /* notification_sound_long.wav */; };
 		9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECF6B7F229855F500E6E88F /* ProductHandler.swift */; };
 		9EDAEA0B234CCBFB008A7B2F /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAEA0A234CCBFB008A7B2F /* Credentials.swift */; };
 		9EDAEA0D234CD23F008A7B2F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAEA0C234CD23F008A7B2F /* Settings.swift */; };
@@ -191,6 +192,7 @@
 		9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventTableFooterView.swift; sourceTree = "<group>"; };
 		9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomEventTableFooterView.xib; sourceTree = "<group>"; };
 		9EC1E1672450EB5C00A4C756 /* ImportCustomEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCustomEventViewController.swift; sourceTree = "<group>"; };
+		9EC2F0B2279ADEF200685490 /* notification_sound_long.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = notification_sound_long.wav; sourceTree = "<group>"; };
 		9ECF6B7F229855F500E6E88F /* ProductHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductHandler.swift; sourceTree = "<group>"; };
 		9EDAEA0A234CCBFB008A7B2F /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		9EDAEA0C234CD23F008A7B2F /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -578,6 +580,14 @@
 			path = ImportCustomEvent;
 			sourceTree = "<group>";
 		};
+		9EC2F0B1279ADEE700685490 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				9EC2F0B2279ADEF200685490 /* notification_sound_long.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		9ECF6B7A22984FEA00E6E88F /* DeepLinks */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,6 +643,7 @@
 		9EF7B21422666102003B223D /* PushNotification */ = {
 			isa = PBXGroup;
 			children = (
+				9EC2F0B1279ADEE700685490 /* Sounds */,
 				9E45FE7522537648006A5A6B /* PushNotificationHandler.swift */,
 			);
 			path = PushNotification;
@@ -809,6 +820,7 @@
 				9EC1E1492450892F00A4C756 /* CustomEventTableFooterView.xib in Resources */,
 				9E7A5A74222EB64C0020054F /* Assets.xcassets in Resources */,
 				9E7A5A6F222EB64B0020054F /* Main.storyboard in Resources */,
+				9EC2F0B3279ADEF300685490 /* notification_sound_long.wav in Resources */,
 				9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
