@@ -18,6 +18,12 @@ class ContactsSender {
         let upsertContactRequests = ContactsSenderHelper().prepareCoreDataCacheBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
          
         if !upsertContactRequests.isEmpty {
+            upsertContactRequests.forEach({ upsertContactRequest in
+                if let primaryKey = upsertContactRequest.primaryKey {
+                    InternalCordialAPI().setContactPrimaryKey(primaryKey: primaryKey)
+                }
+            })
+            
             self.upsertContactsData(upsertContactRequests: upsertContactRequests)
         }
     }
@@ -66,12 +72,6 @@ class ContactsSender {
         
         let currentTimestamp = CordialDateFormatter().getCurrentTimestamp()
         CordialUserDefaults.set(currentTimestamp, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE)
-        
-        upsertContactRequests.forEach({ upsertContactRequest in
-            if let primaryKey = upsertContactRequest.primaryKey {
-                CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
-            }
-        })
         
         CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
                  
