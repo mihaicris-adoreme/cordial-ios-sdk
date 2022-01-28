@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 3.1.2 (2022-01-28)
+
+### Fixed
+
+- Subsequent `setContact` calls don't clear message attribution data
+
 ## 3.1.1 (2022-01-12)
 
 ### Changed
