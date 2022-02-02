@@ -16,17 +16,13 @@ class MockRequestSenderRemoteNotificationStatus: RequestSender {
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        let httpBody = task.originalRequest!.httpBody!
-        
-        if let status = self.sdkTests.testCase.getPushNotificationStatus() {
-            if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
-                let json = jsonArray.first! as! [String: AnyObject]
-                
-                XCTAssertEqual(status, json["status"] as! String, "Push notification status don't match")
-                
-                self.isVerified = true
-            }
+        if let httpBody = task.originalRequest?.httpBody,
+           let status = self.sdkTests.testCase.getPushNotificationStatus(),
+           let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+            
+            let json = jsonArray.first! as! [String: AnyObject]
+            XCTAssertEqual(status, json["status"] as! String, "Push notification status don't match")
+            self.isVerified = true
         }
     }
 }
-

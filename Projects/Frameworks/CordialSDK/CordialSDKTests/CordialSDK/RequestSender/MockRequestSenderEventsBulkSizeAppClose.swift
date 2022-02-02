@@ -16,9 +16,9 @@ class MockRequestSenderEventsBulkSizeAppClose: RequestSender {
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        let httpBody = task.originalRequest!.httpBody!
-        
-        if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+        if let httpBody = task.originalRequest?.httpBody,
+           let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+            
             let json = jsonArray.first! as! [String: AnyObject]
             
             XCTAssertEqual(self.sdkTests.testCase.getEventNameAppMovedToBackground(), json["event"] as! String, "Event don't match")
@@ -26,5 +26,4 @@ class MockRequestSenderEventsBulkSizeAppClose: RequestSender {
             self.isVerified = true
         }
     }
-    
 }

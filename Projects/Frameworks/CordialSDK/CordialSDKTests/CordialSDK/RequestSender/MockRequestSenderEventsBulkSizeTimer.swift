@@ -26,5 +26,4 @@ class MockRequestSenderEventsBulkSizeTimer: RequestSender {
             self.isVerified = true
         }
     }
-    
 }
