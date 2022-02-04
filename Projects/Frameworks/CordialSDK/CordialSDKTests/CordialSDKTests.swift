@@ -1885,9 +1885,9 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.markUserAsLoggedIn()
         
-        let expectation = XCTestExpectation(description: "Expectation for sending request")
-        
         CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: self.testMcID)
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
         
         expectation.fulfill()
         
@@ -1912,7 +1912,32 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func test62InboxMessageMaxCacheSizeAndMaxCachableMessageSize() {
+    func test62InboxMessageMaxCachableMessageSize() {
+        var isVerified = false
+        
+        CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize = self.testInboxMessageContentPayload.data(using: .utf8)!.count + 1
+        
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_2", content: "\(self.testInboxMessageContentPayload)_2")
+        
+        if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == self.testInboxMessageContentPayload,
+           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_2") == nil {
+            
+            isVerified = true
+        }
+        
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        expectation.fulfill()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssert(isVerified)
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
+    
+    func test63InboxMessageMaxCacheSizeAndMaxCachableMessageSize() {
         var isVerified = false
         
         CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = (self.testInboxMessageContentPayload.data(using: .utf8)!.count + 1) * 2
@@ -1934,7 +1959,7 @@ class CordialSDKTests: XCTestCase {
         XCTAssert(isVerified)
     }
     
-    func test63AppDelegateVanityDeepLinks() {
+    func test64AppDelegateVanityDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
@@ -1979,7 +2004,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func test64SceneDelegateVanityDeepLinks() {
+    func test65SceneDelegateVanityDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
@@ -2024,7 +2049,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func test65SceneDelegateVanityDeepLinksTestClickNotSaveMcID() {
+    func test66SceneDelegateVanityDeepLinksTestClickNotSaveMcID() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLink Mock
@@ -2070,7 +2095,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func test66SceneDelegateVanityDeepLinksNotVanityDomain() {
+    func test67SceneDelegateVanityDeepLinksNotVanityDomain() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLinkDelegate Mock
@@ -2117,7 +2142,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func test67SceneDelegateVanityDeepLinksNot302Status() {
+    func test68SceneDelegateVanityDeepLinksNot302Status() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLinkDelegate Mock
@@ -2159,7 +2184,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func test68SceneDelegateSMSDeepLinks() {
+    func test69SceneDelegateSMSDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         // DeepLinkDelegate Mock
@@ -2211,7 +2236,7 @@ class CordialSDKTests: XCTestCase {
         wait(for: [expectation], timeout: 8)
     }
     
-    func test69AppDelegateURLSchemesDeepLinks() {
+    func test70AppDelegateURLSchemesDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         let mock = MockRequestSenderURLSchemesDeepLinkHasBeenOpen()
@@ -2235,7 +2260,7 @@ class CordialSDKTests: XCTestCase {
     }
     
     @available(iOS 13.0, *)
-    func test70SceneDelegateURLSchemesDeepLinks() {
+    func test71SceneDelegateURLSchemesDeepLinks() {
         self.testCase.swizzleAppAndSceneDelegateMethods()
         
         let mock = MockRequestSenderURLSchemesDeepLinkHasBeenOpen()
