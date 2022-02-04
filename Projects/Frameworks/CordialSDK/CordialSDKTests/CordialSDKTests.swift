@@ -1920,17 +1920,16 @@ class CordialSDKTests: XCTestCase {
         CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
         CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_2", content: "\(self.testInboxMessageContentPayload)_2")
         
-        if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == self.testInboxMessageContentPayload,
-           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_2") == nil {
-            
-            isVerified = true
-        }
-        
         let expectation = XCTestExpectation(description: "Expectation for sending request")
-        
         expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == self.testInboxMessageContentPayload,
+               CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_2") == nil {
+                
+                isVerified = true
+            }
+        
             XCTAssert(isVerified)
         }
         
@@ -1948,15 +1947,22 @@ class CordialSDKTests: XCTestCase {
         CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_3", content: self.testInboxMessageContentPayload)
         CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_4", content: self.testInboxMessageContentPayload)
         
-        if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil,
-           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_2") == self.testInboxMessageContentPayload,
-           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_3") == self.testInboxMessageContentPayload,
-           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_4") == self.testInboxMessageContentPayload {
-            
-            isVerified = true
-        }
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        expectation.fulfill()
         
-        XCTAssert(isVerified)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil,
+               CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_2") == self.testInboxMessageContentPayload,
+               CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_3") == self.testInboxMessageContentPayload,
+               CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_4") == self.testInboxMessageContentPayload {
+                
+                isVerified = true
+            }
+            
+            XCTAssert(isVerified)
+        }
+
+        wait(for: [expectation], timeout: 2)
     }
     
     func test64AppDelegateVanityDeepLinks() {
