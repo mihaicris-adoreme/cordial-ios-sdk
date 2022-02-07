@@ -1321,7 +1321,6 @@ class CordialSDKTests: XCTestCase {
                    let inboxMessage = inboxPage.content.first,
                    CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
                     isVerified = true
-                    XCTAssert(true)
                 } else {
                     XCTAssert(false)
                 }
@@ -1359,7 +1358,6 @@ class CordialSDKTests: XCTestCase {
             CordialInboxMessageAPI().fetchInboxMessage(mcID: self.testMcID, onSuccess: { inboxMessage in
                 if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
                     isVerified = true
-                    XCTAssert(true)
                 } else {
                     XCTAssert(false)
                 }
@@ -1418,7 +1416,6 @@ class CordialSDKTests: XCTestCase {
                         CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
                             if content != self.testInboxMessageContentPayload {
                                 isVerified = true
-                                XCTAssert(true)
                             } else {
                                 XCTAssert(false)
                             }
@@ -1475,7 +1472,6 @@ class CordialSDKTests: XCTestCase {
                    content != self.testInboxMessageContentPayload {
                     
                     isVerified = true
-                    XCTAssert(true)
                 } else {
                     XCTAssert(false)
                 }
@@ -1523,7 +1519,6 @@ class CordialSDKTests: XCTestCase {
                    content == self.testInboxMessageContentPayload {
                     
                     isVerified = true
-                    XCTAssert(true)
                 } else {
                     XCTAssert(false)
                 }
@@ -1568,7 +1563,6 @@ class CordialSDKTests: XCTestCase {
             }, onFailure: { error in
                 if InboxMessageContentGetter.shared.is403StatusReceived {
                     isVerified = true
-                    XCTAssert(true)
                 } else {
                     XCTAssert(false)
                 }
@@ -1611,7 +1605,6 @@ class CordialSDKTests: XCTestCase {
             }, onFailure: { error in
                 if InboxMessageContentGetter.shared.is400StatusReceived {
                     isVerified = true
-                    XCTAssert(true)
                 } else {
                     XCTAssert(false)
                 }
@@ -1655,7 +1648,6 @@ class CordialSDKTests: XCTestCase {
             }, onFailure: { error in
                 if !InboxMessageContentGetter.shared.is400StatusReceived && !InboxMessageContentGetter.shared.is403StatusReceived {
                     isVerified = true
-                    XCTAssert(true)
                 } else {
                     XCTAssert(false)
                 }
@@ -1851,12 +1843,22 @@ class CordialSDKTests: XCTestCase {
         
         CordialInboxMessageAPI().deleteInboxMessage(mcID: self.testMcID)
         
-        if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: self.testMcID) == nil,
-           CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil,
-           mock.isVerified {
-            
-            XCTAssert(true)
+        let expectation = XCTestExpectation(description: "Expectation for sending request")
+        
+        expectation.fulfill()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: self.testMcID) == nil,
+               CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil,
+               mock.isVerified {
+                
+                XCTAssert(true)
+            } else {
+                XCTAssert(false)
+            }
         }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     func test59InboxMessageDelegate() {
