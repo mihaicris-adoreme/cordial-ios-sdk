@@ -37,7 +37,7 @@ class CustomEventTableFooterView: UITableViewHeaderFooterView {
                 self.cordialAPI.sendCustomEvent(eventName: eventName, properties: self.сustomEventViewController.getDictionaryProperties(properties: properties))
                 
                 if self.flushEventsSwitch.isOn {
-                    self.cordialAPI.flushEvents(reason: "Flush Events")
+                    self.cordialAPI.flushEvents()
                 }
                 
                 popupSimpleNoteAlert(title: "SUCCESS", message: "Custom event has been sent", controller: сustomEventViewController)
