@@ -617,7 +617,7 @@ class CordialSDKTests: XCTestCase {
             CordialAPI().sendCustomEvent(eventName: event, properties: nil)
         }
         
-        self.cordialAPI.flushEvents(reason: "Test qty cached events queue")
+        self.cordialAPI.flushEvents()
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")
         
