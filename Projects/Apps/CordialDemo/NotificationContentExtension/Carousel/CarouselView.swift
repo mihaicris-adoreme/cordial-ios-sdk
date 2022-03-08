@@ -16,7 +16,7 @@ class CarouselView: UIView {
     
     // MARK: - Subviews
     
-    private lazy var carouselCollectionView: UICollectionView = {
+    lazy var carouselCollectionView: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collection.showsHorizontalScrollIndicator = false
         collection.isPagingEnabled = true
@@ -103,15 +103,15 @@ extension CarouselView: UICollectionViewDataSource {
 
 extension CarouselView: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.currentPage = getCurrentPage()
+        self.currentPage = self.getCurrentPage()
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        self.currentPage = getCurrentPage()
+        self.currentPage = self.getCurrentPage()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        self.currentPage = getCurrentPage()
+        self.currentPage = self.getCurrentPage()
     }
 }
 
@@ -134,7 +134,7 @@ extension CarouselView {
 
 // MARKK: - Helpers
 
-private extension CarouselView {
+extension CarouselView {
     func getCurrentPage() -> Int {
         
         let visibleRect = CGRect(origin: carouselCollectionView.contentOffset, size: carouselCollectionView.bounds.size)

@@ -52,6 +52,35 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     func didReceive(_ notification: UNNotification) {
 //        self.label?.text = notification.request.content.body
     }
+    
+    func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+        let categoryIdentifier = "myNotificationCategory"
+        
+        switch response.actionIdentifier {
+        case "\(categoryIdentifier).next":
+            self.scrollNextItem()
+            completion(.doNotDismiss)
+        case "\(categoryIdentifier).previous":
+            self.scrollPreviousItem()
+            completion(.doNotDismiss)
+        default:
+            completion(.dismissAndForwardAction)
+        }
+    }
+    
+    private func scrollNextItem() {
+        var row = self.carouselView?.getCurrentPage() ?? 0
+        (row < self.carouselData.count - 1) ? (row += 1) : (row = 0)
+        
+        self.carouselView?.carouselCollectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .right, animated: true)
+    }
+    
+    private func scrollPreviousItem() {
+        var row = self.carouselView?.getCurrentPage() ?? 0
+        (row > 0) ? (row -= 1) : (row = self.carouselData.count - 1)
+        
+        self.carouselView?.carouselCollectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
+    }
 
     // MARK: - Setups
 
