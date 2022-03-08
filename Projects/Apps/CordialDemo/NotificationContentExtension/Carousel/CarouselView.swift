@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol CarouselViewDelegate: NSObject {
-    func currentPageDidChange(to page: Int)
-}
-
 class CarouselView: UIView {
     
     struct CarouselData {
@@ -28,6 +24,7 @@ class CarouselView: UIView {
         collection.delegate = self
         collection.register(CarouselCell.self, forCellWithReuseIdentifier: CarouselCell.cellID)
         collection.backgroundColor = .clear
+        
         return collection
     }()
     
@@ -35,21 +32,16 @@ class CarouselView: UIView {
     // MARK: - Properties
     
     private var pages: Int
-    private weak var delegate: CarouselViewDelegate?
     private var carouselData = [CarouselData]()
-    private var currentPage = 0 {
-        didSet {
-            delegate?.currentPageDidChange(to: currentPage)
-        }
-    }
+    private var currentPage = 0
     
     // MARK: - Initializers
     
-    init(pages: Int, delegate: CarouselViewDelegate?) {
+    init(pages: Int) {
         self.pages = pages
-        self.delegate = delegate
         super.init(frame: .zero)
-        setupUI()
+        
+        self.setupUI()
     }
     
     required init?(coder: NSCoder) {
@@ -62,25 +54,24 @@ class CarouselView: UIView {
 private extension CarouselView {
     func setupUI() {
         backgroundColor = .clear
-        setupCollectionView()
+        self.setupCollectionView()
     }
     
     func setupCollectionView() {
-        
         let cellPadding = (frame.width - 300) / 2
         let carouselLayout = UICollectionViewFlowLayout()
         carouselLayout.scrollDirection = .horizontal
         carouselLayout.itemSize = .init(width: 300, height: 400)
         carouselLayout.sectionInset = .init(top: 0, left: cellPadding, bottom: 0, right: cellPadding)
         carouselLayout.minimumLineSpacing = cellPadding * 2
-        carouselCollectionView.collectionViewLayout = carouselLayout
+        self.carouselCollectionView.collectionViewLayout = carouselLayout
         
-        addSubview(carouselCollectionView)
-        carouselCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        carouselCollectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        carouselCollectionView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        carouselCollectionView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        carouselCollectionView.heightAnchor.constraint(equalToConstant: 450).isActive = true
+        addSubview(self.carouselCollectionView)
+        self.carouselCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        self.carouselCollectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        self.carouselCollectionView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        self.carouselCollectionView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        self.carouselCollectionView.heightAnchor.constraint(equalToConstant: 450).isActive = true
     }
 
 }
@@ -93,14 +84,14 @@ extension CarouselView: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return carouselData.count
+        return self.carouselData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCell.cellID, for: indexPath) as? CarouselCell else { return UICollectionViewCell()
         }
         
-        let image = carouselData[indexPath.row].image
+        let image = self.carouselData[indexPath.row].image
         
         cell.configure(image: image)
         
@@ -112,15 +103,15 @@ extension CarouselView: UICollectionViewDataSource {
 
 extension CarouselView: UICollectionViewDelegate {
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        currentPage = getCurrentPage()
+        self.currentPage = getCurrentPage()
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        currentPage = getCurrentPage()
+        self.currentPage = getCurrentPage()
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        currentPage = getCurrentPage()
+        self.currentPage = getCurrentPage()
     }
 }
 
@@ -134,10 +125,10 @@ extension CarouselView {
         carouselLayout.itemSize = .init(width: 300, height: 400)
         carouselLayout.sectionInset = .init(top: 0, left: cellPadding, bottom: 0, right: cellPadding)
         carouselLayout.minimumLineSpacing = cellPadding * 2
-        carouselCollectionView.collectionViewLayout = carouselLayout
+        self.carouselCollectionView.collectionViewLayout = carouselLayout
         
-        carouselData = data
-        carouselCollectionView.reloadData()
+        self.carouselData = data
+        self.carouselCollectionView.reloadData()
     }
 }
 
@@ -152,6 +143,6 @@ private extension CarouselView {
             return visibleIndexPath.row
         }
         
-        return currentPage
+        return self.currentPage
     }
 }

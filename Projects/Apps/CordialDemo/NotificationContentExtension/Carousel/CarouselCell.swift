@@ -22,12 +22,12 @@ class CarouselCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupUI()
+        self.setupUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupUI()
+        self.setupUI()
     }
 }
 
@@ -37,15 +37,15 @@ private extension CarouselCell {
     func setupUI() {
         backgroundColor = .clear
         
-        addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        imageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        imageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 24
+        addSubview(self.imageView)
+        self.imageView.translatesAutoresizingMaskIntoConstraints = false
+        self.imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        self.imageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        self.imageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        self.imageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.clipsToBounds = true
+        self.imageView.layer.cornerRadius = 24
         
     }
 }
@@ -54,6 +54,6 @@ private extension CarouselCell {
 
 extension CarouselCell {
     public func configure(image: UIImage?) {
-        imageView.image = image
+        self.imageView.image = image
     }
 }
