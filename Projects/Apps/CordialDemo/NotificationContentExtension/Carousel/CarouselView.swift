@@ -16,7 +16,6 @@ class CarouselView: UIView {
     
     struct CarouselData {
         let image: UIImage?
-        let text: String
     }
     
     // MARK: - Subviews
@@ -32,13 +31,6 @@ class CarouselView: UIView {
         return collection
     }()
     
-    private lazy var pageControl: UIPageControl = {
-        let pageControl = UIPageControl()
-        pageControl.pageIndicatorTintColor = .gray
-        pageControl.currentPageIndicatorTintColor = .white
-        return pageControl
-    }()
-    
     
     // MARK: - Properties
     
@@ -47,7 +39,6 @@ class CarouselView: UIView {
     private var carouselData = [CarouselData]()
     private var currentPage = 0 {
         didSet {
-            pageControl.currentPage = currentPage
             delegate?.currentPageDidChange(to: currentPage)
         }
     }
@@ -72,7 +63,6 @@ private extension CarouselView {
     func setupUI() {
         backgroundColor = .clear
         setupCollectionView()
-        setupPageControl()
     }
     
     func setupCollectionView() {
@@ -92,16 +82,7 @@ private extension CarouselView {
         carouselCollectionView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         carouselCollectionView.heightAnchor.constraint(equalToConstant: 450).isActive = true
     }
-    
-    func setupPageControl() {
-        addSubview(pageControl)
-        pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.topAnchor.constraint(equalTo: carouselCollectionView.bottomAnchor, constant: 16).isActive = true
-        pageControl.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        pageControl.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        pageControl.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        pageControl.numberOfPages = pages
-    }
+
 }
 
 // MARK: - UICollectionViewDataSource
@@ -120,9 +101,8 @@ extension CarouselView: UICollectionViewDataSource {
         }
         
         let image = carouselData[indexPath.row].image
-        let text = carouselData[indexPath.row].text
         
-        cell.configure(image: image, text: text)
+        cell.configure(image: image)
         
         return cell
     }

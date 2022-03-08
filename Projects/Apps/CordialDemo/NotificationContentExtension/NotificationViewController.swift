@@ -28,9 +28,9 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         // Do any required interface initialization here.
         
         self.carouselView = CarouselView(pages: 3, delegate: self)
-        self.carouselData.append(.init(image: UIImage(named: "Image_1"), text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"))
-        self.carouselData.append(.init(image: UIImage(named: "Image_2"), text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"))
-        self.carouselData.append(.init(image: UIImage(named: "Image_3"), text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit"))
+        self.carouselData.append(.init(image: UIImage(named: "Image_1")))
+        self.carouselData.append(.init(image: UIImage(named: "Image_2")))
+        self.carouselData.append(.init(image: UIImage(named: "Image_3")))
         
         self.setupUI()
     }

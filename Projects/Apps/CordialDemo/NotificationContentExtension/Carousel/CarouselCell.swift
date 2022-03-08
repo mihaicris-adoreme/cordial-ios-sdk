@@ -13,7 +13,6 @@ class CarouselCell: UICollectionViewCell {
     // MARK: - SubViews
     
     private lazy var imageView = UIImageView()
-    private lazy var textLabel = UILabel()
     
     // MARK: - Properties
     
@@ -48,24 +47,13 @@ private extension CarouselCell {
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 24
         
-        addSubview(textLabel)
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16).isActive = true
-        textLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
-        textLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
-        textLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
-        textLabel.numberOfLines = 0
-        textLabel.textAlignment = .center
-        textLabel.font = .systemFont(ofSize: 18)
-        textLabel.textColor = .white
     }
 }
 
 // MARK: - Public
 
 extension CarouselCell {
-    public func configure(image: UIImage?, text: String) {
+    public func configure(image: UIImage?) {
         imageView.image = image
-        textLabel.text = text
     }
 }
