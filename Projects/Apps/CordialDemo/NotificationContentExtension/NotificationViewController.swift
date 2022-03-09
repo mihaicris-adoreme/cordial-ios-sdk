@@ -12,19 +12,12 @@ import UserNotificationsUI
 
 class NotificationViewController: UIViewController, UNNotificationContentExtension {
 
-    // MARK: - Subvies
-    
     private var carouselView: CarouselView?
-    
-    // MARK: - Properties
     
     private var carouselData = [CarouselView.CarouselData]()
     
-    // MARK: - Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any required interface initialization here.
         
         self.carouselView = CarouselView(pages: 3)
         self.carouselData.append(.init(image: UIImage(named: "Image_1")))
@@ -43,7 +36,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     override func loadView() {
         super.loadView()
         
-        self.view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
+        self.view.backgroundColor = .clear
         
         let size = view.bounds.size
         self.preferredContentSize = CGSize(width: size.width, height: size.width)
@@ -72,14 +65,14 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         var row = self.carouselView?.getCurrentPage() ?? 0
         (row < self.carouselData.count - 1) ? (row += 1) : (row = 0)
         
-        self.carouselView?.carouselCollectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .right, animated: true)
+        self.carouselView?.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .right, animated: true)
     }
     
     private func scrollPreviousItem() {
         var row = self.carouselView?.getCurrentPage() ?? 0
         (row > 0) ? (row -= 1) : (row = self.carouselData.count - 1)
         
-        self.carouselView?.carouselCollectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
+        self.carouselView?.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
     }
 
     // MARK: - Setups

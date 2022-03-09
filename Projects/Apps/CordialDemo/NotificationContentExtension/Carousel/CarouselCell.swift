@@ -9,17 +9,11 @@
 import UIKit
 
 class CarouselCell: UICollectionViewCell {
-    
-    // MARK: - SubViews
-    
-    private lazy var imageView = UIImageView()
-    
-    // MARK: - Properties
+        
+    private var imageView = UIImageView()
     
     static let cellID = "CarouselCell"
-    
-    // MARK: - Initializer
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setupUI()
@@ -29,15 +23,11 @@ class CarouselCell: UICollectionViewCell {
         super.init(coder: coder)
         self.setupUI()
     }
-}
-
-// MARK: - Setups
-
-private extension CarouselCell {
-    func setupUI() {
-        backgroundColor = .clear
+    
+    private func setupUI() {
+        self.backgroundColor = .clear
         
-        addSubview(self.imageView)
+        self.addSubview(self.imageView)
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         self.imageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
@@ -48,12 +38,8 @@ private extension CarouselCell {
         self.imageView.layer.cornerRadius = 24
         
     }
-}
-
-// MARK: - Public
-
-extension CarouselCell {
-    public func configure(image: UIImage?) {
+    
+    func configure(image: UIImage?) {
         self.imageView.image = image
     }
 }
