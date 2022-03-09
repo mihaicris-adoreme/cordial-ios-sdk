@@ -38,10 +38,17 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     func registerForSilentPushNotifications() {
         DispatchQueue.main.async {
             let categoryIdentifier = "myNotificationCategory"
-            let carouselNext = UNNotificationAction(identifier: "\(categoryIdentifier).next", title: "👉", options: [])
-            let carouselPrevious = UNNotificationAction(identifier: "\(categoryIdentifier).previous", title: "👈", options: [])
-            let carouselCategory = UNNotificationCategory(identifier: categoryIdentifier, actions: [carouselNext, carouselPrevious], intentIdentifiers: [], options: [])
-            UNUserNotificationCenter.current().setNotificationCategories([carouselCategory])
+            if #available(iOS 15.0, *) {
+                let carouselNext = UNNotificationAction(identifier: "\(categoryIdentifier).next", title: "Next", options: [], icon: UNNotificationActionIcon(systemImageName: "forward"))
+                let carouselPrevious = UNNotificationAction(identifier: "\(categoryIdentifier).previous", title: "Previous", options: [], icon: UNNotificationActionIcon(systemImageName: "backward"))
+                let carouselCategory = UNNotificationCategory(identifier: categoryIdentifier, actions: [carouselNext, carouselPrevious], intentIdentifiers: [], options: [])
+                UNUserNotificationCenter.current().setNotificationCategories([carouselCategory])
+            } else {
+                let carouselNext = UNNotificationAction(identifier: "\(categoryIdentifier).next", title: "Next", options: [])
+                let carouselPrevious = UNNotificationAction(identifier: "\(categoryIdentifier).previous", title: "Previous", options: [])
+                let carouselCategory = UNNotificationCategory(identifier: categoryIdentifier, actions: [carouselNext, carouselPrevious], intentIdentifiers: [], options: [])
+                UNUserNotificationCenter.current().setNotificationCategories([carouselCategory])
+            }
             
             UIApplication.shared.registerForRemoteNotifications()
         }
