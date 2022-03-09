@@ -28,15 +28,14 @@ class CarouselCell: UICollectionViewCell {
         self.backgroundColor = .clear
         
         self.addSubview(self.imageView)
+        
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         self.imageView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        self.imageView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
         self.imageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        self.imageView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         self.imageView.contentMode = .scaleAspectFill
         self.imageView.clipsToBounds = true
-        self.imageView.layer.cornerRadius = 24
-        
     }
     
     func configure(image: UIImage?) {

@@ -43,34 +43,32 @@ class CarouselView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     
     private func setupUI() {
         backgroundColor = .clear
+        
+        self.addSubview(self.collectionView)
+        
         self.setupCollectionView()
+        self.setupCollectionViewConstraints()
     }
     
     private func setupCollectionView() {
-        let cellPadding = (frame.width - 300) / 2
         let carouselLayout = UICollectionViewFlowLayout()
         carouselLayout.scrollDirection = .horizontal
-        carouselLayout.itemSize = .init(width: 300, height: 400)
-        carouselLayout.sectionInset = .init(top: 0, left: cellPadding, bottom: 0, right: cellPadding)
-        carouselLayout.minimumLineSpacing = cellPadding * 2
+        carouselLayout.itemSize = .init(width: frame.width, height: frame.height)
+        carouselLayout.sectionInset = .init(top: 0, left: 0, bottom: 0, right: 0)
+        carouselLayout.minimumLineSpacing = 0
         self.collectionView.collectionViewLayout = carouselLayout
-        
-        addSubview(self.collectionView)
+    }
+    
+    private func setupCollectionViewConstraints() {
         self.collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.collectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        self.collectionView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         self.collectionView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        self.collectionView.heightAnchor.constraint(equalToConstant: 450).isActive = true
+        self.collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        self.collectionView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
     }
     
     func configureView(with data: [CarouselData]) {
-        let cellPadding = (frame.width - 300) / 2
-        let carouselLayout = UICollectionViewFlowLayout()
-        carouselLayout.scrollDirection = .horizontal
-        carouselLayout.itemSize = .init(width: 300, height: 400)
-        carouselLayout.sectionInset = .init(top: 0, left: cellPadding, bottom: 0, right: cellPadding)
-        carouselLayout.minimumLineSpacing = cellPadding * 2
-        self.collectionView.collectionViewLayout = carouselLayout
+        self.setupCollectionView()
         
         self.carouselData = data
         self.collectionView.reloadData()

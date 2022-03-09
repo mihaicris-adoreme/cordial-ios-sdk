@@ -81,11 +81,12 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         guard let carouselView = self.carouselView else { return }
         
         self.view.addSubview(carouselView)
+        
         carouselView.translatesAutoresizingMaskIntoConstraints = false
-        carouselView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        carouselView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        carouselView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        carouselView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        carouselView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        carouselView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        carouselView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        carouselView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
     }
 
 }
