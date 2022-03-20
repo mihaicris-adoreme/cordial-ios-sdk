@@ -19,8 +19,10 @@ class CustomEventRequestsCoreData {
         
         let countSendCustomEventRequests = sendCustomEventRequests.count
         
-        if !qtyCachedCustomEventRequests.addingReportingOverflow(countSendCustomEventRequests).overflow {
-            let sendCustomEventRequestsQty = qtyCachedCustomEventRequests + countSendCustomEventRequests
+        let addingReporting = qtyCachedCustomEventRequests.addingReportingOverflow(countSendCustomEventRequests)
+        
+        if !addingReporting.overflow {
+            let sendCustomEventRequestsQty = addingReporting.partialValue
             
             if sendCustomEventRequestsQty > CordialApiConfiguration.shared.qtyCachedEventQueue {
                 let removeID = sendCustomEventRequestsQty - CordialApiConfiguration.shared.qtyCachedEventQueue
