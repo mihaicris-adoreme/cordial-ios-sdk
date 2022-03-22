@@ -17,6 +17,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     private var carouselData = [CarouselView.CarouselData]()
     private var carousels = [Carousel]()
     
+    private var isCarouselReady = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,15 +53,17 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         let categoryIdentifier = "myNotificationCategory"
         
-        switch response.actionIdentifier {
-        case "\(categoryIdentifier).next":
-            self.scrollNextItem()
-            completion(.doNotDismiss)
-        case "\(categoryIdentifier).previous":
-            self.scrollPreviousItem()
-            completion(.doNotDismiss)
-        default:
-            completion(.dismissAndForwardAction)
+        if self.isCarouselReady {
+            switch response.actionIdentifier {
+            case "\(categoryIdentifier).next":
+                self.scrollNextItem()
+                completion(.doNotDismiss)
+            case "\(categoryIdentifier).previous":
+                self.scrollPreviousItem()
+                completion(.doNotDismiss)
+            default:
+                completion(.dismissAndForwardAction)
+            }
         }
     }
     
@@ -77,10 +81,10 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                     if let responseData = data {
                         DispatchQueue.main.async {
                             self.carouselData.append(.init(image: UIImage(data: responseData)))
-                            
                             self.carouselView?.configureView(with: self.carouselData)
-                            
                             self.setupUI()
+                            
+                            self.isCarouselReady = true
                         }
                     } else {
                         os_log("Image is absent by the URL")
