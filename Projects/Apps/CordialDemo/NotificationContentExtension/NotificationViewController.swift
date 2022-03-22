@@ -43,7 +43,12 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
     
     func didReceive(_ notification: UNNotification) {
-//        self.label?.text = notification.request.content.body
+        let userInfo = notification.request.content.userInfo
+        let carousels = CarouselNotificationParser.getCarousels(userInfo: userInfo)
+        
+        carousels.forEach { carousel in
+            // TODO
+        }
     }
     
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
