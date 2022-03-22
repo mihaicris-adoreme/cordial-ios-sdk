@@ -11,6 +11,7 @@ import UIKit
 class CarouselCell: UICollectionViewCell {
         
     private var imageView = UIImageView()
+    private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     
     static let cellID = "CarouselCell"
         
@@ -27,7 +28,13 @@ class CarouselCell: UICollectionViewCell {
     private func setupUI() {
         self.backgroundColor = .clear
         
-        self.addSubview(self.imageView)
+        self.contentView.addSubview(self.activityIndicator)
+        
+        self.activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        self.activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        self.activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
+        self.contentView.addSubview(self.imageView)
         
         self.imageView.translatesAutoresizingMaskIntoConstraints = false
         self.imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -39,6 +46,11 @@ class CarouselCell: UICollectionViewCell {
     }
     
     func configure(image: UIImage?) {
-        self.imageView.image = image
+        if let image = image {
+            self.activityIndicator.stopAnimating()
+            self.imageView.image = image
+        } else {
+            self.activityIndicator.startAnimating()
+        }
     }
 }
