@@ -31,5 +31,4 @@ class CarouselNotificationParser {
         return carousels
     }
     
-
 }
