@@ -13,7 +13,7 @@ import os.log
 
 class NotificationViewController: UIViewController, UNNotificationContentExtension {
 
-    private var carouselView: CarouselView?
+    private let carouselView = CarouselView()
     private var carouselData = [CarouselView.CarouselData]()
     private var carousels = [Carousel]()
     
@@ -31,7 +31,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.carouselView?.configureView(with: carouselData)
+        self.carouselView.configureView(with: carouselData)
     }
     
     override func loadView() {
@@ -69,7 +69,6 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     
     @objc private func didReceiveCarouselNotification(notification: NSNotification) {
         if let carousels = notification.object as? [Carousel] {
-            self.carouselView = CarouselView(pages: carousels.count)
             
             carousels.forEach { carousel in
                 URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
@@ -81,7 +80,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                     if let responseData = data {
                         DispatchQueue.main.async {
                             self.carouselData.append(.init(image: UIImage(data: responseData)))
-                            self.carouselView?.configureView(with: self.carouselData)
+                            self.carouselView.configureView(with: self.carouselData)
                             self.setupUI()
                             
                             self.isCarouselReady = true
@@ -95,29 +94,27 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
     
     private func scrollNextItem() {
-        var row = self.carouselView?.getCurrentPage() ?? 0
+        var row = self.carouselView.getCurrentPage()
         (row < self.carouselData.count - 1) ? (row += 1) : (row = 0)
         
-        self.carouselView?.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .right, animated: true)
+        self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .right, animated: true)
     }
     
     private func scrollPreviousItem() {
-        var row = self.carouselView?.getCurrentPage() ?? 0
+        var row = self.carouselView.getCurrentPage()
         (row > 0) ? (row -= 1) : (row = self.carouselData.count - 1)
         
-        self.carouselView?.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
+        self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
     }
 
     private func setupUI() {
-        guard let carouselView = self.carouselView else { return }
+        self.view.addSubview(self.carouselView)
         
-        self.view.addSubview(carouselView)
-        
-        carouselView.translatesAutoresizingMaskIntoConstraints = false
-        carouselView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        carouselView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        carouselView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        carouselView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        self.carouselView.translatesAutoresizingMaskIntoConstraints = false
+        self.carouselView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        self.carouselView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        self.carouselView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        self.carouselView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
     }
 
 }

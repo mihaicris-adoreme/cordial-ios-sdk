@@ -10,7 +10,7 @@ import UIKit
 
 class CarouselView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    private var pages: Int
+//    private var pages: Int
     private var carouselData = [CarouselData]()
     private var currentPage = 0
     
@@ -18,8 +18,7 @@ class CarouselView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         let image: UIImage?
     }
     
-    init(pages: Int) {
-        self.pages = pages
+    init() {
         super.init(frame: .zero)
         
         self.setupUI()
