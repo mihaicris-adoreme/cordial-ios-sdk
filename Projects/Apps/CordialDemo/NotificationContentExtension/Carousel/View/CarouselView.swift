@@ -20,12 +20,12 @@ class CarouselView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     
     init() {
         super.init(frame: .zero)
-        
         self.setupUI()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(frame: .zero)
+        self.setupUI()
     }
     
     lazy var collectionView: UICollectionView = {

@@ -26,6 +26,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         
         notificationCenter.removeObserver(self, name: .didReceiveCarouselNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(didReceiveCarouselNotification(notification:)), name: .didReceiveCarouselNotification, object: nil)
+        
+        self.setupUI()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -81,7 +83,6 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                         DispatchQueue.main.async {
                             self.carouselData.append(.init(image: UIImage(data: responseData)))
                             self.carouselView.configureView(with: self.carouselData)
-                            self.setupUI()
                             
                             self.isCarouselReady = true
                         }
