@@ -10,7 +10,6 @@ import UIKit
 
 class CarouselView: UIView, UICollectionViewDataSource, UICollectionViewDelegate {
     
-//    private var pages: Int
     private var carouselData = [CarouselData]()
     private var currentPage = 0
     
@@ -74,9 +73,9 @@ class CarouselView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func getCurrentPage() -> Int {
-        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+        let visibleRect = CGRect(origin: self.collectionView.contentOffset, size: self.collectionView.bounds.size)
         let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-        if let visibleIndexPath = collectionView.indexPathForItem(at: visiblePoint) {
+        if let visibleIndexPath = self.collectionView.indexPathForItem(at: visiblePoint) {
             return visibleIndexPath.row
         }
         

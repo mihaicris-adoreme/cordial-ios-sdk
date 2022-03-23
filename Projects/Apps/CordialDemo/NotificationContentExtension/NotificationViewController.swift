@@ -13,9 +13,10 @@ import os.log
 
 class NotificationViewController: UIViewController, UNNotificationContentExtension {
 
+    private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    
     private let carouselView = CarouselView()
     private var carouselData = [CarouselView.CarouselData]()
-    private var carousels = [Carousel]()
     
     private var isCarouselReady = false
     
@@ -33,7 +34,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.carouselView.configureView(with: carouselData)
+        self.carouselView.configureView(with: self.carouselData)
     }
     
     override func loadView() {
@@ -47,7 +48,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         
     func didReceive(_ notification: UNNotification) {
         let userInfo = notification.request.content.userInfo
-        carousels = CarouselNotificationParser.getCarousels(userInfo: userInfo)
+        let carousels = CarouselNotificationParser.getCarousels(userInfo: userInfo)
         
         NotificationCenter.default.post(name: .didReceiveCarouselNotification, object: carousels)
     }
@@ -74,6 +75,10 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
             
             carousels.forEach { carousel in
                 URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                    }
+                    
                     if let error = error {
                         os_log("%{public}@", error.localizedDescription)
                         return
@@ -109,6 +114,13 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
 
     private func setupUI() {
+        self.view.addSubview(self.activityIndicator)
+        self.activityIndicator.startAnimating()
+        
+        self.activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.activityIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        
         self.view.addSubview(self.carouselView)
         
         self.carouselView.translatesAutoresizingMaskIntoConstraints = false
