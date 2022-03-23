@@ -71,8 +71,13 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
     
     @objc private func didReceiveCarouselNotification(notification: NSNotification) {
-        if let carousels = notification.object as? [Carousel] {
+        if let carousels = notification.object as? [Carousel],
+            carousels.count > 1 {
             
+            DispatchQueue.main.async {
+                self.activityIndicator.startAnimating()
+            }
+
             carousels.forEach { carousel in
                 URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
                     DispatchQueue.main.async {
@@ -115,7 +120,6 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
 
     private func setupUI() {
         self.view.addSubview(self.activityIndicator)
-        self.activityIndicator.startAnimating()
         
         self.activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         self.activityIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
