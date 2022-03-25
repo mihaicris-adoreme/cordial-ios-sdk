@@ -127,7 +127,7 @@ CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channe
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"https://events-stream-svc.usw2/" messageHubURL:@"https://message-hub-svc.usw2.cordial.com/"];
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"https://events-stream-svc.usw2.cordial.com/" messageHubURL:@"https://message-hub-svc.usw2.cordial.com/"];
 ```
 
 After initializing, the SDK will automatically start tracking internal events as they occur in the application. Those events are:
