@@ -16,8 +16,4 @@ struct CordialGroupUserDefaults {
         return self.cordialUserDefaults?.stringArray(forKey: key)
     }
     
-    static func removeObject(forKey key: String) {
-        self.cordialUserDefaults?.removeObject(forKey: key)
-    }
-    
 }

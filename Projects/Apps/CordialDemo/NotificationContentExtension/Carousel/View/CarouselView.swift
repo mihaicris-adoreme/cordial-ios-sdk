@@ -69,7 +69,10 @@ class CarouselView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
         self.setupCollectionView()
         
         self.carouselData = data
-        self.collectionView.reloadData()
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
     func getCurrentPage() -> Int {

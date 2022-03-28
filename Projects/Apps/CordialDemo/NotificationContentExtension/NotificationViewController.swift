@@ -81,7 +81,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
             var carouselDeepLinks = [String]()
             
             carousels.forEach { carousel in
-                carouselDeepLinks.append(carousel.deepLink.absoluteString)
+                self.isCarouselReady = false
                 
                 URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
                     DispatchQueue.main.async {
@@ -95,18 +95,19 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     
                     if let responseData = data {
                         DispatchQueue.main.async {
+                            carouselDeepLinks.append(carousel.deepLink.absoluteString)
+                            CarouselGroupUserDefaults.set(carouselDeepLinks, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
+                            
                             self.carouselData.append(.init(image: UIImage(data: responseData)))
                             self.carouselView.configureView(with: self.carouselData)
-                            
-                            self.isCarouselReady = true
                         }
                     } else {
                         os_log("Image is absent by the URL")
                     }
+                    
+                    self.isCarouselReady = true
                 }.resume()
             }
-            
-            CarouselGroupUserDefaults.set(carouselDeepLinks, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
         }
     }
     
