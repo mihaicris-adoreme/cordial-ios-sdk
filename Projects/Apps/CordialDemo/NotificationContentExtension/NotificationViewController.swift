@@ -72,7 +72,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     
     @objc private func didReceiveCarouselNotification(notification: NSNotification) {
         if let carousels = notification.object as? [Carousel],
-            carousels.count > 1 {
+            carousels.count > 0 {
             
             DispatchQueue.main.async {
                 self.activityIndicator.startAnimating()
