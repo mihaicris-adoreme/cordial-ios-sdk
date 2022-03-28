@@ -33,6 +33,7 @@
 		9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */; };
 		9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */; };
 		9E58D9F124FD904500075D76 /* CustomUIActivityInbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58D9F024FD904500075D76 /* CustomUIActivityInbox.swift */; };
+		9E5FA14127F1EF69003D84FE /* CarouselGroupUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FA14027F1EF69003D84FE /* CarouselGroupUserDefaults.swift */; };
 		9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E602D09226744CC00197CBD /* CartTableViewCell.swift */; };
 		9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */; };
 		9E77896C22878C090089C986 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E77896B22878C090089C986 /* NotificationService.swift */; };
@@ -170,6 +171,8 @@
 		9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
 		9E4EEC8A225E36EA00F473A6 /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		9E58D9F024FD904500075D76 /* CustomUIActivityInbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityInbox.swift; sourceTree = "<group>"; };
+		9E5FA14027F1EF69003D84FE /* CarouselGroupUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselGroupUserDefaults.swift; sourceTree = "<group>"; };
+		9E5FA14227F1F496003D84FE /* NotificationContentExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationContentExtension.entitlements; sourceTree = "<group>"; };
 		9E602D09226744CC00197CBD /* CartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
 		9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksHandler.swift; sourceTree = "<group>"; };
 		9E77896922878C090089C986 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -291,6 +294,7 @@
 		9E0CC0EA27D68493007870A8 /* NotificationContentExtension */ = {
 			isa = PBXGroup;
 			children = (
+				9E5FA14227F1F496003D84FE /* NotificationContentExtension.entitlements */,
 				9E4B2E4127D7935B00F50933 /* Carousel */,
 				9E0CC0EB27D68493007870A8 /* NotificationViewController.swift */,
 				9E0CC0ED27D68493007870A8 /* MainInterface.storyboard */,
@@ -679,6 +683,7 @@
 			children = (
 				9ED3C19E27E9DE52001586C8 /* CarouselNotificationParser.swift */,
 				9ED3C19C27E8CDA8001586C8 /* CarouselNotificationExtension.swift */,
+				9E5FA14027F1EF69003D84FE /* CarouselGroupUserDefaults.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -958,6 +963,7 @@
 				9E0CC0EC27D68493007870A8 /* NotificationViewController.swift in Sources */,
 				9ED3C19D27E8CDA8001586C8 /* CarouselNotificationExtension.swift in Sources */,
 				9ED3C19F27E9DE52001586C8 /* CarouselNotificationParser.swift in Sources */,
+				9E5FA14127F1EF69003D84FE /* CarouselGroupUserDefaults.swift in Sources */,
 				9ED3C1A127E9DFA2001586C8 /* Carousel.swift in Sources */,
 				9E4B2E4527D7937100F50933 /* CarouselView.swift in Sources */,
 				9E4B2E4427D7937100F50933 /* CarouselCell.swift in Sources */,
@@ -1108,6 +1114,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = NotificationContentExtension/NotificationContentExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1136,6 +1143,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_ENTITLEMENTS = NotificationContentExtension/NotificationContentExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

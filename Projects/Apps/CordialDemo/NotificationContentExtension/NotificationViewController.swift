@@ -78,7 +78,11 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                 self.activityIndicator.startAnimating()
             }
 
+            var carouselDeepLinks = [String]()
+            
             carousels.forEach { carousel in
+                carouselDeepLinks.append(carousel.deepLink.absoluteString)
+                
                 URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
                     DispatchQueue.main.async {
                         self.activityIndicator.stopAnimating()
@@ -101,6 +105,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                     }
                 }.resume()
             }
+            
+            CarouselGroupUserDefaults.set(carouselDeepLinks, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
         }
     }
     
