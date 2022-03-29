@@ -106,7 +106,9 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                             self.carouselData.append(.init(image: UIImage(data: responseData)))
                             self.carouselView.configureView(with: self.carouselData)
                             
-                            self.isCarouselReady = true
+                            if index > 0 {
+                                self.isCarouselReady = true
+                            }
                         }
                     } else {
                         os_log("Image is absent by the URL")
@@ -127,7 +129,9 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         
         CarouselGroupUserDefaults.set(row, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID)
         
-        self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .right, animated: true)
+        DispatchQueue.main.async {
+            self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .right, animated: true)
+        }
     }
     
     private func scrollPreviousItem() {
@@ -141,7 +145,9 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         
         CarouselGroupUserDefaults.set(row, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID)
         
-        self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
+        DispatchQueue.main.async {
+            self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
+        }
     }
 
     private func setupUI() {
