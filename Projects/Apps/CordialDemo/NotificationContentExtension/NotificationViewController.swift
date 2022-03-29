@@ -26,8 +26,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         
         let notificationCenter = NotificationCenter.default
         
-        notificationCenter.removeObserver(self, name: .didReceiveCarouselNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(didReceiveCarouselNotification(notification:)), name: .didReceiveCarouselNotification, object: nil)
+        notificationCenter.removeObserver(self, name: .didReceiveCarouselsNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(didReceiveCarouselsNotification(notification:)), name: .didReceiveCarouselsNotification, object: nil)
         
         self.setupUI()
     }
@@ -51,7 +51,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         let userInfo = notification.request.content.userInfo
         let carousels = CarouselNotificationParser.getCarousels(userInfo: userInfo)
         
-        NotificationCenter.default.post(name: .didReceiveCarouselNotification, object: carousels)
+        NotificationCenter.default.post(name: .didReceiveCarouselsNotification, object: carousels)
     }
     
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
@@ -71,7 +71,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         }
     }
     
-    @objc private func didReceiveCarouselNotification(notification: NSNotification) {
+    @objc private func didReceiveCarouselsNotification(notification: NSNotification) {
         if let carousels = notification.object as? [Carousel],
             carousels.count > 0 {
             
@@ -125,6 +125,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
             (row < self.carouselData.count - 1) ? (row += 1) : (row = row)
         }
         
+        CarouselGroupUserDefaults.set(row, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID)
+        
         self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .right, animated: true)
     }
     
@@ -136,6 +138,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         } else {
             (row > 0) ? (row -= 1) : (row = row)
         }
+        
+        CarouselGroupUserDefaults.set(row, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID)
         
         self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
     }

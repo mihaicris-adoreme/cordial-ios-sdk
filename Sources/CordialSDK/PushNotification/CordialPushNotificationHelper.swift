@@ -69,60 +69,16 @@ class CordialPushNotificationHelper {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        if let deepLinkURL = self.pushNotificationParser.getDeepLinkURL(userInfo: userInfo) {
-    
-            InAppMessageProcess.shared.isPresentedInAppMessage = false
+        if let carouselDeepLinks = CordialGroupUserDefaults.stringArray(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS),
+           let carouselDeepLinkID = CordialGroupUserDefaults.integer(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID),
+           let deepLinkURL = URL(string: carouselDeepLinks[carouselDeepLinkID]) {
             
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_DEEP_LINK_OPEN, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
-            self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            InternalCordialAPI().processPushNotificationDeepLink(deepLinkURL: deepLinkURL, userInfo: userInfo)
             
-            // UIKit
-            if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
-                DispatchQueue.main.async {
-                    if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
-                        if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, scene: scene, completionHandler: { deepLinkActionType in
-                                
-                                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
-                            })
-                        } else {
-                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
-                                
-                                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
-                            })
-                        }
-                    } else {
-                        if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
-                                
-                                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
-                            })
-                        } else {
-                            cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, completionHandler: { deepLinkActionType in
-                                
-                                InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
-                            })
-                        }
-                    }
-                }
-            }
-            
-            // SwiftUI
-            if #available(iOS 13.0, *) {
-                DispatchQueue.main.async {
-                    if let fallbackURL = self.pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
-                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
-                            
-                            InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
-                        })
-                    } else {
-                        CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: nil, completionHandler: { deepLinkActionType in
-                            
-                            InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
-                        })
-                    }
-                }
-            }
+            CordialGroupUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
+            CordialGroupUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID)
+        } else if let deepLinkURL = self.pushNotificationParser.getDeepLinkURL(userInfo: userInfo) {
+            InternalCordialAPI().processPushNotificationDeepLink(deepLinkURL: deepLinkURL, userInfo: userInfo)
         }
     }
     

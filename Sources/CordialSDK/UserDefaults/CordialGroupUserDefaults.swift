@@ -16,4 +16,12 @@ struct CordialGroupUserDefaults {
         return self.cordialUserDefaults?.stringArray(forKey: key)
     }
     
+    static func integer(forKey key: String) -> Int? {
+        return self.cordialUserDefaults?.integer(forKey: key)
+    }
+    
+    static func removeObject(forKey key: String) {
+        self.cordialUserDefaults?.removeObject(forKey: key)
+    }
+    
 }
