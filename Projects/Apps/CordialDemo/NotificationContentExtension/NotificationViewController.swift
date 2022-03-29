@@ -94,7 +94,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                         self.carouselView.configureView(with: self.carouselData)
                                         
-                                        self.carouselView.collectionView.performBatchUpdates(nil, completion: { status in
+                                        self.carouselView.collectionView.performBatchUpdates(nil, completion: { _ in
                                             self.unlockActionButtonsIfNeeded(index: index)
                                         })
                                     }
