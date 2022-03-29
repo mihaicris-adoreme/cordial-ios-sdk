@@ -19,6 +19,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     private var carouselData = [CarouselView.CarouselData]()
     
     private var isCarouselReady = false
+    private var isCarouselsReady = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,12 +81,16 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
 
             var carouselDeepLinks = [String]()
             
-            carousels.forEach { carousel in
-                self.isCarouselReady = false
-                
+            for (index, carousel) in carousels.enumerated() {
                 URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
                     DispatchQueue.main.async {
                         self.activityIndicator.stopAnimating()
+                    }
+                    
+                    if index == carousels.count - 1 {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            self.isCarouselsReady = true
+                        }
                     }
                     
                     if let error = error {
@@ -100,12 +105,12 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                             
                             self.carouselData.append(.init(image: UIImage(data: responseData)))
                             self.carouselView.configureView(with: self.carouselData)
+                            
+                            self.isCarouselReady = true
                         }
                     } else {
                         os_log("Image is absent by the URL")
                     }
-                    
-                    self.isCarouselReady = true
                 }.resume()
             }
         }
@@ -113,14 +118,24 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     
     private func scrollNextItem() {
         var row = self.carouselView.getCurrentPage()
-        (row < self.carouselData.count - 1) ? (row += 1) : (row = 0)
+        
+        if self.isCarouselsReady {
+            (row < self.carouselData.count - 1) ? (row += 1) : (row = 0)
+        } else {
+            (row < self.carouselData.count - 1) ? (row += 1) : (row = row)
+        }
         
         self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .right, animated: true)
     }
     
     private func scrollPreviousItem() {
         var row = self.carouselView.getCurrentPage()
-        (row > 0) ? (row -= 1) : (row = self.carouselData.count - 1)
+        
+        if self.isCarouselsReady {
+            (row > 0) ? (row -= 1) : (row = self.carouselData.count - 1)
+        } else {
+            (row > 0) ? (row -= 1) : (row = row)
+        }
         
         self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
     }
