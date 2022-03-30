@@ -37,7 +37,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     
     func registerForSilentPushNotifications() {
         DispatchQueue.main.async {
-            let categoryIdentifier = "myNotificationCategory"
+            let categoryIdentifier = "carouselNotificationCategory"
             if #available(iOS 15.0, *) {
                 let carouselNext = UNNotificationAction(identifier: "\(categoryIdentifier).next", title: "Next", options: [], icon: UNNotificationActionIcon(systemImageName: "forward"))
                 let carouselPrevious = UNNotificationAction(identifier: "\(categoryIdentifier).previous", title: "Previous", options: [], icon: UNNotificationActionIcon(systemImageName: "backward"))

@@ -48,7 +48,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
     
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
-        let categoryIdentifier = "myNotificationCategory"
+        let categoryIdentifier = "carouselNotificationCategory"
         
         if self.isCarouselReady {
             switch response.actionIdentifier {
