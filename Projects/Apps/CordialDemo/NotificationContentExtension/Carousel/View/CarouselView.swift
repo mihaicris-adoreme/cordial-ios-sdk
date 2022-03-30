@@ -14,7 +14,7 @@ class CarouselView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     private var currentPage = 0
     
     struct CarouselData {
-        let image: UIImage?
+        let image: UIImage
     }
     
     init() {
@@ -94,7 +94,8 @@ class CarouselView: UIView, UICollectionViewDataSource, UICollectionViewDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCell.cellID, for: indexPath) as? CarouselCell else { return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CarouselCell.cellID, for: indexPath) as? CarouselCell else {
+            return UICollectionViewCell()
         }
         
         let image = self.carouselData[indexPath.row].image

@@ -38,7 +38,7 @@ class CarouselCell: UICollectionViewCell {
         self.imageView.clipsToBounds = true
     }
     
-    func configure(image: UIImage?) {
+    func configure(image: UIImage) {
         self.imageView.image = image
     }
 }

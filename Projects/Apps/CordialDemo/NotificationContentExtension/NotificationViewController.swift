@@ -66,7 +66,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     
     @objc private func didReceiveCarouselsNotification(notification: NSNotification) {
         if let carousels = notification.object as? [Carousel],
-            carousels.count > 0 {
+           !carousels.isEmpty {
             
             DispatchQueue.main.async {
                 self.activityIndicator.startAnimating()
@@ -77,31 +77,35 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
                     URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
                         DispatchQueue.main.async {
                             if let error = error {
-                                self.unlockActionButtonsIfNeeded(index: index)
+                                self.unlockActionButtonsIfNeeded()
                                 os_log("%{public}@", error.localizedDescription)
                                 return
                             }
             
                             if let responseData = data {
-                                carouselDeepLinks.append(carousel.deepLink.absoluteString)
-                                CarouselGroupUserDefaults.set(carouselDeepLinks, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
-                                
-                                let image = UIImage(data: responseData)
-                                let carouselData = CarouselView.CarouselData(image: image)
-                                self.carouselData.append(carouselData)
+                                if let image = UIImage(data: responseData) {
+                                    let carouselData = CarouselView.CarouselData(image: image)
+                                    self.carouselData.append(carouselData)
+                                    
+                                    carouselDeepLinks.append(carousel.deepLink.absoluteString)
+                                    CarouselGroupUserDefaults.set(carouselDeepLinks, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
+                                } else {
+                                    self.unlockActionButtonsIfNeeded()
+                                    os_log("Image data by URL is not a image")
+                                }
                                 
                                 if index == carousels.count - 1 {
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                                         self.carouselView.configureView(with: self.carouselData)
                                         
                                         self.carouselView.collectionView.performBatchUpdates(nil, completion: { _ in
-                                            self.unlockActionButtonsIfNeeded(index: index)
+                                            self.unlockActionButtonsIfNeeded()
                                         })
                                     }
                                 }
                             } else {
-                                self.unlockActionButtonsIfNeeded(index: index)
-                                os_log("Image is absent by the URL")
+                                self.unlockActionButtonsIfNeeded()
+                                os_log("Image by the URL is absent")
                             }
                         }
                     }.resume()
@@ -110,10 +114,10 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         }
     }
     
-    private func unlockActionButtonsIfNeeded(index: Int) {
+    private func unlockActionButtonsIfNeeded() {
         self.activityIndicator.stopAnimating()
         
-        if index > 0 {
+        if self.carouselData.count > 1 {
             self.isCarouselReady = true
         }
     }
