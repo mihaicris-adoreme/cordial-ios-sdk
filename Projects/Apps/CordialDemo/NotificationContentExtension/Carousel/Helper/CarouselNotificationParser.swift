@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class CarouselNotificationParser {
     
@@ -18,10 +19,16 @@ class CarouselNotificationParser {
                 guard let carouselData = data as? [String: String] else { return }
                 
                 guard let imageURLString = carouselData["imageURL"] else { return }
-                guard let imageURL = URL(string: imageURLString) else { return }
+                guard let imageURL = URL(string: imageURLString) else {
+                    os_log("Image URL is not valid URL")
+                    return
+                }
                 
                 guard let deepLinkString = carouselData["deepLink"] else { return }
-                guard let deepLink = URL(string: deepLinkString) else { return }
+                guard let deepLink = URL(string: deepLinkString) else {
+                    os_log("DeepLink URL is not valid URL")
+                    return
+                }
                 
                 let carousel = Carousel(imageURL: imageURL, deepLink: deepLink)
                 carousels.append(carousel)
