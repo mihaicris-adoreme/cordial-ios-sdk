@@ -37,24 +37,28 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     
     func registerForSilentPushNotifications() {
         DispatchQueue.main.async {
-            let categoryIdentifier = "carouselNotificationCategory"
-            if #available(iOS 15.0, *) {
-                let carouselNext = UNNotificationAction(identifier: "\(categoryIdentifier).next", title: "Next", options: [], icon: UNNotificationActionIcon(systemImageName: "forward"))
-                let carouselPrevious = UNNotificationAction(identifier: "\(categoryIdentifier).previous", title: "Previous", options: [], icon: UNNotificationActionIcon(systemImageName: "backward"))
-                let carouselCategory = UNNotificationCategory(identifier: categoryIdentifier, actions: [carouselNext, carouselPrevious], intentIdentifiers: [], options: [])
-                UNUserNotificationCenter.current().setNotificationCategories([carouselCategory])
-            } else {
-                let carouselNext = UNNotificationAction(identifier: "\(categoryIdentifier).next", title: "Next", options: [])
-                let carouselPrevious = UNNotificationAction(identifier: "\(categoryIdentifier).previous", title: "Previous", options: [])
-                let carouselCategory = UNNotificationCategory(identifier: categoryIdentifier, actions: [carouselNext, carouselPrevious], intentIdentifiers: [], options: [])
-                UNUserNotificationCenter.current().setNotificationCategories([carouselCategory])
-            }
+            self.registerRichPushNotificationsActions()
             
             UIApplication.shared.registerForRemoteNotifications()
         }
         
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             UNUserNotificationCenter.current().delegate = self
+        }
+    }
+    
+    private func registerRichPushNotificationsActions() {
+        let categoryIdentifier = "carouselNotificationCategory"
+        if #available(iOS 15.0, *) {
+            let carouselNext = UNNotificationAction(identifier: "\(categoryIdentifier).next", title: "Next", options: [], icon: UNNotificationActionIcon(systemImageName: "forward"))
+            let carouselPrevious = UNNotificationAction(identifier: "\(categoryIdentifier).previous", title: "Previous", options: [], icon: UNNotificationActionIcon(systemImageName: "backward"))
+            let carouselCategory = UNNotificationCategory(identifier: categoryIdentifier, actions: [carouselNext, carouselPrevious], intentIdentifiers: [], options: [])
+            UNUserNotificationCenter.current().setNotificationCategories([carouselCategory])
+        } else {
+            let carouselNext = UNNotificationAction(identifier: "\(categoryIdentifier).next", title: "Next", options: [])
+            let carouselPrevious = UNNotificationAction(identifier: "\(categoryIdentifier).previous", title: "Previous", options: [])
+            let carouselCategory = UNNotificationCategory(identifier: categoryIdentifier, actions: [carouselNext, carouselPrevious], intentIdentifiers: [], options: [])
+            UNUserNotificationCenter.current().setNotificationCategories([carouselCategory])
         }
     }
     

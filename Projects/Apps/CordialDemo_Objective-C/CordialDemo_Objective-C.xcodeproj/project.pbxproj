@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -134,6 +134,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7E2C11F527FF53D48E3DFBF4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		9E46318322F0582E0081E8CE /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +159,7 @@
 				9E65C91622EF1A1300E30F53 /* CordialDemo_Objective-CUITests */,
 				9E46318322F0582E0081E8CE /* NotificationServiceExtension */,
 				9E65C8EE22EF1A1200E30F53 /* Products */,
+				7E2C11F527FF53D48E3DFBF4 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
