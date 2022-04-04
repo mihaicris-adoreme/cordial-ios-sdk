@@ -26,6 +26,7 @@
 [Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
 [SwiftUI apps](#swiftui-apps)<br>
+[Carousel push noitifications](#carousel-push-notifications)<br>
 
 # Installation
 
@@ -1162,5 +1163,22 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 - `CordialSwiftUIInAppMessagePublisher` - notifies the app of the inputs that were captured in an in-app message
 - `CordialSwiftUIInboxMessagePublisher` - notifies the app of new inbox messages
 - `CordialSwiftUIPushNotificationPublisher` - notifies the app that a new push notification token is received, push notification delivered when an app is on the foreground and app opened via push notification tap
+
+## Carousel push notifications
+
+Carousel push notifications allow to expand a push notification and display items in the expanded notification view. Here are the steps to configure the app to dispaly carousel push notifications:
+1. Add new Notification Content Extension target. Choose Swift as target language
+2. Remove `Main.storyboard` from the newly created target.
+3. Add a new reference to CordialAppExtensions-Swift:
+
+___
+```
+target "The name of the new Notification Service Extension target" do  
+    use_frameworks!
+    pod 'CordialAppExtensions-Swift'  
+end
+```
+
+4. In the Info.plist of the target set `categoryIdentifier` to `carouselPushNoitfication`
 
 [Top](#contents)
