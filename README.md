@@ -112,7 +112,7 @@ CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channe
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:NULL messageHubURL:NULL];
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"" messageHubURL:@""];
 ```
 
 To change base host url, pass the new value as `eventsStreamURL` param via the `CordialApiConfiguration.initialize` method:
@@ -125,7 +125,7 @@ CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channe
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"your_events_stream_URL" messageHubURL:NULL];
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"your_events_stream_URL" messageHubURL:@""];
 ```
 
 To change message hub host url, pass the new value as `messageHubURL` param next to `eventsStreamURL` param via the `CordialApiConfiguration.initialize` method:
@@ -1167,18 +1167,22 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 ## Carousel push notifications
 
 Carousel push notifications allow to expand a push notification and display items in the expanded notification view. Here are the steps to configure the app to dispaly carousel push notifications:
-1. Add new Notification Content Extension target. Choose Swift as target language
-2. Remove `Main.storyboard` from the newly created target.
-3. Add a new reference to CordialAppExtensions-Swift:
+1. Add new Notification Content Extension target. Choose Swift as target language.
+2. Add a new reference to `CordialAppExtensions-Swift` in Cocoapods Podfile:
 
 ___
 ```
-target "The name of the new Notification Service Extension target" do  
+target "The name of the new Notification Content Extension target" do  
     use_frameworks!
     pod 'CordialAppExtensions-Swift'  
 end
 ```
 
-4. In the Info.plist of the target set `categoryIdentifier` to `carouselPushNoitfication`
+3. Remove `MainInterface.storyboard` from the newly created target.
+
+4. In the `Info.plist` of the target make the following changes:
+ - under `NSExtensionAttributes` section change the value of entry `UNNotificationExtensionCategory`  to `carouselPushNoitfication`
+ - unser `NSExtension` section remove entry `NSExtensionMainStoryboard` 
+ - unser `NSExtension` section add new entry `NSExtensionPrincipalClass` and set the value to `{Your Notification Content Extension target name}.NotificationViewController`
 
 [Top](#contents)
