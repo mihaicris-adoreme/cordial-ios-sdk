@@ -1181,7 +1181,7 @@ end
 3. Remove `MainInterface.storyboard` from the newly created target.
 
 4. In the `Info.plist` of the target make the following changes:
- - under `NSExtensionAttributes` section change the value of entry `UNNotificationExtensionCategory`  to `carouselPushNoitfication`
+ - under `NSExtensionAttributes` section change the value of entry `UNNotificationExtensionCategory`  to `carouselNotificationCategory`
  - unser `NSExtension` section remove entry `NSExtensionMainStoryboard` 
  - unser `NSExtension` section add new entry `NSExtensionPrincipalClass` and set the value to `{Your Notification Content Extension target name}.NotificationViewController`
 

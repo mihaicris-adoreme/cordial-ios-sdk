@@ -9,10 +9,10 @@
 			<key>UNNotificationExtensionCategory</key>
 			<string>carouselNotificationCategory</string>
 			<key>UNNotificationExtensionInitialContentSizeRatio</key>
-			<integer>1</integer>
+			<real>1</real>
 		</dict>
 		<key>NSExtensionPrincipalClass</key>
-		<string>NotificationContentExtension.NotificationViewController2</string>
+		<string>NotificationContentExtension.NotificationViewController</string>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.usernotifications.content-extension</string>
 	</dict>
