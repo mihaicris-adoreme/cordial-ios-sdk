@@ -14,10 +14,10 @@ let package = Package(
             name: "CordialSDK",
             targets: ["CordialSDK"]),
         .library(
-            name: "CordialNotificationServiceExtension",
+            name: "NotificationServiceExtension",
             targets: ["CordialAppExtensions"]),
         .library(
-            name: "CordialNotificationContentExtension",
+            name: "NotificationContentExtension",
             targets: ["CordialAppExtensions"]),
     ],
     dependencies: [
