@@ -1,6 +1,6 @@
 //
-//  NotificationViewController.swift
-//  NotificationContentExtension
+//  CordialNotificationContentExtension.swift
+//  CordialAppExtensions
 //
 //  Created by Yan Malinovsky on 07.03.2022.
 //  Copyright © 2022 cordial.io. All rights reserved.
@@ -11,7 +11,7 @@ import UserNotifications
 import UserNotificationsUI
 import os.log
 
-class NotificationViewController: UIViewController, UNNotificationContentExtension {
+class CordialNotificationContentExtension: UIViewController, UNNotificationContentExtension {
 
     private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     

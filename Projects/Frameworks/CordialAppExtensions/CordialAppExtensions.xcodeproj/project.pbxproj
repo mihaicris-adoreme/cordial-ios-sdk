@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E62494F27FC86DA0052E43E /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494427FC86DA0052E43E /* NotificationViewController.swift */; };
+		9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494427FC86DA0052E43E /* CordialNotificationContentExtension.swift */; };
 		9E62495027FC86DA0052E43E /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494727FC86DA0052E43E /* Carousel.swift */; };
 		9E62495127FC86DA0052E43E /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494927FC86DA0052E43E /* CarouselView.swift */; };
 		9E62495227FC86DA0052E43E /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494A27FC86DA0052E43E /* CarouselCell.swift */; };
@@ -31,7 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9E62494427FC86DA0052E43E /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		9E62494427FC86DA0052E43E /* CordialNotificationContentExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordialNotificationContentExtension.swift; sourceTree = "<group>"; };
 		9E62494727FC86DA0052E43E /* Carousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 		9E62494927FC86DA0052E43E /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		9E62494A27FC86DA0052E43E /* CarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				9E62494527FC86DA0052E43E /* Carousel */,
-				9E62494427FC86DA0052E43E /* NotificationViewController.swift */,
+				9E62494427FC86DA0052E43E /* CordialNotificationContentExtension.swift */,
 			);
 			path = NotificationContentExtension;
 			sourceTree = "<group>";
@@ -272,7 +272,7 @@
 				9E62495327FC86DA0052E43E /* CarouselNotificationExtension.swift in Sources */,
 				9E62495027FC86DA0052E43E /* Carousel.swift in Sources */,
 				9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */,
-				9E62494F27FC86DA0052E43E /* NotificationViewController.swift in Sources */,
+				9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */,
 				9E62495427FC86DA0052E43E /* CarouselGroupUserDefaults.swift in Sources */,
 				9E62495127FC86DA0052E43E /* CarouselView.swift in Sources */,
 				9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */,
