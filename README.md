@@ -1167,10 +1167,13 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 ## Carousel push notifications
 
 Carousel push notifications allow to expand a push notification and display items in the expanded notification view. Here are the steps to configure the app to dispaly carousel push notifications:
-1. Add new Notification Content Extension target. Choose Swift as target language.
-2. Add a new reference to `CordialAppExtensions-Swift` in Cocoapods Podfile:
 
-___
+1. Add new `Notification Content Extension` target. Important no matter your app language you needs to choose `Swift` as target language.
+
+2. Create `App Groups` for your main bandle and already created `Notification Content Extension` target with name `group.cordial.sdk`
+
+3. Add a new reference in Cocoapods Podfile:
+
 ```
 target "The name of the new Notification Content Extension target" do  
     use_frameworks!
@@ -1178,11 +1181,11 @@ target "The name of the new Notification Content Extension target" do
 end
 ```
 
-3. Remove `MainInterface.storyboard` from the newly created target.
+4. Remove `MainInterface.storyboard` from the newly created target.
 
-4. In the `Info.plist` of the target make the following changes:
- - under `NSExtensionAttributes` section change the value of entry `UNNotificationExtensionCategory`  to `carouselNotificationCategory`
- - unser `NSExtension` section remove entry `NSExtensionMainStoryboard` 
- - unser `NSExtension` section add new entry `NSExtensionPrincipalClass` and set the value to `{Your Notification Content Extension target name}.NotificationViewController`
+5. In the `Info.plist` of `Notification Content Extension` target make the following changes:
+ - Under section `NSExtensionAttributes` change the value of entry `UNNotificationExtensionCategory` to `carouselNotificationCategory`
+ - Unser section `NSExtension` remove entry `NSExtensionMainStoryboard` 
+ - Unser section `NSExtension` add new entry `NSExtensionPrincipalClass` and set the string value `{Notification Content Extension target name}.NotificationViewController`
 
 [Top](#contents)
