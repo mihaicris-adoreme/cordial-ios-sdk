@@ -11,7 +11,7 @@ import UserNotifications
 import UserNotificationsUI
 import os.log
 
-class CordialNotificationContentExtension: UIViewController, UNNotificationContentExtension {
+open class CordialNotificationContentExtension: UIViewController, UNNotificationContentExtension {
 
     private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
     
@@ -20,7 +20,7 @@ class CordialNotificationContentExtension: UIViewController, UNNotificationConte
     
     private var isCarouselReady = false
     
-    override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         
         let notificationCenter = NotificationCenter.default
@@ -31,7 +31,7 @@ class CordialNotificationContentExtension: UIViewController, UNNotificationConte
         self.setupUI()
     }
     
-    override func loadView() {
+    open override func loadView() {
         super.loadView()
         
         self.view.backgroundColor = .clear
@@ -40,14 +40,14 @@ class CordialNotificationContentExtension: UIViewController, UNNotificationConte
         self.preferredContentSize = CGSize(width: size.width, height: size.width)
     }
         
-    func didReceive(_ notification: UNNotification) {
+    public func didReceive(_ notification: UNNotification) {
         let userInfo = notification.request.content.userInfo
         let carousels = CarouselNotificationParser.getCarousels(userInfo: userInfo)
         
         NotificationCenter.default.post(name: .didReceiveCarouselsNotification, object: carousels)
     }
     
-    func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+    public func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         let categoryIdentifier = "carouselNotificationCategory"
         
         if self.isCarouselReady {
