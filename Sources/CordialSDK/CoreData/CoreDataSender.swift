@@ -56,7 +56,7 @@ class CoreDataSender {
             if customEventRequests.count > 0 {
                 if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
                     if CordialApiConfiguration.shared.eventsBulkSize != 1 {
-                        os_log("Flushing events blunk. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
+                        os_log("Flushing events. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
                     }
                 }
                 
