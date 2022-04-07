@@ -12,6 +12,6 @@ import CordialSDK
 class EmptyMockRequestSender: RequestSender {
     
     override func sendRequest(task: URLSessionDownloadTask) {
-
+        // do nothing
     }
 }

@@ -31,5 +31,4 @@ class MockRequestSenderSetContact: RequestSender {
             self.isVerified = true
         }
     }
-    
 }
