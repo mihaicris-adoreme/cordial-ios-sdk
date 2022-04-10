@@ -20,13 +20,13 @@ class CarouselNotificationParser {
                 
                 guard let imageURLString = carouselData["imageURL"] else { return }
                 guard let imageURL = URL(string: imageURLString) else {
-                    os_log("CordialSDK_AppExtensions: Image URL is not valid URL")
+                    os_log("CordialSDK_AppExtensions: Error [Image URL is not valid URL]", log: .default, type: .error)
                     return
                 }
                 
                 guard let deepLinkString = carouselData["deepLink"] else { return }
                 guard let deepLink = URL(string: deepLinkString) else {
-                    os_log("CordialSDK_AppExtensions: DeepLink URL is not valid URL")
+                    os_log("CordialSDK_AppExtensions: Error [DeepLink URL is not valid URL]", log: .default, type: .error)
                     return
                 }
                 
