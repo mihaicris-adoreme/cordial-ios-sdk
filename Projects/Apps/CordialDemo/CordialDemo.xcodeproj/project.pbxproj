@@ -705,8 +705,6 @@
 			dependencies = (
 			);
 			name = NotificationServiceExtension;
-			packageProductDependencies = (
-			);
 			productName = NotificationServiceExtension;
 			productReference = 9E6249AF27FC941F0052E43E /* NotificationServiceExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -728,8 +726,6 @@
 				9ED3049B27FC945B00642A56 /* PBXTargetDependency */,
 			);
 			name = CordialDemo;
-			packageProductDependencies = (
-			);
 			productName = CordialDemo;
 			productReference = 9E7A5A66222EB64B0020054F /* CordialDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -783,8 +779,6 @@
 			dependencies = (
 			);
 			name = NotificationContentExtension;
-			packageProductDependencies = (
-			);
 			productName = NotificationContentExtension;
 			productReference = 9ED3049027FC945B00642A56 /* NotificationContentExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -841,8 +835,6 @@
 				Base,
 			);
 			mainGroup = 9E7A5A5D222EB64B0020054F;
-			packageReferences = (
-			);
 			productRefGroup = 9E7A5A67222EB64B0020054F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1053,7 +1045,7 @@
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NotificationServiceExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 cordial.io. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1081,7 +1073,7 @@
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NotificationServiceExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 cordial.io. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1362,7 +1354,7 @@
 				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NotificationContentExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 cordial.io. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1391,7 +1383,7 @@
 				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = NotificationContentExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 cordial.io. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
