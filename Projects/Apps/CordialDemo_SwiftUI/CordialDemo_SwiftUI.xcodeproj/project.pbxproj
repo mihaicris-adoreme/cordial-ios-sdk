@@ -305,6 +305,8 @@
 				9E8BB33C280359C100F3B24E /* PBXTargetDependency */,
 			);
 			name = CordialDemo_SwiftUI;
+			packageProductDependencies = (
+			);
 			productName = CordialDemo_SwiftUI;
 			productReference = 9E40177926710AB800D269CC /* CordialDemo_SwiftUI.app */;
 			productType = "com.apple.product-type.application";
@@ -358,6 +360,8 @@
 			dependencies = (
 			);
 			name = NotificationContentExtension;
+			packageProductDependencies = (
+			);
 			productName = NotificationContentExtension;
 			productReference = 9E8BB32E280359C100F3B24E /* NotificationContentExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -375,6 +379,8 @@
 			dependencies = (
 			);
 			name = NotificationServiceExtension;
+			packageProductDependencies = (
+			);
 			productName = NotificationServiceExtension;
 			productReference = 9E91B1A326A345D50052AB19 /* NotificationServiceExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -416,6 +422,8 @@
 				Base,
 			);
 			mainGroup = 9E40177026710AB800D269CC;
+			packageReferences = (
+			);
 			productRefGroup = 9E40177A26710AB800D269CC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
