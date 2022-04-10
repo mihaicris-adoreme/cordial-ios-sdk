@@ -1176,7 +1176,7 @@ end
 5. In the `Info.plist` of `Notification Content Extension` target make the following changes:
  - Under section `NSExtensionAttributes` change the value of entry `UNNotificationExtensionCategory` to `carouselNotificationCategory`
  - Unser section `NSExtension` remove entry `NSExtensionMainStoryboard` 
- - Unser section `NSExtension` add new entry `NSExtensionPrincipalClass` and set the string value `{Notification Content Extension target name}.NotificationViewController`
+ - Unser section `NSExtension` add new entry `NSExtensionPrincipalClass` and set the string value `$(PRODUCT_MODULE_NAME).NotificationViewController`
  
 6. Delete the code that your IDE generated for the new extension and inherit it from `CordialNotificationContentExtension`:  
 

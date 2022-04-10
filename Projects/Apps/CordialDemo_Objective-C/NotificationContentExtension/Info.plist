@@ -12,7 +12,7 @@
 			<real>1</real>
 		</dict>
 		<key>NSExtensionPrincipalClass</key>
-		<string>NotificationContentExtension.NotificationViewController</string>
+		<string>$(PRODUCT_MODULE_NAME).NotificationViewController</string>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.usernotifications.content-extension</string>
 	</dict>
