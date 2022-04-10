@@ -78,7 +78,7 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
                         DispatchQueue.main.async {
                             if let error = error {
                                 self.unlockActionButtonsIfNeeded()
-                                os_log("%{public}@", error.localizedDescription)
+                                os_log("CordialSDK_AppExtensions: %{public}@", error.localizedDescription)
                                 return
                             }
             
@@ -91,7 +91,7 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
                                     CarouselGroupUserDefaults.set(carouselDeepLinks, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
                                 } else {
                                     self.unlockActionButtonsIfNeeded()
-                                    os_log("Image data by URL is not a image")
+                                    os_log("CordialSDK_AppExtensions: Image data by URL is not a image")
                                 }
                                 
                                 if index == carousels.count - 1 {
@@ -105,7 +105,7 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
                                 }
                             } else {
                                 self.unlockActionButtonsIfNeeded()
-                                os_log("Image by the URL is absent")
+                                os_log("CordialSDK_AppExtensions: Image by the URL is absent")
                             }
                         }
                     }.resume()
