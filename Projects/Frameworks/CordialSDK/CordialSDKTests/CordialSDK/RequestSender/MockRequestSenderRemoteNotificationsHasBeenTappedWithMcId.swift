@@ -20,5 +20,4 @@ class MockRequestSenderRemoteNotificationsHasBeenTappedWithMcId: RequestSender {
         
         self.isVerified = true
     }
-    
 }

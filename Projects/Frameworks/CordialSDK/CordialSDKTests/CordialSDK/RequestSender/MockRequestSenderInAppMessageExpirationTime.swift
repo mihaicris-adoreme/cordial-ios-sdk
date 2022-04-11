@@ -16,7 +16,6 @@ class MockRequestSenderInAppMessageExpirationTime: RequestSender {
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        
         if let inAppMessageURL = self.sdkTests.testCase.getInAppMessageURL(mcID: self.sdkTests.testMcID),
             let inAppMessageRequestURL = task.originalRequest?.url,
             inAppMessageURL == inAppMessageRequestURL {

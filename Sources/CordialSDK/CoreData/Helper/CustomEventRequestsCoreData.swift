@@ -17,14 +17,20 @@ class CustomEventRequestsCoreData {
     func putCustomEventRequestsToCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
         guard let qtyCachedCustomEventRequests = self.getQtyCachedCustomEventRequests() else { return }
         
-        let sendCustomEventRequestsQty = qtyCachedCustomEventRequests + sendCustomEventRequests.count
+        let countSendCustomEventRequests = sendCustomEventRequests.count
         
-        if sendCustomEventRequestsQty > CordialApiConfiguration.shared.qtyCachedEventQueue {
-            let removeID = sendCustomEventRequestsQty - CordialApiConfiguration.shared.qtyCachedEventQueue
-            self.removeFirstCustomEventRequestsFromCoreData(removeTo: removeID)
+        let addingReporting = qtyCachedCustomEventRequests.addingReportingOverflow(countSendCustomEventRequests)
+        
+        if !addingReporting.overflow {
+            let sendCustomEventRequestsQty = addingReporting.partialValue
+            
+            if sendCustomEventRequestsQty > CordialApiConfiguration.shared.qtyCachedEventQueue {
+                let removeID = sendCustomEventRequestsQty - CordialApiConfiguration.shared.qtyCachedEventQueue
+                self.removeFirstCustomEventRequestsFromCoreData(removeTo: removeID)
+            }
+            
+            self.setCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
         }
-        
-        self.setCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
     }
     
     private func setCustomEventRequestsToCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {

@@ -34,7 +34,4 @@ class MockRequestSenderSDKSecurity: RequestSender {
             self.sdkTests.testCase.notValidJWT(task: task)
         }
     }
-    
 }
-
-

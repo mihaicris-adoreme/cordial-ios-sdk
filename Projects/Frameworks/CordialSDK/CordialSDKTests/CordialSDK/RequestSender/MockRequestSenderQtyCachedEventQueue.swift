@@ -1,17 +1,19 @@
 //
-//  MockRequestSenderUpsertContactCartEmptyCart.swift
+//  MockRequestSenderQtyCachedEventQueue.swift
 //  CordialSDKTests
 //
-//  Created by Yan Malinovsky on 12.05.2020.
-//  Copyright © 2020 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 02.02.2022.
+//  Copyright © 2022 cordial.io. All rights reserved.
 //
 
 import XCTest
 import CordialSDK
 
-class MockRequestSenderUpsertContactCartEmptyCart: RequestSender {
+class MockRequestSenderQtyCachedEventQueue: RequestSender {
     
     var isVerified = false
+    
+    let events = ["test_custom_event_3", "test_custom_event_4", "test_custom_event_5"]
     
     override func sendRequest(task: URLSessionDownloadTask) {
         if let httpBody = task.originalRequest?.httpBody,
@@ -20,9 +22,9 @@ class MockRequestSenderUpsertContactCartEmptyCart: RequestSender {
             jsonArray.forEach { jsonAnyObject in
                 let json = jsonAnyObject as! [String: AnyObject]
                 
-                let cartItems = json["cartitems"] as! [AnyObject]
-                
-                XCTAssertEqual(cartItems.count, 0, "Cart items count don't match")
+                if !events.contains(json["event"] as! String) {
+                    XCTAssert(false, "Event don't match")
+                }
                 
                 self.isVerified = true
             }
