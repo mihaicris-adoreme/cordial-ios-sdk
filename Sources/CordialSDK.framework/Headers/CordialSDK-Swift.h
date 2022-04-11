@@ -337,7 +337,7 @@ SWIFT_CLASS("_TtC10CordialSDK10CordialAPI")
 - (void)unsetContact;
 - (void)upsertContactWithAttributes:(NSDictionary<NSString *, id <AttributeValue>> * _Nullable)attributes;
 - (void)sendCustomEventWithEventName:(NSString * _Nonnull)eventName properties:(NSDictionary<NSString *, id> * _Nullable)properties;
-- (void)flushEventsWithReason:(NSString * _Nonnull)reason;
+- (void)flushEvents;
 - (void)upsertContactCartWithCartItems:(NSArray<CartItem *> * _Nonnull)cartItems;
 - (void)sendContactOrderWithOrder:(Order * _Nonnull)order;
 - (void)registerForPushNotificationsWithOptions:(UNAuthorizationOptions)options;
