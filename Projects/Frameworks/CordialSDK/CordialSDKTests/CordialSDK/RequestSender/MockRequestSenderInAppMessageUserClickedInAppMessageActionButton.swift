@@ -20,31 +20,28 @@ class MockRequestSenderInAppMessageUserClickedInAppMessageActionButton: RequestS
     var eventName = String()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        
         if let inAppMessageURL = self.sdkTests.testCase.getInAppMessageURL(mcID: self.sdkTests.testMcID),
             let inAppMessageRequestURL = task.originalRequest?.url,
             inAppMessageURL == inAppMessageRequestURL {
             
             self.sdkTests.testCase.sendInAppMessageDataFetchRequestSilentPushes(task: task)
-        } else {
-            let httpBody = task.originalRequest!.httpBody!
-            
-            if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
-                jsonArray.forEach { jsonAnyObject in
-                    let json = jsonAnyObject as! [String: AnyObject]
-                    
-                    let event = json["event"] as! String
-                    
-                    switch event {
-                    case self.sdkTests.testCase.getEventNameInAppMessageShown():
-                        isInAppMessageHasBeenShown = true
-                    case self.eventName:
-                        if isInAppMessageHasBeenShown {
-                            self.isVerified = true
-                        }
-                    default:
-                        break
+        } else if let httpBody = task.originalRequest?.httpBody,
+                  let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+                
+            jsonArray.forEach { jsonAnyObject in
+                let json = jsonAnyObject as! [String: AnyObject]
+                
+                let event = json["event"] as! String
+                
+                switch event {
+                case self.sdkTests.testCase.getEventNameInAppMessageShown():
+                    isInAppMessageHasBeenShown = true
+                case self.eventName:
+                    if isInAppMessageHasBeenShown {
+                        self.isVerified = true
                     }
+                default:
+                    break
                 }
             }
         }

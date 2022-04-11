@@ -3,6 +3,7 @@
 
 [Installation](#installation)<br>
 [Initialize the SDK](#initialize-the-sdk)<br>
+[Initialize the SDK for us-west-2 accounts](#initialize-the-sdk-for-us-west-2-accounts)<br>
 [Push Notifications](#push-notifications)<br>
 [Method Swizzling](#method-swizzling)<br>
 [Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
@@ -114,33 +115,20 @@ ___
 [[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:NULL messageHubURL:NULL];
 ```
 
-To change base host url, pass the new value as `eventsStreamURL` param via the `CordialApiConfiguration.initialize` method:
+## Initialize the SDK for us-west-2 accounts
+
+If your Cordial account is in us-west-2 region, pass events stream and message hub urls to SDK initialization methods:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "your_events_stream_URL")
+CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "https://events-stream-svc.usw2/cordial.com/", messageHubURL: "https://message-hub-svc.usw2.cordial.com/")
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"your_events_stream_URL" messageHubURL:NULL];
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"https://events-stream-svc.usw2.cordial.com/" messageHubURL:@"https://message-hub-svc.usw2.cordial.com/"];
 ```
-
-To change message hub host url, pass the new value as `messageHubURL` param next to `eventsStreamURL` param via the `CordialApiConfiguration.initialize` method:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "your_events_stream_URL", messageHubURL: "your_message_hub_URL")
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"your_events_stream_URL" messageHubURL:@"your_message_hub_URL"];
-```
-
-**Note**: The maximum number of cached events can be set during the initialization step. If not stated, the default limit will be set to 1,000 cached events.
 
 After initializing, the SDK will automatically start tracking internal events as they occur in the application. Those events are:
 - App opens and closes
@@ -671,6 +659,8 @@ Every app is assumed to be operating on behalf of a specific contact. Contact is
 Every piece of information (internal or custom events, updating a contact, etc.) that is passed by SDK to Cordial backend, has a device ID automatically associated with it. Later, when the user logs into the app and their primary key becomes known, the client application must pass that primary key to the backend by calling the `setContact` method. When the backend receives a contact update with the primary key, it associates the device ID with the primary key of that contact. That association is crucial for effectively using Cordial.
 
 There are two states in the SDK: `Logged in` and `Logged out`. The difference is that the `Logged in` state sends requests and receives push messages, while the `Logged out` state caches requests and does not receive push messages. The `Logged out` state is described in "Unsetting a contact" section. The `Logged in` state can be with and without a primary key. By default, the SDK is automatically set to `Logged in` state without primary key.
+
+**Note**: The maximum number of cached events can be set during the initialization step. If not stated, the default limit will be set to 1,000 cached events.
 
 `setContact` with primary key usage:
 

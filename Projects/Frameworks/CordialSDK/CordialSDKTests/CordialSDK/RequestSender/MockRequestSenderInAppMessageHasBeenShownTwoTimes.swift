@@ -24,7 +24,6 @@ class MockRequestSenderInAppMessageHasBeenShownTwoTimes: RequestSender {
     }
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        
         if let url = task.originalRequest?.url {
             switch url {
             case self.sdkTests.testCase.getInAppMessageURL(mcID: self.sdkTests.testMcID):
@@ -32,9 +31,9 @@ class MockRequestSenderInAppMessageHasBeenShownTwoTimes: RequestSender {
             case self.sdkTests.testCase.getInAppMessageURL(mcID: self.testMcID_2):
                 self.sdkTests.testCase.sendInAppMessageDataFetchRequestSilentPushes(task: task)
             default:
-                let httpBody = task.originalRequest!.httpBody!
-                
-                if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+                if let httpBody = task.originalRequest?.httpBody,
+                   let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+                    
                     jsonArray.forEach { jsonAnyObject in
                         let json = jsonAnyObject as! [String: AnyObject]
                         

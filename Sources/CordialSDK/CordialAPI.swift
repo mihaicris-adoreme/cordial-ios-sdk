@@ -147,9 +147,9 @@ import os.log
     
     // MARK: Flush Custom Events
     
-    @objc public func flushEvents(reason: String) {
+    @objc public func flushEvents() {
         ThrottlerManager.shared.sendCustomEventRequest.throttle {
-            CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: reason)
+            CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "App requested")
         }
     }
     

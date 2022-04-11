@@ -20,25 +20,24 @@ class MockRequestSenderIfEventRequestHasInvalidEvent: RequestSender {
     var invalidEventName: String!
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        let httpBody = task.originalRequest!.httpBody!
-        
-        let jsonString = String(decoding: httpBody, as: UTF8.self)
-        
-        if jsonString.contains(self.invalidEventName) {
-            self.sdkTests.testCase.sendInvalidCustomEventRequest(task: task)
-        } else {
-            if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
-                jsonArray.forEach { jsonAnyObject in
-                    let json = jsonAnyObject as! [String: AnyObject]
-                    
-                    if !self.validEventNames.contains(json["event"] as! String) {
-                        XCTAssert(false, "Event don't match")
+        if let httpBody = task.originalRequest?.httpBody {
+            let jsonString = String(decoding: httpBody, as: UTF8.self)
+            
+            if jsonString.contains(self.invalidEventName) {
+                self.sdkTests.testCase.sendInvalidCustomEventRequest(task: task)
+            } else {
+                if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+                    jsonArray.forEach { jsonAnyObject in
+                        let json = jsonAnyObject as! [String: AnyObject]
+                        
+                        if !self.validEventNames.contains(json["event"] as! String) {
+                            XCTAssert(false, "Event don't match")
+                        }
+                        
+                        self.isVerified = true
                     }
-                    
-                    self.isVerified = true
                 }
             }
         }
     }
-    
 }

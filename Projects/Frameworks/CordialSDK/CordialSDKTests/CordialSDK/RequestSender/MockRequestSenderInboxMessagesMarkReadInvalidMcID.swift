@@ -18,22 +18,21 @@ class MockRequestSenderInboxMessagesMarkReadInvalidMcID: RequestSender {
     var invalidMcID = String()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        
-        let httpBody = task.originalRequest!.httpBody!
-        
-        let jsonString = String(decoding: httpBody, as: UTF8.self)
-        
-        if let inboxMessagesMarkReadUnreadURL = self.sdkTests.testCase.getInboxMessagesMarkReadUnreadURL(),
-           let inboxMessagesMarkReadUnreadRequestURL = task.originalRequest?.url,
-           inboxMessagesMarkReadUnreadURL == inboxMessagesMarkReadUnreadRequestURL {
+        if let httpBody = task.originalRequest?.httpBody {
+            let jsonString = String(decoding: httpBody, as: UTF8.self)
             
-            if jsonString.contains(self.invalidMcID) {
-                self.sdkTests.testCase.sendInvalidInboxMessagesMarkReadUnreadRequest(type: "markAsReadIds", mcID: self.invalidMcID, task: task)
+            if let inboxMessagesMarkReadUnreadURL = self.sdkTests.testCase.getInboxMessagesMarkReadUnreadURL(),
+               let inboxMessagesMarkReadUnreadRequestURL = task.originalRequest?.url,
+               inboxMessagesMarkReadUnreadURL == inboxMessagesMarkReadUnreadRequestURL {
+                
+                if jsonString.contains(self.invalidMcID) {
+                    self.sdkTests.testCase.sendInvalidInboxMessagesMarkReadUnreadRequest(type: "markAsReadIds", mcID: self.invalidMcID, task: task)
+                } else {
+                    self.isVerified = true
+                }
             } else {
-                self.isVerified = true
+                self.isVerified = false
             }
-        } else {
-            self.isVerified = false
         }
     }
 }

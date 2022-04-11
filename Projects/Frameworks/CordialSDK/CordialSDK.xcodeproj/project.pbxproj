@@ -248,6 +248,7 @@
 		9ED6F86D2432E1750084824C /* MockRequestSenderEventsBulkSizeReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED6F86C2432E1750084824C /* MockRequestSenderEventsBulkSizeReachability.swift */; };
 		9ED9266A22CB5BDF00809EC0 /* InAppMessage.js in Resources */ = {isa = PBXBuildFile; fileRef = 9ED9266922CB5BDF00809EC0 /* InAppMessage.js */; };
 		9EDA6B6324A3BACB001EB81C /* MockRequestSenderInAppMessageHasBeenShown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA6B6224A3BACB001EB81C /* MockRequestSenderInAppMessageHasBeenShown.swift */; };
+		9EDA71F327AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA71F227AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift */; };
 		9EE29BE722F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */; };
 		9EE29BE922F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */; };
 		9EE78A57246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE78A56246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift */; };
@@ -556,6 +557,7 @@
 		9ED6F86C2432E1750084824C /* MockRequestSenderEventsBulkSizeReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderEventsBulkSizeReachability.swift; sourceTree = "<group>"; };
 		9ED9266922CB5BDF00809EC0 /* InAppMessage.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = InAppMessage.js; sourceTree = "<group>"; };
 		9EDA6B6224A3BACB001EB81C /* MockRequestSenderInAppMessageHasBeenShown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageHasBeenShown.swift; sourceTree = "<group>"; };
+		9EDA71F227AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderQtyCachedEventQueue.swift; sourceTree = "<group>"; };
 		9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInAppMessageURLSessionManager.swift; sourceTree = "<group>"; };
 		9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKSecurityGetJWTURLSessionManager.swift; sourceTree = "<group>"; };
 		9EE78A56246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUpsertContactCartOneItem.swift; sourceTree = "<group>"; };
@@ -1265,6 +1267,7 @@
 				9E8546E325D652C800C04741 /* MockRequestSenderVanityDeepLinkHasBeenOpen.swift */,
 				9EB2718925D6C320001EF46F /* MockRequestSenderTestVanityDeepLinksNotSaveMcID.swift */,
 				9E06C87225DEBC96003D862E /* MockRequestSenderURLSchemesDeepLinkHasBeenOpen.swift */,
+				9EDA71F227AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift */,
 			);
 			path = RequestSender;
 			sourceTree = "<group>";
@@ -1891,6 +1894,7 @@
 				9E411E042411308900D850B0 /* EmptyMockRequestSender.swift in Sources */,
 				9E41A8F4240FE24600C9F8B6 /* PushNotificationHandler.swift in Sources */,
 				9ED6F869243276C70084824C /* MockRequestSenderEventsBulkSizeTimer.swift in Sources */,
+				9EDA71F327AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift in Sources */,
 				9EE887912485C65C001C3E45 /* MockRequestSenderSendContactOrderTwoOrders.swift in Sources */,
 				9E06C80325DBE5FA003D862E /* MockVanityDeepLinkDelegate.swift in Sources */,
 				9E63BE3824B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift in Sources */,
@@ -2131,7 +2135,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.2;
+				MARKETING_VERSION = 3.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2162,7 +2166,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.2;
+				MARKETING_VERSION = 3.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

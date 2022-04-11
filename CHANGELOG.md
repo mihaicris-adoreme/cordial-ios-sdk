@@ -2,6 +2,16 @@
 
 The latest version of this file can be found at the master branch.
 
+## 3.1.3 (2022-04-07)
+
+### Fixed
+
+- Integer overflow during prepare events for cashing   
+
+### Changed
+
+- The reason of flushing events from public API 
+
 ## 3.1.2 (2022-01-28)
 
 ### Fixed

@@ -16,11 +16,9 @@ class MockRequestSenderUserAgent: RequestSender {
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        
         let userAgent = task.originalRequest!.allHTTPHeaderFields!["User-Agent"]
         XCTAssertEqual(self.sdkTests.testCase.getUserAgent(), userAgent, "User-Agent don't match")
         
         self.isVerified = true
     }
-    
 }

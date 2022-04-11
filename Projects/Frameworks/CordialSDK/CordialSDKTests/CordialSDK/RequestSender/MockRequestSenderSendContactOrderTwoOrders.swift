@@ -19,9 +19,9 @@ class MockRequestSenderSendContactOrderTwoOrders: RequestSender {
     var isFirstOrder = true
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        let httpBody = task.originalRequest!.httpBody!
-        
-        if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+        if let httpBody = task.originalRequest?.httpBody,
+           let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+            
             jsonArray.forEach { jsonAnyObject in
                 let json = jsonAnyObject as! [String: AnyObject]
                 

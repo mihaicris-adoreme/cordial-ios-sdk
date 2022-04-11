@@ -16,7 +16,6 @@ class MockRequestSenderInboxMessagesMarkReadUnread: RequestSender {
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        
         if let inboxMessagesMarkReadUnreadURL = self.sdkTests.testCase.getInboxMessagesMarkReadUnreadURL(),
            let inboxMessagesMarkReadUnreadRequestURL = task.originalRequest?.url,
            inboxMessagesMarkReadUnreadURL == inboxMessagesMarkReadUnreadRequestURL {

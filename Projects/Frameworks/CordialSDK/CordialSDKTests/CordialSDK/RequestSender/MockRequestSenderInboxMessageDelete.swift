@@ -19,7 +19,6 @@ class MockRequestSenderInboxMessageDelete: RequestSender {
     var mcID = String()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        
         if let inboxMessageURL = self.sdkTests.testCase.getInboxMessageURL(contactKey: contactKey, mcID: mcID),
            let inboxMessageRequestURL = task.originalRequest?.url,
            inboxMessageURL == inboxMessageRequestURL {
