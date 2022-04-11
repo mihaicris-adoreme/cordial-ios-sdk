@@ -20,5 +20,4 @@ class MockRequestSenderSaveMcIdAfterSetContact: RequestSender {
         
         self.isVerified = true
     }
-    
 }

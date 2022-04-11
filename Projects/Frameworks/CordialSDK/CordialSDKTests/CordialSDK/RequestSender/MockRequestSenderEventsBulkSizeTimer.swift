@@ -16,9 +16,9 @@ class MockRequestSenderEventsBulkSizeTimer: RequestSender {
     var event = String()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        let httpBody = task.originalRequest!.httpBody!
-        
-        if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+        if let httpBody = task.originalRequest?.httpBody,
+           let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+            
             let json = jsonArray.first! as! [String: AnyObject]
             
             XCTAssertEqual(self.event, json["event"] as! String, "Event don't match")
@@ -26,5 +26,4 @@ class MockRequestSenderEventsBulkSizeTimer: RequestSender {
             self.isVerified = true
         }
     }
-    
 }

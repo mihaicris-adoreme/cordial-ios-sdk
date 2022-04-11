@@ -16,9 +16,9 @@ class MockRequestSenderInboxMessageReadEvent: RequestSender {
     let sdkTests = CordialSDKTests()
     
     override func sendRequest(task: URLSessionDownloadTask) {
-        let httpBody = task.originalRequest!.httpBody!
-        
-        if let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+        if let httpBody = task.originalRequest?.httpBody,
+           let jsonArray = try? JSONSerialization.jsonObject(with: httpBody, options: []) as? [AnyObject] {
+            
             let json = jsonArray.first! as! [String: AnyObject]
             
             XCTAssertEqual(json["event"] as! String, self.sdkTests.testCase.getEventNameInboxMessageRead(), "Events don't match")
