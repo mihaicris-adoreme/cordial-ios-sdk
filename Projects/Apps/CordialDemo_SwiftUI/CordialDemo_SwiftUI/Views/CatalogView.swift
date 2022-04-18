@@ -6,19 +6,27 @@
 //
 
 import SwiftUI
+import CordialSDK
 
 struct CatalogView: View {
     
     let title = "Catalog"
     
-    @Binding var deepLink: URL?
+    @Binding var deepLinks: CordialSwiftUIDeepLinks?
+    
+    @State var productID: Int? = nil
     
     var body: some View {
         NavigationView {
             VStack {
                 
-                if let url = self.deepLink, let productID = DeepLinks().getProductID(url: url) {
-                    NavigationLink(destination: ProductView(productID: productID), tag: url, selection: self.$deepLink) { EmptyView() }
+                if let deepLinks = self.deepLinks, let productID = DeepLinks(deepLinks: deepLinks).getProductID() {
+                    NavigationLink(destination: ProductView(productID: productID), tag: productID, selection: self.$productID) {
+                        EmptyView()
+                    }
+                    .onAppear {
+                        self.productID = productID
+                    }
                 }
                 
                 HStack {
@@ -61,9 +69,9 @@ struct CatalogView: View {
 
 struct CatalogView_Previews: PreviewProvider {
     
-    @State static private var deepLink: URL?
+    @State static private var deepLinks: CordialSwiftUIDeepLinks?
     
     static var previews: some View {
-        CatalogView(deepLink: self.$deepLink)
+        CatalogView(deepLinks: self.$deepLinks)
     }
 }

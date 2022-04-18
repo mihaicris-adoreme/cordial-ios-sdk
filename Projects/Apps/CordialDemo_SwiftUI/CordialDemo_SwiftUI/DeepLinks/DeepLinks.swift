@@ -7,34 +7,40 @@
 
 import Foundation
 import UIKit
+import CordialSDK
 
 struct DeepLinks {
     
+    var deepLinks: CordialSwiftUIDeepLinks
+    
     let deepLinksHost = "tjs.cordialdev.com"
     
-    func getProductID(url: URL) -> Int? {
-        if url.absoluteString.contains("notification-settings") {
+    func getProductID() -> Int? {        
+        if deepLinks.url.absoluteString.contains("notification-settings") {
             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             return nil
         }
         
-        guard let host = self.getHost(url: url) else {
-            return nil
-        }
+        guard let host = self.getHost(url: deepLinks.url) else { return nil }
         
         if host == self.deepLinksHost {
-            if let deepLinkURL = self.getDeepLinkURL(url: url),
+            if let deepLinkURL = self.getDeepLinkURL(url: deepLinks.url),
                let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
                let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
                 
                 return product.id
                 
-            } else if let webpageURL = URL(string: "https://\(host)/") {
+            } else if let fallbackURL = self.getDeepLinkURL(url: deepLinks.fallbackURL),
+                      let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
+                      let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
                 
-                self.openWebpageURL(url: webpageURL)
+                return product.id
+                
+            } else {
+                deepLinks.completionHandler(.OPEN_IN_BROWSER)
             }
         } else {
-            self.openWebpageURL(url: url)
+            self.openWebpageURL(url: deepLinks.url)
         }
         
         return nil
