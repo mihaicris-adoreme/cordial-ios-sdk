@@ -65,13 +65,21 @@ struct API {
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"
     
     static func getDictionaryJSON(_ dictionary: Dictionary<String, Any>?) -> String {
-        guard let json = dictionary as NSDictionary?, let jsonString = JSONStructure().box(json)?.walk() else { return "{ }" }
+        guard let json = dictionary as NSDictionary?,
+              let jsonString = JSONStructure().box(json)?.walk() else {
+                  
+            return "{ }"
+        }
         
         return jsonString
     }
     
     static func getArrayJSON(_ array: [Any]?) -> String {
-        guard let json = array as NSArray?, let jsonString = JSONStructure().box(json)?.walk() else { return "[ ]" }
+        guard let json = array as NSArray?,
+              let jsonString = JSONStructure().box(json)?.walk() else {
+                  
+            return "[ ]"
+        }
         
         return jsonString
     }

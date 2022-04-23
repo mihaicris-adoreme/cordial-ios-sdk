@@ -323,10 +323,10 @@ class InternalCordialAPI {
         }
     }
     
-    func processPushNotificationDeepLink(deepLinkURL: URL, userInfo: [AnyHashable : Any]) {
+    func processPushNotificationDeepLink(url: URL, userInfo: [AnyHashable : Any]) {
         InAppMessageProcess.shared.isPresentedInAppMessage = false
         
-        self.sentEventDeepLinkOpen()
+        self.sentEventDeepLinkOpen(url: url)
         
         let pushNotificationParser = CordialPushNotificationParser()
         
@@ -335,24 +335,24 @@ class InternalCordialAPI {
             DispatchQueue.main.async {
                 if let fallbackURL = pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
                     if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, scene: scene, completionHandler: { deepLinkActionType in
+                        cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: fallbackURL, scene: scene, completionHandler: { deepLinkActionType in
                             
                             self.deepLinkAction(deepLinkActionType: deepLinkActionType)
                         })
                     } else {
-                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
+                        cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
                             
                             self.deepLinkAction(deepLinkActionType: deepLinkActionType)
                         })
                     }
                 } else {
                     if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
+                        cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
                             
                             self.deepLinkAction(deepLinkActionType: deepLinkActionType)
                         })
                     } else {
-                        cordialDeepLinksDelegate.openDeepLink(url: deepLinkURL, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                        cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
                             
                             self.deepLinkAction(deepLinkActionType: deepLinkActionType)
                         })
@@ -365,12 +365,12 @@ class InternalCordialAPI {
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
                 if let fallbackURL = pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
-                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
+                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
                         
                         self.deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
                 } else {
-                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: deepLinkURL, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
                         
                         self.deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
@@ -416,10 +416,16 @@ class InternalCordialAPI {
     
     // MARK: Sent event deep link open
     
-    func sentEventDeepLinkOpen() {
+    func sentEventDeepLinkOpen(url: URL) {
         let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
         let mcID = CordialAPI().getCurrentMcID()
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
+        
+        var properties: Dictionary<String, Any> = ["deepLinkUrl": url.absoluteString]
+        if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
+            properties.merge(systemEventsProperties) { (_, new) in new }
+        }
+        
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
         self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     

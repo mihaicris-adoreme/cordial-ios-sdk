@@ -121,7 +121,7 @@ class CordialSwizzlerHelper {
                 NotificationManager.shared.vanityDeepLink = url.absoluteString
             } else {
                 DispatchQueue.main.async {
-                    InternalCordialAPI().sentEventDeepLinkOpen()
+                    InternalCordialAPI().sentEventDeepLinkOpen(url: url)
                     
                     cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
 
@@ -140,7 +140,7 @@ class CordialSwizzlerHelper {
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             
             DispatchQueue.main.async {
-                InternalCordialAPI().sentEventDeepLinkOpen()
+                InternalCordialAPI().sentEventDeepLinkOpen(url: url)
                 
                 cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
                     
@@ -167,7 +167,7 @@ class CordialSwizzlerHelper {
                 NotificationManager.shared.vanityDeepLink = url.absoluteString
             } else {
                 DispatchQueue.main.async {
-                    InternalCordialAPI().sentEventDeepLinkOpen()
+                    InternalCordialAPI().sentEventDeepLinkOpen(url: url)
                     
                     cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
                         
@@ -184,7 +184,7 @@ class CordialSwizzlerHelper {
            let url = URLContexts.first?.url {
             
             DispatchQueue.main.async {
-                InternalCordialAPI().sentEventDeepLinkOpen()
+                InternalCordialAPI().sentEventDeepLinkOpen(url: url)
                 
                 cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
                     

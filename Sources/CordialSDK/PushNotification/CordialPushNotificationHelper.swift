@@ -72,11 +72,12 @@ class CordialPushNotificationHelper {
         if let carouselDeepLinks = CordialGroupUserDefaults.stringArray(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS),
            let carouselDeepLinkID = CordialGroupUserDefaults.integer(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID),
            carouselDeepLinks.indices.contains(carouselDeepLinkID),
-           let deepLinkURL = URL(string: carouselDeepLinks[carouselDeepLinkID]) {
+           let url = URL(string: carouselDeepLinks[carouselDeepLinkID]) {
             
-            InternalCordialAPI().processPushNotificationDeepLink(deepLinkURL: deepLinkURL, userInfo: userInfo)
-        } else if let deepLinkURL = self.pushNotificationParser.getDeepLinkURL(userInfo: userInfo) {
-            InternalCordialAPI().processPushNotificationDeepLink(deepLinkURL: deepLinkURL, userInfo: userInfo)
+            InternalCordialAPI().processPushNotificationDeepLink(url: url, userInfo: userInfo)
+            
+        } else if let url = self.pushNotificationParser.getDeepLinkURL(userInfo: userInfo) {
+            InternalCordialAPI().processPushNotificationDeepLink(url: url, userInfo: userInfo)
         }
         
         CordialGroupUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
