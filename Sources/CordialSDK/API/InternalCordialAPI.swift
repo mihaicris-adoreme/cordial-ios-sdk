@@ -420,7 +420,7 @@ class InternalCordialAPI {
         let eventName = API.EVENT_NAME_DEEP_LINK_OPEN
         let mcID = CordialAPI().getCurrentMcID()
         
-        var properties: Dictionary<String, Any> = ["deepLinkUrl": url.absoluteString]
+        var properties: Dictionary<String, Any> = ["deepLinkUrl": url]
         if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
             properties.merge(systemEventsProperties) { (_, new) in new }
         }

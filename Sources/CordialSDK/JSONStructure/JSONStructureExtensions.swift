@@ -8,6 +8,8 @@
 
 import Foundation
 
+// MARK: Swift Extensions
+
 extension Int: Boxable {
     var mustacheBox: Box {
         return Box(
@@ -26,15 +28,6 @@ extension Double: Boxable {
     }
 }
 
-extension String: Boxable {
-    var mustacheBox: Box {
-        return Box(
-            value: self,
-            walk: { return "\"\(self)\"" }
-        )
-    }
-}
-
 extension Bool: Boxable {
     var mustacheBox: Box {
         return Box(
@@ -44,11 +37,31 @@ extension Bool: Boxable {
     }
 }
 
+extension String: Boxable {
+    var mustacheBox: Box {
+        return Box(
+            value: self,
+            walk: { return "\"\(self)\"" }
+        )
+    }
+}
+
+extension URL: Boxable {
+    var mustacheBox: Box {
+        return Box(
+            value: self.absoluteString,
+            walk: { return "\"\(self)\"" }
+        )
+    }
+}
+
 extension Box: Boxable {
     var mustacheBox: Box {
         return self
     }
 }
+
+// MARK: Objective-C Extensions
 
 extension NSNumber: ObjCBoxable {
     var mustacheBoxWrapper: ObjCBoxWrapper? {
@@ -101,6 +114,12 @@ extension NSNumber: ObjCBoxable {
 extension NSString: ObjCBoxable {
     var mustacheBoxWrapper: ObjCBoxWrapper? {
         return ObjCBoxWrapper(JSONStructure().box(self as String))
+    }
+}
+
+extension NSURL: ObjCBoxable {
+    var mustacheBoxWrapper: ObjCBoxWrapper? {
+        return ObjCBoxWrapper(JSONStructure().box(self.absoluteString ?? String()))
     }
 }
 
