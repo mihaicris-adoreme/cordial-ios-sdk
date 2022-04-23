@@ -326,10 +326,7 @@ class InternalCordialAPI {
     func processPushNotificationDeepLink(deepLinkURL: URL, userInfo: [AnyHashable : Any]) {
         InAppMessageProcess.shared.isPresentedInAppMessage = false
         
-        let mcID = CordialAPI().getCurrentMcID()
-                
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_DEEP_LINK_OPEN, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
-        self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        self.sentEventDeepLinkOpen()
         
         let pushNotificationParser = CordialPushNotificationParser()
         
