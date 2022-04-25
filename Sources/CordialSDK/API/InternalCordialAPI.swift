@@ -65,6 +65,7 @@ class InternalCordialAPI {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("ResourceBundle Error: [resourceBundle is nil] resourceBundleURL: [%{public}@] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, resourceBundleURL.absoluteString, frameworkName)
             }
+            
             return nil
         }
         
@@ -422,7 +423,7 @@ class InternalCordialAPI {
         
         var properties: Dictionary<String, Any> = ["deepLinkUrl": url]
         if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
-            properties.merge(systemEventsProperties) { (_, new) in new }
+            properties.merge(systemEventsProperties) { (current, new) in current }
         }
         
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
