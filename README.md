@@ -1130,8 +1130,8 @@ AppliationView()
     .onOpenURL { url in
         CordialSwiftUIDeepLinksHandler().processDeepLink(url: url)
     }.onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
-    	// deepLinkURL is the @State variable that will trigger view refresh
-        self.deepLinkURL = deepLinks.url
+    	// self.deepLinks is the @State object of CordialSwiftUIDeepLinks class that will trigger view refresh
+        self.deepLinks = deepLinks
     }
 ```
 
