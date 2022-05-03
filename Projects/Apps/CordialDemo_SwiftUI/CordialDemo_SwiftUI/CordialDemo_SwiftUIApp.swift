@@ -13,8 +13,13 @@ import CordialSDK
 struct CordialDemo_SwiftUIApp: App {
     
     init() {
-//        CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels-cID-pk", channelKey: "push")
-        CordialApiConfiguration.shared.initialize(accountKey: "stgtaras", channelKey: "sdk")
+        // Staging credentials
+        let eventsStreamURL = "https://events-stream-svc.stg.cordialdev.com/"
+        let messageHubURL = "https://message-hub-svc.stg.cordialdev.com/"
+        let accountKey = "stgtaras"
+        let channelKey = "sdk"
+        
+        CordialApiConfiguration.shared.initialize(accountKey: accountKey, channelKey: channelKey, eventsStreamURL: eventsStreamURL, messageHubURL: messageHubURL)
         
         CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
