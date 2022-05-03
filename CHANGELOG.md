@@ -2,6 +2,16 @@
 
 The latest version of this file can be found at the master branch.
 
+## 3.1.4 (2022-05-03)
+
+### Added
+
+- Deep link URL inside system event properties 
+
+### Fixed
+
+- SwiftUI redirecting not valid push deep links into the browser
+
 ## 3.1.3 (2022-04-07)
 
 ### Fixed
