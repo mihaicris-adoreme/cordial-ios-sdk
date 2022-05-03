@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494427FC86DA0052E43E /* CordialNotificationContentExtension.swift */; };
+		9E62495027FC86DA0052E43E /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494727FC86DA0052E43E /* Carousel.swift */; };
+		9E62495127FC86DA0052E43E /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494927FC86DA0052E43E /* CarouselView.swift */; };
+		9E62495227FC86DA0052E43E /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494A27FC86DA0052E43E /* CarouselCell.swift */; };
+		9E62495327FC86DA0052E43E /* CarouselNotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494C27FC86DA0052E43E /* CarouselNotificationExtension.swift */; };
+		9E62495427FC86DA0052E43E /* CarouselGroupUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */; };
+		9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */; };
 		9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */; };
 		9EBD746A2287884700EC93EF /* CordialAppExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD74602287884600EC93EF /* CordialAppExtensions.framework */; };
 		9EBD746F2287884700EC93EF /* CordialAppExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD746E2287884700EC93EF /* CordialAppExtensionsTests.swift */; };
@@ -24,6 +31,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E62494427FC86DA0052E43E /* CordialNotificationContentExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordialNotificationContentExtension.swift; sourceTree = "<group>"; };
+		9E62494727FC86DA0052E43E /* Carousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
+		9E62494927FC86DA0052E43E /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
+		9E62494A27FC86DA0052E43E /* CarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
+		9E62494C27FC86DA0052E43E /* CarouselNotificationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselNotificationExtension.swift; sourceTree = "<group>"; };
+		9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselGroupUserDefaults.swift; sourceTree = "<group>"; };
+		9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselNotificationParser.swift; sourceTree = "<group>"; };
 		9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialNotificationServiceExtension.swift; sourceTree = "<group>"; };
 		9EBD74602287884600EC93EF /* CordialAppExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CordialAppExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBD74632287884600EC93EF /* CordialAppExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CordialAppExtensions.h; path = ../../Projects/Frameworks/CordialAppExtensions/CordialAppExtensions.h; sourceTree = "<group>"; };
@@ -52,6 +66,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E62494327FC86780052E43E /* NotificationContentExtension */ = {
+			isa = PBXGroup;
+			children = (
+				9E62494527FC86DA0052E43E /* Carousel */,
+				9E62494427FC86DA0052E43E /* CordialNotificationContentExtension.swift */,
+			);
+			path = NotificationContentExtension;
+			sourceTree = "<group>";
+		};
+		9E62494527FC86DA0052E43E /* Carousel */ = {
+			isa = PBXGroup;
+			children = (
+				9E62494627FC86DA0052E43E /* Model */,
+				9E62494827FC86DA0052E43E /* View */,
+				9E62494B27FC86DA0052E43E /* Helper */,
+			);
+			path = Carousel;
+			sourceTree = "<group>";
+		};
+		9E62494627FC86DA0052E43E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9E62494727FC86DA0052E43E /* Carousel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9E62494827FC86DA0052E43E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E62494927FC86DA0052E43E /* CarouselView.swift */,
+				9E62494A27FC86DA0052E43E /* CarouselCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9E62494B27FC86DA0052E43E /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				9E62494C27FC86DA0052E43E /* CarouselNotificationExtension.swift */,
+				9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */,
+				9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		9E7789602287889C0089C986 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				9E7789602287889C0089C986 /* NotificationServiceExtension */,
+				9E62494327FC86780052E43E /* NotificationContentExtension */,
 				9EBD74632287884600EC93EF /* CordialAppExtensions.h */,
 				9EBD74642287884600EC93EF /* Info.plist */,
 			);
@@ -208,7 +269,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E62495327FC86DA0052E43E /* CarouselNotificationExtension.swift in Sources */,
+				9E62495027FC86DA0052E43E /* Carousel.swift in Sources */,
+				9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */,
+				9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */,
+				9E62495427FC86DA0052E43E /* CarouselGroupUserDefaults.swift in Sources */,
+				9E62495127FC86DA0052E43E /* CarouselView.swift in Sources */,
 				9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */,
+				9E62495227FC86DA0052E43E /* CarouselCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

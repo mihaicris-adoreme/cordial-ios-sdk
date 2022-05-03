@@ -27,6 +27,7 @@
 [Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
 [SwiftUI apps](#swiftui-apps)<br>
+[Carousel push noitifications](#carousel-push-notifications)<br>
 
 # Installation
 
@@ -112,7 +113,7 @@ CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channe
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:NULL messageHubURL:NULL];
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"" messageHubURL:@""];
 ```
 
 ## Initialize the SDK for us-west-2 accounts
@@ -359,7 +360,7 @@ if ([cordialURLSessionConfigurationHandler isCordialURLSessionWithIdentifier:ide
 ## Multiple Push Notification Providers
 Cordial SDK supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
 
-It allows to use several notification providers in a single app simultaneously. This requires your application to configure itself for push notifications and let Cordial SDK display and track notifications that were sent by Cordial. To allow Cordial SDK to display and track push notifications sent by Cordial, the application should send APNS token to Cordial SDK once received and use a specific piece of code shown below in several parts of your application. 
+It allows to use several notification providers in a single app simultaneously. This requires your application to configure itself for push notifications and let Cordial SDK display and track notifications that were sent by Cordial. To allow Cordial SDK to display and track push notifications sent by Cordial, the application should send APNs token to Cordial SDK once received and use a specific piece of code shown below in several parts of your application. 
 
 By default Cordial SDK is set up as the only push notification provider for your application. This behavior can be changed using `pushesConfiguration` option which can take one of the two values `SDK` or `APP`.  In order to enable multiple notification providers set `CordialApiConfiguration.pushesConfiguration` to `APP` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
@@ -392,7 +393,7 @@ if ([[[CordialPushNotificationHandler alloc] init] isCordialMessageWithUserInfo:
 }
 ```
 
-After enabling multiple push notification providers the app should pass an APNS token to the SDK once it’s received and start passing push notifications sent by Cordial to the SDK. Note, it is really important to pass the token otherwise the SDK will not be tracking any user behaviour on the device.
+After enabling multiple push notification providers the app should pass an APNs token to the SDK once it’s received and start passing push notifications sent by Cordial to the SDK. Note, it is really important to pass the token otherwise the SDK will not be tracking any user behaviour on the device.
 
 To handle Cordial push notifications after enabling multiple notification providers support the app needs to do three additional steps:
 
@@ -1152,5 +1153,37 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 - `CordialSwiftUIInAppMessagePublisher` - notifies the app of the inputs that were captured in an in-app message
 - `CordialSwiftUIInboxMessagePublisher` - notifies the app of new inbox messages
 - `CordialSwiftUIPushNotificationPublisher` - notifies the app that a new push notification token is received, push notification delivered when an app is on the foreground and app opened via push notification tap
+
+## Carousel push notifications
+
+Carousel push notifications allow to expand a push notification and display items in the expanded notification view. Here are the steps to configure the app to dispaly carousel push notifications:
+
+1. Add new `Notification Content Extension` target. Important no matter your app language you needs to choose `Swift` as target language.
+
+2. Create `App Groups` for your main bandle and already created `Notification Content Extension` target with name `group.cordial.sdk`
+
+3. Add a new reference in Cocoapods Podfile:
+
+```
+target "The name of the new Notification Content Extension target" do  
+    use_frameworks!
+    pod 'CordialAppExtensions-Swift'  
+end
+```
+
+4. Remove `MainInterface.storyboard` from the newly created target.
+
+5. In the `Info.plist` of `Notification Content Extension` target make the following changes:
+ - Under section `NSExtensionAttributes` change the value of entry `UNNotificationExtensionCategory` to `carouselNotificationCategory`
+ - Unser section `NSExtension` remove entry `NSExtensionMainStoryboard` 
+ - Unser section `NSExtension` add new entry `NSExtensionPrincipalClass` and set the string value `$(PRODUCT_MODULE_NAME).NotificationViewController`
+ 
+6. Delete the code that your IDE generated for the new extension and inherit it from `CordialNotificationContentExtension`:  
+
+```
+import CordialAppExtensions
+class NotificationViewController: CordialNotificationContentExtension {
+}
+```
 
 [Top](#contents)

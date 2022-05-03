@@ -52,6 +52,7 @@ class InAppMessageProcess {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("IAM Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, error.localizedDescription)
             }
+            
             return nil
         }
     }
