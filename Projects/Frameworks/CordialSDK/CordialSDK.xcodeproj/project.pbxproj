@@ -107,6 +107,7 @@
 		9E5C5CDE25AF85900098A249 /* CordialVanityDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5C5CDD25AF85900098A249 /* CordialVanityDeepLink.swift */; };
 		9E5D0D9A24B36ED200BD1C24 /* ContactsSenderHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D0D9924B36ED200BD1C24 /* ContactsSenderHelper.swift */; };
 		9E5F22A424584BBF00CDFBCF /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F22A324584BBF00CDFBCF /* Throttler.swift */; };
+		9E5FA13F27F1EEDB003D84FE /* CordialGroupUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5FA13E27F1EEDB003D84FE /* CordialGroupUserDefaults.swift */; };
 		9E63BE3824B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63BE3724B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift */; };
 		9E63BE3A24B4DB0E00BB509B /* MockRequestSenderInAppMessageManualDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E63BE3924B4DB0E00BB509B /* MockRequestSenderInAppMessageManualDismiss.swift */; };
 		9E65C1D3233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */; };
@@ -412,6 +413,7 @@
 		9E5C5CDD25AF85900098A249 /* CordialVanityDeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialVanityDeepLink.swift; sourceTree = "<group>"; };
 		9E5D0D9924B36ED200BD1C24 /* ContactsSenderHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSenderHelper.swift; sourceTree = "<group>"; };
 		9E5F22A324584BBF00CDFBCF /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
+		9E5FA13E27F1EEDB003D84FE /* CordialGroupUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialGroupUserDefaults.swift; sourceTree = "<group>"; };
 		9E63BE3724B4CE8500BB509B /* MockRequestSenderInAppMessageBannerAutoDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageBannerAutoDismiss.swift; sourceTree = "<group>"; };
 		9E63BE3924B4DB0E00BB509B /* MockRequestSenderInAppMessageManualDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageManualDismiss.swift; sourceTree = "<group>"; };
 		9E65C1D1233D15E600679942 /* InAppMessagesCache+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesCache+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -1119,6 +1121,7 @@
 			isa = PBXGroup;
 			children = (
 				9E95842A23C7540A00061C21 /* CordialUserDefaults.swift */,
+				9E5FA13E27F1EEDB003D84FE /* CordialGroupUserDefaults.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";
@@ -1792,6 +1795,7 @@
 				9ECAC15126FA16E900D1A9A5 /* CordialDeepLinkActionType.swift in Sources */,
 				9EA7098D25C83EC7001E277F /* CordialDeepLinksAPI.swift in Sources */,
 				9EA2EFA822C4F4670047314C /* InAppMessageViewController.swift in Sources */,
+				9E5FA13F27F1EEDB003D84FE /* CordialGroupUserDefaults.swift in Sources */,
 				9E786AEB2399489800D92017 /* InAppMessagesShown+CoreDataClass.swift in Sources */,
 				9EB17AC222930D7B00EEAB7D /* ContactLogout+CoreDataProperties.swift in Sources */,
 				9E6A933E26A9796500C1990B /* CordialSwiftUIInboxMessagePublisher.swift in Sources */,
@@ -2135,7 +2139,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.3;
+				MARKETING_VERSION = 3.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2166,7 +2170,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.1.3;
+				MARKETING_VERSION = 3.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
