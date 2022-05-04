@@ -10,7 +10,7 @@ The latest version of this file can be found at the master branch.
 
 ### Fixed
 
-- SwiftUI redirecting not valid push deep links into the browser
+- SwiftUI app opens invalid push deep links in a web browser
 
 ## 3.1.3 (2022-04-07)
 
