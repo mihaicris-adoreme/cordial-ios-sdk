@@ -15,11 +15,7 @@ struct CordialUserDefaults {
     static func set(_ value: Any?, forKey key: String) {
         self.cordialUserDefaults?.set(value, forKey: key)
     }
-    
-    static func removeObject(forKey key: String) {
-        self.cordialUserDefaults?.removeObject(forKey: key)
-    }
-    
+        
     static func string(forKey key: String) -> String? {
         return self.cordialUserDefaults?.string(forKey: key)
     }
@@ -32,10 +28,14 @@ struct CordialUserDefaults {
         return self.cordialUserDefaults?.double(forKey: key)
     }
     
+    static func removeObject(forKey key: String) {
+        self.cordialUserDefaults?.removeObject(forKey: key)
+    }
+    
     static func removeAllData() {
         let dictionary = self.cordialUserDefaults?.dictionaryRepresentation()
         dictionary?.keys.forEach { key in
-            self.cordialUserDefaults?.removeObject(forKey: key)
+            self.removeObject(forKey: key)
         }
     }
 }

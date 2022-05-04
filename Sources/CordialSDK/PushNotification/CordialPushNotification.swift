@@ -37,6 +37,8 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     
     func registerForSilentPushNotifications() {
         DispatchQueue.main.async {
+            self.registerRichPushNotificationsActions()
+            
             UIApplication.shared.registerForRemoteNotifications()
         }
         
@@ -45,12 +47,27 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
+    private func registerRichPushNotificationsActions() {
+        let categoryIdentifier = "carouselNotificationCategory"
+        if #available(iOS 15.0, *) {
+            let carouselNext = UNNotificationAction(identifier: "\(categoryIdentifier).next", title: "Next", options: [], icon: UNNotificationActionIcon(systemImageName: "forward"))
+            let carouselPrevious = UNNotificationAction(identifier: "\(categoryIdentifier).previous", title: "Previous", options: [], icon: UNNotificationActionIcon(systemImageName: "backward"))
+            let carouselCategory = UNNotificationCategory(identifier: categoryIdentifier, actions: [carouselNext, carouselPrevious], intentIdentifiers: [], options: [])
+            UNUserNotificationCenter.current().setNotificationCategories([carouselCategory])
+        } else {
+            let carouselNext = UNNotificationAction(identifier: "\(categoryIdentifier).next", title: "Next", options: [])
+            let carouselPrevious = UNNotificationAction(identifier: "\(categoryIdentifier).previous", title: "Previous", options: [])
+            let carouselCategory = UNNotificationCategory(identifier: categoryIdentifier, actions: [carouselNext, carouselPrevious], intentIdentifiers: [], options: [])
+            UNUserNotificationCenter.current().setNotificationCategories([carouselCategory])
+        }
+    }
+    
     // MARK: UNUserNotificationCenterDelegate
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         // Called when user made a notification tap.
         let userInfo = response.notification.request.content.userInfo
-        
+                
         self.pushNotificationHelper.pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: completionHandler)
     }
     

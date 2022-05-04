@@ -15,5 +15,9 @@
 		<string>applinks:events-handling-svc.cordial-core.cp-8305-inapp-link-tracing.cordialdev.com</string>
 		<string>applinks:e.a1003.clients.cordialdev.com</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.cordial.sdk</string>
+	</array>
 </dict>
 </plist>
