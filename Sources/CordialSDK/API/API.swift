@@ -18,6 +18,8 @@ struct API {
     static let USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN = "USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN"
     static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID"
     static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME"
+    static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS"
+    static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID"
     static let USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID = "USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID"
     static let USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID_TAP_TIME = "USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID_TAP_TIME"
     static let USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS = "USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS"
@@ -63,13 +65,21 @@ struct API {
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"
     
     static func getDictionaryJSON(_ dictionary: Dictionary<String, Any>?) -> String {
-        guard let json = dictionary as NSDictionary?, let jsonString = JSONStructure().box(json)?.walk() else { return "{ }" }
+        guard let json = dictionary as NSDictionary?,
+              let jsonString = JSONStructure().box(json)?.walk() else {
+                  
+            return "{ }"
+        }
         
         return jsonString
     }
     
     static func getArrayJSON(_ array: [Any]?) -> String {
-        guard let json = array as NSArray?, let jsonString = JSONStructure().box(json)?.walk() else { return "[ ]" }
+        guard let json = array as NSArray?,
+              let jsonString = JSONStructure().box(json)?.walk() else {
+                  
+            return "[ ]"
+        }
         
         return jsonString
     }

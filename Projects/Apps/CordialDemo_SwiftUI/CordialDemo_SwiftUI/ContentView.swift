@@ -10,7 +10,7 @@ import CordialSDK
 
 struct ContentView: View {
     
-    @State private var deepLinkURL: URL?
+    @State private var deepLinks: CordialSwiftUIDeepLinks?
     @State private var username = String()
     
     @EnvironmentObject var appHandler: AppHandler
@@ -64,12 +64,12 @@ struct ContentView: View {
 
         
         if self.appHandler.isUserLogin {
-            CatalogView(deepLink: self.$deepLinkURL)
+            CatalogView(deepLinks: self.$deepLinks)
                 .onOpenURL { url in
                     CordialSwiftUIDeepLinksHandler().processDeepLink(url: url)
                 }
                 .onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
-                    self.deepLinkURL = deepLinks.url
+                    self.deepLinks = deepLinks
                 }
                 .onReceive(self.pushNotificationPublisher.appOpenViaNotificationTap) { appOpenViaNotificationTap in
                     print("SwiftUIApp: appOpenViaNotificationTap, notificationContent: \(appOpenViaNotificationTap.notificationContent)")

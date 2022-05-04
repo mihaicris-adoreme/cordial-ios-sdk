@@ -10,5 +10,9 @@
 		<string>applinks:e.a45.clients.cordialdev.com</string>
 		<string>applinks:events-handling-svc.cordial.io</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.cordial.sdk</string>
+	</array>
 </dict>
 </plist>

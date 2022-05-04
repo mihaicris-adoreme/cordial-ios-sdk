@@ -112,7 +112,7 @@ CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channe
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:NULL messageHubURL:NULL];
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"" messageHubURL:@""];
 ```
 
 ## Initialize the SDK for us-west-2 accounts
@@ -359,7 +359,7 @@ if ([cordialURLSessionConfigurationHandler isCordialURLSessionWithIdentifier:ide
 ## Multiple Push Notification Providers
 Cordial SDK supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
 
-It allows to use several notification providers in a single app simultaneously. This requires your application to configure itself for push notifications and let Cordial SDK display and track notifications that were sent by Cordial. To allow Cordial SDK to display and track push notifications sent by Cordial, the application should send APNS token to Cordial SDK once received and use a specific piece of code shown below in several parts of your application. 
+It allows to use several notification providers in a single app simultaneously. This requires your application to configure itself for push notifications and let Cordial SDK display and track notifications that were sent by Cordial. To allow Cordial SDK to display and track push notifications sent by Cordial, the application should send APNs token to Cordial SDK once received and use a specific piece of code shown below in several parts of your application. 
 
 By default Cordial SDK is set up as the only push notification provider for your application. This behavior can be changed using `pushesConfiguration` option which can take one of the two values `SDK` or `APP`.  In order to enable multiple notification providers set `CordialApiConfiguration.pushesConfiguration` to `APP` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
@@ -392,7 +392,7 @@ if ([[[CordialPushNotificationHandler alloc] init] isCordialMessageWithUserInfo:
 }
 ```
 
-After enabling multiple push notification providers the app should pass an APNS token to the SDK once it’s received and start passing push notifications sent by Cordial to the SDK. Note, it is really important to pass the token otherwise the SDK will not be tracking any user behaviour on the device.
+After enabling multiple push notification providers the app should pass an APNs token to the SDK once it’s received and start passing push notifications sent by Cordial to the SDK. Note, it is really important to pass the token otherwise the SDK will not be tracking any user behaviour on the device.
 
 To handle Cordial push notifications after enabling multiple notification providers support the app needs to do three additional steps:
 
@@ -1129,8 +1129,8 @@ AppliationView()
     .onOpenURL { url in
         CordialSwiftUIDeepLinksHandler().processDeepLink(url: url)
     }.onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
-    	// deepLinkURL is the @State variable that will trigger view refresh
-        self.deepLinkURL = deepLinks.url
+    	// self.deepLinks is the @State object of CordialSwiftUIDeepLinks class that will trigger view refresh
+        self.deepLinks = deepLinks
     }
 ```
 
@@ -1152,5 +1152,6 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 - `CordialSwiftUIInAppMessagePublisher` - notifies the app of the inputs that were captured in an in-app message
 - `CordialSwiftUIInboxMessagePublisher` - notifies the app of new inbox messages
 - `CordialSwiftUIPushNotificationPublisher` - notifies the app that a new push notification token is received, push notification delivered when an app is on the foreground and app opened via push notification tap
+
 
 [Top](#contents)

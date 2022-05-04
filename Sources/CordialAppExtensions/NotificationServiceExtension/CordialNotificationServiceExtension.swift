@@ -15,7 +15,7 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
     
-    override open func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
+    open override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
@@ -26,29 +26,29 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
             
             var urlString:String? = nil
             if let imageURL = request.content.userInfo["imageURL"] as? String {
-                os_log("CordialSDK_AppExtensions: Payload contains imageURL")
+                os_log("CordialSDK_AppExtensions: Payload contains imageURL", log: .default, type: .info)
                 urlString = imageURL
             } else {
-                os_log("CordialSDK_AppExtensions: Payload does not contain imageURL")
+                os_log("CordialSDK_AppExtensions: Payload does not contain imageURL", log: .default, type: .info)
             }
             
             if urlString != nil, let fileUrl = URL(string: urlString!) {
                 guard let imageData = NSData(contentsOf: fileUrl) else {
-                    os_log("CordialSDK_AppExtensions: Error downloading an image")
+                    os_log("CordialSDK_AppExtensions: Error downloading an image", log: .default, type: .error)
                     contentHandler(bestAttemptContent)
                     return
                 }
                 guard let attachment = UNNotificationAttachment.saveImageToDisk(fileIdentifier: "image.gif", data: imageData, options: nil) else {
-                    os_log("CordialSDK_AppExtensions: Error saving an image")
+                    os_log("CordialSDK_AppExtensions: Error saving an image", log: .default, type: .error)
                     contentHandler(bestAttemptContent)
                     return
                 }
                 
                 bestAttemptContent.attachments = [ attachment ]
                 
-                os_log("CordialSDK_AppExtensions: Image has been added successfully")
+                os_log("CordialSDK_AppExtensions: Image has been added successfully", log: .default, type: .info)
             } else {
-                os_log("CordialSDK_AppExtensions: Error [imageURL isn’t a valid URL]")
+                os_log("CordialSDK_AppExtensions: Error [imageURL isn’t a valid URL]", log: .default, type: .error)
             }
             
             // End
@@ -57,11 +57,11 @@ open class CordialNotificationServiceExtension: UNNotificationServiceExtension {
         }
     }
     
-    override open func serviceExtensionTimeWillExpire() {
+    open override func serviceExtensionTimeWillExpire() {
         // Called just before the extension will be terminated by the system.
         // Use this as an opportunity to deliver your "best attempt" at modified content, otherwise the original push payload will be used.
         if let contentHandler = contentHandler, let bestAttemptContent =  bestAttemptContent {
-            os_log("CordialSDK_AppExtensions: Image attaching failed by timeout")
+            os_log("CordialSDK_AppExtensions: Image attaching failed by timeout", log: .default, type: .info)
             contentHandler(bestAttemptContent)
         }
     }
@@ -82,7 +82,7 @@ extension UNNotificationAttachment {
             let attachment = try UNNotificationAttachment(identifier: fileIdentifier, url: fileURL!, options: options)
             return attachment
         } catch let error {
-            os_log("CordialSDK_AppExtensions: Error [%{public}@]", error.localizedDescription)
+            os_log("CordialSDK_AppExtensions: Error [%{public}@]", log: .default, type: .error, error.localizedDescription)
         }
         
         return nil

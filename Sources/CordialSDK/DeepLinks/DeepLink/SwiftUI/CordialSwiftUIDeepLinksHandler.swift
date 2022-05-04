@@ -18,7 +18,7 @@ public class CordialSwiftUIDeepLinksHandler {
         DispatchQueue.main.async {
             NotificationManager.shared.originDeepLink = url.absoluteString
             
-            InternalCordialAPI().sentEventDeepLinkOpen()
+            InternalCordialAPI().sentEventDeepLinkOpen(url: url)
             
             CordialVanityDeepLink().getDeepLink(url: url, onSuccess: { url in
                 CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
