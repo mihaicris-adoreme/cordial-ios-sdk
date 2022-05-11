@@ -27,6 +27,7 @@
 [Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
 [SwiftUI apps](#swiftui-apps)<br>
+[Carousel push noitifications](#carousel-push-notifications)<br>
 
 # Installation
 
@@ -1153,5 +1154,36 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 - `CordialSwiftUIInboxMessagePublisher` - notifies the app of new inbox messages
 - `CordialSwiftUIPushNotificationPublisher` - notifies the app that a new push notification token is received, push notification delivered when an app is on the foreground and app opened via push notification tap
 
+# Carousel push notifications
+
+Carousel push notifications allow to expand a push notification and display items in the expanded notification view. Here are the steps to configure the app to dispaly carousel push notifications:
+
+1. Add new `Notification Content Extension` target. Important no matter your app language you needs to choose `Swift` as target language.
+
+2. Create `App Groups` for your main bandle and already created `Notification Content Extension` target with name `group.cordial.sdk`
+
+3. Add a new reference in Cocoapods Podfile:
+
+```
+target "The name of the new Notification Content Extension target" do  
+    use_frameworks!
+    pod 'CordialAppExtensions-Swift'  
+end
+```
+
+4. Remove `MainInterface.storyboard` from the newly created target.
+
+5. In the `Info.plist` of `Notification Content Extension` target make the following changes:
+ - Under section `NSExtensionAttributes` change the value of entry `UNNotificationExtensionCategory` to `carouselNotificationCategory`
+ - Unser section `NSExtension` remove entry `NSExtensionMainStoryboard` 
+ - Unser section `NSExtension` add new entry `NSExtensionPrincipalClass` and set the string value `$(PRODUCT_MODULE_NAME).NotificationViewController`
+ 
+6. Delete the code that your IDE generated for the new extension and inherit it from `CordialNotificationContentExtension`:  
+
+```
+import CordialAppExtensions
+class NotificationViewController: CordialNotificationContentExtension {
+}
+```
 
 [Top](#contents)
