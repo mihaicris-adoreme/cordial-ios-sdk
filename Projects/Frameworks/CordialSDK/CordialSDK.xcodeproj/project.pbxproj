@@ -169,6 +169,7 @@
 		9EA31A302292D5E80037B786 /* ContactLogoutRequestCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */; };
 		9EA43D3824C8734C000A1F45 /* CordialPushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA43D3724C8734C000A1F45 /* CordialPushNotificationHandler.swift */; };
 		9EA43D3A24C9A8B6000A1F45 /* CordialPushNotificationConfigurationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA43D3924C9A8B6000A1F45 /* CordialPushNotificationConfigurationType.swift */; };
+		9EA63E59282D2E7600337B5B /* CordialDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA63E58282D2E7600337B5B /* CordialDeepLink.swift */; };
 		9EA68D7826EA835E00D36C22 /* ResourceBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA68D7726EA835E00D36C22 /* ResourceBundle.swift */; };
 		9EA7098D25C83EC7001E277F /* CordialDeepLinksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA7098C25C83EC7001E277F /* CordialDeepLinksAPI.swift */; };
 		9EA785CB258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA785CA258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift */; };
@@ -479,6 +480,7 @@
 		9EA31A2F2292D5E80037B786 /* ContactLogoutRequestCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLogoutRequestCoreData.swift; sourceTree = "<group>"; };
 		9EA43D3724C8734C000A1F45 /* CordialPushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationHandler.swift; sourceTree = "<group>"; };
 		9EA43D3924C9A8B6000A1F45 /* CordialPushNotificationConfigurationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationConfigurationType.swift; sourceTree = "<group>"; };
+		9EA63E58282D2E7600337B5B /* CordialDeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLink.swift; sourceTree = "<group>"; };
 		9EA68D7726EA835E00D36C22 /* ResourceBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBundle.swift; sourceTree = "<group>"; };
 		9EA7098C25C83EC7001E277F /* CordialDeepLinksAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksAPI.swift; sourceTree = "<group>"; };
 		9EA785CA258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInboxMessagesMarkUnreadCache.swift; sourceTree = "<group>"; };
@@ -1372,6 +1374,7 @@
 			children = (
 				9E4D2493267CB9C500B25B45 /* SwiftUI */,
 				9E4D2492267CB93F00B25B45 /* UIKit */,
+				9EA63E58282D2E7600337B5B /* CordialDeepLink.swift */,
 			);
 			path = DeepLink;
 			sourceTree = "<group>";
@@ -1791,6 +1794,7 @@
 				9EAAAC8A265D2D4B005AD01C /* CordialDeepLinksConfigurationType.swift in Sources */,
 				9E6D1E28250A715500940363 /* InboxMessageDeleteSender.swift in Sources */,
 				9EBEA123225C9EF200F001FE /* NotificationManager.swift in Sources */,
+				9EA63E59282D2E7600337B5B /* CordialDeepLink.swift in Sources */,
 				9E12EA4322CCD42200C2DED4 /* InAppMessageGetter.swift in Sources */,
 				9ECAC15126FA16E900D1A9A5 /* CordialDeepLinkActionType.swift in Sources */,
 				9EA7098D25C83EC7001E277F /* CordialDeepLinksAPI.swift in Sources */,

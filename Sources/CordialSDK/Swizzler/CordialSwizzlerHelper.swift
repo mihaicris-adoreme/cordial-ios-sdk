@@ -121,11 +121,15 @@ class CordialSwizzlerHelper {
                 NotificationManager.shared.vanityDeepLink = url.absoluteString
             } else {
                 DispatchQueue.main.async {
-                    InternalCordialAPI().sentEventDeepLinkOpen(url: url)
+                    let internalCordialAPI = InternalCordialAPI()
                     
-                    cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                    internalCordialAPI.sentEventDeepLinkOpen(url: url)
+                    
+                    let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
+                    
+                    cordialDeepLinksDelegate.openDeepLink(url: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
 
-                        InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                        internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
                 }
             }
@@ -140,11 +144,15 @@ class CordialSwizzlerHelper {
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             
             DispatchQueue.main.async {
-                InternalCordialAPI().sentEventDeepLinkOpen(url: url)
+                let internalCordialAPI = InternalCordialAPI()
                 
-                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                internalCordialAPI.sentEventDeepLinkOpen(url: url)
+                
+                let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
+                
+                cordialDeepLinksDelegate.openDeepLink(url: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
                     
-                    InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                    internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                 })
             }
             
@@ -167,11 +175,15 @@ class CordialSwizzlerHelper {
                 NotificationManager.shared.vanityDeepLink = url.absoluteString
             } else {
                 DispatchQueue.main.async {
-                    InternalCordialAPI().sentEventDeepLinkOpen(url: url)
+                    let internalCordialAPI = InternalCordialAPI()
                     
-                    cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
+                    internalCordialAPI.sentEventDeepLinkOpen(url: url)
+                    
+                    let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
+                    
+                    cordialDeepLinksDelegate.openDeepLink(url: cordialDeepLink, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
                         
-                        InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                        internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
                 }
             }
@@ -184,11 +196,15 @@ class CordialSwizzlerHelper {
            let url = URLContexts.first?.url {
             
             DispatchQueue.main.async {
-                InternalCordialAPI().sentEventDeepLinkOpen(url: url)
+                let internalCordialAPI = InternalCordialAPI()
                 
-                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
+                internalCordialAPI.sentEventDeepLinkOpen(url: url)
+                
+                let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
+                
+                cordialDeepLinksDelegate.openDeepLink(url: cordialDeepLink, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
                     
-                    InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                    internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                 })
             }
         }

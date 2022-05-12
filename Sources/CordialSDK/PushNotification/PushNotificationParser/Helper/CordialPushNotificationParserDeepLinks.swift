@@ -63,6 +63,34 @@ class CordialPushNotificationParserDeepLinks {
         return nil
     }
     
+    // MARK: Get deep link encoded URL
+    
+    func getDeepLinkEncodedURLCurrentPayloadType(userInfo: [AnyHashable : Any]) -> URL? {
+        if let system = userInfo["system"] as? [String: AnyObject],
+            let deepLinkJSON = system["deepLink"] as? [String: AnyObject],
+            let encodedDeepLinkURLString = deepLinkJSON["encodedUrl"] as? String,
+            let encodedDeepLinkURL = URL(string: encodedDeepLinkURLString) {
+                return encodedDeepLinkURL
+        } else if let system = userInfo["system"] as? [String: AnyObject],
+            let deepLinkJSONString = system["deepLink"] as? String,
+            let deepLinkJSONData = deepLinkJSONString.data(using: .utf8) {
+                do {
+                    if let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject],
+                        let encodedDeepLinkURLString = deepLinkJSON["encodedUrl"] as? String {
+                            let encodedDeepLinkURL = URL(string: encodedDeepLinkURLString)
+                            
+                            return encodedDeepLinkURL
+                    }
+                } catch let error {
+                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
+                    }
+                }
+        }
+        
+        return nil
+    }
+    
     // MARK: Get fallback deep link URL
     
     func getDeepLinkFallbackURLCurrentPayloadType(userInfo: [AnyHashable : Any]) -> URL? {

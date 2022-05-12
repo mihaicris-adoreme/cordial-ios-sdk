@@ -25,6 +25,12 @@ class CordialPushNotificationParser {
         return self.deepLinksParser.getDeepLinkURLPreviousPayloadType(userInfo: userInfo)
     }
     
+    // MARK: Get deep link encoded URL
+    
+    func getDeepLinkEncodedURL(userInfo: [AnyHashable : Any]) -> URL? {
+        return self.deepLinksParser.getDeepLinkEncodedURLCurrentPayloadType(userInfo: userInfo)
+    }
+    
     // MARK: Get deep link fallback URL
     
     func getDeepLinkFallbackURL(userInfo: [AnyHashable : Any]) -> URL? {

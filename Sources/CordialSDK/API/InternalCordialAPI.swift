@@ -331,33 +331,24 @@ class InternalCordialAPI {
         
         let pushNotificationParser = CordialPushNotificationParser()
         
+        let encodedURL = pushNotificationParser.getDeepLinkEncodedURL(userInfo: userInfo)
+        let cordialDeepLink = CordialDeepLink(url: url, encodedURL: encodedURL)
+        
+        let fallbackURL = pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo)
+        
         // UIKit
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             DispatchQueue.main.async {
-                if let fallbackURL = pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
-                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                        cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: fallbackURL, scene: scene, completionHandler: { deepLinkActionType in
-                            
-                            self.deepLinkAction(deepLinkActionType: deepLinkActionType)
-                        })
-                    } else {
-                        cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
-                            
-                            self.deepLinkAction(deepLinkActionType: deepLinkActionType)
-                        })
-                    }
+                if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                    cordialDeepLinksDelegate.openDeepLink(url: cordialDeepLink, fallbackURL: fallbackURL, scene: scene, completionHandler: { deepLinkActionType in
+                        
+                        self.deepLinkAction(deepLinkActionType: deepLinkActionType)
+                    })
                 } else {
-                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                        cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
-                            
-                            self.deepLinkAction(deepLinkActionType: deepLinkActionType)
-                        })
-                    } else {
-                        cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
-                            
-                            self.deepLinkAction(deepLinkActionType: deepLinkActionType)
-                        })
-                    }
+                    cordialDeepLinksDelegate.openDeepLink(url: cordialDeepLink, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
+                        
+                        self.deepLinkAction(deepLinkActionType: deepLinkActionType)
+                    })
                 }
             }
         }
