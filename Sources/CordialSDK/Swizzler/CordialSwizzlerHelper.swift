@@ -127,7 +127,7 @@ class CordialSwizzlerHelper {
                     
                     let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
                     
-                    cordialDeepLinksDelegate.openDeepLink(url: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                    cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
 
                         internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
@@ -150,7 +150,7 @@ class CordialSwizzlerHelper {
                 
                 let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
                 
-                cordialDeepLinksDelegate.openDeepLink(url: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
                     
                     internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                 })
@@ -181,7 +181,7 @@ class CordialSwizzlerHelper {
                     
                     let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
                     
-                    cordialDeepLinksDelegate.openDeepLink(url: cordialDeepLink, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
+                    cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
                         
                         internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
@@ -202,7 +202,7 @@ class CordialSwizzlerHelper {
                 
                 let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
                 
-                cordialDeepLinksDelegate.openDeepLink(url: cordialDeepLink, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
+                cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
                     
                     internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                 })

@@ -1369,16 +1369,6 @@
 			path = VanityDeepLink;
 			sourceTree = "<group>";
 		};
-		9ECAC15426FA1DBA00D1A9A5 /* DeepLink */ = {
-			isa = PBXGroup;
-			children = (
-				9E4D2493267CB9C500B25B45 /* SwiftUI */,
-				9E4D2492267CB93F00B25B45 /* UIKit */,
-				9EA63E58282D2E7600337B5B /* CordialDeepLink.swift */,
-			);
-			path = DeepLink;
-			sourceTree = "<group>";
-		};
 		9ECF6B6722982E7300E6E88F /* Swizzler */ = {
 			isa = PBXGroup;
 			children = (
@@ -1412,8 +1402,10 @@
 		9ECF6B77229836E700E6E88F /* DeepLinks */ = {
 			isa = PBXGroup;
 			children = (
-				9ECAC15426FA1DBA00D1A9A5 /* DeepLink */,
+				9E4D2493267CB9C500B25B45 /* SwiftUI */,
+				9E4D2492267CB93F00B25B45 /* UIKit */,
 				9ECAC15326FA1D5E00D1A9A5 /* VanityDeepLink */,
+				9EA63E58282D2E7600337B5B /* CordialDeepLink.swift */,
 				9ECAC15026FA16E900D1A9A5 /* CordialDeepLinkActionType.swift */,
 			);
 			path = DeepLinks;
