@@ -10,8 +10,8 @@ import Foundation
 
 @objc public class CordialDeepLink: NSObject {
     
-    let url: URL
-    let encodedURL: URL?
+    public let url: URL
+    public let encodedURL: URL?
     
     init(url: URL, encodedURL: URL?) {
         self.url = url

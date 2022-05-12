@@ -14,8 +14,10 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     
     let deepLinksHost = "tjs.cordialdev.com"
     
-    func openDeepLink(url: URL, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
-        os_log("DeepLink handler has been called with URL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, url.absoluteString)
+    func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+        let url = deepLink.url
+        
+        CordialDeepLinksHelper().baseLogsOutput(url: url, encodedURL: deepLink.encodedURL, fallbackURL: fallbackURL)
         
         DispatchQueue.main.async {
             if url.absoluteString.contains("notification-settings") {
@@ -50,8 +52,10 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     }
     
     @available(iOS 13.0, *)
-    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
-        os_log("DeepLink handler has been called with URL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, url.absoluteString)
+    func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+        let url = deepLink.url
+        
+        CordialDeepLinksHelper().baseLogsOutput(url: url, encodedURL: deepLink.encodedURL, fallbackURL: fallbackURL)
         
         DispatchQueue.main.async {
             if url.absoluteString.contains("notification-settings") {
