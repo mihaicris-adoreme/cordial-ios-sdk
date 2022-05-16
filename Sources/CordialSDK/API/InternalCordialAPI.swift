@@ -316,7 +316,9 @@ class InternalCordialAPI {
         // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
-                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
+                
+                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
                     
                     self.deepLinkAction(deepLinkActionType: deepLinkActionType)
                 })
@@ -356,17 +358,10 @@ class InternalCordialAPI {
         // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
-                if let fallbackURL = pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo) {
-                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
-                        
-                        self.deepLinkAction(deepLinkActionType: deepLinkActionType)
-                    })
-                } else {
-                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
-                        
-                        self.deepLinkAction(deepLinkActionType: deepLinkActionType)
-                    })
-                }
+                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(deepLink: cordialDeepLink, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
+                    
+                    self.deepLinkAction(deepLinkActionType: deepLinkActionType)
+                })
             }
         }
     }

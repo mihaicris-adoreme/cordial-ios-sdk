@@ -21,7 +21,9 @@ public class CordialSwiftUIDeepLinksHandler {
             InternalCordialAPI().sentEventDeepLinkOpen(url: url)
             
             CordialVanityDeepLink().getDeepLink(url: url, onSuccess: { url in
-                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
+                
+                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
 
                     InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
                 })
@@ -32,13 +34,18 @@ public class CordialSwiftUIDeepLinksHandler {
                     os_log("Vanity DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
                 }
             }, onFailure: { error in
-                if !NotificationManager.shared.vanityDeepLink.isEmpty, let vanityDeepLinkURL = URL(string: NotificationManager.shared.vanityDeepLink) {
-                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: vanityDeepLinkURL, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                if !NotificationManager.shared.vanityDeepLink.isEmpty,
+                   let vanityDeepLinkURL = URL(string: NotificationManager.shared.vanityDeepLink) {
+                    let cordialDeepLink = CordialDeepLink(url: vanityDeepLinkURL, encodedURL: nil)
+                    
+                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
                         
                         InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
                 } else {
-                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                    let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
+                    
+                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
                         
                         InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
