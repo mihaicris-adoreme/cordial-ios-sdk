@@ -36,6 +36,7 @@ public class CordialSwiftUIDeepLinksHandler {
             }, onFailure: { error in
                 if !NotificationManager.shared.vanityDeepLink.isEmpty,
                    let vanityDeepLinkURL = URL(string: NotificationManager.shared.vanityDeepLink) {
+                    
                     let cordialDeepLink = CordialDeepLink(url: vanityDeepLinkURL, encodedURL: nil)
                     
                     CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in

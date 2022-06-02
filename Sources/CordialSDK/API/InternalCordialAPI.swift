@@ -338,30 +338,36 @@ class InternalCordialAPI {
         
         let fallbackURL = pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo)
         
-        // UIKit
-        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
-            DispatchQueue.main.async {
-                if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
-                    cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: fallbackURL, scene: scene, completionHandler: { deepLinkActionType in
-                        
-                        self.deepLinkAction(deepLinkActionType: deepLinkActionType)
-                    })
-                } else {
-                    cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
+        if let host = url.host,
+           CordialApiConfiguration.shared.vanityDomains.contains(host) {
+            
+            CordialVanityDeepLink().open(url: url)
+        } else {
+            // UIKit
+            if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
+                DispatchQueue.main.async {
+                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                        cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: fallbackURL, scene: scene, completionHandler: { deepLinkActionType in
+                            
+                            self.deepLinkAction(deepLinkActionType: deepLinkActionType)
+                        })
+                    } else {
+                        cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
+                            
+                            self.deepLinkAction(deepLinkActionType: deepLinkActionType)
+                        })
+                    }
+                }
+            }
+            
+            // SwiftUI
+            if #available(iOS 13.0, *) {
+                DispatchQueue.main.async {
+                    CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(deepLink: cordialDeepLink, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
                         
                         self.deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
                 }
-            }
-        }
-        
-        // SwiftUI
-        if #available(iOS 13.0, *) {
-            DispatchQueue.main.async {
-                CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(deepLink: cordialDeepLink, fallbackURL: fallbackURL, completionHandler: { deepLinkActionType in
-                    
-                    self.deepLinkAction(deepLinkActionType: deepLinkActionType)
-                })
             }
         }
     }
