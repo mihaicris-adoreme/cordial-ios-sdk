@@ -316,7 +316,7 @@ class InternalCordialAPI {
         // SwiftUI
         if #available(iOS 13.0, *) {
             DispatchQueue.main.async {
-                let cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
+                let cordialDeepLink = self.getCordialDeepLink(url: url)
                 
                 CordialSwiftUIDeepLinksPublisher.shared.publishDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
                     
@@ -329,20 +329,20 @@ class InternalCordialAPI {
     func processPushNotificationDeepLink(url: URL, userInfo: [AnyHashable : Any]) {
         InAppMessageProcess.shared.isPresentedInAppMessage = false
         
-        self.sentEventDeepLinkOpen(url: url)
-        
-        let pushNotificationParser = CordialPushNotificationParser()
-        
-        let encodedURL = pushNotificationParser.getDeepLinkEncodedURL(userInfo: userInfo)
-        let cordialDeepLink = CordialDeepLink(url: url, encodedURL: encodedURL)
-        
-        let fallbackURL = pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo)
-        
         if let host = url.host,
            CordialApiConfiguration.shared.vanityDomains.contains(host) {
             
             CordialVanityDeepLink().open(url: url)
         } else {
+            self.sentEventDeepLinkOpen(url: url)
+            
+            let pushNotificationParser = CordialPushNotificationParser()
+            
+            let encodedURL = pushNotificationParser.getDeepLinkEncodedURL(userInfo: userInfo)
+            let cordialDeepLink = CordialDeepLink(url: url, encodedURL: encodedURL)
+            
+            let fallbackURL = pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo)
+            
             // UIKit
             if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
                 DispatchQueue.main.async {
@@ -384,20 +384,8 @@ class InternalCordialAPI {
                 
                 NotificationManager.shared.originDeepLink = String()
                 
-                guard var urlComponents = URLComponents(url: originDeepLinkURL, resolvingAgainstBaseURL: true) else {
-                    return
-                }
-                
-                let keyForSkipTracking = [URLQueryItem(name: "cookie-only", value: "1")]
-                if var queryItems = urlComponents.queryItems {
-                    queryItems += keyForSkipTracking
-                    urlComponents.queryItems = queryItems
-                } else {
-                    urlComponents.queryItems = keyForSkipTracking
-                }
-                
                 DispatchQueue.main.async {
-                    if let url = urlComponents.url {
+                    if let url = self.getSkipTrackingDeepLinkURL(url: originDeepLinkURL) {
                         UIApplication.shared.open(url)
                     }
                 }
@@ -405,6 +393,37 @@ class InternalCordialAPI {
         case .NO_ACTION:
             break
         }
+    }
+    
+    func getCordialDeepLink(url: URL) -> CordialDeepLink {
+        var cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
+        
+        if !NotificationManager.shared.originDeepLink.isEmpty,
+           let originDeepLinkURL = URL(string: NotificationManager.shared.originDeepLink),
+           url.absoluteString != NotificationManager.shared.originDeepLink {
+            
+            let encodedURL = self.getSkipTrackingDeepLinkURL(url: originDeepLinkURL)
+            
+            cordialDeepLink = CordialDeepLink(url: url, encodedURL: encodedURL)
+        }
+        
+        return cordialDeepLink
+    }
+    
+    private func getSkipTrackingDeepLinkURL(url: URL) -> URL? {
+        guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            return nil
+        }
+        
+        let keyForSkipTracking = [URLQueryItem(name: "cookie-only", value: "1")]
+        if var queryItems = urlComponents.queryItems {
+            queryItems += keyForSkipTracking
+            urlComponents.queryItems = queryItems
+        } else {
+            urlComponents.queryItems = keyForSkipTracking
+        }
+        
+        return urlComponents.url
     }
     
     // MARK: Sent event deep link open
