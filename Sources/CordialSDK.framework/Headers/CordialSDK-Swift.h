@@ -402,7 +402,7 @@ SWIFT_CLASS("_TtC10CordialSDK20CordialDateFormatter")
 - (BOOL)isValidTimestampWithTimestamp:(NSString * _Nonnull)timestamp SWIFT_WARN_UNUSED_RESULT;
 @end
 
-typedef SWIFT_ENUM(NSInteger, CordialDeepLinkActionType, closed) {
+typedef SWIFT_ENUM(NSInteger, CordialDeepLinkActionType, open) {
   CordialDeepLinkActionTypeNO_ACTION = 0,
   CordialDeepLinkActionTypeOPEN_IN_BROWSER = 1,
 };
@@ -428,7 +428,7 @@ SWIFT_CLASS("_TtC10CordialSDK36CordialDeepLinksConfigurationHandler")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-typedef SWIFT_ENUM(NSInteger, CordialDeepLinksConfigurationType, closed) {
+typedef SWIFT_ENUM(NSInteger, CordialDeepLinksConfigurationType, open) {
   CordialDeepLinksConfigurationTypeSDK = 0,
   CordialDeepLinksConfigurationTypeAPP = 1,
 };
@@ -465,7 +465,7 @@ SWIFT_CLASS("_TtC10CordialSDK19CordialOSLogManager")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-typedef SWIFT_ENUM(NSInteger, CordialPushNotificationConfigurationType, closed) {
+typedef SWIFT_ENUM(NSInteger, CordialPushNotificationConfigurationType, open) {
   CordialPushNotificationConfigurationTypeSDK = 0,
   CordialPushNotificationConfigurationTypeAPP = 1,
 };
@@ -497,7 +497,7 @@ SWIFT_CLASS("_TtC10CordialSDK37CordialURLSessionConfigurationHandler")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
-typedef SWIFT_ENUM(NSInteger, CordialURLSessionConfigurationType, closed) {
+typedef SWIFT_ENUM(NSInteger, CordialURLSessionConfigurationType, open) {
   CordialURLSessionConfigurationTypeSDK = 0,
   CordialURLSessionConfigurationTypeAPP = 1,
 };
@@ -596,7 +596,7 @@ SWIFT_CLASS_NAMED("InAppMessagesCache")
 @property (nonatomic, copy) NSString * _Nullable mcID;
 @end
 
-typedef SWIFT_ENUM(NSInteger, InAppMessagesDeliveryConfigurationType, closed) {
+typedef SWIFT_ENUM(NSInteger, InAppMessagesDeliveryConfigurationType, open) {
   InAppMessagesDeliveryConfigurationTypeSilentPushes = 0,
   InAppMessagesDeliveryConfigurationTypeDirectDelivery = 1,
 };
@@ -667,7 +667,7 @@ SWIFT_CLASS("_TtC10CordialSDK11InboxFilter")
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
-typedef SWIFT_ENUM(NSInteger, InboxFilterIsReadType, closed) {
+typedef SWIFT_ENUM(NSInteger, InboxFilterIsReadType, open) {
   InboxFilterIsReadTypeNone = 0,
   InboxFilterIsReadTypeYes = 1,
   InboxFilterIsReadTypeNo = 2,
@@ -848,7 +848,7 @@ SWIFT_CLASS("_TtC10CordialSDK11StringValue")
 
 
 
-typedef SWIFT_ENUM(NSInteger, logLevel, closed) {
+typedef SWIFT_ENUM(NSInteger, logLevel, open) {
   logLevelNone = 0,
   logLevelAll = 1,
   logLevelError = 2,
