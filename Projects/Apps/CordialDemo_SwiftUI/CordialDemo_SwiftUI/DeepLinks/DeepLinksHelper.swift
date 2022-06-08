@@ -22,17 +22,17 @@ struct DeepLinksHelper {
     
     private func logsOutputWithoutFallbackURL(url: URL, vanityURL: URL?) {
         if let vanityURL = vanityURL {
-            os_log("DeepLink handler has been called \n url: %{public}@ \n vanityURL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, url.absoluteString, vanityURL.absoluteString)
+            os_log("DeepLink handler has been called \n\t url: %{public}@ \n\t vanityURL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, url.absoluteString, vanityURL.absoluteString)
         } else {
-            os_log("DeepLink handler has been called \n url: %{public}@", log: OSLog.сordialSDKDemo, type: .info, url.absoluteString)
+            os_log("DeepLink handler has been called \n\t url: %{public}@", log: OSLog.сordialSDKDemo, type: .info, url.absoluteString)
         }
     }
     
     private func logsOutputWithFallbackURL(url: URL, vanityURL: URL?, fallbackURL: URL) {
         if let vanityURL = vanityURL {
-            os_log("DeepLink handler has been called \n url: %{public}@ \n vanityURL: %{public}@ \n fallbackURL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, url.absoluteString, vanityURL.absoluteString, fallbackURL.absoluteString)
+            os_log("DeepLink handler has been called \n\t url: %{public}@ \n\t vanityURL: %{public}@ \n\t fallbackURL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, url.absoluteString, vanityURL.absoluteString, fallbackURL.absoluteString)
         } else {
-            os_log("DeepLink handler has been called \n url: %{public}@ \n fallbackURL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, url.absoluteString, fallbackURL.absoluteString)
+            os_log("DeepLink handler has been called \n\t url: %{public}@ \n\t fallbackURL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, url.absoluteString, fallbackURL.absoluteString)
         }
     }
     
