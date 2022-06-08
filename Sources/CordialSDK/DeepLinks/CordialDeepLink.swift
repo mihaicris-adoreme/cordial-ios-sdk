@@ -11,11 +11,11 @@ import Foundation
 @objc public class CordialDeepLink: NSObject {
     
     public let url: URL
-    public let encodedURL: URL?
+    public let vanityURL: URL?
     
-    init(url: URL, encodedURL: URL?) {
+    init(url: URL, vanityURL: URL?) {
         self.url = url
-        self.encodedURL = encodedURL
+        self.vanityURL = vanityURL
     }
     
 }

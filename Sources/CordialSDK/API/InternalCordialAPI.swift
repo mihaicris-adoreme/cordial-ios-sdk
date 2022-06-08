@@ -338,8 +338,8 @@ class InternalCordialAPI {
             
             let pushNotificationParser = CordialPushNotificationParser()
             
-            let encodedURL = pushNotificationParser.getDeepLinkEncodedURL(userInfo: userInfo)
-            let cordialDeepLink = CordialDeepLink(url: url, encodedURL: encodedURL)
+            let vanityDeepLinkURL = pushNotificationParser.getVanityDeepLinkURL(userInfo: userInfo)
+            let cordialDeepLink = CordialDeepLink(url: url, vanityURL: vanityDeepLinkURL)
             
             let fallbackURL = pushNotificationParser.getDeepLinkFallbackURL(userInfo: userInfo)
             
@@ -396,15 +396,15 @@ class InternalCordialAPI {
     }
     
     func getCordialDeepLink(url: URL) -> CordialDeepLink {
-        var cordialDeepLink = CordialDeepLink(url: url, encodedURL: nil)
+        var cordialDeepLink = CordialDeepLink(url: url, vanityURL: nil)
         
         if !NotificationManager.shared.originDeepLink.isEmpty,
            let originDeepLinkURL = URL(string: NotificationManager.shared.originDeepLink),
            url.absoluteString != NotificationManager.shared.originDeepLink {
             
-            let encodedURL = self.getSkipTrackingDeepLinkURL(url: originDeepLinkURL)
+            let vanityDeepLinkURL = self.getSkipTrackingDeepLinkURL(url: originDeepLinkURL)
             
-            cordialDeepLink = CordialDeepLink(url: url, encodedURL: encodedURL)
+            cordialDeepLink = CordialDeepLink(url: url, vanityURL: vanityDeepLinkURL)
         }
         
         return cordialDeepLink
