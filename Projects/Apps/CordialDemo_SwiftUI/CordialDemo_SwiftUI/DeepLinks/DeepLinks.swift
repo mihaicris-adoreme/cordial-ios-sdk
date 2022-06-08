@@ -17,10 +17,10 @@ struct DeepLinks {
     
     func getProductID() -> Int? {
         let url = self.deepLinks.deepLink.url
-        let encodedURL = self.deepLinks.deepLink.encodedURL
+        let vanityURL = self.deepLinks.deepLink.vanityURL
         let fallbackURL = self.deepLinks.fallbackURL
         
-        DeepLinksHelper().baseLogsOutput(url: url, encodedURL: encodedURL, fallbackURL: fallbackURL)
+        DeepLinksHelper().baseLogsOutput(url: url, vanityURL: vanityURL, fallbackURL: fallbackURL)
         
         if url.absoluteString.contains("notification-settings") {
             UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
