@@ -27,7 +27,7 @@
 [Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
 [SwiftUI apps](#swiftui-apps)<br>
-[Carousel push noitifications](#carousel-push-notifications)<br>
+[Carousel push notifications (future feature)](#carousel-push-notifications)<br>
 
 # Installation
 
