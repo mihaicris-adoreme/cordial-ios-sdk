@@ -3,7 +3,7 @@
 
 [Installation](#installation)<br>
 [Initialize the SDK](#initialize-the-sdk)<br>
-[Initialize the SDK for us-west-2 accounts](#initialize-the-sdk-for-us-west-2-accounts)<br>
+[Initialize the SDK for US West 2 accounts](#initialize-the-sdk-for-us-west-2-accounts)<br>
 [Push Notifications](#push-notifications)<br>
 [Method Swizzling](#method-swizzling)<br>
 [Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
@@ -52,54 +52,23 @@ pod install
 
 This will add the latest version of CordialSDK to your project.
 
-Additionally, in order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. In order to do that, create the **Notification Service Extension** target and add `CordialAppExtensions` to it:
+Additionally, in order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. The new target's language should be `Swift`. In order to do that, create the **Notification Service Extension** and add `CordialAppExtensions` to it:
 
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
 target "The name of the new Notification Service Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions-Swift'  
-end
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-target "Name of the new Notification Service Extension target" do  
-    use_frameworks!
-    pod 'CordialAppExtensions-Objective-C'  
+    pod 'CordialAppExtensions'  
 end
 ```
 
 Ensure that your new target **Notification Service Extension** bundle identifier is prefixed with your app bundle identifier, for example: `yourAppBundleIdentifier.NotificationServiceExtension`. Delete the code that your IDE generated for the new extension and inherit it from `CordialNotificationServiceExtension`:  
 
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
 import CordialAppExtensions
 class NotificationService: CordialNotificationServiceExtension {  
 }
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-// NotificationService.h
-
-#import <CordialAppExtensions_Objective_C/CordialAppExtensions_Objective_C.h>
-
-@interface NotificationService : CordialNotificationServiceExtension
-@end
-
-// NotificationService.m
-
-#import "NotificationService.h"
-
-@interface NotificationService ()
-@end
-
-@implementation NotificationService
-@end
-
 ```
 
 ## Initialize the SDK
@@ -116,7 +85,7 @@ ___
 [[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"" messageHubURL:@""];
 ```
 
-## Initialize the SDK for us-west-2 accounts
+## Initialize the SDK for US West 2 accounts
 
 If your Cordial account is in us-west-2 region, pass events stream and message hub urls to SDK initialization methods:
 
@@ -237,8 +206,8 @@ ___
 CordialApiConfiguration.shared.pushesConfiguration = .APP
 CordialApiConfiguration.shared.deepLinksConfiguration = .SDK
 CordialApiConfiguration.shared.backgroundURLSessionConfiguration = .SDK
-
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
@@ -257,8 +226,8 @@ Below are the details on how to disable swizzling for each specific area
 ___
 ```
 CordialApiConfiguration.shared.pushesConfiguration = .APP
-
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
@@ -273,8 +242,8 @@ In order to disable swizzling for registering and receiving push notifications s
 ___
 ```
 CordialApiConfiguration.shared.deepLinksConfiguration = .APP
-
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
@@ -383,8 +352,8 @@ ___
 if CordialPushNotificationHandler().isCordialMessage(userInfo: userInfo) {
     // Any Cordial push notification handler call
 }
-
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
@@ -766,14 +735,13 @@ ___
 ```
 let properties = ["<property_name>": "<property_value>"]
 cordialAPI.sendCustomEvent(eventName: "{custom_event_name}", properties: properties)
-
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
 NSDictionary *properties = @{ @"<property_name>":@"<property_value>" };
 [cordialAPI sendCustomEventWithEventName:@"{custom_event_name}" properties:properties];
-
 ```
 
 `properties` - is a dictionary of string keys and string values that can be attached to the event. Can be null.
@@ -784,8 +752,8 @@ Example of sending a product browse event:
 ```
 let properties = ["productName": "Back Off Polo", "SKU": "polo543"]
 cordialAPI.sendCustomEvent(eventName: "browse_product", properties: properties)
-
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ```
 NSDictionary *properties = @{ @"productName":@"Back Off Polo", @"SKU":@"polo543" };
@@ -1167,7 +1135,7 @@ Carousel push notifications allow to expand a push notification and display item
 ```
 target "The name of the new Notification Content Extension target" do  
     use_frameworks!
-    pod 'CordialAppExtensions-Swift'  
+    pod 'CordialAppExtensions'  
 end
 ```
 
