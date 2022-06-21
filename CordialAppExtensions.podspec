@@ -1,11 +1,11 @@
 Pod::Spec.new do |spec|
 
-  spec.name          = "CordialAppExtensions-Swift"
+  spec.name          = "CordialAppExtensions"
   spec.version       = "4.0.0"
   spec.summary       = "CordialAppExtensions"
 
   spec.description   = <<-DESC
-	CordialAppExtensions-Swift
+    The CordialAppExtensions allows application developers extend custom functionality and make it available to users.
   DESC
 
   spec.homepage      = "https://gitlab.com/cordialinc/mobile-sdk/ios-sdk"
