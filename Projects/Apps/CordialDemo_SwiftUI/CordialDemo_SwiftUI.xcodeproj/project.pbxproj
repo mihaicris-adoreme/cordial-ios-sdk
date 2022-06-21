@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E2E153A2832BE9E004BA357 /* DeepLinksHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2E15392832BE9E004BA357 /* DeepLinksHelper.swift */; };
+		9E2E153D2832BFC8004BA357 /* OSLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2E153C2832BFC8004BA357 /* OSLog.swift */; };
 		9E40177D26710AB800D269CC /* CordialDemo_SwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40177C26710AB800D269CC /* CordialDemo_SwiftUIApp.swift */; };
 		9E40177F26710AB800D269CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E40177E26710AB800D269CC /* ContentView.swift */; };
 		9E40178126710ABA00D269CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E40178026710ABA00D269CC /* Assets.xcassets */; };
@@ -84,6 +86,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9E2E15392832BE9E004BA357 /* DeepLinksHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinksHelper.swift; sourceTree = "<group>"; };
+		9E2E153C2832BFC8004BA357 /* OSLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLog.swift; sourceTree = "<group>"; };
 		9E40177926710AB800D269CC /* CordialDemo_SwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CordialDemo_SwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E40177C26710AB800D269CC /* CordialDemo_SwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemo_SwiftUIApp.swift; sourceTree = "<group>"; };
 		9E40177E26710AB800D269CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -155,6 +159,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E2E153B2832BFB0004BA357 /* OSLog */ = {
+			isa = PBXGroup;
+			children = (
+				9E2E153C2832BFC8004BA357 /* OSLog.swift */,
+			);
+			path = OSLog;
+			sourceTree = "<group>";
+		};
 		9E40177026710AB800D269CC = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +197,7 @@
 			children = (
 				9E9DD74D26A1B67800EDB438 /* AppHandler */,
 				9E40189126728C5200D269CC /* ProductHandler */,
+				9E2E153B2832BFB0004BA357 /* OSLog */,
 				9E40188B26728BBA00D269CC /* DeepLinks */,
 				9E4018542672354000D269CC /* Views */,
 				9E40177C26710AB800D269CC /* CordialDemo_SwiftUIApp.swift */,
@@ -235,6 +248,7 @@
 		9E40188B26728BBA00D269CC /* DeepLinks */ = {
 			isa = PBXGroup;
 			children = (
+				9E2E15392832BE9E004BA357 /* DeepLinksHelper.swift */,
 				9E4018B826729BCC00D269CC /* DeepLinks.swift */,
 			);
 			path = DeepLinks;
@@ -486,9 +500,11 @@
 				9E40185E2672360100D269CC /* ProductView.swift in Sources */,
 				9E4018B926729BCC00D269CC /* DeepLinks.swift in Sources */,
 				9E40177F26710AB800D269CC /* ContentView.swift in Sources */,
+				9E2E153D2832BFC8004BA357 /* OSLog.swift in Sources */,
 				9E40189326728C5F00D269CC /* ProductHandler.swift in Sources */,
 				9E4018562672356800D269CC /* CatalogView.swift in Sources */,
 				9E40177D26710AB800D269CC /* CordialDemo_SwiftUIApp.swift in Sources */,
+				9E2E153A2832BE9E004BA357 /* DeepLinksHelper.swift in Sources */,
 				9E40189826728C8700D269CC /* Product.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
