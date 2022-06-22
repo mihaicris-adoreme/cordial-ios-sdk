@@ -107,7 +107,7 @@ class CordialSwizzlerHelper {
         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
-    // MARK: Deep links
+    // MARK: AppDelegate universal links method
 
     func processAppContinueRestorationHandler(userActivity: NSUserActivity) -> Bool {
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
@@ -121,11 +121,15 @@ class CordialSwizzlerHelper {
                 NotificationManager.shared.vanityDeepLink = url.absoluteString
             } else {
                 DispatchQueue.main.async {
-                    InternalCordialAPI().sentEventDeepLinkOpen(url: url)
+                    let internalCordialAPI = InternalCordialAPI()
                     
-                    cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                    internalCordialAPI.sentEventDeepLinkOpen(url: url)
+                    
+                    let cordialDeepLink = internalCordialAPI.getCordialDeepLink(url: url)
+                    
+                    cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
 
-                        InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                        internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
                 }
             }
@@ -136,15 +140,21 @@ class CordialSwizzlerHelper {
         return false
     }
 
+    // MARK: AppDelegate URL schemes method
+    
     func processAppOpenOptions(url: URL) -> Bool {
         if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             
             DispatchQueue.main.async {
-                InternalCordialAPI().sentEventDeepLinkOpen(url: url)
+                let internalCordialAPI = InternalCordialAPI()
                 
-                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, completionHandler: { deepLinkActionType in
+                internalCordialAPI.sentEventDeepLinkOpen(url: url)
+                
+                let cordialDeepLink = internalCordialAPI.getCordialDeepLink(url: url)
+                
+                cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, completionHandler: { deepLinkActionType in
                     
-                    InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                    internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                 })
             }
             
@@ -153,6 +163,8 @@ class CordialSwizzlerHelper {
         
         return false
     }
+    
+    // MARK: SceneDelegate universal links method
     
     @available(iOS 13.0, *)
     func processSceneContinue(userActivity: NSUserActivity, scene: UIScene) {
@@ -167,16 +179,22 @@ class CordialSwizzlerHelper {
                 NotificationManager.shared.vanityDeepLink = url.absoluteString
             } else {
                 DispatchQueue.main.async {
-                    InternalCordialAPI().sentEventDeepLinkOpen(url: url)
+                    let internalCordialAPI = InternalCordialAPI()
                     
-                    cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
+                    internalCordialAPI.sentEventDeepLinkOpen(url: url)
+                    
+                    let cordialDeepLink = internalCordialAPI.getCordialDeepLink(url: url)
+                    
+                    cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
                         
-                        InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                        internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                     })
                 }
             }
         }
     }
+    
+    // MARK: SceneDelegate URL schemes method
     
     @available(iOS 13.0, *)
     func processSceneOpenURLContexts(URLContexts: Set<UIOpenURLContext>, scene: UIScene) {
@@ -184,11 +202,15 @@ class CordialSwizzlerHelper {
            let url = URLContexts.first?.url {
             
             DispatchQueue.main.async {
-                InternalCordialAPI().sentEventDeepLinkOpen(url: url)
+                let internalCordialAPI = InternalCordialAPI()
                 
-                cordialDeepLinksDelegate.openDeepLink(url: url, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
+                internalCordialAPI.sentEventDeepLinkOpen(url: url)
+                
+                let cordialDeepLink = internalCordialAPI.getCordialDeepLink(url: url)
+                
+                cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: nil, scene: scene, completionHandler: { deepLinkActionType in
                     
-                    InternalCordialAPI().deepLinkAction(deepLinkActionType: deepLinkActionType)
+                    internalCordialAPI.deepLinkAction(deepLinkActionType: deepLinkActionType)
                 })
             }
         }

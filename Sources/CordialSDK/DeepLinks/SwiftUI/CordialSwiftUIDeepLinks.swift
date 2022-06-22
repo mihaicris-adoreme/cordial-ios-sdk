@@ -9,7 +9,7 @@
 import Foundation
 
 public struct CordialSwiftUIDeepLinks {
-    public let url: URL
+    public let deepLink: CordialDeepLink
     public let fallbackURL: URL?
     public let completionHandler: (CordialDeepLinkActionType) -> Void
 }

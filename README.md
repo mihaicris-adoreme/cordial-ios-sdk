@@ -2,11 +2,14 @@
 ## Contents
 
 [Installation](#installation)<br>
-[Initialize the SDK](#initialize-the-sdk)<br>
-[Initialize the SDK for us-west-2 accounts](#initialize-the-sdk-for-us-west-2-accounts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK](#initialize-the-sdk)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK for US West 2 Accounts](#initialize-the-sdk-for-us-west-2-accounts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Setting Message Logging Level](#setting-message-logging-level)<br>
 [Push Notifications](#push-notifications)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Images In Push Notifications](#images-in-push-notifications)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Carousel Push Notifications [future feature]](#carousel-push-notifications)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
 [Method Swizzling](#method-swizzling)<br>
-[Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
 [Post a Cart](#post-a-cart)<br>
 [Post an Order](#post-an-order)<br>
 [Deep Links](#deep-links)<br>
@@ -26,7 +29,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[Delaying In-App Messages](#delaying-in-app-messages)<br>
 [Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
-[SwiftUI apps](#swiftui-apps)<br>
+[SwiftUI Apps](#swiftui-apps)<br>
+[Updating Major SDK Versions](#updating-major-sdk-versions)<br>
 
 # Installation
 
@@ -51,56 +55,6 @@ pod install
 
 This will add the latest version of CordialSDK to your project.
 
-Additionally, in order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. In order to do that, create the **Notification Service Extension** target and add `CordialAppExtensions` to it:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-target "The name of the new Notification Service Extension target" do  
-    use_frameworks!
-    pod 'CordialAppExtensions-Swift'  
-end
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-target "Name of the new Notification Service Extension target" do  
-    use_frameworks!
-    pod 'CordialAppExtensions-Objective-C'  
-end
-```
-
-Ensure that your new target **Notification Service Extension** bundle identifier is prefixed with your app bundle identifier, for example: `yourAppBundleIdentifier.NotificationServiceExtension`. Delete the code that your IDE generated for the new extension and inherit it from `CordialNotificationServiceExtension`:  
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-import CordialAppExtensions
-class NotificationService: CordialNotificationServiceExtension {  
-}
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-// NotificationService.h
-
-#import <CordialAppExtensions_Objective_C/CordialAppExtensions_Objective_C.h>
-
-@interface NotificationService : CordialNotificationServiceExtension
-@end
-
-// NotificationService.m
-
-#import "NotificationService.h"
-
-@interface NotificationService ()
-@end
-
-@implementation NotificationService
-@end
-
-```
-
 ## Initialize the SDK
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initialize` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
@@ -115,7 +69,7 @@ ___
 [[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"" messageHubURL:@""];
 ```
 
-## Initialize the SDK for us-west-2 accounts
+### Initialize the SDK for US West 2 Accounts
 
 If your Cordial account is in us-west-2 region, pass events stream and message hub urls to SDK initialization methods:
 
@@ -129,6 +83,8 @@ ___
 ```
 [[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"https://events-stream-svc.usw2.cordial.com/" messageHubURL:@"https://message-hub-svc.usw2.cordial.com/"];
 ```
+
+---
 
 After initializing, the SDK will automatically start tracking internal events as they occur in the application. Those events are:
 - App opens and closes
@@ -147,7 +103,7 @@ The access point for every action above is the `CordialAPI` class. You can eithe
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let cordialApi = CordialAPI()
+let cordialAPI = CordialAPI()
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
@@ -155,7 +111,8 @@ ___
 CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 ```
 
-#### Setting Message Logging Level
+## Setting Message Logging Level
+
 You can choose one of four message logging levels: `none`, `all`, `error`, `info`. The logging level is set to `error` by default. Yo can change the logging level during SDK initialization:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
@@ -218,141 +175,56 @@ ___
 [[[CordialPushNotificationHandler alloc] init] processSilentPushDeliveryWithUserInfo:userInfo];
 ```
 
-## Method Swizzling
+## Images In Push Notifications
 
-Cordial SDK does swizzling in three areas:
+In order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. The new target's language should be `Swift`. In order to do that, create the **Notification Service Extension** and add `CordialAppExtensions` to it:
 
-- Registering for and receiving push notifications
-- Handling deep links
-- Processing events from completing a URL session request
-
-Swizzling allows minimum SDK configuration by the container app. Developers who prefer not to use swizzling can disable swizzling for these areas individually. In case swizzling is disabled for an area, there are methods in the SDK to be called by the app after specific events in the app occur.
-
-If swizzling for the three areas is enabled is controlled by three fields:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-CordialApiConfiguration.shared.pushesConfiguration = .APP
-CordialApiConfiguration.shared.deepLinksConfiguration = .SDK
-CordialApiConfiguration.shared.backgroundURLSessionConfiguration = .SDK
-
+target "The name of the new Notification Service Extension target" do  
+    use_frameworks!
+    pod 'CordialAppExtensions'  
+end
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+Ensure that your new target **Notification Service Extension** bundle identifier is prefixed with your app bundle identifier, for example: `yourAppBundleIdentifier.NotificationServiceExtension`. Delete the code that your IDE generated for the new extension and inherit it from `CordialNotificationServiceExtension`:  
+
 ___
 ```
-[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationConfigurationTypeAPP;
-[CordialApiConfiguration shared].deepLinksConfiguration = CordialDeepLinksConfigurationTypeSDK;
-[CordialApiConfiguration shared].backgroundURLSessionConfiguration = CordialURLSessionConfigurationTypeSDK;
-```
-
-The value can be either `SDK` or `APP`. To switch swizzling for an area off, set the corresponding value to `APP`, meaning that the app will take care of passing the required data to the SDK, instead of SDK doing it itself.
-
-Below are the details on how to disable swizzling for each specific area
-
-#### Disable swizzling for registering and receiving push notifications
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-CordialApiConfiguration.shared.pushesConfiguration = .APP
-
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationConfigurationTypeAPP;
-```
-
-In order to disable swizzling for registering and receiving push notifications see [Multiple Push Notification Providers](#multiple-push-notification-providers).
-
-#### Disable swizzling for handling deep links
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-CordialApiConfiguration.shared.deepLinksConfiguration = .APP
-
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-[CordialApiConfiguration shared].deepLinksConfiguration = CordialDeepLinksConfigurationTypeAPP;
-```
-
-Depending on iOS version and if your app use scenes, you should call corresponding method of the SDK.
-
-In case the app is iOS 13 and greater and the app uses scenes, call the SDK from these two methods:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-// scene(_:continue:)
-CordialDeepLinksConfigurationHandler().processSceneContinue(userActivity: userActivity, scene: scene)
-
-// scene(_:openURLContexts:)
-CordialDeepLinksConfigurationHandler().processSceneOpenURLContexts(URLContexts: URLContexts, scene: scene)
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-// scene(_:continue:)
-[[CordialDeepLinksConfigurationHandler alloc] processSceneContinueWithUserActivity:userActivity scene:scene];
-
-// scene(_:openURLContexts:)
-[[CordialDeepLinksConfigurationHandler alloc] processSceneOpenURLContextsWithURLContexts:URLContexts scene:scene];
-```
-
-Otherwise call the SDK from these methods:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-// application(_:continue:restorationHandler:)
-CordialDeepLinksConfigurationHandler().processAppContinueRestorationHandler(userActivity: userActivity)
-
-// application(_:open:options:)
-CordialDeepLinksConfigurationHandler().processAppOpenOptions(url: url)
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-// application(_:continue:restorationHandler:)
-[[CordialDeepLinksConfigurationHandler alloc] processAppContinueRestorationHandlerWithUserActivity:userActivity];
-
-// application(_:open:options:)
-[[CordialDeepLinksConfigurationHandler alloc] processAppOpenOptionsWithUrl:url];
-```
-
-#### Disable swizzling for processing events from completing a URL session request
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-CordialApiConfiguration.shared.backgroundURLSessionConfiguration = .APP
-```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
-```
-[CordialApiConfiguration shared].backgroundURLSessionConfiguration = CordialURLSessionConfigurationTypeAPP;
-```
-
-To turn off swizzling for processing events from completing a URL session, call `processURLSessionCompletionHandler` from your `application(_:handleEventsForBackgroundURLSession:completionHandler:)` method:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
-```
-let cordialURLSessionConfigurationHandler = CordialURLSessionConfigurationHandler()
-if cordialURLSessionConfigurationHandler.isCordialURLSession(identifier: identifier) {
-    cordialURLSessionConfigurationHandler.processURLSessionCompletionHandler(identifier: identifier, completionHandler: completionHandler)
+import CordialAppExtensions
+class NotificationService: CordialNotificationServiceExtension {  
 }
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
+## Carousel Push Notifications
+
+Carousel push notifications allow to expand a push notification and display items in the expanded notification view. Here are the steps to configure the app to dispaly carousel push notifications:
+
+1. Add new `Notification Content Extension` target. Important: regarddless of your app language, choose `Swift` as the target language.
+
+2. Create `App Groups` for your main bundle and the already created `Notification Content Extension` target with the name: `group.cordial.sdk`
+
+3. Add a new reference in Cocoapods Podfile:
+
 ```
-CordialURLSessionConfigurationHandler *cordialURLSessionConfigurationHandler = [CordialURLSessionConfigurationHandler alloc];
-if ([cordialURLSessionConfigurationHandler isCordialURLSessionWithIdentifier:identifier]) {
-    [cordialURLSessionConfigurationHandler processURLSessionCompletionHandlerWithIdentifier:identifier completionHandler:completionHandler];
+target "The name of the new Notification Content Extension target" do  
+    use_frameworks!
+    pod 'CordialAppExtensions'  
+end
+```
+
+4. Remove `MainInterface.storyboard` from the newly created target.
+
+5. In the `Info.plist` of `Notification Content Extension` target make the following changes:
+ - Under section `NSExtensionAttributes` change the value of entry `UNNotificationExtensionCategory` to `carouselNotificationCategory`
+ - Under section `NSExtension` remove entry `NSExtensionMainStoryboard` 
+ - Under section `NSExtension` add new entry `NSExtensionPrincipalClass` and set the string value `$(PRODUCT_MODULE_NAME).NotificationViewController`
+ 
+6. Delete the code that your IDE generated for the new extension and inherit it from `CordialNotificationContentExtension`:  
+
+```
+import CordialAppExtensions
+class NotificationViewController: CordialNotificationContentExtension {
 }
 ```
 
@@ -382,8 +254,8 @@ ___
 if CordialPushNotificationHandler().isCordialMessage(userInfo: userInfo) {
     // Any Cordial push notification handler call
 }
-
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
@@ -434,6 +306,145 @@ ___
 ```
 [[[CordialPushNotificationHandler alloc] init] processNotificationDeliveryInForegroundWithUserInfo:userInfo completionHandler:completionHandler];
 ```
+
+## Method Swizzling
+
+Cordial SDK does swizzling in three areas:
+
+- Registering for and receiving push notifications
+- Handling deep links
+- Processing events from completing a URL session request
+
+Swizzling allows minimum SDK configuration by the container app. Developers who prefer not to use swizzling can disable swizzling for these areas individually. In case swizzling is disabled for an area, there are methods in the SDK to be called by the app after specific events in the app occur.
+
+If swizzling for the three areas is enabled is controlled by three fields:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.pushesConfiguration = .APP
+CordialApiConfiguration.shared.deepLinksConfiguration = .SDK
+CordialApiConfiguration.shared.backgroundURLSessionConfiguration = .SDK
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationConfigurationTypeAPP;
+[CordialApiConfiguration shared].deepLinksConfiguration = CordialDeepLinksConfigurationTypeSDK;
+[CordialApiConfiguration shared].backgroundURLSessionConfiguration = CordialURLSessionConfigurationTypeSDK;
+```
+
+The value can be either `SDK` or `APP`. To switch swizzling for an area off, set the corresponding value to `APP`, meaning that the app will take care of passing the required data to the SDK, instead of SDK doing it itself.
+
+Below are the details on how to disable swizzling for each specific area
+
+### Disable swizzling for registering and receiving push notifications
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.pushesConfiguration = .APP
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationConfigurationTypeAPP;
+```
+
+In order to disable swizzling for registering and receiving push notifications see [Multiple Push Notification Providers](#multiple-push-notification-providers).
+
+### Disable swizzling for handling deep links
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.deepLinksConfiguration = .APP
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].deepLinksConfiguration = CordialDeepLinksConfigurationTypeAPP;
+```
+
+Depending on iOS version and if your app use scenes, you should call corresponding method of the SDK.
+
+In case the app is iOS 13 and greater and the app uses scenes, call the SDK from these two methods:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+// scene(_:continue:)
+CordialDeepLinksConfigurationHandler().processSceneContinue(userActivity: userActivity, scene: scene)
+
+// scene(_:openURLContexts:)
+CordialDeepLinksConfigurationHandler().processSceneOpenURLContexts(URLContexts: URLContexts, scene: scene)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+// scene(_:continue:)
+[[CordialDeepLinksConfigurationHandler alloc] processSceneContinueWithUserActivity:userActivity scene:scene];
+
+// scene(_:openURLContexts:)
+[[CordialDeepLinksConfigurationHandler alloc] processSceneOpenURLContextsWithURLContexts:URLContexts scene:scene];
+```
+
+Otherwise call the SDK from these methods:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+// application(_:continue:restorationHandler:)
+CordialDeepLinksConfigurationHandler().processAppContinueRestorationHandler(userActivity: userActivity)
+
+// application(_:open:options:)
+CordialDeepLinksConfigurationHandler().processAppOpenOptions(url: url)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+// application(_:continue:restorationHandler:)
+[[CordialDeepLinksConfigurationHandler alloc] processAppContinueRestorationHandlerWithUserActivity:userActivity];
+
+// application(_:open:options:)
+[[CordialDeepLinksConfigurationHandler alloc] processAppOpenOptionsWithUrl:url];
+```
+
+### Disable swizzling for processing events from completing a URL session request
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+CordialApiConfiguration.shared.backgroundURLSessionConfiguration = .APP
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[CordialApiConfiguration shared].backgroundURLSessionConfiguration = CordialURLSessionConfigurationTypeAPP;
+```
+
+To turn off swizzling for processing events from completing a URL session, call `processURLSessionCompletionHandler` from your `application(_:handleEventsForBackgroundURLSession:completionHandler:)` method:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+let cordialURLSessionConfigurationHandler = CordialURLSessionConfigurationHandler()
+if cordialURLSessionConfigurationHandler.isCordialURLSession(identifier: identifier) {
+    cordialURLSessionConfigurationHandler.processURLSessionCompletionHandler(identifier: identifier, completionHandler: completionHandler)
+}
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+CordialURLSessionConfigurationHandler *cordialURLSessionConfigurationHandler = [CordialURLSessionConfigurationHandler alloc];
+if ([cordialURLSessionConfigurationHandler isCordialURLSessionWithIdentifier:identifier]) {
+    [cordialURLSessionConfigurationHandler processURLSessionCompletionHandlerWithIdentifier:identifier completionHandler:completionHandler];
+}
+```
+
 
 ## Post a Cart
 Updates to contact's cart can be sent to Cordial by calling the `CordialApi.upsertContactCart` method:
@@ -546,7 +557,7 @@ NSDate *date = [[NSDate alloc] init];
 [order setPurchaseDateWithDate:date];
 ```
 
-##  Deep Links 
+## Deep Links
 Cordial SDK allows you to track deep link open events. Two types of deep links are supported: universal links and URL scheme links. In order to allow the SDK to track deep links, make sure to implement the `CordialDeepLinksDelegate` protocol. The protocol contains callbacks that will be called once the app gets the chance to open a deep link.
 
 In the body of the `AppDelegate.didFinishLaunchingWithOptions` function, provide the following implementation:
@@ -564,7 +575,7 @@ YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImp
 [CordialApiConfiguration shared].cordialDeepLinksDelegate = cordialDeepLinksHandler;
 ```
 
-#### Have the SDK opening deep links unknown to the application
+### Have the SDK opening deep links unknown to the application
 In case the SDK calls `openDeepLink` function at the protocol `CordialDeepLinksDelegate` with a deep link url that the application doesn't know how to handle, the app should ask the SDK to open the deep link in a web browser. The application can open the deep link in a web browser itself but in this case revenue attribution flow may be lost. In order to tell the SDK to open an unknown deep link, call `completionHandler` callback in your `openDeepLink` method, passing it `OPEN_IN_BROWSER` option:
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -577,7 +588,7 @@ ___
 completionHandler(CordialDeepLinkActionTypeOPEN_IN_BROWSER);
 ```
 
-#### Opening deep links from a killed application
+### Opening deep links from a killed application
 
 When an application is killed the process the iOS starts the app makes it impossible for the SDK to determine that the app is opened via clicking a deep link outside the app. To allow SDK to open deep links correcly and track its corresponding events when the app is killed, the application will need to let the SDK know that it is being started via opening a deep link. To do so insert the following snippets of code to your application.
 
@@ -607,7 +618,7 @@ ___
 [[CordialDeepLinksAPI alloc] openAppDelegateUniversalLinkWithUserActivity:userActivity];
 ```
 
-#### Configure vanity domains for link tracking
+### Configure vanity domains for link tracking
 
 In order for SDK to support opening deep links with tracking on the SDK should be configured with links vanity domain. Vanity domain to be provided by Cordial.
 
@@ -628,7 +639,7 @@ ___
 [CordialApiConfiguration shared].vanityDomains = @[@"vanity.domain.com"];
 ```
 
-#### Opening deep links received from Cordial
+### Opening deep links received from Cordial
 
 In case the app receives a deep link from Cordial, for example as part of inbox message metadata, instead of trying to process the deep link itself, the app should open it via Cordial SDK. Cordial SDK will do regular deep link processing that is required when opening the deep link and pass the final deep link to `CordialDeepLinksDelegate`. Deep link processing includes:
 
@@ -765,14 +776,13 @@ ___
 ```
 let properties = ["<property_name>": "<property_value>"]
 cordialAPI.sendCustomEvent(eventName: "{custom_event_name}", properties: properties)
-
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
 NSDictionary *properties = @{ @"<property_name>":@"<property_value>" };
 [cordialAPI sendCustomEventWithEventName:@"{custom_event_name}" properties:properties];
-
 ```
 
 `properties` - is a dictionary of string keys and string values that can be attached to the event. Can be null.
@@ -783,8 +793,8 @@ Example of sending a product browse event:
 ```
 let properties = ["productName": "Back Off Polo", "SKU": "polo543"]
 cordialAPI.sendCustomEvent(eventName: "browse_product", properties: properties)
-
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ```
 NSDictionary *properties = @{ @"productName":@"Back Off Polo", @"SKU":@"polo543" };
@@ -926,7 +936,7 @@ Note, disallowed ViewControllers should inherit from the `InAppMessageDelayViewC
 
 To work with inbox messages you will have to use the `InboxMessageAPI` class. It is the entry point to all inbox messages related functionality. The API supports the following operations:
 
-#### Fetch all inbox messages for currently logged in contact
+### Fetch all inbox messages for currently logged in contact
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -986,7 +996,7 @@ InboxFilter *inboxFilter = [[InboxFilter alloc] initWithIsRead:InboxFilterIsRead
     If the inbox message was sent before the specified date
     If the inbox message was sent after the specified date
 
-#### Send up an inbox message is read event. 
+### Send up an inbox message is read event.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -1003,7 +1013,7 @@ NSString *mcID = @"example_mc_id";
 
 This is the method to be called to signal a message is read by the user and should be triggered every time a contact reads (or opens) a message.
 
-#### Mark a message as read/unread
+### Mark a message as read/unread
 
 This operations actually marks a message as read or unread which toggles the `isRead` flag on the corresponding `InboxMessage` object.
 
@@ -1022,7 +1032,7 @@ NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 [[[InboxMessageAPI alloc] init] markInboxMessagesReadWithMcIDs:mcIDs];
 ```
 
-#### To mark messages as unread:
+### To mark messages as unread:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -1037,7 +1047,7 @@ NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 [[[InboxMessageAPI alloc] init] markInboxMessagesUnreadWithMcIDs:mcIDs];
 ```
 
-#### To delete an inbox message:
+### To delete an inbox message:
 
 To remove an inbox message from user's inbox, call
 
@@ -1054,7 +1064,7 @@ NSString *mcID = @"example_mc_id";
 [[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
 ```
 
-#### Notifications about new incoming inbox message
+### Notifications about new incoming inbox message
 
 The SDK can notify when a new inbox message has been delivered to the device. In order to be notified set a `InboxMessageDelegate`:
 
@@ -1071,7 +1081,7 @@ YourImplementationOfInboxMessageDelegate *inboxMessageHandler = [[YourImplementa
 [CordialApiConfiguration shared].inboxMessageDelegate = inboxMessageHandler;
 ```
 
-#### Inbox messages cache
+### Inbox messages cache
 
 The SDK caches inbox messages in order to limit the number of requests the SDK makes. To control the size of the cache so that it doesn't grow unlimited the SDK configures the cache with two values:
 
@@ -1108,15 +1118,15 @@ ___
 [cordialAPI setCurrentMcIDWithMcID:@"mcID"];
 ```
 
-# SwiftUI apps
+## SwiftUI Apps
 
 Cordial SDK supports SwiftUI apps. All sections above still hold for SwiftUI apps except deep links which are described below. Additionally, the SDK adds several classes to make it easier to work with it from SwiftUI app. 
 
-## Initialization
+### Initialization
 
 Initialization of the SDK is done in the same way as it is for UIKit application with one difference that it is possible to run SDK initialization code within `init` method of your `App` class.
 
-## Deep links
+### Deep Links
 
 To handle deep links in a SwiftUI app, subscribe your views to `CordialSwiftUIDeepLinksPublisher.deepLinks` `PassthroughSubject`. The subject will publish deep links that the app should open.
 
@@ -1145,13 +1155,23 @@ AppliationView()
     }
 ```
 
-## Additional publishers
+### Additional publishers
 
 In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additional publishers:
 
 - `CordialSwiftUIInAppMessagePublisher` - notifies the app of the inputs that were captured in an in-app message
 - `CordialSwiftUIInboxMessagePublisher` - notifies the app of new inbox messages
 - `CordialSwiftUIPushNotificationPublisher` - notifies the app that a new push notification token is received, push notification delivered when an app is on the foreground and app opened via push notification tap
+
+## Updating Major SDK Versions
+
+### From version 3.x to version 4.x
+
+1. If you use deep links feature in your implementation of `CordialDeepLinksDelegate` protocol, update `url: URL` param to `deepLink: CordialDeepLink` and instead of param `url` use `deepLink.url`
+
+2. If you use a **Notification Service Extension** for displaying images in push notifications in `Objective-C` language, remove and re-add it by choosing `Swift` as a target language and farther following the [instructions](#images-in-push-notifications)
+
+3. Cocoapods extension name `CordialAppExtensions-Swift` has been changed to `CordialAppExtensions`. If you use cocoapods as a package manager the import class should be changed from `CordialAppExtensions_Swift` to `CordialAppExtensions`
 
 
 [Top](#contents)

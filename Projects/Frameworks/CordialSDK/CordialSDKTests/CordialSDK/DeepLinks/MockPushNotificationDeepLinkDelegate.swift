@@ -15,13 +15,17 @@ class MockPushNotificationDeepLinkDelegate: CordialDeepLinksDelegate {
     
     let sdkTests = CordialSDKTests()
     
-    func openDeepLink(url: URL, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+    func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+        
+        let url = deepLink.url
         
         self.testDeepLinks(url: url, fallbackURL: fallbackURL)
     }
     
     @available(iOS 13.0, *)
-    func openDeepLink(url: URL, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+    func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+        
+        let url = deepLink.url
         
         self.testDeepLinks(url: url, fallbackURL: fallbackURL)
     }
