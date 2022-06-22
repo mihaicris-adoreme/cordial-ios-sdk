@@ -3,7 +3,7 @@
 
 [Installation](#installation)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK](#initialize-the-sdk)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK for US West 2 accounts](#initialize-the-sdk-for-us-west-2-accounts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK for US West 2 Accounts](#initialize-the-sdk-for-us-west-2-accounts)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Setting Message Logging Level](#setting-message-logging-level)<br>
 [Push Notifications](#push-notifications)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Images In Push Notifications](#images-in-push-notifications)<br>
@@ -69,7 +69,7 @@ ___
 [[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"" messageHubURL:@""];
 ```
 
-### Initialize the SDK for US West 2 accounts
+### Initialize the SDK for US West 2 Accounts
 
 If your Cordial account is in us-west-2 region, pass events stream and message hub urls to SDK initialization methods:
 
