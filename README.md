@@ -29,8 +29,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[Delaying In-App Messages](#delaying-in-app-messages)<br>
 [Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
-[SwiftUI apps](#swiftui-apps)<br>
-[Updating major SDK versions](#updating-major-sdk-versions)<br>
+[SwiftUI Apps](#swiftui-apps)<br>
+[Updating Major SDK Versions](#updating-major-sdk-versions)<br>
 
 # Installation
 
@@ -1118,7 +1118,7 @@ ___
 [cordialAPI setCurrentMcIDWithMcID:@"mcID"];
 ```
 
-## SwiftUI apps
+## SwiftUI Apps
 
 Cordial SDK supports SwiftUI apps. All sections above still hold for SwiftUI apps except deep links which are described below. Additionally, the SDK adds several classes to make it easier to work with it from SwiftUI app. 
 
@@ -1126,7 +1126,7 @@ Cordial SDK supports SwiftUI apps. All sections above still hold for SwiftUI app
 
 Initialization of the SDK is done in the same way as it is for UIKit application with one difference that it is possible to run SDK initialization code within `init` method of your `App` class.
 
-### Deep links
+### Deep Links
 
 To handle deep links in a SwiftUI app, subscribe your views to `CordialSwiftUIDeepLinksPublisher.deepLinks` `PassthroughSubject`. The subject will publish deep links that the app should open.
 
@@ -1163,9 +1163,9 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 - `CordialSwiftUIInboxMessagePublisher` - notifies the app of new inbox messages
 - `CordialSwiftUIPushNotificationPublisher` - notifies the app that a new push notification token is received, push notification delivered when an app is on the foreground and app opened via push notification tap
 
-## Updating major SDK versions
+## Updating Major SDK Versions
 
-### From v3.x to v4.x
+### From ver 3.x to ver 4.x
 
 1. If you use deep links feature in your implementation of `CordialDeepLinksDelegate` protocol, update `url: URL` param to `deepLink: CordialDeepLink` and instead of param `url` use `deepLink.url`
 
