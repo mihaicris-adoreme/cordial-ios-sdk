@@ -1165,7 +1165,7 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 
 ## Updating Major SDK Versions
 
-### From ver 3.x to ver 4.x
+### From version 3.x to version 4.x
 
 1. If you use deep links feature in your implementation of `CordialDeepLinksDelegate` protocol, update `url: URL` param to `deepLink: CordialDeepLink` and instead of param `url` use `deepLink.url`
 
