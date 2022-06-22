@@ -200,9 +200,9 @@ class NotificationService: CordialNotificationServiceExtension {
 
 Carousel push notifications allow to expand a push notification and display items in the expanded notification view. Here are the steps to configure the app to dispaly carousel push notifications:
 
-1. Add new `Notification Content Extension` target. Important no matter your app language you needs to choose `Swift` as target language.
+1. Add new `Notification Content Extension` target. Important: regarddless of your app language, choose `Swift` as the target language.
 
-2. Create `App Groups` for your main bandle and already created `Notification Content Extension` target with name `group.cordial.sdk`
+2. Create `App Groups` for your main bundle and the already created `Notification Content Extension` target with the name: `group.cordial.sdk`
 
 3. Add a new reference in Cocoapods Podfile:
 
@@ -217,8 +217,8 @@ end
 
 5. In the `Info.plist` of `Notification Content Extension` target make the following changes:
  - Under section `NSExtensionAttributes` change the value of entry `UNNotificationExtensionCategory` to `carouselNotificationCategory`
- - Unser section `NSExtension` remove entry `NSExtensionMainStoryboard` 
- - Unser section `NSExtension` add new entry `NSExtensionPrincipalClass` and set the string value `$(PRODUCT_MODULE_NAME).NotificationViewController`
+ - Under section `NSExtension` remove entry `NSExtensionMainStoryboard` 
+ - Under section `NSExtension` add new entry `NSExtensionPrincipalClass` and set the string value `$(PRODUCT_MODULE_NAME).NotificationViewController`
  
 6. Delete the code that your IDE generated for the new extension and inherit it from `CordialNotificationContentExtension`:  
 
@@ -557,7 +557,7 @@ NSDate *date = [[NSDate alloc] init];
 [order setPurchaseDateWithDate:date];
 ```
 
-##  Deep Links 
+## Deep Links
 Cordial SDK allows you to track deep link open events. Two types of deep links are supported: universal links and URL scheme links. In order to allow the SDK to track deep links, make sure to implement the `CordialDeepLinksDelegate` protocol. The protocol contains callbacks that will be called once the app gets the chance to open a deep link.
 
 In the body of the `AppDelegate.didFinishLaunchingWithOptions` function, provide the following implementation:
@@ -996,7 +996,7 @@ InboxFilter *inboxFilter = [[InboxFilter alloc] initWithIsRead:InboxFilterIsRead
     If the inbox message was sent before the specified date
     If the inbox message was sent after the specified date
 
-### Send up an inbox message is read event. 
+### Send up an inbox message is read event.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -1169,9 +1169,9 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 
 1. If you use deep links feature in your implementation of `CordialDeepLinksDelegate` protocol, update `url: URL` param to `deepLink: CordialDeepLink` and instead of param `url` use `deepLink.url`
 
-2. If you used a **Notification Service Extension** for displaying images in push notifications in `Objective-C` language, remove and re-add it by choosing `Swift` as a target language and farther following the [instructions](#images-in-push-notifications)
+2. If you use a **Notification Service Extension** for displaying images in push notifications in `Objective-C` language, remove and re-add it by choosing `Swift` as a target language and farther following the [instructions](#images-in-push-notifications)
 
-3. Cocoapods extension name `CordialAppExtensions-Swift` has been changed to `CordialAppExtensions`. If you use cocoapods as a package manager the import class need to be change from `CordialAppExtensions_Swift` to `CordialAppExtensions`
+3. Cocoapods extension name `CordialAppExtensions-Swift` has been changed to `CordialAppExtensions`. If you use cocoapods as a package manager the import class should be changed from `CordialAppExtensions_Swift` to `CordialAppExtensions`
 
 
 [Top](#contents)
