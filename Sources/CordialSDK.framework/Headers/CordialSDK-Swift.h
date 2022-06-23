@@ -402,6 +402,13 @@ SWIFT_CLASS("_TtC10CordialSDK20CordialDateFormatter")
 - (BOOL)isValidTimestampWithTimestamp:(NSString * _Nonnull)timestamp SWIFT_WARN_UNUSED_RESULT;
 @end
 
+
+SWIFT_CLASS("_TtC10CordialSDK15CordialDeepLink")
+@interface CordialDeepLink : NSObject
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
 typedef SWIFT_ENUM(NSInteger, CordialDeepLinkActionType, open) {
   CordialDeepLinkActionTypeNO_ACTION = 0,
   CordialDeepLinkActionTypeOPEN_IN_BROWSER = 1,
@@ -436,8 +443,8 @@ typedef SWIFT_ENUM(NSInteger, CordialDeepLinksConfigurationType, open) {
 
 SWIFT_PROTOCOL("_TtP10CordialSDK24CordialDeepLinksDelegate_")
 @protocol CordialDeepLinksDelegate
-- (void)openDeepLinkWithUrl:(NSURL * _Nonnull)url fallbackURL:(NSURL * _Nullable)fallbackURL completionHandler:(void (^ _Nonnull)(enum CordialDeepLinkActionType))completionHandler;
-- (void)openDeepLinkWithUrl:(NSURL * _Nonnull)url fallbackURL:(NSURL * _Nullable)fallbackURL scene:(UIScene * _Nonnull)scene completionHandler:(void (^ _Nonnull)(enum CordialDeepLinkActionType))completionHandler SWIFT_AVAILABILITY(ios,introduced=13.0);
+- (void)openDeepLinkWithDeepLink:(CordialDeepLink * _Nonnull)deepLink fallbackURL:(NSURL * _Nullable)fallbackURL completionHandler:(void (^ _Nonnull)(enum CordialDeepLinkActionType))completionHandler;
+- (void)openDeepLinkWithDeepLink:(CordialDeepLink * _Nonnull)deepLink fallbackURL:(NSURL * _Nullable)fallbackURL scene:(UIScene * _Nonnull)scene completionHandler:(void (^ _Nonnull)(enum CordialDeepLinkActionType))completionHandler SWIFT_AVAILABILITY(ios,introduced=13.0);
 @end
 
 @class PageRequest;

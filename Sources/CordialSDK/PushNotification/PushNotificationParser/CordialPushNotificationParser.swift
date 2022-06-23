@@ -25,6 +25,16 @@ class CordialPushNotificationParser {
         return self.deepLinksParser.getDeepLinkURLPreviousPayloadType(userInfo: userInfo)
     }
     
+    // MARK: Get vanity deep link URL
+    
+    func getVanityDeepLinkURL(userInfo: [AnyHashable : Any]) -> URL? {
+        if let vanityDeepLinkURL = self.deepLinksParser.getVanityDeepLinkURLCurrentPayloadType(userInfo: userInfo) {
+            return vanityDeepLinkURL
+        }
+        
+        return self.deepLinksParser.getVanityDeepLinkURLPreviousPayloadType(userInfo: userInfo)
+    }
+    
     // MARK: Get deep link fallback URL
     
     func getDeepLinkFallbackURL(userInfo: [AnyHashable : Any]) -> URL? {

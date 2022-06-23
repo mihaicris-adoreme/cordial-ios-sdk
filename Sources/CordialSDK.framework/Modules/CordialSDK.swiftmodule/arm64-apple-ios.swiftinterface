@@ -122,9 +122,9 @@ extension CordialSDK.ContactOrderRequest {
   @objc deinit
 }
 @objc public protocol CordialDeepLinksDelegate {
-  @objc func openDeepLink(url: Foundation.URL, fallbackURL: Foundation.URL?, completionHandler: @escaping (CordialSDK.CordialDeepLinkActionType) -> Swift.Void)
+  @objc func openDeepLink(deepLink: CordialSDK.CordialDeepLink, fallbackURL: Foundation.URL?, completionHandler: @escaping (CordialSDK.CordialDeepLinkActionType) -> Swift.Void)
   @available(iOS 13.0, *)
-  @objc func openDeepLink(url: Foundation.URL, fallbackURL: Foundation.URL?, scene: UIKit.UIScene, completionHandler: @escaping (CordialSDK.CordialDeepLinkActionType) -> Swift.Void)
+  @objc func openDeepLink(deepLink: CordialSDK.CordialDeepLink, fallbackURL: Foundation.URL?, scene: UIKit.UIScene, completionHandler: @escaping (CordialSDK.CordialDeepLinkActionType) -> Swift.Void)
 }
 @objc public enum CordialURLSessionConfigurationType : Swift.Int {
   case SDK
@@ -392,6 +392,11 @@ extension Foundation.NSNotification.Name {
   @objc public static let cordialSendContactLogoutLogicError: Foundation.Notification.Name
   @objc public static let cordialInAppMessageLogicError: Foundation.Notification.Name
   @objc public static let cordialInboxMessagesMarkReadUnreadLogicError: Foundation.Notification.Name
+}
+@_hasMissingDesignatedInitializers @objc public class CordialDeepLink : ObjectiveC.NSObject {
+  final public let url: Foundation.URL
+  final public let vanityURL: Foundation.URL?
+  @objc deinit
 }
 @objc public enum CordialDeepLinkActionType : Swift.Int {
   case NO_ACTION
@@ -795,7 +800,7 @@ public class CordialSwiftUIDeepLinksHandler {
   @objc deinit
 }
 public struct CordialSwiftUIDeepLinks {
-  public let url: Foundation.URL
+  public let deepLink: CordialSDK.CordialDeepLink
   public let fallbackURL: Foundation.URL?
   public let completionHandler: (CordialSDK.CordialDeepLinkActionType) -> Swift.Void
 }
