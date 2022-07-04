@@ -669,7 +669,7 @@ Every app is assumed to be operating on behalf of a specific contact. Contact is
 
 Every piece of information (internal or custom events, updating a contact, etc.) that is passed by SDK to Cordial backend, has a device ID automatically associated with it. Later, when the user logs into the app and their primary key becomes known, the client application must pass that primary key to the backend by calling the `setContact` method. When the backend receives a contact update with the primary key, it associates the device ID with the primary key of that contact. That association is crucial for effectively using Cordial.
 
-There are two states in the SDK: `Logged in` and `Logged out`. The difference is that the `Logged in` state sends requests and receives push messages, while the `Logged out` state caches requests and does not receive push messages. The `Logged out` state is described in "Unsetting a contact" section. The `Logged in` state can be with and without a primary key. By default, the SDK is automatically set to `Logged in` state without primary key.
+There are two states in the SDK: `Logged in` and `Logged out`. The difference is that the `Logged in` state sends requests and receives push messages, while the `Logged out` state caches requests and does not receive push messages. The `Logged out` state is described in [Unsetting a Contact](#unsetting-a-contact) section. The `Logged in` state can be with and without a primary key. By default, the SDK is automatically set to `Logged in` state without primary key.
 
 **Note**: The maximum number of cached events can be set during the initialization step. If not stated, the default limit will be set to 1,000 cached events.
 
@@ -722,10 +722,10 @@ ___
 ```
 var attributes = Dictionary<String, AttributeValue>()
 
-attributes[“name”] = StringValue(“Jon Doe”)
-attributes[“employed”] = BooleanValue(true)
-attributes[“age”] = NumericValue(32)
-attributes[“children”] = ArrayValue([“Sofia", “Jack”])
+attributes["name"] = StringValue("Jon Doe")
+attributes["employed"] = BooleanValue(true)
+attributes["age"] = NumericValue(32)
+attributes["children"] = ArrayValue(["Sofia", "Jack"])
 
 cordialAPI.upsertContact(attributes: attributes)
 ```

@@ -13,6 +13,12 @@ The latest version of this file can be found at the master branch.
 
 - Delegate and publisher deep link URL to `CordialDeepLink` class
 
+## 3.1.5 (2022-07-04)
+
+### Fixed
+
+- Upsert contact attributes caching
+
 ## 3.1.4 (2022-05-03)
 
 ### Added
