@@ -6,7 +6,7 @@ The latest version of this file can be found at the master branch.
 
 ### Fixed
 
-- Upsert contact attributes coding issue
+- Upsert contact attributes caching
 
 ## 3.1.4 (2022-05-03)
 
