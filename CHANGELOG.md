@@ -2,6 +2,17 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.0.0 (2022-06-21)
+
+### Added
+
+- Skipping tracking vanity deep link URL
+- Carousel like rich push notifications 
+
+### Changed
+
+- Delegate and publisher deep link URL to `CordialDeepLink` class
+
 ## 3.1.5 (2022-07-04)
 
 ### Fixed
