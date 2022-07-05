@@ -240,8 +240,10 @@ SWIFT_PROTOCOL("_TtP10CordialSDK14AttributeValue_")
 
 
 SWIFT_CLASS("_TtC10CordialSDK10ArrayValue")
-@interface ArrayValue : NSObject <AttributeValue>
+@interface ArrayValue : NSObject <AttributeValue, NSCoding>
 - (nonnull instancetype)init:(NSArray<NSString *> * _Nonnull)value OBJC_DESIGNATED_INITIALIZER;
+- (void)encodeWithCoder:(NSCoder * _Nonnull)coder;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -249,8 +251,10 @@ SWIFT_CLASS("_TtC10CordialSDK10ArrayValue")
 
 
 SWIFT_CLASS("_TtC10CordialSDK12BooleanValue")
-@interface BooleanValue : NSObject <AttributeValue>
+@interface BooleanValue : NSObject <AttributeValue, NSCoding>
 - (nonnull instancetype)init:(BOOL)value OBJC_DESIGNATED_INITIALIZER;
+- (void)encodeWithCoder:(NSCoder * _Nonnull)coder;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -523,8 +527,10 @@ SWIFT_CLASS_NAMED("CustomEventRequest")
 
 
 SWIFT_CLASS("_TtC10CordialSDK9DateValue")
-@interface DateValue : NSObject <AttributeValue>
+@interface DateValue : NSObject <AttributeValue, NSCoding>
 - (nonnull instancetype)init:(NSDate * _Nonnull)value OBJC_DESIGNATED_INITIALIZER;
+- (void)encodeWithCoder:(NSCoder * _Nonnull)coder;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -541,7 +547,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) DependencyCo
 
 
 SWIFT_CLASS("_TtC10CordialSDK8GeoValue")
-@interface GeoValue : NSObject <AttributeValue>
+@interface GeoValue : NSObject <AttributeValue, NSCoding>
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (void)setCity:(NSString * _Nonnull)city;
 - (void)setCountry:(NSString * _Nonnull)country;
 - (void)setPostalCode:(NSString * _Nonnull)postalCode;
@@ -549,7 +556,8 @@ SWIFT_CLASS("_TtC10CordialSDK8GeoValue")
 - (void)setStreetAddress:(NSString * _Nonnull)streetAddress;
 - (void)setStreetAddress2:(NSString * _Nonnull)streetAddress2;
 - (void)setTimeZone:(NSString * _Nonnull)timeZone;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+- (void)encodeWithCoder:(NSCoder * _Nonnull)coder;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder;
 @end
 
 
@@ -798,9 +806,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _
 
 
 SWIFT_CLASS("_TtC10CordialSDK12NumericValue")
-@interface NumericValue : NSObject <AttributeValue>
+@interface NumericValue : NSObject <AttributeValue, NSCoding>
 - (nonnull instancetype)initWithDoubleValue:(double)doubleValue OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)initWithIntValue:(NSInteger)intValue OBJC_DESIGNATED_INITIALIZER;
+- (void)encodeWithCoder:(NSCoder * _Nonnull)coder;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
@@ -847,8 +857,10 @@ SWIFT_CLASS("_TtC10CordialSDK13ResponseError")
 
 
 SWIFT_CLASS("_TtC10CordialSDK11StringValue")
-@interface StringValue : NSObject <AttributeValue>
+@interface StringValue : NSObject <AttributeValue, NSCoding>
 - (nonnull instancetype)init:(NSString * _Nonnull)value OBJC_DESIGNATED_INITIALIZER;
+- (void)encodeWithCoder:(NSCoder * _Nonnull)coder;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
