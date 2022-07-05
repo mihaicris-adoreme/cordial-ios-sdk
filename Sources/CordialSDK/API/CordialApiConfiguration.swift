@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import os.log
 
 @objc public class CordialApiConfiguration: NSObject {
     
@@ -96,6 +97,9 @@ import CoreLocation
         } else {
             self.messageHubURL = messageHubURL
         }
+        
+        let deviceID = InternalCordialAPI().getDeviceIdentifier()
+        os_log("Device Identifier: [%{public}@]", log: OSLog.cordialInfo, type: .info, deviceID)
         
 //        CoreDataManager.shared.deleteAllCoreData()
         
