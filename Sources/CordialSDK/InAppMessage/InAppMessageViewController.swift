@@ -124,7 +124,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             }
         }
 
-        self.webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        let webFrame = CGRect(x: 0, y: 0, width: self.getInAppMessageWidth(), height: 0)
+        
+        self.webView = WKWebView(frame: webFrame, configuration: webConfiguration)
         self.webView.uiDelegate = self
         self.webView.navigationDelegate = self
         self.webView.scrollView.delegate = self
@@ -216,6 +218,14 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     
     private func getSafeAreaTopMargin() -> CGFloat {
         return UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0
+    }
+    
+    private func getInAppMessageWidth() -> CGFloat {
+        let screenWidth = UIScreen.main.bounds.size.width
+        let marginLeft = CGFloat(self.inAppMessageData.left) / 100
+        let marginRight = CGFloat(self.inAppMessageData.right) / 100
+        
+        return screenWidth - screenWidth * (marginLeft + marginRight)
     }
     
     // MARK: WKNavigationDelegate
@@ -319,9 +329,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         if let dict = messageBody as? NSDictionary,
            var height = dict["height"] as? CGFloat {
             
-            let screenBounds = UIScreen.main.bounds
+            let width = self.getInAppMessageWidth()
             
-            let width = screenBounds.size.width - screenBounds.size.width * (CGFloat(self.inAppMessageData.left) / 100 + CGFloat(self.inAppMessageData.right) / 100)
+            let screenBounds = UIScreen.main.bounds
             
             let minimumHeight = screenBounds.size.height * 0.15
             if height < minimumHeight {
