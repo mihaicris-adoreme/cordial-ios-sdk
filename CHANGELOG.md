@@ -11,7 +11,7 @@ The latest version of this file can be found at the master branch.
 
 ### Fixed
 
-- The bug with not correct IAM height calculating 
+- IAM height calculation
 
 ## 4.0.0 (2022-06-21)
 
