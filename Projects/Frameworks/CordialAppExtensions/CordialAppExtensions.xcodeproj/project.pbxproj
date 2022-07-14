@@ -442,7 +442,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.0;
+				MARKETING_VERSION = 4.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk.CordialAppExtensions;
 				PRODUCT_NAME = CordialAppExtensions;
 				SKIP_INSTALL = YES;
@@ -471,7 +471,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.0.0;
+				MARKETING_VERSION = 4.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk.CordialAppExtensions;
 				PRODUCT_NAME = CordialAppExtensions;
 				SKIP_INSTALL = YES;
