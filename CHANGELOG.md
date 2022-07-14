@@ -2,6 +2,17 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.0.1 (2022-07-14)
+
+### Added
+
+- Device identifier output bypassing logs settings
+- Display logs error output no matter of selected level
+
+### Fixed
+
+- IAM height calculation
+
 ## 4.0.0 (2022-06-21)
 
 ### Added
