@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import os.log
 
 @objc public class CordialApiConfiguration: NSObject {
     
@@ -15,7 +16,7 @@ import CoreLocation
     
     private override init() {}
     
-    let sdkVersion = "4.0.0"
+    let sdkVersion = "4.0.1"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
@@ -96,6 +97,9 @@ import CoreLocation
         } else {
             self.messageHubURL = messageHubURL
         }
+        
+        let deviceID = InternalCordialAPI().getDeviceIdentifier()
+        os_log("Device Identifier: [%{public}@]", log: OSLog.cordialInfo, type: .info, deviceID)
         
 //        CoreDataManager.shared.deleteAllCoreData()
         

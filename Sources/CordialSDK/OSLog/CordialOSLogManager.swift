@@ -91,9 +91,7 @@ public enum osLogLevel: String {
         
         switch osLogLevel {
         case .error:
-            if self.currentOSLogLevel == .error {
-                return true
-            }
+            return true
         case .info:
             if self.currentOSLogLevel == .info {
                 return true
