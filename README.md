@@ -29,6 +29,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[Delaying In-App Messages](#delaying-in-app-messages)<br>
 [Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
+[Revenue Attribution for Web View Applications](#revenue-attribution-for-web-view-applications)<br>
 [SwiftUI Apps](#swiftui-apps)<br>
 [Updating Major SDK Versions](#updating-major-sdk-versions)<br>
 
@@ -1116,6 +1117,27 @@ cordialAPI.setCurrentMcID(mcID: "mcID")
 ___
 ```
 [cordialAPI setCurrentMcIDWithMcID:@"mcID"];
+```
+
+## Revenue Attribution for Web View Applications
+
+If your application is built on a WebView that views a mobile friendly version of your website which is running the Cordial JavaScript Listener, you will need to change how you process deep links to fix attribution. This is because when a message is clicked, the Cordial SDK will store the `mcID`, but the website will not know about this `mcID`. To fix this in your implementation of the `CordialDeepLinksDelegate`, the app should pass the `vanityURL` version of the deep link to the WebView which allows the JavaScript Listener to correctly store the `mcID` for event and order attribution.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+```
+@available(iOS 13.0, *)
+func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
+    var url = deepLink.vanityURL ?? deepLink.url
+    let request = URLRequest(url: url)
+    yourWebView.load(request)
+}
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+```
+- (void)openDeepLinkWithDeepLink:(CordialDeepLink * _Nonnull)deepLink fallbackURL:(NSURL * _Nullable)fallbackURL scene:(UIScene * _Nonnull)scene completionHandler:(void (^ _Nonnull)(enum CordialDeepLinkActionType))completionHandler  API_AVAILABLE(ios(13.0)){
+    NSURL *url = deepLink.vanityURL ? deepLink.vanityURL : deepLink.url;
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+}
 ```
 
 ## SwiftUI Apps
