@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.0.2 (2022-07-22)
+
+### Fixed
+
+- Accessibility of `CordialDeepLink` from Objective-C
+
 ## 4.0.1 (2022-07-14)
 
 ### Added
