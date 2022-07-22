@@ -409,6 +409,8 @@ SWIFT_CLASS("_TtC10CordialSDK20CordialDateFormatter")
 
 SWIFT_CLASS("_TtC10CordialSDK15CordialDeepLink")
 @interface CordialDeepLink : NSObject
+@property (nonatomic, readonly, copy) NSURL * _Nonnull url;
+@property (nonatomic, readonly, copy) NSURL * _Nullable vanityURL;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
