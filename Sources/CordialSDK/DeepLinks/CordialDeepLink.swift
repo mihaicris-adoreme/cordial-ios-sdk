@@ -10,8 +10,8 @@ import Foundation
 
 @objc public class CordialDeepLink: NSObject {
     
-    public let url: URL
-    public let vanityURL: URL?
+    @objc public let url: URL
+    @objc public let vanityURL: URL?
     
     init(url: URL, vanityURL: URL?) {
         self.url = url
