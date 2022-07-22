@@ -406,8 +406,8 @@ extension Foundation.NSNotification.Name {
   @objc public static let cordialInboxMessagesMarkReadUnreadLogicError: Foundation.Notification.Name
 }
 @_hasMissingDesignatedInitializers @objc public class CordialDeepLink : ObjectiveC.NSObject {
-  final public let url: Foundation.URL
-  final public let vanityURL: Foundation.URL?
+  @objc final public let url: Foundation.URL
+  @objc final public let vanityURL: Foundation.URL?
   @objc deinit
 }
 @objc public enum CordialDeepLinkActionType : Swift.Int {
