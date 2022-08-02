@@ -101,6 +101,8 @@ import os.log
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         os_log("Device Identifier: [%{public}@]", log: OSLog.cordialInfo, type: .info, deviceID)
         
+        InternalCordialAPI().setupNotificationManager()
+        
 //        CoreDataManager.shared.deleteAllCoreData()
         
     }
