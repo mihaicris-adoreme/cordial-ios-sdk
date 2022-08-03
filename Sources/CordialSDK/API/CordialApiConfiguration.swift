@@ -77,8 +77,6 @@ import os.log
     
     @objc public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String = "", messageHubURL: String = "") {
         
-        CordialPushNotification.shared.registerForSilentPushNotifications()
-        
         self.accountKey = accountKey
         self.channelKey = channelKey
         

@@ -86,20 +86,11 @@ class InternalCordialAPI {
     // MARK: Setup notification manager
     
     func setupNotificationManager() {
-        let notificationCenter = NotificationCenter.default
         let notificationManager = NotificationManager.shared
         
         if !notificationManager.isNotificationManagerSettedUp {
-            notificationManager.isNotificationManagerSettedUp = true
-            
-            if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
-                notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-                notificationCenter.addObserver(self, selector: #selector(notificationManager.handleDidFinishLaunch), name: UIApplication.didBecomeActiveNotification, object: nil)
-            } else {
-                notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
-                notificationCenter.addObserver(self, selector: #selector(notificationManager.handleDidFinishLaunch), name: UIApplication.didFinishLaunchingNotification, object: nil)
-            }
-        } 
+            notificationManager.handleDidFinishLaunch()
+        }
     }
     
     // MARK: Set isCurrentlyUpsertingContacts

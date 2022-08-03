@@ -101,14 +101,11 @@ class NotificationManager {
         }
     }
     
-    @objc func handleDidFinishLaunch(notification: NSNotification) {
+    func handleDidFinishLaunch() {
         let notificationCenter = NotificationCenter.default
         
-        if self.isNotificationManagerSettedUp {
-        
-            if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
-                notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-            }
+        if !self.isNotificationManagerSettedUp {
+            self.isNotificationManagerSettedUp = true
             
             self.appMovedFromBackground()
         }
@@ -128,6 +125,8 @@ class NotificationManager {
         }
         
         CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
+        
+        CordialPushNotification.shared.registerForSilentPushNotifications()
     }
 
 }
