@@ -83,16 +83,6 @@ class InternalCordialAPI {
         self.removeCurrentMcID()
     }
     
-    // MARK: Setup notification manager
-    
-    func setupNotificationManager() {
-        let notificationManager = NotificationManager.shared
-        
-        if !notificationManager.isNotificationManagerSettedUp {
-            notificationManager.handleDidFinishLaunch()
-        }
-    }
-    
     // MARK: Set isCurrentlyUpsertingContacts
     
     func setIsCurrentlyUpsertingContacts(_ isCurrentlyUpsertingContacts: Bool) {

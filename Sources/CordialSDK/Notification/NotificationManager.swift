@@ -100,8 +100,8 @@ class NotificationManager {
             CordialVanityDeepLink().open(url: vanityDeepLinkURL)
         }
     }
-    
-    func handleDidFinishLaunch() {
+        
+    func setupNotificationManager() {
         let notificationCenter = NotificationCenter.default
         
         if !self.isNotificationManagerSettedUp {
@@ -124,9 +124,11 @@ class NotificationManager {
             notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
         }
         
-        CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
-        
-        CordialPushNotification.shared.registerForSilentPushNotifications()
+        DispatchQueue.main.async {
+            CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
+            
+            CordialPushNotification.shared.registerForSilentPushNotifications()
+        }
     }
 
 }

@@ -20,7 +20,6 @@ import os.log
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
-    let initNotificationManager = NotificationManager.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
     let initCoreDataManager = CoreDataManager.shared
     
@@ -99,7 +98,7 @@ import os.log
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         os_log("Device Identifier: [%{public}@]", log: OSLog.cordialInfo, type: .info, deviceID)
         
-        InternalCordialAPI().setupNotificationManager()
+        NotificationManager.shared.setupNotificationManager()
         
 //        CoreDataManager.shared.deleteAllCoreData()
         
