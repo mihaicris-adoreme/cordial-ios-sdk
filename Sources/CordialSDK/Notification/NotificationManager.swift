@@ -41,8 +41,6 @@ class NotificationManager {
     
     static let shared = NotificationManager()
     
-    var isNotificationManagerSettedUp = false
-    
     var vanityDeepLink = String()
     var originDeepLink = String()
     
@@ -103,12 +101,6 @@ class NotificationManager {
         
     func setupNotificationManager() {
         let notificationCenter = NotificationCenter.default
-        
-        if !self.isNotificationManagerSettedUp {
-            self.isNotificationManagerSettedUp = true
-            
-            self.appMovedFromBackground()
-        }
         
         if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
             notificationCenter.removeObserver(self, name: UIScene.didEnterBackgroundNotification, object: nil)
