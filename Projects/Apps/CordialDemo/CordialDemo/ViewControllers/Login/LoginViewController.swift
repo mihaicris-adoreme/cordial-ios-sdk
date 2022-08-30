@@ -22,6 +22,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         self.primaryKeyTextFeild.setBottomBorder(color: UIColor.black)
+        self.primaryKeyTextFeild.text = self.cordialAPI.getContactPrimaryKey()
     }
     
     @IBAction func loginAction(_ sender: UIButton) {
