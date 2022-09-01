@@ -17,12 +17,25 @@ class LoginViewController: UIViewController {
     
     let segueToCatalogIdentifier = "segueToCatalog"
     let segueToSettingsIdentifier = "segueToSettings"
+    var settingsType = App.getSettingsType()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.primaryKeyTextFeild.setBottomBorder(color: UIColor.black)
-        self.primaryKeyTextFeild.text = self.cordialAPI.getContactPrimaryKey()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if self.settingsType != App.getSettingsType() {
+            self.primaryKeyTextFeild.text = String()
+            
+        } else if let primaryKey = self.primaryKeyTextFeild.text,
+                  primaryKey.isEmpty {
+            
+            self.primaryKeyTextFeild.text = self.cordialAPI.getContactPrimaryKey()
+        }
     }
     
     @IBAction func loginAction(_ sender: UIButton) {
