@@ -2,6 +2,16 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.0.3 (2022-09-07)
+
+### Added
+
+- Ability to initialize the SDK outside of `didFinishLaunchingWithOptions`
+
+### Fixed
+
+- Sending `crdl_app_open` event on receiving a push notification
+
 ## 4.0.2 (2022-07-22)
 
 ### Fixed
