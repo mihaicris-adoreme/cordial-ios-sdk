@@ -16,7 +16,7 @@ import os.log
     
     private override init() {}
     
-    let sdkVersion = "4.0.2"
+    let sdkVersion = "4.0.3"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
