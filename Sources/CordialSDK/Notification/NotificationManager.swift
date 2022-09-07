@@ -41,28 +41,14 @@ class NotificationManager {
     
     static let shared = NotificationManager()
     
-    var isNotificationManagerHasNotBeenSettedUp = true
+    var isNotificationManagerSettedUp = false
     
     var vanityDeepLink = String()
     var originDeepLink = String()
     
     var appMovedToBackgroundBackgroundTaskID: UIBackgroundTaskIdentifier?
 
-    private init() {
-        let notificationCenter = NotificationCenter.default
-        
-        if self.isNotificationManagerHasNotBeenSettedUp {
-            self.isNotificationManagerHasNotBeenSettedUp = false
-            
-            if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
-                notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-                notificationCenter.addObserver(self, selector: #selector(handleDidFinishLaunch), name: UIApplication.didBecomeActiveNotification, object: nil)
-            } else {
-                notificationCenter.removeObserver(self, name: UIApplication.didFinishLaunchingNotification, object: nil)
-                notificationCenter.addObserver(self, selector: #selector(handleDidFinishLaunch), name: UIApplication.didFinishLaunchingNotification, object: nil)
-            }
-        } 
-    }
+    private init() {}
     
     @objc func appMovedToBackground() {
         self.appMovedToBackgroundBackgroundTaskID = UIApplication.shared.beginBackgroundTask(expirationHandler: { [weak self] in
@@ -114,15 +100,12 @@ class NotificationManager {
             CordialVanityDeepLink().open(url: vanityDeepLinkURL)
         }
     }
-    
-    @objc func handleDidFinishLaunch(notification: NSNotification) {
+        
+    func setupNotificationManager() {
         let notificationCenter = NotificationCenter.default
         
-        if !self.isNotificationManagerHasNotBeenSettedUp {
-        
-            if #available(iOS 13.0, *), InternalCordialAPI().isAppUseScenes() {
-                notificationCenter.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
-            }
+        if !self.isNotificationManagerSettedUp {
+            self.isNotificationManagerSettedUp = true
             
             self.appMovedFromBackground()
         }
@@ -141,7 +124,11 @@ class NotificationManager {
             notificationCenter.addObserver(self, selector: #selector(appMovedFromBackground), name: UIApplication.didBecomeActiveNotification, object: nil)
         }
         
-        CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
+        DispatchQueue.main.async {
+            CordialSwizzler.shared.swizzleAppAndSceneDelegateMethods()
+            
+            CordialPushNotification.shared.registerForSilentPushNotifications()
+        }
     }
 
 }

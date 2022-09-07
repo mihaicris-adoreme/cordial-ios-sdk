@@ -20,7 +20,6 @@ import os.log
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
-    let initNotificationManager = NotificationManager.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
     let initCoreDataManager = CoreDataManager.shared
     
@@ -77,8 +76,6 @@ import os.log
     
     @objc public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String = "", messageHubURL: String = "") {
         
-        CordialPushNotification.shared.registerForSilentPushNotifications()
-        
         self.accountKey = accountKey
         self.channelKey = channelKey
         
@@ -100,6 +97,8 @@ import os.log
         
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         os_log("Device Identifier: [%{public}@]", log: OSLog.cordialInfo, type: .info, deviceID)
+        
+        NotificationManager.shared.setupNotificationManager()
         
 //        CoreDataManager.shared.deleteAllCoreData()
         
