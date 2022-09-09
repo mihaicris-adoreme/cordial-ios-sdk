@@ -81,7 +81,12 @@ class UpsertContacts {
             switch value {
             case is NumericValue:
                 let numericValue = value as! NumericValue
-                container.append("\"\(key)\": \(numericValue.value)")
+                
+                if let value = numericValue.value {
+                    container.append("\"\(key)\": \(value)")
+                } else {
+                    container.append("\"\(key)\": null")
+                }
             case is BooleanValue:
                 let booleanValue = value as! BooleanValue
                 container.append("\"\(key)\": \(booleanValue.value)")
@@ -90,10 +95,20 @@ class UpsertContacts {
                 container.append("\"\(key)\": \(API.getArrayJSON(arrayValue.value))")
             case is StringValue:
                 let stringValue = value as! StringValue
-                container.append("\"\(key)\": \"\(stringValue.value)\"")
+                
+                if let value = stringValue.value {
+                    container.append("\"\(key)\": \"\(value)\"")
+                } else {
+                    container.append("\"\(key)\": null")
+                }
             case is DateValue:
                 let dateValue = value as! DateValue
-                container.append("\"\(key)\": \"\(CordialDateFormatter().getTimestampFromDate(date: dateValue.value))\"")
+                
+                if let value = dateValue.value {
+                    container.append("\"\(key)\": \"\(CordialDateFormatter().getTimestampFromDate(date: value))\"")
+                } else {
+                    container.append("\"\(key)\": null")
+                }
             case is GeoValue:
                 let geoValue = value as! GeoValue
                 container.append("\"\(key)\": \(self.getGeoAttributeJSON(geoValue: geoValue))")

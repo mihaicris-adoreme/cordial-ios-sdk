@@ -41,7 +41,7 @@ class MockRequestSenderUpsertContact: RequestSender {
             XCTAssertEqual(booleanValueFromJSON, booleanValue.value, "Boolean value is invalid")
             XCTAssertEqual(numericValueFromJSON, numericValue.value, "Numeric value is invalid")
             XCTAssertEqual(arrayValueFromJSON, arrayValue.value, "Array value is invalid")
-            XCTAssertEqual(Int(dateValueFromJSON.timeIntervalSince1970), Int(dateValue.value.timeIntervalSince1970), "Date value is invalid")
+            XCTAssertEqual(Int(dateValueFromJSON.timeIntervalSince1970), Int(dateValue.value!.timeIntervalSince1970), "Date value is invalid")
             XCTAssertEqual(geoValueFromJSON["city"], geoValue.getCity(), "Geo city value is invalid")
             XCTAssertEqual(geoValueFromJSON["country"], geoValue.getCountry(), "Geo country value is invalid")
             XCTAssertEqual(geoValueFromJSON["postal_code"], geoValue.getPostalCode(), "Geo postal code value is invalid")
