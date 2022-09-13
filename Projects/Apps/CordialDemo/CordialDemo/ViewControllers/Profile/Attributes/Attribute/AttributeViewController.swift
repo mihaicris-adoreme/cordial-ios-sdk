@@ -16,6 +16,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var valueTextField: UITextField!
     @IBOutlet weak var valueInfoLabel: UILabel!
     @IBOutlet weak var booleanSwitch: UISwitch!
+    @IBOutlet weak var nullSwitch: UISwitch!
+    @IBOutlet weak var nullLabel: UILabel!
     @IBOutlet weak var attributeDatePicker: UIDatePicker!
     
     let segueToGeoIdentifier = "segueToGeo"
@@ -165,6 +167,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.valueTextField.isHidden = false
             self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = true
+            self.nullSwitch.isHidden = false
+            self.nullLabel.isHidden = false
             self.attributeDatePicker.isHidden = true
         case AttributeType.boolean.rawValue:
             self.attributeType = AttributeType.boolean
@@ -178,6 +182,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.valueTextField.isHidden = true
             self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = false
+            self.nullSwitch.isHidden = true
+            self.nullLabel.isHidden = true
             self.attributeDatePicker.isHidden = true
         case AttributeType.numeric.rawValue:
             self.attributeType = AttributeType.numeric
@@ -187,6 +193,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.valueTextField.isHidden = false
             self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = true
+            self.nullSwitch.isHidden = false
+            self.nullLabel.isHidden = false
             self.attributeDatePicker.isHidden = true
         case AttributeType.array.rawValue:
             self.attributeType = AttributeType.array
@@ -196,6 +204,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.valueTextField.isHidden = false
             self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = true
+            self.nullSwitch.isHidden = true
+            self.nullLabel.isHidden = true
             self.attributeDatePicker.isHidden = true
         case AttributeType.date.rawValue:
             self.attributeType = AttributeType.date
@@ -205,6 +215,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.valueTextField.isHidden = false
             self.valueTextField.isUserInteractionEnabled = false
             self.booleanSwitch.isHidden = true
+            self.nullSwitch.isHidden = false
+            self.nullLabel.isHidden = false
             self.attributeDatePicker.isHidden = false
             if let date = self.attributeDate {
                 self.valueTextField.text = AppDateFormatter().getTimestampFromDate(date: date)
