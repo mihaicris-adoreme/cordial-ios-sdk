@@ -12,16 +12,17 @@ import CordialSDK
 class ProfileTableFooterView: UITableViewHeaderFooterView {
     
     @IBAction func updateProfileAction(_ sender: UIButton) {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let controller = getActiveViewController() {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+           let controller = getActiveViewController() {
             
             let attributes = AppDataManager.shared.attributes.getAttributesFromCoreData(appDelegate: appDelegate)
-            CordialAPI().upsertContact(attributes: self.modifyAttributesData(attributes: attributes))
+            CordialAPI().upsertContact(attributes: self.getAttributesDictionaryForCordialSDK(attributes: attributes))
             
             popupSimpleNoteAlert(title: "PROFILE", message: "UPDATED", controller: controller)
         }
     }
     
-    private func modifyAttributesData(attributes: [Attribute]) -> Dictionary<String, AttributeValue> {
+    private func getAttributesDictionaryForCordialSDK(attributes: [Attribute]) -> Dictionary<String, AttributeValue> {
         var attributesDictionary = Dictionary<String, AttributeValue>()
         
         attributes.forEach { attribute in
@@ -30,23 +31,23 @@ class ProfileTableFooterView: UITableViewHeaderFooterView {
             switch attribute.type {
             case AttributeType.string:
                 let value = Attribute.performArrayToStringSeparatedByComma(attribute.value)
-                let stringValue = StringValue(value)
+                let stringValue = StringValue(value == "null" ? nil : value)
                 attributesDictionary[key] = stringValue
             case AttributeType.boolean:
                 let value = NSString(string:Attribute.performArrayToStringSeparatedByComma(attribute.value).lowercased()).boolValue
                 let booleanValue = BooleanValue(value)
                 attributesDictionary[key] = booleanValue
             case AttributeType.numeric:
-                let value = Double(Attribute.performArrayToStringSeparatedByComma(attribute.value))!
-                let numericValue = NumericValue(value)
+                let value = Attribute.performArrayToStringSeparatedByComma(attribute.value)
+                let numericValue = NumericValue(value == "null" ? nil : Double(value)!)
                 attributesDictionary[key] = numericValue
             case AttributeType.array:
                 let value = attribute.value
                 let arrayValue = ArrayValue(Attribute.getArrayValue(value))
                 attributesDictionary[key] = arrayValue
             case AttributeType.date:
-                let value = CordialDateFormatter().getDateFromTimestamp(timestamp: Attribute.performArrayToStringSeparatedByComma(attribute.value))!
-                let dateValue = DateValue(value)
+                let value = Attribute.performArrayToStringSeparatedByComma(attribute.value)
+                let dateValue = DateValue(value == "null" ? nil : CordialDateFormatter().getDateFromTimestamp(timestamp: value)!)
                 attributesDictionary[key] = dateValue
             case AttributeType.geo:
                 if let appDelegate = UIApplication.shared.delegate as? AppDelegate,

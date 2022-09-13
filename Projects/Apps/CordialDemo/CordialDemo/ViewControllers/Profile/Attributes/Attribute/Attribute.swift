@@ -43,11 +43,19 @@ class Attribute {
     static func performArrayToStringSeparatedByComma(_ values: [String?]) -> String {
         var returnValue = String()
         
-        values.forEach { value in
+        for value in values {
             if let value = value {
-                returnValue.append("\(value), ")
+                if value == values.last {
+                    returnValue.append("\(value)")
+                } else {
+                    returnValue.append("\(value), ")
+                }
             } else {
-                returnValue.append("null, ")
+                if value == values.last {
+                    returnValue.append("null")
+                } else {
+                    returnValue.append("null, ")
+                }
             }
         }
         
