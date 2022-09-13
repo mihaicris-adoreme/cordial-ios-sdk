@@ -13,6 +13,7 @@ class ProfileTableFooterView: UITableViewHeaderFooterView {
     
     @IBAction func updateProfileAction(_ sender: UIButton) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let controller = getActiveViewController() {
+            
             let attributes = AppDataManager.shared.attributes.getAttributesFromCoreData(appDelegate: appDelegate)
             CordialAPI().upsertContact(attributes: self.modifyAttributesData(attributes: attributes))
             
@@ -41,14 +42,15 @@ class ProfileTableFooterView: UITableViewHeaderFooterView {
                 attributesDictionary[key] = numericValue
             case AttributeType.array:
                 let value = attribute.value
-                let arrayValue = ArrayValue(value)
+                let arrayValue = ArrayValue(Attribute.getArrayValue(value))
                 attributesDictionary[key] = arrayValue
             case AttributeType.date:
                 let value = CordialDateFormatter().getDateFromTimestamp(timestamp: Attribute.performArrayToStringSeparatedByComma(attribute.value))!
                 let dateValue = DateValue(value)
                 attributesDictionary[key] = dateValue
             case AttributeType.geo:
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let geoAttribute = AppDataManager.shared.geoAttributes.getGeoAttributeFromCoreDataByKey(appDelegate: appDelegate, key: key) {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                   let geoAttribute = AppDataManager.shared.geoAttributes.getGeoAttributeFromCoreDataByKey(appDelegate: appDelegate, key: key) {
                     
                     let city = geoAttribute.city
                     let country = geoAttribute.country

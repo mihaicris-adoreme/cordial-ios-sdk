@@ -12,21 +12,25 @@ class Attribute {
 
     let key: String
     let type: AttributeType
-    let value: [String]
+    let value: [String?]
     
-    init(key: String, type: AttributeType, value: String) {
+    init(key: String, type: AttributeType, value: String?) {
         self.key = key
         self.type = type
         
         switch type {
         case AttributeType.array:
-            self.value = Attribute.performStringSeparatedByCommaToArray(value)
+            if let value = value {
+                self.value = Attribute.performStringSeparatedByCommaToArray(value)
+            } else {
+                self.value = [value]
+            }
         default:
             self.value = [value]
         }
     }
     
-    static func performStringSeparatedByCommaToArray(_ string: String) -> [String] {
+    private static func performStringSeparatedByCommaToArray(_ string: String) -> [String] {
         var values = [String]()
         
         string.components(separatedBy: ",").forEach { value in
@@ -36,7 +40,29 @@ class Attribute {
         return values
     }
     
-    static func performArrayToStringSeparatedByComma(_ values: [String]) -> String {
-        return values.joined(separator: ", ")
+    static func performArrayToStringSeparatedByComma(_ values: [String?]) -> String {
+        var returnValue = String()
+        
+        values.forEach { value in
+            if let value = value {
+                returnValue.append("\(value), ")
+            } else {
+                returnValue.append("null, ")
+            }
+        }
+        
+        return returnValue
+    }
+    
+    static func getArrayValue(_ values: [String?]) -> [String] {
+        var returnValue = [String]()
+        
+        values.forEach { value in
+            if let value = value {
+                returnValue.append(value)
+            }
+        }
+        
+        return returnValue
     }
 }

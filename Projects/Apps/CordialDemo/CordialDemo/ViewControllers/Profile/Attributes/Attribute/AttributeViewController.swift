@@ -41,7 +41,10 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     @IBAction func addAttributeAction(_ sender: UIBarButtonItem) {
-        if let key = self.keyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), var value = self.valueTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+        if let key = self.keyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+           let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            
+            var value = self.valueTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             
             var isKeyValidated = false
             var isValueValidated = false
@@ -60,7 +63,11 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             
             switch self.attributeType {
             case AttributeType.string:
-                isValueValidated  = true
+                isValueValidated = true
+                
+                if self.nullSwitch.isOn {
+                    value = nil
+                }
             case AttributeType.boolean:
                 isValueValidated = true
                 
@@ -70,7 +77,10 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                     value = "false"
                 }
             case AttributeType.numeric:
-                if value.isEmpty {
+                if self.nullSwitch.isOn {
+                    value = nil
+                    isValueValidated = true
+                } else if ((value?.isEmpty) != nil) {
                     self.valueInfoLabel.text = "* Numeric value cannot be empty."
                     self.valueInfoLabel.textColor = UIColor.red
                     self.valueTextField.setBottomBorder(color: UIColor.red)
@@ -81,15 +91,20 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                     self.valueInfoLabel.textColor = UIColor.black
                     self.valueTextField.setBottomBorder(color: UIColor.lightGray)
                     
-                    value = value.replacingOccurrences(of: ",", with: ".")
+                    value = value!.replacingOccurrences(of: ",", with: ".")
                     isValueValidated = true
                 }
             case AttributeType.array:
                 isValueValidated = true
             case AttributeType.date:
-                let date = AppDateFormatter().getDateFromTimestamp(timestamp: value)!
-                value = CordialDateFormatter().getTimestampFromDate(date: date)
                 isValueValidated = true
+                
+                if self.nullSwitch.isOn {
+                    value = nil
+                } else {
+                    let date = AppDateFormatter().getDateFromTimestamp(timestamp: value!)!
+                    value = CordialDateFormatter().getTimestampFromDate(date: date)
+                }
             case AttributeType.geo:
                 break
             }
@@ -112,6 +127,14 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         } else {
             self.booleanSwitch.setOn(false, animated: true)
             self.valueInfoLabel.text = "FALSE"
+        }
+    }
+    
+    @IBAction func nullSwitchAction(_ sender: UISwitch) {
+        if self.nullSwitch.isOn {
+            self.nullSwitch.setOn(true, animated: true)
+        } else {
+            self.nullSwitch.setOn(false, animated: true)
         }
     }
     
