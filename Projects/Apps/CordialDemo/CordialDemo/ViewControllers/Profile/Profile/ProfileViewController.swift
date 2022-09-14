@@ -90,9 +90,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         switch attribute.type {
         case AttributeType.date:
-            let date = CordialDateFormatter().getDateFromTimestamp(timestamp: valueString)!
-            let dateString = AppDateFormatter().getTimestampFromDate(date: date)
-            value = NSAttributedString(string: dateString, attributes: valueAttributes)
+            if let date = CordialDateFormatter().getDateFromTimestamp(timestamp: valueString) {
+                let dateString = AppDateFormatter().getTimestampFromDate(date: date)
+                value = NSAttributedString(string: dateString, attributes: valueAttributes)
+            }
         case AttributeType.geo:
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
                let geoAttribute = AppDataManager.shared.geoAttributes.getGeoAttributeFromCoreDataByKey(appDelegate: appDelegate, key: attribute.key) {

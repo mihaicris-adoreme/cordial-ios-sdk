@@ -50,13 +50,9 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             var isValueValidated = false
             
             if key.isEmpty {
-                self.keyInfoLabel.text = "* Key cannot be empty."
-                self.keyInfoLabel.textColor = UIColor.red
-                self.keyTextField.setBottomBorder(color: UIColor.red)
+                self.markKeyInfo(text: "* Key cannot be empty.")
             } else {
-                self.keyInfoLabel.text = String()
-                self.keyInfoLabel.textColor = UIColor.black
-                self.keyTextField.setBottomBorder(color: UIColor.lightGray)
+                self.unmarkKeyInfo()
                 
                 isKeyValidated = true
             }
@@ -79,17 +75,15 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             case AttributeType.numeric:
                 if self.nullSwitch.isOn {
                     value = nil
+                    self.unmarkValueInfo()
+                    
                     isValueValidated = true
-                } else if ((value?.isEmpty) != nil) {
-                    self.valueInfoLabel.text = "* Numeric value cannot be empty."
-                    self.valueInfoLabel.textColor = UIColor.red
-                    self.valueTextField.setBottomBorder(color: UIColor.red)
+                } else if value != nil, value!.isEmpty {
+                    self.markValueInfo(text: "* Numeric value cannot be empty.")
                     
                     isValueValidated = false
                 } else {
-                    self.valueInfoLabel.text = String()
-                    self.valueInfoLabel.textColor = UIColor.black
-                    self.valueTextField.setBottomBorder(color: UIColor.lightGray)
+                    self.unmarkValueInfo()
                     
                     value = value!.replacingOccurrences(of: ",", with: ".")
                     isValueValidated = true
@@ -143,6 +137,31 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         self.valueTextField.text = AppDateFormatter().getTimestampFromDate(date: sender.date)
     }
     
+    
+    private func markKeyInfo (text: String) {
+        self.keyInfoLabel.text = text
+        self.keyInfoLabel.textColor = UIColor.red
+        self.keyTextField.setBottomBorder(color: UIColor.red)
+    }
+    
+    private func markValueInfo (text: String) {
+        self.valueInfoLabel.text = text
+        self.valueInfoLabel.textColor = UIColor.red
+        self.valueTextField.setBottomBorder(color: UIColor.red)
+    }
+    
+    private func unmarkKeyInfo () {
+        self.keyInfoLabel.text = String()
+        self.keyInfoLabel.textColor = UIColor.black
+        self.keyTextField.setBottomBorder(color: UIColor.lightGray)
+    }
+        
+    private func unmarkValueInfo () {
+        self.valueInfoLabel.text = String()
+        self.valueInfoLabel.textColor = UIColor.black
+        self.valueTextField.setBottomBorder(color: UIColor.lightGray)
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -177,9 +196,13 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         self.keyTextField.setBottomBorder(color: UIColor.lightGray)
         self.keyTextField.resignFirstResponder()
         
+        self.unmarkKeyInfo()
+        
         self.valueTextField.text = String()
         self.valueTextField.setBottomBorder(color: UIColor.lightGray)
         self.valueTextField.resignFirstResponder()
+        
+        self.unmarkValueInfo()
         
         switch self.pickerData[row].lowercased() {
         case AttributeType.string.rawValue:
