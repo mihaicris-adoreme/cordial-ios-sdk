@@ -47,7 +47,7 @@ import Foundation
     }
     
     public required convenience init?(coder: NSCoder) {
-        let value = coder.decodeDouble(forKey: Key.value.rawValue)
+        let value = coder.decodeObject(forKey: Key.value.rawValue) as? Double
         
         self.init(value)
     }
