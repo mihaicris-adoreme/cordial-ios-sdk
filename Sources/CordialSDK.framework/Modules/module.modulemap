@@ -6,6 +6,6 @@ framework module CordialSDK {
 }
 
 module CordialSDK.Swift {
-    header "CordialSDK-Swift.h"
-    requires objc
+  header "CordialSDK-Swift.h"
+  requires objc
 }
