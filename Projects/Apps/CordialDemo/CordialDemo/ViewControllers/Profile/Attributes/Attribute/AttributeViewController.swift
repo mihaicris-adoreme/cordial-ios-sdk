@@ -16,6 +16,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var valueTextField: UITextField!
     @IBOutlet weak var valueInfoLabel: UILabel!
     @IBOutlet weak var booleanSwitch: UISwitch!
+    @IBOutlet weak var nullSwitch: UISwitch!
+    @IBOutlet weak var nullLabel: UILabel!
     @IBOutlet weak var attributeDatePicker: UIDatePicker!
     
     let segueToGeoIdentifier = "segueToGeo"
@@ -39,26 +41,29 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     @IBAction func addAttributeAction(_ sender: UIBarButtonItem) {
-        if let key = self.keyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), var value = self.valueTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines), let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+        if let key = self.keyTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+           let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            
+            var value = self.valueTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
             
             var isKeyValidated = false
             var isValueValidated = false
             
             if key.isEmpty {
-                self.keyInfoLabel.text = "* Key cannot be empty."
-                self.keyInfoLabel.textColor = UIColor.red
-                self.keyTextField.setBottomBorder(color: UIColor.red)
+                self.markKeyInfo(text: "* Key cannot be empty.")
             } else {
-                self.keyInfoLabel.text = String()
-                self.keyInfoLabel.textColor = UIColor.black
-                self.keyTextField.setBottomBorder(color: UIColor.lightGray)
-                
                 isKeyValidated = true
+                
+                self.unmarkKeyInfo()
             }
             
             switch self.attributeType {
             case AttributeType.string:
-                isValueValidated  = true
+                isValueValidated = true
+                
+                if self.nullSwitch.isOn {
+                    value = nil
+                }
             case AttributeType.boolean:
                 isValueValidated = true
                 
@@ -68,26 +73,34 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
                     value = "false"
                 }
             case AttributeType.numeric:
-                if value.isEmpty {
-                    self.valueInfoLabel.text = "* Numeric value cannot be empty."
-                    self.valueInfoLabel.textColor = UIColor.red
-                    self.valueTextField.setBottomBorder(color: UIColor.red)
+                isValueValidated = true
+                
+                if self.nullSwitch.isOn {
+                    value = nil
+                    self.unmarkValueInfo()
+                } else if value != nil, value!.isEmpty {
+                    self.markValueInfo(text: "* Numeric value cannot be empty.")
                     
                     isValueValidated = false
                 } else {
-                    self.valueInfoLabel.text = String()
-                    self.valueInfoLabel.textColor = UIColor.black
-                    self.valueTextField.setBottomBorder(color: UIColor.lightGray)
+                    self.unmarkValueInfo()
                     
-                    value = value.replacingOccurrences(of: ",", with: ".")
-                    isValueValidated = true
+                    value = value!.replacingOccurrences(of: ",", with: ".")
                 }
             case AttributeType.array:
                 isValueValidated = true
             case AttributeType.date:
-                let date = AppDateFormatter().getDateFromTimestamp(timestamp: value)!
-                value = CordialDateFormatter().getTimestampFromDate(date: date)
                 isValueValidated = true
+                
+                if self.nullSwitch.isOn {
+                    value = nil
+                } else if let date = AppDateFormatter().getDateFromTimestamp(timestamp: value!) {
+                    value = CordialDateFormatter().getTimestampFromDate(date: date)
+                } else {
+                    self.markValueInfo(text: "* Date value is not a date.")
+                    
+                    isValueValidated = false
+                }
             case AttributeType.geo:
                 break
             }
@@ -113,9 +126,58 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
     }
     
+    @IBAction func nullSwitchAction(_ sender: UISwitch) {
+        if self.nullSwitch.isOn {
+            self.nullSwitchOn(animated: true)
+        } else {
+            self.nullSwitchOff(animated: true)
+        }
+    }
+    
     @IBAction func attributeDatePickerAction(_ sender: UIDatePicker) {
         self.attributeDate = sender.date
         self.valueTextField.text = AppDateFormatter().getTimestampFromDate(date: sender.date)
+    }
+    
+    // MARK: NullSwitch
+    
+    private func nullSwitchOn(animated: Bool) {
+        self.nullSwitch.setOn(true, animated: animated)
+        self.valueTextField.text = String()
+        self.valueTextField.isUserInteractionEnabled = false
+    }
+    
+    private func nullSwitchOff(animated: Bool) {
+        self.nullSwitch.setOn(false, animated: animated)
+        self.valueTextField.isUserInteractionEnabled = true
+    }
+    
+    // MARK: KeyInfo
+    
+    private func markKeyInfo (text: String) {
+        self.keyInfoLabel.text = text
+        self.keyInfoLabel.textColor = UIColor.red
+        self.keyTextField.setBottomBorder(color: UIColor.red)
+    }
+    
+    private func unmarkKeyInfo () {
+        self.keyInfoLabel.text = String()
+        self.keyInfoLabel.textColor = UIColor.black
+        self.keyTextField.setBottomBorder(color: UIColor.lightGray)
+    }
+    
+    // MARK: ValueInfo
+
+    private func markValueInfo (text: String) {
+        self.valueInfoLabel.text = text
+        self.valueInfoLabel.textColor = UIColor.red
+        self.valueTextField.setBottomBorder(color: UIColor.red)
+    }
+        
+    private func unmarkValueInfo () {
+        self.valueInfoLabel.text = String()
+        self.valueInfoLabel.textColor = UIColor.black
+        self.valueTextField.setBottomBorder(color: UIColor.lightGray)
     }
     
     // MARK: - Navigation
@@ -149,12 +211,18 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        self.nullSwitchOff(animated: false)
+        
         self.keyTextField.setBottomBorder(color: UIColor.lightGray)
         self.keyTextField.resignFirstResponder()
+        
+        self.unmarkKeyInfo()
         
         self.valueTextField.text = String()
         self.valueTextField.setBottomBorder(color: UIColor.lightGray)
         self.valueTextField.resignFirstResponder()
+        
+        self.unmarkValueInfo()
         
         switch self.pickerData[row].lowercased() {
         case AttributeType.string.rawValue:
@@ -165,6 +233,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.valueTextField.isHidden = false
             self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = true
+            self.nullSwitch.isHidden = false
+            self.nullLabel.isHidden = false
             self.attributeDatePicker.isHidden = true
         case AttributeType.boolean.rawValue:
             self.attributeType = AttributeType.boolean
@@ -178,6 +248,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.valueTextField.isHidden = true
             self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = false
+            self.nullSwitch.isHidden = true
+            self.nullLabel.isHidden = true
             self.attributeDatePicker.isHidden = true
         case AttributeType.numeric.rawValue:
             self.attributeType = AttributeType.numeric
@@ -187,6 +259,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.valueTextField.isHidden = false
             self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = true
+            self.nullSwitch.isHidden = false
+            self.nullLabel.isHidden = false
             self.attributeDatePicker.isHidden = true
         case AttributeType.array.rawValue:
             self.attributeType = AttributeType.array
@@ -196,6 +270,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.valueTextField.isHidden = false
             self.valueTextField.isUserInteractionEnabled = true
             self.booleanSwitch.isHidden = true
+            self.nullSwitch.isHidden = true
+            self.nullLabel.isHidden = true
             self.attributeDatePicker.isHidden = true
         case AttributeType.date.rawValue:
             self.attributeType = AttributeType.date
@@ -205,6 +281,8 @@ class AttributeViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             self.valueTextField.isHidden = false
             self.valueTextField.isUserInteractionEnabled = false
             self.booleanSwitch.isHidden = true
+            self.nullSwitch.isHidden = false
+            self.nullLabel.isHidden = false
             self.attributeDatePicker.isHidden = false
             if let date = self.attributeDate {
                 self.valueTextField.text = AppDateFormatter().getTimestampFromDate(date: date)

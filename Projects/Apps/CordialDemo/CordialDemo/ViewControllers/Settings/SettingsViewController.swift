@@ -47,31 +47,31 @@ class SettingsViewController: UIViewController {
         let alertController = UIAlertController(title: "Settings", message: "Choose Preset", preferredStyle: .actionSheet)
 
         let qcAction = UIAlertAction(title: Settings.qc.rawValue, style: .default) { action in
-            App.setSavedSettingsType(settingsType: Settings.qc.rawValue)
+            App.setSettingsType(settingsType: Settings.qc.rawValue)
             
             self.updateSettingsPage()
         }
         
         let stagingAction = UIAlertAction(title: Settings.staging.rawValue, style: .default) { action in
-            App.setSavedSettingsType(settingsType: Settings.staging.rawValue)
+            App.setSettingsType(settingsType: Settings.staging.rawValue)
             
             self.updateSettingsPage()
         }
         
         let prodAction = UIAlertAction(title: Settings.production.rawValue, style: .default) { action in
-            App.setSavedSettingsType(settingsType: Settings.production.rawValue)
+            App.setSettingsType(settingsType: Settings.production.rawValue)
             
             self.updateSettingsPage()
         }
         
         let usWest2 = UIAlertAction(title: Settings.usWest2.rawValue, style: .default) { action in
-            App.setSavedSettingsType(settingsType: Settings.usWest2.rawValue)
+            App.setSettingsType(settingsType: Settings.usWest2.rawValue)
             
             self.updateSettingsPage()
         }
         
         let customAction = UIAlertAction(title: Settings.custom.rawValue, style: .default) { action in
-            App.setSavedSettingsType(settingsType: Settings.custom.rawValue)
+            App.setSettingsType(settingsType: Settings.custom.rawValue)
             
             self.updateSettingsPage()
         }
@@ -121,7 +121,7 @@ class SettingsViewController: UIViewController {
     }
     
     func updateSettingsPage() {
-        switch App.getSavedSettingsType() {
+        switch App.getSettingsType() {
         case Settings.qc.rawValue:
             self.title = Settings.qc.rawValue
             
