@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -360,6 +360,8 @@
 			dependencies = (
 			);
 			name = NotificationServiceExtension;
+			packageProductDependencies = (
+			);
 			productName = NotificationServiceExtension;
 			productReference = 9ED8B1EC2861D98F007D1959 /* NotificationServiceExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -377,6 +379,8 @@
 			dependencies = (
 			);
 			name = NotificationContentExtension;
+			packageProductDependencies = (
+			);
 			productName = NotificationContentExtension;
 			productReference = 9EFDDBA9280355800049D2E4 /* NotificationContentExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -426,6 +430,8 @@
 				Base,
 			);
 			mainGroup = 9E65C8E422EF1A1200E30F53;
+			packageReferences = (
+			);
 			productRefGroup = 9E65C8EE22EF1A1200E30F53 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

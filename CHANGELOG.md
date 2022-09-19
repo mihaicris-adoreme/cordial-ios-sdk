@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.1.0 (2022-09-19)
+
+### Added
+
+- Ability to set `String`, `Numeric`, and `Date` attributes to null 
+
 ## 4.0.3 (2022-09-07)
 
 ### Added

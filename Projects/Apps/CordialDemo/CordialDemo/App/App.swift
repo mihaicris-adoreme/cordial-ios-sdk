@@ -132,11 +132,11 @@ struct App {
         UserDefaults.standard.set(false, forKey: USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
     }
     
-    static func setSavedSettingsType(settingsType: String) {
+    static func setSettingsType(settingsType: String) {
         UserDefaults.standard.set(settingsType, forKey: USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE)
     }
     
-    static func getSavedSettingsType() -> String {
+    static func getSettingsType() -> String {
         switch UserDefaults.standard.string(forKey: USER_DEFAULTS_KEY_FOR_SAVE_SETTINGS_TYPE) {
         case Settings.qc.rawValue:
             return Settings.qc.rawValue
