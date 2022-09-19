@@ -44,6 +44,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewWillAppear(_ animated: Bool) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            
             self.attributes = AppDataManager.shared.attributes.getAttributesFromCoreData(appDelegate: appDelegate)
             self.tableView.tableFooterView = UIView(frame: .zero)
             self.tableView.reloadData()
@@ -89,11 +90,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         switch attribute.type {
         case AttributeType.date:
-            let date = CordialDateFormatter().getDateFromTimestamp(timestamp: valueString)!
-            let dateString = AppDateFormatter().getTimestampFromDate(date: date)
-            value = NSAttributedString(string: dateString, attributes: valueAttributes)
+            if let date = CordialDateFormatter().getDateFromTimestamp(timestamp: valueString) {
+                let dateString = AppDateFormatter().getTimestampFromDate(date: date)
+                value = NSAttributedString(string: dateString, attributes: valueAttributes)
+            }
         case AttributeType.geo:
-            if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let geoAttribute = AppDataManager.shared.geoAttributes.getGeoAttributeFromCoreDataByKey(appDelegate: appDelegate, key: attribute.key) {
+            if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+               let geoAttribute = AppDataManager.shared.geoAttributes.getGeoAttributeFromCoreDataByKey(appDelegate: appDelegate, key: attribute.key) {
                 
                 let cityTitle = NSAttributedString(string: "City: ", attributes: titleAttributes)
                 let countryTitle = NSAttributedString(string: "Country: ", attributes: titleAttributes)
@@ -159,7 +162,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == UITableViewCell.EditingStyle.delete, let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+        if editingStyle == UITableViewCell.EditingStyle.delete,
+           let appDelegate = UIApplication.shared.delegate as? AppDelegate {
             
             let attribute = self.attributes[indexPath.row]
             
