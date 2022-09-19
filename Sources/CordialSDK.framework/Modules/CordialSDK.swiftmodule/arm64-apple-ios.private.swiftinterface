@@ -69,6 +69,13 @@ extension CordialSDK.InAppMessagesCache {
   @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
   @objc deinit
 }
+@objc public class StringValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
+  final public let value: Swift.String?
+  @objc public init(_ value: Swift.String?)
+  @objc public func encode(with coder: Foundation.NSCoder)
+  @objc required convenience public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
 @_inheritsConvenienceInitializers @objc(InAppMessagesParam) public class InAppMessagesParam : CoreData.NSManagedObject {
   @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
   @objc deinit
@@ -201,66 +208,6 @@ extension CordialSDK.InAppMessagesRelated {
   @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
   @objc deinit
 }
-@objc public protocol AttributeValue {
-}
-@objc public class NumericValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
-  final public let value: Swift.Double
-  public init(_ value: Swift.Double)
-  public init(_ value: Swift.Int)
-  @objc public init(doubleValue: Swift.Double)
-  @objc public init(intValue: Swift.Int)
-  @objc public func encode(with coder: Foundation.NSCoder)
-  @objc required convenience public init?(coder: Foundation.NSCoder)
-  @objc deinit
-}
-@objc public class BooleanValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
-  final public let value: Swift.Bool
-  @objc public init(_ value: Swift.Bool)
-  @objc public func encode(with coder: Foundation.NSCoder)
-  @objc required convenience public init?(coder: Foundation.NSCoder)
-  @objc deinit
-}
-@objc public class ArrayValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
-  final public let value: [Swift.String]
-  @objc public init(_ value: [Swift.String])
-  @objc public func encode(with coder: Foundation.NSCoder)
-  @objc required convenience public init?(coder: Foundation.NSCoder)
-  @objc deinit
-}
-@objc public class StringValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
-  final public let value: Swift.String
-  @objc public init(_ value: Swift.String)
-  @objc public func encode(with coder: Foundation.NSCoder)
-  @objc required convenience public init?(coder: Foundation.NSCoder)
-  @objc deinit
-}
-@objc public class DateValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
-  final public let value: Foundation.Date
-  @objc public init(_ value: Foundation.Date)
-  @objc public func encode(with coder: Foundation.NSCoder)
-  @objc required convenience public init?(coder: Foundation.NSCoder)
-  @objc deinit
-}
-@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class GeoValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
-  @objc override dynamic public init()
-  @objc public func setCity(_ city: Swift.String)
-  @objc public func setCountry(_ country: Swift.String)
-  @objc public func setPostalCode(_ postalCode: Swift.String)
-  @objc public func setState(_ state: Swift.String)
-  @objc public func setStreetAddress(_ streetAddress: Swift.String)
-  @objc public func setStreetAddress2(_ streetAddress2: Swift.String)
-  @objc public func setTimeZone(_ timeZone: Swift.String)
-  public func getCity() -> Swift.String
-  public func getCountry() -> Swift.String
-  public func getPostalCode() -> Swift.String
-  public func getState() -> Swift.String
-  public func getStreetAddress() -> Swift.String
-  public func getStreetAddress2() -> Swift.String
-  public func getTimeZone() -> Swift.String
-  @objc public func encode(with coder: Foundation.NSCoder)
-  @objc required convenience public init?(coder: Foundation.NSCoder)
-  @objc deinit
-}
 @objc @_inheritsConvenienceInitializers open class RequestSender : ObjectiveC.NSObject {
   open func sendRequest(task: Foundation.URLSessionDownloadTask)
   @objc override dynamic public init()
@@ -316,6 +263,8 @@ extension CordialSDK.InboxMessagesContent {
     @objc get
     @objc set
   }
+}
+@objc public protocol AttributeValue {
 }
 @_hasMissingDesignatedInitializers @objc public class Order : ObjectiveC.NSObject, Foundation.NSCoding {
   @objc convenience public init(orderID: Swift.String, status: Swift.String, storeID: Swift.String, customerID: Swift.String, shippingAddress: CordialSDK.Address, billingAddress: CordialSDK.Address, items: [CordialSDK.CartItem], taxNumber: Foundation.NSNumber?, shippingAndHandling: Foundation.NSNumber?, properties: Swift.Dictionary<Swift.String, Any>?)
@@ -455,6 +404,19 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   @objc required convenience public init?(coder aDecoder: Foundation.NSCoder)
   @objc deinit
 }
+@objc public class NumericValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
+  final public let value: Swift.Double?
+  public init(_ value: Swift.Double?)
+  public init(_ value: Swift.Int?)
+  @objc public init(numberValue: Foundation.NSNumber?)
+  @available(*, deprecated, message: "Use `initWithNumberValue` instead")
+  @objc public init(doubleValue: Swift.Double)
+  @available(*, deprecated, message: "Use `initWithNumberValue` instead")
+  @objc public init(intValue: Swift.Int)
+  @objc public func encode(with coder: Foundation.NSCoder)
+  @objc required convenience public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
 @objc public protocol InAppMessageInputsDelegate {
   @objc func inputsCaptured(eventName: Swift.String, properties: Swift.Dictionary<Swift.String, Any>)
 }
@@ -471,6 +433,13 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   @objc func appOpenViaNotificationTap(notificationContent: [Swift.AnyHashable : Any])
   @objc func notificationDeliveredInForeground(notificationContent: [Swift.AnyHashable : Any])
   @objc func apnsTokenReceived(token: Swift.String)
+}
+@objc public class BooleanValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
+  final public let value: Swift.Bool
+  @objc public init(_ value: Swift.Bool)
+  @objc public func encode(with coder: Foundation.NSCoder)
+  @objc required convenience public init?(coder: Foundation.NSCoder)
+  @objc deinit
 }
 @_inheritsConvenienceInitializers @objc public class CordialPushNotificationHandler : ObjectiveC.NSObject {
   @objc public func isCordialMessage(userInfo: [Swift.AnyHashable : Any]) -> Swift.Bool
@@ -537,6 +506,26 @@ public enum osLogLevel : Swift.String {
   @objc final public let systemError: Swift.Error?
   @objc convenience public init(message: Swift.String, statusCodeNumber: Foundation.NSNumber?, responseBody: Swift.String?, systemError: Swift.Error?)
   public init(message: Swift.String, statusCode: Swift.Int?, responseBody: Swift.String?, systemError: Swift.Error?)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class GeoValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
+  @objc override dynamic public init()
+  @objc public func setCity(_ city: Swift.String)
+  @objc public func setCountry(_ country: Swift.String)
+  @objc public func setPostalCode(_ postalCode: Swift.String)
+  @objc public func setState(_ state: Swift.String)
+  @objc public func setStreetAddress(_ streetAddress: Swift.String)
+  @objc public func setStreetAddress2(_ streetAddress2: Swift.String)
+  @objc public func setTimeZone(_ timeZone: Swift.String)
+  public func getCity() -> Swift.String
+  public func getCountry() -> Swift.String
+  public func getPostalCode() -> Swift.String
+  public func getState() -> Swift.String
+  public func getStreetAddress() -> Swift.String
+  public func getStreetAddress2() -> Swift.String
+  public func getTimeZone() -> Swift.String
+  @objc public func encode(with coder: Foundation.NSCoder)
+  @objc required convenience public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
 @_inheritsConvenienceInitializers @objc(ContactLogout) public class ContactLogout : CoreData.NSManagedObject {
@@ -706,6 +695,13 @@ public class CordialSwiftUIPushNotificationPublisher : Foundation.ObservableObje
   public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
   @objc deinit
 }
+@objc public class DateValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
+  final public let value: Foundation.Date?
+  @objc public init(_ value: Foundation.Date?)
+  @objc public func encode(with coder: Foundation.NSCoder)
+  @objc required convenience public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
 extension CordialSDK.ContactCartRequest {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.ContactCartRequest>
   @objc @NSManaged dynamic public var data: Foundation.NSData? {
@@ -817,6 +813,13 @@ public struct CordialSwiftUIDeepLinks {
   public let deepLink: CordialSDK.CordialDeepLink
   public let fallbackURL: Foundation.URL?
   public let completionHandler: (CordialSDK.CordialDeepLinkActionType) -> Swift.Void
+}
+@objc public class ArrayValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
+  final public let value: [Swift.String]
+  @objc public init(_ value: [Swift.String])
+  @objc public func encode(with coder: Foundation.NSCoder)
+  @objc required convenience public init?(coder: Foundation.NSCoder)
+  @objc deinit
 }
 extension CordialSDK.InboxMessagesReadUnreadMarks {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.InboxMessagesReadUnreadMarks>

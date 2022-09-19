@@ -568,7 +568,7 @@ SWIFT_CLASS_NAMED("CustomEventRequest")
 
 SWIFT_CLASS("_TtC10CordialSDK9DateValue")
 @interface DateValue : NSObject <AttributeValue, NSCoding>
-- (nonnull instancetype)init:(NSDate * _Nonnull)value OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init:(NSDate * _Nullable)value OBJC_DESIGNATED_INITIALIZER;
 - (void)encodeWithCoder:(NSCoder * _Nonnull)coder;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -847,8 +847,9 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _
 
 SWIFT_CLASS("_TtC10CordialSDK12NumericValue")
 @interface NumericValue : NSObject <AttributeValue, NSCoding>
-- (nonnull instancetype)initWithDoubleValue:(double)doubleValue OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithIntValue:(NSInteger)intValue OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithNumberValue:(NSNumber * _Nullable)numberValue OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithDoubleValue:(double)doubleValue OBJC_DESIGNATED_INITIALIZER SWIFT_DEPRECATED_MSG("Use `initWithNumberValue` instead");
+- (nonnull instancetype)initWithIntValue:(NSInteger)intValue OBJC_DESIGNATED_INITIALIZER SWIFT_DEPRECATED_MSG("Use `initWithNumberValue` instead");
 - (void)encodeWithCoder:(NSCoder * _Nonnull)coder;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
@@ -898,7 +899,7 @@ SWIFT_CLASS("_TtC10CordialSDK13ResponseError")
 
 SWIFT_CLASS("_TtC10CordialSDK11StringValue")
 @interface StringValue : NSObject <AttributeValue, NSCoding>
-- (nonnull instancetype)init:(NSString * _Nonnull)value OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)init:(NSString * _Nullable)value OBJC_DESIGNATED_INITIALIZER;
 - (void)encodeWithCoder:(NSCoder * _Nonnull)coder;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
