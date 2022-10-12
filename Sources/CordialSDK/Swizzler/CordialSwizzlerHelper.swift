@@ -48,6 +48,10 @@ class CordialSwizzlerHelper {
                 }
             }
         }
+        
+        if pushNotificationParser.isPayloadContainCarusel(userInfo: userInfo) {
+            // TODO
+        }
     }
     
     func didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: Data) {

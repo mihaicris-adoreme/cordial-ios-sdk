@@ -13,7 +13,8 @@ class CordialPushNotificationParser {
     private let deepLinksParser = CordialPushNotificationParserDeepLinks()
     private let messageAttributionParser = CordialPushNotificationParserMessageAttribution()
     private let inAppMessageParser = CordialPushNotificationParserInAppMessage()
-    private let pushNotificationParserInboxMessage = CordialPushNotificationParserInboxMessage()
+    private let inboxMessageParser = CordialPushNotificationParserInboxMessage()
+    private let caruselParser = CordialPushNotificationParserCarusel()
     
     // MARK: Get deep link URL
     
@@ -100,7 +101,13 @@ class CordialPushNotificationParser {
     // MARK: Is payload contain inbox message
     
     func isPayloadContainInboxMessage(userInfo: [AnyHashable : Any]) -> Bool {
-        return self.pushNotificationParserInboxMessage.isPayloadContainInboxMessageCurrentPayloadType(userInfo: userInfo)
+        return self.inboxMessageParser.isPayloadContainInboxMessageCurrentPayloadType(userInfo: userInfo)
+    }
+    
+    // MARK: Is payload contain carusel
+    
+    func isPayloadContainCarusel(userInfo: [AnyHashable : Any]) -> Bool {
+        return self.caruselParser.isPayloadContainCaruselCurrentPayloadType(userInfo: userInfo)
     }
 }
 
