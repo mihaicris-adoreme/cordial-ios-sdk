@@ -104,10 +104,10 @@ class CordialPushNotificationParser {
         return self.inboxMessageParser.isPayloadContainInboxMessageCurrentPayloadType(userInfo: userInfo)
     }
     
-    // MARK: Is payload contain carusel
+    // MARK: Get push notification carousel
     
-    func isPayloadContainCarusel(userInfo: [AnyHashable : Any]) -> Bool {
-        return self.caruselParser.isPayloadContainCaruselCurrentPayloadType(userInfo: userInfo)
+    func getPushNotificationCarousel(userInfo: [AnyHashable : Any]) -> [CordialPushNotificationCarusel] {
+        return self.caruselParser.getPushNotificationCarouselCurrentPayloadType(userInfo: userInfo)
     }
 }
 

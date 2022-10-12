@@ -10,16 +10,26 @@ import Foundation
 
 class CordialPushNotificationParserCarusel {
     
-    // MARK: Is payload contain carusel
+    // MARK: Get push notification carousel
     
-    func isPayloadContainCaruselCurrentPayloadType(userInfo: [AnyHashable : Any]) -> Bool {
-        if let carousel = userInfo["carousel"] as? [AnyObject],
-           !carousel.isEmpty {
-            
-            return true
+    func getPushNotificationCarouselCurrentPayloadType(userInfo: [AnyHashable : Any]) -> [CordialPushNotificationCarusel] {
+        var carousels = [CordialPushNotificationCarusel]()
+        
+        if let carousel = userInfo["carousel"] as? [AnyObject] {
+            carousel.forEach { data in
+                guard let carouselData = data as? [String: String] else { return }
+                
+                guard let imageURLString = carouselData["imageURL"] else { return }
+                guard let imageURL = URL(string: imageURLString) else { return }
+                
+                guard let deepLinkString = carouselData["deepLink"] else { return }
+                guard let deepLink = URL(string: deepLinkString) else { return }
+                
+                let carousel = CordialPushNotificationCarusel(imageURL: imageURL, deepLink: deepLink)
+                carousels.append(carousel)
+            }
         }
         
-        return false
+        return carousels
     }
-    
 }
