@@ -40,7 +40,7 @@ class CoreDataManager {
     lazy var persistentContainer: NSPersistentContainer? = {
     
         if let managedObjectModel = self.getManagedObjectModel() {
-            let container = NSPersistentContainer(name: self.modelName, managedObjectModel: managedObjectModel)
+            let container = CoreDataContainer(name: self.modelName, managedObjectModel: managedObjectModel)
             
             let description = NSPersistentStoreDescription()
 
@@ -64,17 +64,9 @@ class CoreDataManager {
     }()
     
     private func getManagedObjectModel() -> NSManagedObjectModel? {
-        guard let resourceBundle = InternalCordialAPI().getResourceBundle() else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [Could not get bundle that contains the model]", log: OSLog.cordialCoreDataError, type: .error)
-            }
-            
-            return nil
-        }
+        guard let resourceBundleURL = InternalCordialAPI().getResourceBundleURL(forResource: self.modelName, withExtension: "momd") else { return nil }
         
-        guard let modelURL = resourceBundle.url(forResource: self.modelName, withExtension: "momd"),
-            let model = NSManagedObjectModel(contentsOf: modelURL) else {
-                
+        guard let model = NSManagedObjectModel(contentsOf: resourceBundleURL) else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("CoreData Error: [Could not get bundle for managed object model]", log: OSLog.cordialCoreDataError, type: .error)
             }

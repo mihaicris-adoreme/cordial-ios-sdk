@@ -38,6 +38,7 @@
 		9E1B0D2D2379C1520010B86E /* InAppMessageDelayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */; };
 		9E1B0D2F2379CE510010B86E /* InAppMessageDelayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1B0D2E2379CE510010B86E /* InAppMessageDelayType.swift */; };
 		9E1D8CC922D7656F00CD9CDD /* InAppMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */; };
+		9E245DAA28F85D8700A86E75 /* CoreDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E245DA928F85D8700A86E75 /* CoreDataContainer.swift */; };
 		9E2BCB7B251D289B00C21E04 /* InboxMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2BCB7A251D289B00C21E04 /* InboxMessageDelegate.swift */; };
 		9E2BCB7F251D35A100C21E04 /* CordialPushNotificationParserInboxMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2BCB7E251D35A100C21E04 /* CordialPushNotificationParserInboxMessage.swift */; };
 		9E31E78222CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E31E77E22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift */; };
@@ -353,6 +354,7 @@
 		9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDelayMode.swift; sourceTree = "<group>"; };
 		9E1B0D2E2379CE510010B86E /* InAppMessageDelayType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDelayType.swift; sourceTree = "<group>"; };
 		9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageType.swift; sourceTree = "<group>"; };
+		9E245DA928F85D8700A86E75 /* CoreDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContainer.swift; sourceTree = "<group>"; };
 		9E2BCB7A251D289B00C21E04 /* InboxMessageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageDelegate.swift; sourceTree = "<group>"; };
 		9E2BCB7E251D35A100C21E04 /* CordialPushNotificationParserInboxMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationParserInboxMessage.swift; sourceTree = "<group>"; };
 		9E31E77E22CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InAppMessagesQueue+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -837,6 +839,7 @@
 				9EDB6DF82289D4C300A77BBE /* ManagedObjects */,
 				9EBE675B22731E920065AA06 /* Helper */,
 				9E565B94225B9E47005EC4AF /* CoreDataManager.swift */,
+				9E245DA928F85D8700A86E75 /* CoreDataContainer.swift */,
 				9EF0B3472361C7CD00641411 /* CoreDataSender.swift */,
 				9E565B9D225BD1A4005EC4AF /* CoreDataModel.xcdatamodeld */,
 			);
@@ -1753,6 +1756,7 @@
 				9E474891275E6BE600FEC358 /* InAppMessagesRelatedCoreData.swift in Sources */,
 				9EB17AC022930D7B00EEAB7D /* ContactOrderRequest+CoreDataProperties.swift in Sources */,
 				9E6D1E25250A710C00940363 /* InboxMessageDeleteRequest.swift in Sources */,
+				9E245DAA28F85D8700A86E75 /* CoreDataContainer.swift in Sources */,
 				9E7DF22B24F93F7E005533A7 /* InboxMessage.swift in Sources */,
 				9EAA8D5B25FB7FD500E4A691 /* ContactTimestampURL.swift in Sources */,
 				9ED621DB22CE017E00A55DB2 /* InAppMessagesCacheCoreData.swift in Sources */,

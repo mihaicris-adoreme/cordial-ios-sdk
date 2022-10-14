@@ -10,7 +10,7 @@ import Foundation
 
 struct CordialGroupUserDefaults {
     
-    private static let cordialUserDefaults = UserDefaults.init(suiteName: "group.cordial.sdk")
+    private static let cordialUserDefaults = UserDefaults.init(suiteName: API.SECURITY_APPLICATION_GROUP_IDENTIFIER)
     
     static func stringArray(forKey key: String) -> [String]? {
         return self.cordialUserDefaults?.stringArray(forKey: key)

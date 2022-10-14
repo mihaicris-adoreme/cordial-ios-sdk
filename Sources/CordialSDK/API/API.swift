@@ -59,6 +59,8 @@ struct API {
     
     static let BACKGROUND_URL_SESSION_IDENTIFIER = "CordialSDKBackgroundURLSession"
     
+    static let SECURITY_APPLICATION_GROUP_IDENTIFIER = "group.cordial.sdk"
+    
     static let IAM_WEB_VIEW_BASE_URL = "IAM_WEB_VIEW_BASE_URL"
     
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"

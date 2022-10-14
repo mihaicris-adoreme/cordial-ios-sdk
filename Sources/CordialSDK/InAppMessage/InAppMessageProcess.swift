@@ -25,23 +25,7 @@ class InAppMessageProcess {
     let bannerAnimationDuration = 1.0
     
     func getInAppMessageJS() -> String? {
-        
-        guard let resourceBundle = InternalCordialAPI().getResourceBundle() else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("IAM Error: [Could not get bundle that contains InAppMessage.js file]", log: OSLog.cordialInAppMessage, type: .error)
-            }
-            
-            return nil
-        }
-        
-        guard let resourceBundleURL = resourceBundle.url(forResource: "InAppMessage", withExtension: "js") else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("IAM Error: [Could not get bundle url for file InAppMessage.js", log: OSLog.cordialInAppMessage, type: .error)
-            }
-            
-            return nil
-        }
-        
+        guard let resourceBundleURL = InternalCordialAPI().getResourceBundleURL(forResource: "InAppMessage", withExtension: "js") else { return nil }
 
         do {
             let contents = try String(contentsOfFile: resourceBundleURL.path)
