@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E44588C29008218003D5384 /* ResourceBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44588A29008218003D5384 /* ResourceBundle.swift */; };
 		9E44588D29008218003D5384 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44588B29008218003D5384 /* API.swift */; };
 		9E44589329008247003D5384 /* CoreDataGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44588F29008247003D5384 /* CoreDataGroupManager.swift */; };
 		9E44589529008247003D5384 /* TestCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44589129008247003D5384 /* TestCoreData.swift */; };
@@ -35,7 +34,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9E44588A29008218003D5384 /* ResourceBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceBundle.swift; sourceTree = "<group>"; };
 		9E44588B29008218003D5384 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9E44588F29008247003D5384 /* CoreDataGroupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataGroupManager.swift; sourceTree = "<group>"; };
 		9E44589129008247003D5384 /* TestCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreData.swift; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 		9E44588929008218003D5384 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				9E44588A29008218003D5384 /* ResourceBundle.swift */,
 				9E44588B29008218003D5384 /* API.swift */,
 			);
 			path = API;
@@ -301,7 +298,6 @@
 				9E62495327FC86DA0052E43E /* CarouselNotificationExtension.swift in Sources */,
 				9E62495027FC86DA0052E43E /* Carousel.swift in Sources */,
 				9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */,
-				9E44588C29008218003D5384 /* ResourceBundle.swift in Sources */,
 				9E44588D29008218003D5384 /* API.swift in Sources */,
 				9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */,
 				9E62495427FC86DA0052E43E /* CarouselGroupUserDefaults.swift in Sources */,

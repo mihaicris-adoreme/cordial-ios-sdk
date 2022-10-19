@@ -58,7 +58,7 @@ class CoreDataGroupManager {
                                                               options: nil)
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [Unable to load persistent store coordinator.], Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription)
+                os_log("CoreData Error: [Unable to load persistent store coordinator], Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription)
             }
             
             return nil
