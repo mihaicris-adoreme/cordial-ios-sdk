@@ -40,7 +40,7 @@ class CoreDataManager {
     lazy var persistentContainer: NSPersistentContainer? = {
     
         if let managedObjectModel = self.getManagedObjectModel() {
-            let container = CoreDataContainer(name: self.modelName, managedObjectModel: managedObjectModel)
+            let container = NSPersistentContainer(name: self.modelName, managedObjectModel: managedObjectModel)
             
             let description = NSPersistentStoreDescription()
 

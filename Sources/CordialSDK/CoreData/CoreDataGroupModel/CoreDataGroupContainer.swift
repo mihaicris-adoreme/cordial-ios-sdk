@@ -1,5 +1,5 @@
 //
-//  CoreDataContainer.swift
+//  CoreDataGroupContainer.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 13.10.2022.
@@ -9,12 +9,12 @@
 import Foundation
 import CoreData
 
-class CoreDataContainer: NSPersistentContainer {
+class CoreDataGroupContainer: NSPersistentContainer {
     
     override class func defaultDirectoryURL() -> URL {
         let storeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: API.SECURITY_APPLICATION_GROUP_IDENTIFIER)!
         
-        return storeURL.appendingPathComponent("\(CoreDataManager.shared.modelName).sqlite")
+        return storeURL.appendingPathComponent("\(CoreDataGroupManager.shared.modelName).sqlite")
     }
 
 }
