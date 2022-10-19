@@ -45,12 +45,11 @@ class CoreDataGroupManager {
         
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
 
-        let fileManager = FileManager.default
         let storeName = "\(self.modelName).sqlite"
 
-        let documentsDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-
-        let persistentStoreURL = documentsDirectoryURL.appendingPathComponent(storeName)
+        let storeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: API.SECURITY_APPLICATION_GROUP_IDENTIFIER)
+        
+        let persistentStoreURL = storeURL?.appendingPathComponent(storeName)
 
         do {
             try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType,
@@ -59,7 +58,7 @@ class CoreDataGroupManager {
                                                               options: nil)
         } catch let error {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Unable to load persistent store coordinator. Error: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription)
+                os_log("CoreData Error: [Unable to load persistent store coordinator.], Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription)
             }
             
             return nil
