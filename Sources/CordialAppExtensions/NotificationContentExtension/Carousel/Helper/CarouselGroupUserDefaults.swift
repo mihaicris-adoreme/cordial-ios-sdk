@@ -10,7 +10,7 @@ import Foundation
 
 struct CarouselGroupUserDefaults {
     
-    private static let carouselGroupUserDefaults = UserDefaults.init(suiteName: "group.cordial.sdk")
+    private static let carouselGroupUserDefaults = UserDefaults.init(suiteName: API.SECURITY_APPLICATION_GROUP_IDENTIFIER)
 
     static func set(_ value: Any?, forKey key: String) {
         self.carouselGroupUserDefaults?.set(value, forKey: key)

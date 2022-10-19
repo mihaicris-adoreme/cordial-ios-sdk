@@ -53,6 +53,10 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
         if self.isCarouselReady {
             switch response.actionIdentifier {
             case "\(categoryIdentifier).next":
+                
+                // TMP: TestCoreData
+                TestCoreData().test()
+                
                 self.scrollNextItem()
                 completion(.doNotDismiss)
             case "\(categoryIdentifier).previous":
