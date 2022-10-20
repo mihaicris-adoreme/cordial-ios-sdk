@@ -54,8 +54,10 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
             switch response.actionIdentifier {
             case "\(categoryIdentifier).next":
                 
-                // TMP: TestCoreData
-                TestCoreData().test()
+                // TMP: Test AppGroup CoreData
+                if let currentTimestamp = TestGroupModelCoreData().getTestGroupModelToCoreData() {
+                    os_log("CordialSDK_AppExtensions: %{public}@", log: .default, type: .error, currentTimestamp)
+                }
                 
                 self.scrollNextItem()
                 completion(.doNotDismiss)

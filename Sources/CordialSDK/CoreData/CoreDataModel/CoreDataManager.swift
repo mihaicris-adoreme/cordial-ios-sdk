@@ -52,7 +52,7 @@ class CoreDataManager {
             container.loadPersistentStores(completionHandler: { (storeDescription, error) in
                 if let error = error as NSError? {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("CoreData Unresolved Error: [%{public}@], Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, error.userInfo)
+                        os_log("CoreData Unresolved Error: [%{public}@] Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, error.userInfo)
                     }
                  }
             })

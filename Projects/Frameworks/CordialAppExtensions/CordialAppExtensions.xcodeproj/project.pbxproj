@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9E44588D29008218003D5384 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44588B29008218003D5384 /* API.swift */; };
 		9E44589329008247003D5384 /* CoreDataGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44588F29008247003D5384 /* CoreDataGroupManager.swift */; };
-		9E44589529008247003D5384 /* TestCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44589129008247003D5384 /* TestCoreData.swift */; };
 		9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494427FC86DA0052E43E /* CordialNotificationContentExtension.swift */; };
 		9E62495027FC86DA0052E43E /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494727FC86DA0052E43E /* Carousel.swift */; };
 		9E62495127FC86DA0052E43E /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494927FC86DA0052E43E /* CarouselView.swift */; };
@@ -18,6 +17,7 @@
 		9E62495427FC86DA0052E43E /* CarouselGroupUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */; };
 		9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */; };
 		9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */; };
+		9E7EE84A2901469C007C656B /* TestGroupModelCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EE8492901469C007C656B /* TestGroupModelCoreData.swift */; };
 		9EBD746A2287884700EC93EF /* CordialAppExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD74602287884600EC93EF /* CordialAppExtensions.framework */; };
 		9EBD746F2287884700EC93EF /* CordialAppExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD746E2287884700EC93EF /* CordialAppExtensionsTests.swift */; };
 		9EBD74712287884700EC93EF /* CordialAppExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EBD74632287884600EC93EF /* CordialAppExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -36,7 +36,6 @@
 /* Begin PBXFileReference section */
 		9E44588B29008218003D5384 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9E44588F29008247003D5384 /* CoreDataGroupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataGroupManager.swift; sourceTree = "<group>"; };
-		9E44589129008247003D5384 /* TestCoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestCoreData.swift; sourceTree = "<group>"; };
 		9E62494427FC86DA0052E43E /* CordialNotificationContentExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordialNotificationContentExtension.swift; sourceTree = "<group>"; };
 		9E62494727FC86DA0052E43E /* Carousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
 		9E62494927FC86DA0052E43E /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
@@ -45,6 +44,7 @@
 		9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselGroupUserDefaults.swift; sourceTree = "<group>"; };
 		9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselNotificationParser.swift; sourceTree = "<group>"; };
 		9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialNotificationServiceExtension.swift; sourceTree = "<group>"; };
+		9E7EE8492901469C007C656B /* TestGroupModelCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGroupModelCoreData.swift; sourceTree = "<group>"; };
 		9EBD74602287884600EC93EF /* CordialAppExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CordialAppExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBD74632287884600EC93EF /* CordialAppExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CordialAppExtensions.h; path = ../../Projects/Frameworks/CordialAppExtensions/CordialAppExtensions.h; sourceTree = "<group>"; };
 		9EBD74642287884600EC93EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../Projects/Frameworks/CordialAppExtensions/Info.plist; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				9E44588F29008247003D5384 /* CoreDataGroupManager.swift */,
-				9E44589129008247003D5384 /* TestCoreData.swift */,
+				9E7EE8492901469C007C656B /* TestGroupModelCoreData.swift */,
 			);
 			path = CoreDataGroupModel;
 			sourceTree = "<group>";
@@ -294,7 +294,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E44589529008247003D5384 /* TestCoreData.swift in Sources */,
 				9E62495327FC86DA0052E43E /* CarouselNotificationExtension.swift in Sources */,
 				9E62495027FC86DA0052E43E /* Carousel.swift in Sources */,
 				9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */,
@@ -302,6 +301,7 @@
 				9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */,
 				9E62495427FC86DA0052E43E /* CarouselGroupUserDefaults.swift in Sources */,
 				9E62495127FC86DA0052E43E /* CarouselView.swift in Sources */,
+				9E7EE84A2901469C007C656B /* TestGroupModelCoreData.swift in Sources */,
 				9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */,
 				9E62495227FC86DA0052E43E /* CarouselCell.swift in Sources */,
 				9E44589329008247003D5384 /* CoreDataGroupManager.swift in Sources */,

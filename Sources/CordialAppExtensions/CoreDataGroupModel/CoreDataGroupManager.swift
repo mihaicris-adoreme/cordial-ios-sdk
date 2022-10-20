@@ -41,9 +41,12 @@ class CoreDataGroupManager {
             try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType,
                                                               configurationName: nil,
                                                               at: persistentStoreURL,
-                                                              options: nil)
+                                                              options: [
+                                                                NSMigratePersistentStoresAutomaticallyOption: true,
+                                                                NSInferMappingModelAutomaticallyOption: true
+                                                              ])
         } catch let error {
-            os_log("CordialSDK_AppExtensions: Error [Unable to load CoreData persistent store coordinator], Info: %{public}@", log: .default, type: .error, error.localizedDescription)
+            os_log("CordialSDK_AppExtensions: Error [Unable to load CoreData persistent store coordinator] Info: %{public}@", log: .default, type: .error, error.localizedDescription)
             
             return nil
         }

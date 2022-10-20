@@ -40,6 +40,9 @@ class ProductViewController: InAppMessageDelayViewController {
         nameLabel.text = product.name
         priceLabel.text = "$ \(product.price)"
         descriptionLabel.text = product.shortDescription
+        
+        // TMP: Test AppGroup CoreData
+        TestGroupModelCoreData().setTestGroupModelToCoreData(value: CordialDateFormatter().getCurrentTimestamp())
     }
     
     override func viewWillAppear(_ animated: Bool) {
