@@ -75,6 +75,9 @@ class UpsertContacts {
     }
     
     private func getAttributesJSON(attributes: Dictionary<String, AttributeValue>) -> String {
+        // TMP
+        let preparedAttributes = self.getPreparedAttributes(attributes: attributes)
+        
         var container = [String]()
         
         attributes.forEach { (key: String, value: AttributeValue) in
@@ -121,6 +124,32 @@ class UpsertContacts {
         let stringContainer = container.joined(separator: ", ")
         
         return "{ \(stringContainer) }"
+    }
+    
+    private func getPreparedAttributes(attributes: Dictionary<String, AttributeValue>) -> Dictionary<String, AttributeValue> {
+        var preparedAttributes: Dictionary<String, AttributeValue> = [:]
+        
+        attributes.forEach { (key: String, value: AttributeValue) in
+            let keys = key.components(separatedBy: ".")
+            if !keys.isEmpty {
+                var objectValues = JSONObjectValues([:])
+                
+                for (index, item) in keys.reversed().enumerated() {
+                    if index == 0 {
+                        let objectValue = JSONObjectValue([item: value])
+                        objectValues = JSONObjectValues([item: objectValue])
+                    } else {
+                        objectValues = JSONObjectValues([item: objectValues])
+                    }
+                }
+                
+                preparedAttributes[key] = objectValues
+            } else {
+                preparedAttributes[key] = value
+            }
+        }
+        
+        return preparedAttributes
     }
     
     private func getGeoAttributeJSON(geoValue: GeoValue) -> String {

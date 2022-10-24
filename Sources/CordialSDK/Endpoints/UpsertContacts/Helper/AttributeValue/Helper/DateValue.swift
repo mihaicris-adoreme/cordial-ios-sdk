@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class DateValue: NSObject, NSCoding, AttributeValue {
+@objc public class DateValue: NSObject, NSCoding, AttributeValue, JSONValue {
     
     public let value: Date?
     
