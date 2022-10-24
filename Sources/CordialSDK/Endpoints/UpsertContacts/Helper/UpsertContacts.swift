@@ -75,12 +75,11 @@ class UpsertContacts {
     }
     
     private func getAttributesJSON(attributes: Dictionary<String, AttributeValue>) -> String {
-        // TMP
         let preparedAttributes = self.getPreparedAttributes(attributes: attributes)
         
         var container = [String]()
         
-        attributes.forEach { (key: String, value: AttributeValue) in
+        preparedAttributes.forEach { (key: String, value: AttributeValue) in
             switch value {
             case is NumericValue:
                 let numericValue = value as! NumericValue
@@ -115,6 +114,13 @@ class UpsertContacts {
             case is GeoValue:
                 let geoValue = value as! GeoValue
                 container.append("\"\(key)\": \(self.getGeoAttributeJSON(geoValue: geoValue))")
+            case is JSONObjectValue:
+                let objectValue = value as! JSONObjectValue
+                if let attributes = objectValue.value {
+                    container.append(self.getAttributesJSON(attributes: attributes))
+                }
+            case is JSONObjectValues:
+                let objectValues = value as! JSONObjectValues
             default:
                 break
             }
