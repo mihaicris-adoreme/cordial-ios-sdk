@@ -121,10 +121,38 @@ class UpsertContacts {
                 }
             case is JSONObjectValues:
                 let objectValues = value as! JSONObjectValues
+                if let attributes = objectValues.value {
+                    container.append(self.getObjectValuesJSON(attributes: attributes))
+                }
             default:
                 break
             }
             
+        }
+        
+        let stringContainer = container.joined(separator: ", ")
+        
+        return "{ \(stringContainer) }"
+    }
+    
+    private func getObjectValuesJSON(attributes: Dictionary<String, JSONValue>) -> String {
+        var container = [String]()
+        
+        attributes.forEach { (key: String, value: JSONValue) in
+            switch value {
+            case is JSONObjectValue:
+                let objectValue = value as! JSONObjectValue
+                if let attributes = objectValue.value {
+                    container.append(self.getAttributesJSON(attributes: attributes))
+                }
+            case is JSONObjectValues:
+                let objectValues = value as! JSONObjectValues
+                if let attributes = objectValues.value {
+                    container.append(self.getObjectValuesJSON(attributes: attributes))
+                }
+            default:
+                break
+            }
         }
         
         let stringContainer = container.joined(separator: ", ")
