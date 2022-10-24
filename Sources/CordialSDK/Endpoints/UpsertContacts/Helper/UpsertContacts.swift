@@ -131,19 +131,21 @@ class UpsertContacts {
         
         attributes.forEach { (key: String, value: AttributeValue) in
             let keys = key.components(separatedBy: ".")
-            if !keys.isEmpty {
+            
+            if keys.count > 1 {
                 var objectValues = JSONObjectValues([:])
                 
                 for (index, item) in keys.reversed().enumerated() {
-                    if index == 0 {
+                    switch index {
+                    case 0:
                         let objectValue = JSONObjectValue([item: value])
                         objectValues = JSONObjectValues([item: objectValue])
-                    } else {
+                    case keys.count - 1:
+                        preparedAttributes[item] = objectValues
+                    default:
                         objectValues = JSONObjectValues([item: objectValues])
                     }
                 }
-                
-                preparedAttributes[key] = objectValues
             } else {
                 preparedAttributes[key] = value
             }
