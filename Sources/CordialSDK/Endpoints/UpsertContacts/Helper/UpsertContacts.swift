@@ -148,16 +148,35 @@ class UpsertContacts {
             case is JSONObjectValues:
                 let objectValues = value as! JSONObjectValues
                 if let attributes = objectValues.value {
-                    container.append(self.getObjectValuesJSON(attributes: attributes))
+                    if self.isLastJSONObjectValue(attributes: attributes) {
+                        container.append("\"\(key)\": \(self.getObjectValuesJSON(attributes: attributes))")
+                    } else {
+                        container.append("\"\(key)\": { \(self.getObjectValuesJSON(attributes: attributes)) }")
+                    }
                 }
             default:
                 break
             }
         }
         
-        let stringContainer = container.joined(separator: ", ")
+        return container.joined(separator: ", ")
+    }
+    
+    private func isLastJSONObjectValue(attributes: Dictionary<String, JSONValue>) -> Bool {
+        var returnValue = false
         
-        return "{ \(stringContainer) }"
+        if let attribute = attributes.first {
+            switch attribute.value {
+            case is JSONObjectValue:
+                returnValue = true
+            case is JSONObjectValues:
+                returnValue = false
+            default:
+                break
+            }
+        }
+        
+        return returnValue
     }
     
     private func getPreparedAttributes(attributes: Dictionary<String, AttributeValue>) -> Dictionary<String, AttributeValue> {
