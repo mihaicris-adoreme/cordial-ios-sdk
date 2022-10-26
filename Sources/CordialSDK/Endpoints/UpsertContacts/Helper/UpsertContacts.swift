@@ -141,7 +141,7 @@ class UpsertContacts {
             case is JSONObjectValue:
                 let objectValue = value as! JSONObjectValue
                 if let attributes = objectValue.value {
-                    container.append("\"\(key)\": { \(self.getAttributesJSON(attributes: attributes)) }")
+                    container.append(self.getAttributesJSON(attributes: attributes))
                 }
             case is JSONObjectValues:
                 let objectValues = value as! JSONObjectValues
