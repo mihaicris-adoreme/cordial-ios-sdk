@@ -64,7 +64,7 @@ class UpsertContacts {
         }
         
         if let attributes = upsertContactRequest.attributes {
-            rootContainer.append("\"attributes\": { \(self.getAttributesJSON(attributes: attributes)) }")
+            rootContainer.append("\"attributes\": { \(self.getAttributesJSON(attributes: self.getPreparedAttributes(attributes: attributes))) }")
         }
         
         let rootContainerString = rootContainer.joined(separator: ", ")
@@ -75,11 +75,9 @@ class UpsertContacts {
     }
     
     private func getAttributesJSON(attributes: Dictionary<String, AttributeValue>) -> String {
-        let preparedAttributes = self.getPreparedAttributes(attributes: attributes)
-        
         var container = [String]()
         
-        preparedAttributes.forEach { (key: String, value: AttributeValue) in
+        attributes.forEach { (key: String, value: AttributeValue) in
             switch value {
             case is NumericValue:
                 let numericValue = value as! NumericValue
@@ -185,19 +183,8 @@ class UpsertContacts {
                 for (index, item) in keys.reversed().enumerated() {
                     switch index {
                     case 0:
-                        let preparedObjectValue = JSONObjectValue([item: value])
-                        let preparedObjectValues = JSONObjectValues([item: preparedObjectValue])
-                        
-                        if let preparedAttribute = preparedAttributes[item] as? JSONObjectValues,
-                           let preparedAttributeValue = preparedAttribute.value,
-                           let preparedObjectValue = preparedObjectValues.value {
-                            
-                            let mergedAttributes = self.getMergedAttributes(attributeValue: preparedAttributeValue, objectValue: preparedObjectValue)
-                            
-                            objectValues = JSONObjectValues([item: mergedAttributes])
-                        } else {
-                            objectValues = preparedObjectValues
-                        }
+                        let objectValue = JSONObjectValue([item: value])
+                        objectValues = JSONObjectValues([item: objectValue])
                     case keys.count - 1:
                         if let preparedAttribute = preparedAttributes[item] as? JSONObjectValues,
                            let preparedAttributeValue = preparedAttribute.value,
@@ -210,16 +197,7 @@ class UpsertContacts {
                             preparedAttributes[item] = objectValues
                         }
                     default:
-                        if let preparedAttribute = preparedAttributes[item] as? JSONObjectValues,
-                           let preparedAttributeValue = preparedAttribute.value,
-                           let objectValue = objectValues.value {
-                            
-                            let mergedAttributes = self.getMergedAttributes(attributeValue: preparedAttributeValue, objectValue: objectValue)
-                            
-                            objectValues = JSONObjectValues([item: mergedAttributes])
-                        } else {
-                            objectValues = JSONObjectValues([item: objectValues])
-                        }
+                        objectValues = JSONObjectValues([item: objectValues])
                     }
                 }
             } else {

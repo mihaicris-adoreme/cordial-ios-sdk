@@ -10,7 +10,7 @@ import Foundation
 
 @objc class JSONObjectsValues: NSObject, NSCoding, AttributeValue, JSONValue {
     
-    var value: [JSONObjectValues]?
+    let value: [JSONObjectValues]?
     
     enum Key: String {
         case value = "value"
