@@ -1,22 +1,22 @@
 //
-//  JSONObjectValues.swift
+//  JSONObjectsValues.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 24.10.2022.
+//  Created by Yan Malinovsky on 26.10.2022.
 //  Copyright © 2022 cordial.io. All rights reserved.
 //
 
 import Foundation
 
-@objc class JSONObjectValues: NSObject, NSCoding, AttributeValue, JSONValue {
+@objc class JSONObjectsValues: NSObject, NSCoding, AttributeValue, JSONValue {
     
-    var value: Dictionary<String, JSONValue>?
+    var value: [JSONObjectValues]?
     
     enum Key: String {
         case value = "value"
     }
     
-    @objc init(_ value: Dictionary<String, JSONValue>?) {
+    @objc init(_ value: [JSONObjectValues]?) {
         self.value = value
     }
     
@@ -25,7 +25,7 @@ import Foundation
     }
     
     required convenience init?(coder: NSCoder) {
-        let value = coder.decodeObject(forKey: Key.value.rawValue) as? Dictionary<String, JSONValue>
+        let value = coder.decodeObject(forKey: Key.value.rawValue) as? [JSONObjectValues]
         
         self.init(value)
     }

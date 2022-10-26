@@ -262,6 +262,7 @@
 		9EDA71F327AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA71F227AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift */; };
 		9EE29BE722F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */; };
 		9EE29BE922F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */; };
+		9EE31D452909681100CA1971 /* JSONObjectsValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE31D442909681100CA1971 /* JSONObjectsValues.swift */; };
 		9EE78A57246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE78A56246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift */; };
 		9EE78A59246AEA8F008162DB /* MockRequestSenderUpsertContactCartEmptyCart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE78A58246AEA8F008162DB /* MockRequestSenderUpsertContactCartEmptyCart.swift */; };
 		9EE78A5B246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE78A5A246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift */; };
@@ -582,6 +583,7 @@
 		9EDA71F227AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderQtyCachedEventQueue.swift; sourceTree = "<group>"; };
 		9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInAppMessageURLSessionManager.swift; sourceTree = "<group>"; };
 		9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKSecurityGetJWTURLSessionManager.swift; sourceTree = "<group>"; };
+		9EE31D442909681100CA1971 /* JSONObjectsValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONObjectsValues.swift; sourceTree = "<group>"; };
 		9EE78A56246AE15A008162DB /* MockRequestSenderUpsertContactCartOneItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUpsertContactCartOneItem.swift; sourceTree = "<group>"; };
 		9EE78A58246AEA8F008162DB /* MockRequestSenderUpsertContactCartEmptyCart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUpsertContactCartEmptyCart.swift; sourceTree = "<group>"; };
 		9EE78A5A246AF332008162DB /* MockRequestSenderUpsertContactCartReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderUpsertContactCartReachability.swift; sourceTree = "<group>"; };
@@ -1243,6 +1245,7 @@
 				9EB84AE828CB8176009C83F2 /* GeoValue.swift */,
 				9E11AA0A2906F65D00EF6E11 /* JSONObjectValue.swift */,
 				9E11AA0C2907056500EF6E11 /* JSONObjectValues.swift */,
+				9EE31D442909681100CA1971 /* JSONObjectsValues.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1809,6 +1812,7 @@
 				9EB004CF253E299100156E8E /* InboxFilter.swift in Sources */,
 				9E6D1E2C250EC96000940363 /* InboxMessageDeleteURLSessionData.swift in Sources */,
 				9E7037A922688EC9000C3582 /* UpsertContactCart.swift in Sources */,
+				9EE31D452909681100CA1971 /* JSONObjectsValues.swift in Sources */,
 				9E343A8122DF61BF000D39A3 /* InAppMessageURLSessionData.swift in Sources */,
 				9E1B0D2F2379CE510010B86E /* InAppMessageDelayType.swift in Sources */,
 				9EAF00982600D17100AD2EE4 /* InAppMessageContent.swift in Sources */,

@@ -114,11 +114,6 @@ class UpsertContacts {
             case is GeoValue:
                 let geoValue = value as! GeoValue
                 container.append("\"\(key)\": \(self.getGeoAttributeJSON(geoValue: geoValue))")
-            case is JSONObjectValue:
-                let objectValue = value as! JSONObjectValue
-                if let attributes = objectValue.value {
-                    container.append("\"\(key)\": { \(self.getAttributesJSON(attributes: attributes)) }")
-                }
             case is JSONObjectValues:
                 let objectValues = value as! JSONObjectValues
                 if let attributes = objectValues.value {
@@ -171,7 +166,13 @@ class UpsertContacts {
                         let objectValue = JSONObjectValue([item: value])
                         objectValues = JSONObjectValues([item: objectValue])
                     case keys.count - 1:
-                        preparedAttributes[item] = objectValues
+                        if let preparedAttribute = preparedAttributes[item] as? JSONObjectValues {
+                            let mergedPreparedAttributes = self.getMergedPreparedAttributes(preparedAttribute: preparedAttribute, objectValues: objectValues)
+                            
+                            preparedAttributes[item] = mergedPreparedAttributes
+                        } else {
+                            preparedAttributes[item] = objectValues
+                        }
                     default:
                         objectValues = JSONObjectValues([item: objectValues])
                     }
@@ -182,6 +183,14 @@ class UpsertContacts {
         }
         
         return preparedAttributes
+    }
+    
+    private func getMergedPreparedAttributes(preparedAttribute: JSONObjectValues, objectValues: JSONObjectValues) -> JSONObjectValues {
+        objectValues.value?.forEach({ (key: String, value: JSONValue) in
+            preparedAttribute.value?[key] = value
+        })
+        
+        return preparedAttribute
     }
     
     private func getGeoAttributeJSON(geoValue: GeoValue) -> String {
