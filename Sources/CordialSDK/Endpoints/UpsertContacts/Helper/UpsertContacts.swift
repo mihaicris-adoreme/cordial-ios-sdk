@@ -64,7 +64,7 @@ class UpsertContacts {
         }
         
         if let attributes = upsertContactRequest.attributes {
-            rootContainer.append("\"attributes\": \(self.getAttributesJSON(attributes: attributes))")
+            rootContainer.append("\"attributes\": { \(self.getAttributesJSON(attributes: attributes)) }")
         }
         
         let rootContainerString = rootContainer.joined(separator: ", ")
@@ -117,12 +117,12 @@ class UpsertContacts {
             case is JSONObjectValue:
                 let objectValue = value as! JSONObjectValue
                 if let attributes = objectValue.value {
-                    container.append(self.getAttributesJSON(attributes: attributes))
+                    container.append("\"\(key)\": { \(self.getAttributesJSON(attributes: attributes)) }")
                 }
             case is JSONObjectValues:
                 let objectValues = value as! JSONObjectValues
                 if let attributes = objectValues.value {
-                    container.append(self.getObjectValuesJSON(attributes: attributes))
+                    container.append("\"\(key)\": { \(self.getObjectValuesJSON(attributes: attributes)) }")
                 }
             default:
                 break
@@ -130,53 +130,30 @@ class UpsertContacts {
             
         }
         
-        let stringContainer = container.joined(separator: ", ")
-        
-        return "{ \(stringContainer) }"
+        return container.joined(separator: ", ")
     }
     
     private func getObjectValuesJSON(attributes: Dictionary<String, JSONValue>) -> String {
         var container = [String]()
-        
+
         attributes.forEach { (key: String, value: JSONValue) in
             switch value {
             case is JSONObjectValue:
                 let objectValue = value as! JSONObjectValue
                 if let attributes = objectValue.value {
-                    container.append(self.getAttributesJSON(attributes: attributes))
+                    container.append("\"\(key)\": { \(self.getAttributesJSON(attributes: attributes)) }")
                 }
             case is JSONObjectValues:
                 let objectValues = value as! JSONObjectValues
                 if let attributes = objectValues.value {
-                    if self.isLastJSONObjectValue(attributes: attributes) {
-                        container.append("\"\(key)\": \(self.getObjectValuesJSON(attributes: attributes))")
-                    } else {
-                        container.append("\"\(key)\": { \(self.getObjectValuesJSON(attributes: attributes)) }")
-                    }
+                    container.append("\"\(key)\": { \(self.getObjectValuesJSON(attributes: attributes)) }")
                 }
             default:
                 break
             }
         }
-        
+
         return container.joined(separator: ", ")
-    }
-    
-    private func isLastJSONObjectValue(attributes: Dictionary<String, JSONValue>) -> Bool {
-        var returnValue = false
-        
-        if let attribute = attributes.first {
-            switch attribute.value {
-            case is JSONObjectValue:
-                returnValue = true
-            case is JSONObjectValues:
-                returnValue = false
-            default:
-                break
-            }
-        }
-        
-        return returnValue
     }
     
     private func getPreparedAttributes(attributes: Dictionary<String, AttributeValue>) -> Dictionary<String, AttributeValue> {
