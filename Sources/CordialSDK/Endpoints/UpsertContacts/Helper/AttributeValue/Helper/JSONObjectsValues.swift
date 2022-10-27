@@ -10,13 +10,13 @@ import Foundation
 
 @objc class JSONObjectsValues: NSObject, NSCoding, AttributeValue, JSONValue {
     
-    let value: [JSONObjectValues]?
+    let value: Dictionary<String, [JSONValue]>?
     
     enum Key: String {
         case value = "value"
     }
     
-    @objc init(_ value: [JSONObjectValues]?) {
+    @objc init(_ value: Dictionary<String, [JSONValue]>?) {
         self.value = value
     }
     
@@ -25,7 +25,7 @@ import Foundation
     }
     
     required convenience init?(coder: NSCoder) {
-        let value = coder.decodeObject(forKey: Key.value.rawValue) as? [JSONObjectValues]
+        let value = coder.decodeObject(forKey: Key.value.rawValue) as? Dictionary<String, [JSONValue]>
         
         self.init(value)
     }

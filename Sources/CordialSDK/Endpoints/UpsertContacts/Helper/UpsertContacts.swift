@@ -159,16 +159,38 @@ class UpsertContacts {
         return container.joined(separator: ", ")
     }
     
-    private func getObjectsValuesJSON(attributes: [JSONObjectValues]) -> String {
-        var container = [String]()
+    private func getObjectsValuesJSON(attributes: Dictionary<String, [JSONValue]>) -> String {
+        var containerJSONValues = [String]()
         
-        attributes.forEach { objectValues in
-            if let attributes = objectValues.value {
-                container.append("\(self.getObjectValuesJSON(attributes: attributes))")
+        attributes.forEach { (key: String, values: [JSONValue]) in
+            var containerJSONValue = [String]()
+            
+            values.forEach { value in
+                switch value {
+                case is JSONObjectValue:
+                    let objectValue = value as! JSONObjectValue
+                    if let attributes = objectValue.value {
+                        containerJSONValue.append(self.getAttributesJSON(attributes: attributes))
+                    }
+                case is JSONObjectValues:
+                    let objectValues = value as! JSONObjectValues
+                    if let attributes = objectValues.value {
+                        containerJSONValue.append(self.getObjectValuesJSON(attributes: attributes))
+                    }
+                case is JSONObjectsValues:
+                    let objectsValues = value as! JSONObjectsValues
+                    if let attributes = objectsValues.value {
+                        containerJSONValue.append(self.getObjectsValuesJSON(attributes: attributes))
+                    }
+                default:
+                    break
+                }
             }
+            
+            containerJSONValues.append("\"\(key)\": { \(containerJSONValue.joined(separator: ", ")) }")
         }
         
-        return container.joined(separator: ", ")
+        return containerJSONValues.joined(separator: ", ")
     }
     
     private func getPreparedAttributes(attributes: Dictionary<String, AttributeValue>) -> Dictionary<String, AttributeValue> {
@@ -209,15 +231,20 @@ class UpsertContacts {
     }
     
     private func getMergedAttributes(attributeValue: Dictionary<String, JSONValue>, objectValue: Dictionary<String, JSONValue>) -> JSONObjectsValues {
-        var objectsValues = [JSONObjectValues]()
+        var valuesDictionary: Dictionary<String, [JSONValue]> = [:]
         
-        let attributeValues = JSONObjectValues(attributeValue)
-        let objectValues = JSONObjectValues(objectValue)
-        
-        objectsValues.append(attributeValues)
-        objectsValues.append(objectValues)
-        
-        return JSONObjectsValues(objectsValues)
+        attributeValue.forEach { (key: String, value: JSONValue) in
+            var JSONValues = [JSONValue]()
+            
+            if let objectValues = objectValue[key] {
+                JSONValues.append(value)
+                JSONValues.append(objectValues)
+                
+                valuesDictionary[key] = JSONValues
+            }
+        }
+    
+        return JSONObjectsValues(valuesDictionary)
     }
     
     private func getGeoAttributeJSON(geoValue: GeoValue) -> String {
