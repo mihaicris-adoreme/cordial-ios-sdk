@@ -231,7 +231,9 @@ class UpsertContacts {
     }
     
     private func getMergedAttributes(attributeValue: Dictionary<String, JSONValue>, objectValue: Dictionary<String, JSONValue>) -> JSONObjectsValues {
-        var valuesDictionary: Dictionary<String, [JSONValue]> = [:]
+        var mergedAttributes: Dictionary<String, [JSONValue]> = [:]
+                
+        var addedObjectValueKeys = [String]()
         
         attributeValue.forEach { (key: String, value: JSONValue) in
             var JSONValues = [JSONValue]()
@@ -240,11 +242,21 @@ class UpsertContacts {
                 JSONValues.append(value)
                 JSONValues.append(objectValues)
                 
-                valuesDictionary[key] = JSONValues
+                addedObjectValueKeys.append(key)
+                
+                mergedAttributes[key] = JSONValues
+            } else {
+                mergedAttributes[key] = [value]
+            }
+        }
+        
+        objectValue.forEach { (key: String, value: JSONValue) in
+            if !addedObjectValueKeys.contains(key) {
+                mergedAttributes[key] = [value]
             }
         }
     
-        return JSONObjectsValues(valuesDictionary)
+        return JSONObjectsValues(mergedAttributes)
     }
     
     private func getGeoAttributeJSON(geoValue: GeoValue) -> String {
