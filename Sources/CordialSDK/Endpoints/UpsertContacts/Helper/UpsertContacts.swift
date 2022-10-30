@@ -144,7 +144,7 @@ class UpsertContacts {
             case is JSONObjectValues:
                 let objectValues = value as! JSONObjectValues
                 if let attributes = objectValues.value {
-                    container.append("\"\(key)\": { \(self.getObjectValuesJSON(attributes: attributes)) }")
+                    container.append(self.getObjectValuesJSON(attributes: attributes))
                 }
             case is JSONObjectsValues:
                 let objectsValues = value as! JSONObjectsValues
@@ -196,38 +196,77 @@ class UpsertContacts {
     private func getPreparedAttributes(attributes: Dictionary<String, AttributeValue>) -> Dictionary<String, AttributeValue> {
         var preparedAttributes: Dictionary<String, AttributeValue> = [:]
         
+        var dotsAttributes: [[String]] = [[String]]()
+        
         attributes.forEach { (key: String, value: AttributeValue) in
             let keys = key.components(separatedBy: ".")
             
             if keys.count > 1 {
-                var objectValues = JSONObjectValues([:])
-                
-                for (index, item) in keys.reversed().enumerated() {
-                    switch index {
-                    case 0:
-                        let objectValue = JSONObjectValue([item: value])
-                        objectValues = JSONObjectValues([item: objectValue])
-                    case keys.count - 1:
-                        if let preparedAttribute = preparedAttributes[item] as? JSONObjectValues,
-                           let preparedAttributeValue = preparedAttribute.value,
-                           let objectValue = objectValues.value {
-                            
-                            let mergedAttributes = self.getMergedAttributes(attributeValue: preparedAttributeValue, objectValue: objectValue)
-                            
-                            preparedAttributes[item] = mergedAttributes
-                        } else {
-                            preparedAttributes[item] = objectValues
-                        }
-                    default:
-                        objectValues = JSONObjectValues([item: objectValues])
-                    }
-                }
+                dotsAttributes.append(keys)
             } else {
                 preparedAttributes[key] = value
             }
         }
         
+        dotsAttributes.forEach { keys in
+            if let value = attributes[keys.joined(separator:".")] {
+                self.getPreparedAttributesDictionary(keys: keys, value: value).forEach { (key: String, value: JSONValue) in
+                    switch value {
+                    case is JSONObjectValues:
+                        let objectValues = value as! JSONObjectValues
+                        if let preparedAttributesKey = preparedAttributes[key] as? JSONObjectValues,
+                           let attributeValue = preparedAttributesKey.value,
+                           let objectValue = objectValues.value {
+                            
+                            let mergedAttributes = self.getMergedAttributes(attributeValue: attributeValue, objectValue: objectValue)
+                            
+                            preparedAttributes[key] = mergedAttributes
+                        } else {
+                            preparedAttributes[key] = objectValues
+                        }
+                    default:
+                        break
+                    }
+                }
+            }
+        }
+        
         return preparedAttributes
+    }
+    
+    private func getPreparedAttributesDictionary(keys: [String], value: AttributeValue) -> Dictionary<String, JSONValue> {
+        var preparedAttributes: Dictionary<String, JSONValue> = [:]
+        
+        if let key = keys.first {
+            if keys.count == 1 {
+                let objectValue = JSONObjectValue([key: value])
+                let objectValues = JSONObjectValues([key: objectValue])
+                
+                preparedAttributes[key] = objectValues
+            } else {
+                let subtractedAttributeKeys = self.getSubtractedAttributeKeys(keys: keys, key: key)
+
+                let preparedAttributesDictionary = self.getPreparedAttributesDictionary(keys: subtractedAttributeKeys, value: value)
+                
+                let objectValues = JSONObjectValues(preparedAttributesDictionary)
+                
+                preparedAttributes[key] = objectValues
+            }
+        }
+        
+        return preparedAttributes
+    }
+    
+    private func getSubtractedAttributeKeys(keys: [String], key: String) -> [String] {
+        var returnKeys: [String] = []
+        
+        keys.forEach { internalKey in
+            if key != internalKey {
+                returnKeys.append(internalKey)
+            }
+        }
+        
+        return returnKeys
     }
     
     private func getMergedAttributes(attributeValue: Dictionary<String, JSONValue>, objectValue: Dictionary<String, JSONValue>) -> JSONObjectsValues {
