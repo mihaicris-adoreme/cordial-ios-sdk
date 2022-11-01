@@ -284,8 +284,10 @@ class UpsertContacts {
     private func getSubtractedAttributeKeys(keys: [String], key: String) -> [String] {
         var returnKeys: [String] = []
         
+        var isKeyAppeared = false
         keys.forEach { internalKey in
-            if key != internalKey {
+            if key != internalKey && !isKeyAppeared {
+                isKeyAppeared = true
                 returnKeys.append(internalKey)
             }
         }
