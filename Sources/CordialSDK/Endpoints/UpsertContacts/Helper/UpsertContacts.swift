@@ -230,21 +230,26 @@ class UpsertContacts {
         dotsAttributes.forEach { keys in
             if let value = attributes[keys.joined(separator:".")] {
                 self.getPreparedAttributesDictionary(keys: keys, value: value).forEach { (key: String, value: JSONValue) in
-                    switch value {
-                    case is JSONObjectValues:
-                        let objectValues = value as! JSONObjectValues
+                    if let objectValues = value as? JSONObjectValues {
                         if let preparedAttributesKey = preparedAttributes[key] as? JSONObjectValues,
                            let attributeValue = preparedAttributesKey.value,
                            let objectValue = objectValues.value {
                             
-                            let mergedAttributes = self.getMergedAttributes(attributeValue: attributeValue, objectValue: objectValue)
+                            let mergedAttributes = self.getMergedAttributesObjectWithObject(attributeValue: attributeValue, objectValue: objectValue)
                             
                             preparedAttributes[key] = mergedAttributes
+                            
+                        } else if let preparedAttributesKey = preparedAttributes[key] as? JSONObjectsValues,
+                                  let attributeValues = preparedAttributesKey.value,
+                                  let objectValue = objectValues.value {
+                            
+                            let mergedAttributes = self.getMergedAttributesObjectsWithObject(objectsValue: attributeValues, objectValue: objectValue)
+                            
+                            preparedAttributes[key] = mergedAttributes
+                            
                         } else {
                             preparedAttributes[key] = objectValues
                         }
-                    default:
-                        break
                     }
                 }
             }
@@ -288,7 +293,7 @@ class UpsertContacts {
         return returnKeys
     }
     
-    private func getMergedAttributes(attributeValue: Dictionary<String, JSONValue>, objectValue: Dictionary<String, JSONValue>) -> JSONObjectsValues {
+    private func getMergedAttributesObjectWithObject(attributeValue: Dictionary<String, JSONValue>, objectValue: Dictionary<String, JSONValue>) -> JSONObjectsValues {
         var mergedAttributes: Dictionary<String, [JSONValue]> = [:]
                 
         var addedObjectValueKeys = [String]()
@@ -314,6 +319,38 @@ class UpsertContacts {
             }
         }
     
+        return JSONObjectsValues(mergedAttributes)
+    }
+    
+    private func getMergedAttributesObjectsWithObject(objectsValue: Dictionary<String, [JSONValue]>, objectValue: Dictionary<String, JSONValue>) -> JSONObjectsValues {
+        var mergedAttributes: Dictionary<String, [JSONValue]> = [:]
+                
+        var addedObjectValueKeys = [String]()
+        
+        objectsValue.forEach { (key: String, values: [JSONValue]) in
+            var JSONValues = [JSONValue]()
+            
+            if let objectValues = objectValue[key] {
+                values.forEach { value in
+                    JSONValues.append(value)
+                }
+
+                JSONValues.append(objectValues)
+                
+                addedObjectValueKeys.append(key)
+                
+                mergedAttributes[key] = JSONValues
+            } else {
+                mergedAttributes[key] = values
+            }
+        }
+        
+        objectValue.forEach { (key: String, value: JSONValue) in
+            if !addedObjectValueKeys.contains(key) {
+                mergedAttributes[key] = [value]
+            }
+        }
+        
         return JSONObjectsValues(mergedAttributes)
     }
     
