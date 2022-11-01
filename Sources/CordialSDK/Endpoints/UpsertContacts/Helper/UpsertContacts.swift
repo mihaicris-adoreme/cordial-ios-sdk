@@ -268,7 +268,7 @@ class UpsertContacts {
                 
                 preparedAttributes[key] = objectValues
             } else {
-                let subtractedAttributeKeys = self.getSubtractedAttributeKeys(keys: keys, key: key)
+                let subtractedAttributeKeys = self.getSubtractedAttributeKeys(keys: keys)
 
                 let preparedAttributesDictionary = self.getPreparedAttributesDictionary(keys: subtractedAttributeKeys, value: value)
                 
@@ -281,15 +281,16 @@ class UpsertContacts {
         return preparedAttributes
     }
     
-    private func getSubtractedAttributeKeys(keys: [String], key: String) -> [String] {
+    private func getSubtractedAttributeKeys(keys: [String]) -> [String] {
         var returnKeys: [String] = []
         
-        var isKeyAppeared = false
-        keys.forEach { internalKey in
-            if key != internalKey && !isKeyAppeared {
-                isKeyAppeared = true
-                returnKeys.append(internalKey)
+        var index = 0
+        keys.forEach { key in
+            if index > 0 {
+                returnKeys.append(key)
             }
+            
+            index += 1
         }
         
         return returnKeys
