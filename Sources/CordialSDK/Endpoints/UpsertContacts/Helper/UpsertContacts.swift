@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class UpsertContacts {
     
@@ -36,7 +37,7 @@ class UpsertContacts {
         var upsertContactsArrayJSON = [String]()
         
         upsertContactRequests.forEach { upsertContactRequest in
-            let upsertContactJSON = self.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest)
+            let upsertContactJSON = self.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest, isLogs: true)
             
             upsertContactsArrayJSON.append(upsertContactJSON)
         }
@@ -48,7 +49,7 @@ class UpsertContacts {
         return upsertContactsJSON
     }
     
-    internal func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest) -> String {
+    func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest, isLogs: Bool) -> String {
         
         var rootContainer  = [
             "\"deviceId\": \"\(InternalCordialAPI().getDeviceIdentifier())\"",
@@ -64,7 +65,7 @@ class UpsertContacts {
         }
         
         if let attributes = upsertContactRequest.attributes {
-            rootContainer.append("\"attributes\": { \(self.getAttributesJSON(attributes: self.getPreparedAttributes(attributes: attributes))) }")
+            rootContainer.append("\"attributes\": { \(self.getAttributesJSON(attributes: self.getPreparedAttributes(attributes: attributes, isLogs: isLogs))) }")
         }
         
         let rootContainerString = rootContainer.joined(separator: ", ")
@@ -212,18 +213,31 @@ class UpsertContacts {
         return containerJSONValues.joined(separator: ", ")
     }
     
-    private func getPreparedAttributes(attributes: Dictionary<String, AttributeValue>) -> Dictionary<String, AttributeValue> {
+    private func getPreparedAttributes(attributes: Dictionary<String, AttributeValue>, isLogs: Bool) -> Dictionary<String, AttributeValue> {
         var preparedAttributes: Dictionary<String, AttributeValue> = [:]
         
         var dotsAttributes: [[String]] = [[String]]()
         
         attributes.forEach { (key: String, value: AttributeValue) in
-            let keys = key.components(separatedBy: ".")
+            var keys = [String]()
             
-            if keys.count > 1 {
+            var isValidKeys = true
+            key.components(separatedBy: ".").forEach({ key in
+                if self.isValidAttributeValueKey(key: key) {
+                    keys.append(key)
+                } else {
+                    isValidKeys = false
+                }
+            })
+            
+            if keys.count > 1 && isValidKeys {
                 dotsAttributes.append(keys)
-            } else {
+            } else if self.isValidAttributeValueKey(key: key) {
                 preparedAttributes[key] = value
+            } else {
+                if isLogs && CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                    os_log("Contact attribute key [%{public}@] is invalid", log: OSLog.cordialUpsertContacts, type: .error, key)
+                }
             }
         }
         
@@ -256,6 +270,14 @@ class UpsertContacts {
         }
         
         return preparedAttributes
+    }
+    
+    private func isValidAttributeValueKey(key: String) -> Bool {
+        if key.isEmpty || key.contains(" ") || key.contains(".") || key != key.trimmingCharacters(in: .whitespacesAndNewlines) {
+            return false
+        }
+        
+        return true
     }
     
     private func getPreparedAttributesDictionary(keys: [String], value: AttributeValue) -> Dictionary<String, JSONValue> {
