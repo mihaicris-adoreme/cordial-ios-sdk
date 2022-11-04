@@ -87,7 +87,7 @@ import os.log
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
         
-        InternalCordialAPI().removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate()
+        internalCordialAPI.removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate()
         
         let token = internalCordialAPI.getPushNotificationToken()
         let status = internalCordialAPI.getPushNotificationStatus()
@@ -99,16 +99,24 @@ import os.log
     // MARK: Unset Contact
     
     @objc public func unsetContact() {
-        CordialUserDefaults.set(false, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+        let internalCordialAPI = InternalCordialAPI()
         
-        InternalCordialAPI().removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate()
-        
-        let previousPrimaryKey = self.getContactPrimaryKey()
-        
-        let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: previousPrimaryKey)
-        ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
-        
-        InternalCordialAPI().setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: previousPrimaryKey)
+        if internalCordialAPI.isUserLogin() {
+            CordialUserDefaults.set(false, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+            
+            internalCordialAPI.removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate()
+            
+            let previousPrimaryKey = self.getContactPrimaryKey()
+            
+            let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: previousPrimaryKey)
+            ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
+            
+            internalCordialAPI.setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: previousPrimaryKey)
+        } else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Sending contact logout failed. Error: [User no login]", log: OSLog.cordialPushNotification, type: .error)
+            }
+        }
     }
     
     // MARK: Upsert Contact
