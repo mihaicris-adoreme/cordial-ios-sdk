@@ -49,20 +49,22 @@ class CoreDataGroupManager {
 
         let storeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: API.SECURITY_APPLICATION_GROUP_IDENTIFIER)
         
-        let persistentStoreURL = storeURL?.appendingPathComponent(storeName)
-
-        do {
-            try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType,
-                                                              configurationName: nil,
-                                                              at: persistentStoreURL,
-                                                              options: [
-                                                                NSMigratePersistentStoresAutomaticallyOption: true,
-                                                                NSInferMappingModelAutomaticallyOption: true
-                                                              ])
-        } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [Unable to load persistent store coordinator] Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription)
+        if let persistentStoreURL = storeURL?.appendingPathComponent(storeName) {
+            do {
+                if #available(iOS 15.0, *) {
+                    let persistentStore = try persistentStoreCoordinator.addPersistentStore(type: .sqlite, at: persistentStoreURL, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true])
+                    try persistentStore.loadMetadata()
+                } else {
+                    let persistentStore = try persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: persistentStoreURL, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true])
+                    try persistentStore.loadMetadata()
+                }
+            } catch let error {
+                os_log("CoreData Error: [Unable to load CoreData persistent store] Info: %{public}@", log: .cordialCoreDataError, type: .error, error.localizedDescription)
+                
+                return nil
             }
+        } else {
+            os_log("CoreData Error: [Unable to prepare CoreData persistent store App Group URL]", log: .cordialCoreDataError, type: .error)
             
             return nil
         }

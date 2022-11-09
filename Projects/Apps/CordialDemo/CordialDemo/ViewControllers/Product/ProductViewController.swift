@@ -43,6 +43,9 @@ class ProductViewController: InAppMessageDelayViewController {
         
         // TMP: Test AppGroup CoreData
         TestGroupModelCoreData().setTestGroupModelToCoreData(value: CordialDateFormatter().getCurrentTimestamp())
+        if let currentTimestamp = TestGroupModelCoreData().getTestGroupModelToCoreData() {
+            print(currentTimestamp)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

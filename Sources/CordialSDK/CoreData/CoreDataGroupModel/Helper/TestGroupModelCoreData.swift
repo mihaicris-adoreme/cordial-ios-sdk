@@ -34,4 +34,30 @@ public class TestGroupModelCoreData {
         }
     }
     
+    public func getTestGroupModelToCoreData() -> String? {
+        let context = CoreDataGroupManager.shared.managedObjectContext
+        
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
+        
+        do {
+            let result = try context.fetch(request)
+            
+            for managedObject in result as! [NSManagedObject] {
+                guard let urlManagedObject = managedObject.value(forKey: "test") else { continue }
+                let test = urlManagedObject as! String
+                
+//                context.delete(managedObject)
+//                try context.save()
+                
+                return test
+            }
+        } catch let error {
+            os_log("CordialSDK_AppExtensions: CoreData Error [%{public}@] Entity: [%{public}@]", log: .default, type: .error, error.localizedDescription, self.entityName)
+        }
+        
+        return nil
+    }
+    
 }
