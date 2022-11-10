@@ -46,10 +46,14 @@ class CoreDataGroupManager {
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
 
         let storeName = "\(self.modelName).sqlite"
-
-        let storeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: API.SECURITY_APPLICATION_GROUP_IDENTIFIER)
         
-        if let persistentStoreURL = storeURL?.appendingPathComponent(storeName) {
+        if let storeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: API.SECURITY_APPLICATION_GROUP_IDENTIFIER) {
+            
+            let persistentStoreURL = storeURL.appendingPathComponent(storeName)
+            
+            // TMP: Test AppGroup CoreData
+            os_log("CordialSDK_AppExtensions_APP: persistentStoreURL [%{public}@]", log: .default, type: .info, persistentStoreURL.absoluteString)
+            
             do {
                 if #available(iOS 15.0, *) {
                     let persistentStore = try persistentStoreCoordinator.addPersistentStore(type: .sqlite, at: persistentStoreURL, options: [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true])
@@ -64,7 +68,7 @@ class CoreDataGroupManager {
                 return nil
             }
         } else {
-            os_log("CoreData Error: [Unable to prepare CoreData persistent store App Group URL]", log: .cordialCoreDataError, type: .error)
+            os_log("CoreData Error: [Unable to prepare CoreData store App Group URL]", log: .cordialCoreDataError, type: .error)
             
             return nil
         }
