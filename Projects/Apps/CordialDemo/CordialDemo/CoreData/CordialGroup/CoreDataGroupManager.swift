@@ -30,9 +30,7 @@ class CoreDataGroupManager {
         guard let resourceBundleURL = self.getResourceBundleURL(forResource: self.modelName, withExtension: "momd") else { return nil }
         
         guard let model = NSManagedObjectModel(contentsOf: resourceBundleURL) else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [Could not get bundle for managed object model]", log: OSLog.cordialCoreDataError, type: .error)
-            }
+            os_log("CoreData Error: [Could not get bundle for managed object model]", log: .сordialSDKDemo, type: .error)
             
             return nil
         }
@@ -44,13 +42,13 @@ class CoreDataGroupManager {
     
     private func getResourceBundleURL(forResource: String, withExtension: String) -> URL? {
         guard let resourceBundle = self.getResourceBundle() else {
-            os_log("CoreData Error: [Could not get bundle that contains the model]", log: .cordialCoreDataError, type: .error)
+            os_log("CoreData Error: [Could not get bundle that contains the model]", log: .сordialSDKDemo, type: .error)
             
             return nil
         }
         
         guard let resourceBundleURL = resourceBundle.url(forResource: forResource, withExtension: withExtension) else {
-            os_log("CoreData Error: [Could not get bundle url for file %{public}@.%{public}@]", log: .cordialCoreDataError, type: .error, forResource, withExtension)
+            os_log("CoreData Error: [Could not get bundle url for file %{public}@.%{public}@]", log: .сordialSDKDemo, type: .error, forResource, withExtension)
             
             return nil
         }
@@ -64,7 +62,7 @@ class CoreDataGroupManager {
         guard let identifier = Bundle.main.bundleIdentifier,
               let resourceBundle = Bundle(identifier: identifier) else {
             
-            os_log("CoreData Error: ResourceBundle Unexpected Error", log: .cordialCoreDataError, type: .error)
+            os_log("CoreData Error: ResourceBundle Unexpected Error", log: .сordialSDKDemo, type: .error)
             
             return nil
         }
@@ -81,7 +79,7 @@ class CoreDataGroupManager {
 
         let storeName = "\(self.modelName).sqlite"
         
-        if let storeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: API.SECURITY_APPLICATION_GROUP_IDENTIFIER) {
+        if let storeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.cordial.sdk") {
             
             let persistentStoreURL = storeURL.appendingPathComponent(storeName)
             
@@ -94,12 +92,12 @@ class CoreDataGroupManager {
                     try persistentStore.loadMetadata()
                 }
             } catch let error {
-                os_log("CoreData Error: [Unable to load CoreData persistent store] Info: %{public}@", log: .cordialCoreDataError, type: .error, error.localizedDescription)
+                os_log("CoreData Error: [Unable to load CoreData persistent store] Info: %{public}@", log: .сordialSDKDemo, type: .error, error.localizedDescription)
                 
                 return nil
             }
         } else {
-            os_log("CoreData Error: [Unable to prepare CoreData store App Group URL]", log: .cordialCoreDataError, type: .error)
+            os_log("CoreData Error: [Unable to prepare CoreData store App Group URL]", log: .сordialSDKDemo, type: .error)
             
             return nil
         }

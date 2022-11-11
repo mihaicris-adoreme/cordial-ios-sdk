@@ -18,8 +18,6 @@
 		9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */; };
 		9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */; };
 		9E7EE84A2901469C007C656B /* TestGroupModelCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EE8492901469C007C656B /* TestGroupModelCoreData.swift */; };
-		9EB83BF3291C169E00283AA6 /* TestGroupModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB83BF1291C169E00283AA6 /* TestGroupModel+CoreDataClass.swift */; };
-		9EB83BF4291C169E00283AA6 /* TestGroupModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB83BF2291C169E00283AA6 /* TestGroupModel+CoreDataProperties.swift */; };
 		9EBD746A2287884700EC93EF /* CordialAppExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD74602287884600EC93EF /* CordialAppExtensions.framework */; };
 		9EBD746F2287884700EC93EF /* CordialAppExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD746E2287884700EC93EF /* CordialAppExtensionsTests.swift */; };
 		9EBD74712287884700EC93EF /* CordialAppExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EBD74632287884600EC93EF /* CordialAppExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -47,8 +45,6 @@
 		9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselNotificationParser.swift; sourceTree = "<group>"; };
 		9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialNotificationServiceExtension.swift; sourceTree = "<group>"; };
 		9E7EE8492901469C007C656B /* TestGroupModelCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestGroupModelCoreData.swift; sourceTree = "<group>"; };
-		9EB83BF1291C169E00283AA6 /* TestGroupModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestGroupModel+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9EB83BF2291C169E00283AA6 /* TestGroupModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestGroupModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9EBD74602287884600EC93EF /* CordialAppExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CordialAppExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBD74632287884600EC93EF /* CordialAppExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CordialAppExtensions.h; path = ../../Projects/Frameworks/CordialAppExtensions/CordialAppExtensions.h; sourceTree = "<group>"; };
 		9EBD74642287884600EC93EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../Projects/Frameworks/CordialAppExtensions/Info.plist; sourceTree = "<group>"; };
@@ -87,7 +83,6 @@
 		9E44588E29008247003D5384 /* CoreDataGroupModel */ = {
 			isa = PBXGroup;
 			children = (
-				9EB83BBC291BF2A600283AA6 /* ManagedObjects */,
 				9EB83BDF291C125100283AA6 /* Helper */,
 				9E44588F29008247003D5384 /* CoreDataGroupManager.swift */,
 			);
@@ -146,15 +141,6 @@
 				9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */,
 			);
 			path = NotificationServiceExtension;
-			sourceTree = "<group>";
-		};
-		9EB83BBC291BF2A600283AA6 /* ManagedObjects */ = {
-			isa = PBXGroup;
-			children = (
-				9EB83BF1291C169E00283AA6 /* TestGroupModel+CoreDataClass.swift */,
-				9EB83BF2291C169E00283AA6 /* TestGroupModel+CoreDataProperties.swift */,
-			);
-			path = ManagedObjects;
 			sourceTree = "<group>";
 		};
 		9EB83BDF291C125100283AA6 /* Helper */ = {
@@ -317,9 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E62495327FC86DA0052E43E /* CarouselNotificationExtension.swift in Sources */,
-				9EB83BF3291C169E00283AA6 /* TestGroupModel+CoreDataClass.swift in Sources */,
 				9E62495027FC86DA0052E43E /* Carousel.swift in Sources */,
-				9EB83BF4291C169E00283AA6 /* TestGroupModel+CoreDataProperties.swift in Sources */,
 				9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */,
 				9E44588D29008218003D5384 /* API.swift in Sources */,
 				9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */,

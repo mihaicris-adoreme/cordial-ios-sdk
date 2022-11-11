@@ -22,13 +22,7 @@ class TestGroupModelCoreData {
         request.fetchLimit = 1
         
         do {
-            // TMP: Test AppGroup CoreData
-            os_log("CordialSDK_AppExtensions: TEST-1", log: .default, type: .info)
-            
             let result = try context.fetch(request)
-            
-            // TMP: Test AppGroup CoreData
-            os_log("CordialSDK_AppExtensions: TEST-2", log: .default, type: .info)
             
             for managedObject in result as! [NSManagedObject] {
                 guard let urlManagedObject = managedObject.value(forKey: "test") else { continue }

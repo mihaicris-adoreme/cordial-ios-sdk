@@ -17,7 +17,7 @@ class CoreDataGroupManager {
     private init() {}
 
     let modelName = "CoreDataGroupModel"
-    
+
     lazy var managedObjectContext: NSManagedObjectContext = {
         let managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
 
@@ -26,19 +26,62 @@ class CoreDataGroupManager {
         return managedObjectContext
     }()
 
+    private lazy var managedObjectModel: NSManagedObjectModel? = {
+        guard let resourceBundleURL = self.getResourceBundleURL(forResource: self.modelName, withExtension: "momd") else { return nil }
+        
+        guard let model = NSManagedObjectModel(contentsOf: resourceBundleURL) else {
+            os_log("CordialSDK_AppExtensions: Error [Could not get bundle for managed object model]", log: .default, type: .error)
+            
+            return nil
+        }
+        
+        return model
+    }()
+    
+    // Get resource bundle URL
+    
+    private func getResourceBundleURL(forResource: String, withExtension: String) -> URL? {
+        guard let resourceBundle = self.getResourceBundle() else {
+            os_log("CordialSDK_AppExtensions: Error [Could not get bundle that contains the model]", log: .default, type: .error)
+            
+            return nil
+        }
+        
+        guard let resourceBundleURL = resourceBundle.url(forResource: forResource, withExtension: withExtension) else {
+            os_log("CordialSDK_AppExtensions: Error [Could not get bundle url for file %{public}@.%{public}@]", log: .default, type: .error, forResource, withExtension)
+            
+            return nil
+        }
+        
+        return resourceBundleURL
+    }
+    
+    // Get resource bundle
+    
+    private func getResourceBundle() -> Bundle? {
+        guard let identifier = Bundle.main.bundleIdentifier,
+              let resourceBundle = Bundle(identifier: identifier) else {
+            
+            os_log("CordialSDK_AppExtensions: ResourceBundle Unexpected Error", log: .default, type: .error)
+            
+            return nil
+        }
+        
+        return resourceBundle
+    }
+    
+    // Get persistent ctore coordinator
+
     private lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
-        let managedObjectModel = NSManagedObjectModel()
+        guard let managedObjectModel = self.managedObjectModel else { return nil }
         
         let persistentStoreCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
 
         let storeName = "\(self.modelName).sqlite"
-
+        
         if let storeURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: API.SECURITY_APPLICATION_GROUP_IDENTIFIER) {
             
             let persistentStoreURL = storeURL.appendingPathComponent(storeName)
-            
-            // TMP: Test AppGroup CoreData
-            os_log("CordialSDK_AppExtensions: persistentStoreURL [%{public}@]", log: .default, type: .info, persistentStoreURL.absoluteString)
             
             do {
                 if #available(iOS 15.0, *) {

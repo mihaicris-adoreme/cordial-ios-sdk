@@ -42,8 +42,8 @@ class ProductViewController: InAppMessageDelayViewController {
         descriptionLabel.text = product.shortDescription
         
         // TMP: Test AppGroup CoreData
-        TestGroupModelCoreData().setTestGroupModelToCoreData(value: CordialDateFormatter().getCurrentTimestamp())
-        if let currentTimestamp = TestGroupModelCoreData().getTestGroupModelToCoreData() {
+        TestGroupModelCoreDataAPP().setTestGroupModelToCoreData(value: CordialDateFormatter().getCurrentTimestamp())
+        if let currentTimestamp = TestGroupModelCoreDataSDK().getTestGroupModelToCoreData() {
             print(currentTimestamp)
         }
     }

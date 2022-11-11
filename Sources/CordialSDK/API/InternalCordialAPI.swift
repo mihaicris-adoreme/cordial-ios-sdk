@@ -52,7 +52,7 @@ class InternalCordialAPI {
         
         guard let resourceBundleURL = resourceBundle.url(forResource: forResource, withExtension: withExtension) else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Error: [Could not get bundle url for file %{public}@.%{public}@", log: OSLog.cordialError, type: .error, forResource, withExtension)
+                os_log("Error: [Could not get bundle url for file %{public}@.%{public}@]", log: OSLog.cordialError, type: .error, forResource, withExtension)
             }
             
             return nil
