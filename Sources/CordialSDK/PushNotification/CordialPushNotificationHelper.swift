@@ -146,7 +146,7 @@ class CordialPushNotificationHelper {
     private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String) {
         self.internalCordialAPI.setPushNotificationStatus(status: status)
         
-        if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.isUserHasBeenEverLogin() {
+        if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
             ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
         }
