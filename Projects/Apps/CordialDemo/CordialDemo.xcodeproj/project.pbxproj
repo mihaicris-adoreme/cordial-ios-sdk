@@ -62,12 +62,6 @@
 		9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */; };
 		9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB260CA229FF489005786BD /* SettingsViewController.swift */; };
 		9EB806FE264A9DBF004C0B02 /* InboxMessageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB806FD264A9DBF004C0B02 /* InboxMessageWebViewController.swift */; };
-		9EB83C11291D946E00283AA6 /* CoreDataGroupModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EB83C09291D946E00283AA6 /* CoreDataGroupModel.xcdatamodeld */; };
-		9EB83C12291D946E00283AA6 /* CoreDataGroupManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB83C0B291D946E00283AA6 /* CoreDataGroupManager.swift */; };
-		9EB83C13291D946E00283AA6 /* TestGroupModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB83C0D291D946E00283AA6 /* TestGroupModel+CoreDataClass.swift */; };
-		9EB83C14291D946E00283AA6 /* TestGroupModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB83C0E291D946E00283AA6 /* TestGroupModel+CoreDataProperties.swift */; };
-		9EB83C16291D94E800283AA6 /* CoreDataGroupModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9EB83C09291D946E00283AA6 /* CoreDataGroupModel.xcdatamodeld */; };
-		9EB83C19291DA00B00283AA6 /* TestGroupModelCoreDataAPP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB83C18291DA00B00283AA6 /* TestGroupModelCoreDataAPP.swift */; };
 		9EC1E141245051E500A4C756 /* CustomEventProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E140245051E500A4C756 /* CustomEventProperty.swift */; };
 		9EC1E1472450891B00A4C756 /* CustomEventTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */; };
 		9EC1E1492450892F00A4C756 /* CustomEventTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */; };
@@ -230,11 +224,6 @@
 		9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesFilterViewController.swift; sourceTree = "<group>"; };
 		9EB260CA229FF489005786BD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9EB806FD264A9DBF004C0B02 /* InboxMessageWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageWebViewController.swift; sourceTree = "<group>"; };
-		9EB83C0A291D946E00283AA6 /* CoreDataGroupModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataGroupModel.xcdatamodel; sourceTree = "<group>"; };
-		9EB83C0B291D946E00283AA6 /* CoreDataGroupManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataGroupManager.swift; sourceTree = "<group>"; };
-		9EB83C0D291D946E00283AA6 /* TestGroupModel+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TestGroupModel+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9EB83C0E291D946E00283AA6 /* TestGroupModel+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TestGroupModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		9EB83C18291DA00B00283AA6 /* TestGroupModelCoreDataAPP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestGroupModelCoreDataAPP.swift; sourceTree = "<group>"; };
 		9EC1E140245051E500A4C756 /* CustomEventProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventProperty.swift; sourceTree = "<group>"; };
 		9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventTableFooterView.swift; sourceTree = "<group>"; };
 		9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomEventTableFooterView.xib; sourceTree = "<group>"; };
@@ -627,44 +616,6 @@
 			path = InboxMessageWeb;
 			sourceTree = "<group>";
 		};
-		9EB83C06291D933900283AA6 /* CordialDemo */ = {
-			isa = PBXGroup;
-			children = (
-				9E1EB37A241DACB5004CAD90 /* Helper */,
-				9EF7B20E2266340F003B223D /* AppDataManager.swift */,
-				9E7A5A70222EB64B0020054F /* CordialDemo.xcdatamodeld */,
-			);
-			path = CordialDemo;
-			sourceTree = "<group>";
-		};
-		9EB83C08291D946E00283AA6 /* CordialGroup */ = {
-			isa = PBXGroup;
-			children = (
-				9EB83C0C291D946E00283AA6 /* ManagedObjects */,
-				9EB83C17291DA00B00283AA6 /* Helper */,
-				9EB83C0B291D946E00283AA6 /* CoreDataGroupManager.swift */,
-				9EB83C09291D946E00283AA6 /* CoreDataGroupModel.xcdatamodeld */,
-			);
-			path = CordialGroup;
-			sourceTree = "<group>";
-		};
-		9EB83C0C291D946E00283AA6 /* ManagedObjects */ = {
-			isa = PBXGroup;
-			children = (
-				9EB83C0D291D946E00283AA6 /* TestGroupModel+CoreDataClass.swift */,
-				9EB83C0E291D946E00283AA6 /* TestGroupModel+CoreDataProperties.swift */,
-			);
-			path = ManagedObjects;
-			sourceTree = "<group>";
-		};
-		9EB83C17291DA00B00283AA6 /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				9EB83C18291DA00B00283AA6 /* TestGroupModelCoreDataAPP.swift */,
-			);
-			path = Helper;
-			sourceTree = "<group>";
-		};
 		9EC1E1452450874C00A4C756 /* Footer */ = {
 			isa = PBXGroup;
 			children = (
@@ -720,8 +671,9 @@
 		9EF7B21022663864003B223D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				9EB83C08291D946E00283AA6 /* CordialGroup */,
-				9EB83C06291D933900283AA6 /* CordialDemo */,
+				9E1EB37A241DACB5004CAD90 /* Helper */,
+				9E7A5A70222EB64B0020054F /* CordialDemo.xcdatamodeld */,
+				9EF7B20E2266340F003B223D /* AppDataManager.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -1001,7 +953,6 @@
 				9E7CEC7D242857F800E054BF /* GeoAttributeViewController.swift in Sources */,
 				9E7A5A72222EB64B0020054F /* CordialDemo.xcdatamodeld in Sources */,
 				9E96BA4F244FD14100DB8BEC /* CustomEventTableViewCell.swift in Sources */,
-				9EB83C13291D946E00283AA6 /* TestGroupModel+CoreDataClass.swift in Sources */,
 				9E005F5D24297D1900425C5B /* GeoAttribute.swift in Sources */,
 				9EA5F53C244F6A8500BF685C /* CustomUIActivityType.swift in Sources */,
 				9EDC7E402242912000BF8FB0 /* App.swift in Sources */,
@@ -1011,7 +962,6 @@
 				9EAB97272427366900C5C5DA /* AppDateFormatter.swift in Sources */,
 				9EA5F540244F9D0E00BF685C /* CustomUIActivityLogin.swift in Sources */,
 				9E96BA49244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift in Sources */,
-				9EB83C11291D946E00283AA6 /* CoreDataGroupModel.xcdatamodeld in Sources */,
 				9E58D9F124FD904500075D76 /* CustomUIActivityInbox.swift in Sources */,
 				9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */,
 				9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */,
@@ -1030,13 +980,11 @@
 				9E8F1B4A2511802F00B90139 /* InboxMessageViewController.swift in Sources */,
 				9EC1E1682450EB5C00A4C756 /* ImportCustomEventViewController.swift in Sources */,
 				9EF7B20F2266340F003B223D /* AppDataManager.swift in Sources */,
-				9EB83C12291D946E00283AA6 /* CoreDataGroupManager.swift in Sources */,
 				9E7A5A6C222EB64B0020054F /* LoginViewController.swift in Sources */,
 				9E7A5A6A222EB64B0020054F /* AppDelegate.swift in Sources */,
 				9E3DD4CF241BC066004C3918 /* AttributeViewController.swift in Sources */,
 				9E1EB37C241DACDA004CAD90 /* CartCoreData.swift in Sources */,
 				9E1EB39A241DC199004CAD90 /* AttributesCoreData.swift in Sources */,
-				9EB83C14291D946E00283AA6 /* TestGroupModel+CoreDataProperties.swift in Sources */,
 				9E005F5924296DD500425C5B /* AttributesGeoCoreData.swift in Sources */,
 				9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */,
 				9EE0EA69282D4D0E00A14182 /* CordialDeepLinksHelper.swift in Sources */,
@@ -1048,7 +996,6 @@
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,
 				9EABE878262083100066BADC /* InAppMessageInputsHandler.swift in Sources */,
 				9E7EC4222510CE3200314A18 /* InboxMessagesTableRawViewController.swift in Sources */,
-				9EB83C19291DA00B00283AA6 /* TestGroupModelCoreDataAPP.swift in Sources */,
 				9EDAEA0B234CCBFB008A7B2F /* Credentials.swift in Sources */,
 				9EDAEA0D234CD23F008A7B2F /* Settings.swift in Sources */,
 				9EA151F525220E43009B85C3 /* AppNotificationManager.swift in Sources */,
@@ -1083,7 +1030,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EB83C16291D94E800283AA6 /* CoreDataGroupModel.xcdatamodeld in Sources */,
 				9ED3049527FC945B00642A56 /* NotificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1566,16 +1512,6 @@
 			);
 			currentVersion = 9E7A5A71222EB64B0020054F /* CordialDemo.xcdatamodel */;
 			path = CordialDemo.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		9EB83C09291D946E00283AA6 /* CoreDataGroupModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				9EB83C0A291D946E00283AA6 /* CoreDataGroupModel.xcdatamodel */,
-			);
-			currentVersion = 9EB83C0A291D946E00283AA6 /* CoreDataGroupModel.xcdatamodel */;
-			path = CoreDataGroupModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -29,11 +29,6 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
         notificationCenter.addObserver(self, selector: #selector(didReceiveCarouselsNotification(notification:)), name: .didReceiveCarouselsNotification, object: nil)
         
         self.setupUI()
-        
-        // TMP: Test AppGroup CoreData
-        if let currentTimestamp = TestGroupModelCoreData().getTestGroupModelToCoreData() {
-            os_log("CordialSDK_AppExtensions: %{public}@", log: .default, type: .info, currentTimestamp)
-        }
     }
     
     open override func loadView() {
