@@ -71,7 +71,9 @@ class CordialSwizzlerHelper {
             os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
         }
         
-        if internalCordialAPI.isUserLogin() || !internalCordialAPI.isUserHasBeenEverLogin() {
+        internalCordialAPI.setPushNotificationToken(token: token)
+        
+        if internalCordialAPI.isUserLogin() || !internalCordialAPI.hasUserBeenLoggedIn() {
             self.preparePushNotificationStatus(token: token)
         }
     }
@@ -99,8 +101,6 @@ class CordialSwizzlerHelper {
     }
     
     private func sendPushNotificationToken(token: String, status: String) {
-        InternalCordialAPI().setPushNotificationToken(token: token)
-        
         let primaryKey = CordialAPI().getContactPrimaryKey()
         
         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)

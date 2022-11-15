@@ -62294,8 +62294,8 @@
           },
           {
             "kind": "Function",
-            "name": "isUserHasBeenEverLogin",
-            "printedName": "isUserHasBeenEverLogin()",
+            "name": "hasUserBeenLoggedIn",
+            "printedName": "hasUserBeenLoggedIn()",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -62305,8 +62305,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK08InternalA3APIC22isUserHasBeenEverLoginSbyF",
-            "mangledName": "$s10CordialSDK08InternalA3APIC22isUserHasBeenEverLoginSbyF",
+            "usr": "s:10CordialSDK08InternalA3APIC19hasUserBeenLoggedInSbyF",
+            "mangledName": "$s10CordialSDK08InternalA3APIC19hasUserBeenLoggedInSbyF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -81221,7 +81221,7 @@
       "kind": "StringLiteral",
       "offset": 393,
       "length": 7,
-      "value": "\"4.1.0\""
+      "value": "\"4.1.1\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
