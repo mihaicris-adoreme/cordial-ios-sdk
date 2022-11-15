@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.1.1 (2022-10-11)
+
+### Fixed
+
+- Calling `unsetContact` prior to `setContact` does not break the SDK
+
 ## 4.1.0 (2022-09-19)
 
 ### Added
