@@ -364,8 +364,9 @@ class CordialSDKTests: XCTestCase {
         self.testCase.setTestJWT(token: self.testJWT)
         self.testCase.setTestPushNotificationToken(token: self.testDeviceToken)
         self.testCase.setContactPrimaryKey(primaryKey: self.testPrimaryKey)
+        self.testCase.markUserAsLoggedIn()
         
-         self.cordialAPI.unsetContact()
+        self.cordialAPI.unsetContact()
         
         XCTAssert(mock.isVerified)
     }
