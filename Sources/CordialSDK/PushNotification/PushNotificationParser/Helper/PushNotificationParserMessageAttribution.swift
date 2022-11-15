@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationParserMessageAttribution.swift
+//  PushNotificationParserMessageAttribution.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 17.06.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CordialPushNotificationParserMessageAttribution {
+class PushNotificationParserMessageAttribution {
     
     // MARK: Get mcID
     

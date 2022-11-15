@@ -11,7 +11,7 @@ import UIKit
 @objc public class CordialPushNotificationHandler: NSObject {
     
     @objc public func isCordialMessage(userInfo: [AnyHashable : Any]) -> Bool {
-        if CordialPushNotificationParser().getMcID(userInfo: userInfo) != nil {
+        if PushNotificationParser().getMcID(userInfo: userInfo) != nil {
             return true
         }
         

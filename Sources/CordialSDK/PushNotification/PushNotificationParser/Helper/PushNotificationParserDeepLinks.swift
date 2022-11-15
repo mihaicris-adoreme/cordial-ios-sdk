@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationParserDeepLinks.swift
+//  PushNotificationParserDeepLinks.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 17.06.2020.
@@ -9,7 +9,7 @@
 import Foundation
 import os.log
 
-class CordialPushNotificationParserDeepLinks {
+class PushNotificationParserDeepLinks {
     
     // MARK: Get deep link URL
     

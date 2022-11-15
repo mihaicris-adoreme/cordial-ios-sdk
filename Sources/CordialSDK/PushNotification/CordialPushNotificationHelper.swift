@@ -14,7 +14,7 @@ class CordialPushNotificationHelper {
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()
     
-    let pushNotificationParser = CordialPushNotificationParser()
+    let pushNotificationParser = PushNotificationParser()
     
     func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any], completionHandler: () -> Void) {
         DispatchQueue.main.async {

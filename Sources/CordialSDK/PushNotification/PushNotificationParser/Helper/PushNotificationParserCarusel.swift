@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationParserCarusel.swift
+//  PushNotificationParserCarusel.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 12.10.2022.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CordialPushNotificationParserCarusel {
+class PushNotificationParserCarusel {
     
     // MARK: Get push notification carousel
     

@@ -358,7 +358,7 @@ class InternalCordialAPI {
         } else {
             self.sentEventDeepLinkOpen(url: url)
             
-            let pushNotificationParser = CordialPushNotificationParser()
+            let pushNotificationParser = PushNotificationParser()
             
             let vanityDeepLinkURL = pushNotificationParser.getVanityDeepLinkURL(userInfo: userInfo)
             let cordialDeepLink = CordialDeepLink(url: url, vanityURL: vanityDeepLinkURL)
