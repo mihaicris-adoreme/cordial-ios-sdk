@@ -249,6 +249,7 @@
 		9EC9AAB828F71E4A00AEF402 /* PushNotificationCarusel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9AAB728F71E4A00AEF402 /* PushNotificationCarusel.swift */; };
 		9EC9F80E2243BC8E00D7E3C5 /* ResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC9F80D2243BC8E00D7E3C5 /* ResponseError.swift */; };
 		9ECAC15126FA16E900D1A9A5 /* CordialDeepLinkActionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECAC15026FA16E900D1A9A5 /* CordialDeepLinkActionType.swift */; };
+		9ECB799429255ECB007F1CA4 /* PushNotificationCaruselURLSessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECB799329255ECB007F1CA4 /* PushNotificationCaruselURLSessionData.swift */; };
 		9ED26372224CFAF300BD9BB3 /* CordialFirstLaunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED26371224CFAF300BD9BB3 /* CordialFirstLaunch.swift */; };
 		9ED621DB22CE017E00A55DB2 /* InAppMessagesCacheCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621DA22CE017E00A55DB2 /* InAppMessagesCacheCoreData.swift */; };
 		9ED621DE22CE089600A55DB2 /* InAppMessageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED621DD22CE089600A55DB2 /* InAppMessageData.swift */; };
@@ -570,6 +571,7 @@
 		9EC9AAB728F71E4A00AEF402 /* PushNotificationCarusel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationCarusel.swift; sourceTree = "<group>"; };
 		9EC9F80D2243BC8E00D7E3C5 /* ResponseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseError.swift; sourceTree = "<group>"; };
 		9ECAC15026FA16E900D1A9A5 /* CordialDeepLinkActionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinkActionType.swift; sourceTree = "<group>"; };
+		9ECB799329255ECB007F1CA4 /* PushNotificationCaruselURLSessionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationCaruselURLSessionData.swift; sourceTree = "<group>"; };
 		9ED26371224CFAF300BD9BB3 /* CordialFirstLaunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialFirstLaunch.swift; sourceTree = "<group>"; };
 		9ED621DA22CE017E00A55DB2 /* InAppMessagesCacheCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessagesCacheCoreData.swift; sourceTree = "<group>"; };
 		9ED621DD22CE089600A55DB2 /* InAppMessageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageData.swift; sourceTree = "<group>"; };
@@ -811,6 +813,7 @@
 				9EB5C7FF22FC6C090024F5A6 /* SendContactOrdersURLSessionData.swift */,
 				9E6D1DAC2507A39200940363 /* InboxMessagesMarkReadUnreadURLSessionData.swift */,
 				9E6D1E2B250EC96000940363 /* InboxMessageDeleteURLSessionData.swift */,
+				9ECB799329255ECB007F1CA4 /* PushNotificationCaruselURLSessionData.swift */,
 			);
 			path = URLSessionData;
 			sourceTree = "<group>";
@@ -1923,6 +1926,7 @@
 				9EBA1B1C23FFE3BD00005054 /* DependencyConfiguration.swift in Sources */,
 				9E3EA04522B2805900EDBF93 /* CordialLocationManager.swift in Sources */,
 				9E2BCB7F251D35A100C21E04 /* PushNotificationParserInboxMessage.swift in Sources */,
+				9ECB799429255ECB007F1CA4 /* PushNotificationCaruselURLSessionData.swift in Sources */,
 				9EB17ABD22930D7B00EEAB7D /* ContactRequest+CoreDataClass.swift in Sources */,
 				9E44F2122551BF9A00D163E6 /* InboxMessagesCache+CoreDataClass.swift in Sources */,
 				9E126DB122F85EF300A74143 /* SDKSecurity.swift in Sources */,

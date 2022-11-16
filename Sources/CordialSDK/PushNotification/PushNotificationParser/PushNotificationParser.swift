@@ -104,10 +104,10 @@ class PushNotificationParser {
         return self.inboxMessageParser.isPayloadContainInboxMessageCurrentPayloadType(userInfo: userInfo)
     }
     
-    // MARK: Get push notification carousel
+    // MARK: Get push notification carousels
     
-    func getPushNotificationCarousel(userInfo: [AnyHashable : Any]) -> [PushNotificationCarusel] {
-        return self.caruselParser.getPushNotificationCarouselCurrentPayloadType(userInfo: userInfo)
+    func getPushNotificationCarousels(userInfo: [AnyHashable : Any]) -> [PushNotificationCarusel] {
+        return self.caruselParser.getPushNotificationCarouselsCurrentPayloadType(userInfo: userInfo)
     }
 }
 

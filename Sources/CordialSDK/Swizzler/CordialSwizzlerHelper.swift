@@ -49,8 +49,8 @@ class CordialSwizzlerHelper {
             }
         }
         
-        let carousel = pushNotificationParser.getPushNotificationCarousel(userInfo: userInfo)
-        if !carousel.isEmpty {
+        let carousels = pushNotificationParser.getPushNotificationCarousels(userInfo: userInfo)
+        if !carousels.isEmpty {
             // TODO
         }
     }
