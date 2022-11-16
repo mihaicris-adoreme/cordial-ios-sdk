@@ -12,8 +12,8 @@ class PushNotificationParserCarusel {
     
     // MARK: Get push notification carousel
     
-    func getPushNotificationCarouselCurrentPayloadType(userInfo: [AnyHashable : Any]) -> [CordialPushNotificationCarusel] {
-        var carousels = [CordialPushNotificationCarusel]()
+    func getPushNotificationCarouselCurrentPayloadType(userInfo: [AnyHashable : Any]) -> [PushNotificationCarusel] {
+        var carousels = [PushNotificationCarusel]()
         
         if let carousel = userInfo["carousel"] as? [AnyObject] {
             carousel.forEach { data in
@@ -25,7 +25,7 @@ class PushNotificationParserCarusel {
                 guard let deepLinkString = carouselData["deepLink"] else { return }
                 guard let deepLink = URL(string: deepLinkString) else { return }
                 
-                let carousel = CordialPushNotificationCarusel(imageURL: imageURL, deepLink: deepLink)
+                let carousel = PushNotificationCarusel(imageURL: imageURL, deepLink: deepLink)
                 carousels.append(carousel)
             }
         }

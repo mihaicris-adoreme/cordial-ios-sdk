@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationCarusel.swift
+//  PushNotificationCarusel.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 12.10.2022.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CordialPushNotificationCarusel {
+struct PushNotificationCarusel {
     
     let imageURL: URL
     let deepLink: URL

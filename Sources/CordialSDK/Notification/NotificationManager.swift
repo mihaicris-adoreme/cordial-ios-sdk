@@ -83,7 +83,7 @@ class NotificationManager {
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
         InternalCordialAPI().sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
-        CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
+        PushNotificationHelper().prepareCurrentPushNotificationStatus()
         
         // IAM
         InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()

@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationHelper.swift
+//  PushNotificationHelper.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 21.02.2020.
@@ -9,7 +9,7 @@
 import UIKit
 import os.log
 
-class CordialPushNotificationHelper {
+class PushNotificationHelper {
     
     let cordialAPI = CordialAPI()
     let internalCordialAPI = InternalCordialAPI()

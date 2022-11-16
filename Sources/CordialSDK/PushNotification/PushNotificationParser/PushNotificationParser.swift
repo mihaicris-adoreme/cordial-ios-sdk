@@ -106,7 +106,7 @@ class PushNotificationParser {
     
     // MARK: Get push notification carousel
     
-    func getPushNotificationCarousel(userInfo: [AnyHashable : Any]) -> [CordialPushNotificationCarusel] {
+    func getPushNotificationCarousel(userInfo: [AnyHashable : Any]) -> [PushNotificationCarusel] {
         return self.caruselParser.getPushNotificationCarouselCurrentPayloadType(userInfo: userInfo)
     }
 }

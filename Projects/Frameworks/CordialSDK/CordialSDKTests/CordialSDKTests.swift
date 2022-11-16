@@ -198,7 +198,7 @@ class CordialSDKTests: XCTestCase {
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
+            PushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
         }
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")
@@ -222,7 +222,7 @@ class CordialSDKTests: XCTestCase {
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: {_ in })
+            PushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: {_ in })
         }
 
         let expectation = XCTestExpectation(description: "Expectation for sending request")
@@ -246,7 +246,7 @@ class CordialSDKTests: XCTestCase {
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
+            PushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
         }
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")
@@ -271,7 +271,7 @@ class CordialSDKTests: XCTestCase {
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
+            PushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
         }
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")
@@ -296,7 +296,7 @@ class CordialSDKTests: XCTestCase {
         if let testPushNotificationData = self.testPushNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testPushNotificationData, options: []) as? [AnyHashable : Any] {
             
-            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
+            PushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: {})
         }
         
         let expectation = XCTestExpectation(description: "Expectation for the func calling")
@@ -950,7 +950,7 @@ class CordialSDKTests: XCTestCase {
         if let testSilentNotificationData = self.testSilentNotification.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
             
-            if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+            if PushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
                 CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [self.testMcID])
             }
@@ -997,7 +997,7 @@ class CordialSDKTests: XCTestCase {
             if let testSilentNotificationData = testSilentNotification.data(using: .utf8),
                 let userInfo = try? JSONSerialization.jsonObject(with: testSilentNotificationData, options: []) as? [AnyHashable : Any] {
 
-                if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+                if PushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                     InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
                     CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [testMcID_2])
                 }
@@ -1067,7 +1067,7 @@ class CordialSDKTests: XCTestCase {
         if let testSilentAndPushNotificationsData = testSilentAndPushNotifications.data(using: .utf8),
             let userInfo = try? JSONSerialization.jsonObject(with: testSilentAndPushNotificationsData, options: []) as? [AnyHashable : Any] {
 
-            if CordialPushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
+            if PushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
                 CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [self.testMcID])
                 

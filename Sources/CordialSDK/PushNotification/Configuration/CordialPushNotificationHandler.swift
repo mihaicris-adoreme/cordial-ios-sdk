@@ -24,13 +24,13 @@ import UIKit
     
     @objc public func processAppOpenViaPushNotificationTap(userInfo: [AnyHashable : Any], completionHandler: () -> Void) {
         if self.isCordialMessage(userInfo: userInfo) {
-            CordialPushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: completionHandler)
+            PushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: completionHandler)
         }
     }
     
     @objc public func processNotificationDeliveryInForeground(userInfo: [AnyHashable : Any], completionHandler: (UNNotificationPresentationOptions) -> Void) {
         if self.isCordialMessage(userInfo: userInfo) {
-            CordialPushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: completionHandler)
+            PushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: completionHandler)
         }
     }
     
