@@ -1,5 +1,5 @@
 //
-//  PushNotificationCaruselURLSessionData.swift
+//  PushNotificationCarouselURLSessionData.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 16.11.2022.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PushNotificationCaruselURLSessionData {
+class PushNotificationCarouselURLSessionData {
     
     let mcID: String
     

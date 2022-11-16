@@ -14,7 +14,7 @@ class PushNotificationParser {
     private let messageAttributionParser = PushNotificationParserMessageAttribution()
     private let inAppMessageParser = PushNotificationParserInAppMessage()
     private let inboxMessageParser = PushNotificationParserInboxMessage()
-    private let caruselParser = PushNotificationParserCarusel()
+    private let carouselParser = PushNotificationParserCarousel()
     
     // MARK: Get deep link URL
     
@@ -106,8 +106,8 @@ class PushNotificationParser {
     
     // MARK: Get push notification carousels
     
-    func getPushNotificationCarousels(userInfo: [AnyHashable : Any]) -> [PushNotificationCarusel] {
-        return self.caruselParser.getPushNotificationCarouselsCurrentPayloadType(userInfo: userInfo)
+    func getPushNotificationCarousels(userInfo: [AnyHashable : Any]) -> [PushNotificationCarousel] {
+        return self.carouselParser.getPushNotificationCarouselsCurrentPayloadType(userInfo: userInfo)
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  PushNotificationParserCarusel.swift
+//  PushNotificationParserCarousel.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 12.10.2022.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-class PushNotificationParserCarusel {
+class PushNotificationParserCarousel {
     
     // MARK: Get push notification carousel
     
-    func getPushNotificationCarouselsCurrentPayloadType(userInfo: [AnyHashable : Any]) -> [PushNotificationCarusel] {
-        var carousels = [PushNotificationCarusel]()
+    func getPushNotificationCarouselsCurrentPayloadType(userInfo: [AnyHashable : Any]) -> [PushNotificationCarousel] {
+        var carousels = [PushNotificationCarousel]()
         
         if let carousel = userInfo["carousel"] as? [AnyObject] {
             carousel.forEach { data in
@@ -25,7 +25,7 @@ class PushNotificationParserCarusel {
                 guard let deepLinkString = carouselData["deepLink"] else { return }
                 guard let deepLink = URL(string: deepLinkString) else { return }
                 
-                let carousel = PushNotificationCarusel(imageURL: imageURL, deepLink: deepLink)
+                let carousel = PushNotificationCarousel(imageURL: imageURL, deepLink: deepLink)
                 carousels.append(carousel)
             }
         }

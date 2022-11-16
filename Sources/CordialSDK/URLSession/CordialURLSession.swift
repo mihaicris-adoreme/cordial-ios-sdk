@@ -105,8 +105,8 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                     if let inboxMessageDeleteURLSessionData = operation.taskData as? InboxMessageDeleteURLSessionData {
                         InboxMessageDeleteURLSessionManager().errorHandler(inboxMessageDeleteURLSessionData: inboxMessageDeleteURLSessionData, error: error)
                     }
-                case API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CARUSEL:
-                    if let pushNotificationCaruselURLSessionData = operation.taskData as? PushNotificationCaruselURLSessionData {
+                case API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL:
+                    if let pushNotificationCarouselURLSessionData = operation.taskData as? PushNotificationCarouselURLSessionData {
                         // TODO
                     }
                 default: break
@@ -173,8 +173,8 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                         if let inboxMessageDeleteURLSessionData = operation.taskData as? InboxMessageDeleteURLSessionData {
                             InboxMessageDeleteURLSessionManager().completionHandler(inboxMessageDeleteURLSessionData: inboxMessageDeleteURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
                         }
-                    case API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CARUSEL:
-                        if let pushNotificationCaruselURLSessionData = operation.taskData as? PushNotificationCaruselURLSessionData {
+                    case API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL:
+                        if let pushNotificationCarouselURLSessionData = operation.taskData as? PushNotificationCarouselURLSessionData {
                             // TODO
                         }
                     default: break
