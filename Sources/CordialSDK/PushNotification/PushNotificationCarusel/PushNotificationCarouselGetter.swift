@@ -1,5 +1,5 @@
 //
-//  PushNotificationCarouselManager.swift
+//  PushNotificationCarouselGetter.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 16.11.2022.
@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import os.log
 
-class PushNotificationCarouselManager {
+class PushNotificationCarouselGetter {
     
     let requestSender = DependencyConfiguration.shared.requestSender
     
@@ -21,7 +22,20 @@ class PushNotificationCarouselManager {
         let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL, taskData: pushNotificationCarouselURLSessionData)
         CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
         
-        DependencyConfiguration.shared.requestSender.sendRequest(task: downloadTask)
+        self.requestSender.sendRequest(task: downloadTask)
     }
     
+    func completionHandler(mcID: String, pushNotificationCarouselData: PushNotificationCarouselData) {
+        // TODO
+        
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Push notification carousel image has been successfully download with mcID: [%{public}@]", log: OSLog.cordialPushNotificationCarousel, type: .info, mcID)
+        }
+    }
+    
+    func errorHandler(mcID: String, error: ResponseError) {
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
+            os_log("Downloading push notification carousel image failed with mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialPushNotificationCarousel, type: .info, mcID, error.message)
+        }
+    }
 }

@@ -10,7 +10,6 @@ import Foundation
 
 struct PushNotificationCarousels {
     
-    let image: UIImage
-    let deepLink: URL
+    let value: Dictionary<String, PushNotificationCarouselData>
     
 }
