@@ -14,7 +14,7 @@ class PushNotificationCarouselGetter {
     let requestSender = DependencyConfiguration.shared.requestSender
     
     func preparePushNotificationCarousel(mcID: String, carousel: PushNotificationCarousel) {
-        let request = CordialRequestFactory().getCordialURLRequest(url: carousel.imageURL, httpMethod: .GET)
+        let request = CordialRequestFactory().getBaseURLRequest(url: carousel.imageURL, httpMethod: .GET)
         
         let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
         
@@ -25,13 +25,39 @@ class PushNotificationCarouselGetter {
         self.requestSender.sendRequest(task: downloadTask)
     }
     
-    func completionHandler(pushNotificationCarouselURLSessionData: PushNotificationCarouselURLSessionData, statusCode: Int, responseBody: String) {
-        // TODO
+    func completionHandler(pushNotificationCarouselURLSessionData: PushNotificationCarouselURLSessionData, statusCode: Int, image: UIImage) {
+        
+        switch statusCode {
+        case 200:
+            let mcID = pushNotificationCarouselURLSessionData.mcID
+            
+            let carouselData = PushNotificationCarouselData(image: image, deepLink: pushNotificationCarouselURLSessionData.carousel.deepLink)
+            
+            if var carousels = CordialGroupUserDefaults.dictionary(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES) as? Dictionary<String, [PushNotificationCarouselData]>,
+               var carousel = carousels[mcID] {
+                
+                carousel.append(carouselData)
+                
+                CordialGroupUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
+                
+                carousels[mcID] = carousel
+                
+                CordialGroupUserDefaults.set(carousels, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
+            } else {
+                let carousels = [mcID: [carouselData]]
+                
+                CordialGroupUserDefaults.set(carousels, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
+            }
+        default:
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Downloading push notification carousel image failed with URL: [%{public}@] Error [Image by the URL is absent]", log: OSLog.cordialPushNotificationCarousel, type: .error, pushNotificationCarouselURLSessionData.carousel.imageURL.absoluteString)
+            }
+        }
     }
     
     func errorHandler(pushNotificationCarouselURLSessionData: PushNotificationCarouselURLSessionData, error: Error) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Downloading push notification carousel image failed with URL: [%{public}@] Error: [%{public}@]", log: OSLog.cordialPushNotificationCarousel, type: .info, pushNotificationCarouselURLSessionData.carousel.imageURL.absoluteString, error.localizedDescription)
+        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+            os_log("Downloading push notification carousel image failed with URL: [%{public}@] Error: [%{public}@]", log: OSLog.cordialPushNotificationCarousel, type: .error, pushNotificationCarouselURLSessionData.carousel.imageURL.absoluteString, error.localizedDescription)
         }
     }
 }

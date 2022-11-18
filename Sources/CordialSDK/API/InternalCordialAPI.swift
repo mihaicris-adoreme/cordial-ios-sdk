@@ -97,6 +97,43 @@ class InternalCordialAPI {
         
         return resourceBundle
     }
+    
+    // Get expected URLSession data type
+    
+    func getExpectedCordialURLSessionDataType(taskName: String) -> CordialURLSessionDataType {
+        switch taskName {
+        case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_DELETE_INBOX_MESSAGE:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL:
+            return .image
+        default:
+            return .none
+        }
+    }
 
     // MARK: Remove All Cached Data
     

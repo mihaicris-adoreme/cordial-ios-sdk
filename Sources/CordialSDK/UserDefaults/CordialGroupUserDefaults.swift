@@ -12,6 +12,14 @@ struct CordialGroupUserDefaults {
     
     private static let cordialUserDefaults = UserDefaults.init(suiteName: API.SECURITY_APPLICATION_GROUP_IDENTIFIER)
     
+    static func set(_ value: Any?, forKey key: String) {
+        self.cordialUserDefaults?.set(value, forKey: key)
+    }
+    
+    static func dictionary(forKey key: String) -> [String : Any]? {
+        return self.cordialUserDefaults?.dictionary(forKey: key)
+    }
+    
     static func stringArray(forKey key: String) -> [String]? {
         return self.cordialUserDefaults?.stringArray(forKey: key)
     }
