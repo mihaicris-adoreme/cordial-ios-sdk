@@ -18,24 +18,20 @@ class PushNotificationCarouselGetter {
         
         let downloadTask = CordialURLSession.shared.backgroundURLSession.downloadTask(with: request)
         
-        let pushNotificationCarouselURLSessionData = PushNotificationCarouselURLSessionData(mcID: mcID)
+        let pushNotificationCarouselURLSessionData = PushNotificationCarouselURLSessionData(mcID: mcID, carousel: carousel)
         let cordialURLSessionData = CordialURLSessionData(taskName: API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL, taskData: pushNotificationCarouselURLSessionData)
         CordialURLSession.shared.setOperation(taskIdentifier: downloadTask.taskIdentifier, data: cordialURLSessionData)
         
         self.requestSender.sendRequest(task: downloadTask)
     }
     
-    func completionHandler(mcID: String, pushNotificationCarouselData: PushNotificationCarouselData) {
+    func completionHandler(pushNotificationCarouselURLSessionData: PushNotificationCarouselURLSessionData, statusCode: Int, responseBody: String) {
         // TODO
-        
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Push notification carousel image has been successfully download with mcID: [%{public}@]", log: OSLog.cordialPushNotificationCarousel, type: .info, mcID)
-        }
     }
     
-    func errorHandler(mcID: String, error: ResponseError) {
+    func errorHandler(pushNotificationCarouselURLSessionData: PushNotificationCarouselURLSessionData, error: Error) {
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Downloading push notification carousel image failed with mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialPushNotificationCarousel, type: .info, mcID, error.message)
+            os_log("Downloading push notification carousel image failed with URL: [%{public}@] Error: [%{public}@]", log: OSLog.cordialPushNotificationCarousel, type: .info, pushNotificationCarouselURLSessionData.carousel.imageURL.absoluteString, error.localizedDescription)
         }
     }
 }

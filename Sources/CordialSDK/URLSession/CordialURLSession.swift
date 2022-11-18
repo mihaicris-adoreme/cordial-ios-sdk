@@ -107,7 +107,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                     }
                 case API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL:
                     if let pushNotificationCarouselURLSessionData = operation.taskData as? PushNotificationCarouselURLSessionData {
-                        // TODO
+                        PushNotificationCarouselGetter().errorHandler(pushNotificationCarouselURLSessionData: pushNotificationCarouselURLSessionData, error: error)
                     }
                 default: break
                 }
@@ -175,7 +175,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                         }
                     case API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL:
                         if let pushNotificationCarouselURLSessionData = operation.taskData as? PushNotificationCarouselURLSessionData {
-                            // TODO
+                            PushNotificationCarouselGetter().completionHandler(pushNotificationCarouselURLSessionData: pushNotificationCarouselURLSessionData, statusCode: httpResponse.statusCode, responseBody: responseBody)
                         }
                     default: break
                     }

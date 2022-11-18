@@ -11,9 +11,11 @@ import Foundation
 class PushNotificationCarouselURLSessionData {
     
     let mcID: String
+    let carousel: PushNotificationCarousel
     
-    init(mcID: String) {
+    init(mcID: String, carousel: PushNotificationCarousel) {
         self.mcID = mcID
+        self.carousel = carousel
     }
     
 }
