@@ -185,13 +185,14 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                     }
                 }
             case .image:
-                if let image = UIImage(named: location.path) {
+                if let image = UIImage(named: location.path),
+                   let imageData = image.pngData() {
                     
                     DispatchQueue.main.async {
                         switch operation.taskName {
                         case API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL:
                             if let pushNotificationCarouselURLSessionData = operation.taskData as? PushNotificationCarouselURLSessionData {
-                                PushNotificationCarouselGetter().completionHandler(pushNotificationCarouselURLSessionData: pushNotificationCarouselURLSessionData, statusCode: httpResponse.statusCode, image: image)
+                                PushNotificationCarouselGetter().completionHandler(pushNotificationCarouselURLSessionData: pushNotificationCarouselURLSessionData, statusCode: httpResponse.statusCode, imageData: imageData)
                             }
                         default: break
                         }

@@ -25,26 +25,27 @@ class PushNotificationCarouselGetter {
         self.requestSender.sendRequest(task: downloadTask)
     }
     
-    func completionHandler(pushNotificationCarouselURLSessionData: PushNotificationCarouselURLSessionData, statusCode: Int, image: UIImage) {
+    func completionHandler(pushNotificationCarouselURLSessionData: PushNotificationCarouselURLSessionData, statusCode: Int, imageData: Data) {
         
         switch statusCode {
         case 200:
             let mcID = pushNotificationCarouselURLSessionData.mcID
             
-            let carouselData = PushNotificationCarouselData(image: image, deepLink: pushNotificationCarouselURLSessionData.carousel.deepLink)
-            
-            if var carousels = CordialGroupUserDefaults.dictionary(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES) as? Dictionary<String, [PushNotificationCarouselData]>,
-               var carousel = carousels[mcID] {
+            if var carousels = CordialGroupUserDefaults.dictionary(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES) as? Dictionary<String, [Data]> {
                 
-                carousel.append(carouselData)
-                
-                CordialGroupUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
-                
-                carousels[mcID] = carousel
-                
-                CordialGroupUserDefaults.set(carousels, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
+                if var carousel = carousels[mcID] {
+                    carousel.append(imageData)
+                    
+                    carousels[mcID] = carousel
+                    
+                    CordialGroupUserDefaults.set(carousels, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
+                } else {
+                    carousels[mcID] = [imageData]
+                    
+                    CordialGroupUserDefaults.set(carousels, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
+                }
             } else {
-                let carousels = [mcID: [carouselData]]
+                let carousels = [mcID: [imageData]]
                 
                 CordialGroupUserDefaults.set(carousels, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
             }
