@@ -30,22 +30,23 @@ class PushNotificationCarouselGetter {
         switch statusCode {
         case 200:
             let mcID = pushNotificationCarouselURLSessionData.mcID
+            let imageURL = pushNotificationCarouselURLSessionData.carousel.imageURL.absoluteString
             
-            if var carousels = CordialGroupUserDefaults.dictionary(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES) as? Dictionary<String, [Data]> {
+            if var carousels = CordialGroupUserDefaults.dictionary(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES) as? Dictionary<String, Dictionary<String, Data>> {
                 
                 if var carousel = carousels[mcID] {
-                    carousel.append(imageData)
+                    carousel[imageURL] = imageData
                     
                     carousels[mcID] = carousel
                     
                     CordialGroupUserDefaults.set(carousels, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
                 } else {
-                    carousels[mcID] = [imageData]
+                    carousels[mcID] = [imageURL: imageData]
                     
                     CordialGroupUserDefaults.set(carousels, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
                 }
             } else {
-                let carousels = [mcID: [imageData]]
+                let carousels = [mcID: [imageURL: imageData]]
                 
                 CordialGroupUserDefaults.set(carousels, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
             }
