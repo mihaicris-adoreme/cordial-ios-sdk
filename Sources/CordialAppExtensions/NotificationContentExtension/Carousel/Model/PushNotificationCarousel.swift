@@ -1,5 +1,5 @@
 //
-//  Carousel.swift
+//  PushNotificationCarousel.swift
 //  NotificationContentExtension
 //
 //  Created by Yan Malinovsky on 22.03.2022.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Carousel {
+struct PushNotificationCarousel {
     
     let imageURL: URL
     let deepLink: URL

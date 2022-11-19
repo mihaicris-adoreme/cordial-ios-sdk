@@ -18,6 +18,8 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
     private let carouselView = CarouselView()
     private var carouselData = [CarouselView.CarouselData]()
     
+    var mcID = String()
+    
     private var isCarouselReady = false
     
     open override func viewDidLoad() {
@@ -42,7 +44,11 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
         
     public func didReceive(_ notification: UNNotification) {
         let userInfo = notification.request.content.userInfo
-        let carousels = CarouselNotificationParser.getCarousels(userInfo: userInfo)
+        let carousels = PushNotificationParser().getPushNotificationCarousels(userInfo: userInfo)
+        
+        if let mcID = PushNotificationParser().getMcID(userInfo: userInfo) {
+            self.mcID = mcID
+        }
         
         NotificationCenter.default.post(name: .didReceiveCarouselsNotification, object: carousels)
     }
@@ -65,7 +71,7 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
     }
     
     @objc private func didReceiveCarouselsNotification(notification: NSNotification) {
-        if let carousels = notification.object as? [Carousel],
+        if let carousels = notification.object as? [PushNotificationCarousel],
            !carousels.isEmpty {
             
             DispatchQueue.main.async {
@@ -74,41 +80,64 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
                 var carouselDeepLinks = [String]()
                 
                 for (index, carousel) in carousels.enumerated() {
-                    URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
-                        DispatchQueue.main.async {
-                            if let error = error {
-                                self.unlockActionButtonsIfNeeded()
-                                os_log("CordialSDK_AppExtensions: Error [%{public}@]", log: .default, type: .error, error.localizedDescription)
-                                return
-                            }
-            
-                            if let responseData = data {
-                                if let image = UIImage(data: responseData) {
-                                    let carouselData = CarouselView.CarouselData(image: image)
-                                    self.carouselData.append(carouselData)
-                                    
-                                    carouselDeepLinks.append(carousel.deepLink.absoluteString)
-                                    CordialGroupUserDefaults.set(carouselDeepLinks, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
-                                } else {
-                                    self.unlockActionButtonsIfNeeded()
-                                    os_log("CordialSDK_AppExtensions: Error [Image data by URL is not a image]", log: .default, type: .error)
-                                }
+                    
+                    if let carouselsGroup = CordialGroupUserDefaults.dictionary(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES) as? Dictionary<String, Dictionary<String, Data>>,
+                       let carouselGroup = carouselsGroup[self.mcID],
+                       let imageData = carouselGroup[carousel.imageURL.absoluteString],
+                       let image = UIImage(data: imageData) {
+                        
+                        let carouselData = CarouselView.CarouselData(image: image)
+                        self.carouselData.append(carouselData)
+                        
+                        carouselDeepLinks.append(carousel.deepLink.absoluteString)
+                        CordialGroupUserDefaults.set(carouselDeepLinks, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
+                        
+                        if index == carousels.count - 1 {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                self.carouselView.configureView(with: self.carouselData)
                                 
-                                if index == carousels.count - 1 {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                        self.carouselView.configureView(with: self.carouselData)
-                                        
-                                        self.carouselView.collectionView.performBatchUpdates(nil, completion: { _ in
-                                            self.unlockActionButtonsIfNeeded()
-                                        })
-                                    }
-                                }
-                            } else {
-                                self.unlockActionButtonsIfNeeded()
-                                os_log("CordialSDK_AppExtensions: Error [Image by the URL is absent]", log: .default, type: .error)
+                                self.carouselView.collectionView.performBatchUpdates(nil, completion: { _ in
+                                    self.unlockActionButtonsIfNeeded()
+                                })
                             }
                         }
-                    }.resume()
+                    } else {
+                        URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
+                            DispatchQueue.main.async {
+                                if let error = error {
+                                    self.unlockActionButtonsIfNeeded()
+                                    os_log("CordialSDK_AppExtensions: Error [%{public}@]", log: .default, type: .error, error.localizedDescription)
+                                    return
+                                }
+                
+                                if let responseData = data {
+                                    if let image = UIImage(data: responseData) {
+                                        let carouselData = CarouselView.CarouselData(image: image)
+                                        self.carouselData.append(carouselData)
+                                        
+                                        carouselDeepLinks.append(carousel.deepLink.absoluteString)
+                                        CordialGroupUserDefaults.set(carouselDeepLinks, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
+                                    } else {
+                                        self.unlockActionButtonsIfNeeded()
+                                        os_log("CordialSDK_AppExtensions: Error [Image data by URL is not a image]", log: .default, type: .error)
+                                    }
+                                    
+                                    if index == carousels.count - 1 {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                            self.carouselView.configureView(with: self.carouselData)
+                                            
+                                            self.carouselView.collectionView.performBatchUpdates(nil, completion: { _ in
+                                                self.unlockActionButtonsIfNeeded()
+                                            })
+                                        }
+                                    }
+                                } else {
+                                    self.unlockActionButtonsIfNeeded()
+                                    os_log("CordialSDK_AppExtensions: Error [Image by the URL is absent]", log: .default, type: .error)
+                                }
+                            }
+                        }.resume()
+                    }
                 }
             }
         }
