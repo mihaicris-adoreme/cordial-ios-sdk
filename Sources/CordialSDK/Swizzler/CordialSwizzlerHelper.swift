@@ -48,6 +48,7 @@ class CordialSwizzlerHelper {
             }
                         
             let carousels = pushNotificationParser.getPushNotificationCarousels(userInfo: userInfo)
+            CordialGroupUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
             carousels.forEach { carousel in
                 PushNotificationCarouselGetter().preparePushNotificationCarousel(mcID: mcID, carousel: carousel)
             }

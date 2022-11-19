@@ -93,13 +93,11 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
                         CordialGroupUserDefaults.set(carouselDeepLinks, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
                         
                         if index == carousels.count - 1 {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                self.carouselView.configureView(with: self.carouselData)
-                                
-                                self.carouselView.collectionView.performBatchUpdates(nil, completion: { _ in
-                                    self.unlockActionButtonsIfNeeded()
-                                })
-                            }
+                            self.carouselView.configureView(with: self.carouselData)
+                            
+                            self.carouselView.collectionView.performBatchUpdates(nil, completion: { _ in
+                                self.unlockActionButtonsIfNeeded()
+                            })
                         }
                     } else {
                         URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
