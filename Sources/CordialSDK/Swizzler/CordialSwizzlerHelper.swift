@@ -48,10 +48,8 @@ class CordialSwizzlerHelper {
             }
                         
             let carousels = pushNotificationParser.getPushNotificationCarousels(userInfo: userInfo)
-            if !carousels.isEmpty {
-                carousels.forEach { carousel in
-                    PushNotificationCarouselGetter().preparePushNotificationCarousel(mcID: mcID, carousel: carousel)
-                }
+            carousels.forEach { carousel in
+                PushNotificationCarouselGetter().preparePushNotificationCarousel(mcID: mcID, carousel: carousel)
             }
         }
     }

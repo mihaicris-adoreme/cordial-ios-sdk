@@ -13,7 +13,7 @@
 		9E62495127FC86DA0052E43E /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494927FC86DA0052E43E /* CarouselView.swift */; };
 		9E62495227FC86DA0052E43E /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494A27FC86DA0052E43E /* CarouselCell.swift */; };
 		9E62495327FC86DA0052E43E /* CarouselNotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494C27FC86DA0052E43E /* CarouselNotificationExtension.swift */; };
-		9E62495427FC86DA0052E43E /* CarouselGroupUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */; };
+		9E62495427FC86DA0052E43E /* CordialGroupUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494D27FC86DA0052E43E /* CordialGroupUserDefaults.swift */; };
 		9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */; };
 		9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */; };
 		9EBD746A2287884700EC93EF /* CordialAppExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD74602287884600EC93EF /* CordialAppExtensions.framework */; };
@@ -38,7 +38,7 @@
 		9E62494927FC86DA0052E43E /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		9E62494A27FC86DA0052E43E /* CarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
 		9E62494C27FC86DA0052E43E /* CarouselNotificationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselNotificationExtension.swift; sourceTree = "<group>"; };
-		9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselGroupUserDefaults.swift; sourceTree = "<group>"; };
+		9E62494D27FC86DA0052E43E /* CordialGroupUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordialGroupUserDefaults.swift; sourceTree = "<group>"; };
 		9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselNotificationParser.swift; sourceTree = "<group>"; };
 		9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialNotificationServiceExtension.swift; sourceTree = "<group>"; };
 		9EBD74602287884600EC93EF /* CordialAppExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CordialAppExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				9E44588B29008218003D5384 /* API.swift */,
+				9E62494D27FC86DA0052E43E /* CordialGroupUserDefaults.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -116,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				9E62494C27FC86DA0052E43E /* CarouselNotificationExtension.swift */,
-				9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */,
 				9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */,
 			);
 			path = Helper;
@@ -285,7 +285,7 @@
 				9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */,
 				9E44588D29008218003D5384 /* API.swift in Sources */,
 				9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */,
-				9E62495427FC86DA0052E43E /* CarouselGroupUserDefaults.swift in Sources */,
+				9E62495427FC86DA0052E43E /* CordialGroupUserDefaults.swift in Sources */,
 				9E62495127FC86DA0052E43E /* CarouselView.swift in Sources */,
 				9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */,
 				9E62495227FC86DA0052E43E /* CarouselCell.swift in Sources */,

@@ -88,7 +88,7 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
                                     self.carouselData.append(carouselData)
                                     
                                     carouselDeepLinks.append(carousel.deepLink.absoluteString)
-                                    CarouselGroupUserDefaults.set(carouselDeepLinks, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
+                                    CordialGroupUserDefaults.set(carouselDeepLinks, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
                                 } else {
                                     self.unlockActionButtonsIfNeeded()
                                     os_log("CordialSDK_AppExtensions: Error [Image data by URL is not a image]", log: .default, type: .error)
@@ -127,7 +127,7 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
         
         (row < self.carouselData.count - 1) ? (row += 1) : (row = 0)
         
-        CarouselGroupUserDefaults.set(row, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID)
+        CordialGroupUserDefaults.set(row, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID)
         
         self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .right, animated: true)
     }
@@ -137,7 +137,7 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
         
         (row > 0) ? (row -= 1) : (row = self.carouselData.count - 1)
         
-        CarouselGroupUserDefaults.set(row, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID)
+        CordialGroupUserDefaults.set(row, forKey: CarouselNotificationExtension.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID)
         
         self.carouselView.collectionView.scrollToItem(at: IndexPath(row: row, section: 0), at: .left, animated: true)
     }
