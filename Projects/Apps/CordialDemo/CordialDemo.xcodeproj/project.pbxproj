@@ -133,16 +133,6 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9E4458B0290093C8003D5384 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9E77897422878C090089C986 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,6 +143,16 @@
 				9ED3049C27FC945B00642A56 /* NotificationContentExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9ECB7A372929923E007F1CA4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -754,7 +754,7 @@
 				9E7A5A63222EB64B0020054F /* Frameworks */,
 				9E7A5A64222EB64B0020054F /* Resources */,
 				9E77897422878C090089C986 /* Embed App Extensions */,
-				9E4458B0290093C8003D5384 /* Embed Frameworks */,
+				9ECB7A372929923E007F1CA4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

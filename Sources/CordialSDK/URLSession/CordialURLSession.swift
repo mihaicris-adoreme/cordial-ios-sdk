@@ -186,7 +186,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                 }
             case .image:
                 if let image = UIImage(named: location.path),
-                   let imageData = image.pngData() {
+                   let imageData = image.jpegData(compressionQuality: 1) {
                     
                     DispatchQueue.main.async {
                         switch operation.taskName {

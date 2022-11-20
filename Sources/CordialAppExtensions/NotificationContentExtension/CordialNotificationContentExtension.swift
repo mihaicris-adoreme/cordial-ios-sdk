@@ -79,12 +79,13 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
                 
                 var carouselDeepLinks = [String]()
                 
-                for (index, carousel) in carousels.enumerated() {
+                if let carouselsGroup = CordialGroupUserDefaults.dictionary(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES) as? Dictionary<String, Dictionary<String, Data>>,
+                   let carouselGroup = carouselsGroup[self.mcID],
+                   carouselGroup.count == carousels.count {
                     
-                    if let carouselsGroup = CordialGroupUserDefaults.dictionary(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES) as? Dictionary<String, Dictionary<String, Data>>,
-                       let carouselGroup = carouselsGroup[self.mcID],
-                       let imageData = carouselGroup[carousel.imageURL.absoluteString],
-                       let image = UIImage(data: imageData) {
+                    for (index, carousel) in carousels.enumerated() {
+                        guard let imageData = carouselGroup[carousel.imageURL.absoluteString] else { continue }
+                        guard let image = UIImage(data: imageData) else { continue }
                         
                         let carouselData = CarouselView.CarouselData(image: image)
                         self.carouselData.append(carouselData)
@@ -99,7 +100,9 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
                                 self.unlockActionButtonsIfNeeded()
                             })
                         }
-                    } else {
+                    }
+                } else {
+                    for (index, carousel) in carousels.enumerated() {
                         URLSession.shared.dataTask(with: carousel.imageURL) { data, response, error in
                             DispatchQueue.main.async {
                                 if let error = error {
@@ -109,7 +112,10 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
                                 }
                 
                                 if let responseData = data {
-                                    if let image = UIImage(data: responseData) {
+                                    if let responseImage = UIImage(data: responseData),
+                                       let responseImageData = responseImage.jpegData(compressionQuality: 1),
+                                        let image = UIImage(data: responseImageData) {
+                                        
                                         let carouselData = CarouselView.CarouselData(image: image)
                                         self.carouselData.append(carouselData)
                                         
@@ -121,13 +127,11 @@ open class CordialNotificationContentExtension: UIViewController, UNNotification
                                     }
                                     
                                     if index == carousels.count - 1 {
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                            self.carouselView.configureView(with: self.carouselData)
-                                            
-                                            self.carouselView.collectionView.performBatchUpdates(nil, completion: { _ in
-                                                self.unlockActionButtonsIfNeeded()
-                                            })
-                                        }
+                                        self.carouselView.configureView(with: self.carouselData)
+                                        
+                                        self.carouselView.collectionView.performBatchUpdates(nil, completion: { _ in
+                                            self.unlockActionButtonsIfNeeded()
+                                        })
                                     }
                                 } else {
                                     self.unlockActionButtonsIfNeeded()
