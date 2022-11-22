@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -69,6 +69,7 @@
                         <constraint firstItem="EzX-yv-GuV" firstAttribute="top" secondItem="EwJ-D3-BXo" secondAttribute="bottom" constant="15" id="QQC-uV-X70"/>
                         <constraint firstItem="up3-x7-fPT" firstAttribute="centerX" secondItem="Knz-ot-ftO" secondAttribute="centerX" id="SBA-Dz-ssp"/>
                         <constraint firstAttribute="height" constant="166" id="fOC-5s-bhG"/>
+                        <constraint firstItem="EwJ-D3-BXo" firstAttribute="top" secondItem="Knz-ot-ftO" secondAttribute="top" constant="15" id="fvp-nP-yPR"/>
                         <constraint firstItem="up3-x7-fPT" firstAttribute="top" secondItem="EzX-yv-GuV" secondAttribute="bottom" constant="30" id="hYW-iD-aTy"/>
                         <constraint firstItem="SW2-hQ-eLt" firstAttribute="top" secondItem="EwJ-D3-BXo" secondAttribute="top" id="hr4-CJ-xLf"/>
                         <constraint firstItem="up3-x7-fPT" firstAttribute="leading" secondItem="Knz-ot-ftO" secondAttribute="leading" constant="20" id="jLN-IG-8Lb"/>
