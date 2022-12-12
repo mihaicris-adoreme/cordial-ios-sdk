@@ -22,8 +22,8 @@
 		9E30BDE9244FA6AA00040974 /* CustomUIActivityLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */; };
 		9E3DD4CF241BC066004C3918 /* AttributeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */; };
 		9E43C3E12947680B002A62CC /* CordialDemoAppIntentsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43C3E02947680B002A62CC /* CordialDemoAppIntentsExtension.swift */; };
-		9E43C3E32947680B002A62CC /* CordialDemoAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43C3E22947680B002A62CC /* CordialDemoAppIntents.swift */; };
 		9E43C3E72947680B002A62CC /* CordialDemoAppIntents.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 9E43C3DE2947680A002A62CC /* CordialDemoAppIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9E43C3F829476BF9002A62CC /* CordialDemoAppIntentsFocusFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43C3F729476BF9002A62CC /* CordialDemoAppIntentsFocusFilter.swift */; };
 		9E45FE7622537648006A5A6B /* PushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E45FE7522537648006A5A6B /* PushNotificationHandler.swift */; };
 		9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */; };
 		9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */; };
@@ -179,8 +179,8 @@
 		9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeViewController.swift; sourceTree = "<group>"; };
 		9E43C3DE2947680A002A62CC /* CordialDemoAppIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = CordialDemoAppIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E43C3E02947680B002A62CC /* CordialDemoAppIntentsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemoAppIntentsExtension.swift; sourceTree = "<group>"; };
-		9E43C3E22947680B002A62CC /* CordialDemoAppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemoAppIntents.swift; sourceTree = "<group>"; };
 		9E43C3E42947680B002A62CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E43C3F729476BF9002A62CC /* CordialDemoAppIntentsFocusFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemoAppIntentsFocusFilter.swift; sourceTree = "<group>"; };
 		9E45FE7522537648006A5A6B /* PushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationHandler.swift; sourceTree = "<group>"; };
 		9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewController.swift; sourceTree = "<group>"; };
 		9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -365,8 +365,8 @@
 		9E43C3DF2947680B002A62CC /* CordialDemoAppIntents */ = {
 			isa = PBXGroup;
 			children = (
+				9E43C3F729476BF9002A62CC /* CordialDemoAppIntentsFocusFilter.swift */,
 				9E43C3E02947680B002A62CC /* CordialDemoAppIntentsExtension.swift */,
-				9E43C3E22947680B002A62CC /* CordialDemoAppIntents.swift */,
 				9E43C3E42947680B002A62CC /* Info.plist */,
 			);
 			path = CordialDemoAppIntents;
@@ -995,7 +995,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E43C3E12947680B002A62CC /* CordialDemoAppIntentsExtension.swift in Sources */,
-				9E43C3E32947680B002A62CC /* CordialDemoAppIntents.swift in Sources */,
+				9E43C3F829476BF9002A62CC /* CordialDemoAppIntentsFocusFilter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
