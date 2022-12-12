@@ -11,6 +11,13 @@ import AppIntents
 
 struct CordialDemoAppIntentsFocusFilter: SetFocusFilterIntent {
     
+    // Focus filter title
+    static var title: LocalizedStringResource = "Focus Filter"
+    
+    // Focus filter description
+    static var description: IntentDescription = "Select push notifications types to deliver."
+    
+    // MARK: - Filter information
     // Focus filter configurable parameters
     @Parameter(title: "Discounts", default: false)
     var isDiscounts: Bool
@@ -20,9 +27,6 @@ struct CordialDemoAppIntentsFocusFilter: SetFocusFilterIntent {
     
     @Parameter(title: "Top Products", default: false)
     var isTopProducts: Bool
-    
-    // Focus filter information
-    static var title: LocalizedStringResource = "Focus Filter"
     
     // The dynamic representation that displays after creating a Focus filter
     var displayRepresentation: DisplayRepresentation {
@@ -35,11 +39,30 @@ struct CordialDemoAppIntentsFocusFilter: SetFocusFilterIntent {
         
         let subtitle = filters.joined(separator: ", ")
         
-        return DisplayRepresentation(title: "\(title)",
-                              subtitle: "\(subtitle)")
+        return DisplayRepresentation(title: "\(title)", subtitle: "\(subtitle)")
     }
     
-    // The system calls this function when enabling or disabling Focus mode
+    // MARK: - Notification filtering and suppression
+    // The system suppresses notifications from this app that include a filter criteria
+    var appContext: FocusFilterAppContext {
+        let predicate: NSPredicate
+        // Evaluate the predicate against parameters from this instance.
+        
+        // TMP
+        if self.isDiscounts {
+            // Suppress notifications
+            
+            // TMP
+            predicate = NSPredicate(format: "SELF IN %@", ["discounts"])
+        } else {
+            // Do not suppress notifications
+            predicate = NSPredicate(value: true)
+        }
+        return FocusFilterAppContext(notificationFilterPredicate: predicate)
+    }
+    
+    // MARK: - Perform function
+    // The system calls this function when enabling or disabling Focus.
     func perform() async throws -> some IntentResult {
         return .result()
     }
