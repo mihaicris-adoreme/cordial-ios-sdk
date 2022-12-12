@@ -21,6 +21,9 @@
 		9E2BCB8E251D3A9200C21E04 /* InboxMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2BCB8D251D3A9200C21E04 /* InboxMessageHandler.swift */; };
 		9E30BDE9244FA6AA00040974 /* CustomUIActivityLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */; };
 		9E3DD4CF241BC066004C3918 /* AttributeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */; };
+		9E43C3E12947680B002A62CC /* CordialDemoAppIntentsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43C3E02947680B002A62CC /* CordialDemoAppIntentsExtension.swift */; };
+		9E43C3E32947680B002A62CC /* CordialDemoAppIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43C3E22947680B002A62CC /* CordialDemoAppIntents.swift */; };
+		9E43C3E72947680B002A62CC /* CordialDemoAppIntents.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 9E43C3DE2947680A002A62CC /* CordialDemoAppIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9E45FE7622537648006A5A6B /* PushNotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E45FE7522537648006A5A6B /* PushNotificationHandler.swift */; };
 		9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */; };
 		9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */; };
@@ -82,6 +85,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9E43C3E52947680B002A62CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9E7A5A5E222EB64B0020054F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9E43C3DD2947680A002A62CC;
+			remoteInfo = CordialDemoAppIntents;
+		};
 		9E6249B427FC94200052E43E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9E7A5A5E222EB64B0020054F /* Project object */;
@@ -113,6 +123,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		9E43C3E82947680B002A62CC /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				9E43C3E72947680B002A62CC /* CordialDemoAppIntents.appex in Embed ExtensionKit Extensions */,
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E77897422878C090089C986 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -156,6 +177,10 @@
 		9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityLogout.swift; sourceTree = "<group>"; };
 		9E39E68927FC9559002F1E52 /* NotificationContentExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationContentExtension.entitlements; sourceTree = "<group>"; };
 		9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeViewController.swift; sourceTree = "<group>"; };
+		9E43C3DE2947680A002A62CC /* CordialDemoAppIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = CordialDemoAppIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E43C3E02947680B002A62CC /* CordialDemoAppIntentsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemoAppIntentsExtension.swift; sourceTree = "<group>"; };
+		9E43C3E22947680B002A62CC /* CordialDemoAppIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDemoAppIntents.swift; sourceTree = "<group>"; };
+		9E43C3E42947680B002A62CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E45FE7522537648006A5A6B /* PushNotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationHandler.swift; sourceTree = "<group>"; };
 		9E4EEC85225E366500F473A6 /* CatalogCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewController.swift; sourceTree = "<group>"; };
 		9E4EEC88225E36B200F473A6 /* CatalogCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -223,6 +248,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9E43C3DB2947680A002A62CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E6249AC27FC941F0052E43E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -330,6 +362,16 @@
 			path = Attributes;
 			sourceTree = "<group>";
 		};
+		9E43C3DF2947680B002A62CC /* CordialDemoAppIntents */ = {
+			isa = PBXGroup;
+			children = (
+				9E43C3E02947680B002A62CC /* CordialDemoAppIntentsExtension.swift */,
+				9E43C3E22947680B002A62CC /* CordialDemoAppIntents.swift */,
+				9E43C3E42947680B002A62CC /* Info.plist */,
+			);
+			path = CordialDemoAppIntents;
+			sourceTree = "<group>";
+		};
 		9E6249B027FC941F0052E43E /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +411,7 @@
 				9E7A5A68222EB64B0020054F /* CordialDemo */,
 				9E7A5A80222EB64C0020054F /* CordialDemoTests */,
 				9E7A5A8B222EB64C0020054F /* CordialDemoUITests */,
+				9E43C3DF2947680B002A62CC /* CordialDemoAppIntents */,
 				9E6249B027FC941F0052E43E /* NotificationServiceExtension */,
 				9ED3049327FC945B00642A56 /* NotificationContentExtension */,
 				9E7A5A67222EB64B0020054F /* Products */,
@@ -384,6 +427,7 @@
 				9E7A5A88222EB64C0020054F /* CordialDemoUITests.xctest */,
 				9E6249AF27FC941F0052E43E /* NotificationServiceExtension.appex */,
 				9ED3049027FC945B00642A56 /* NotificationContentExtension.appex */,
+				9E43C3DE2947680A002A62CC /* CordialDemoAppIntents.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -706,6 +750,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9E43C3DD2947680A002A62CC /* CordialDemoAppIntents */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9E43C3EB2947680B002A62CC /* Build configuration list for PBXNativeTarget "CordialDemoAppIntents" */;
+			buildPhases = (
+				9E43C3DA2947680A002A62CC /* Sources */,
+				9E43C3DB2947680A002A62CC /* Frameworks */,
+				9E43C3DC2947680A002A62CC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CordialDemoAppIntents;
+			productName = CordialDemoAppIntents;
+			productReference = 9E43C3DE2947680A002A62CC /* CordialDemoAppIntents.appex */;
+			productType = "com.apple.product-type.extensionkit-extension";
+		};
 		9E6249AE27FC941F0052E43E /* NotificationServiceExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9E6249B727FC94200052E43E /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
@@ -734,12 +795,14 @@
 				9E7A5A64222EB64B0020054F /* Resources */,
 				9ED90F90222EBDE200C89D37 /* Embed Frameworks */,
 				9E77897422878C090089C986 /* Embed App Extensions */,
+				9E43C3E82947680B002A62CC /* Embed ExtensionKit Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				9E6249B527FC94200052E43E /* PBXTargetDependency */,
 				9ED3049B27FC945B00642A56 /* PBXTargetDependency */,
+				9E43C3E62947680B002A62CC /* PBXTargetDependency */,
 			);
 			name = CordialDemo;
 			packageProductDependencies = (
@@ -809,10 +872,13 @@
 		9E7A5A5E222EB64B0020054F /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1310;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = cordial.io;
 				TargetAttributes = {
+					9E43C3DD2947680A002A62CC = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					9E6249AE27FC941F0052E43E = {
 						CreatedOnToolsVersion = 13.1;
 					};
@@ -864,6 +930,7 @@
 				9E7A5A65222EB64B0020054F /* CordialDemo */,
 				9E7A5A7C222EB64C0020054F /* CordialDemoTests */,
 				9E7A5A87222EB64C0020054F /* CordialDemoUITests */,
+				9E43C3DD2947680A002A62CC /* CordialDemoAppIntents */,
 				9E6249AE27FC941F0052E43E /* NotificationServiceExtension */,
 				9ED3048F27FC945B00642A56 /* NotificationContentExtension */,
 			);
@@ -871,6 +938,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9E43C3DC2947680A002A62CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E6249AD27FC941F0052E43E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -916,6 +990,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9E43C3DA2947680A002A62CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9E43C3E12947680B002A62CC /* CordialDemoAppIntentsExtension.swift in Sources */,
+				9E43C3E32947680B002A62CC /* CordialDemoAppIntents.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9E6249AB27FC941F0052E43E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1015,6 +1098,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9E43C3E62947680B002A62CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9E43C3DD2947680A002A62CC /* CordialDemoAppIntents */;
+			targetProxy = 9E43C3E52947680B002A62CC /* PBXContainerItemProxy */;
+		};
 		9E6249B527FC94200052E43E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9E6249AE27FC941F0052E43E /* NotificationServiceExtension */;
@@ -1057,6 +1145,62 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9E43C3E92947680B002A62CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CordialDemoAppIntents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CordialDemoAppIntents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 cordial.io. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk.demo.app.CordialDemoAppIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9E43C3EA2947680B002A62CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6FB5FHVWQQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CordialDemoAppIntents/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CordialDemoAppIntents;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 cordial.io. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk.demo.app.CordialDemoAppIntents;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		9E6249B827FC94200052E43E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1426,6 +1570,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9E43C3EB2947680B002A62CC /* Build configuration list for PBXNativeTarget "CordialDemoAppIntents" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E43C3E92947680B002A62CC /* Debug */,
+				9E43C3EA2947680B002A62CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9E6249B727FC94200052E43E /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
