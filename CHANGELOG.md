@@ -6,7 +6,7 @@ The latest version of this file can be found at the master branch.
 
 ### Fixed
 
-- Push notification deep links wrong calling in scenes-disabled app configuration
+- Invoking correct deep links callback in scenes-disabled apps
 
 ## 4.1.1 (2022-10-11)
 
