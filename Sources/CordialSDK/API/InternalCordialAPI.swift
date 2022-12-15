@@ -346,7 +346,9 @@ class InternalCordialAPI {
             // UIKit
             if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
                 DispatchQueue.main.async {
-                    if #available(iOS 13.0, *), let scene = UIApplication.shared.connectedScenes.first {
+                    if #available(iOS 13.0, *), self.isAppUseScenes(),
+                        let scene = UIApplication.shared.connectedScenes.first {
+                        
                         cordialDeepLinksDelegate.openDeepLink(deepLink: cordialDeepLink, fallbackURL: fallbackURL, scene: scene, completionHandler: { deepLinkActionType in
                             
                             self.deepLinkAction(deepLinkActionType: deepLinkActionType)
