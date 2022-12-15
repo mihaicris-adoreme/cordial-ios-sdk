@@ -17,7 +17,7 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
         let url = deepLink.url
         
-        CordialDeepLinksHelper().baseLogsOutput(url: url, vanityURL: deepLink.vanityURL, fallbackURL: fallbackURL)
+        CordialDeepLinksHelper().baseLogsOutput(isScene: false, url: url, vanityURL: deepLink.vanityURL, fallbackURL: fallbackURL)
         
         DispatchQueue.main.async {
             if url.absoluteString.contains("notification-settings") {
@@ -55,7 +55,7 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
         let url = deepLink.url
         
-        CordialDeepLinksHelper().baseLogsOutput(url: url, vanityURL: deepLink.vanityURL, fallbackURL: fallbackURL)
+        CordialDeepLinksHelper().baseLogsOutput(isScene: true, url: url, vanityURL: deepLink.vanityURL, fallbackURL: fallbackURL)
         
         DispatchQueue.main.async {
             if url.absoluteString.contains("notification-settings") {

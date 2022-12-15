@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.1.2 (2022-12-14)
+
+### Fixed
+
+- Invoking correct deep links callback in scenes-disabled apps
+
 ## 4.1.1 (2022-10-11)
 
 ### Fixed
