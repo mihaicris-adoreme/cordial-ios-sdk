@@ -11,7 +11,6 @@ import AppIntents
 import os.log
 
 struct CordialDemoAppIntentsFocusFilter: SetFocusFilterIntent {
-    
     // Focus filter title
     static var title: LocalizedStringResource = "Focus Filter"
     
@@ -59,22 +58,8 @@ struct CordialDemoAppIntentsFocusFilter: SetFocusFilterIntent {
             predicate = NSPredicate(value: true)
         } else {
             // Suppress all notifications except filters criteria
-            predicate = NSPredicate(format: "SELF IN %@", [filters])
+            predicate = NSPredicate(format: "SELF IN %@", filters)
         }
-        
-//        if self.isDiscounts {
-//            // Not suppress `discounts` notifications
-//            predicate = NSPredicate(format: "SELF IN %@", ["discounts"])
-//        } else if self.isNewArrivals {
-//            // Not suppress `new-arrivals` notifications
-//            predicate = NSPredicate(format: "SELF IN %@", ["new-arrivals"])
-//        } else if self.isTopProducts {
-//            // Not suppress `top-products` notifications
-//            predicate = NSPredicate(format: "SELF IN %@", ["top-products"])
-//        } else {
-//            // Do not suppress notifications
-//            predicate = NSPredicate(value: true)
-//        }
         
         return FocusFilterAppContext(notificationFilterPredicate: predicate)
     }
@@ -82,8 +67,6 @@ struct CordialDemoAppIntentsFocusFilter: SetFocusFilterIntent {
     // MARK: - Perform function
     // The system calls this function when enabling or disabling Focus.
     func perform() async throws -> some IntentResult {
-        os_log("CordialDemo_AppIntents: perform", log: .default, type: .info)
-        
         return .result()
     }
 }
