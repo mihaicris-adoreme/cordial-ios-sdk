@@ -8,6 +8,7 @@
 
 import Foundation
 import AppIntents
+import os.log
 
 struct CordialDemoAppIntentsFocusFilter: SetFocusFilterIntent {
     
@@ -47,23 +48,42 @@ struct CordialDemoAppIntentsFocusFilter: SetFocusFilterIntent {
     var appContext: FocusFilterAppContext {
         let predicate: NSPredicate
         // Evaluate the predicate against parameters from this instance.
+
+        var filters = [String]()
+        if self.isDiscounts { filters.append("discounts") }
+        if self.isNewArrivals { filters.append("new-arrivals") }
+        if self.isTopProducts { filters.append("top-products") }
         
-        // TMP
-        if self.isDiscounts {
-            // Suppress notifications
-            
-            // TMP
-            predicate = NSPredicate(format: "SELF IN %@", ["discounts"])
-        } else {
-            // Do not suppress notifications
+        if filters.isEmpty {
+            // Do not suppress any notifications
             predicate = NSPredicate(value: true)
+        } else {
+            // Suppress all notifications except filters criteria
+            predicate = NSPredicate(format: "SELF IN %@", [filters])
         }
+        
+//        if self.isDiscounts {
+//            // Not suppress `discounts` notifications
+//            predicate = NSPredicate(format: "SELF IN %@", ["discounts"])
+//        } else if self.isNewArrivals {
+//            // Not suppress `new-arrivals` notifications
+//            predicate = NSPredicate(format: "SELF IN %@", ["new-arrivals"])
+//        } else if self.isTopProducts {
+//            // Not suppress `top-products` notifications
+//            predicate = NSPredicate(format: "SELF IN %@", ["top-products"])
+//        } else {
+//            // Do not suppress notifications
+//            predicate = NSPredicate(value: true)
+//        }
+        
         return FocusFilterAppContext(notificationFilterPredicate: predicate)
     }
     
     // MARK: - Perform function
     // The system calls this function when enabling or disabling Focus.
     func perform() async throws -> some IntentResult {
+        os_log("CordialDemo_AppIntents: perform", log: .default, type: .info)
+        
         return .result()
     }
 }
