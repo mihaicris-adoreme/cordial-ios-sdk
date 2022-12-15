@@ -8,7 +8,6 @@
 
 import Foundation
 import AppIntents
-import os.log
 
 struct CordialDemoAppIntentsFocusFilter: SetFocusFilterIntent {
     // Focus filter title
