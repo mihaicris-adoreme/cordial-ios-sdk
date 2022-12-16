@@ -16,7 +16,7 @@ import os.log
     
     private override init() {}
     
-    let sdkVersion = "4.1.0"
+    let sdkVersion = "4.1.1"
     
     let initPushNotification = CordialPushNotification.shared
     let initReachabilityManagerSingleton = ReachabilityManager.shared
