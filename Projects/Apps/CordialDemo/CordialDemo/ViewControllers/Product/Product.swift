@@ -17,9 +17,10 @@ class Product: NSObject, NSCoding {
     let price: Double
     let sku: String
     let shortDescription: String
+    let image: String
     let path: String
         
-    init(id: String, img: String, brand: String, name: String, price: Double, sku: String, shortDescription: String, path: String) {
+    init(id: String, img: String, brand: String, name: String, price: Double, sku: String, shortDescription: String, image: String, path: String) {
         self.id = id
         self.img = img
         self.brand = brand
@@ -27,6 +28,7 @@ class Product: NSObject, NSCoding {
         self.price = price
         self.sku = sku
         self.shortDescription = shortDescription
+        self.image = image
         self.path = path
     }
     
@@ -38,6 +40,7 @@ class Product: NSObject, NSCoding {
         case price = "price"
         case sku = "sku"
         case shortDescription = "shortDescription"
+        case image = "image"
         case path = "path"
     }
 
@@ -50,6 +53,7 @@ class Product: NSObject, NSCoding {
         aCoder.encode(self.price, forKey: Key.price.rawValue)
         aCoder.encode(self.sku, forKey: Key.sku.rawValue)
         aCoder.encode(self.shortDescription, forKey: Key.shortDescription.rawValue)
+        aCoder.encode(self.image, forKey: Key.image.rawValue)
         aCoder.encode(self.path, forKey: Key.path.rawValue)
     }
     
@@ -61,8 +65,9 @@ class Product: NSObject, NSCoding {
         let price = aDecoder.decodeDouble(forKey: Key.price.rawValue)
         let sku = aDecoder.decodeObject(forKey: Key.sku.rawValue) as! String
         let shortDescription = aDecoder.decodeObject(forKey: Key.shortDescription.rawValue) as! String
+        let image = aDecoder.decodeObject(forKey: Key.image.rawValue) as! String
         let path = aDecoder.decodeObject(forKey: Key.path.rawValue) as! String
         
-        self.init(id: id, img: img, brand: brand, name: name, price: price, sku: sku, shortDescription: shortDescription, path: path)
+        self.init(id: id, img: img, brand: brand, name: name, price: price, sku: sku, shortDescription: shortDescription, image: image, path: path)
     }
 }
