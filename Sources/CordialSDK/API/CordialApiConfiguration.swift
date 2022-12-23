@@ -16,8 +16,9 @@ import os.log
     
     private override init() {}
     
-    let sdkVersion = "4.1.2"
+    let sdkVersion = "4.1.3"
     
+    let initPushNotification = CordialPushNotification.shared
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
@@ -27,9 +28,6 @@ import os.log
     internal var channelKey = String()
     internal var eventsStreamURL = String()
     internal var messageHubURL = String()
-    
-    let cordialPushNotification = CordialPushNotification.shared
-    let cordialPushNotificationHandler = CordialPushNotificationHandler()
     
     @objc public let osLogManager = CordialOSLogManager()
     

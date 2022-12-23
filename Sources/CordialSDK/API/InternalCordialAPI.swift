@@ -39,9 +39,31 @@ class InternalCordialAPI {
         return false
     }
     
+    // Get SDK resource bundle URL
+    
+    func getResourceBundleURL(forResource: String, withExtension: String) -> URL? {
+        guard let resourceBundle = self.getResourceBundle() else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Error: [Could not get bundle that contains the model]", log: OSLog.cordialError, type: .error)
+            }
+            
+            return nil
+        }
+        
+        guard let resourceBundleURL = resourceBundle.url(forResource: forResource, withExtension: withExtension) else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Error: [Could not get bundle url for file %{public}@.%{public}@]", log: OSLog.cordialError, type: .error, forResource, withExtension)
+            }
+            
+            return nil
+        }
+        
+        return resourceBundleURL
+    }
+    
     // Get SDK resource bundle
     
-    func getResourceBundle() -> Bundle? {
+    private func getResourceBundle() -> Bundle? {
         let frameworkIdentifier = "io.cordial.sdk"
         let frameworkName = "CordialSDK"
         
@@ -74,6 +96,43 @@ class InternalCordialAPI {
         }
         
         return resourceBundle
+    }
+    
+    // Get expected URLSession data type
+    
+    func getExpectedCordialURLSessionDataType(taskName: String) -> CordialURLSessionDataType {
+        switch taskName {
+        case API.DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACTS:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_DELETE_INBOX_MESSAGE:
+            return .string
+        case API.DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL:
+            return .image
+        default:
+            return .none
+        }
     }
 
     // MARK: Remove All Cached Data
@@ -336,7 +395,7 @@ class InternalCordialAPI {
         } else {
             self.sentEventDeepLinkOpen(url: url)
             
-            let pushNotificationParser = CordialPushNotificationParser()
+            let pushNotificationParser = PushNotificationParser()
             
             let vanityDeepLinkURL = pushNotificationParser.getVanityDeepLinkURL(userInfo: userInfo)
             let cordialDeepLink = CordialDeepLink(url: url, vanityURL: vanityDeepLinkURL)

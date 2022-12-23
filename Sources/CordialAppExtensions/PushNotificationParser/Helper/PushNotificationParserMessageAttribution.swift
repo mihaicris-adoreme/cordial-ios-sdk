@@ -1,14 +1,14 @@
 //
-//  CordialPushNotificationParserMessageAttribution.swift
-//  CordialSDK
+//  PushNotificationParserMessageAttribution.swift
+//  CordialAppExtensions
 //
-//  Created by Yan Malinovsky on 17.06.2020.
-//  Copyright © 2020 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 19.11.2022.
+//  Copyright © 2022 Cordial Experience, Inc. All rights reserved.
 //
 
 import Foundation
 
-class CordialPushNotificationParserMessageAttribution {
+class PushNotificationParserMessageAttribution {
     
     // MARK: Get mcID
     

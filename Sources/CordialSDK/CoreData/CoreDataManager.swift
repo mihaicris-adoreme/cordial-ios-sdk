@@ -52,7 +52,7 @@ class CoreDataManager {
             container.loadPersistentStores(completionHandler: { (storeDescription, error) in
                 if let error = error as NSError? {
                     if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("CoreData Unresolved Error: [%{public}@], Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, error.userInfo)
+                        os_log("CoreData Unresolved Error: [%{public}@] Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, error.userInfo)
                     }
                  }
             })
@@ -64,17 +64,9 @@ class CoreDataManager {
     }()
     
     private func getManagedObjectModel() -> NSManagedObjectModel? {
-        guard let resourceBundle = InternalCordialAPI().getResourceBundle() else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [Could not get bundle that contains the model]", log: OSLog.cordialCoreDataError, type: .error)
-            }
-            
-            return nil
-        }
+        guard let resourceBundleURL = InternalCordialAPI().getResourceBundleURL(forResource: self.modelName, withExtension: "momd") else { return nil }
         
-        guard let modelURL = resourceBundle.url(forResource: self.modelName, withExtension: "momd"),
-            let model = NSManagedObjectModel(contentsOf: modelURL) else {
-                
+        guard let model = NSManagedObjectModel(contentsOf: resourceBundleURL) else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("CoreData Error: [Could not get bundle for managed object model]", log: OSLog.cordialCoreDataError, type: .error)
             }

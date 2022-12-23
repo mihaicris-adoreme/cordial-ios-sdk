@@ -21,6 +21,7 @@
 		9ED8B1EF2861D98F007D1959 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED8B1EE2861D98F007D1959 /* NotificationService.swift */; };
 		9ED8B1F32861D98F007D1959 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9ED8B1EC2861D98F007D1959 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9EE6451622EF38640071E285 /* PushNotificationHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE6451522EF38640071E285 /* PushNotificationHandler.m */; };
+		9EF7A3E02951DFAF0024FF39 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EF7A3DF2951DFAF0024FF39 /* SceneDelegate.m */; };
 		9EFDDBAB280355800049D2E4 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFDDBAA280355800049D2E4 /* UserNotifications.framework */; };
 		9EFDDBAD280355800049D2E4 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFDDBAC280355800049D2E4 /* UserNotificationsUI.framework */; };
 		9EFDDBB0280355800049D2E4 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFDDBAF280355800049D2E4 /* NotificationViewController.swift */; };
@@ -112,6 +113,8 @@
 		9ED8B1F02861D98F007D1959 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EE6451422EF38640071E285 /* PushNotificationHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushNotificationHandler.h; sourceTree = "<group>"; };
 		9EE6451522EF38640071E285 /* PushNotificationHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushNotificationHandler.m; sourceTree = "<group>"; };
+		9EF7A3DE2951DFAF0024FF39 /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		9EF7A3DF2951DFAF0024FF39 /* SceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		9EFDDBA9280355800049D2E4 /* NotificationContentExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationContentExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EFDDBAA280355800049D2E4 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		9EFDDBAC280355800049D2E4 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -202,6 +205,8 @@
 				9EE6450C22EF35F10071E285 /* PushNotification */,
 				9E65C8F022EF1A1200E30F53 /* AppDelegate.h */,
 				9E65C8F122EF1A1200E30F53 /* AppDelegate.m */,
+				9EF7A3DE2951DFAF0024FF39 /* SceneDelegate.h */,
+				9EF7A3DF2951DFAF0024FF39 /* SceneDelegate.m */,
 				9E65C8F322EF1A1200E30F53 /* ViewController.h */,
 				9E65C8F422EF1A1200E30F53 /* ViewController.m */,
 				9E65C8F622EF1A1200E30F53 /* Main.storyboard */,
@@ -494,6 +499,7 @@
 				9E65C8F522EF1A1200E30F53 /* ViewController.m in Sources */,
 				9E65C8FB22EF1A1200E30F53 /* CordialDemo_Objective_C.xcdatamodeld in Sources */,
 				9E915B5C2350AFE3002FA546 /* CordialDeepLinksHandler.m in Sources */,
+				9EF7A3E02951DFAF0024FF39 /* SceneDelegate.m in Sources */,
 				9E9A417923290F0B00FBB4CC /* NotificationManager.m in Sources */,
 				9EE6451622EF38640071E285 /* PushNotificationHandler.m in Sources */,
 				9E65C90322EF1A1300E30F53 /* main.m in Sources */,

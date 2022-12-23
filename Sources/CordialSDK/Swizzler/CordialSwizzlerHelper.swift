@@ -14,12 +14,11 @@ class CordialSwizzlerHelper {
     // MARK: Push notification
     
     func didReceiveRemoteNotification(userInfo: [AnyHashable : Any]) {
-        
         if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
             os_log("Silent push notification received. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
         }
         
-        let pushNotificationParser = CordialPushNotificationParser()
+        let pushNotificationParser = PushNotificationParser()
         
         if pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
             switch CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration {
@@ -30,22 +29,28 @@ class CordialSwizzlerHelper {
             }
         }
         
-        if pushNotificationParser.isPayloadContainInboxMessage(userInfo: userInfo),
-           let mcID = pushNotificationParser.getMcID(userInfo: userInfo) {
-            
-            CoreDataManager.shared.inboxMessagesCache.removeInboxMessageFromCoreData(mcID: mcID)
-            CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContentFromCoreData(mcID: mcID)
-            
-            // UIKit
-            if let inboxMessageDelegate = CordialApiConfiguration.shared.inboxMessageDelegate {
-                inboxMessageDelegate.newInboxMessageDelivered(mcID: mcID)
-            }
-            
-            // SwiftUI
-            if #available(iOS 13.0, *) {
-                DispatchQueue.main.async {
-                    CordialSwiftUIInboxMessagePublisher.shared.publishNewInboxMessageDelivered(mcID: mcID)
+        if let mcID = pushNotificationParser.getMcID(userInfo: userInfo) {
+            if pushNotificationParser.isPayloadContainInboxMessage(userInfo: userInfo) {
+                CoreDataManager.shared.inboxMessagesCache.removeInboxMessageFromCoreData(mcID: mcID)
+                CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContentFromCoreData(mcID: mcID)
+                
+                // UIKit
+                if let inboxMessageDelegate = CordialApiConfiguration.shared.inboxMessageDelegate {
+                    inboxMessageDelegate.newInboxMessageDelivered(mcID: mcID)
                 }
+                
+                // SwiftUI
+                if #available(iOS 13.0, *) {
+                    DispatchQueue.main.async {
+                        CordialSwiftUIInboxMessagePublisher.shared.publishNewInboxMessageDelivered(mcID: mcID)
+                    }
+                }
+            }
+                        
+            let carousels = pushNotificationParser.getPushNotificationCarousels(userInfo: userInfo)
+            CordialGroupUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
+            carousels.forEach { carousel in
+                PushNotificationCarouselGetter().preparePushNotificationCarousel(mcID: mcID, carousel: carousel)
             }
         }
     }
