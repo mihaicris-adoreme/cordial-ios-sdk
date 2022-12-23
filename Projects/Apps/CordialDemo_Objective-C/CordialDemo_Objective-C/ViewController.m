@@ -42,7 +42,7 @@
 
     StringValue *name = [[StringValue alloc] init:@"Jon Doe"];
     BooleanValue *employed = [[BooleanValue alloc] init:TRUE];
-    NumericValue *age = [[NumericValue alloc] initWithIntValue:32];
+    NumericValue *age = [[NumericValue alloc] initWithNumberValue:@32];
     ArrayValue *children = [[ArrayValue alloc] init:@[@"Sofia", @"Jack"]];
     
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];

@@ -105,7 +105,7 @@ public class TestCase {
     }
     
     public func prepareCurrentPushNotificationStatus() {
-        CordialPushNotificationHelper().prepareCurrentPushNotificationStatus()
+        PushNotificationHelper().prepareCurrentPushNotificationStatus()
     }
 
     public func sendInvalidCustomEventRequest(task: URLSessionDownloadTask) {

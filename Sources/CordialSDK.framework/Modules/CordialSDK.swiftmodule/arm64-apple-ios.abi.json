@@ -3059,6 +3059,96 @@
         ]
       },
       {
+        "kind": "TypeDecl",
+        "name": "PushNotificationParserCarousel",
+        "printedName": "PushNotificationParserCarousel",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "getPushNotificationCarouselsCurrentPayloadType",
+            "printedName": "getPushNotificationCarouselsCurrentPayloadType(userInfo:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[CordialSDK.PushNotificationCarousel]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushNotificationCarousel",
+                    "printedName": "CordialSDK.PushNotificationCarousel",
+                    "usr": "s:10CordialSDK24PushNotificationCarouselV"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK30PushNotificationParserCarouselC03getcD27CarouselsCurrentPayloadType8userInfoSayAA0cdF0VGSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK30PushNotificationParserCarouselC03getcD27CarouselsCurrentPayloadType8userInfoSayAA0cdF0VGSDys11AnyHashableVypG_tF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushNotificationParserCarousel",
+                "printedName": "CordialSDK.PushNotificationParserCarousel",
+                "usr": "s:10CordialSDK30PushNotificationParserCarouselC"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10CordialSDK30PushNotificationParserCarouselCACycfc",
+            "mangledName": "$s10CordialSDK30PushNotificationParserCarouselCACycfc",
+            "moduleName": "CordialSDK",
+            "implicit": true,
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:10CordialSDK30PushNotificationParserCarouselC",
+        "mangledName": "$s10CordialSDK30PushNotificationParserCarouselC",
+        "moduleName": "CordialSDK",
+        "isOpen": true
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
@@ -4902,6 +4992,55 @@
           },
           {
             "kind": "Var",
+            "name": "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES",
+            "printedName": "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK3APIV73USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGESSSvpZ",
+            "mangledName": "$s10CordialSDK3APIV73USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGESSSvpZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK3APIV73USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGESSSvgZ",
+                "mangledName": "$s10CordialSDK3APIV73USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGESSSvgZ",
+                "moduleName": "CordialSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS",
             "printedName": "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS",
             "children": [
@@ -6078,6 +6217,55 @@
           },
           {
             "kind": "Var",
+            "name": "DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL",
+            "printedName": "DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK3APIV45DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSELSSvpZ",
+            "mangledName": "$s10CordialSDK3APIV45DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSELSSvpZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK3APIV45DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSELSSvgZ",
+                "mangledName": "$s10CordialSDK3APIV45DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSELSSvgZ",
+                "moduleName": "CordialSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "SYSTEM_EVENT_PREFIX",
             "printedName": "SYSTEM_EVENT_PREFIX",
             "children": [
@@ -6654,6 +6842,55 @@
                 "declKind": "Accessor",
                 "usr": "s:10CordialSDK3APIV33BACKGROUND_URL_SESSION_IDENTIFIERSSvgZ",
                 "mangledName": "$s10CordialSDK3APIV33BACKGROUND_URL_SESSION_IDENTIFIERSSvgZ",
+                "moduleName": "CordialSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "SECURITY_APPLICATION_GROUP_IDENTIFIER",
+            "printedName": "SECURITY_APPLICATION_GROUP_IDENTIFIER",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK3APIV37SECURITY_APPLICATION_GROUP_IDENTIFIERSSvpZ",
+            "mangledName": "$s10CordialSDK3APIV37SECURITY_APPLICATION_GROUP_IDENTIFIERSSvpZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK3APIV37SECURITY_APPLICATION_GROUP_IDENTIFIERSSvgZ",
+                "mangledName": "$s10CordialSDK3APIV37SECURITY_APPLICATION_GROUP_IDENTIFIERSSvgZ",
                 "moduleName": "CordialSDK",
                 "static": true,
                 "implicit": true,
@@ -9536,14 +9773,14 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationHelper",
-                "printedName": "CordialSDK.CordialPushNotificationHelper",
-                "usr": "s:10CordialSDK0A22PushNotificationHelperC"
+                "name": "PushNotificationHelper",
+                "printedName": "CordialSDK.PushNotificationHelper",
+                "usr": "s:10CordialSDK22PushNotificationHelperC"
               }
             ],
             "declKind": "Var",
-            "usr": "s:10CordialSDK0A16PushNotificationC04pushD6HelperAA0acdF0Cvp",
-            "mangledName": "$s10CordialSDK0A16PushNotificationC04pushD6HelperAA0acdF0Cvp",
+            "usr": "s:10CordialSDK0A16PushNotificationC04pushD6HelperAA0cdF0Cvp",
+            "mangledName": "$s10CordialSDK0A16PushNotificationC04pushD6HelperAA0cdF0Cvp",
             "moduleName": "CordialSDK",
             "declAttributes": [
               "HasInitialValue",
@@ -9561,14 +9798,14 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "CordialPushNotificationHelper",
-                    "printedName": "CordialSDK.CordialPushNotificationHelper",
-                    "usr": "s:10CordialSDK0A22PushNotificationHelperC"
+                    "name": "PushNotificationHelper",
+                    "printedName": "CordialSDK.PushNotificationHelper",
+                    "usr": "s:10CordialSDK22PushNotificationHelperC"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:10CordialSDK0A16PushNotificationC04pushD6HelperAA0acdF0Cvg",
-                "mangledName": "$s10CordialSDK0A16PushNotificationC04pushD6HelperAA0acdF0Cvg",
+                "usr": "s:10CordialSDK0A16PushNotificationC04pushD6HelperAA0cdF0Cvg",
+                "mangledName": "$s10CordialSDK0A16PushNotificationC04pushD6HelperAA0cdF0Cvg",
                 "moduleName": "CordialSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -10635,8 +10872,8 @@
       },
       {
         "kind": "TypeDecl",
-        "name": "CordialPushNotificationHelper",
-        "printedName": "CordialPushNotificationHelper",
+        "name": "PushNotificationHelper",
+        "printedName": "PushNotificationHelper",
         "children": [
           {
             "kind": "Var",
@@ -10651,8 +10888,8 @@
               }
             ],
             "declKind": "Var",
-            "usr": "s:10CordialSDK0A22PushNotificationHelperC10cordialAPIAA0aG0Cvp",
-            "mangledName": "$s10CordialSDK0A22PushNotificationHelperC10cordialAPIAA0aG0Cvp",
+            "usr": "s:10CordialSDK22PushNotificationHelperC10cordialAPIAA0aG0Cvp",
+            "mangledName": "$s10CordialSDK22PushNotificationHelperC10cordialAPIAA0aG0Cvp",
             "moduleName": "CordialSDK",
             "declAttributes": [
               "HasInitialValue",
@@ -10676,8 +10913,8 @@
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:10CordialSDK0A22PushNotificationHelperC10cordialAPIAA0aG0Cvg",
-                "mangledName": "$s10CordialSDK0A22PushNotificationHelperC10cordialAPIAA0aG0Cvg",
+                "usr": "s:10CordialSDK22PushNotificationHelperC10cordialAPIAA0aG0Cvg",
+                "mangledName": "$s10CordialSDK22PushNotificationHelperC10cordialAPIAA0aG0Cvg",
                 "moduleName": "CordialSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -10701,8 +10938,8 @@
               }
             ],
             "declKind": "Var",
-            "usr": "s:10CordialSDK0A22PushNotificationHelperC08internalA3APIAA08InternalaG0Cvp",
-            "mangledName": "$s10CordialSDK0A22PushNotificationHelperC08internalA3APIAA08InternalaG0Cvp",
+            "usr": "s:10CordialSDK22PushNotificationHelperC08internalA3APIAA08InternalaG0Cvp",
+            "mangledName": "$s10CordialSDK22PushNotificationHelperC08internalA3APIAA08InternalaG0Cvp",
             "moduleName": "CordialSDK",
             "declAttributes": [
               "HasInitialValue",
@@ -10726,8 +10963,8 @@
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:10CordialSDK0A22PushNotificationHelperC08internalA3APIAA08InternalaG0Cvg",
-                "mangledName": "$s10CordialSDK0A22PushNotificationHelperC08internalA3APIAA08InternalaG0Cvg",
+                "usr": "s:10CordialSDK22PushNotificationHelperC08internalA3APIAA08InternalaG0Cvg",
+                "mangledName": "$s10CordialSDK22PushNotificationHelperC08internalA3APIAA08InternalaG0Cvg",
                 "moduleName": "CordialSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -10745,14 +10982,14 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParser",
-                "printedName": "CordialSDK.CordialPushNotificationParser",
-                "usr": "s:10CordialSDK0A22PushNotificationParserC"
+                "name": "PushNotificationParser",
+                "printedName": "CordialSDK.PushNotificationParser",
+                "usr": "s:10CordialSDK22PushNotificationParserC"
               }
             ],
             "declKind": "Var",
-            "usr": "s:10CordialSDK0A22PushNotificationHelperC04pushD6ParserAA0acdG0Cvp",
-            "mangledName": "$s10CordialSDK0A22PushNotificationHelperC04pushD6ParserAA0acdG0Cvp",
+            "usr": "s:10CordialSDK22PushNotificationHelperC04pushD6ParserAA0cdG0Cvp",
+            "mangledName": "$s10CordialSDK22PushNotificationHelperC04pushD6ParserAA0cdG0Cvp",
             "moduleName": "CordialSDK",
             "declAttributes": [
               "HasInitialValue",
@@ -10770,14 +11007,14 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "CordialPushNotificationParser",
-                    "printedName": "CordialSDK.CordialPushNotificationParser",
-                    "usr": "s:10CordialSDK0A22PushNotificationParserC"
+                    "name": "PushNotificationParser",
+                    "printedName": "CordialSDK.PushNotificationParser",
+                    "usr": "s:10CordialSDK22PushNotificationParserC"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:10CordialSDK0A22PushNotificationHelperC04pushD6ParserAA0acdG0Cvg",
-                "mangledName": "$s10CordialSDK0A22PushNotificationHelperC04pushD6ParserAA0acdG0Cvg",
+                "usr": "s:10CordialSDK22PushNotificationHelperC04pushD6ParserAA0cdG0Cvg",
+                "mangledName": "$s10CordialSDK22PushNotificationHelperC04pushD6ParserAA0cdG0Cvg",
                 "moduleName": "CordialSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -10839,8 +11076,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationHelperC04pushD13HasBeenTapped8userInfo17completionHandlerySDys11AnyHashableVypG_yyXEtF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationHelperC04pushD13HasBeenTapped8userInfo17completionHandlerySDys11AnyHashableVypG_yyXEtF",
+            "usr": "s:10CordialSDK22PushNotificationHelperC04pushD13HasBeenTapped8userInfo17completionHandlerySDys11AnyHashableVypG_yyXEtF",
+            "mangledName": "$s10CordialSDK22PushNotificationHelperC04pushD13HasBeenTapped8userInfo17completionHandlerySDys11AnyHashableVypG_yyXEtF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -10897,8 +11134,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationHelperC04pushD26HasBeenForegroundDelivered8userInfo17completionHandlerySDys11AnyHashableVypG_ySo33UNNotificationPresentationOptionsVXEtF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationHelperC04pushD26HasBeenForegroundDelivered8userInfo17completionHandlerySDys11AnyHashableVypG_ySo33UNNotificationPresentationOptionsVXEtF",
+            "usr": "s:10CordialSDK22PushNotificationHelperC04pushD26HasBeenForegroundDelivered8userInfo17completionHandlerySDys11AnyHashableVypG_ySo33UNNotificationPresentationOptionsVXEtF",
+            "mangledName": "$s10CordialSDK22PushNotificationHelperC04pushD26HasBeenForegroundDelivered8userInfo17completionHandlerySDys11AnyHashableVypG_ySo33UNNotificationPresentationOptionsVXEtF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -10915,8 +11152,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationHelperC014prepareCurrentcD6StatusyyF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationHelperC014prepareCurrentcD6StatusyyF",
+            "usr": "s:10CordialSDK22PushNotificationHelperC014prepareCurrentcD6StatusyyF",
+            "mangledName": "$s10CordialSDK22PushNotificationHelperC014prepareCurrentcD6StatusyyF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -10928,22 +11165,22 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationHelper",
-                "printedName": "CordialSDK.CordialPushNotificationHelper",
-                "usr": "s:10CordialSDK0A22PushNotificationHelperC"
+                "name": "PushNotificationHelper",
+                "printedName": "CordialSDK.PushNotificationHelper",
+                "usr": "s:10CordialSDK22PushNotificationHelperC"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:10CordialSDK0A22PushNotificationHelperCACycfc",
-            "mangledName": "$s10CordialSDK0A22PushNotificationHelperCACycfc",
+            "usr": "s:10CordialSDK22PushNotificationHelperCACycfc",
+            "mangledName": "$s10CordialSDK22PushNotificationHelperCACycfc",
             "moduleName": "CordialSDK",
             "implicit": true,
             "init_kind": "Designated"
           }
         ],
         "declKind": "Class",
-        "usr": "s:10CordialSDK0A22PushNotificationHelperC",
-        "mangledName": "$s10CordialSDK0A22PushNotificationHelperC",
+        "usr": "s:10CordialSDK22PushNotificationHelperC",
+        "mangledName": "$s10CordialSDK22PushNotificationHelperC",
         "moduleName": "CordialSDK",
         "isOpen": true
       },
@@ -15823,8 +16060,8 @@
       },
       {
         "kind": "TypeDecl",
-        "name": "CordialPushNotificationParser",
-        "printedName": "CordialPushNotificationParser",
+        "name": "PushNotificationParser",
+        "printedName": "PushNotificationParser",
         "children": [
           {
             "kind": "Var",
@@ -15833,14 +16070,14 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParserDeepLinks",
-                "printedName": "CordialSDK.CordialPushNotificationParserDeepLinks",
-                "usr": "s:10CordialSDK0A31PushNotificationParserDeepLinksC"
+                "name": "PushNotificationParserDeepLinks",
+                "printedName": "CordialSDK.PushNotificationParserDeepLinks",
+                "usr": "s:10CordialSDK31PushNotificationParserDeepLinksC"
               }
             ],
             "declKind": "Var",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC09deepLinksE0031_F7FDCCE3A8F9737ECAA40EFF99BF39H0LLAA0acde4DeepG0Cvp",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC09deepLinksE0031_F7FDCCE3A8F9737ECAA40EFF99BF39H0LLAA0acde4DeepG0Cvp",
+            "usr": "s:10CordialSDK22PushNotificationParserC09deepLinksE033_7BCB0BAE52D8AEED3A89280256F78B74LLAA0cde4DeepG0Cvp",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC09deepLinksE033_7BCB0BAE52D8AEED3A89280256F78B74LLAA0cde4DeepG0Cvp",
             "moduleName": "CordialSDK",
             "isInternal": true,
             "declAttributes": [
@@ -15860,14 +16097,14 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParserMessageAttribution",
-                "printedName": "CordialSDK.CordialPushNotificationParserMessageAttribution",
-                "usr": "s:10CordialSDK0A40PushNotificationParserMessageAttributionC"
+                "name": "PushNotificationParserMessageAttribution",
+                "printedName": "CordialSDK.PushNotificationParserMessageAttribution",
+                "usr": "s:10CordialSDK40PushNotificationParserMessageAttributionC"
               }
             ],
             "declKind": "Var",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC018messageAttributionE0031_F7FDCCE3A8F9737ECAA40EFF99BF39H0LLAA0acde7MessageG0Cvp",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC018messageAttributionE0031_F7FDCCE3A8F9737ECAA40EFF99BF39H0LLAA0acde7MessageG0Cvp",
+            "usr": "s:10CordialSDK22PushNotificationParserC018messageAttributionE033_7BCB0BAE52D8AEED3A89280256F78B74LLAA0cde7MessageG0Cvp",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC018messageAttributionE033_7BCB0BAE52D8AEED3A89280256F78B74LLAA0cde7MessageG0Cvp",
             "moduleName": "CordialSDK",
             "isInternal": true,
             "declAttributes": [
@@ -15887,14 +16124,14 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParserInAppMessage",
-                "printedName": "CordialSDK.CordialPushNotificationParserInAppMessage",
-                "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageC"
+                "name": "PushNotificationParserInAppMessage",
+                "printedName": "CordialSDK.PushNotificationParserInAppMessage",
+                "usr": "s:10CordialSDK34PushNotificationParserInAppMessageC"
               }
             ],
             "declKind": "Var",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC012inAppMessageE0031_F7FDCCE3A8F9737ECAA40EFF99BF39I0LLAA0acde2IngH0Cvp",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC012inAppMessageE0031_F7FDCCE3A8F9737ECAA40EFF99BF39I0LLAA0acde2IngH0Cvp",
+            "usr": "s:10CordialSDK22PushNotificationParserC012inAppMessageE033_7BCB0BAE52D8AEED3A89280256F78B74LLAA0cde2IngH0Cvp",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC012inAppMessageE033_7BCB0BAE52D8AEED3A89280256F78B74LLAA0cde2IngH0Cvp",
             "moduleName": "CordialSDK",
             "isInternal": true,
             "declAttributes": [
@@ -15909,19 +16146,19 @@
           },
           {
             "kind": "Var",
-            "name": "pushNotificationParserInboxMessage",
-            "printedName": "pushNotificationParserInboxMessage",
+            "name": "inboxMessageParser",
+            "printedName": "inboxMessageParser",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParserInboxMessage",
-                "printedName": "CordialSDK.CordialPushNotificationParserInboxMessage",
-                "usr": "s:10CordialSDK0A34PushNotificationParserInboxMessageC"
+                "name": "PushNotificationParserInboxMessage",
+                "printedName": "CordialSDK.PushNotificationParserInboxMessage",
+                "usr": "s:10CordialSDK34PushNotificationParserInboxMessageC"
               }
             ],
             "declKind": "Var",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC04pushdE12InboxMessage031_F7FDCCE3A8F9737ECAA40EFF99BF39I0LLAA0acdegH0Cvp",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC04pushdE12InboxMessage031_F7FDCCE3A8F9737ECAA40EFF99BF39I0LLAA0acdegH0Cvp",
+            "usr": "s:10CordialSDK22PushNotificationParserC012inboxMessageE033_7BCB0BAE52D8AEED3A89280256F78B74LLAA0cde5InboxG0Cvp",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC012inboxMessageE033_7BCB0BAE52D8AEED3A89280256F78B74LLAA0cde5InboxG0Cvp",
             "moduleName": "CordialSDK",
             "isInternal": true,
             "declAttributes": [
@@ -15931,6 +16168,33 @@
               "AccessControl"
             ],
             "fixedbinaryorder": 3,
+            "isLet": true,
+            "hasStorage": true
+          },
+          {
+            "kind": "Var",
+            "name": "carouselParser",
+            "printedName": "carouselParser",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushNotificationParserCarousel",
+                "printedName": "CordialSDK.PushNotificationParserCarousel",
+                "usr": "s:10CordialSDK30PushNotificationParserCarouselC"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK22PushNotificationParserC08carouselE033_7BCB0BAE52D8AEED3A89280256F78B74LLAA0cdE8CarouselCvp",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC08carouselE033_7BCB0BAE52D8AEED3A89280256F78B74LLAA0cdE8CarouselCvp",
+            "moduleName": "CordialSDK",
+            "isInternal": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "fixedbinaryorder": 4,
             "isLet": true,
             "hasStorage": true
           },
@@ -15974,8 +16238,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC14getDeepLinkURL8userInfo10Foundation0I0VSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC14getDeepLinkURL8userInfo10Foundation0I0VSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC14getDeepLinkURL8userInfo10Foundation0I0VSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC14getDeepLinkURL8userInfo10Foundation0I0VSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16023,8 +16287,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC20getVanityDeepLinkURL8userInfo10Foundation0J0VSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC20getVanityDeepLinkURL8userInfo10Foundation0J0VSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC20getVanityDeepLinkURL8userInfo10Foundation0J0VSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC20getVanityDeepLinkURL8userInfo10Foundation0J0VSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16072,8 +16336,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC22getDeepLinkFallbackURL8userInfo10Foundation0J0VSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC22getDeepLinkFallbackURL8userInfo10Foundation0J0VSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC22getDeepLinkFallbackURL8userInfo10Foundation0J0VSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC22getDeepLinkFallbackURL8userInfo10Foundation0J0VSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16121,8 +16385,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC7getMcID8userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC7getMcID8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC7getMcID8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC7getMcID8userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16162,8 +16426,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC19isPayloadContainIAM8userInfoSbSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC19isPayloadContainIAM8userInfoSbSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC19isPayloadContainIAM8userInfoSbSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC19isPayloadContainIAM8userInfoSbSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16211,8 +16475,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC10getTypeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC10getTypeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC10getTypeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC10getTypeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16260,8 +16524,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC17getDisplayTypeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC17getDisplayTypeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC17getDisplayTypeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC17getDisplayTypeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16309,8 +16573,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC28getInactiveSessionDisplayIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC28getInactiveSessionDisplayIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC28getInactiveSessionDisplayIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC28getInactiveSessionDisplayIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16358,8 +16622,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC20getExpirationTimeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC20getExpirationTimeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC20getExpirationTimeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC20getExpirationTimeIAM8userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16407,8 +16671,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC22getModalRightMarginIAM8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC22getModalRightMarginIAM8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC22getModalRightMarginIAM8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC22getModalRightMarginIAM8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16456,8 +16720,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC21getModalLeftMarginIAM8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC21getModalLeftMarginIAM8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC21getModalLeftMarginIAM8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC21getModalLeftMarginIAM8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16497,8 +16761,57 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A22PushNotificationParserC28isPayloadContainInboxMessage8userInfoSbSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserC28isPayloadContainInboxMessage8userInfoSbSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK22PushNotificationParserC28isPayloadContainInboxMessage8userInfoSbSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC28isPayloadContainInboxMessage8userInfoSbSDys11AnyHashableVypG_tF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getPushNotificationCarousels",
+            "printedName": "getPushNotificationCarousels(userInfo:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[CordialSDK.PushNotificationCarousel]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushNotificationCarousel",
+                    "printedName": "CordialSDK.PushNotificationCarousel",
+                    "usr": "s:10CordialSDK24PushNotificationCarouselV"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK22PushNotificationParserC03getcD9Carousels8userInfoSayAA0cD8CarouselVGSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC03getcD9Carousels8userInfoSayAA0cD8CarouselVGSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -16513,22 +16826,22 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParser",
-                "printedName": "CordialSDK.CordialPushNotificationParser",
-                "usr": "s:10CordialSDK0A22PushNotificationParserC"
+                "name": "PushNotificationParser",
+                "printedName": "CordialSDK.PushNotificationParser",
+                "usr": "s:10CordialSDK22PushNotificationParserC"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:10CordialSDK0A22PushNotificationParserCACycfc",
-            "mangledName": "$s10CordialSDK0A22PushNotificationParserCACycfc",
+            "usr": "s:10CordialSDK22PushNotificationParserCACycfc",
+            "mangledName": "$s10CordialSDK22PushNotificationParserCACycfc",
             "moduleName": "CordialSDK",
             "implicit": true,
             "init_kind": "Designated"
           }
         ],
         "declKind": "Class",
-        "usr": "s:10CordialSDK0A22PushNotificationParserC",
-        "mangledName": "$s10CordialSDK0A22PushNotificationParserC",
+        "usr": "s:10CordialSDK22PushNotificationParserC",
+        "mangledName": "$s10CordialSDK22PushNotificationParserC",
         "moduleName": "CordialSDK",
         "isOpen": true
       },
@@ -23797,6 +24110,261 @@
         ]
       },
       {
+        "kind": "TypeDecl",
+        "name": "CordialURLSessionDataType",
+        "printedName": "CordialURLSessionDataType",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "string",
+            "printedName": "string",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.CordialURLSessionDataType.Type) -> CordialSDK.CordialURLSessionDataType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CordialURLSessionDataType",
+                    "printedName": "CordialSDK.CordialURLSessionDataType",
+                    "usr": "s:10CordialSDK0A18URLSessionDataTypeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.CordialURLSessionDataType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CordialURLSessionDataType",
+                        "printedName": "CordialSDK.CordialURLSessionDataType",
+                        "usr": "s:10CordialSDK0A18URLSessionDataTypeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:10CordialSDK0A18URLSessionDataTypeO6stringyA2CmF",
+            "mangledName": "$s10CordialSDK0A18URLSessionDataTypeO6stringyA2CmF",
+            "moduleName": "CordialSDK",
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "image",
+            "printedName": "image",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.CordialURLSessionDataType.Type) -> CordialSDK.CordialURLSessionDataType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CordialURLSessionDataType",
+                    "printedName": "CordialSDK.CordialURLSessionDataType",
+                    "usr": "s:10CordialSDK0A18URLSessionDataTypeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.CordialURLSessionDataType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CordialURLSessionDataType",
+                        "printedName": "CordialSDK.CordialURLSessionDataType",
+                        "usr": "s:10CordialSDK0A18URLSessionDataTypeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:10CordialSDK0A18URLSessionDataTypeO5imageyA2CmF",
+            "mangledName": "$s10CordialSDK0A18URLSessionDataTypeO5imageyA2CmF",
+            "moduleName": "CordialSDK",
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "none",
+            "printedName": "none",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.CordialURLSessionDataType.Type) -> CordialSDK.CordialURLSessionDataType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CordialURLSessionDataType",
+                    "printedName": "CordialSDK.CordialURLSessionDataType",
+                    "usr": "s:10CordialSDK0A18URLSessionDataTypeO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.CordialURLSessionDataType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CordialURLSessionDataType",
+                        "printedName": "CordialSDK.CordialURLSessionDataType",
+                        "usr": "s:10CordialSDK0A18URLSessionDataTypeO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:10CordialSDK0A18URLSessionDataTypeO4noneyA2CmF",
+            "mangledName": "$s10CordialSDK0A18URLSessionDataTypeO4noneyA2CmF",
+            "moduleName": "CordialSDK",
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CordialURLSessionDataType",
+                "printedName": "CordialSDK.CordialURLSessionDataType",
+                "usr": "s:10CordialSDK0A18URLSessionDataTypeO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CordialURLSessionDataType",
+                "printedName": "CordialSDK.CordialURLSessionDataType",
+                "usr": "s:10CordialSDK0A18URLSessionDataTypeO"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK0A18URLSessionDataTypeO2eeoiySbAC_ACtFZ",
+            "mangledName": "$s10CordialSDK0A18URLSessionDataTypeO2eeoiySbAC_ACtFZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "hashValue",
+            "printedName": "hashValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK0A18URLSessionDataTypeO9hashValueSivp",
+            "mangledName": "$s10CordialSDK0A18URLSessionDataTypeO9hashValueSivp",
+            "moduleName": "CordialSDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK0A18URLSessionDataTypeO9hashValueSivg",
+                "mangledName": "$s10CordialSDK0A18URLSessionDataTypeO9hashValueSivg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "hash",
+            "printedName": "hash(into:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Hasher",
+                "printedName": "Swift.Hasher",
+                "paramValueOwnership": "InOut",
+                "usr": "s:s6HasherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK0A18URLSessionDataTypeO4hash4intoys6HasherVz_tF",
+            "mangledName": "$s10CordialSDK0A18URLSessionDataTypeO4hash4intoys6HasherVz_tF",
+            "moduleName": "CordialSDK",
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:10CordialSDK0A18URLSessionDataTypeO",
+        "mangledName": "$s10CordialSDK0A18URLSessionDataTypeO",
+        "moduleName": "CordialSDK",
+        "isEnumExhaustive": true,
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
@@ -23904,8 +24472,8 @@
       },
       {
         "kind": "TypeDecl",
-        "name": "CordialPushNotificationParserInAppMessage",
-        "printedName": "CordialPushNotificationParserInAppMessage",
+        "name": "PushNotificationParserInAppMessage",
+        "printedName": "PushNotificationParserInAppMessage",
         "children": [
           {
             "kind": "Function",
@@ -23939,8 +24507,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageC026isPayloadContainIAMCurrentJ4Type8userInfoSbSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A34PushNotificationParserInAppMessageC026isPayloadContainIAMCurrentJ4Type8userInfoSbSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK34PushNotificationParserInAppMessageC026isPayloadContainIAMCurrentJ4Type8userInfoSbSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK34PushNotificationParserInAppMessageC026isPayloadContainIAMCurrentJ4Type8userInfoSbSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -23988,8 +24556,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageC024getTypeIAMCurrentPayloadJ08userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A34PushNotificationParserInAppMessageC024getTypeIAMCurrentPayloadJ08userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK34PushNotificationParserInAppMessageC024getTypeIAMCurrentPayloadJ08userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK34PushNotificationParserInAppMessageC024getTypeIAMCurrentPayloadJ08userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -24037,8 +24605,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageC031getDisplayTypeIAMCurrentPayloadK08userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A34PushNotificationParserInAppMessageC031getDisplayTypeIAMCurrentPayloadK08userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK34PushNotificationParserInAppMessageC031getDisplayTypeIAMCurrentPayloadK08userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK34PushNotificationParserInAppMessageC031getDisplayTypeIAMCurrentPayloadK08userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -24086,8 +24654,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageC46getInactiveSessionDisplayIAMCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A34PushNotificationParserInAppMessageC46getInactiveSessionDisplayIAMCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK34PushNotificationParserInAppMessageC46getInactiveSessionDisplayIAMCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK34PushNotificationParserInAppMessageC46getInactiveSessionDisplayIAMCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -24135,8 +24703,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageC38getExpirationTimeIAMCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A34PushNotificationParserInAppMessageC38getExpirationTimeIAMCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK34PushNotificationParserInAppMessageC38getExpirationTimeIAMCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK34PushNotificationParserInAppMessageC38getExpirationTimeIAMCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -24184,8 +24752,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageC40getModalRightMarginIAMCurrentPayloadType8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A34PushNotificationParserInAppMessageC40getModalRightMarginIAMCurrentPayloadType8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK34PushNotificationParserInAppMessageC40getModalRightMarginIAMCurrentPayloadType8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK34PushNotificationParserInAppMessageC40getModalRightMarginIAMCurrentPayloadType8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -24233,8 +24801,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageC39getModalLeftMarginIAMCurrentPayloadType8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A34PushNotificationParserInAppMessageC39getModalLeftMarginIAMCurrentPayloadType8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK34PushNotificationParserInAppMessageC39getModalLeftMarginIAMCurrentPayloadType8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK34PushNotificationParserInAppMessageC39getModalLeftMarginIAMCurrentPayloadType8userInfos5Int16VSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -24249,22 +24817,22 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParserInAppMessage",
-                "printedName": "CordialSDK.CordialPushNotificationParserInAppMessage",
-                "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageC"
+                "name": "PushNotificationParserInAppMessage",
+                "printedName": "CordialSDK.PushNotificationParserInAppMessage",
+                "usr": "s:10CordialSDK34PushNotificationParserInAppMessageC"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageCACycfc",
-            "mangledName": "$s10CordialSDK0A34PushNotificationParserInAppMessageCACycfc",
+            "usr": "s:10CordialSDK34PushNotificationParserInAppMessageCACycfc",
+            "mangledName": "$s10CordialSDK34PushNotificationParserInAppMessageCACycfc",
             "moduleName": "CordialSDK",
             "implicit": true,
             "init_kind": "Designated"
           }
         ],
         "declKind": "Class",
-        "usr": "s:10CordialSDK0A34PushNotificationParserInAppMessageC",
-        "mangledName": "$s10CordialSDK0A34PushNotificationParserInAppMessageC",
+        "usr": "s:10CordialSDK34PushNotificationParserInAppMessageC",
+        "mangledName": "$s10CordialSDK34PushNotificationParserInAppMessageC",
         "moduleName": "CordialSDK",
         "isOpen": true
       },
@@ -32750,6 +33318,54 @@
           },
           {
             "kind": "Var",
+            "name": "initPushNotification",
+            "printedName": "initPushNotification",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "CordialPushNotification",
+                "printedName": "CordialSDK.CordialPushNotification",
+                "usr": "c:@M@CordialSDK@objc(cs)CordialPushNotification"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK0A16ApiConfigurationC20initPushNotificationAA0afG0Cvp",
+            "mangledName": "$s10CordialSDK0A16ApiConfigurationC20initPushNotificationAA0afG0Cvp",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CordialPushNotification",
+                    "printedName": "CordialSDK.CordialPushNotification",
+                    "usr": "c:@M@CordialSDK@objc(cs)CordialPushNotification"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK0A16ApiConfigurationC20initPushNotificationAA0afG0Cvg",
+                "mangledName": "$s10CordialSDK0A16ApiConfigurationC20initPushNotificationAA0afG0Cvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "initReachabilityManagerSingleton",
             "printedName": "initReachabilityManagerSingleton",
             "children": [
@@ -33297,102 +33913,6 @@
                 "implicit": true,
                 "isOpen": true,
                 "accessorKind": "_modify"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialPushNotification",
-            "printedName": "cordialPushNotification",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "CordialPushNotification",
-                "printedName": "CordialSDK.CordialPushNotification",
-                "usr": "c:@M@CordialSDK@objc(cs)CordialPushNotification"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:10CordialSDK0A16ApiConfigurationC23cordialPushNotificationAA0afG0Cvp",
-            "mangledName": "$s10CordialSDK0A16ApiConfigurationC23cordialPushNotificationAA0afG0Cvp",
-            "moduleName": "CordialSDK",
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "CordialPushNotification",
-                    "printedName": "CordialSDK.CordialPushNotification",
-                    "usr": "c:@M@CordialSDK@objc(cs)CordialPushNotification"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:10CordialSDK0A16ApiConfigurationC23cordialPushNotificationAA0afG0Cvg",
-                "mangledName": "$s10CordialSDK0A16ApiConfigurationC23cordialPushNotificationAA0afG0Cvg",
-                "moduleName": "CordialSDK",
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialPushNotificationHandler",
-            "printedName": "cordialPushNotificationHandler",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "CordialPushNotificationHandler",
-                "printedName": "CordialSDK.CordialPushNotificationHandler",
-                "usr": "c:@M@CordialSDK@objc(cs)CordialPushNotificationHandler"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:10CordialSDK0A16ApiConfigurationC30cordialPushNotificationHandlerAA0afgH0Cvp",
-            "mangledName": "$s10CordialSDK0A16ApiConfigurationC30cordialPushNotificationHandlerAA0afgH0Cvp",
-            "moduleName": "CordialSDK",
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "CordialPushNotificationHandler",
-                    "printedName": "CordialSDK.CordialPushNotificationHandler",
-                    "usr": "c:@M@CordialSDK@objc(cs)CordialPushNotificationHandler"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:10CordialSDK0A16ApiConfigurationC30cordialPushNotificationHandlerAA0afgH0Cvg",
-                "mangledName": "$s10CordialSDK0A16ApiConfigurationC30cordialPushNotificationHandlerAA0afgH0Cvg",
-                "moduleName": "CordialSDK",
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "accessorKind": "get"
               }
             ]
           },
@@ -36989,14 +37509,14 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParser",
-                "printedName": "CordialSDK.CordialPushNotificationParser",
-                "usr": "s:10CordialSDK0A22PushNotificationParserC"
+                "name": "PushNotificationParser",
+                "printedName": "CordialSDK.PushNotificationParser",
+                "usr": "s:10CordialSDK22PushNotificationParserC"
               }
             ],
             "declKind": "Var",
-            "usr": "s:10CordialSDK18InAppMessageGetterC22pushNotificationParserAA0a4PushhI0Cvp",
-            "mangledName": "$s10CordialSDK18InAppMessageGetterC22pushNotificationParserAA0a4PushhI0Cvp",
+            "usr": "s:10CordialSDK18InAppMessageGetterC22pushNotificationParserAA04PushhI0Cvp",
+            "mangledName": "$s10CordialSDK18InAppMessageGetterC22pushNotificationParserAA04PushhI0Cvp",
             "moduleName": "CordialSDK",
             "declAttributes": [
               "HasInitialValue",
@@ -37014,14 +37534,14 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "CordialPushNotificationParser",
-                    "printedName": "CordialSDK.CordialPushNotificationParser",
-                    "usr": "s:10CordialSDK0A22PushNotificationParserC"
+                    "name": "PushNotificationParser",
+                    "printedName": "CordialSDK.PushNotificationParser",
+                    "usr": "s:10CordialSDK22PushNotificationParserC"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:10CordialSDK18InAppMessageGetterC22pushNotificationParserAA0a4PushhI0Cvg",
-                "mangledName": "$s10CordialSDK18InAppMessageGetterC22pushNotificationParserAA0a4PushhI0Cvg",
+                "usr": "s:10CordialSDK18InAppMessageGetterC22pushNotificationParserAA04PushhI0Cvg",
+                "mangledName": "$s10CordialSDK18InAppMessageGetterC22pushNotificationParserAA04PushhI0Cvg",
                 "moduleName": "CordialSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -39505,6 +40025,89 @@
         "name": "CordialGroupUserDefaults",
         "printedName": "CordialGroupUserDefaults",
         "children": [
+          {
+            "kind": "Function",
+            "name": "set",
+            "printedName": "set(_:forKey:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Any?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK0A17GroupUserDefaultsV3set_6forKeyyypSg_SStFZ",
+            "mangledName": "$s10CordialSDK0A17GroupUserDefaultsV3set_6forKeyyypSg_SStFZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "dictionary",
+            "printedName": "dictionary(forKey:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : Any]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Any]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "Any"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK0A17GroupUserDefaultsV10dictionary6forKeySDySSypGSgSS_tFZ",
+            "mangledName": "$s10CordialSDK0A17GroupUserDefaultsV10dictionary6forKeySDySSypGSgSS_tFZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "funcSelfKind": "NonMutating"
+          },
           {
             "kind": "Function",
             "name": "stringArray",
@@ -51532,8 +52135,8 @@
       },
       {
         "kind": "TypeDecl",
-        "name": "CordialPushNotificationParserDeepLinks",
-        "printedName": "CordialPushNotificationParserDeepLinks",
+        "name": "PushNotificationParserDeepLinks",
+        "printedName": "PushNotificationParserDeepLinks",
         "children": [
           {
             "kind": "Function",
@@ -51575,8 +52178,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A31PushNotificationParserDeepLinksC03getF25LinkURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A31PushNotificationParserDeepLinksC03getF25LinkURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK31PushNotificationParserDeepLinksC03getF25LinkURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK31PushNotificationParserDeepLinksC03getF25LinkURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -51624,8 +52227,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A31PushNotificationParserDeepLinksC03getF26LinkURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A31PushNotificationParserDeepLinksC03getF26LinkURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK31PushNotificationParserDeepLinksC03getF26LinkURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK31PushNotificationParserDeepLinksC03getF26LinkURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -51670,8 +52273,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A31PushNotificationParserDeepLinksC09getVanityF25LinkURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A31PushNotificationParserDeepLinksC09getVanityF25LinkURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK31PushNotificationParserDeepLinksC09getVanityF25LinkURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK31PushNotificationParserDeepLinksC09getVanityF25LinkURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -51719,8 +52322,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A31PushNotificationParserDeepLinksC09getVanityF26LinkURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A31PushNotificationParserDeepLinksC09getVanityF26LinkURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK31PushNotificationParserDeepLinksC09getVanityF26LinkURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK31PushNotificationParserDeepLinksC09getVanityF26LinkURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -51765,8 +52368,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A31PushNotificationParserDeepLinksC03getF33LinkFallbackURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A31PushNotificationParserDeepLinksC03getF33LinkFallbackURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK31PushNotificationParserDeepLinksC03getF33LinkFallbackURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK31PushNotificationParserDeepLinksC03getF33LinkFallbackURLCurrentPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -51814,8 +52417,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A31PushNotificationParserDeepLinksC03getF34LinkFallbackURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A31PushNotificationParserDeepLinksC03getF34LinkFallbackURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK31PushNotificationParserDeepLinksC03getF34LinkFallbackURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK31PushNotificationParserDeepLinksC03getF34LinkFallbackURLPreviousPayloadType8userInfo10Foundation3URLVSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -51827,22 +52430,22 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParserDeepLinks",
-                "printedName": "CordialSDK.CordialPushNotificationParserDeepLinks",
-                "usr": "s:10CordialSDK0A31PushNotificationParserDeepLinksC"
+                "name": "PushNotificationParserDeepLinks",
+                "printedName": "CordialSDK.PushNotificationParserDeepLinks",
+                "usr": "s:10CordialSDK31PushNotificationParserDeepLinksC"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:10CordialSDK0A31PushNotificationParserDeepLinksCACycfc",
-            "mangledName": "$s10CordialSDK0A31PushNotificationParserDeepLinksCACycfc",
+            "usr": "s:10CordialSDK31PushNotificationParserDeepLinksCACycfc",
+            "mangledName": "$s10CordialSDK31PushNotificationParserDeepLinksCACycfc",
             "moduleName": "CordialSDK",
             "implicit": true,
             "init_kind": "Designated"
           }
         ],
         "declKind": "Class",
-        "usr": "s:10CordialSDK0A31PushNotificationParserDeepLinksC",
-        "mangledName": "$s10CordialSDK0A31PushNotificationParserDeepLinksC",
+        "usr": "s:10CordialSDK31PushNotificationParserDeepLinksC",
+        "mangledName": "$s10CordialSDK31PushNotificationParserDeepLinksC",
         "moduleName": "CordialSDK",
         "isOpen": true
       },
@@ -58902,6 +59505,200 @@
         ]
       },
       {
+        "kind": "Import",
+        "name": "os.log",
+        "printedName": "os.log",
+        "declKind": "Import",
+        "moduleName": "CordialSDK"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushNotificationCarouselGetter",
+        "printedName": "PushNotificationCarouselGetter",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "requestSender",
+            "printedName": "requestSender",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "RequestSender",
+                "printedName": "CordialSDK.RequestSender",
+                "usr": "c:@M@CordialSDK@objc(cs)RequestSender"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK30PushNotificationCarouselGetterC13requestSenderAA07RequestH0Cvp",
+            "mangledName": "$s10CordialSDK30PushNotificationCarouselGetterC13requestSenderAA07RequestH0Cvp",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 0,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "RequestSender",
+                    "printedName": "CordialSDK.RequestSender",
+                    "usr": "c:@M@CordialSDK@objc(cs)RequestSender"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK30PushNotificationCarouselGetterC13requestSenderAA07RequestH0Cvg",
+                "mangledName": "$s10CordialSDK30PushNotificationCarouselGetterC13requestSenderAA07RequestH0Cvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent",
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "preparePushNotificationCarousel",
+            "printedName": "preparePushNotificationCarousel(mcID:carousel:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushNotificationCarousel",
+                "printedName": "CordialSDK.PushNotificationCarousel",
+                "usr": "s:10CordialSDK24PushNotificationCarouselV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK30PushNotificationCarouselGetterC07preparecdE04mcID8carouselySS_AA0cdE0VtF",
+            "mangledName": "$s10CordialSDK30PushNotificationCarouselGetterC07preparecdE04mcID8carouselySS_AA0cdE0VtF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "completionHandler",
+            "printedName": "completionHandler(pushNotificationCarouselURLSessionData:statusCode:imageData:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushNotificationCarouselURLSessionData",
+                "printedName": "CordialSDK.PushNotificationCarouselURLSessionData",
+                "usr": "s:10CordialSDK38PushNotificationCarouselURLSessionDataC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Data",
+                "printedName": "Foundation.Data",
+                "usr": "s:10Foundation4DataV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK30PushNotificationCarouselGetterC17completionHandler04pushdE14URLSessionData10statusCode05imageK0yAA0cdejK0C_Si10Foundation0K0VtF",
+            "mangledName": "$s10CordialSDK30PushNotificationCarouselGetterC17completionHandler04pushdE14URLSessionData10statusCode05imageK0yAA0cdejK0C_Si10Foundation0K0VtF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "errorHandler",
+            "printedName": "errorHandler(pushNotificationCarouselURLSessionData:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushNotificationCarouselURLSessionData",
+                "printedName": "CordialSDK.PushNotificationCarouselURLSessionData",
+                "usr": "s:10CordialSDK38PushNotificationCarouselURLSessionDataC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK30PushNotificationCarouselGetterC12errorHandler04pushdE14URLSessionData0G0yAA0cdejK0C_s5Error_ptF",
+            "mangledName": "$s10CordialSDK30PushNotificationCarouselGetterC12errorHandler04pushdE14URLSessionData0G0yAA0cdejK0C_s5Error_ptF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushNotificationCarouselGetter",
+                "printedName": "CordialSDK.PushNotificationCarouselGetter",
+                "usr": "s:10CordialSDK30PushNotificationCarouselGetterC"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10CordialSDK30PushNotificationCarouselGetterCACycfc",
+            "mangledName": "$s10CordialSDK30PushNotificationCarouselGetterCACycfc",
+            "moduleName": "CordialSDK",
+            "implicit": true,
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:10CordialSDK30PushNotificationCarouselGetterC",
+        "mangledName": "$s10CordialSDK30PushNotificationCarouselGetterC",
+        "moduleName": "CordialSDK",
+        "isOpen": true
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
         "kind": "TypeDecl",
         "name": "InAppMessagesURLSessionManager",
         "printedName": "InAppMessagesURLSessionManager",
@@ -61829,27 +62626,67 @@
           },
           {
             "kind": "Function",
-            "name": "getResourceBundle",
-            "printedName": "getResourceBundle()",
+            "name": "getResourceBundleURL",
+            "printedName": "getResourceBundleURL(forResource:withExtension:)",
             "children": [
               {
                 "kind": "TypeNominal",
                 "name": "Optional",
-                "printedName": "Foundation.Bundle?",
+                "printedName": "Foundation.URL?",
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "Bundle",
-                    "printedName": "Foundation.Bundle",
-                    "usr": "c:objc(cs)NSBundle"
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
                   }
                 ],
                 "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK08InternalA3APIC17getResourceBundleSo8NSBundleCSgyF",
-            "mangledName": "$s10CordialSDK08InternalA3APIC17getResourceBundleSo8NSBundleCSgyF",
+            "usr": "s:10CordialSDK08InternalA3APIC20getResourceBundleURL03forF013withExtension10Foundation0H0VSgSS_SStF",
+            "mangledName": "$s10CordialSDK08InternalA3APIC20getResourceBundleURL03forF013withExtension10Foundation0H0VSgSS_SStF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getExpectedCordialURLSessionDataType",
+            "printedName": "getExpectedCordialURLSessionDataType(taskName:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "CordialURLSessionDataType",
+                "printedName": "CordialSDK.CordialURLSessionDataType",
+                "usr": "s:10CordialSDK0A18URLSessionDataTypeO"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK08InternalA3APIC011getExpectedA18URLSessionDataType8taskNameAA0aghI0OSS_tF",
+            "mangledName": "$s10CordialSDK08InternalA3APIC011getExpectedA18URLSessionDataType8taskNameAA0aghI0OSS_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -63225,8 +64062,8 @@
       },
       {
         "kind": "TypeDecl",
-        "name": "CordialPushNotificationParserMessageAttribution",
-        "printedName": "CordialPushNotificationParserMessageAttribution",
+        "name": "PushNotificationParserMessageAttribution",
+        "printedName": "PushNotificationParserMessageAttribution",
         "children": [
           {
             "kind": "Function",
@@ -63268,8 +64105,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A40PushNotificationParserMessageAttributionC25getMcIdCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A40PushNotificationParserMessageAttributionC25getMcIdCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK40PushNotificationParserMessageAttributionC25getMcIdCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK40PushNotificationParserMessageAttributionC25getMcIdCurrentPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -63317,8 +64154,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A40PushNotificationParserMessageAttributionC26getMcIdPreviousPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A40PushNotificationParserMessageAttributionC26getMcIdPreviousPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK40PushNotificationParserMessageAttributionC26getMcIdPreviousPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK40PushNotificationParserMessageAttributionC26getMcIdPreviousPayloadType8userInfoSSSgSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -63330,22 +64167,22 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParserMessageAttribution",
-                "printedName": "CordialSDK.CordialPushNotificationParserMessageAttribution",
-                "usr": "s:10CordialSDK0A40PushNotificationParserMessageAttributionC"
+                "name": "PushNotificationParserMessageAttribution",
+                "printedName": "CordialSDK.PushNotificationParserMessageAttribution",
+                "usr": "s:10CordialSDK40PushNotificationParserMessageAttributionC"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:10CordialSDK0A40PushNotificationParserMessageAttributionCACycfc",
-            "mangledName": "$s10CordialSDK0A40PushNotificationParserMessageAttributionCACycfc",
+            "usr": "s:10CordialSDK40PushNotificationParserMessageAttributionCACycfc",
+            "mangledName": "$s10CordialSDK40PushNotificationParserMessageAttributionCACycfc",
             "moduleName": "CordialSDK",
             "implicit": true,
             "init_kind": "Designated"
           }
         ],
         "declKind": "Class",
-        "usr": "s:10CordialSDK0A40PushNotificationParserMessageAttributionC",
-        "mangledName": "$s10CordialSDK0A40PushNotificationParserMessageAttributionC",
+        "usr": "s:10CordialSDK40PushNotificationParserMessageAttributionC",
+        "mangledName": "$s10CordialSDK40PushNotificationParserMessageAttributionC",
         "moduleName": "CordialSDK",
         "isOpen": true
       },
@@ -63710,6 +64547,161 @@
         "declKind": "Struct",
         "usr": "s:10CordialSDK0A12UserDefaultsV",
         "mangledName": "$s10CordialSDK0A12UserDefaultsV",
+        "moduleName": "CordialSDK",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushNotificationCarousel",
+        "printedName": "PushNotificationCarousel",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "imageURL",
+            "printedName": "imageURL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK24PushNotificationCarouselV8imageURL10Foundation0G0Vvp",
+            "mangledName": "$s10CordialSDK24PushNotificationCarouselV8imageURL10Foundation0G0Vvp",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 0,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK24PushNotificationCarouselV8imageURL10Foundation0G0Vvg",
+                "mangledName": "$s10CordialSDK24PushNotificationCarouselV8imageURL10Foundation0G0Vvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "deepLink",
+            "printedName": "deepLink",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK24PushNotificationCarouselV8deepLink10Foundation3URLVvp",
+            "mangledName": "$s10CordialSDK24PushNotificationCarouselV8deepLink10Foundation3URLVvp",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 1,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK24PushNotificationCarouselV8deepLink10Foundation3URLVvg",
+                "mangledName": "$s10CordialSDK24PushNotificationCarouselV8deepLink10Foundation3URLVvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(imageURL:deepLink:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushNotificationCarousel",
+                "printedName": "CordialSDK.PushNotificationCarousel",
+                "usr": "s:10CordialSDK24PushNotificationCarouselV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10CordialSDK24PushNotificationCarouselV8imageURL8deepLinkAC10Foundation0G0V_AHtcfc",
+            "mangledName": "$s10CordialSDK24PushNotificationCarouselV8imageURL8deepLinkAC10Foundation0G0V_AHtcfc",
+            "moduleName": "CordialSDK",
+            "implicit": true,
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:10CordialSDK24PushNotificationCarouselV",
+        "mangledName": "$s10CordialSDK24PushNotificationCarouselV",
         "moduleName": "CordialSDK",
         "conformances": [
           {
@@ -66959,8 +67951,8 @@
       },
       {
         "kind": "TypeDecl",
-        "name": "CordialPushNotificationParserInboxMessage",
-        "printedName": "CordialPushNotificationParserInboxMessage",
+        "name": "PushNotificationParserInboxMessage",
+        "printedName": "PushNotificationParserInboxMessage",
         "children": [
           {
             "kind": "Function",
@@ -66994,8 +67986,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A34PushNotificationParserInboxMessageC016isPayloadContainfg7CurrentI4Type8userInfoSbSDys11AnyHashableVypG_tF",
-            "mangledName": "$s10CordialSDK0A34PushNotificationParserInboxMessageC016isPayloadContainfg7CurrentI4Type8userInfoSbSDys11AnyHashableVypG_tF",
+            "usr": "s:10CordialSDK34PushNotificationParserInboxMessageC016isPayloadContainfg7CurrentI4Type8userInfoSbSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK34PushNotificationParserInboxMessageC016isPayloadContainfg7CurrentI4Type8userInfoSbSDys11AnyHashableVypG_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -67010,22 +68002,172 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialPushNotificationParserInboxMessage",
-                "printedName": "CordialSDK.CordialPushNotificationParserInboxMessage",
-                "usr": "s:10CordialSDK0A34PushNotificationParserInboxMessageC"
+                "name": "PushNotificationParserInboxMessage",
+                "printedName": "CordialSDK.PushNotificationParserInboxMessage",
+                "usr": "s:10CordialSDK34PushNotificationParserInboxMessageC"
               }
             ],
             "declKind": "Constructor",
-            "usr": "s:10CordialSDK0A34PushNotificationParserInboxMessageCACycfc",
-            "mangledName": "$s10CordialSDK0A34PushNotificationParserInboxMessageCACycfc",
+            "usr": "s:10CordialSDK34PushNotificationParserInboxMessageCACycfc",
+            "mangledName": "$s10CordialSDK34PushNotificationParserInboxMessageCACycfc",
             "moduleName": "CordialSDK",
             "implicit": true,
             "init_kind": "Designated"
           }
         ],
         "declKind": "Class",
-        "usr": "s:10CordialSDK0A34PushNotificationParserInboxMessageC",
-        "mangledName": "$s10CordialSDK0A34PushNotificationParserInboxMessageC",
+        "usr": "s:10CordialSDK34PushNotificationParserInboxMessageC",
+        "mangledName": "$s10CordialSDK34PushNotificationParserInboxMessageC",
+        "moduleName": "CordialSDK",
+        "isOpen": true
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushNotificationCarouselURLSessionData",
+        "printedName": "PushNotificationCarouselURLSessionData",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "mcID",
+            "printedName": "mcID",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK38PushNotificationCarouselURLSessionDataC4mcIDSSvp",
+            "mangledName": "$s10CordialSDK38PushNotificationCarouselURLSessionDataC4mcIDSSvp",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 0,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK38PushNotificationCarouselURLSessionDataC4mcIDSSvg",
+                "mangledName": "$s10CordialSDK38PushNotificationCarouselURLSessionDataC4mcIDSSvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent",
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "carousel",
+            "printedName": "carousel",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushNotificationCarousel",
+                "printedName": "CordialSDK.PushNotificationCarousel",
+                "usr": "s:10CordialSDK24PushNotificationCarouselV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK38PushNotificationCarouselURLSessionDataC8carouselAA0cdE0Vvp",
+            "mangledName": "$s10CordialSDK38PushNotificationCarouselURLSessionDataC8carouselAA0cdE0Vvp",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 1,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushNotificationCarousel",
+                    "printedName": "CordialSDK.PushNotificationCarousel",
+                    "usr": "s:10CordialSDK24PushNotificationCarouselV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK38PushNotificationCarouselURLSessionDataC8carouselAA0cdE0Vvg",
+                "mangledName": "$s10CordialSDK38PushNotificationCarouselURLSessionDataC8carouselAA0cdE0Vvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent",
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(mcID:carousel:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushNotificationCarouselURLSessionData",
+                "printedName": "CordialSDK.PushNotificationCarouselURLSessionData",
+                "usr": "s:10CordialSDK38PushNotificationCarouselURLSessionDataC"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushNotificationCarousel",
+                "printedName": "CordialSDK.PushNotificationCarousel",
+                "usr": "s:10CordialSDK24PushNotificationCarouselV"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10CordialSDK38PushNotificationCarouselURLSessionDataC4mcID8carouselACSS_AA0cdE0Vtcfc",
+            "mangledName": "$s10CordialSDK38PushNotificationCarouselURLSessionDataC4mcID8carouselACSS_AA0cdE0Vtcfc",
+            "moduleName": "CordialSDK",
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "s:10CordialSDK38PushNotificationCarouselURLSessionDataC",
+        "mangledName": "$s10CordialSDK38PushNotificationCarouselURLSessionDataC",
         "moduleName": "CordialSDK",
         "isOpen": true
       },
@@ -78076,6 +79218,58 @@
           },
           {
             "kind": "Var",
+            "name": "cordialPushNotificationCarousel",
+            "printedName": "cordialPushNotificationCarousel",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "OSLog",
+                "printedName": "os.OSLog",
+                "usr": "c:objc(cs)OS_os_log"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So9OS_os_logC10CordialSDKE31cordialPushNotificationCarouselABvpZ",
+            "mangledName": "$sSo9OS_os_logC10CordialSDKE31cordialPushNotificationCarouselABvpZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage"
+            ],
+            "isFromExtension": true,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLog",
+                    "printedName": "os.OSLog",
+                    "usr": "c:objc(cs)OS_os_log"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So9OS_os_logC10CordialSDKE31cordialPushNotificationCarouselABvgZ",
+                "mangledName": "$sSo9OS_os_logC10CordialSDKE31cordialPushNotificationCarouselABvgZ",
+                "moduleName": "CordialSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "cordialBackgroundURLSession",
             "printedName": "cordialBackgroundURLSession",
             "children": [
@@ -79938,343 +81132,364 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1063,
+      "offset": 1059,
+      "length": 75,
+      "value": "\"USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 1230,
       "length": 79,
       "value": "\"USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1240,
+      "offset": 1407,
       "length": 81,
       "value": "\"USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1393,
+      "offset": 1560,
       "length": 55,
       "value": "\"USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1529,
+      "offset": 1696,
       "length": 64,
       "value": "\"USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID_TAP_TIME\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1666,
+      "offset": 1833,
       "length": 56,
       "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1788,
+      "offset": 1955,
       "length": 49,
       "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1904,
+      "offset": 2071,
       "length": 50,
       "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2011,
+      "offset": 2178,
       "length": 40,
       "value": "\"USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2124,
+      "offset": 2291,
       "length": 56,
       "value": "\"USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2252,
+      "offset": 2419,
       "length": 55,
       "value": "\"USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_UPSERTING_CONTACTS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2386,
+      "offset": 2553,
       "length": 62,
       "value": "\"USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2511,
+      "offset": 2678,
       "length": 41,
       "value": "\"DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2618,
+      "offset": 2785,
       "length": 49,
       "value": "\"DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2726,
+      "offset": 2893,
       "length": 42,
       "value": "\"DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2826,
+      "offset": 2993,
       "length": 41,
       "value": "\"DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2923,
+      "offset": 3090,
       "length": 39,
       "value": "\"DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3015,
+      "offset": 3182,
       "length": 36,
       "value": "\"DOWNLOAD_TASK_NAME_UPSERT_CONTACTS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3108,
+      "offset": 3275,
       "length": 40,
       "value": "\"DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3205,
+      "offset": 3372,
       "length": 40,
       "value": "\"DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3302,
+      "offset": 3469,
       "length": 40,
       "value": "\"DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3412,
+      "offset": 3579,
       "length": 53,
       "value": "\"DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3523,
+      "offset": 3690,
       "length": 41,
       "value": "\"DOWNLOAD_TASK_NAME_DELETE_INBOX_MESSAGE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3620,
+      "offset": 3787,
       "length": 39,
       "value": "\"DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3714,
+      "offset": 3881,
       "length": 38,
       "value": "\"DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3795,
+      "offset": 3983,
+      "length": 47,
+      "value": "\"DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 4073,
       "length": 7,
       "value": "\"crdl_\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3849,
+      "offset": 4127,
       "length": 39,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3876,
+      "offset": 4154,
       "length": 11,
       "value": "\"app_install\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3941,
+      "offset": 4219,
       "length": 37,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3968,
+      "offset": 4246,
       "length": 9,
       "value": "\"app_close\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4033,
+      "offset": 4311,
       "length": 36,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4060,
+      "offset": 4338,
       "length": 8,
       "value": "\"app_open\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4137,
+      "offset": 4415,
       "length": 64,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4164,
+      "offset": 4442,
       "length": 36,
       "value": "\"notification_delivered_in_foreground\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4252,
+      "offset": 4530,
       "length": 44,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4279,
+      "offset": 4557,
       "length": 16,
       "value": "\"notification_tap\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4340,
+      "offset": 4618,
       "length": 42,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4367,
+      "offset": 4645,
       "length": 14,
       "value": "\"deep_link_open\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4436,
+      "offset": 4714,
       "length": 48,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4463,
+      "offset": 4741,
       "length": 20,
       "value": "\"in_app_message_shown\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4540,
+      "offset": 4818,
       "length": 55,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4567,
+      "offset": 4845,
       "length": 27,
       "value": "\"in_app_message_auto_dismiss\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4653,
+      "offset": 4931,
       "length": 57,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4680,
+      "offset": 4958,
       "length": 29,
       "value": "\"in_app_message_manual_dismiss\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4758,
+      "offset": 5036,
       "length": 38,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4785,
+      "offset": 5063,
       "length": 10,
       "value": "\"inbox_read\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4853,
+      "offset": 5131,
       "length": 32,
       "value": "\"CordialSDKBackgroundURLSession\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4930,
+      "offset": 5224,
+      "length": 19,
+      "value": "\"group.cordial.sdk\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 5288,
       "length": 23,
       "value": "\"IAM_WEB_VIEW_BASE_URL\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5007,
+      "offset": 5365,
       "length": 8,
       "value": "\"opt-in\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5067,
+      "offset": 5425,
       "length": 9,
       "value": "\"opt-out\""
     },
@@ -80695,8 +81910,8 @@
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/CoreDataManager.swift",
       "kind": "StringLiteral",
       "offset": 2187,
-      "length": 59,
-      "value": "\"CoreData Unresolved Error: [%{public}@], Info: %{public}@\""
+      "length": 58,
+      "value": "\"CoreData Unresolved Error: [%{public}@] Info: %{public}@\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/URLSession\/CordialURLSessionConfigurationType.swift",
@@ -81221,40 +82436,40 @@
       "kind": "StringLiteral",
       "offset": 393,
       "length": 7,
-      "value": "\"4.1.2\""
+      "value": "\"4.1.3\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 1846,
+      "offset": 1764,
       "length": 4,
       "value": "1000"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 2022,
+      "offset": 1940,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 2476,
+      "offset": 2394,
       "length": 2,
       "value": "30"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 3083,
+      "offset": 3001,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 3111,
+      "offset": 3029,
       "length": 2,
       "value": "\"\""
     },
@@ -81376,13 +82591,6 @@
       "offset": 746,
       "length": 5,
       "value": "false"
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/UserDefaults\/CordialGroupUserDefaults.swift",
-      "kind": "StringLiteral",
-      "offset": 292,
-      "length": 19,
-      "value": "\"group.cordial.sdk\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
@@ -81765,189 +82973,196 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 754,
+      "offset": 758,
+      "length": 36,
+      "value": "\"CordialSDKPushNotificationCarousel\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
+      "kind": "StringLiteral",
+      "offset": 884,
       "length": 32,
       "value": "\"CordialSDKBackgroundURLSession\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 860,
+      "offset": 990,
       "length": 21,
       "value": "\"CordialSDKDeepLinks\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 967,
+      "offset": 1097,
       "length": 28,
       "value": "\"CordialSDKSendCustomEvents\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 1077,
+      "offset": 1207,
       "length": 29,
       "value": "\"CordialSDKUpsertContactCart\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 1188,
+      "offset": 1318,
       "length": 29,
       "value": "\"CordialSDKSendContactOrders\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 1296,
+      "offset": 1426,
       "length": 26,
       "value": "\"CordialSDKUpsertContacts\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 1404,
+      "offset": 1534,
       "length": 29,
       "value": "\"CordialSDKSendContactLogout\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 1510,
+      "offset": 1640,
       "length": 24,
       "value": "\"CordialSDKInAppMessage\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 1618,
+      "offset": 1748,
       "length": 31,
       "value": "\"CordialSDKInAppMessageContent\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 1727,
+      "offset": 1857,
       "length": 25,
       "value": "\"CordialSDKInAppMessages\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 1825,
+      "offset": 1955,
       "length": 20,
       "value": "\"CordialSDKSecurity\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 1923,
+      "offset": 2053,
       "length": 25,
       "value": "\"CordialSDKInboxMessages\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 2030,
+      "offset": 2160,
       "length": 29,
       "value": "\"CordialSDKContactTimestamps\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 2126,
+      "offset": 2256,
       "length": 3,
       "value": "1"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 2139,
+      "offset": 2269,
       "length": 5,
       "value": "2"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 2154,
+      "offset": 2284,
       "length": 4,
       "value": "3"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 2126,
+      "offset": 2256,
       "length": 3,
       "value": "1"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 2139,
+      "offset": 2269,
       "length": 5,
       "value": "2"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "IntegerLiteral",
-      "offset": 2154,
+      "offset": 2284,
       "length": 4,
       "value": "3"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 2212,
+      "offset": 2342,
       "length": 6,
       "value": "\"none\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 2234,
+      "offset": 2364,
       "length": 5,
       "value": "\"all\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 2257,
+      "offset": 2387,
       "length": 7,
       "value": "\"error\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 2281,
+      "offset": 2411,
       "length": 6,
       "value": "\"info\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 2212,
+      "offset": 2342,
       "length": 6,
       "value": "\"none\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 2234,
+      "offset": 2364,
       "length": 5,
       "value": "\"all\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 2257,
+      "offset": 2387,
       "length": 7,
       "value": "\"error\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
       "kind": "StringLiteral",
-      "offset": 2281,
+      "offset": 2411,
       "length": 6,
       "value": "\"info\""
     },

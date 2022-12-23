@@ -11,7 +11,7 @@ import os.log
 
 class InAppMessageGetter {
     
-    let pushNotificationParser = CordialPushNotificationParser()
+    let pushNotificationParser = PushNotificationParser()
     
     func startFetchInAppMessage(userInfo: [AnyHashable : Any]) {
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
