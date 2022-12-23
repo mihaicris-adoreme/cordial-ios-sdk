@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationParserInAppMessage.swift
+//  PushNotificationParserInAppMessage.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 17.06.2020.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CordialPushNotificationParserInAppMessage {
+class PushNotificationParserInAppMessage {
     
     // MARK: Is payload contain in app message
     

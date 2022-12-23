@@ -1,18 +1,20 @@
 //
-//  CarouselNotificationParser.swift
-//  NotificationContentExtension
+//  PushNotificationParserCarousel.swift
+//  CordialAppExtensions
 //
-//  Created by Yan Malinovsky on 22.03.2022.
-//  Copyright © 2022 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 19.11.2022.
+//  Copyright © 2022 Cordial Experience, Inc. All rights reserved.
 //
 
 import Foundation
 import os.log
 
-class CarouselNotificationParser {
+class PushNotificationParserCarousel {
     
-    static func getCarousels(userInfo: [AnyHashable : Any]) -> [Carousel] {
-        var carousels = [Carousel]()
+    // MARK: Get push notification carousel
+    
+    func getPushNotificationCarouselsCurrentPayloadType(userInfo: [AnyHashable : Any]) -> [PushNotificationCarousel] {
+        var carousels = [PushNotificationCarousel]()
         
         if let carousel = userInfo["carousel"] as? [AnyObject] {
             carousel.forEach { data in
@@ -30,12 +32,11 @@ class CarouselNotificationParser {
                     return
                 }
                 
-                let carousel = Carousel(imageURL: imageURL, deepLink: deepLink)
+                let carousel = PushNotificationCarousel(imageURL: imageURL, deepLink: deepLink)
                 carousels.append(carousel)
             }
         }
         
         return carousels
     }
-    
 }

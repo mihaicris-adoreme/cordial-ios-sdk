@@ -1,6 +1,6 @@
 //
 //  CordialGroupUserDefaults.swift
-//  CordialSDK
+//  NotificationContentExtension
 //
 //  Created by Yan Malinovsky on 28.03.2022.
 //  Copyright © 2022 cordial.io. All rights reserved.
@@ -19,17 +19,5 @@ struct CordialGroupUserDefaults {
     static func dictionary(forKey key: String) -> [String : Any]? {
         return self.cordialGroupUserDefaults?.dictionary(forKey: key)
     }
-    
-    static func stringArray(forKey key: String) -> [String]? {
-        return self.cordialGroupUserDefaults?.stringArray(forKey: key)
-    }
-    
-    static func integer(forKey key: String) -> Int? {
-        return self.cordialGroupUserDefaults?.integer(forKey: key)
-    }
-    
-    static func removeObject(forKey key: String) {
-        self.cordialGroupUserDefaults?.removeObject(forKey: key)
-    }
-    
+
 }
