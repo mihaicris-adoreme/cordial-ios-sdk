@@ -1,5 +1,5 @@
 //
-//  CordialPushNotificationParser.swift
+//  PushNotificationParser.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 17.06.2020.
@@ -8,12 +8,13 @@
 
 import Foundation
 
-class CordialPushNotificationParser {
+class PushNotificationParser {
     
-    private let deepLinksParser = CordialPushNotificationParserDeepLinks()
-    private let messageAttributionParser = CordialPushNotificationParserMessageAttribution()
-    private let inAppMessageParser = CordialPushNotificationParserInAppMessage()
-    private let pushNotificationParserInboxMessage = CordialPushNotificationParserInboxMessage()
+    private let deepLinksParser = PushNotificationParserDeepLinks()
+    private let messageAttributionParser = PushNotificationParserMessageAttribution()
+    private let inAppMessageParser = PushNotificationParserInAppMessage()
+    private let inboxMessageParser = PushNotificationParserInboxMessage()
+    private let carouselParser = PushNotificationParserCarousel()
     
     // MARK: Get deep link URL
     
@@ -100,7 +101,13 @@ class CordialPushNotificationParser {
     // MARK: Is payload contain inbox message
     
     func isPayloadContainInboxMessage(userInfo: [AnyHashable : Any]) -> Bool {
-        return self.pushNotificationParserInboxMessage.isPayloadContainInboxMessageCurrentPayloadType(userInfo: userInfo)
+        return self.inboxMessageParser.isPayloadContainInboxMessageCurrentPayloadType(userInfo: userInfo)
+    }
+    
+    // MARK: Get push notification carousels
+    
+    func getPushNotificationCarousels(userInfo: [AnyHashable : Any]) -> [PushNotificationCarousel] {
+        return self.carouselParser.getPushNotificationCarouselsCurrentPayloadType(userInfo: userInfo)
     }
 }
 

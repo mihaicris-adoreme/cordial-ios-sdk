@@ -17,7 +17,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     
     private override init() {}
     
-    let pushNotificationHelper = CordialPushNotificationHelper()
+    let pushNotificationHelper = PushNotificationHelper()
 
     func registerForPushNotifications(options: UNAuthorizationOptions) {
         let notificationCenter = UNUserNotificationCenter.current()

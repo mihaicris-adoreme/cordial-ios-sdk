@@ -7,17 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E44588D29008218003D5384 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E44588B29008218003D5384 /* API.swift */; };
 		9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494427FC86DA0052E43E /* CordialNotificationContentExtension.swift */; };
-		9E62495027FC86DA0052E43E /* Carousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494727FC86DA0052E43E /* Carousel.swift */; };
+		9E62495027FC86DA0052E43E /* PushNotificationCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494727FC86DA0052E43E /* PushNotificationCarousel.swift */; };
 		9E62495127FC86DA0052E43E /* CarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494927FC86DA0052E43E /* CarouselView.swift */; };
 		9E62495227FC86DA0052E43E /* CarouselCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494A27FC86DA0052E43E /* CarouselCell.swift */; };
-		9E62495327FC86DA0052E43E /* CarouselNotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494C27FC86DA0052E43E /* CarouselNotificationExtension.swift */; };
-		9E62495427FC86DA0052E43E /* CarouselGroupUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */; };
-		9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */; };
+		9E62495327FC86DA0052E43E /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494C27FC86DA0052E43E /* NotificationManager.swift */; };
+		9E62495427FC86DA0052E43E /* CordialGroupUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62494D27FC86DA0052E43E /* CordialGroupUserDefaults.swift */; };
 		9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */; };
 		9EBD746A2287884700EC93EF /* CordialAppExtensions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EBD74602287884600EC93EF /* CordialAppExtensions.framework */; };
 		9EBD746F2287884700EC93EF /* CordialAppExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBD746E2287884700EC93EF /* CordialAppExtensionsTests.swift */; };
 		9EBD74712287884700EC93EF /* CordialAppExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 9EBD74632287884600EC93EF /* CordialAppExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9ECB79F329296598007F1CA4 /* PushNotificationParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECB79F229296598007F1CA4 /* PushNotificationParser.swift */; };
+		9ECB79F62929663B007F1CA4 /* PushNotificationParserMessageAttribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECB79F52929663B007F1CA4 /* PushNotificationParserMessageAttribution.swift */; };
+		9ECB79F82929666E007F1CA4 /* PushNotificationParserCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ECB79F72929666E007F1CA4 /* PushNotificationParserCarousel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,13 +34,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E44588B29008218003D5384 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9E62494427FC86DA0052E43E /* CordialNotificationContentExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordialNotificationContentExtension.swift; sourceTree = "<group>"; };
-		9E62494727FC86DA0052E43E /* Carousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Carousel.swift; sourceTree = "<group>"; };
+		9E62494727FC86DA0052E43E /* PushNotificationCarousel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationCarousel.swift; sourceTree = "<group>"; };
 		9E62494927FC86DA0052E43E /* CarouselView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselView.swift; sourceTree = "<group>"; };
 		9E62494A27FC86DA0052E43E /* CarouselCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselCell.swift; sourceTree = "<group>"; };
-		9E62494C27FC86DA0052E43E /* CarouselNotificationExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselNotificationExtension.swift; sourceTree = "<group>"; };
-		9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselGroupUserDefaults.swift; sourceTree = "<group>"; };
-		9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselNotificationParser.swift; sourceTree = "<group>"; };
+		9E62494C27FC86DA0052E43E /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		9E62494D27FC86DA0052E43E /* CordialGroupUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CordialGroupUserDefaults.swift; sourceTree = "<group>"; };
 		9E778961228788AF0089C986 /* CordialNotificationServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialNotificationServiceExtension.swift; sourceTree = "<group>"; };
 		9EBD74602287884600EC93EF /* CordialAppExtensions.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CordialAppExtensions.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBD74632287884600EC93EF /* CordialAppExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CordialAppExtensions.h; path = ../../Projects/Frameworks/CordialAppExtensions/CordialAppExtensions.h; sourceTree = "<group>"; };
@@ -45,6 +48,9 @@
 		9EBD74692287884700EC93EF /* CordialAppExtensionsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CordialAppExtensionsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EBD746E2287884700EC93EF /* CordialAppExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialAppExtensionsTests.swift; sourceTree = "<group>"; };
 		9EBD74702287884700EC93EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9ECB79F229296598007F1CA4 /* PushNotificationParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationParser.swift; sourceTree = "<group>"; };
+		9ECB79F52929663B007F1CA4 /* PushNotificationParserMessageAttribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationParserMessageAttribution.swift; sourceTree = "<group>"; };
+		9ECB79F72929666E007F1CA4 /* PushNotificationParserCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationParserCarousel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +72,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E44588929008218003D5384 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				9E44588B29008218003D5384 /* API.swift */,
+				9E62494C27FC86DA0052E43E /* NotificationManager.swift */,
+				9E62494D27FC86DA0052E43E /* CordialGroupUserDefaults.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		9E62494327FC86780052E43E /* NotificationContentExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -80,7 +96,6 @@
 			children = (
 				9E62494627FC86DA0052E43E /* Model */,
 				9E62494827FC86DA0052E43E /* View */,
-				9E62494B27FC86DA0052E43E /* Helper */,
 			);
 			path = Carousel;
 			sourceTree = "<group>";
@@ -88,7 +103,7 @@
 		9E62494627FC86DA0052E43E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9E62494727FC86DA0052E43E /* Carousel.swift */,
+				9E62494727FC86DA0052E43E /* PushNotificationCarousel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -100,16 +115,6 @@
 				9E62494A27FC86DA0052E43E /* CarouselCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		9E62494B27FC86DA0052E43E /* Helper */ = {
-			isa = PBXGroup;
-			children = (
-				9E62494C27FC86DA0052E43E /* CarouselNotificationExtension.swift */,
-				9E62494D27FC86DA0052E43E /* CarouselGroupUserDefaults.swift */,
-				9E62494E27FC86DA0052E43E /* CarouselNotificationParser.swift */,
-			);
-			path = Helper;
 			sourceTree = "<group>";
 		};
 		9E7789602287889C0089C986 /* NotificationServiceExtension */ = {
@@ -141,6 +146,8 @@
 		9EBD74622287884600EC93EF /* CordialAppExtensions */ = {
 			isa = PBXGroup;
 			children = (
+				9E44588929008218003D5384 /* API */,
+				9ECB79F129296577007F1CA4 /* PushNotificationParser */,
 				9E7789602287889C0089C986 /* NotificationServiceExtension */,
 				9E62494327FC86780052E43E /* NotificationContentExtension */,
 				9EBD74632287884600EC93EF /* CordialAppExtensions.h */,
@@ -157,6 +164,24 @@
 				9EBD74702287884700EC93EF /* Info.plist */,
 			);
 			path = CordialAppExtensionsTests;
+			sourceTree = "<group>";
+		};
+		9ECB79F129296577007F1CA4 /* PushNotificationParser */ = {
+			isa = PBXGroup;
+			children = (
+				9ECB79F42929662E007F1CA4 /* Helper */,
+				9ECB79F229296598007F1CA4 /* PushNotificationParser.swift */,
+			);
+			path = PushNotificationParser;
+			sourceTree = "<group>";
+		};
+		9ECB79F42929662E007F1CA4 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				9ECB79F52929663B007F1CA4 /* PushNotificationParserMessageAttribution.swift */,
+				9ECB79F72929666E007F1CA4 /* PushNotificationParserCarousel.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -269,11 +294,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E62495327FC86DA0052E43E /* CarouselNotificationExtension.swift in Sources */,
-				9E62495027FC86DA0052E43E /* Carousel.swift in Sources */,
-				9E62495527FC86DA0052E43E /* CarouselNotificationParser.swift in Sources */,
+				9E62495327FC86DA0052E43E /* NotificationManager.swift in Sources */,
+				9ECB79F82929666E007F1CA4 /* PushNotificationParserCarousel.swift in Sources */,
+				9ECB79F329296598007F1CA4 /* PushNotificationParser.swift in Sources */,
+				9E62495027FC86DA0052E43E /* PushNotificationCarousel.swift in Sources */,
+				9ECB79F62929663B007F1CA4 /* PushNotificationParserMessageAttribution.swift in Sources */,
+				9E44588D29008218003D5384 /* API.swift in Sources */,
 				9E62494F27FC86DA0052E43E /* CordialNotificationContentExtension.swift in Sources */,
-				9E62495427FC86DA0052E43E /* CarouselGroupUserDefaults.swift in Sources */,
+				9E62495427FC86DA0052E43E /* CordialGroupUserDefaults.swift in Sources */,
 				9E62495127FC86DA0052E43E /* CarouselView.swift in Sources */,
 				9E778962228788AF0089C986 /* CordialNotificationServiceExtension.swift in Sources */,
 				9E62495227FC86DA0052E43E /* CarouselCell.swift in Sources */,

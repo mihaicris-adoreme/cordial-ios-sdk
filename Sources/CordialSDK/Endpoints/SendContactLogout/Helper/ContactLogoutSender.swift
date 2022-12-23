@@ -23,7 +23,7 @@ class ContactLogoutSender {
             self.sendContactLogoutData(sendContactLogoutRequest: sendContactLogoutRequest)
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact logout failed. Request ID: [%{public}@] Error: [No push notification token]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
+                os_log("Sending contact logout failed. Request ID: [%{public}@] Error: [Device token is absent]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
             }
         }
     }
