@@ -77,7 +77,7 @@ If your Cordial account is in us-west-2 region, pass events stream and message h
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "https://events-stream-svc.usw2/cordial.com/", messageHubURL: "https://message-hub-svc.usw2.cordial.com/")
+CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "https://events-stream-svc.usw2.cordial.com/", messageHubURL: "https://message-hub-svc.usw2.cordial.com/")
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
