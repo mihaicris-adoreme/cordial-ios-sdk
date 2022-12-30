@@ -31,7 +31,7 @@
 		9E58D9F124FD904500075D76 /* CustomUIActivityInbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E58D9F024FD904500075D76 /* CustomUIActivityInbox.swift */; };
 		9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E602D09226744CC00197CBD /* CartTableViewCell.swift */; };
 		9E6249B227FC941F0052E43E /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6249B127FC941F0052E43E /* NotificationService.swift */; };
-		9E6249B627FC94200052E43E /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9E6249AF27FC941F0052E43E /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9E6249B627FC94200052E43E /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9E6249AF27FC941F0052E43E /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */; };
 		9E7A5A6A222EB64B0020054F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A69222EB64B0020054F /* AppDelegate.swift */; };
 		9E7A5A6C222EB64B0020054F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A6B222EB64B0020054F /* LoginViewController.swift */; };
@@ -74,7 +74,7 @@
 		9ED3049127FC945B00642A56 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0CC0E627D68493007870A8 /* UserNotifications.framework */; };
 		9ED3049227FC945B00642A56 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0CC0E827D68493007870A8 /* UserNotificationsUI.framework */; };
 		9ED3049527FC945B00642A56 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED3049427FC945B00642A56 /* NotificationViewController.swift */; };
-		9ED3049C27FC945B00642A56 /* NotificationContentExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 9ED3049027FC945B00642A56 /* NotificationContentExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9ED3049C27FC945B00642A56 /* NotificationContentExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9ED3049027FC945B00642A56 /* NotificationContentExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9EDAEA0B234CCBFB008A7B2F /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAEA0A234CCBFB008A7B2F /* Credentials.swift */; };
 		9EDAEA0D234CD23F008A7B2F /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDAEA0C234CD23F008A7B2F /* Settings.swift */; };
 		9EDC7E402242912000BF8FB0 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDC7E3F2242912000BF8FB0 /* App.swift */; };
@@ -154,16 +154,16 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9E77897422878C090089C986 /* Embed App Extensions */ = {
+		9E77897422878C090089C986 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				9E6249B627FC94200052E43E /* NotificationServiceExtension.appex in Embed App Extensions */,
-				9ED3049C27FC945B00642A56 /* NotificationContentExtension.appex in Embed App Extensions */,
+				9E6249B627FC94200052E43E /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
+				9ED3049C27FC945B00642A56 /* NotificationContentExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9ECB7A372929923E007F1CA4 /* Embed Frameworks */ = {
@@ -814,7 +814,7 @@
 				9E7A5A62222EB64B0020054F /* Sources */,
 				9E7A5A63222EB64B0020054F /* Frameworks */,
 				9E7A5A64222EB64B0020054F /* Resources */,
-				9E77897422878C090089C986 /* Embed App Extensions */,
+				9E77897422878C090089C986 /* Embed Foundation Extensions */,
 				9ECB7A372929923E007F1CA4 /* Embed Frameworks */,
 				9E43C3E82947680B002A62CC /* Embed ExtensionKit Extensions */,
 			);
@@ -895,7 +895,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = cordial.io;
 				TargetAttributes = {
 					9E43C3DD2947680A002A62CC = {
