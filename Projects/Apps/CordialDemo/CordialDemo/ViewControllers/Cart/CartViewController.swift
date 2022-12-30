@@ -77,11 +77,13 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     func upsertCartTableFooterView() {
         if !self.products.isEmpty {
             var totalQty: Int64 = 0
-            var totalPrice: Double = 0
+            var totalPrice: Int64 = 0
             self.products.forEach { product in
-                if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.cart.getCartItemQtyBySKU(appDelegate: appDelegate, sku: product.sku) {
+                if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
+                   let qty = AppDataManager.shared.cart.getCartItemQtyBySKU(appDelegate: appDelegate, sku: product.sku) {
+                    
                     totalQty += qty
-                    totalPrice += product.price * Double(qty)
+                    totalPrice += Int64(product.price) * qty
                 }
             }
             if totalQty != 0 && totalPrice != 0 {
@@ -109,7 +111,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
         products.forEach { product in
             if let appDelegate = UIApplication.shared.delegate as? AppDelegate, let qty = AppDataManager.shared.cart.getCartItemQtyBySKU(appDelegate: appDelegate, sku: product.sku) {
                 
-                let cartItem = CartItem(productID: product.id, name: product.name, sku: product.sku, category: "Mens", url: nil, itemDescription: nil, qty: qty, itemPrice: product.price, salePrice: product.price, attr: nil, images: [product.image], properties: nil)
+                let cartItem = CartItem(productID: product.id, name: product.name, sku: product.sku, category: "Mens", url: nil, itemDescription: nil, qty: qty, itemPrice: Double(product.price), salePrice: Double(product.price), attr: nil, images: [product.image], properties: nil)
                 
                 cartItems.append(cartItem)
             }
