@@ -19419,6 +19419,13 @@
       },
       {
         "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "CordialSDK"
+      },
+      {
+        "kind": "Import",
         "name": "os.log",
         "printedName": "os.log",
         "declKind": "Import",
@@ -81930,21 +81937,21 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/URLSession\/CordialURLSession.swift",
       "kind": "StringLiteral",
-      "offset": 523,
+      "offset": 536,
       "length": 43,
       "value": "\"CordialSDKBackgroundURLSessionThreadQueue\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/URLSession\/CordialURLSession.swift",
       "kind": "BooleanLiteral",
-      "offset": 792,
+      "offset": 805,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/URLSession\/CordialURLSession.swift",
       "kind": "BooleanLiteral",
-      "offset": 840,
+      "offset": 853,
       "length": 4,
       "value": "true"
     },
