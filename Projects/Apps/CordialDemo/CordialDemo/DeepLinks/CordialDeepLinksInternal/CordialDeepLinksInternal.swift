@@ -27,7 +27,7 @@ class CordialDeepLinksInternal {
     
     func getProductDeepLinkInternal(url: URL) -> Product? {
         let productsFiltered = self.products.filter { product in
-            if product.url.absoluteString == url.absoluteString {
+            if url.absoluteString.contains(product.url.absoluteString) {
                 return true
             }
             
