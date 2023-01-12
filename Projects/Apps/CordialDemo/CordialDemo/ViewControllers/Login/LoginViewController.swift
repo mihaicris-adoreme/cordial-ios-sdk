@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
     @IBAction func guestAction(_ sender: UIButton) {
         self.deleteAppCoreData()
         
-        self.cordialAPI.registerForPushNotifications(options: [.alert, .sound])
+        self.cordialAPI.registerForPushNotifications(options: [.provisional])
         
         self.cordialAPI.setContact(primaryKey: nil)
         
