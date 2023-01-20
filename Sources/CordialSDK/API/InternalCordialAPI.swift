@@ -514,7 +514,7 @@ class InternalCordialAPI {
         CordialUserDefaults.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
     }
     
-    func getPushNotificationAuthorizationStatus(authorizationStatus: UNAuthorizationStatus) -> String {
+    func getPushNotificationAuthorizationStatusName(authorizationStatus: UNAuthorizationStatus) -> String {
         switch authorizationStatus {
         case .denied:
             return "denied"
