@@ -18,13 +18,17 @@ class PushNotificationHelper {
     
     func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any], completionHandler: () -> Void) {
         DispatchQueue.main.async {
-            self.pushNotificationHasBeenTapped(userInfo: userInfo)
+            let current = UNUserNotificationCenter.current()
+            
+            current.getNotificationSettings(completionHandler: { settings in
+                self.pushNotificationHasBeenTapped(userInfo: userInfo, authorizationStatus: settings.authorizationStatus)
+            })
         }
         
         completionHandler()
     }
     
-    private func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any]) {
+    private func pushNotificationHasBeenTapped(userInfo: [AnyHashable : Any], authorizationStatus: UNAuthorizationStatus) {
         // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.appOpenViaNotificationTap(notificationContent: userInfo)
@@ -66,7 +70,13 @@ class PushNotificationHelper {
         }
         
         let mcID = self.cordialAPI.getCurrentMcID()
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
+        
+        var properties: Dictionary<String, Any> = ["crdl_authorization_status": self.internalCordialAPI.getPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)]
+        if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
+            properties.merge(systemEventsProperties) { (current, new) in current }
+        }
+        
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: properties)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         if let carouselDeepLinks = CordialGroupUserDefaults.stringArray(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS),
@@ -74,10 +84,10 @@ class PushNotificationHelper {
            carouselDeepLinks.indices.contains(carouselDeepLinkID),
            let url = URL(string: carouselDeepLinks[carouselDeepLinkID]) {
             
-            InternalCordialAPI().processPushNotificationDeepLink(url: url, userInfo: userInfo)
+            self.internalCordialAPI.processPushNotificationDeepLink(url: url, userInfo: userInfo)
             
         } else if let url = self.pushNotificationParser.getDeepLinkURL(userInfo: userInfo) {
-            InternalCordialAPI().processPushNotificationDeepLink(url: url, userInfo: userInfo)
+            self.internalCordialAPI.processPushNotificationDeepLink(url: url, userInfo: userInfo)
         }
         
         CordialGroupUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS)
@@ -117,14 +127,14 @@ class PushNotificationHelper {
         DispatchQueue.main.async {
             let current = UNUserNotificationCenter.current()
             
-            current.getNotificationSettings(completionHandler: { (settings) in
+            current.getNotificationSettings(completionHandler: { settings in
                 DispatchQueue.main.async {
                     if !self.internalCordialAPI.isCurrentlyUpsertingContacts(),
                        let token = self.internalCordialAPI.getPushNotificationToken() {
                         
                         let primaryKey = CordialAPI().getContactPrimaryKey()
                         
-                        if settings.authorizationStatus == .authorized {
+                        if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
                             if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
                                 
                                 let status = API.PUSH_NOTIFICATION_STATUS_ALLOW

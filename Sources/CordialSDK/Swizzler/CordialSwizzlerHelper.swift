@@ -89,9 +89,9 @@ class CordialSwizzlerHelper {
             
             var status = String()
             
-            current.getNotificationSettings(completionHandler: { (settings) in
+            current.getNotificationSettings(completionHandler: { settings in
                 DispatchQueue.main.async {
-                    if settings.authorizationStatus == .authorized {
+                    if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
                         status = API.PUSH_NOTIFICATION_STATUS_ALLOW
                     } else {
                         status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
