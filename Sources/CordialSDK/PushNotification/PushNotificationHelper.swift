@@ -71,7 +71,7 @@ class PushNotificationHelper {
         
         let mcID = self.cordialAPI.getCurrentMcID()
         
-        var properties: Dictionary<String, Any> = ["crdl_authorization_status": self.internalCordialAPI.getPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)]
+        var properties: Dictionary<String, Any> = ["authorizationStatus": self.internalCordialAPI.getPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)]
         if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
             properties.merge(systemEventsProperties) { (current, new) in current }
         }
