@@ -97,7 +97,7 @@ class CordialSwizzlerHelper {
                         status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                     }
                     
-                    InternalCordialAPI().setPushNotificationStatus(status: status)
+                    InternalCordialAPI().setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus)
                     
                     self.sendPushNotificationToken(token: token, status: status)
                 }

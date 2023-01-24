@@ -71,12 +71,8 @@ class PushNotificationHelper {
         
         let mcID = self.cordialAPI.getCurrentMcID()
         
-        var properties: Dictionary<String, Any> = ["authorizationStatus": self.internalCordialAPI.getPushNotificationAuthorizationStatusName(authorizationStatus: authorizationStatus)]
-        if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
-            properties.merge(systemEventsProperties) { (current, new) in current }
-        }
-        
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: properties)
+        let systemEventsProperties = self.internalCordialAPI.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: systemEventsProperties)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
         if let carouselDeepLinks = CordialGroupUserDefaults.stringArray(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS),
@@ -138,13 +134,13 @@ class PushNotificationHelper {
                             if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
                                 
                                 let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
-                                self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
+                                self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status, authorizationStatus: settings.authorizationStatus)
                             }
                         } else {
                             if API.PUSH_NOTIFICATION_STATUS_DISALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
                                 
                                 let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
-                                self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status)
+                                self.sentPushNotificationStatus(token: token, primaryKey: primaryKey, status: status, authorizationStatus: settings.authorizationStatus)
                             }
                         }
                     }
@@ -153,8 +149,8 @@ class PushNotificationHelper {
         }
     }
     
-    private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String) {
-        self.internalCordialAPI.setPushNotificationStatus(status: status)
+    private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {
+        self.internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
         
         if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
