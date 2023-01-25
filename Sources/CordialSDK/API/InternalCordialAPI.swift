@@ -511,7 +511,9 @@ class InternalCordialAPI {
     // MARK: Get push notification authorization status
     
     private func getPushNotificationAuthorizationStatus() -> UNAuthorizationStatus {
-        guard let authorizationStatus = CordialUserDefaults.object(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS) as? UNAuthorizationStatus else {
+        guard let rawValue = CordialUserDefaults.integer(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS),
+                let authorizationStatus = UNAuthorizationStatus(rawValue: rawValue) else {
+            
             return .notDetermined
         }
         
@@ -531,6 +533,7 @@ class InternalCordialAPI {
         
         if authorizationStatus != prevAuthorizationStatus {
             let mcID = CordialAPI().getCurrentMcID()
+
             
             switch authorizationStatus {
             case .denied:
@@ -538,13 +541,13 @@ class InternalCordialAPI {
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT, mcID: mcID, properties: systemEventsProperties)
                 self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 
-                CordialUserDefaults.set(authorizationStatus, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
+                CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
             case .authorized, .provisional:
                 let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
                 let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN, mcID: mcID, properties: systemEventsProperties)
                 self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
                 
-                CordialUserDefaults.set(authorizationStatus, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
+                CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
             default: break
             }
         }

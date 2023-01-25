@@ -16,8 +16,8 @@ struct CordialUserDefaults {
         self.cordialUserDefaults?.set(value, forKey: key)
     }
      
-    static func object(forKey key: String) -> Any? {
-        return self.cordialUserDefaults?.object(forKey: key)
+    static func integer(forKey key: String) -> Int? {
+        return self.cordialUserDefaults?.integer(forKey: key)
     }
     
     static func string(forKey key: String) -> String? {
