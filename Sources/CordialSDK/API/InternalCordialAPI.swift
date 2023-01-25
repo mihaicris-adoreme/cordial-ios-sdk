@@ -533,7 +533,6 @@ class InternalCordialAPI {
         
         if authorizationStatus != prevAuthorizationStatus {
             let mcID = CordialAPI().getCurrentMcID()
-
             
             switch authorizationStatus {
             case .denied:
