@@ -46,6 +46,8 @@ import os.log
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, Any>?
     
+    @objc public var pushNotificationSettings = [String]()
+    
     @objc public var vanityDomains = [String]()
     
     @objc public var eventsBulkSize: Int = 1 {

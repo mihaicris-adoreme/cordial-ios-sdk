@@ -77,4 +77,10 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         
         self.pushNotificationHelper.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: completionHandler)
     }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+        if let currentVC = InternalCordialAPI().getActiveViewController() {
+            currentVC.present(PushNotificationSettingsTableViewController(), animated: true)
+        }
+    }
 }
