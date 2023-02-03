@@ -15,24 +15,32 @@ class PushNotificationSettingsTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
         self.switcher.isOn = true
 
         self.switcher.translatesAutoresizingMaskIntoConstraints = false
         self.title.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.contentView.addSubview(self.switcher)
+        self.contentView.addSubview(self.title)
 
-        contentView.addSubview(self.switcher)
-        contentView.addSubview(self.title)
+        let views = ["switcher": self.switcher, "title": self.title]
 
-        let viewsDict = ["switcher": self.switcher, "title": self.title]
-
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[title]-|", options: [], metrics: nil, views: viewsDict))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[switcher]-|", options: [], metrics: nil, views: viewsDict))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[title]-[switcher]-|", options: [], metrics: nil, views: viewsDict))
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[title]-|", options: [], metrics: nil, views: views))
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[switcher]-|", options: [], metrics: nil, views: views))
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[title]-[switcher]-|", options: [], metrics: nil, views: views))
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+  
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        for view in subviews where view != contentView && view.frame.width == frame.width {
+            view.removeFromSuperview()
+        }
     }
     
 }
