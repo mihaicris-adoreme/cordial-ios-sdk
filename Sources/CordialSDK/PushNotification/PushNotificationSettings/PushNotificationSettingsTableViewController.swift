@@ -17,14 +17,27 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
     
     let tableViewBackgroundColor = UIColor.systemGray
     let tableViewCellBackgroundColor = UIColor.lightGray
-    let tableViewCellTextBackgroundColor = UIColor.darkGray
+    let tableViewCellTextColor = UIColor.lightText
+    let navigationBarTextColor = UIColor.darkGray
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(self.dismissViewController))
         
-        self.tableView = PushNotificationSettingsTableView(frame: CGRect(x: 20, y: 0, width: self.view.bounds.width - 40, height: self.view.bounds.size.height))
+        // UINavigationBar
+        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: UINavigationController().navigationBar.frame.size.height))
+        
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        navigationBar.tintColor = self.navigationBarTextColor
+        navigationBar.barTintColor = self.tableViewBackgroundColor
+        
+        let navigationItem = UINavigationItem(title: "Notifications")
+        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(self.dismissViewController))
+        navigationItem.leftBarButtonItem = doneItem
+        navigationBar.setItems([navigationItem], animated: false)
+        
+        // UITableView
+        self.tableView = PushNotificationSettingsTableView(frame: self.view.frame)
+        self.tableView.showsVerticalScrollIndicator = false
         self.tableView.backgroundColor = self.tableViewBackgroundColor
         
         self.tableView.delegate = self
@@ -34,13 +47,25 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.allowsSelection = false
-        self.tableView.bounces = false
         
-        let wrapTableView = UIView(frame: self.view.bounds)
+        // Configuration
+        let wrapTableView = UIView(frame: self.view.frame)
         wrapTableView.backgroundColor = self.tableViewBackgroundColor
-        
-        wrapTableView.addSubview(self.tableView)
-        self.view.addSubview(wrapTableView)
+  
+        if let tableView = self.tableView {
+            wrapTableView.addSubview(navigationBar)
+            wrapTableView.addSubview(tableView)
+            
+            let views = ["tableView": tableView, "navigationBar": navigationBar]
+
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[navigationBar]|", options: [], metrics: nil, views: views))
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[tableView]-20-|", options: [], metrics: nil, views: views))
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[navigationBar]-20-[tableView]-20-|", options: [], metrics: nil, views: views))
+            
+            self.view.addSubview(wrapTableView)
+        } else {
+            self.dismiss(animated: false)
+        }
     }
 
     @objc func dismissViewController() {
@@ -65,7 +90,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PushNotificationSettingsTableViewCell
         
         cell.title.text = "\(self.rows[indexPath.section][indexPath.row])"
-        cell.title.textColor = self.tableViewCellTextBackgroundColor
+        cell.title.textColor = self.tableViewCellTextColor
         
         return cell
     }
