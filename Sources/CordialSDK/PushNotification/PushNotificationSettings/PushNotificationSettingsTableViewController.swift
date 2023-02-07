@@ -15,10 +15,14 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
     
     var tableView: UITableView!
     
-    let tableViewBackgroundColor = UIColor.systemGray
-    let tableViewCellBackgroundColor = UIColor.lightGray
-    let tableViewCellTextColor = UIColor.lightText
-    let navigationBarTextColor = UIColor.darkGray
+    let tableViewBackgroundColor = UIColor(red: 33/255, green: 36/255, blue: 41/255, alpha: 1)
+    let tableViewCellBackgroundColor = UIColor(red: 26/255, green: 29/255, blue: 35/255, alpha: 1)
+    let tableViewCellTextColor = UIColor(red: 232/255, green: 233/255, blue: 238/255, alpha: 1)
+    let tableViewHeaderTextColor = UIColor(red: 166/255, green: 167/255, blue: 172/255, alpha: 1)
+
+    let navigationBarBackgroundColor = UIColor(red: 26/255, green: 29/255, blue: 35/255, alpha: 1)
+    let navigationBarTextColor = UIColor(red: 211/255, green: 212/255, blue: 217/255, alpha: 1)
+    let navigationBarXmarkColor = UIColor(red: 211/255, green: 212/255, blue: 217/255, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +31,22 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: UINavigationController().navigationBar.frame.size.height))
         
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        navigationBar.tintColor = self.navigationBarTextColor
-        navigationBar.barTintColor = self.tableViewBackgroundColor
+        navigationBar.tintColor = self.navigationBarXmarkColor
+        navigationBar.isTranslucent = false
+        navigationBar.barTintColor = self.navigationBarBackgroundColor
         
         let navigationItem = UINavigationItem(title: "Notifications")
-        let doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(self.dismissViewController))
-        navigationItem.leftBarButtonItem = doneItem
+        navigationBar.titleTextAttributes = [.foregroundColor: self.navigationBarTextColor]
+    
+        let dismissItem: UIBarButtonItem?
+        if #available(iOS 13.0, *) {
+            dismissItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: nil, action: #selector(self.dismissViewController))
+        } else {
+            dismissItem = UIBarButtonItem(title: "X", style: .plain, target: nil, action: #selector(self.dismissViewController))
+            dismissItem?.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.5), .foregroundColor: self.navigationBarXmarkColor], for: .normal)
+        }
+        
+        navigationItem.leftBarButtonItem = dismissItem
         navigationBar.setItems([navigationItem], animated: false)
         
         // UITableView
@@ -110,6 +124,11 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         default:
             cell.layer.cornerRadius = 0
         }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.textLabel?.textColor = self.tableViewHeaderTextColor
     }
     
 }
