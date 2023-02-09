@@ -110,7 +110,7 @@ struct API {
     
     static func isDeviceSmallScreen() -> Bool {
         if UIDevice().userInterfaceIdiom == .phone,
-           UIScreen.main.nativeBounds.height <= 1136 { // 1136 px - iPhone5 or SE(1st_gen)
+           UIScreen.main.nativeBounds.height == 1136 { // 1136 px - iPhone5S/SE
             
             return true
         }

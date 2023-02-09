@@ -16,8 +16,6 @@ class PushNotificationSettingsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.switcher.isOn = true
-
         self.switcher.translatesAutoresizingMaskIntoConstraints = false
         self.title.translatesAutoresizingMaskIntoConstraints = false
         
