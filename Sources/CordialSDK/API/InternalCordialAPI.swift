@@ -588,6 +588,31 @@ class InternalCordialAPI {
         CordialUserDefaults.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
     }
     
+    // MARK: Set push notification settings
+    
+    func setPushNotificationSettings(pushNotificationSettings: [PushNotificationSettings]) {
+        let pushNotificationSettingsData = try? NSKeyedArchiver.archivedData(withRootObject: pushNotificationSettings, requiringSecureCoding: false)
+        CordialUserDefaults.set(pushNotificationSettingsData, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS)
+    }
+    
+    // MARK: Get push notification settings
+    
+    func getPushNotificationSettings() -> [PushNotificationSettings] {
+        guard let pushNotificationSettingsData = CordialUserDefaults.object(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS) as? Data,
+              let pushNotificationSettings = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(pushNotificationSettingsData) as? [PushNotificationSettings] else {
+            
+            return [PushNotificationSettings]()
+        }
+        
+        for settings in pushNotificationSettings {
+            if settings.isError {
+                return [PushNotificationSettings]()
+            }
+        }
+        
+        return pushNotificationSettings
+    }
+    
     // MARK: Get the latest sentAt IAM
     
     func getTheLatestSentAtInAppMessageDate() -> String? {        

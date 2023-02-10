@@ -40,5 +40,4 @@ class PushNotificationSettingsTableViewCell: UITableViewCell {
             view.removeFromSuperview()
         }
     }
-    
 }

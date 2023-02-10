@@ -46,7 +46,13 @@ import os.log
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, Any>?
     
-    @objc public var pushNotificationSettings = [String]()
+    @objc public func setNotificationSettings(_ pushNotificationSettings: [PushNotificationSettings]) {
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if internalCordialAPI.getPushNotificationSettings().isEmpty {
+            internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings)
+        }
+    }
     
     @objc public var vanityDomains = [String]()
     
@@ -54,7 +60,7 @@ import os.log
         didSet {
             CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         }
-        willSet(newEventsBulkSize) {
+        willSet (newEventsBulkSize) {
             if eventsBulkSize != newEventsBulkSize && newEventsBulkSize.signum() == 1 {
                 CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
             }
@@ -65,7 +71,7 @@ import os.log
         didSet {
             CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         }
-        willSet(newEventsBulkUploadInterval) {
+        willSet (newEventsBulkUploadInterval) {
             if eventsBulkUploadInterval != newEventsBulkUploadInterval && Int(newEventsBulkUploadInterval).signum() == 1 {
                 CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
             }

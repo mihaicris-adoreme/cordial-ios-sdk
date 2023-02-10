@@ -165,6 +165,7 @@
 		9E9A19D6298A956A0093DA41 /* PushNotificationSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9A19D5298A956A0093DA41 /* PushNotificationSettingsTableViewController.swift */; };
 		9E9A19D8298A95F10093DA41 /* PushNotificationSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9A19D7298A95F10093DA41 /* PushNotificationSettingsTableViewCell.swift */; };
 		9E9A19F0298D3B7C0093DA41 /* PushNotificationSettingsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9A19EF298D3B7C0093DA41 /* PushNotificationSettingsTableView.swift */; };
+		9E9A1A782995541C0093DA41 /* PushNotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9A1A772995541C0093DA41 /* PushNotificationSettings.swift */; };
 		9E9F2FDF238BF6CC0034F811 /* InAppMessageDelayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E9F2FDE238BF6CC0034F811 /* InAppMessageDelayViewController.swift */; };
 		9EA2EFA622C4F0700047314C /* InAppMessageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */; };
 		9EA2EFA822C4F4670047314C /* InAppMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */; };
@@ -490,6 +491,7 @@
 		9E9A19D5298A956A0093DA41 /* PushNotificationSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSettingsTableViewController.swift; sourceTree = "<group>"; };
 		9E9A19D7298A95F10093DA41 /* PushNotificationSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		9E9A19EF298D3B7C0093DA41 /* PushNotificationSettingsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSettingsTableView.swift; sourceTree = "<group>"; };
+		9E9A1A772995541C0093DA41 /* PushNotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSettings.swift; sourceTree = "<group>"; };
 		9E9F2FDE238BF6CC0034F811 /* InAppMessageDelayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDelayViewController.swift; sourceTree = "<group>"; };
 		9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageManager.swift; sourceTree = "<group>"; };
 		9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageViewController.swift; sourceTree = "<group>"; };
@@ -1195,6 +1197,7 @@
 				9E9A19D5298A956A0093DA41 /* PushNotificationSettingsTableViewController.swift */,
 				9E9A19D7298A95F10093DA41 /* PushNotificationSettingsTableViewCell.swift */,
 				9E9A19EF298D3B7C0093DA41 /* PushNotificationSettingsTableView.swift */,
+				9E9A1A772995541C0093DA41 /* PushNotificationSettings.swift */,
 			);
 			path = PushNotificationSettings;
 			sourceTree = "<group>";
@@ -1965,6 +1968,7 @@
 				9E6A934026A97B9800C1990B /* CordialSwiftUIInboxMessageNewInboxMessageDelivered.swift in Sources */,
 				9E6D1DBD2507D95700940363 /* InboxMessagesMarkReadUnreadURLSessionManager.swift in Sources */,
 				9EEE995522412C160041D8AE /* SendCustomEventRequest.swift in Sources */,
+				9E9A1A782995541C0093DA41 /* PushNotificationSettings.swift in Sources */,
 				9E6D1DA925065E6800940363 /* InboxMessagesMarkReadUnreadCoreData.swift in Sources */,
 				9EB004D5253E33B100156E8E /* InboxFilterIsReadType.swift in Sources */,
 				9E0F4CAD2586B95800E2FA95 /* URLSession.swift in Sources */,
