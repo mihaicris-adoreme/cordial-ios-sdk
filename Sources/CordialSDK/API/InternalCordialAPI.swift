@@ -590,15 +590,15 @@ class InternalCordialAPI {
     
     // MARK: Set push notification settings
     
-    func setPushNotificationSettings(pushNotificationSettings: [PushNotificationSettings]) {
+    func setPushNotificationSettings(pushNotificationSettings: [PushNotificationSettings], key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS) {
         let pushNotificationSettingsData = try? NSKeyedArchiver.archivedData(withRootObject: pushNotificationSettings, requiringSecureCoding: false)
-        CordialUserDefaults.set(pushNotificationSettingsData, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS)
+        CordialUserDefaults.set(pushNotificationSettingsData, forKey: key)
     }
     
     // MARK: Get push notification settings
     
-    func getPushNotificationSettings() -> [PushNotificationSettings] {
-        guard let pushNotificationSettingsData = CordialUserDefaults.object(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS) as? Data,
+    func getPushNotificationSettings(key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS) -> [PushNotificationSettings] {
+        guard let pushNotificationSettingsData = CordialUserDefaults.object(forKey: key) as? Data,
               let pushNotificationSettings = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(pushNotificationSettingsData) as? [PushNotificationSettings] else {
             
             return [PushNotificationSettings]()
@@ -611,6 +611,39 @@ class InternalCordialAPI {
         }
         
         return pushNotificationSettings
+    }
+    
+    func isNewPushNotificationSettings(pushNotificationSettings: [PushNotificationSettings]) -> Bool {
+        let pushNotificationSettingsOrigin = self.getPushNotificationSettings(key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN)
+        
+        func getSettingsJSON(_ pushNotificationSettings: [PushNotificationSettings]) -> String {
+            var rootContainer = [String]()
+            
+            for settings in pushNotificationSettings {
+                let container = {
+                    let container = [
+                        "\"key\": \"\(settings.key)\"",
+                        "\"name\": \"\(settings.name)\"",
+                        "\"initState\": \(settings.initState)"
+                    ]
+                                    
+                    return "{ \(container.joined(separator: ", ")) }"
+                }()
+                
+                rootContainer.append(container)
+            }
+            
+            return "[ \(rootContainer.joined(separator: ", ")) ]"
+        }
+        
+        let pushNotificationSettingsJSON = getSettingsJSON(pushNotificationSettings)
+        let pushNotificationSettingsOriginJSON = getSettingsJSON(pushNotificationSettingsOrigin)
+        
+        if pushNotificationSettingsJSON != pushNotificationSettingsOriginJSON {
+            return true
+        }
+        
+        return false
     }
     
     // MARK: Get the latest sentAt IAM

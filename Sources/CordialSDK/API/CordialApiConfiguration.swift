@@ -49,8 +49,9 @@ import os.log
     @objc public func setNotificationSettings(_ pushNotificationSettings: [PushNotificationSettings]) {
         let internalCordialAPI = InternalCordialAPI()
         
-        if internalCordialAPI.getPushNotificationSettings().isEmpty {
+        if internalCordialAPI.isNewPushNotificationSettings(pushNotificationSettings: pushNotificationSettings) {
             internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings)
+            internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings, key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN)
         }
     }
     
