@@ -18,6 +18,8 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     private override init() {}
     
     let pushNotificationHelper = PushNotificationHelper()
+    
+    var isScreenPushNotificationSettingsShown = false
 
     func registerForPushNotifications(options: UNAuthorizationOptions) {
         UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, error in
@@ -75,9 +77,11 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
-        DispatchQueue.main.async {
-            if let currentVC = InternalCordialAPI().getActiveViewController() {
-                currentVC.present(PushNotificationSettingsTableViewController(), animated: true)
+        if !self.isScreenPushNotificationSettingsShown {
+            DispatchQueue.main.async {
+                if let currentVC = InternalCordialAPI().getActiveViewController() {
+                    currentVC.present(PushNotificationSettingsTableViewController(), animated: true)
+                }
             }
         }
     }

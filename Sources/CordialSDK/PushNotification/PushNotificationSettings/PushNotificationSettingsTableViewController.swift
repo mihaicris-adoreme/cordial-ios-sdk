@@ -95,7 +95,19 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
             self.dismiss(animated: false)
         }
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        CordialPushNotification.shared.isScreenPushNotificationSettingsShown = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        CordialPushNotification.shared.isScreenPushNotificationSettingsShown = false
+    }
+    
     @objc func dismissViewController() {
         self.dismiss(animated: true)
     }
