@@ -18,7 +18,6 @@ import os.log
     
     let sdkVersion = "4.1.3"
     
-    let initPushNotification = CordialPushNotification.shared
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
@@ -104,6 +103,8 @@ import os.log
         
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         os_log("Device Identifier: [%{public}@] SDK: [%{public}@]", log: OSLog.cordialInfo, type: .info, deviceID, self.sdkVersion)
+        
+        CordialPushNotification.shared.setupPushNotifications()
         
         NotificationManager.shared.setupNotificationManager()
         

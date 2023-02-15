@@ -613,6 +613,8 @@ class InternalCordialAPI {
         return pushNotificationSettings
     }
     
+    // MARK: Is new push notification settings
+    
     func isNewPushNotificationSettings(pushNotificationSettings: [PushNotificationSettings]) -> Bool {
         let pushNotificationSettingsOrigin = self.getPushNotificationSettings(key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN)
         
