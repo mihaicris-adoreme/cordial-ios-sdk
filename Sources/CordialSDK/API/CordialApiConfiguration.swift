@@ -48,9 +48,15 @@ import os.log
     @objc public func setNotificationSettings(_ pushNotificationSettings: [PushNotificationSettings]) {
         let internalCordialAPI = InternalCordialAPI()
         
-        if internalCordialAPI.isNewPushNotificationSettings(pushNotificationSettings: pushNotificationSettings) {
-            internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings)
-            internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings, key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN)
+        if !pushNotificationSettings.isEmpty {
+            if internalCordialAPI.isNewPushNotificationSettings(pushNotificationSettings: pushNotificationSettings) {
+                internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings)
+                internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings, key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN)
+            }
+        } else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Setting empty push notification settings array is unsupported", log: OSLog.cordialPushNotification, type: .error)
+            }
         }
     }
     
