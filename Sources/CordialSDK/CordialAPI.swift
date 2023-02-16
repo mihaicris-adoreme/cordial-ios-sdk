@@ -180,6 +180,13 @@ import os.log
     
     @objc public func registerForPushNotifications(options: UNAuthorizationOptions) {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
+            
+            if !InternalCordialAPI().getPushNotificationSettings().isEmpty,
+               !options.contains(.providesAppNotificationSettings) {
+                
+                CordialPushNotification.shared.registerForPushNotifications(options: .providesAppNotificationSettings)
+            }
+            
             CordialPushNotification.shared.registerForPushNotifications(options: options)
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
