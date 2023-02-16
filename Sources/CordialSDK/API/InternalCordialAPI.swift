@@ -622,17 +622,15 @@ class InternalCordialAPI {
             var rootContainer = [String]()
             
             for settings in pushNotificationSettings {
-                let container = {
-                    let container = [
-                        "\"key\": \"\(settings.key)\"",
-                        "\"name\": \"\(settings.name)\"",
-                        "\"initState\": \(settings.initState)"
-                    ]
-                                    
-                    return "{ \(container.joined(separator: ", ")) }"
-                }()
+                let container = [
+                    "\"key\": \"\(settings.key)\"",
+                    "\"name\": \"\(settings.name)\"",
+                    "\"initState\": \(settings.initState)"
+                ]
                 
-                rootContainer.append(container)
+                let containerString = "{ \(container.joined(separator: ", ")) }"
+                
+                rootContainer.append(containerString)
             }
             
             return "[ \(rootContainer.joined(separator: ", ")) ]"
