@@ -64,6 +64,8 @@ struct API {
     static let EVENT_NAME_MANUAL_REMOVE_IN_APP_MESSAGE = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_manual_dismiss"
     static let EVENT_NAME_INBOX_MESSAGE_READ = "\(API.SYSTEM_EVENT_PREFIX)inbox_read"
     
+    static let UPSERT_CONTACT_ATTRIBUTES_NAME_PUSH_NOTIFICATION_CATEGORIES = "\(API.SYSTEM_EVENT_PREFIX)notification_categories"
+    
     static let BACKGROUND_URL_SESSION_IDENTIFIER = "CordialSDKBackgroundURLSession"
     
     static let SECURITY_APPLICATION_GROUP_IDENTIFIER = "group.cordial.sdk"

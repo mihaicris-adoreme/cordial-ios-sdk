@@ -591,6 +591,19 @@ class InternalCordialAPI {
     // MARK: Set push notification settings
     
     func setPushNotificationSettings(pushNotificationSettings: [PushNotificationSettings], key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS) {
+        if key == API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS {
+            var enabledKeys: [String] = []
+            
+            pushNotificationSettings.forEach { settings in
+                if settings.initState {
+                    enabledKeys.append(settings.key)
+                }
+            }
+            
+            let attributes = ArrayValue(enabledKeys)
+            CordialAPI().upsertContact(attributes: [API.UPSERT_CONTACT_ATTRIBUTES_NAME_PUSH_NOTIFICATION_CATEGORIES: attributes])
+        }
+        
         let pushNotificationSettingsData = try? NSKeyedArchiver.archivedData(withRootObject: pushNotificationSettings, requiringSecureCoding: false)
         CordialUserDefaults.set(pushNotificationSettingsData, forKey: key)
     }
