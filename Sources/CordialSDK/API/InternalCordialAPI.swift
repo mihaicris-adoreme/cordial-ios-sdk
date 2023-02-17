@@ -612,7 +612,8 @@ class InternalCordialAPI {
     
     func getPushNotificationSettings(key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS) -> [PushNotificationSettings] {
         guard let pushNotificationSettingsData = CordialUserDefaults.object(forKey: key) as? Data,
-              let pushNotificationSettings = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(pushNotificationSettingsData) as? [PushNotificationSettings] else {
+              let pushNotificationSettingsUnarchive = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(pushNotificationSettingsData),
+              let pushNotificationSettings = pushNotificationSettingsUnarchive as? [PushNotificationSettings] else {
             
             return [PushNotificationSettings]()
         }
