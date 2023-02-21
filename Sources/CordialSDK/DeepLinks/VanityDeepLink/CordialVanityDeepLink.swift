@@ -56,7 +56,6 @@ class CordialVanityDeepLink {
     }
     
     private func fetchDeepLink(url: URL, redirectsCount: Int, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
-
         DependencyConfiguration.shared.vanityDeepLinkURLSession.dataTask(with: url) { data, response, error in
             DispatchQueue.main.async {
                 if let error = error {
