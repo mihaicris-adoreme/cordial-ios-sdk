@@ -54,49 +54,51 @@ class InboxMessageGetter {
             let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .GET)
             
             DependencyConfiguration.shared.inboxMessageURLSession.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    onFailure("Fetching single inbox message failed. Error: [\(error.localizedDescription)]")
-                    return
-                }
-                
-                if let responseData = data, let httpResponse = response as? HTTPURLResponse {
-                    switch httpResponse.statusCode {
-                    case 200:
-                        self.parseResponseJSON(mcID: mcID, responseData: responseData, onSuccess: { response in
-                            onSuccess(response)
-                        }, onFailure: { error in
-                            onFailure(error)
-                        })
-                        
-                    case 401:
-                        SDKSecurity.shared.updateJWTwithCallbacks(onSuccess: { response in
-                            self.getInboxMessage(contactKey: contactKey, mcID: mcID, onSuccess: onSuccess, onFailure: onFailure)
-                        }, onFailure: { error in
-                            onFailure(error)
-                        })
-                    default:
-                        let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                        
-                        do {
-                            if let jsonObject = try JSONSerialization.jsonObject(with: responseData, options : []) as? Dictionary<String, AnyObject> {
-                                
-                                let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+                DispatchQueue.main.async {
+                    if let error = error {
+                        onFailure("Fetching single inbox message failed. Error: [\(error.localizedDescription)]")
+                        return
+                    }
+                    
+                    if let responseData = data, let httpResponse = response as? HTTPURLResponse {
+                        switch httpResponse.statusCode {
+                        case 200:
+                            self.parseResponseJSON(mcID: mcID, responseData: responseData, onSuccess: { response in
+                                onSuccess(response)
+                            }, onFailure: { error in
+                                onFailure(error)
+                            })
+                            
+                        case 401:
+                            SDKSecurity.shared.updateJWTwithCallbacks(onSuccess: { response in
+                                self.getInboxMessage(contactKey: contactKey, mcID: mcID, onSuccess: onSuccess, onFailure: onFailure)
+                            }, onFailure: { error in
+                                onFailure(error)
+                            })
+                        default:
+                            let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
+                            
+                            do {
+                                if let jsonObject = try JSONSerialization.jsonObject(with: responseData, options : []) as? Dictionary<String, AnyObject> {
+                                    
+                                    let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
 
-                                if let prettyJSON = String(data: jsonData, encoding: .utf8) {
-                                    onFailure("Fetching single inbox message failed. \(message). JSON: \n \(prettyJSON)")
+                                    if let prettyJSON = String(data: jsonData, encoding: .utf8) {
+                                        onFailure("Fetching single inbox message failed. \(message). JSON: \n \(prettyJSON)")
+                                    } else {
+                                        onFailure("Fetching single inbox message failed. Error: [Failed decode response data] \(message)")
+                                    }
                                 } else {
                                     onFailure("Fetching single inbox message failed. Error: [Failed decode response data] \(message)")
                                 }
-                            } else {
-                                onFailure("Fetching single inbox message failed. Error: [Failed decode response data] \(message)")
+                            } catch let error {
+                                onFailure("Fetching single inbox message failed. Error: [\(error)] \(message)")
                             }
-                        } catch let error {
-                            onFailure("Fetching single inbox message failed. Error: [\(error)] \(message)")
                         }
+                    } else {
+                        let error = "Fetching single inbox message failed. Error: [Inbox message payload is absent]"
+                        onFailure(error)
                     }
-                } else {
-                    let error = "Fetching single inbox message failed. Error: [Inbox message payload is absent]"
-                    onFailure(error)
                 }
             }.resume()
         }
