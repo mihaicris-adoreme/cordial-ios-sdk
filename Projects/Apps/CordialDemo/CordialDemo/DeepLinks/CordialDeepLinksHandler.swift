@@ -29,6 +29,12 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
                 return
             }
 
+            let deepLinksInternal = CordialDeepLinksInternal()
+            if let productDeepLinkInternal = deepLinksInternal.getProductDeepLinkInternal(url: url) {
+                self.showAppDelegateDeepLink(product: productDeepLinkInternal)
+                return
+            }
+            
             if host == self.deepLinksHost {
                 if let deepLinkURL = self.getDeepLinkURL(url: url),
                    let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
@@ -67,6 +73,12 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
                 return
             }
 
+            let deepLinksInternal = CordialDeepLinksInternal()
+            if let productDeepLinkInternal = deepLinksInternal.getProductDeepLinkInternal(url: url) {
+                self.showSceneDelegateDeepLink(product: productDeepLinkInternal, scene: scene)
+                return
+            }
+            
             if host == self.deepLinksHost {
                 if let deepLinkURL = self.getDeepLinkURL(url: url),
                    let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),

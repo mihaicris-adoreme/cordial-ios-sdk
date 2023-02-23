@@ -56,35 +56,36 @@ class CordialVanityDeepLink {
     }
     
     private func fetchDeepLink(url: URL, redirectsCount: Int, onSuccess: @escaping (_ response: URL) -> Void, onFailure: @escaping (_ error: String) -> Void) {
-
         DependencyConfiguration.shared.vanityDeepLinkURLSession.dataTask(with: url) { data, response, error in
-            if let error = error {
-                onFailure("Fetching Vanity DeepLink failed. Error: [\(error.localizedDescription)]")
-                return
-            }
-            
-            if let httpResponse = response as? HTTPURLResponse {
-                switch httpResponse.statusCode {
-                case 200:
-                    onSuccess(url)
-                case 302:
-                    self.parseDeepLink(httpResponse: httpResponse, onSuccess: { url in
-                        if let host = url.host,
-                           CordialApiConfiguration.shared.vanityDomains.contains(host),
-                           redirectsCount < self.redirectsCountMax {
-                            
-                            self.fetchDeepLink(url: url, redirectsCount: redirectsCount + 1, onSuccess: onSuccess, onFailure: onFailure)
-                        } else {
-                            onSuccess(url)
-                        }
-                    }, onFailure: { error in
-                        onFailure("Parsing Vanity DeepLink failed. Error: [Unexpected error]")
-                    })
-                default:
+            DispatchQueue.main.async {
+                if let error = error {
+                    onFailure("Fetching Vanity DeepLink failed. Error: [\(error.localizedDescription)]")
+                    return
+                }
+                
+                if let httpResponse = response as? HTTPURLResponse {
+                    switch httpResponse.statusCode {
+                    case 200:
+                        onSuccess(url)
+                    case 302:
+                        self.parseDeepLink(httpResponse: httpResponse, onSuccess: { url in
+                            if let host = url.host,
+                               CordialApiConfiguration.shared.vanityDomains.contains(host),
+                               redirectsCount < self.redirectsCountMax {
+                                
+                                self.fetchDeepLink(url: url, redirectsCount: redirectsCount + 1, onSuccess: onSuccess, onFailure: onFailure)
+                            } else {
+                                onSuccess(url)
+                            }
+                        }, onFailure: { error in
+                            onFailure("Parsing Vanity DeepLink failed. Error: [Unexpected error]")
+                        })
+                    default:
+                        onFailure("Fetching Vanity DeepLink failed. Error: [Unexpected error]")
+                    }
+                } else {
                     onFailure("Fetching Vanity DeepLink failed. Error: [Unexpected error]")
                 }
-            } else {
-                onFailure("Fetching Vanity DeepLink failed. Error: [Unexpected error]")
             }
         }.resume()
     }

@@ -86,36 +86,38 @@ class SDKSecurity {
             let request = CordialRequestFactory().getCordialURLRequest(url: url, httpMethod: .POST)
             
             DependencyConfiguration.shared.updateJWTURLSession.dataTask(with: request) { data, response, error in
-                if let error = error {
-                    onFailure("Failed decode response data. Error: [\(error.localizedDescription)]")
-                    return
-                }
+                DispatchQueue.main.async {
+                    if let error = error {
+                        onFailure("Failed decode response data. Error: [\(error.localizedDescription)]")
+                        return
+                    }
 
-                do {
-                    if let responseBodyData = data, let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject], let httpResponse = response as? HTTPURLResponse {
+                    do {
+                        if let responseBodyData = data, let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject], let httpResponse = response as? HTTPURLResponse {
 
-                        switch httpResponse.statusCode {
-                        case 200:
-                            if let JWT = responseBodyJSON["token"] as? String {
-                                self.setJWT(JWT: JWT)
-                                onSuccess("JWT has been received successfully")
-                            } else {
-                                let message = "Getting JWT failed. Error: [JWT is absent]"
-                                onFailure(message)
+                            switch httpResponse.statusCode {
+                            case 200:
+                                if let JWT = responseBodyJSON["token"] as? String {
+                                    self.setJWT(JWT: JWT)
+                                    onSuccess("JWT has been received successfully")
+                                } else {
+                                    let message = "Getting JWT failed. Error: [JWT is absent]"
+                                    onFailure(message)
+                                }
+                            default:
+                                let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
+                                let error = "Getting JWT failed. Error: [\(message)]"
+
+                                onFailure(error)
                             }
-                        default:
-                            let message = "Status code: \(httpResponse.statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))"
-                            let error = "Getting JWT failed. Error: [\(message)]"
-
+                        } else {
+                            let error = "Failed decode JWT response data"
                             onFailure(error)
                         }
-                    } else {
-                        let error = "Failed decode JWT response data"
-                        onFailure(error)
-                    }
-                } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed decode JWT response data. Error: [%{public}@]", log: OSLog.cordialSecurity, type: .error, error.localizedDescription)
+                    } catch let error {
+                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                            os_log("Failed decode JWT response data. Error: [%{public}@]", log: OSLog.cordialSecurity, type: .error, error.localizedDescription)
+                        }
                     }
                 }
             }.resume()
