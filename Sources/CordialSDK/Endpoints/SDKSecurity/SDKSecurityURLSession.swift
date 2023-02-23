@@ -14,7 +14,7 @@ class SDKSecurityURLSession: NSObject, URLSessionDelegate {
         let config = URLSessionConfiguration.default
         config.isDiscretionary = false
         config.sessionSendsLaunchEvents = true
-        return URLSession(configuration: config, delegate: self, delegateQueue: nil)
+        return URLSession(configuration: config, delegate: self, delegateQueue: .main)
     }()
     
 }

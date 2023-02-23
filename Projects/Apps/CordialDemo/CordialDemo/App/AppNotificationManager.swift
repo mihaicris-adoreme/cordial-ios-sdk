@@ -61,7 +61,8 @@ class AppNotificationManager {
     }
 
     @objc func newInboxMessageDelivered() {
-        CordialAPI().showSystemAlert(title: "Inbox Message", message: "The new inbox message has been received")
+        // TMP - Need to fix UIAlertAction presentation and together IAM+Inbox delivery.
+//        CordialAPI().showSystemAlert(title: "Inbox Message", message: "The new inbox message has been received")
     }
         
 }

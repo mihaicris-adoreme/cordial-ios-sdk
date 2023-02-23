@@ -26,7 +26,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
         let config = URLSessionConfiguration.background(withIdentifier: API.BACKGROUND_URL_SESSION_IDENTIFIER)
         config.isDiscretionary = false
         config.sessionSendsLaunchEvents = true
-        return URLSession(configuration: config, delegate: self, delegateQueue: nil)
+        return URLSession(configuration: config, delegate: self, delegateQueue: .main)
     }()
     
     // MARK: Background URL session thread queue
