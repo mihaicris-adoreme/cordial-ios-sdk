@@ -14,13 +14,13 @@ class Product: NSObject, NSCoding {
     let img: String
     let brand: String
     let name: String
-    let price: Double
+    let price: Int
     let sku: String
     let shortDescription: String
     let image: String
     let path: String
         
-    init(id: String, img: String, brand: String, name: String, price: Double, sku: String, shortDescription: String, image: String, path: String) {
+    init(id: String, img: String, brand: String, name: String, price: Int, sku: String, shortDescription: String, image: String, path: String) {
         self.id = id
         self.img = img
         self.brand = brand
@@ -62,7 +62,7 @@ class Product: NSObject, NSCoding {
         let img = aDecoder.decodeObject(forKey: Key.img.rawValue) as! String
         let brand = aDecoder.decodeObject(forKey: Key.brand.rawValue) as! String
         let name = aDecoder.decodeObject(forKey: Key.name.rawValue) as! String
-        let price = aDecoder.decodeDouble(forKey: Key.price.rawValue)
+        let price = aDecoder.decodeInteger(forKey: Key.price.rawValue)
         let sku = aDecoder.decodeObject(forKey: Key.sku.rawValue) as! String
         let shortDescription = aDecoder.decodeObject(forKey: Key.shortDescription.rawValue) as! String
         let image = aDecoder.decodeObject(forKey: Key.image.rawValue) as! String
