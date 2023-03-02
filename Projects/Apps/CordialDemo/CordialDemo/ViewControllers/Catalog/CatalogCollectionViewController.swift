@@ -23,6 +23,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToInboxTableIdentifier = "segueToInboxTable"
     let segueToInboxTableListIdentifier = "segueToInboxTableList"
     let segueToInboxCollectionIdentifier = "segueToInboxCollection"
+    let segueToPushNotificationSettings = "segueToPushNotificationSettings"
     
     let catalogName = "Mens"
     
@@ -63,11 +64,12 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
             CustomUIActivityProfile(sender: self),
             CustomUIActivityCustomEvent(sender: self),
             CustomUIActivityInbox(sender: self),
+            CustomUIActivityPushNotificationSettings(sender: self),
             CustomUIActivityLogin(sender: self),
             CustomUIActivityLogout(sender: self)
         ]
         
-        let activitySheet = UIActivityViewController(activityItems: [Any](), applicationActivities: activities)
+        let activitySheet = CustomUIActivityViewController(activities: activities)
         self.present(activitySheet, animated: true, completion: nil)
     }
     

@@ -20,6 +20,9 @@
 		9E1EB3D6241F1700004CAD90 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB3D5241F1700004CAD90 /* ProfileTableViewCell.swift */; };
 		9E2BCB8E251D3A9200C21E04 /* InboxMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2BCB8D251D3A9200C21E04 /* InboxMessageHandler.swift */; };
 		9E30BDE9244FA6AA00040974 /* CustomUIActivityLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */; };
+		9E318F1029B0E1ED00DEA661 /* PushNotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E318F0F29B0E1ED00DEA661 /* PushNotificationSettingsViewController.swift */; };
+		9E318F1229B0E25500DEA661 /* CustomUIActivityPushNotificationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E318F1129B0E25500DEA661 /* CustomUIActivityPushNotificationSettings.swift */; };
+		9E318F1429B0E8E700DEA661 /* CustomUIActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E318F1329B0E8E700DEA661 /* CustomUIActivityViewController.swift */; };
 		9E3DD4CF241BC066004C3918 /* AttributeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */; };
 		9E43C3E12947680B002A62CC /* CordialDemoAppIntentsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E43C3E02947680B002A62CC /* CordialDemoAppIntentsExtension.swift */; };
 		9E43C3E72947680B002A62CC /* CordialDemoAppIntents.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 9E43C3DE2947680A002A62CC /* CordialDemoAppIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -197,6 +200,9 @@
 		9E1EB3D5241F1700004CAD90 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		9E2BCB8D251D3A9200C21E04 /* InboxMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageHandler.swift; sourceTree = "<group>"; };
 		9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityLogout.swift; sourceTree = "<group>"; };
+		9E318F0F29B0E1ED00DEA661 /* PushNotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSettingsViewController.swift; sourceTree = "<group>"; };
+		9E318F1129B0E25500DEA661 /* CustomUIActivityPushNotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityPushNotificationSettings.swift; sourceTree = "<group>"; };
+		9E318F1329B0E8E700DEA661 /* CustomUIActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUIActivityViewController.swift; sourceTree = "<group>"; };
 		9E39E68927FC9559002F1E52 /* NotificationContentExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationContentExtension.entitlements; sourceTree = "<group>"; };
 		9E3DD4CE241BC066004C3918 /* AttributeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeViewController.swift; sourceTree = "<group>"; };
 		9E43C3DE2947680A002A62CC /* CordialDemoAppIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = CordialDemoAppIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -372,8 +378,17 @@
 				9EA5F53F244F9D0E00BF685C /* CustomUIActivityLogin.swift */,
 				9E30BDE8244FA6AA00040974 /* CustomUIActivityLogout.swift */,
 				9E96BA48244FB8E300DB8BEC /* CustomUIActivityCustomEvent.swift */,
+				9E318F1129B0E25500DEA661 /* CustomUIActivityPushNotificationSettings.swift */,
 			);
 			path = Activities;
+			sourceTree = "<group>";
+		};
+		9E318F0C29B0E15D00DEA661 /* PushNotificationSettings */ = {
+			isa = PBXGroup;
+			children = (
+				9E318F0F29B0E1ED00DEA661 /* PushNotificationSettingsViewController.swift */,
+			);
+			path = PushNotificationSettings;
 			sourceTree = "<group>";
 		};
 		9E3DD4CA241BC01F004C3918 /* Attributes */ = {
@@ -426,6 +441,7 @@
 		9E6A56CC244FB30700E6495A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				9E318F0C29B0E15D00DEA661 /* PushNotificationSettings */,
 				9E7EC41D2510CD4900314A18 /* Inbox */,
 				9EF7B213226660D0003B223D /* Login */,
 				9EB260C8229FF475005786BD /* Settings */,
@@ -625,6 +641,7 @@
 			children = (
 				9E30BDED244FA6D600040974 /* Activities */,
 				9EA5F53B244F6A8500BF685C /* CustomUIActivityType.swift */,
+				9E318F1329B0E8E700DEA661 /* CustomUIActivityViewController.swift */,
 			);
 			path = CustomUIActivity;
 			sourceTree = "<group>";
@@ -1085,6 +1102,7 @@
 				9E005F5924296DD500425C5B /* AttributesGeoCoreData.swift in Sources */,
 				9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */,
 				9EE0EA69282D4D0E00A14182 /* CordialDeepLinksHelper.swift in Sources */,
+				9E318F1229B0E25500DEA661 /* CustomUIActivityPushNotificationSettings.swift in Sources */,
 				9E0F46FA2573DC4800E2FA95 /* InboxMessagesTableListViewCell.swift in Sources */,
 				9E7F2917256BF3B1006D3BED /* InboxMessagesCollectionCardsViewController.swift in Sources */,
 				9E45FE7622537648006A5A6B /* PushNotificationHandler.swift in Sources */,
@@ -1101,6 +1119,8 @@
 				9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */,
 				9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */,
 				9E7DF22E24F95808005533A7 /* OSLogManager.swift in Sources */,
+				9E318F1029B0E1ED00DEA661 /* PushNotificationSettingsViewController.swift in Sources */,
+				9E318F1429B0E8E700DEA661 /* CustomUIActivityViewController.swift in Sources */,
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,
 				9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
