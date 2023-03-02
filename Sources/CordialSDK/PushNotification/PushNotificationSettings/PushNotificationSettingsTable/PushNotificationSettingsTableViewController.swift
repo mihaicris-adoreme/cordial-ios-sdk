@@ -15,20 +15,9 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
     
     var pushNotificationSettings = InternalCordialAPI().getPushNotificationSettings()
     
+    let pushNotificationSettingsHandler = PushNotificationSettingsHandler.shared
+    
     var tableView: UITableView!
-    
-    let navigationBarBackgroundColor = UIColor(red: 26/255, green: 29/255, blue: 35/255, alpha: 1)
-    let navigationBarTitleColor = UIColor(red: 211/255, green: 212/255, blue: 217/255, alpha: 1)
-    let navigationBarXmarkColor = UIColor(red: 211/255, green: 212/255, blue: 217/255, alpha: 1)
-    
-    let tableViewBackgroundColor = UIColor(red: 33/255, green: 36/255, blue: 41/255, alpha: 1)
-    let tableViewSectionTitleColor = UIColor(red: 166/255, green: 167/255, blue: 172/255, alpha: 1)
-    
-    let tableViewSectionCellBackgroundColor = UIColor(red: 26/255, green: 29/255, blue: 35/255, alpha: 1)
-    let tableViewSectionCellTitleColor = UIColor(red: 232/255, green: 233/255, blue: 238/255, alpha: 1)
-    
-    let tableViewSectionCellSwitchOnTintColor = UIColor.systemGreen
-    let tableViewSectionCellSwitchThumbTintColor = UIColor.white
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,19 +28,22 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: UINavigationController().navigationBar.frame.size.height))
         
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        navigationBar.tintColor = self.navigationBarXmarkColor
+        navigationBar.tintColor = self.pushNotificationSettingsHandler.navigationBarXmarkColor
         navigationBar.isTranslucent = false
-        navigationBar.barTintColor = self.navigationBarBackgroundColor
+        navigationBar.barTintColor = self.pushNotificationSettingsHandler.navigationBarBackgroundColor
         
         let navigationItem = UINavigationItem(title: "Notifications")
-        navigationBar.titleTextAttributes = [.foregroundColor: self.navigationBarTitleColor]
+        navigationBar.titleTextAttributes = [.foregroundColor: self.pushNotificationSettingsHandler.navigationBarTitleColor]
     
         let dismissItem: UIBarButtonItem?
         if #available(iOS 13.0, *) {
             dismissItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: nil, action: #selector(self.dismissViewController))
         } else {
             dismissItem = UIBarButtonItem(title: "X", style: .plain, target: nil, action: #selector(self.dismissViewController))
-            dismissItem?.setTitleTextAttributes([.font: UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.5), .foregroundColor: self.navigationBarXmarkColor], for: .normal)
+            dismissItem?.setTitleTextAttributes([
+                .font: UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.5),
+                .foregroundColor: self.pushNotificationSettingsHandler.navigationBarXmarkColor
+            ], for: .normal)
         }
         
         navigationItem.leftBarButtonItem = dismissItem
@@ -60,7 +52,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         // UITableView
         self.tableView = PushNotificationSettingsTableView(frame: self.view.frame)
         self.tableView.showsVerticalScrollIndicator = false
-        self.tableView.backgroundColor = self.tableViewBackgroundColor
+        self.tableView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -72,7 +64,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         
         // Configuration
         let wrapTableView = UIView(frame: self.view.frame)
-        wrapTableView.backgroundColor = self.tableViewBackgroundColor
+        wrapTableView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
   
         if let tableView = self.tableView {
             wrapTableView.addSubview(tableView)
@@ -144,22 +136,22 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         let settings = self.rows[indexPath.section][indexPath.row]
         
         cell.title.text = "\(settings.name)"
-        cell.title.textColor = self.tableViewSectionCellTitleColor
+        cell.title.textColor = self.pushNotificationSettingsHandler.tableViewSectionCellTitleColor
         
         cell.switcher.isOn = settings.initState
         cell.switcher.tag = indexPath.row // for detect which row switch changed
         cell.switcher.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
         
-        cell.switcher.thumbTintColor = self.tableViewSectionCellSwitchThumbTintColor
+        cell.switcher.thumbTintColor = self.pushNotificationSettingsHandler.tableViewSectionCellSwitchThumbTintColor
         
-        cell.switcher.tintColor = self.tableViewSectionCellSwitchOnTintColor
-        cell.switcher.onTintColor = self.tableViewSectionCellSwitchOnTintColor
+        cell.switcher.tintColor = self.pushNotificationSettingsHandler.tableViewSectionCellSwitchOnTintColor
+        cell.switcher.onTintColor = self.pushNotificationSettingsHandler.tableViewSectionCellSwitchOnTintColor
         
         return cell
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = self.tableViewSectionCellBackgroundColor
+        cell.backgroundColor = self.pushNotificationSettingsHandler.tableViewSectionCellBackgroundColor
         
         let cornerRadius: CGFloat = 10
         
@@ -177,6 +169,6 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.textLabel?.textColor = self.tableViewSectionTitleColor
+        header.textLabel?.textColor = self.pushNotificationSettingsHandler.tableViewSectionTitleColor
     }
 }
