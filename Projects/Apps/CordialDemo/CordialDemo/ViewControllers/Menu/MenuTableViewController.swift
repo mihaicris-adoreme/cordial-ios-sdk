@@ -23,10 +23,9 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
     let navigationBarXmarkColor = UIColor(red: 135/255, green: 135/255, blue: 135/255, alpha: 1)
     
     let tableViewBackgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
-    let tableViewSectionTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
-    
-    let tableViewSectionCellBackgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-    let tableViewSectionCellTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+
+    let tableViewCellBackgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+    let tableViewCellTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
     
     var tableView: UITableView!
     
@@ -115,7 +114,7 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
         let settings = self.menu[indexPath.row]
         
         cell.title.text = "\(settings.title)"
-        cell.title.textColor = self.tableViewSectionCellTitleColor
+        cell.title.textColor = self.tableViewCellTitleColor
         
         return cell
     }
@@ -125,7 +124,7 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = self.tableViewSectionCellBackgroundColor
+        cell.backgroundColor = self.tableViewCellBackgroundColor
         
         cell.layer.borderColor = self.tableViewBackgroundColor.cgColor
         cell.layer.borderWidth = 1
@@ -142,10 +141,5 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
         default:
             cell.layer.cornerRadius = 0
         }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        guard let header = view as? UITableViewHeaderFooterView else { return }
-        header.textLabel?.textColor = self.tableViewSectionTitleColor
     }
 }

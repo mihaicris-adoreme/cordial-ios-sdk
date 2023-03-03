@@ -28,12 +28,4 @@ class MenuTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        for view in subviews where view != contentView && view.frame.width == frame.width {
-            view.removeFromSuperview()
-        }
-    }
 }
