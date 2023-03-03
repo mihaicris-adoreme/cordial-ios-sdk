@@ -10,25 +10,7 @@ import UIKit
 
 class MenuTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    private let sections = [""]
-    private var rows: [[Menu]] = []
-    
-    internal var navigationBarBackgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
-    internal var navigationBarTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
-    internal var navigationBarXmarkColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
-    
-    internal var tableViewBackgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
-    internal var tableViewSectionTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
-    
-    internal var tableViewSectionCellBackgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
-    internal var tableViewSectionCellTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
-    
-    internal var tableViewSectionCellSwitchOnTintColor = UIColor.systemGreen
-    internal var tableViewSectionCellSwitchThumbTintColor = UIColor.white
-    
-    var tableView: UITableView!
-    
-    var menu: [Menu] = [
+    let menu: [Menu] = [
         Menu(title: "Profile", key: "to_profile"),
         Menu(title: "Send Custom Event", key: "to_custom_event"),
         Menu(title: "Inbox", key: "to_inbox"),
@@ -37,25 +19,36 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
         Menu(title: "Log out", key: "to_logout")
     ]
     
+    let navigationBarBackgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
+    let navigationBarXmarkColor = UIColor(red: 135/255, green: 135/255, blue: 135/255, alpha: 1)
+    
+    let tableViewBackgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
+    let tableViewSectionTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+    
+    let tableViewSectionCellBackgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
+    let tableViewSectionCellTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+    
+    var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.rows.append(self.menu)
+        let width = self.view.frame.width
+        let height = UINavigationController().navigationBar.frame.size.height
         
         // UINavigationBar
-        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: UINavigationController().navigationBar.frame.size.height))
+        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: width, height: height))
         
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         navigationBar.tintColor = self.navigationBarXmarkColor
         navigationBar.isTranslucent = false
         navigationBar.barTintColor = self.navigationBarBackgroundColor
-        
-        let navigationItem = UINavigationItem(title: "Notifications")
-        navigationBar.titleTextAttributes = [.foregroundColor: self.navigationBarTitleColor]
     
         let dismissItem: UIBarButtonItem?
         if #available(iOS 13.0, *) {
-            dismissItem = UIBarButtonItem(image: UIImage(systemName: "xmark"), style: .plain, target: nil, action: #selector(self.dismissViewController))
+            let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .large)
+            let image = UIImage(systemName: "xmark.circle", withConfiguration: config)
+            dismissItem = UIBarButtonItem(image: image, style: .plain, target: nil, action: #selector(self.dismissViewController))
         } else {
             dismissItem = UIBarButtonItem(title: "X", style: .plain, target: nil, action: #selector(self.dismissViewController))
             dismissItem?.setTitleTextAttributes([
@@ -64,16 +57,20 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
             ], for: .normal)
         }
         
-        navigationItem.leftBarButtonItem = dismissItem
+        let appIcon = UIApplication.shared.icon?.round(15).withRenderingMode(.alwaysOriginal)
+        let appIconItem = UIBarButtonItem(image: appIcon, style: .done, target: nil, action: nil)
+        
+        navigationItem.rightBarButtonItem = dismissItem
+        navigationItem.leftBarButtonItem = appIconItem
         navigationBar.setItems([navigationItem], animated: false)
         
         // UITableView
         self.tableView = MenuTableView(frame: self.view.frame)
         self.tableView.showsVerticalScrollIndicator = false
         self.tableView.backgroundColor = self.tableViewBackgroundColor
-        self.tableView.separatorColor = self.tableView.backgroundColor
+        self.tableView.separatorColor = self.tableViewBackgroundColor
         
-        self.tableView.rowHeight = UINavigationController().navigationBar.frame.size.height * 1.2
+        self.tableView.rowHeight = height * 1.2
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -92,15 +89,9 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
             
             let views = ["tableView": tableView, "navigationBar": navigationBar]
 
-            if App.isDeviceSmallScreen() {
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[navigationBar]|", options: [], metrics: nil, views: views))
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views))
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[navigationBar]-[tableView]|", options: [], metrics: nil, views: views))
-            } else {
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[navigationBar]|", options: [], metrics: nil, views: views))
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[tableView]-20-|", options: [], metrics: nil, views: views))
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[navigationBar]-[tableView]-20-|", options: [], metrics: nil, views: views))
-            }
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[navigationBar]|", options: [], metrics: nil, views: views))
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[tableView]-20-|", options: [], metrics: nil, views: views))
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[navigationBar][tableView]|", options: [], metrics: nil, views: views))
             
             self.view.addSubview(wrapTableView)
         } else {
@@ -113,23 +104,15 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     // MARK: - Table view data source
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return self.sections.count
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.rows[section].count
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.sections[section]
+        return self.menu.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MenuTableViewCell
                 
-        let settings = self.rows[indexPath.section][indexPath.row]
+        let settings = self.menu[indexPath.row]
         
         cell.title.text = "\(settings.title)"
         cell.title.textColor = self.tableViewSectionCellTitleColor
@@ -153,7 +136,7 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
         case 0:
             cell.layer.cornerRadius = cornerRadius
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        case self.rows[indexPath.section].count - 1:
+        case self.menu.count - 1:
             cell.layer.cornerRadius = cornerRadius
             cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         default:

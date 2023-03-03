@@ -105,7 +105,7 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
                 self.isInboxMessagesHasBeenLoaded = true
             }
         }, onFailure: { error in
-            popupSimpleNoteAlert(title: error, message: nil, controller: self)
+            App.popupSimpleNoteAlert(title: error, message: nil, controller: self)
         })
     }
     
@@ -177,10 +177,10 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
                 }
                 
             } else {
-                popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID)", controller: self)
+                App.popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID)", controller: self)
             }
         } catch let error {
-            popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID) Error: \(error.localizedDescription)", controller: self)
+            App.popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID) Error: \(error.localizedDescription)", controller: self)
         }
         
         return cell

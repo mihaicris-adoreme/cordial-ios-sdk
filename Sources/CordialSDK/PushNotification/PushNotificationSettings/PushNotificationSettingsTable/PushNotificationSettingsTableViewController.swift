@@ -53,7 +53,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         self.tableView = PushNotificationSettingsTableView(frame: self.view.frame)
         self.tableView.showsVerticalScrollIndicator = false
         self.tableView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
-        self.tableView.separatorColor = self.tableView.backgroundColor
+        self.tableView.separatorColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
         
         self.tableView.delegate = self
         self.tableView.dataSource = self

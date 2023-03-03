@@ -40,7 +40,7 @@ class CustomEventTableFooterView: UITableViewHeaderFooterView {
                     self.cordialAPI.flushEvents()
                 }
                 
-                popupSimpleNoteAlert(title: "SUCCESS", message: "Custom event has been sent", controller: сustomEventViewController)
+                App.popupSimpleNoteAlert(title: "SUCCESS", message: "Custom event has been sent", controller: сustomEventViewController)
             }
         }
     }

@@ -65,7 +65,7 @@ class InboxMessageViewController: UIViewController {
         
         self.isNeededInboxMessagesUpdate = true
         
-        popupSimpleNoteAlert(title: "Message marked as unread", message: nil, controller: self)
+        App.popupSimpleNoteAlert(title: "Message marked as unread", message: nil, controller: self)
     }
     
     func fetchInboxMessageContent() {
@@ -77,7 +77,7 @@ class InboxMessageViewController: UIViewController {
                 self.inboxMessageContentTextView.text = content
             }
         }, onFailure: { error in
-            popupSimpleNoteAlert(title: error, message: nil, controller: self)
+            App.popupSimpleNoteAlert(title: error, message: nil, controller: self)
         })
     }
 }

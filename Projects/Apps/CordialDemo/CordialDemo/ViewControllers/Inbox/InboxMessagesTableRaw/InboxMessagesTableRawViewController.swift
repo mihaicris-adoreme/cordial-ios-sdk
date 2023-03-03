@@ -105,7 +105,7 @@ class InboxMessagesTableRawViewController: UIViewController, UITableViewDelegate
                 self.isInboxMessagesHasBeenLoaded = true
             }
         }, onFailure: { error in
-            popupSimpleNoteAlert(title: error, message: nil, controller: self)
+            App.popupSimpleNoteAlert(title: error, message: nil, controller: self)
         })
     }
     

@@ -101,7 +101,7 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
                 self.isInboxMessagesHasBeenLoaded = true
             }
         }, onFailure: { error in
-            popupSimpleNoteAlert(title: error, message: nil, controller: self)
+            App.popupSimpleNoteAlert(title: error, message: nil, controller: self)
         })
     }
     
@@ -118,13 +118,13 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
                     
                     CordialAPI().openDeepLink(url: deepLinkURL)
                 } else {
-                    popupSimpleNoteAlert(title: "No deep link associated with this card", message: nil, controller: self)
+                    App.popupSimpleNoteAlert(title: "No deep link associated with this card", message: nil, controller: self)
                 }
             } else {
-                popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID)", controller: self)
+                App.popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID)", controller: self)
             }
         } catch let error {
-            popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID) Error: \(error.localizedDescription)", controller: self)
+            App.popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID) Error: \(error.localizedDescription)", controller: self)
         }
     }
     
@@ -173,10 +173,10 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
                 cell.subtitleLabel.text = inboxMessageMetadataJSON["subtitle"]
                 
             } else {
-                popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID)", controller: self)
+                App.popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID)", controller: self)
             }
         } catch let error {
-            popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID) Error: \(error.localizedDescription)", controller: self)
+            App.popupSimpleNoteAlert(title: "Failed decode response data.", message: "mcID: \(inboxMessage.mcID) Error: \(error.localizedDescription)", controller: self)
         }
         
         return cell
