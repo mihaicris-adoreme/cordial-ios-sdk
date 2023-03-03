@@ -69,7 +69,11 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
             CustomUIActivityLogout(sender: self)
         ]
         
-        let activitySheet = CustomUIActivityViewController(activities: activities)
+        // TMP
+//        let activitySheet = CustomUIActivityViewController(activities: activities)
+//        self.present(activitySheet, animated: true, completion: nil)
+        
+        let activitySheet = MenuTableViewController()
         self.present(activitySheet, animated: true, completion: nil)
     }
     

@@ -152,6 +152,16 @@ struct App {
             return Settings.custom.rawValue
         }
     }
+    
+    static func isDeviceSmallScreen() -> Bool {
+        if UIDevice().userInterfaceIdiom == .phone,
+           UIScreen.main.nativeBounds.height == 1136 { // 1136 px - iPhone5S/SE
+            
+            return true
+        }
+        
+        return false
+    }
 }
 
 extension UITextField {

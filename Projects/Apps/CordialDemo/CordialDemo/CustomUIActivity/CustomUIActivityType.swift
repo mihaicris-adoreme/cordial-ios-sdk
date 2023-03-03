@@ -9,6 +9,7 @@
 import UIKit
 
 extension UIActivity.ActivityType {
-    static let customUIActivity =
-        UIActivity.ActivityType("io.cordial.sdk.demo.app.customUIActivity")
+    
+    static let customUIActivity = UIActivity.ActivityType("io.cordial.sdk.demo.app.customUIActivity")
+    
 }
