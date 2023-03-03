@@ -15,6 +15,8 @@ class MenuTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.selectionStyle = .default
+        
         self.title.translatesAutoresizingMaskIntoConstraints = false
         
         self.contentView.addSubview(self.title)

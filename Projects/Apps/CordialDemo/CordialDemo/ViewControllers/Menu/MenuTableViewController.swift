@@ -43,6 +43,8 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
         navigationBar.isTranslucent = false
         navigationBar.barTintColor = self.navigationBarBackgroundColor
     
+        let navigationItem = UINavigationItem(title: String())
+        
         let dismissItem: UIBarButtonItem?
         if #available(iOS 13.0, *) {
             let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .semibold, scale: .large)
@@ -61,6 +63,7 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
         
         navigationItem.rightBarButtonItem = dismissItem
         navigationItem.leftBarButtonItem = appIconItem
+        
         navigationBar.setItems([navigationItem], animated: false)
         
         // UITableView
@@ -126,20 +129,33 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = self.tableViewCellBackgroundColor
         
-        cell.layer.borderColor = self.tableViewBackgroundColor.cgColor
-        cell.layer.borderWidth = 1
-        
         let cornerRadius: CGFloat = 10
+        let verticalPadding: CGFloat = 1
         
         switch indexPath.row {
         case 0:
-            cell.layer.cornerRadius = cornerRadius
-            cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            let maskLayer = CALayer()
+            maskLayer.cornerRadius = cornerRadius
+            maskLayer.backgroundColor = UIColor.black.cgColor
+            maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding / 2)
+            maskLayer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            
+            cell.layer.mask = maskLayer
         case self.menu.count - 1:
-            cell.layer.cornerRadius = cornerRadius
-            cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            let maskLayer = CALayer()
+            maskLayer.cornerRadius = cornerRadius
+            maskLayer.backgroundColor = UIColor.black.cgColor
+            maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding / 2)
+            maskLayer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            
+            cell.layer.mask = maskLayer
         default:
-            cell.layer.cornerRadius = 0
+            let maskLayer = CALayer()
+            maskLayer.cornerRadius = 0
+            maskLayer.backgroundColor = UIColor.black.cgColor
+            maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding / 2)
+            
+            cell.layer.mask = maskLayer
         }
     }
 }
