@@ -360,6 +360,16 @@
 			path = InboxMessagesTableList;
 			sourceTree = "<group>";
 		};
+		9E0F69BD29B5E8F9002BCAF3 /* MenuTable */ = {
+			isa = PBXGroup;
+			children = (
+				9EAE4E4E29B111750069596A /* MenuTableViewController.swift */,
+				9EAE4E5029B114350069596A /* MenuTableViewCell.swift */,
+				9EAE4E5229B114B00069596A /* MenuTableView.swift */,
+			);
+			path = MenuTable;
+			sourceTree = "<group>";
+		};
 		9E1EB37A241DACB5004CAD90 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,9 +686,7 @@
 		9EAE4E4D29B1114D0069596A /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				9EAE4E4E29B111750069596A /* MenuTableViewController.swift */,
-				9EAE4E5029B114350069596A /* MenuTableViewCell.swift */,
-				9EAE4E5229B114B00069596A /* MenuTableView.swift */,
+				9E0F69BD29B5E8F9002BCAF3 /* MenuTable */,
 				9EAE4E5429B118040069596A /* Menu.swift */,
 			);
 			path = Menu;

@@ -74,7 +74,9 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
 //        self.present(activitySheet, animated: true, completion: nil)
         
         let activitySheet = MenuTableViewController()
-        self.present(activitySheet, animated: true, completion: nil)
+        activitySheet.sender = self
+        
+        self.present(activitySheet, animated: true)
     }
     
     func loginAction() {

@@ -10,6 +10,9 @@ import UIKit
 
 class MenuTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    var sender: UIViewController!
+    var tableView: UITableView!
+    
     let menu: [Menu] = [
         Menu(title: "Profile", key: "to_profile"),
         Menu(title: "Send Custom Event", key: "to_custom_event"),
@@ -26,8 +29,6 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
 
     let tableViewCellBackgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1)
     let tableViewCellTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
-    
-    var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,7 +124,53 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO
+        switch self.sender {
+        case is CatalogCollectionViewController:
+            let catalogCollectionViewController = self.sender as! CatalogCollectionViewController
+            
+            self.dismissViewController()
+            
+            switch self.menu[indexPath.row].key {
+            case "to_profile":
+                let identifier = catalogCollectionViewController.segueToProfileIdentifier
+                catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
+            case "to_custom_event":
+                let identifier = catalogCollectionViewController.segueToCustomEventIdentifier
+                catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
+            case "to_inbox":
+                let alert = UIAlertController(title: "Inbox", message: "Please select the view", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "List", style: .default) { action in
+                    let identifier = catalogCollectionViewController.segueToInboxTableListIdentifier
+                    catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
+                })
+                
+                alert.addAction(UIAlertAction(title: "Cards", style: .default) { action in
+                    let identifier = catalogCollectionViewController.segueToInboxCollectionIdentifier
+                    catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
+                })
+                
+                alert.addAction(UIAlertAction(title: "Raw", style: .default) { action in
+                    let identifier = catalogCollectionViewController.segueToInboxTableIdentifier
+                    catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
+                })
+                
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
+                
+                catalogCollectionViewController.present(alert, animated: true)
+            case "to_notification_settings":
+                let identifier = catalogCollectionViewController.segueToPushNotificationSettings
+                catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
+            case "to_login":
+                catalogCollectionViewController.loginAction()
+            case "to_logout":
+                catalogCollectionViewController.logoutAction()
+            default:
+                break
+            }
+        default:
+            break
+        }
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
