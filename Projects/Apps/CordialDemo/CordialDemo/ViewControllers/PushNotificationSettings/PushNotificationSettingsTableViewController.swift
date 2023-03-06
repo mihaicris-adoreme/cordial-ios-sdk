@@ -32,6 +32,8 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Settings"
+        
         // UITableView
         self.tableView.showsVerticalScrollIndicator = false
         
@@ -79,22 +81,9 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         let settings = self.sections[indexPath.section].data[indexPath.row]
         
         cell.title.text = "\(settings.title)"
+        cell.colorImage.image = settings.color.image(CGSize(width: 50, height: 30))
+        cell.colorImage.roundImage(borderWidth: 1, borderColor: UIColor.black)
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cornerRadius: CGFloat = 10
-        
-        switch indexPath.row {
-        case 0:
-            cell.layer.cornerRadius = cornerRadius
-            cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        case self.sections[indexPath.section].data.count - 1:
-            cell.layer.cornerRadius = cornerRadius
-            cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        default:
-            cell.layer.cornerRadius = 0
-        }
     }
 }

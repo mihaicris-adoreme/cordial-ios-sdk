@@ -233,16 +233,27 @@ extension UIImageView {
     }
     
     func roundImage(borderWidth: CGFloat, borderColor: UIColor) {
-        self.layer.borderWidth = borderWidth
-        self.layer.masksToBounds = false
-        self.layer.borderColor = borderColor.cgColor
-        self.layer.cornerRadius = self.frame.height / 2
-        self.clipsToBounds = true
+        DispatchQueue.main.async {
+            self.layer.borderWidth = borderWidth
+            self.layer.masksToBounds = false
+            self.layer.borderColor = borderColor.cgColor
+            self.layer.cornerRadius = self.frame.height / 2
+            self.clipsToBounds = true
+        }
+    }
+}
+
+extension UIColor {
+    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { rendererContext in
+            self.setFill()
+            rendererContext.fill(CGRect(origin: .zero, size: size))
+        }
     }
 }
 
 extension UIImage {
-  func round(_ radius: CGFloat) -> UIImage {
+    func round(_ radius: CGFloat) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         let renderer = UIGraphicsImageRenderer(size: rect.size)
         let result = renderer.image { c in
