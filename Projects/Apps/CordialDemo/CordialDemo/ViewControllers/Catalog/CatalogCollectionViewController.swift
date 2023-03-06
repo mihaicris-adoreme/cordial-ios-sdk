@@ -60,23 +60,10 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     }
     
     @IBAction func menuButtonAction(_ sender: UIBarButtonItem) {
-        let activities: [UIActivity] = [
-            CustomUIActivityProfile(sender: self),
-            CustomUIActivityCustomEvent(sender: self),
-            CustomUIActivityInbox(sender: self),
-            CustomUIActivityPushNotificationSettings(sender: self),
-            CustomUIActivityLogin(sender: self),
-            CustomUIActivityLogout(sender: self)
-        ]
+        let menuTableViewController = MenuTableViewController()
+        menuTableViewController.sender = self
         
-        // TMP
-//        let activitySheet = CustomUIActivityViewController(activities: activities)
-//        self.present(activitySheet, animated: true, completion: nil)
-        
-        let activitySheet = MenuTableViewController()
-        activitySheet.sender = self
-        
-        self.present(activitySheet, animated: true)
+        self.present(menuTableViewController, animated: true)
     }
     
     func loginAction() {
