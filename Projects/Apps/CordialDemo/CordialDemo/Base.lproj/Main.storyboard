@@ -1069,21 +1069,36 @@
             </objects>
             <point key="canvasLocation" x="1766" y="-1407"/>
         </scene>
-        <!--Push Notification Settings View Controller-->
+        <!--Push Notification Settings Table View Controller-->
         <scene sceneID="PIk-tp-eUl">
             <objects>
-                <viewController id="GqP-qo-1Rk" customClass="PushNotificationSettingsViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="GqP-qo-1Rk" customClass="PushNotificationSettingsTableViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l0Q-mo-mgm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wfe-Ke-6MF" customClass="PushNotificationSettingsTableView" customModule="CordialDemo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="qxz-sS-GxT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Wfe-Ke-6MF" firstAttribute="top" secondItem="qxz-sS-GxT" secondAttribute="top" id="H2Y-my-Vpl"/>
+                            <constraint firstItem="Wfe-Ke-6MF" firstAttribute="bottom" secondItem="qxz-sS-GxT" secondAttribute="bottom" id="dqj-sd-Uma"/>
+                            <constraint firstItem="Wfe-Ke-6MF" firstAttribute="leading" secondItem="qxz-sS-GxT" secondAttribute="leading" id="eqg-l8-RdQ"/>
+                            <constraint firstItem="Wfe-Ke-6MF" firstAttribute="trailing" secondItem="qxz-sS-GxT" secondAttribute="trailing" id="sUq-go-J5u"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ke1-xm-90T"/>
+                    <connections>
+                        <outlet property="tableView" destination="Wfe-Ke-6MF" id="WsZ-RO-TrW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86M-NT-DcP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1766" y="-631"/>
+            <point key="canvasLocation" x="1764.375" y="-631.69014084507046"/>
         </scene>
         <!--Inbox Messages Table Raw View Controller-->
         <scene sceneID="4x6-EM-US8">

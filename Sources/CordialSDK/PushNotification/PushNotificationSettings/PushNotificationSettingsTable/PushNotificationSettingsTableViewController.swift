@@ -137,22 +137,22 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         let settings = self.rows[indexPath.section][indexPath.row]
         
         cell.title.text = "\(settings.name)"
-        cell.title.textColor = self.pushNotificationSettingsHandler.tableViewSectionCellTitleColor
+        cell.title.textColor = self.pushNotificationSettingsHandler.tableViewCellTitleColor
         
         cell.switcher.isOn = settings.initState
         cell.switcher.tag = indexPath.row // for detect which row switch changed
         cell.switcher.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
         
-        cell.switcher.thumbTintColor = self.pushNotificationSettingsHandler.tableViewSectionCellSwitchThumbTintColor
+        cell.switcher.thumbTintColor = self.pushNotificationSettingsHandler.tableViewCellSwitchThumbColor
         
-        cell.switcher.tintColor = self.pushNotificationSettingsHandler.tableViewSectionCellSwitchOnTintColor
-        cell.switcher.onTintColor = self.pushNotificationSettingsHandler.tableViewSectionCellSwitchOnTintColor
+        cell.switcher.tintColor = self.pushNotificationSettingsHandler.tableViewCellSwitchOnColor
+        cell.switcher.onTintColor = self.pushNotificationSettingsHandler.tableViewCellSwitchOnColor
         
         return cell
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = self.pushNotificationSettingsHandler.tableViewSectionCellBackgroundColor
+        cell.backgroundColor = self.pushNotificationSettingsHandler.tableViewCellBackgroundColor
         
         let cornerRadius: CGFloat = 10
         
