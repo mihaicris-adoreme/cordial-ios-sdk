@@ -105,7 +105,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         self.dismiss(animated: true)
     }
     
-    @objc func switchChanged(_ sender: UISwitch){
+    @objc func switchChanged(_ sender: UISwitch) {
         let pushNotificationSettingChanged = self.pushNotificationSettings[sender.tag]
         
         let key = pushNotificationSettingChanged.key

@@ -10,6 +10,7 @@ import UIKit
 
 struct PushNotificationSettingsData {
     
+    let key: String
     let title: String
     let color: UIColor
     

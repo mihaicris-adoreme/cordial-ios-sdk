@@ -18,6 +18,7 @@
 		9E0F69ED29B612EA002BCAF3 /* PushNotificationSettingsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F69EC29B612EA002BCAF3 /* PushNotificationSettingsTableView.swift */; };
 		9E19E4C429B636050047C852 /* PushNotificationSettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E19E4C329B636050047C852 /* PushNotificationSettingsData.swift */; };
 		9E19E4C629B63FBB0047C852 /* PushNotificationSettingsTableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E19E4C529B63FBB0047C852 /* PushNotificationSettingsTableData.swift */; };
+		9E19E4F429B7704F0047C852 /* PushNotificationSettingsTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E19E4F329B7704F0047C852 /* PushNotificationSettingsTapGestureRecognizer.swift */; };
 		9E1EB37C241DACDA004CAD90 /* CartCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB37B241DACDA004CAD90 /* CartCoreData.swift */; };
 		9E1EB39A241DC199004CAD90 /* AttributesCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB399241DC199004CAD90 /* AttributesCoreData.swift */; };
 		9E1EB39C241DC61E004CAD90 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E1EB39B241DC61E004CAD90 /* Attribute.swift */; };
@@ -198,6 +199,7 @@
 		9E115532224E541A00CEF9FB /* CordialDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CordialDemo.entitlements; sourceTree = "<group>"; };
 		9E19E4C329B636050047C852 /* PushNotificationSettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSettingsData.swift; sourceTree = "<group>"; };
 		9E19E4C529B63FBB0047C852 /* PushNotificationSettingsTableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSettingsTableData.swift; sourceTree = "<group>"; };
+		9E19E4F329B7704F0047C852 /* PushNotificationSettingsTapGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSettingsTapGestureRecognizer.swift; sourceTree = "<group>"; };
 		9E1EB37B241DACDA004CAD90 /* CartCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCoreData.swift; sourceTree = "<group>"; };
 		9E1EB399241DC199004CAD90 /* AttributesCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributesCoreData.swift; sourceTree = "<group>"; };
 		9E1EB39B241DC61E004CAD90 /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 		9E318F0C29B0E15D00DEA661 /* PushNotificationSettings */ = {
 			isa = PBXGroup;
 			children = (
+				9E19E4F329B7704F0047C852 /* PushNotificationSettingsTapGestureRecognizer.swift */,
 				9E318F0F29B0E1ED00DEA661 /* PushNotificationSettingsTableViewController.swift */,
 				9E0F69EA29B612C3002BCAF3 /* PushNotificationSettingsTableViewCell.swift */,
 				9E0F69EC29B612EA002BCAF3 /* PushNotificationSettingsTableView.swift */,
@@ -1104,6 +1107,7 @@
 				9E4EEC89225E36B200F473A6 /* CatalogCollectionViewCell.swift in Sources */,
 				9EE0EA69282D4D0E00A14182 /* CordialDeepLinksHelper.swift in Sources */,
 				9E0F46FA2573DC4800E2FA95 /* InboxMessagesTableListViewCell.swift in Sources */,
+				9E19E4F429B7704F0047C852 /* PushNotificationSettingsTapGestureRecognizer.swift in Sources */,
 				9E19E4C629B63FBB0047C852 /* PushNotificationSettingsTableData.swift in Sources */,
 				9E7F2917256BF3B1006D3BED /* InboxMessagesCollectionCardsViewController.swift in Sources */,
 				9E45FE7622537648006A5A6B /* PushNotificationHandler.swift in Sources */,
