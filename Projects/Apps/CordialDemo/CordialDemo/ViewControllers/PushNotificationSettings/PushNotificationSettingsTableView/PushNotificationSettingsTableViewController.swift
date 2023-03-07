@@ -9,9 +9,12 @@
 import UIKit
 import CordialSDK
 
+@available(iOS 14.0, *)
 class PushNotificationSettingsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIColorPickerViewControllerDelegate {
     
     @IBOutlet weak var tableView: PushNotificationSettingsTableView!
+    
+    let picker = UIColorPickerViewController()
     
     private var sections: [PushNotificationSettingsTableData] = [
         PushNotificationSettingsTableData(title: "NAVIGATION BAR", data: [
@@ -35,6 +38,12 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         super.viewDidLoad()
         
         self.title = "Settings"
+        
+        let settingsButton = UIBarButtonItem(image: UIImage(named: "settings")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.openPushNotificationSettings))
+        navigationItem.rightBarButtonItems = [settingsButton]
+        
+        // UIColorPickerView
+        self.picker.delegate = self
         
         // UITableView
         self.tableView.showsVerticalScrollIndicator = false
@@ -63,13 +72,12 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         }
     }
     
+    @objc func openPushNotificationSettings() {
+        PushNotificationSettingsHandler.shared.openPushNotificationSettings()
+    }
+    
     @available(iOS 14.0, *)
     @objc func colorImageTapped(_ tapGestureRecognizer: PushNotificationSettingsTapGestureRecognizer) {
-        // UIColorPickerView
-        let picker = tapGestureRecognizer.picker
-        picker.delegate = self
-        
-        // Configuration
         let section = tapGestureRecognizer.indexPath.section
         let row = tapGestureRecognizer.indexPath.row
         
@@ -78,7 +86,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         self.key = settings.key
         
         DispatchQueue.main.async {
-            self.present(picker, animated: true)
+            self.present(self.picker, animated: true)
         }
     }
     
@@ -105,6 +113,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         cell.colorImage.image = settings.color.image(CGSize(width: 50, height: 30))
         cell.colorImage.roundImage(borderWidth: 1, borderColor: UIColor.black)
         
+        // Check version is necessary - minimum target iOS 12
         if #available(iOS 14.0, *) {
             let tapGestureRecognizer = PushNotificationSettingsTapGestureRecognizer(indexPath: indexPath, target: self, action: #selector(self.colorImageTapped(_:)))
             cell.colorImage.isUserInteractionEnabled = true

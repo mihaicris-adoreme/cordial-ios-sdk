@@ -27,4 +27,13 @@ import UIKit
     public var tableViewCellSwitchOnColor = UIColor.systemGreen
     public var tableViewCellSwitchThumbColor = UIColor.white
     
+    public func openPushNotificationSettings() {
+        if !CordialPushNotification.shared.isScreenPushNotificationSettingsShown {
+            DispatchQueue.main.async {
+                if let currentVC = InternalCordialAPI().getActiveViewController() {
+                    currentVC.present(PushNotificationSettingsTableViewController(), animated: true)
+                }
+            }
+        }
+    }
 }

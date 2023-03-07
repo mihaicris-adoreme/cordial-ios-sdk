@@ -77,12 +77,6 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
-        if !self.isScreenPushNotificationSettingsShown {
-            DispatchQueue.main.async {
-                if let currentVC = InternalCordialAPI().getActiveViewController() {
-                    currentVC.present(PushNotificationSettingsTableViewController(), animated: true)
-                }
-            }
-        }
+        PushNotificationSettingsHandler.shared.openPushNotificationSettings()
     }
 }

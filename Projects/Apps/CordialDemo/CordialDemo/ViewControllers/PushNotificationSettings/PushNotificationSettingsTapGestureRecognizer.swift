@@ -10,8 +10,6 @@ import UIKit
 
 @available(iOS 14.0, *)
 class PushNotificationSettingsTapGestureRecognizer: UITapGestureRecognizer {
-
-    let picker = UIColorPickerViewController()
     
     var indexPath: IndexPath = []
     
