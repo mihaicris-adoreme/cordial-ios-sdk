@@ -9,12 +9,9 @@
 import UIKit
 import CordialSDK
 
-@available(iOS 14.0, *)
 class PushNotificationSettingsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIColorPickerViewControllerDelegate {
     
     @IBOutlet weak var tableView: PushNotificationSettingsTableView!
-    
-    let picker = UIColorPickerViewController()
     
     private var sections: [PushNotificationSettingsTableData] = [
         PushNotificationSettingsTableData(title: "NAVIGATION BAR", data: [
@@ -38,9 +35,6 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         super.viewDidLoad()
         
         self.title = "Settings"
-        
-        // UIColorPickerView
-        self.picker.delegate = self
         
         // UITableView
         self.tableView.showsVerticalScrollIndicator = false
@@ -69,7 +63,13 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         }
     }
     
+    @available(iOS 14.0, *)
     @objc func colorImageTapped(_ tapGestureRecognizer: PushNotificationSettingsTapGestureRecognizer) {
+        // UIColorPickerView
+        let picker = tapGestureRecognizer.picker
+        picker.delegate = self
+        
+        // Configuration
         let section = tapGestureRecognizer.indexPath.section
         let row = tapGestureRecognizer.indexPath.row
         
@@ -78,7 +78,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         self.key = settings.key
         
         DispatchQueue.main.async {
-            self.present(self.picker, animated: true)
+            self.present(picker, animated: true)
         }
     }
     
@@ -105,15 +105,18 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         cell.colorImage.image = settings.color.image(CGSize(width: 50, height: 30))
         cell.colorImage.roundImage(borderWidth: 1, borderColor: UIColor.black)
         
-        let tapGestureRecognizer = PushNotificationSettingsTapGestureRecognizer(indexPath: indexPath, target: self, action: #selector(self.colorImageTapped(_:)))
-        cell.colorImage.isUserInteractionEnabled = true
-        cell.colorImage.addGestureRecognizer(tapGestureRecognizer)
+        if #available(iOS 14.0, *) {
+            let tapGestureRecognizer = PushNotificationSettingsTapGestureRecognizer(indexPath: indexPath, target: self, action: #selector(self.colorImageTapped(_:)))
+            cell.colorImage.isUserInteractionEnabled = true
+            cell.colorImage.addGestureRecognizer(tapGestureRecognizer)
+        } 
         
         return cell
     }
   
     // MARK: - UIColorPickerViewControllerDelegate
     
+    @available(iOS 14.0, *)
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         switch self.key {
         case "navigation_bar_background_color":
