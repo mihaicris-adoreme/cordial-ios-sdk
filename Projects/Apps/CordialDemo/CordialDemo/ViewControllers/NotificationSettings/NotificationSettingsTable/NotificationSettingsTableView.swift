@@ -1,5 +1,5 @@
 //
-//  PushNotificationSettingsTableView.swift
+//  NotificationSettingsTableView.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 06.03.2023.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PushNotificationSettingsTableView: UITableView {
+class NotificationSettingsTableView: UITableView {
 
     init(frame: CGRect) {
         super.init(frame: frame, style: .grouped)
