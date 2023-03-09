@@ -77,7 +77,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
     }
     
     @available(iOS 14.0, *)
-    @objc func colorImageTapped(_ tapGestureRecognizer: PushNotificationSettingsTapGestureRecognizer) {
+    @objc func colorImageTapped(_ tapGestureRecognizer: PushNotificationSettingsTableViewTapGestureRecognizer) {
         let section = tapGestureRecognizer.indexPath.section
         let row = tapGestureRecognizer.indexPath.row
         
@@ -113,12 +113,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         cell.colorImage.image = settings.color.image(CGSize(width: 50, height: 30))
         cell.colorImage.roundImage(borderWidth: 1, borderColor: UIColor.black)
         
-        // Check version is necessary - minimum target iOS 12
-        if #available(iOS 14.0, *) {
-            let tapGestureRecognizer = PushNotificationSettingsTapGestureRecognizer(indexPath: indexPath, target: self, action: #selector(self.colorImageTapped(_:)))
-            cell.colorImage.isUserInteractionEnabled = true
-            cell.colorImage.addGestureRecognizer(tapGestureRecognizer)
-        } 
+        PushNotificationSettingsTableViewCellTapGestureRecognizer.setup(cell: cell, indexPath: indexPath, sender: self)
         
         return cell
     }
