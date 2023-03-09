@@ -86,6 +86,8 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         self.key = settings.key
         
         DispatchQueue.main.async {
+            self.picker.selectedColor = settings.color
+            
             self.present(self.picker, animated: true)
         }
     }
