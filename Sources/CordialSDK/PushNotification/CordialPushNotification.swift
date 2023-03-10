@@ -77,6 +77,22 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
-        PushNotificationSettingsHandler.shared.openPushNotificationSettings()
+        if CordialApiConfiguration.shared.notificationSettingsConfiguration == .SDK {
+            PushNotificationSettingsHandler.shared.openPushNotificationSettings()
+        } else {
+            // UIKit
+            if let pushNotificationSettingsDelegate = CordialApiConfiguration.shared.pushNotificationSettingsDelegate {
+                DispatchQueue.main.async {
+                    pushNotificationSettingsDelegate.openPushNotificationSettings()
+                }
+            }
+            
+            // SwiftUI
+            if #available(iOS 13.0, *) {
+                DispatchQueue.main.async {
+                    CordialSwiftUIPushNotificationSettingsPublisher.shared.publishOpenPushNotificationSettings()
+                }
+            }
+        }
     }
 }

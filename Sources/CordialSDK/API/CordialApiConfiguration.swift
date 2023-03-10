@@ -32,12 +32,14 @@ import os.log
     
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
+    @objc public var pushNotificationSettingsDelegate: PushNotificationSettingsDelegate?
     @objc public var inAppMessageInputsDelegate: InAppMessageInputsDelegate?
     @objc public var inboxMessageDelegate: InboxMessageDelegate?
     
     @objc public var pushesConfiguration: CordialPushNotificationConfigurationType = .SDK
     @objc public var deepLinksConfiguration: CordialDeepLinksConfigurationType = .SDK
     @objc public var backgroundURLSessionConfiguration: CordialURLSessionConfigurationType = .SDK
+    @objc public var notificationSettingsConfiguration: PushNotificationSettingsConfigurationType = .SDK
     @objc public var inAppMessagesDeliveryConfiguration: InAppMessagesDeliveryConfigurationType = .directDelivery
     
     @objc public let inboxMessageCache = InboxMessageCache.shared
