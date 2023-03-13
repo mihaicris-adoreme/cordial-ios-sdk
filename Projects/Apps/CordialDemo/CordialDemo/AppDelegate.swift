@@ -34,6 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = CordialDeepLinksHandler()
         CordialApiConfiguration.shared.inAppMessageInputsDelegate = InAppMessageInputsHandler()
         CordialApiConfiguration.shared.inboxMessageDelegate = InboxMessageHandler()
+        
+        CordialApiConfiguration.shared.notificationSettingsConfiguration = .APP
+        CordialApiConfiguration.shared.pushNotificationSettingsDelegate = NotificationSettingsHandler()
+        
         CordialApiConfiguration.shared.setNotificationSettings([
             PushNotificationSettings(key: "discounts", name: "Discounts", initState: true),
             PushNotificationSettings(key: "new-arrivals", name: "New Arrivals", initState: false),

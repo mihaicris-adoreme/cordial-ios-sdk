@@ -16,6 +16,9 @@
 		9E0F46FA2573DC4800E2FA95 /* InboxMessagesTableListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F46F92573DC4800E2FA95 /* InboxMessagesTableListViewCell.swift */; };
 		9E0F69EB29B612C3002BCAF3 /* NotificationSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F69EA29B612C3002BCAF3 /* NotificationSettingsTableViewCell.swift */; };
 		9E0F69ED29B612EA002BCAF3 /* NotificationSettingsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0F69EC29B612EA002BCAF3 /* NotificationSettingsTableView.swift */; };
+		9E0FDBD329BF4A5F00525E4C /* NotificationSettingsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FDBD229BF4A5F00525E4C /* NotificationSettingsHandler.swift */; };
+		9E0FDBD529BF51F800525E4C /* NotificationSettingsLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FDBD429BF51F800525E4C /* NotificationSettingsLabel.swift */; };
+		9E0FDBD829BF568300525E4C /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FDBD729BF568300525E4C /* NotificationSettingsViewController.swift */; };
 		9E19E4C429B636050047C852 /* NotificationSettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E19E4C329B636050047C852 /* NotificationSettingsData.swift */; };
 		9E19E4C629B63FBB0047C852 /* NotificationSettingsTableData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E19E4C529B63FBB0047C852 /* NotificationSettingsTableData.swift */; };
 		9E19E4F429B7704F0047C852 /* NotificationSettingsTableViewTapGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E19E4F329B7704F0047C852 /* NotificationSettingsTableViewTapGestureRecognizer.swift */; };
@@ -197,6 +200,9 @@
 		9E0F46F92573DC4800E2FA95 /* InboxMessagesTableListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableListViewCell.swift; sourceTree = "<group>"; };
 		9E0F69EA29B612C3002BCAF3 /* NotificationSettingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewCell.swift; sourceTree = "<group>"; };
 		9E0F69EC29B612EA002BCAF3 /* NotificationSettingsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableView.swift; sourceTree = "<group>"; };
+		9E0FDBD229BF4A5F00525E4C /* NotificationSettingsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsHandler.swift; sourceTree = "<group>"; };
+		9E0FDBD429BF51F800525E4C /* NotificationSettingsLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsLabel.swift; sourceTree = "<group>"; };
+		9E0FDBD729BF568300525E4C /* NotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsViewController.swift; sourceTree = "<group>"; };
 		9E115532224E541A00CEF9FB /* CordialDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CordialDemo.entitlements; sourceTree = "<group>"; };
 		9E19E4C329B636050047C852 /* NotificationSettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsData.swift; sourceTree = "<group>"; };
 		9E19E4C529B63FBB0047C852 /* NotificationSettingsTableData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableData.swift; sourceTree = "<group>"; };
@@ -366,14 +372,32 @@
 			path = MenuTable;
 			sourceTree = "<group>";
 		};
-		9E19E52129B783890047C852 /* NotificationSettingsTable */ = {
+		9E0FDBD629BF523C00525E4C /* NotificationSettingsTableView */ = {
 			isa = PBXGroup;
 			children = (
 				9E318F0F29B0E1ED00DEA661 /* NotificationSettingsTableViewController.swift */,
 				9E0F69EA29B612C3002BCAF3 /* NotificationSettingsTableViewCell.swift */,
 				9E2330D129BA10EC00033BCF /* NotificationSettingsTableViewCellTapGestureRecognizer.swift */,
-				9E0F69EC29B612EA002BCAF3 /* NotificationSettingsTableView.swift */,
 				9E19E4F329B7704F0047C852 /* NotificationSettingsTableViewTapGestureRecognizer.swift */,
+				9E0F69EC29B612EA002BCAF3 /* NotificationSettingsTableView.swift */,
+			);
+			path = NotificationSettingsTableView;
+			sourceTree = "<group>";
+		};
+		9E0FDBD929BF56AC00525E4C /* NotificationSettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				9E0FDBD729BF568300525E4C /* NotificationSettingsViewController.swift */,
+				9E0FDBD429BF51F800525E4C /* NotificationSettingsLabel.swift */,
+			);
+			path = NotificationSettingsView;
+			sourceTree = "<group>";
+		};
+		9E19E52129B783890047C852 /* NotificationSettingsTable */ = {
+			isa = PBXGroup;
+			children = (
+				9E0FDBD629BF523C00525E4C /* NotificationSettingsTableView */,
+				9E19E4C529B63FBB0047C852 /* NotificationSettingsTableData.swift */,
 			);
 			path = NotificationSettingsTable;
 			sourceTree = "<group>";
@@ -400,7 +424,8 @@
 			isa = PBXGroup;
 			children = (
 				9E19E52129B783890047C852 /* NotificationSettingsTable */,
-				9E19E4C529B63FBB0047C852 /* NotificationSettingsTableData.swift */,
+				9E0FDBD929BF56AC00525E4C /* NotificationSettingsView */,
+				9E0FDBD229BF4A5F00525E4C /* NotificationSettingsHandler.swift */,
 				9E19E4C329B636050047C852 /* NotificationSettingsData.swift */,
 			);
 			path = NotificationSettings;
@@ -1106,6 +1131,7 @@
 				9EF7B20B2266259B003B223D /* Product.swift in Sources */,
 				9E1EB3D6241F1700004CAD90 /* ProfileTableViewCell.swift in Sources */,
 				9E0F69ED29B612EA002BCAF3 /* NotificationSettingsTableView.swift in Sources */,
+				9E0FDBD329BF4A5F00525E4C /* NotificationSettingsHandler.swift in Sources */,
 				9E8F1B4A2511802F00B90139 /* InboxMessageViewController.swift in Sources */,
 				9EC1E1682450EB5C00A4C756 /* ImportCustomEventViewController.swift in Sources */,
 				9EF7B20F2266340F003B223D /* AppDataManager.swift in Sources */,
@@ -1113,6 +1139,7 @@
 				9EAE4E4F29B111750069596A /* MenuTableViewController.swift in Sources */,
 				9E7A5A6A222EB64B0020054F /* AppDelegate.swift in Sources */,
 				9E3DD4CF241BC066004C3918 /* AttributeViewController.swift in Sources */,
+				9E0FDBD529BF51F800525E4C /* NotificationSettingsLabel.swift in Sources */,
 				9E1EB37C241DACDA004CAD90 /* CartCoreData.swift in Sources */,
 				9E1EB39A241DC199004CAD90 /* AttributesCoreData.swift in Sources */,
 				9E005F5924296DD500425C5B /* AttributesGeoCoreData.swift in Sources */,
@@ -1139,6 +1166,7 @@
 				9EAE4E5529B118040069596A /* Menu.swift in Sources */,
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,
 				9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */,
+				9E0FDBD829BF568300525E4C /* NotificationSettingsViewController.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
 				9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */,
 				9E0F46F22573DC0800E2FA95 /* InboxMessagesTableListViewController.swift in Sources */,
