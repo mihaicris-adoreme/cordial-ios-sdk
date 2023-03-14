@@ -26,6 +26,15 @@ struct CordialDemo_SwiftUIApp: App {
         CordialApiConfiguration.shared.eventsBulkSize = 3
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
+        
+        CordialApiConfiguration.shared.notificationSettingsConfiguration = .SDK
+        
+        CordialApiConfiguration.shared.setNotificationSettings([
+            PushNotificationSettings(key: "discounts", name: "Discounts", initState: true),
+            PushNotificationSettings(key: "new-arrivals", name: "New Arrivals", initState: false),
+            PushNotificationSettings(key: "top-products", name: "Top Products", initState: true)
+        ])
+        
         CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "events-handling-svc.cordial.io"]
     }
     
@@ -34,6 +43,7 @@ struct CordialDemo_SwiftUIApp: App {
             ContentView()
                 .environmentObject(AppHandler.shared)
                 .environmentObject(CordialSwiftUIPushNotificationPublisher.shared)
+                .environmentObject(CordialSwiftUIPushNotificationSettingsPublisher.shared)
                 .environmentObject(CordialSwiftUIDeepLinksPublisher.shared)
                 .environmentObject(CordialSwiftUIInboxMessagePublisher.shared)
                 .environmentObject(CordialSwiftUIInAppMessagePublisher.shared)

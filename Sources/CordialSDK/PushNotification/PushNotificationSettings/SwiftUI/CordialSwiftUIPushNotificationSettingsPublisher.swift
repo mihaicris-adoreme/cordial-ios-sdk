@@ -16,11 +16,11 @@ public class CordialSwiftUIPushNotificationSettingsPublisher: ObservableObject {
 
     private init() {}
     
-    public let emptySubject = PassthroughSubject<Empty<Int, Never>, Never>()
+    public let openPushNotificationSettings = PassthroughSubject<Empty<Int, Never>, Never>()
     
     func publishOpenPushNotificationSettings() -> Void {
         let empty = Empty<Int, Never>()
         
-        self.emptySubject.send(empty)
+        self.openPushNotificationSettings.send(empty)
     }
 }
