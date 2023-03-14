@@ -12,6 +12,7 @@ struct NotificationSettingsView: View {
         NavigationView {
             VStack {
                 Text("Notification Settings")
+                    .padding(.bottom, 100)
             }
         }.navigationTitle("App")
     }
