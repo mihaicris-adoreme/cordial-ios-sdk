@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.inAppMessageInputsDelegate = InAppMessageInputsHandler()
         CordialApiConfiguration.shared.inboxMessageDelegate = InboxMessageHandler()
         
-        CordialApiConfiguration.shared.notificationSettingsConfiguration = .APP
+        CordialApiConfiguration.shared.notificationSettingsConfiguration = .SDK
         CordialApiConfiguration.shared.pushNotificationSettingsDelegate = NotificationSettingsHandler()
         
         CordialApiConfiguration.shared.setNotificationSettings([
