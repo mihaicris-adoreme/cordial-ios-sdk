@@ -25,6 +25,12 @@
     [CordialApiConfiguration shared].pushNotificationDelegate = [[PushNotificationHandler alloc] init];
     [CordialApiConfiguration shared].cordialDeepLinksDelegate = [[CordialDeepLinksHandler alloc] init];
     
+    [[CordialApiConfiguration shared] setNotificationSettings:@[
+        [[PushNotificationSettings alloc] initWithKey:@"discounts" name:@"Discounts" initState:YES],
+        [[PushNotificationSettings alloc] initWithKey:@"new-arrivals" name:@"New Arrivals" initState:NO],
+        [[PushNotificationSettings alloc] initWithKey:@"top-products" name:@"Top Products" initState:YES]
+    ]];
+    
     [[[CordialAPI alloc] init] registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound];
     
     [[NotificationManager shared] setupCordialSDKLogicErrorHandler];
