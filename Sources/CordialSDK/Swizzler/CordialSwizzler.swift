@@ -210,7 +210,15 @@ class CordialSwizzler {
     
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        CordialSwizzlerHelper().processSceneOpenURLContexts(URLContexts: URLContexts, scene: scene)
+        guard let url = URLContexts.first?.url else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("DeepLink URL is absent or not in a valid format.", log: OSLog.cordialDeepLinks, type: .error)
+            }
+            
+            return
+        }
+        
+        CordialSwizzlerHelper().processSceneOpenURLContexts(url: url, scene: scene)
     }
     
     // MARK: Swizzled AppDelegate background URLSession method
