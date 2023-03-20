@@ -368,7 +368,11 @@ class InternalCordialAPI {
                     let _ = CordialSwizzler.shared.application(UIApplication.shared, continue: userActivity, restorationHandler: { _ in })
                 }
             } else {
-                UIApplication.shared.open(url)
+                if #available(iOS 13.0, *), self.isAppUseScenes() {
+                    UIApplication.shared.open(url)
+                } else {
+                    let _ = CordialSwizzler.shared.application(UIApplication.shared, open: url)
+                }
             }
         }
         
