@@ -16,8 +16,9 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
     var pushNotificationSettings = InternalCordialAPI().getPushNotificationSettings()
     
     let pushNotificationSettingsHandler = PushNotificationSettingsHandler.shared
-    
-    var tableView: UITableView!
+
+    let tableView = PushNotificationSettingsTableView(frame: UIScreen.main.nativeBounds)
+    let navigationBar = UINavigationBar(frame: UINavigationController().navigationBar.frame)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,15 +26,13 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         self.rows.append(self.pushNotificationSettings)
         
         // UINavigationBar
-        let navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: UINavigationController().navigationBar.frame.size.height))
-        
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        navigationBar.tintColor = self.pushNotificationSettingsHandler.navigationBarXmarkColor
-        navigationBar.isTranslucent = false
-        navigationBar.barTintColor = self.pushNotificationSettingsHandler.navigationBarBackgroundColor
+        self.navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        self.navigationBar.tintColor = self.pushNotificationSettingsHandler.navigationBarXmarkColor
+        self.navigationBar.isTranslucent = false
+        self.navigationBar.barTintColor = self.pushNotificationSettingsHandler.navigationBarBackgroundColor
         
         let navigationItem = UINavigationItem(title: "Notifications")
-        navigationBar.titleTextAttributes = [.foregroundColor: self.pushNotificationSettingsHandler.navigationBarTitleColor]
+        self.navigationBar.titleTextAttributes = [.foregroundColor: self.pushNotificationSettingsHandler.navigationBarTitleColor]
     
         let dismissItem: UIBarButtonItem?
         if #available(iOS 13.0, *) {
@@ -47,10 +46,9 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         }
         
         navigationItem.leftBarButtonItem = dismissItem
-        navigationBar.setItems([navigationItem], animated: false)
+        self.navigationBar.setItems([navigationItem], animated: false)
         
         // UITableView
-        self.tableView = PushNotificationSettingsTableView(frame: self.view.frame)
         self.tableView.showsVerticalScrollIndicator = false
         self.tableView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
         self.tableView.separatorColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
@@ -67,26 +65,22 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         let wrapTableView = UIView(frame: self.view.frame)
         wrapTableView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
   
-        if let tableView = self.tableView {
-            wrapTableView.addSubview(tableView)
-            wrapTableView.addSubview(navigationBar)
-            
-            let views = ["tableView": tableView, "navigationBar": navigationBar]
+        wrapTableView.addSubview(self.tableView)
+        wrapTableView.addSubview(self.navigationBar)
+        
+        let views = ["tableView": self.tableView, "navigationBar": self.navigationBar]
 
-            if API.isDeviceSmallScreen() {
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[navigationBar]|", options: [], metrics: nil, views: views))
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views))
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[navigationBar]-[tableView]|", options: [], metrics: nil, views: views))
-            } else {
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[navigationBar]|", options: [], metrics: nil, views: views))
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[tableView]-20-|", options: [], metrics: nil, views: views))
-                wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[navigationBar]-[tableView]-20-|", options: [], metrics: nil, views: views))
-            }
-            
-            self.view.addSubview(wrapTableView)
+        if API.isDeviceSmallScreen() {
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[navigationBar]|", options: [], metrics: nil, views: views))
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views))
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[navigationBar]-[tableView]|", options: [], metrics: nil, views: views))
         } else {
-            self.dismiss(animated: false)
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[navigationBar]|", options: [], metrics: nil, views: views))
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[tableView]-20-|", options: [], metrics: nil, views: views))
+            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[navigationBar]-[tableView]-20-|", options: [], metrics: nil, views: views))
         }
+        
+        self.view.addSubview(wrapTableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -171,5 +165,6 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.textLabel?.textColor = self.pushNotificationSettingsHandler.tableViewSectionTitleColor
+        header.textLabel?.textAlignment = .left
     }
 }
