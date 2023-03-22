@@ -44,6 +44,7 @@ class NotificationSettingsTableViewController: UIViewController, UITableViewDele
         
         // UIColorPickerView
         self.picker.delegate = self
+        self.picker.modalPresentationStyle = .fullScreen
         
         // UITableView
         self.tableView.showsVerticalScrollIndicator = false
@@ -123,7 +124,7 @@ class NotificationSettingsTableViewController: UIViewController, UITableViewDele
     // MARK: - UIColorPickerViewControllerDelegate
     
     @available(iOS 14.0, *)
-    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         switch self.key {
         case "navigation_bar_background_color":
             PushNotificationSettingsHandler.shared.navigationBarBackgroundColor = viewController.selectedColor
