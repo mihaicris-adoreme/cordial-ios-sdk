@@ -10,10 +10,8 @@ import UIKit
 
 class PushNotificationSettingsTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    private let sections = ["PUSH NOTIFICATIONS FILTER"]
-    private var rows: [[PushNotificationSettings]] = []
-    
-    var pushNotificationSettings = InternalCordialAPI().getPushNotificationSettings()
+    private let section = "PUSH NOTIFICATIONS FILTER"
+    private var rows = InternalCordialAPI().getPushNotificationSettings()
     
     let pushNotificationSettingsHandler = PushNotificationSettingsHandler.shared
 
@@ -22,8 +20,6 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.rows.append(self.pushNotificationSettings)
         
         // UINavigationBar
         self.navigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -100,35 +96,31 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
     }
     
     @objc func switchChanged(_ sender: UISwitch) {
-        let pushNotificationSettingChanged = self.pushNotificationSettings[sender.tag]
+        let row = self.rows[sender.tag]
         
-        let key = pushNotificationSettingChanged.key
-        let name = pushNotificationSettingChanged.name
+        let key = row.key
+        let name = row.name
         let initState = sender.isOn
         
-        self.pushNotificationSettings[sender.tag] = PushNotificationSettings(key: key, name: name, initState: initState)
+        self.rows[sender.tag] = PushNotificationSettings(key: key, name: name, initState: initState)
         
-        InternalCordialAPI().setPushNotificationSettings(pushNotificationSettings: self.pushNotificationSettings)
+        InternalCordialAPI().setPushNotificationSettings(pushNotificationSettings: self.rows)
     }
     
     // MARK: - Table view data source
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return self.sections.count
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.rows[section].count
+        return self.rows.count
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return self.sections[section]
+        return self.section
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PushNotificationSettingsTableViewCell
         
-        let settings = self.rows[indexPath.section][indexPath.row]
+        let settings = self.rows[indexPath.row]
         
         cell.title.text = "\(settings.name)"
         cell.title.textColor = self.pushNotificationSettingsHandler.tableViewCellTitleColor
@@ -154,7 +146,7 @@ class PushNotificationSettingsTableViewController: UIViewController, UITableView
         case 0:
             cell.layer.cornerRadius = cornerRadius
             cell.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        case self.rows[indexPath.section].count - 1:
+        case self.rows.count - 1:
             cell.layer.cornerRadius = cornerRadius
             cell.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         default:
