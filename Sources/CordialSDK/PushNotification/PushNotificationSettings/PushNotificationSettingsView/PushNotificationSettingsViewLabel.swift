@@ -1,15 +1,15 @@
 //
-//  NotificationSettingsLabel.swift
-//  CordialDemo
+//  PushNotificationSettingsViewLabel.swift
+//  CordialSDK
 //
-//  Created by Yan Malinovsky on 13.03.2023.
+//  Created by Yan Malinovsky on 23.03.2023.
 //  Copyright © 2023 cordial.io. All rights reserved.
 //
 
 import UIKit
 
-class NotificationSettingsLabel: UILabel {
-    
+class PushNotificationSettingsViewLabel: UILabel {
+
     init(frame: CGRect, fontSize: CGFloat) {
         super.init(frame: frame)
         
@@ -19,10 +19,9 @@ class NotificationSettingsLabel: UILabel {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
-    func initialize(fontSize: CGFloat) {
-        self.font = UIFont(name: "Halvetica", size: fontSize)
-        self.textColor = UIColor.white
+    
+    private func initialize(fontSize: CGFloat) {
         self.textAlignment = .center
+        self.font = UIFont(name: "Halvetica", size: fontSize)
     }
 }

@@ -154,6 +154,7 @@
 		9E806DAC2271E05200A15F8E /* ReachabilitySender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E806DAB2271E05200A15F8E /* ReachabilitySender.swift */; };
 		9E806DAE2271EA8D00A15F8E /* ContactCartSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E806DAD2271EA8D00A15F8E /* ContactCartSender.swift */; };
 		9E81C3D629CB49F900930BC6 /* PushNotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81C3D529CB49F900930BC6 /* PushNotificationSettingsViewController.swift */; };
+		9E81C44B29CCA3B800930BC6 /* PushNotificationSettingsViewLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E81C44A29CCA3B800930BC6 /* PushNotificationSettingsViewLabel.swift */; };
 		9E8546E425D652C800C04741 /* MockRequestSenderVanityDeepLinkHasBeenOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8546E325D652C800C04741 /* MockRequestSenderVanityDeepLinkHasBeenOpen.swift */; };
 		9E876C6026307A8300FF2FE2 /* JSONStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E876C5F26307A8300FF2FE2 /* JSONStructure.swift */; };
 		9E876C6A263083FF00FF2FE2 /* JSONStructureExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E876C69263083FF00FF2FE2 /* JSONStructureExtensions.swift */; };
@@ -485,6 +486,7 @@
 		9E806DAB2271E05200A15F8E /* ReachabilitySender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilitySender.swift; sourceTree = "<group>"; };
 		9E806DAD2271EA8D00A15F8E /* ContactCartSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCartSender.swift; sourceTree = "<group>"; };
 		9E81C3D529CB49F900930BC6 /* PushNotificationSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSettingsViewController.swift; sourceTree = "<group>"; };
+		9E81C44A29CCA3B800930BC6 /* PushNotificationSettingsViewLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationSettingsViewLabel.swift; sourceTree = "<group>"; };
 		9E8546E325D652C800C04741 /* MockRequestSenderVanityDeepLinkHasBeenOpen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderVanityDeepLinkHasBeenOpen.swift; sourceTree = "<group>"; };
 		9E876C5F26307A8300FF2FE2 /* JSONStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStructure.swift; sourceTree = "<group>"; };
 		9E876C69263083FF00FF2FE2 /* JSONStructureExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStructureExtensions.swift; sourceTree = "<group>"; };
@@ -1166,6 +1168,7 @@
 			isa = PBXGroup;
 			children = (
 				9E81C3D529CB49F900930BC6 /* PushNotificationSettingsViewController.swift */,
+				9E81C44A29CCA3B800930BC6 /* PushNotificationSettingsViewLabel.swift */,
 			);
 			path = PushNotificationSettingsView;
 			sourceTree = "<group>";
@@ -1988,6 +1991,7 @@
 				9EFFB9F224EAD4D300DF9D5A /* CordialInboxMessageAPI.swift in Sources */,
 				9EAA8D9D25FB93DD00E4A691 /* ContactTimestampData.swift in Sources */,
 				9E05637A22DC9AC000EECADD /* InternalCordialAPI.swift in Sources */,
+				9E81C44B29CCA3B800930BC6 /* PushNotificationSettingsViewLabel.swift in Sources */,
 				9EBF4AA42252559900CA24C7 /* CordialSwizzler.swift in Sources */,
 				9E51EF11249A7CF3009649C3 /* PushNotificationParserMessageAttribution.swift in Sources */,
 				9E81C3D629CB49F900930BC6 /* PushNotificationSettingsViewController.swift in Sources */,

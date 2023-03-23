@@ -31,6 +31,16 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
+    func providesAppNotificationSettings(options: UNAuthorizationOptions, isLearningInterface: Bool) {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            if isLearningInterface && settings.authorizationStatus != .authorized && settings.authorizationStatus != .provisional {
+                PushNotificationSettingsHandler.shared.openPushNotificationSettingsLearningInterface(options: options)
+            } else {
+                self.registerForPushNotifications(options: options)
+            }
+        }
+    }
+    
     func registerForSilentPushNotifications() {
         DispatchQueue.main.async {
             self.registerRichPushNotificationsActions()

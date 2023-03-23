@@ -16,9 +16,17 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
 
     let tableView = PushNotificationSettingsTableView(frame: UIScreen.main.nativeBounds)
     
+    var options: UNAuthorizationOptions = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let margin = 20.0
+        let fontSize = 17.0
+        
+        let width = self.view.frame.size.width - margin * 2
+        let height = self.view.frame.size.height / 4
+        
         // UITableView
         self.tableView.showsVerticalScrollIndicator = false
         self.tableView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
@@ -31,24 +39,40 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.allowsSelection = false
+        self.tableView.bounces = false
+        
+        // UITableView - HeaderView
+        let tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        
+        let upperLabel = PushNotificationSettingsViewLabel(frame: CGRect(x: 0, y: 0, width: width, height: height), fontSize: fontSize)
+        upperLabel.textColor = UIColor.white
+        upperLabel.text = "Upper Label"
+        
+        tableHeaderView.addSubview(upperLabel)
+        self.tableView.tableHeaderView = tableHeaderView
+        
+        // UITableView - FooterView
+        let tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        
+        let bottomLabel = PushNotificationSettingsViewLabel(frame: CGRect(x: 0, y: 0, width: width, height: height), fontSize: fontSize)
+        bottomLabel.textColor = UIColor.white
+        bottomLabel.text = "Bottom Label"
+        
+        tableFooterView.addSubview(bottomLabel)
+        self.tableView.tableFooterView = tableFooterView
         
         // Configuration
-        let wrapTableView = UIView(frame: self.view.frame)
-        wrapTableView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
+        let wrapView = UIView(frame: self.view.frame)
+        wrapView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
   
-        wrapTableView.addSubview(self.tableView)
+        wrapView.addSubview(self.tableView)
         
-        let views = ["tableView": self.tableView]
+        let wrapViews = ["tableView": self.tableView]
 
-        if API.isDeviceSmallScreen() {
-            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[tableView]|", options: [], metrics: nil, views: views))
-            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: views))
-        } else {
-            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[tableView]-20-|", options: [], metrics: nil, views: views))
-            wrapTableView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-20-[tableView]-20-|", options: [], metrics: nil, views: views))
-        }
+        wrapView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-\(margin)-[tableView]-\(margin)-|", options: [], metrics: nil, views: wrapViews))
+        wrapView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: wrapViews))
         
-        self.view.addSubview(wrapTableView)
+        self.view.addSubview(wrapView)
     }
     
     @objc func switchChanged(_ sender: UISwitch) {
@@ -104,5 +128,21 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         default:
             cell.layer.cornerRadius = 0
         }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
     }
 }
