@@ -10,7 +10,7 @@ The latest version of this file can be found at the master branch.
 
 ### Fixed
 
-- Differentiate schema's deep links with/without scenes
+- Redirecting schema deep links to browser
 
 ## 4.1.4 (2023-02-23)
 
