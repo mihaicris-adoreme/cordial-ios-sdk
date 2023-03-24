@@ -287,7 +287,7 @@ public class TestCase {
     }
     
     public func processAppDelegateURLSchemes(url: URL) {
-        let _ = CordialSwizzler.shared.application(UIApplication.shared, open: url, options: [UIApplication.OpenURLOptionsKey : Any]())
+        let _ = CordialSwizzlerHelper().processAppOpenOptions(url: url)
     }
     
     @available(iOS 13.0, *)
