@@ -89,15 +89,15 @@ class CordialSwizzlerHelper {
             
             var status = String()
             
-            current.getNotificationSettings(completionHandler: { (settings) in
+            current.getNotificationSettings(completionHandler: { settings in
                 DispatchQueue.main.async {
-                    if settings.authorizationStatus == .authorized {
+                    if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
                         status = API.PUSH_NOTIFICATION_STATUS_ALLOW
                     } else {
                         status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                     }
                     
-                    InternalCordialAPI().setPushNotificationStatus(status: status)
+                    InternalCordialAPI().setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus)
                     
                     self.sendPushNotificationToken(token: token, status: status)
                 }
@@ -202,10 +202,8 @@ class CordialSwizzlerHelper {
     // MARK: SceneDelegate URL schemes method
     
     @available(iOS 13.0, *)
-    func processSceneOpenURLContexts(URLContexts: Set<UIOpenURLContext>, scene: UIScene) {
-        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate,
-           let url = URLContexts.first?.url {
-            
+    func processSceneOpenURLContexts(url: URL, scene: UIScene) {
+        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             DispatchQueue.main.async {
                 let internalCordialAPI = InternalCordialAPI()
                 

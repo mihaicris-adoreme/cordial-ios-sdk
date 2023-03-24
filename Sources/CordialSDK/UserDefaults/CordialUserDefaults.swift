@@ -15,7 +15,11 @@ struct CordialUserDefaults {
     static func set(_ value: Any?, forKey key: String) {
         self.cordialUserDefaults?.set(value, forKey: key)
     }
-        
+     
+    static func integer(forKey key: String) -> Int? {
+        return self.cordialUserDefaults?.integer(forKey: key)
+    }
+    
     static func string(forKey key: String) -> String? {
         return self.cordialUserDefaults?.string(forKey: key)
     }
