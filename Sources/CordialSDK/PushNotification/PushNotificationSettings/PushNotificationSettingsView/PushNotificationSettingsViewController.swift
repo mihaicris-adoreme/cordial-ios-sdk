@@ -58,7 +58,14 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         bottomLabel.textColor = UIColor.white
         bottomLabel.text = "Bottom Label"
         
+        let button = UIButton(frame: CGRect(x: 0, y: height, width: width, height: height / 4))
+        button.setTitle("Enable Notifications", for: .normal)
+        button.backgroundColor = .white
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.addTarget(self, action: #selector(self.buttonTapped(_:)), for: .touchUpInside)
+        
         tableFooterView.addSubview(bottomLabel)
+        tableFooterView.addSubview(button)
         self.tableView.tableFooterView = tableFooterView
         
         // Configuration
@@ -73,6 +80,10 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         wrapView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[tableView]|", options: [], metrics: nil, views: wrapViews))
         
         self.view.addSubview(wrapView)
+    }
+    
+    @objc func buttonTapped(_ sender: UIButton) {
+        print("Button Tapped")
     }
     
     @objc func switchChanged(_ sender: UISwitch) {
