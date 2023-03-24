@@ -52,13 +52,15 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         self.tableView.tableHeaderView = tableHeaderView
         
         // UITableView - FooterView
-        let tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let tableFooterView = PushNotificationSettingsViewFooterView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         
         let bottomLabel = PushNotificationSettingsViewLabel(frame: CGRect(x: 0, y: 0, width: width, height: height), fontSize: fontSize)
         bottomLabel.textColor = UIColor.white
         bottomLabel.text = "Bottom Label"
         
         let button = UIButton(frame: CGRect(x: 0, y: height, width: width, height: height / 4))
+        button.isUserInteractionEnabled = true
+        
         button.setTitle("Enable Notifications", for: .normal)
         button.backgroundColor = .white
         button.setTitleColor(UIColor.black, for: .normal)
