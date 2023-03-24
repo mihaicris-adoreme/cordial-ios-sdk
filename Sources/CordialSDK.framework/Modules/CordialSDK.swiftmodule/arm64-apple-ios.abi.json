@@ -830,6 +830,13 @@
         ]
       },
       {
+        "kind": "Import",
+        "name": "os.log",
+        "printedName": "os.log",
+        "declKind": "Import",
+        "moduleName": "CordialSDK"
+      },
+      {
         "kind": "TypeDecl",
         "name": "CordialDeepLinksConfigurationHandler",
         "printedName": "CordialDeepLinksConfigurationHandler",
@@ -1249,7 +1256,7 @@
           {
             "kind": "Function",
             "name": "processSceneOpenURLContexts",
-            "printedName": "processSceneOpenURLContexts(URLContexts:scene:)",
+            "printedName": "processSceneOpenURLContexts(url:scene:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -1258,17 +1265,9 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "Set",
-                "printedName": "Swift.Set<UIKit.UIOpenURLContext>",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "UIOpenURLContext",
-                    "printedName": "UIKit.UIOpenURLContext",
-                    "usr": "c:objc(cs)UIOpenURLContext"
-                  }
-                ],
-                "usr": "s:Sh"
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
               },
               {
                 "kind": "TypeNominal",
@@ -1278,8 +1277,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A14SwizzlerHelperC27processSceneOpenURLContexts0H05sceneyShySo16UIOpenURLContextCG_So7UISceneCtF",
-            "mangledName": "$s10CordialSDK0A14SwizzlerHelperC27processSceneOpenURLContexts0H05sceneyShySo16UIOpenURLContextCG_So7UISceneCtF",
+            "usr": "s:10CordialSDK0A14SwizzlerHelperC27processSceneOpenURLContexts3url5sceney10Foundation3URLV_So7UISceneCtF",
+            "mangledName": "$s10CordialSDK0A14SwizzlerHelperC27processSceneOpenURLContexts3url5sceney10Foundation3URLV_So7UISceneCtF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "intro_iOS": "13.0",
@@ -5286,6 +5285,55 @@
           },
           {
             "kind": "Var",
+            "name": "USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS",
+            "printedName": "USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK3APIV68USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUSSSvpZ",
+            "mangledName": "$s10CordialSDK3APIV68USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUSSSvpZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK3APIV68USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUSSSvgZ",
+                "mangledName": "$s10CordialSDK3APIV68USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUSSSvgZ",
+                "moduleName": "CordialSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE",
             "printedName": "USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE",
             "children": [
@@ -6560,6 +6608,105 @@
           },
           {
             "kind": "Var",
+            "name": "EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN",
+            "printedName": "EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK3APIV42EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTINSSvpZ",
+            "mangledName": "$s10CordialSDK3APIV42EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTINSSvpZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK3APIV42EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTINSSvgZ",
+                "mangledName": "$s10CordialSDK3APIV42EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTINSSvgZ",
+                "moduleName": "CordialSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT",
+            "printedName": "EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK3APIV43EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUTSSvpZ",
+            "mangledName": "$s10CordialSDK3APIV43EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUTSSvpZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK3APIV43EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUTSSvgZ",
+                "mangledName": "$s10CordialSDK3APIV43EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUTSSvgZ",
+                "moduleName": "CordialSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Transparent"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "EVENT_NAME_DEEP_LINK_OPEN",
             "printedName": "EVENT_NAME_DEEP_LINK_OPEN",
             "children": [
@@ -6577,7 +6724,8 @@
             "static": true,
             "declAttributes": [
               "HasInitialValue",
-              "HasStorage"
+              "HasStorage",
+              "RawDocComment"
             ],
             "isLet": true,
             "hasStorage": true,
@@ -63437,7 +63585,7 @@
           {
             "kind": "Function",
             "name": "setPushNotificationStatus",
-            "printedName": "setPushNotificationStatus(status:)",
+            "printedName": "setPushNotificationStatus(status:authorizationStatus:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -63449,11 +63597,58 @@
                 "name": "String",
                 "printedName": "Swift.String",
                 "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UNAuthorizationStatus",
+                "printedName": "UserNotifications.UNAuthorizationStatus",
+                "usr": "c:@E@UNAuthorizationStatus"
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK08InternalA3APIC25setPushNotificationStatus6statusySS_tF",
-            "mangledName": "$s10CordialSDK08InternalA3APIC25setPushNotificationStatus6statusySS_tF",
+            "usr": "s:10CordialSDK08InternalA3APIC25setPushNotificationStatus6status013authorizationH0ySS_So015UNAuthorizationH0VtF",
+            "mangledName": "$s10CordialSDK08InternalA3APIC25setPushNotificationStatus6status013authorizationH0ySS_So015UNAuthorizationH0VtF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getAuthorizationStatusSystemEventsProperties",
+            "printedName": "getAuthorizationStatusSystemEventsProperties(authorizationStatus:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UNAuthorizationStatus",
+                "printedName": "UserNotifications.UNAuthorizationStatus",
+                "usr": "c:@E@UNAuthorizationStatus"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK08InternalA3APIC44getAuthorizationStatusSystemEventsProperties013authorizationG0SDySSypGSo015UNAuthorizationG0V_tF",
+            "mangledName": "$s10CordialSDK08InternalA3APIC44getAuthorizationStatusSystemEventsProperties013authorizationG0SDySSypGSo015UNAuthorizationG0V_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -64386,6 +64581,39 @@
             "declKind": "Func",
             "usr": "s:10CordialSDK0A12UserDefaultsV3set_6forKeyyypSg_SStFZ",
             "mangledName": "$s10CordialSDK0A12UserDefaultsV3set_6forKeyyypSg_SStFZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "integer",
+            "printedName": "integer(forKey:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.Int?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK0A12UserDefaultsV7integer6forKeySiSgSS_tFZ",
+            "mangledName": "$s10CordialSDK0A12UserDefaultsV7integer6forKeySiSgSS_tFZ",
             "moduleName": "CordialSDK",
             "static": true,
             "funcSelfKind": "NonMutating"
@@ -81181,322 +81409,343 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1955,
+      "offset": 1976,
+      "length": 70,
+      "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 2112,
       "length": 49,
       "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2071,
+      "offset": 2228,
       "length": 50,
       "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2178,
+      "offset": 2335,
       "length": 40,
       "value": "\"USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2291,
+      "offset": 2448,
       "length": 56,
       "value": "\"USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2419,
+      "offset": 2576,
       "length": 55,
       "value": "\"USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_UPSERTING_CONTACTS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2553,
+      "offset": 2710,
       "length": 62,
       "value": "\"USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2678,
+      "offset": 2835,
       "length": 41,
       "value": "\"DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2785,
+      "offset": 2942,
       "length": 49,
       "value": "\"DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2893,
+      "offset": 3050,
       "length": 42,
       "value": "\"DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2993,
+      "offset": 3150,
       "length": 41,
       "value": "\"DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3090,
+      "offset": 3247,
       "length": 39,
       "value": "\"DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3182,
+      "offset": 3339,
       "length": 36,
       "value": "\"DOWNLOAD_TASK_NAME_UPSERT_CONTACTS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3275,
+      "offset": 3432,
       "length": 40,
       "value": "\"DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3372,
+      "offset": 3529,
       "length": 40,
       "value": "\"DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3469,
+      "offset": 3626,
       "length": 40,
       "value": "\"DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3579,
+      "offset": 3736,
       "length": 53,
       "value": "\"DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3690,
+      "offset": 3847,
       "length": 41,
       "value": "\"DOWNLOAD_TASK_NAME_DELETE_INBOX_MESSAGE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3787,
+      "offset": 3944,
       "length": 39,
       "value": "\"DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3881,
+      "offset": 4038,
       "length": 38,
       "value": "\"DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3983,
+      "offset": 4140,
       "length": 47,
       "value": "\"DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4073,
+      "offset": 4230,
       "length": 7,
       "value": "\"crdl_\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4127,
+      "offset": 4284,
       "length": 39,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4154,
+      "offset": 4311,
       "length": 11,
       "value": "\"app_install\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4219,
+      "offset": 4376,
       "length": 37,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4246,
+      "offset": 4403,
       "length": 9,
       "value": "\"app_close\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4311,
+      "offset": 4468,
       "length": 36,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4338,
+      "offset": 4495,
       "length": 8,
       "value": "\"app_open\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4415,
+      "offset": 4572,
       "length": 64,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4442,
+      "offset": 4599,
       "length": 36,
       "value": "\"notification_delivered_in_foreground\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4530,
+      "offset": 4687,
       "length": 44,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4557,
+      "offset": 4714,
       "length": 16,
       "value": "\"notification_tap\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4618,
+      "offset": 4792,
+      "length": 35,
+      "value": "\"device_notifications_manual_optin\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 4918,
+      "length": 36,
+      "value": "\"device_notifications_manual_optout\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 5027,
       "length": 42,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4645,
+      "offset": 5054,
       "length": 14,
       "value": "\"deep_link_open\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4714,
+      "offset": 5123,
       "length": 48,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4741,
+      "offset": 5150,
       "length": 20,
       "value": "\"in_app_message_shown\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4818,
+      "offset": 5227,
       "length": 55,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4845,
+      "offset": 5254,
       "length": 27,
       "value": "\"in_app_message_auto_dismiss\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4931,
+      "offset": 5340,
       "length": 57,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4958,
+      "offset": 5367,
       "length": 29,
       "value": "\"in_app_message_manual_dismiss\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5036,
+      "offset": 5445,
       "length": 38,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5063,
+      "offset": 5472,
       "length": 10,
       "value": "\"inbox_read\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5131,
+      "offset": 5540,
       "length": 32,
       "value": "\"CordialSDKBackgroundURLSession\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5224,
+      "offset": 5633,
       "length": 19,
       "value": "\"group.cordial.sdk\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5288,
+      "offset": 5697,
       "length": 23,
       "value": "\"IAM_WEB_VIEW_BASE_URL\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5365,
+      "offset": 5774,
       "length": 8,
       "value": "\"opt-in\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5425,
+      "offset": 5834,
       "length": 9,
       "value": "\"opt-out\""
     },
@@ -82443,7 +82692,7 @@
       "kind": "StringLiteral",
       "offset": 393,
       "length": 7,
-      "value": "\"4.1.4\""
+      "value": "\"4.1.5\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
