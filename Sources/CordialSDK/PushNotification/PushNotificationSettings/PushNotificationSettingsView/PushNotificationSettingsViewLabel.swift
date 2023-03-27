@@ -22,6 +22,6 @@ class PushNotificationSettingsViewLabel: UILabel {
     
     private func initialize(fontSize: CGFloat) {
         self.textAlignment = .center
-        self.font = UIFont(name: "Halvetica", size: fontSize)
+        self.font = .systemFont(ofSize: fontSize, weight: .light)
     }
 }

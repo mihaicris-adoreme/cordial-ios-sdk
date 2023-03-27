@@ -58,19 +58,30 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         bottomLabel.textColor = UIColor.white
         bottomLabel.text = "Bottom Label"
         
-        let button = UIButton(frame: CGRect(x: 0, y: height, width: width, height: height / 4))
-        button.isUserInteractionEnabled = true
-        
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: 0, y: height, width: width, height: height / 3)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.titleLabel?.font = bottomLabel.font
+        button.layer.masksToBounds = true
         button.setTitle("Enable Notifications", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(UIColor.black, for: .normal)
+        button.backgroundColor = UIColor.red
+        button.layer.cornerRadius = 25
         button.addTarget(self, action: #selector(self.buttonTapped(_:)), for: .touchUpInside)
         
+        let buttonLabelButton = UIButton(type: .system)
+        buttonLabelButton.frame = CGRect(x: 0, y: button.frame.height + height, width: width, height: height / 4)
+        buttonLabelButton.setTitleColor(UIColor.red, for: .normal)
+        buttonLabelButton.titleLabel?.font = bottomLabel.font
+        buttonLabelButton.layer.masksToBounds = true
+        buttonLabelButton.setTitle("Not now", for: .normal)
+        buttonLabelButton.addTarget(self, action: #selector(self.buttonLabelButtonTapped(_:)), for: .touchUpInside)
+                
         tableFooterView.addSubview(bottomLabel)
         tableFooterView.addSubview(button)
+        tableFooterView.addSubview(buttonLabelButton)
         self.tableView.tableFooterView = tableFooterView
         
-        // Configuration
+        // UITableView - Configuration
         let wrapView = UIView(frame: self.view.frame)
         wrapView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
   
@@ -86,6 +97,10 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
     
     @objc func buttonTapped(_ sender: UIButton) {
         print("Button Tapped")
+    }
+    
+    @objc func buttonLabelButtonTapped(_ sender: UIButton) {
+        print("Button Label Tapped")
     }
     
     @objc func switchChanged(_ sender: UISwitch) {
