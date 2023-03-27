@@ -45,7 +45,7 @@ class NotificationSettingsTableViewController: UIViewController, UITableViewDele
         // UIColorPickerView
         self.picker.delegate = self
         self.picker.modalPresentationStyle = .fullScreen
-        self.picker.view.backgroundColor = UIColor.white
+        NotificationSettingsTableViewColorPicker.setup(self.picker)
         
         // UITableView
         self.tableView.showsVerticalScrollIndicator = false
