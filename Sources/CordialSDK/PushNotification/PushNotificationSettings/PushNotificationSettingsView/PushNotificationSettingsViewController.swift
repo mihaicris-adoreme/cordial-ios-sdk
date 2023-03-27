@@ -14,6 +14,10 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
     
     let pushNotificationSettingsHandler = PushNotificationSettingsHandler.shared
 
+    let enablePushNotificationsButtonBackgroundColor = UIColor(red: 20/255, green: 45/255, blue: 50/255, alpha: 1)
+    let enablePushNotificationsButtonTextColor = UIColor(red: 25/255, green: 165/255, blue: 175/255, alpha: 1)
+    let dismissPushNotificationsTextColor = UIColor(red: 90/255, green: 90/255, blue: 95/255, alpha: 1)
+    
     let tableView = PushNotificationSettingsTableView(frame: UIScreen.main.nativeBounds)
     
     var options: UNAuthorizationOptions = []
@@ -23,6 +27,9 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
 
         let margin = 20.0
         let fontSize = 17.0
+        let lightFont = UIFont.systemFont(ofSize: fontSize, weight: .light)
+        let regularFont = UIFont.systemFont(ofSize: fontSize, weight: .regular)
+        let mediumFont = UIFont.systemFont(ofSize: fontSize, weight: .medium)
         
         let width = self.view.frame.size.width - margin * 2
         let height = self.view.frame.size.height / 4
@@ -44,9 +51,12 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         // UITableView - HeaderView
         let tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         
-        let upperLabel = PushNotificationSettingsViewLabel(frame: CGRect(x: 0, y: 0, width: width, height: height), fontSize: fontSize)
+        let upperLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        upperLabel.font = mediumFont
+        upperLabel.textAlignment = .center
         upperLabel.textColor = UIColor.white
-        upperLabel.text = "Upper Label"
+        upperLabel.numberOfLines = 0
+        upperLabel.text = "We will be sending you only the notifications selected"
         
         tableHeaderView.addSubview(upperLabel)
         self.tableView.tableHeaderView = tableHeaderView
@@ -54,31 +64,41 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         // UITableView - FooterView
         let tableFooterView = PushNotificationSettingsViewFooterView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         
-        let bottomLabel = PushNotificationSettingsViewLabel(frame: CGRect(x: 0, y: 0, width: width, height: height), fontSize: fontSize)
-        bottomLabel.textColor = UIColor.white
-        bottomLabel.text = "Bottom Label"
+        let wrapTableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         
         let button = UIButton(type: .system)
-        button.frame = CGRect(x: 0, y: height, width: width, height: height / 3)
-        button.setTitleColor(UIColor.white, for: .normal)
-        button.titleLabel?.font = bottomLabel.font
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.frame = CGRect(x: 0, y: 0, width: width, height: height / 3)
+        button.setTitleColor(self.enablePushNotificationsButtonTextColor, for: .normal)
+        button.titleLabel?.font = regularFont
         button.layer.masksToBounds = true
         button.setTitle("Enable Notifications", for: .normal)
-        button.backgroundColor = UIColor.red
+        button.backgroundColor = self.enablePushNotificationsButtonBackgroundColor
         button.layer.cornerRadius = 25
         button.addTarget(self, action: #selector(self.buttonTapped(_:)), for: .touchUpInside)
         
-        let buttonLabelButton = UIButton(type: .system)
-        buttonLabelButton.frame = CGRect(x: 0, y: button.frame.height + height, width: width, height: height / 4)
-        buttonLabelButton.setTitleColor(UIColor.red, for: .normal)
-        buttonLabelButton.titleLabel?.font = bottomLabel.font
-        buttonLabelButton.layer.masksToBounds = true
-        buttonLabelButton.setTitle("Not now", for: .normal)
-        buttonLabelButton.addTarget(self, action: #selector(self.buttonLabelButtonTapped(_:)), for: .touchUpInside)
-                
-        tableFooterView.addSubview(bottomLabel)
-        tableFooterView.addSubview(button)
-        tableFooterView.addSubview(buttonLabelButton)
+        let buttonLabel = UIButton(type: .system)
+        buttonLabel.translatesAutoresizingMaskIntoConstraints = false
+        buttonLabel.frame = CGRect(x: 0, y: 0, width: width, height: height / 4)
+        buttonLabel.setTitleColor(self.dismissPushNotificationsTextColor, for: .normal)
+        buttonLabel.titleLabel?.font = lightFont
+        buttonLabel.layer.masksToBounds = true
+        buttonLabel.setTitle("Not now", for: .normal)
+        buttonLabel.addTarget(self, action: #selector(self.buttonLabelTapped(_:)), for: .touchUpInside)
+        
+        // UITableView - FooterView - Configuration
+        
+        wrapTableFooterView.addSubview(button)
+        wrapTableFooterView.addSubview(buttonLabel)
+        
+        let wrapTableFooterViews = ["button": button, "buttonLabel": buttonLabel]
+
+        wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[button]|", options: [], metrics: nil, views: wrapTableFooterViews))
+        wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[buttonLabel]|", options: [], metrics: nil, views: wrapTableFooterViews))
+        wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-\(margin * 3)-[button(\(button.frame.height))]-[buttonLabel]|", options: [], metrics: nil, views: wrapTableFooterViews))
+        
+        tableFooterView.addSubview(wrapTableFooterView)
+        
         self.tableView.tableFooterView = tableFooterView
         
         // UITableView - Configuration
@@ -99,7 +119,7 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         print("Button Tapped")
     }
     
-    @objc func buttonLabelButtonTapped(_ sender: UIButton) {
+    @objc func buttonLabelTapped(_ sender: UIButton) {
         print("Button Label Tapped")
     }
     
