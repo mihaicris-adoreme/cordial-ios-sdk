@@ -13,10 +13,6 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
     private var rows = InternalCordialAPI().getPushNotificationSettings()
     
     let pushNotificationSettingsHandler = PushNotificationSettingsHandler.shared
-
-    let enablePushNotificationsButtonBackgroundColor = UIColor(red: 20/255, green: 45/255, blue: 50/255, alpha: 1)
-    let enablePushNotificationsButtonTextColor = UIColor(red: 25/255, green: 165/255, blue: 175/255, alpha: 1)
-    let dismissPushNotificationsTextColor = UIColor(red: 90/255, green: 90/255, blue: 95/255, alpha: 1)
     
     let tableView = PushNotificationSettingsTableView(frame: UIScreen.main.nativeBounds)
     
@@ -26,10 +22,10 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         super.viewDidLoad()
 
         let margin = 20.0
-        let fontSize = 17.0
-        let lightFont = UIFont.systemFont(ofSize: fontSize, weight: .light)
-        let regularFont = UIFont.systemFont(ofSize: fontSize, weight: .regular)
-        let mediumFont = UIFont.systemFont(ofSize: fontSize, weight: .medium)
+
+        let font = UIFont.systemFont(ofSize: 16, weight: .light)
+        let mediumFont = UIFont.systemFont(ofSize: 17, weight: .medium)
+        let lightFont = UIFont.systemFont(ofSize: 15, weight: .regular)
         
         let width = self.view.frame.size.width - margin * 2
         let height = self.view.frame.size.height / 4
@@ -54,7 +50,7 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         let upperLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
         upperLabel.font = mediumFont
         upperLabel.textAlignment = .center
-        upperLabel.textColor = UIColor.white
+        upperLabel.textColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor()
         upperLabel.numberOfLines = 0
         upperLabel.text = "We will be sending you only the notifications selected"
         
@@ -69,21 +65,27 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.frame = CGRect(x: 0, y: 0, width: width, height: height / 3)
-        button.setTitleColor(self.enablePushNotificationsButtonTextColor, for: .normal)
-        button.titleLabel?.font = regularFont
-        button.layer.masksToBounds = true
+        button.setTitleColor(self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
+        button.titleLabel?.font = font
         button.setTitle("Enable Notifications", for: .normal)
-        button.backgroundColor = self.enablePushNotificationsButtonBackgroundColor
-        button.layer.cornerRadius = 25
+        button.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
+        
+        button.layer.borderWidth = 1
+        button.layer.masksToBounds = false
+        button.layer.borderColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor().cgColor
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        
         button.addTarget(self, action: #selector(self.buttonTapped(_:)), for: .touchUpInside)
         
         let buttonLabel = UIButton(type: .system)
         buttonLabel.translatesAutoresizingMaskIntoConstraints = false
         buttonLabel.frame = CGRect(x: 0, y: 0, width: width, height: height / 4)
-        buttonLabel.setTitleColor(self.dismissPushNotificationsTextColor, for: .normal)
+        buttonLabel.setTitleColor(self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
         buttonLabel.titleLabel?.font = lightFont
         buttonLabel.layer.masksToBounds = true
         buttonLabel.setTitle("Not now", for: .normal)
+        
         buttonLabel.addTarget(self, action: #selector(self.buttonLabelTapped(_:)), for: .touchUpInside)
         
         // UITableView - FooterView - Configuration
@@ -120,7 +122,7 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
     }
     
     @objc func buttonLabelTapped(_ sender: UIButton) {
-        print("Button Label Tapped")
+        self.dismiss(animated: true)
     }
     
     @objc func switchChanged(_ sender: UISwitch) {
