@@ -97,7 +97,7 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
 
         wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[button]|", options: [], metrics: nil, views: wrapTableFooterViews))
         wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[buttonLabel]|", options: [], metrics: nil, views: wrapTableFooterViews))
-        wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-\(margin * 3)-[button(\(button.frame.height))]-[buttonLabel]|", options: [], metrics: nil, views: wrapTableFooterViews))
+        wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-\(margin * 3)-[button(\(button.frame.height))]-[buttonLabel]-|", options: [], metrics: nil, views: wrapTableFooterViews))
         
         tableFooterView.addSubview(wrapTableFooterView)
         

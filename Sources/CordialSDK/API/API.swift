@@ -111,16 +111,6 @@ struct API {
         
         return byteCountFormatter.string(fromByteCount: Int64(data.count))
     }
-    
-    static func isDeviceSmallScreen() -> Bool {
-        if UIDevice().userInterfaceIdiom == .phone,
-           UIScreen.main.nativeBounds.height == 1136 { // 1136 px - iPhone5S/SE
-            
-            return true
-        }
-        
-        return false
-    }
 }
 
 extension UIColor {
