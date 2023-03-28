@@ -58,7 +58,7 @@ class InboxMessageWebViewController: UIViewController {
         
         self.isNeededInboxMessagesUpdate = true
         
-        popupSimpleNoteAlert(title: "Message marked as unread", message: nil, controller: self)
+        App.popupSimpleNoteAlert(title: "Message marked as unread", message: nil, controller: self)
     }
     
     func fetchInboxMessageContent() {
@@ -76,11 +76,11 @@ class InboxMessageWebViewController: UIViewController {
                         self.inboxMessageContentWebView.loadHTMLString(hrml, baseURL: nil)
                     }
                 } catch let error {
-                    popupSimpleNoteAlert(title: error.localizedDescription, message: nil, controller: self)
+                    App.popupSimpleNoteAlert(title: error.localizedDescription, message: nil, controller: self)
                 }
             }
         }, onFailure: { error in
-            popupSimpleNoteAlert(title: error, message: nil, controller: self)
+            App.popupSimpleNoteAlert(title: error, message: nil, controller: self)
         })
     }
 

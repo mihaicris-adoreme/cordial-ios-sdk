@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgU-rg-A1D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgU-rg-A1D">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -586,7 +586,7 @@
             <objects>
                 <navigationController storyboardIdentifier="CatalogNavigationController" id="NUN-ha-vwX" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JiE-CS-eJg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -702,6 +702,7 @@
                         <segue destination="55x-1y-73y" kind="show" identifier="segueToInboxTable" id="IvU-zN-3Ts"/>
                         <segue destination="GOw-pz-0e3" kind="show" identifier="segueToInboxCollection" id="MAf-P6-8Od"/>
                         <segue destination="1GM-d5-H2X" kind="show" identifier="segueToInboxTableList" id="U4e-MT-WJc"/>
+                        <segue destination="GqP-qo-1Rk" kind="show" identifier="segueToPushNotificationSettings" id="3YW-Nv-P9Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjF-Ku-Fu9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1068,6 +1069,37 @@
             </objects>
             <point key="canvasLocation" x="1766" y="-1407"/>
         </scene>
+        <!--Push Notification Settings Table View Controller-->
+        <scene sceneID="PIk-tp-eUl">
+            <objects>
+                <viewController id="GqP-qo-1Rk" customClass="PushNotificationSettingsTableViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="l0Q-mo-mgm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Wfe-Ke-6MF" customClass="PushNotificationSettingsTableView" customModule="CordialDemo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="qxz-sS-GxT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Wfe-Ke-6MF" firstAttribute="top" secondItem="qxz-sS-GxT" secondAttribute="top" id="H2Y-my-Vpl"/>
+                            <constraint firstItem="Wfe-Ke-6MF" firstAttribute="bottom" secondItem="qxz-sS-GxT" secondAttribute="bottom" id="dqj-sd-Uma"/>
+                            <constraint firstItem="Wfe-Ke-6MF" firstAttribute="leading" secondItem="qxz-sS-GxT" secondAttribute="leading" id="eqg-l8-RdQ"/>
+                            <constraint firstItem="Wfe-Ke-6MF" firstAttribute="trailing" secondItem="qxz-sS-GxT" secondAttribute="trailing" id="sUq-go-J5u"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ke1-xm-90T"/>
+                    <connections>
+                        <outlet property="tableView" destination="Wfe-Ke-6MF" id="WsZ-RO-TrW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="86M-NT-DcP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1764.375" y="-631.69014084507046"/>
+        </scene>
         <!--Inbox Messages Table Raw View Controller-->
         <scene sceneID="4x6-EM-US8">
             <objects>
@@ -1126,7 +1158,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uIc-pT-AUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="953" y="-632"/>
+            <point key="canvasLocation" x="953" y="-630"/>
         </scene>
         <!--Inbox Message View Controller-->
         <scene sceneID="Obf-0D-p0a">
@@ -1310,7 +1342,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bny-Ar-cTQ" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2643.75" y="-629.57746478873241"/>
+            <point key="canvasLocation" x="2644" y="-631"/>
         </scene>
         <!--Attribute View Controller-->
         <scene sceneID="wBP-9T-FGF">
@@ -1444,7 +1476,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2qi-gx-aH6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3481.875" y="-630.63380281690138"/>
+            <point key="canvasLocation" x="3482" y="-630"/>
         </scene>
         <!--Geo Attribute View Controller-->
         <scene sceneID="NHX-Wr-NKn">
@@ -1950,8 +1982,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="75C-Gr-WT6"/>
-        <segue reference="Oeg-0l-a4B"/>
+        <segue reference="h0i-X5-r8G"/>
+        <segue reference="AlP-xG-MIL"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.25567400455474854" green="0.42760902643203735" blue="0.56480115652084351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <resources>

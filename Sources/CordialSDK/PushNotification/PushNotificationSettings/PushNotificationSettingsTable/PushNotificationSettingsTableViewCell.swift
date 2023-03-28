@@ -16,6 +16,8 @@ class PushNotificationSettingsTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.selectionStyle = .none
+        
         self.switcher.translatesAutoresizingMaskIntoConstraints = false
         self.title.translatesAutoresizingMaskIntoConstraints = false
         
@@ -31,13 +33,5 @@ class PushNotificationSettingsTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-  
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        for view in subviews where view != contentView && view.frame.width == frame.width {
-            view.removeFromSuperview()
-        }
     }
 }
