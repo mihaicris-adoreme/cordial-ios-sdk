@@ -1,5 +1,5 @@
 //
-//  PushNotificationSettingsTableViewCell.swift
+//  NotificationSettingsTableViewCell.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 06.03.2023.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PushNotificationSettingsTableViewCell: UITableViewCell {
+class NotificationSettingsTableViewCell: UITableViewCell {
     
     let title = UILabel()
     var colorImage = UIImageView()

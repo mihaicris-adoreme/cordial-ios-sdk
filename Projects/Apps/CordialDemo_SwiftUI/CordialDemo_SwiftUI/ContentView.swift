@@ -12,10 +12,12 @@ struct ContentView: View {
     
     @State private var deepLinks: CordialSwiftUIDeepLinks?
     @State private var username = String()
+    @State private var notificationSettings: String?
     
     @EnvironmentObject var appHandler: AppHandler
     
     @EnvironmentObject var pushNotificationPublisher: CordialSwiftUIPushNotificationPublisher
+    @EnvironmentObject var pushNotificationSettingsPublisher: CordialSwiftUIPushNotificationSettingsPublisher
     @EnvironmentObject var deepLinksPublisher: CordialSwiftUIDeepLinksPublisher
     @EnvironmentObject var inboxMessagePublisher: CordialSwiftUIInboxMessagePublisher
     @EnvironmentObject var inAppMessagePublisher: CordialSwiftUIInAppMessagePublisher
@@ -63,8 +65,8 @@ struct ContentView: View {
         }
 
         
-        if self.appHandler.isUserLogin {
-            CatalogView(deepLinks: self.$deepLinks)
+        if self.appHandler.isUserLogin {            
+            CatalogView(deepLinks: self.$deepLinks, notificationSettings: self.$notificationSettings)
                 .onOpenURL { url in
                     CordialSwiftUIDeepLinksHandler().processDeepLink(url: url)
                 }
@@ -80,6 +82,9 @@ struct ContentView: View {
                 .onReceive(self.pushNotificationPublisher.apnsTokenReceived) { apnsTokenReceived in
                     print("SwiftUIApp: apnsTokenReceived, token: \(apnsTokenReceived.token)")
                 }
+                .onReceive(self.pushNotificationSettingsPublisher.openPushNotificationSettings, perform: { _ in
+                    self.notificationSettings = "notificationSettings"
+                })
                 .onReceive(self.inboxMessagePublisher.newInboxMessageDelivered) { newInboxMessageDelivered in
                     print("SwiftUIApp: newInboxMessageDelivered, mcID: \(newInboxMessageDelivered.mcID)")
                 }
