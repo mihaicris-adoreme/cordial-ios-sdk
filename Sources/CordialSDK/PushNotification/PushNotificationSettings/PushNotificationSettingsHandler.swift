@@ -37,7 +37,7 @@ import UIKit
         }
     }
     
-    func openPushNotificationSettingsLearningInterface(options: UNAuthorizationOptions) {
+    public func openPushNotificationSettingsLearningInterface(options: UNAuthorizationOptions) {
         DispatchQueue.main.async {
             if let currentVC = InternalCordialAPI().getActiveViewController() {
                 let pushNotificationSettingsVC = PushNotificationSettingsViewController()

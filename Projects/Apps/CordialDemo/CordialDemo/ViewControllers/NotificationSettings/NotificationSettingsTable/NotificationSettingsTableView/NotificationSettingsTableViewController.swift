@@ -39,8 +39,9 @@ class NotificationSettingsTableViewController: UIViewController, UITableViewDele
         
         self.title = "Settings"
         
+        let educationButton = UIBarButtonItem(image: UIImage(named: "books")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.openPushNotificationSettingsEducation))
         let settingsButton = UIBarButtonItem(image: UIImage(named: "settings")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(self.openPushNotificationSettings))
-        navigationItem.rightBarButtonItems = [settingsButton]
+        navigationItem.rightBarButtonItems = [settingsButton, educationButton]
         
         // UIColorPickerView
         self.picker.delegate = self
@@ -72,6 +73,10 @@ class NotificationSettingsTableViewController: UIViewController, UITableViewDele
         } else {
             self.dismiss(animated: false)
         }
+    }
+    
+    @objc func openPushNotificationSettingsEducation() {
+        PushNotificationSettingsHandler.shared.openPushNotificationSettingsLearningInterface(options: [])
     }
     
     @objc func openPushNotificationSettings() {
