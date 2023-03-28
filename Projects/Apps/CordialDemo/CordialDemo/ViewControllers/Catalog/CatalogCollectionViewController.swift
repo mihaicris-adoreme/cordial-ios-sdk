@@ -105,7 +105,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         
     }
     
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.products.count
@@ -126,9 +126,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         return cell
     }
     
-    // MARK: - UICollectionViewDelegate
-    
-    // MARK: UICollectionViewDelegateFlowLayout
+    // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         

@@ -364,6 +364,16 @@
 			path = MenuTable;
 			sourceTree = "<group>";
 		};
+		9E19E52129B783890047C852 /* PushNotificationSettingsTableView */ = {
+			isa = PBXGroup;
+			children = (
+				9E318F0F29B0E1ED00DEA661 /* PushNotificationSettingsTableViewController.swift */,
+				9E0F69EA29B612C3002BCAF3 /* PushNotificationSettingsTableViewCell.swift */,
+				9E0F69EC29B612EA002BCAF3 /* PushNotificationSettingsTableView.swift */,
+			);
+			path = PushNotificationSettingsTableView;
+			sourceTree = "<group>";
+		};
 		9E1EB37A241DACB5004CAD90 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,10 +395,8 @@
 		9E318F0C29B0E15D00DEA661 /* PushNotificationSettings */ = {
 			isa = PBXGroup;
 			children = (
+				9E19E52129B783890047C852 /* PushNotificationSettingsTableView */,
 				9E19E4F329B7704F0047C852 /* PushNotificationSettingsTapGestureRecognizer.swift */,
-				9E318F0F29B0E1ED00DEA661 /* PushNotificationSettingsTableViewController.swift */,
-				9E0F69EA29B612C3002BCAF3 /* PushNotificationSettingsTableViewCell.swift */,
-				9E0F69EC29B612EA002BCAF3 /* PushNotificationSettingsTableView.swift */,
 				9E19E4C529B63FBB0047C852 /* PushNotificationSettingsTableData.swift */,
 				9E19E4C329B636050047C852 /* PushNotificationSettingsData.swift */,
 			);
