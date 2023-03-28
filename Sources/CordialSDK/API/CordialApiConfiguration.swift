@@ -18,7 +18,6 @@ import os.log
     
     let sdkVersion = "4.1.5"
     
-    let initPushNotification = CordialPushNotification.shared
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
@@ -46,13 +45,28 @@ import os.log
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, Any>?
     
+    @objc public func setNotificationSettings(_ pushNotificationSettings: [PushNotificationSettings]) {
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if !pushNotificationSettings.isEmpty {
+            if internalCordialAPI.isNewPushNotificationSettings(pushNotificationSettings: pushNotificationSettings) {
+                internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings)
+                internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings, key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN)
+            }
+        } else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Setting empty push notification settings array is unsupported", log: OSLog.cordialPushNotification, type: .error)
+            }
+        }
+    }
+    
     @objc public var vanityDomains = [String]()
     
     @objc public var eventsBulkSize: Int = 1 {
         didSet {
             CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         }
-        willSet(newEventsBulkSize) {
+        willSet (newEventsBulkSize) {
             if eventsBulkSize != newEventsBulkSize && newEventsBulkSize.signum() == 1 {
                 CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
             }
@@ -63,7 +77,7 @@ import os.log
         didSet {
             CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         }
-        willSet(newEventsBulkUploadInterval) {
+        willSet (newEventsBulkUploadInterval) {
             if eventsBulkUploadInterval != newEventsBulkUploadInterval && Int(newEventsBulkUploadInterval).signum() == 1 {
                 CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
             }
@@ -95,6 +109,8 @@ import os.log
         
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         os_log("Device Identifier: [%{public}@] SDK: [%{public}@]", log: OSLog.cordialInfo, type: .info, deviceID, self.sdkVersion)
+        
+        CordialPushNotification.shared.setupPushNotifications()
         
         NotificationManager.shared.setupNotificationManager()
         

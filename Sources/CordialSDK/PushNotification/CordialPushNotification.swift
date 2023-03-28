@@ -18,20 +18,16 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     private override init() {}
     
     let pushNotificationHelper = PushNotificationHelper()
+    
+    var isScreenPushNotificationSettingsShown = false
 
     func registerForPushNotifications(options: UNAuthorizationOptions) {
-        let notificationCenter = UNUserNotificationCenter.current()
-        
-        notificationCenter.requestAuthorization(options: options) { granted, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, error in
             guard error == nil else { return }
             
             DispatchQueue.main.async {
                 UIApplication.shared.registerForRemoteNotifications()
             }
-        }
-        
-        if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
-            notificationCenter.delegate = self
         }
     }
     
@@ -41,7 +37,9 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
             
             UIApplication.shared.registerForRemoteNotifications()
         }
-        
+    }
+    
+    func setupPushNotifications() {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             UNUserNotificationCenter.current().delegate = self
         }
@@ -76,5 +74,15 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         let userInfo = notification.request.content.userInfo
         
         self.pushNotificationHelper.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: completionHandler)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+        if !self.isScreenPushNotificationSettingsShown {
+            DispatchQueue.main.async {
+                if let currentVC = InternalCordialAPI().getActiveViewController() {
+                    currentVC.present(PushNotificationSettingsTableViewController(), animated: true)
+                }
+            }
+        }
     }
 }

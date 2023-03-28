@@ -34,6 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = CordialDeepLinksHandler()
         CordialApiConfiguration.shared.inAppMessageInputsDelegate = InAppMessageInputsHandler()
         CordialApiConfiguration.shared.inboxMessageDelegate = InboxMessageHandler()
+        CordialApiConfiguration.shared.setNotificationSettings([
+            PushNotificationSettings(key: "discounts", name: "Discounts", initState: true),
+            PushNotificationSettings(key: "new-arrivals", name: "New Arrivals", initState: false),
+            PushNotificationSettings(key: "top-products", name: "Top Products", initState: true)
+        ])
         CordialApiConfiguration.shared.vanityDomains = ["e.a45.clients.cordialdev.com", "s.cordial.com", "s.a1105.clients.cordialdev.com", "s.a1003.clients.cordialdev.com", "events-handling-svc.stg.cordialdev.com", "events-handling-svc.cordial-core.cp-8305-inapp-link-tracing.cordialdev.com", "e.a1003.clients.cordialdev.com"]
                 
         AppNotificationManager.shared.setupCordialSDKObservers()

@@ -594,6 +594,78 @@ class InternalCordialAPI {
         CordialUserDefaults.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
     }
     
+    // MARK: Set push notification settings
+    
+    func setPushNotificationSettings(pushNotificationSettings: [PushNotificationSettings], key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS) {
+        if key == API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS {
+            var enabledKeys: [String] = []
+            
+            pushNotificationSettings.forEach { settings in
+                if settings.initState {
+                    enabledKeys.append(settings.key)
+                }
+            }
+            
+            let attributes = ArrayValue(enabledKeys)
+            CordialAPI().upsertContact(attributes: [API.UPSERT_CONTACT_ATTRIBUTES_NAME_PUSH_NOTIFICATION_CATEGORIES: attributes])
+        }
+        
+        let pushNotificationSettingsData = try? NSKeyedArchiver.archivedData(withRootObject: pushNotificationSettings, requiringSecureCoding: false)
+        CordialUserDefaults.set(pushNotificationSettingsData, forKey: key)
+    }
+    
+    // MARK: Get push notification settings
+    
+    func getPushNotificationSettings(key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS) -> [PushNotificationSettings] {
+        guard let pushNotificationSettingsData = CordialUserDefaults.object(forKey: key) as? Data,
+              let pushNotificationSettingsUnarchive = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(pushNotificationSettingsData),
+              let pushNotificationSettings = pushNotificationSettingsUnarchive as? [PushNotificationSettings] else {
+            
+            return [PushNotificationSettings]()
+        }
+        
+        for settings in pushNotificationSettings {
+            if settings.isError {
+                return [PushNotificationSettings]()
+            }
+        }
+        
+        return pushNotificationSettings
+    }
+    
+    // MARK: Is new push notification settings
+    
+    func isNewPushNotificationSettings(pushNotificationSettings: [PushNotificationSettings]) -> Bool {
+        let pushNotificationSettingsOrigin = self.getPushNotificationSettings(key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN)
+        
+        func getSettingsJSON(_ pushNotificationSettings: [PushNotificationSettings]) -> String {
+            var rootContainer = [String]()
+            
+            for settings in pushNotificationSettings {
+                let container = [
+                    "\"key\": \"\(settings.key)\"",
+                    "\"name\": \"\(settings.name)\"",
+                    "\"initState\": \(settings.initState)"
+                ]
+                
+                let containerString = "{ \(container.joined(separator: ", ")) }"
+                
+                rootContainer.append(containerString)
+            }
+            
+            return "[ \(rootContainer.joined(separator: ", ")) ]"
+        }
+        
+        let pushNotificationSettingsJSON = getSettingsJSON(pushNotificationSettings)
+        let pushNotificationSettingsOriginJSON = getSettingsJSON(pushNotificationSettingsOrigin)
+        
+        if pushNotificationSettingsJSON != pushNotificationSettingsOriginJSON {
+            return true
+        }
+        
+        return false
+    }
+    
     // MARK: Get the latest sentAt IAM
     
     func getTheLatestSentAtInAppMessageDate() -> String? {        
