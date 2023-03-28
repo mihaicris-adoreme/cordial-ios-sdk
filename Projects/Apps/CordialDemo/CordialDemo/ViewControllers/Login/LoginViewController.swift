@@ -47,7 +47,7 @@ class LoginViewController: UIViewController {
             if !primaryKey.isEmpty {
                 self.cordialAPI.setContact(primaryKey: primaryKey)
                 
-                self.cordialAPI.registerForPushNotifications(options: [.alert, .sound], isLearningInterface: true)
+                self.cordialAPI.registerForPushNotifications(options: [.alert, .sound], isEducational: true)
                 
                 App.userLogIn()
                 

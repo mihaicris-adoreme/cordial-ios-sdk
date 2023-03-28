@@ -31,10 +31,10 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
-    func providesAppNotificationSettings(options: UNAuthorizationOptions, isLearningInterface: Bool) {
+    func providesAppNotificationSettings(options: UNAuthorizationOptions, isEducational: Bool) {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
-            if isLearningInterface && settings.authorizationStatus != .authorized && settings.authorizationStatus != .provisional {
-                PushNotificationSettingsHandler.shared.openPushNotificationSettingsLearningInterface(options: options)
+            if isEducational && settings.authorizationStatus != .authorized && settings.authorizationStatus != .provisional {
+                PushNotificationSettingsHandler.shared.openEducationalPushNotificationSettings(options: options)
             } else {
                 self.registerForPushNotifications(options: options)
             }
