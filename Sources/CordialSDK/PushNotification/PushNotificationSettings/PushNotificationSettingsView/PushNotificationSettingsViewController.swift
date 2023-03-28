@@ -68,13 +68,10 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         button.setTitleColor(self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
         button.titleLabel?.font = font
         button.setTitle("Enable Notifications", for: .normal)
-        button.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
         
         button.layer.borderWidth = 1
-        button.layer.masksToBounds = false
         button.layer.borderColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor().cgColor
         button.layer.cornerRadius = 10
-        button.clipsToBounds = true
         
         button.addTarget(self, action: #selector(self.buttonTapped(_:)), for: .touchUpInside)
         
@@ -83,7 +80,6 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         buttonLabel.frame = CGRect(x: 0, y: 0, width: width, height: height / 4)
         buttonLabel.setTitleColor(self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
         buttonLabel.titleLabel?.font = lightFont
-        buttonLabel.layer.masksToBounds = true
         buttonLabel.setTitle("Not now", for: .normal)
         
         buttonLabel.addTarget(self, action: #selector(self.buttonLabelTapped(_:)), for: .touchUpInside)
@@ -118,7 +114,8 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
     }
     
     @objc func buttonTapped(_ sender: UIButton) {
-        print("Button Tapped")
+        CordialPushNotification.shared.registerForPushNotifications(options: self.options)
+        self.dismiss(animated: true)
     }
     
     @objc func buttonLabelTapped(_ sender: UIButton) {
