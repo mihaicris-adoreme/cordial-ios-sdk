@@ -1,5 +1,5 @@
 //
-//  PushNotificationSettingsHandler.swift
+//  PushNotificationCategoriesHandler.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 23.02.2023.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-@objcMembers public class PushNotificationSettingsHandler: NSObject {
+@objcMembers public class PushNotificationCategoriesHandler: NSObject {
     
-    public static let shared = PushNotificationSettingsHandler()
+    public static let shared = PushNotificationCategoriesHandler()
     
     private override init() {}
     
@@ -27,24 +27,24 @@ import UIKit
     public var tableViewCellSwitchOnColor = UIColor.systemGreen
     public var tableViewCellSwitchThumbColor = UIColor.white
     
-    public func openPushNotificationSettings() {
-        if !CordialPushNotification.shared.isScreenPushNotificationSettingsShown {
+    public func openPushNotificationCategories() {
+        if !CordialPushNotification.shared.isScreenPushNotificationCategoriesShown {
             DispatchQueue.main.async {
                 if let currentVC = InternalCordialAPI().getActiveViewController() {
-                    currentVC.present(PushNotificationSettingsTableViewController(), animated: true)
+                    currentVC.present(PushNotificationCategoriesTableViewController(), animated: true)
                 }
             }
         }
     }
     
-    public func openEducationalPushNotificationSettings(options: UNAuthorizationOptions) {
+    public func openEducationalPushNotificationCategories(options: UNAuthorizationOptions) {
         DispatchQueue.main.async {
             if let currentVC = InternalCordialAPI().getActiveViewController() {
-                let pushNotificationSettingsVC = PushNotificationSettingsViewController()
-                pushNotificationSettingsVC.options = options
-                pushNotificationSettingsVC.modalPresentationStyle = .fullScreen
+                let pushNotificationCategoriesVC = PushNotificationCategoriesViewController()
+                pushNotificationCategoriesVC.options = options
+                pushNotificationCategoriesVC.modalPresentationStyle = .fullScreen
                 
-                currentVC.present(pushNotificationSettingsVC, animated: true)
+                currentVC.present(pushNotificationCategoriesVC, animated: true)
             }
         }
     }

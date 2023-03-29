@@ -19,7 +19,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     
     let pushNotificationHelper = PushNotificationHelper()
     
-    var isScreenPushNotificationSettingsShown = false
+    var isScreenPushNotificationCategoriesShown = false
 
     func registerForPushNotifications(options: UNAuthorizationOptions) {
         UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, error in
@@ -32,9 +32,11 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     }
     
     func providesAppNotificationSettings(options: UNAuthorizationOptions, isEducational: Bool) {
-        UNUserNotificationCenter.current().getNotificationSettings { settings in
+        let current = UNUserNotificationCenter.current()
+        
+        current.getNotificationSettings { settings in
             if isEducational && settings.authorizationStatus != .authorized && settings.authorizationStatus != .provisional {
-                PushNotificationSettingsHandler.shared.openEducationalPushNotificationSettings(options: options)
+                PushNotificationCategoriesHandler.shared.openEducationalPushNotificationCategories(options: options)
             } else {
                 self.registerForPushNotifications(options: options)
             }
@@ -87,20 +89,20 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
-        if CordialApiConfiguration.shared.notificationSettingsConfiguration == .SDK {
-            PushNotificationSettingsHandler.shared.openPushNotificationSettings()
+        if CordialApiConfiguration.shared.pushNotificationCategoriesConfiguration == .SDK {
+            PushNotificationCategoriesHandler.shared.openPushNotificationCategories()
         } else {
             // UIKit
-            if let pushNotificationSettingsDelegate = CordialApiConfiguration.shared.pushNotificationSettingsDelegate {
+            if let pushNotificationCategoriesDelegate = CordialApiConfiguration.shared.pushNotificationCategoriesDelegate {
                 DispatchQueue.main.async {
-                    pushNotificationSettingsDelegate.openPushNotificationSettings()
+                    pushNotificationCategoriesDelegate.openPushNotificationCategories()
                 }
             }
             
             // SwiftUI
             if #available(iOS 13.0, *) {
                 DispatchQueue.main.async {
-                    CordialSwiftUIPushNotificationSettingsPublisher.shared.publishOpenPushNotificationSettings()
+                    CordialSwiftUIPushNotificationCategoriesPublisher.shared.publishOpenPushNotificationCategories()
                 }
             }
         }

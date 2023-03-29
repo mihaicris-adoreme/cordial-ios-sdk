@@ -1,5 +1,5 @@
 //
-//  PushNotificationSettingsTableViewCell.swift
+//  PushNotificationCategoriesTableViewCell.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 01.02.2023.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PushNotificationSettingsTableViewCell: UITableViewCell {
+class PushNotificationCategoriesTableViewCell: UITableViewCell {
     
     let switcher = UISwitch()
     let title = UILabel()

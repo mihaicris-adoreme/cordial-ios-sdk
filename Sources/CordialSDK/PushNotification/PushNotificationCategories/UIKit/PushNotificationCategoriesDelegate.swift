@@ -1,5 +1,5 @@
 //
-//  PushNotificationSettingsDelegate.swift
+//  PushNotificationCategoriesDelegate.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 10.03.2023.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-@objc public protocol PushNotificationSettingsDelegate {
+@objc public protocol PushNotificationCategoriesDelegate {
     
-    @objc func openPushNotificationSettings()
+    @objc func openPushNotificationCategories()
     
 }

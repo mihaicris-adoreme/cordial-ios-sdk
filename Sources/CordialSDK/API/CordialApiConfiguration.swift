@@ -32,14 +32,14 @@ import os.log
     
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
-    @objc public var pushNotificationSettingsDelegate: PushNotificationSettingsDelegate?
+    @objc public var pushNotificationCategoriesDelegate: PushNotificationCategoriesDelegate?
     @objc public var inAppMessageInputsDelegate: InAppMessageInputsDelegate?
     @objc public var inboxMessageDelegate: InboxMessageDelegate?
     
     @objc public var pushesConfiguration: CordialPushNotificationConfigurationType = .SDK
     @objc public var deepLinksConfiguration: CordialDeepLinksConfigurationType = .SDK
     @objc public var backgroundURLSessionConfiguration: CordialURLSessionConfigurationType = .SDK
-    @objc public var notificationSettingsConfiguration: PushNotificationSettingsConfigurationType = .SDK
+    @objc public var pushNotificationCategoriesConfiguration: PushNotificationCategoriesConfigurationType = .SDK
     @objc public var inAppMessagesDeliveryConfiguration: InAppMessagesDeliveryConfigurationType = .directDelivery
     
     @objc public let inboxMessageCache = InboxMessageCache.shared
@@ -47,17 +47,17 @@ import os.log
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, Any>?
     
-    @objc public func setNotificationSettings(_ pushNotificationSettings: [PushNotificationSettings]) {
+    @objc public func setNotificationCategories(_ pushNotificationCategories: [PushNotificationCategory]) {
         let internalCordialAPI = InternalCordialAPI()
         
-        if !pushNotificationSettings.isEmpty {
-            if internalCordialAPI.isNewPushNotificationSettings(pushNotificationSettings: pushNotificationSettings) {
-                internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings)
-                internalCordialAPI.setPushNotificationSettings(pushNotificationSettings: pushNotificationSettings, key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN)
+        if !pushNotificationCategories.isEmpty {
+            if internalCordialAPI.isNewPushNotificationCategories(pushNotificationCategories: pushNotificationCategories) {
+                internalCordialAPI.setPushNotificationCategories(pushNotificationCategories: pushNotificationCategories)
+                internalCordialAPI.setPushNotificationCategories(pushNotificationCategories: pushNotificationCategories, key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES_ORIGIN)
             }
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Setting empty push notification settings array is unsupported", log: OSLog.cordialPushNotification, type: .error)
+                os_log("Setting empty push notification categories array is unsupported", log: OSLog.cordialPushNotification, type: .error)
             }
         }
     }

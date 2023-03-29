@@ -180,7 +180,7 @@ import os.log
     
     @objc public func registerForPushNotifications(options: UNAuthorizationOptions, isEducational: Bool = false) {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
-            if !InternalCordialAPI().getPushNotificationSettings().isEmpty && !options.contains(.providesAppNotificationSettings) {
+            if !InternalCordialAPI().getPushNotificationCategories().isEmpty && !options.contains(.providesAppNotificationSettings) {
                 let newOptions = options.union([.providesAppNotificationSettings])
                 CordialPushNotification.shared.providesAppNotificationSettings(options: newOptions, isEducational: isEducational)
             } else {

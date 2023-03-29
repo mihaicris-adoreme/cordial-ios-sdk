@@ -234,108 +234,108 @@ class NotificationViewController: CordialNotificationContentExtension {
 
 Push notification categories let app developers control the types of in-app pop-up notifications that users can receive to improve engagement and personalization. Developers can specify the specific types of notifications that can be delivered to the user via an in-app popup by the button within the app's notifications settings.
 
-To activate the feature would be sufficient to create a new list of notification settings with the different available categories and their corresponding configuration options:
+To activate the feature would be sufficient to create a new list of notification categories with the different available categories and their corresponding configuration options:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-CordialApiConfiguration.shared.setNotificationSettings([
-    PushNotificationSettings(key: "discounts", name: "Discounts", initState: true),
-    PushNotificationSettings(key: "new-arrivals", name: "New Arrivals", initState: false),
-    PushNotificationSettings(key: "top-products", name: "Top Products", initState: true)
+CordialApiConfiguration.shared.setNotificationCategories([
+    PushNotificationCategory(key: "discounts", name: "Discounts", initState: true),
+    PushNotificationCategory(key: "new-arrivals", name: "New Arrivals", initState: false),
+    PushNotificationCategory(key: "top-products", name: "Top Products", initState: true)
 ])
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[CordialApiConfiguration shared] setNotificationSettings:@[
-    [[PushNotificationSettings alloc] initWithKey:@"discounts" name:@"Discounts" initState:YES],
-    [[PushNotificationSettings alloc] initWithKey:@"new-arrivals" name:@"New Arrivals" initState:NO],
-    [[PushNotificationSettings alloc] initWithKey:@"top-products" name:@"Top Products" initState:YES]
+[[CordialApiConfiguration shared] setNotificationCategories:@[
+    [[PushNotificationCategory alloc] initWithKey:@"discounts" name:@"Discounts" initState:YES],
+    [[PushNotificationCategory alloc] initWithKey:@"new-arrivals" name:@"New Arrivals" initState:NO],
+    [[PushNotificationCategory alloc] initWithKey:@"top-products" name:@"Top Products" initState:YES]
 ]];
 ```
 
-The notification settings screen has a default view, but it can be customized by the client developer to match their desired color scheme. The SDK offers `PushNotificationSettingsHandler` class to manage the view of the notification categories. 
+The notification categories screen has a default view, but it can be customized by the client developer to match their desired color scheme. The SDK offers `PushNotificationCategoriesHandler` class to manage the view of the notification categories. 
 
 To change the color of any available part of the view, please use appropriate property from the provided list:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-PushNotificationSettingsHandler.shared.navigationBarBackgroundColor = UIColor.selectedColor
-PushNotificationSettingsHandler.shared.navigationBarTitleColor = UIColor.selectedColor
-PushNotificationSettingsHandler.shared.navigationBarXmarkColor = UIColor.selectedColor
-PushNotificationSettingsHandler.shared.tableViewBackgroundColor = UIColor.selectedColor
-PushNotificationSettingsHandler.shared.tableViewSectionTitleColor = UIColor.selectedColor
-PushNotificationSettingsHandler.shared.tableViewCellBackgroundColor = UIColor.selectedColor
-PushNotificationSettingsHandler.shared.tableViewCellTitleColor = UIColor.selectedColor
-PushNotificationSettingsHandler.shared.tableViewCellSwitchOnColor = UIColor.selectedColor
-PushNotificationSettingsHandler.shared.tableViewCellSwitchThumbColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.navigationBarBackgroundColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.navigationBarTitleColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.navigationBarXmarkColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewBackgroundColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewSectionTitleColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewCellBackgroundColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewCellTitleColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewCellSwitchOnColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewCellSwitchThumbColor = UIColor.selectedColor
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[PushNotificationSettingsHandler shared].navigationBarBackgroundColor = UIColor.selectedColor;
-[PushNotificationSettingsHandler shared].navigationBarTitleColor = UIColor.selectedColor;
-[PushNotificationSettingsHandler shared].navigationBarXmarkColor = UIColor.selectedColor;
-[PushNotificationSettingsHandler shared].tableViewBackgroundColor = UIColor.selectedColor;
-[PushNotificationSettingsHandler shared].tableViewSectionTitleColor = UIColor.selectedColor;
-[PushNotificationSettingsHandler shared].tableViewCellBackgroundColor = UIColor.selectedColor;
-[PushNotificationSettingsHandler shared].tableViewCellTitleColor = UIColor.selectedColor;
-[PushNotificationSettingsHandler shared].tableViewCellSwitchOnColor = UIColor.selectedColor;
-[PushNotificationSettingsHandler shared].tableViewCellSwitchThumbColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].navigationBarBackgroundColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].navigationBarTitleColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].navigationBarXmarkColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewBackgroundColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewSectionTitleColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewCellBackgroundColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewCellTitleColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewCellSwitchOnColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewCellSwitchThumbColor = UIColor.selectedColor;
 ```
 
-In addition to a button within the app's notification settings the SDK provides a call to show the notification settings screen within the app:
+In addition to a button within the app's notification settings the SDK provides a call to show the notification categories screen within the app:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-PushNotificationSettingsHandler.shared.openPushNotificationSettings()
+PushNotificationCategoriesHandler.shared.openPushNotificationCategories()
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[[PushNotificationSettingsHandler shared] openPushNotificationSettings];
+[[PushNotificationCategoriesHandler shared] openPushNotificationCategories];
 ```
 
-If changing colors of the notification settings screen is not enough to achieve the desired goal the SDK provides programmatic access to customize appearance of the notification settings screen view. This can be done by using the `CordialApiConfiguration.notificationSettingsConfiguration` option which can take one of the two values `SDK` or `APP`.
+If changing colors of the notification categories screen is not enough to achieve the desired goal the SDK provides programmatic access to customize appearance of the notification categories screen view. This can be done by using the `CordialApiConfiguration.pushNotificationCategoriesConfiguration` option which can take one of the two values `SDK` or `APP`.
 
-In order to enable programmatic access set configuration field `notificationSettingsConfiguration` to `APP` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
+In order to enable programmatic access set configuration field `pushNotificationCategoriesConfiguration` to `APP` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-CordialApiConfiguration.shared.notificationSettingsConfiguration = .APP
+CordialApiConfiguration.shared.pushNotificationCategoriesConfiguration = .APP
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[CordialApiConfiguration shared].notificationSettingsConfiguration = PushNotificationSettingsConfigurationTypeAPP;
+[CordialApiConfiguration shared].pushNotificationCategoriesConfiguration = PushNotificationCategoriesConfigurationTypeAPP;
 ```
 
 The second step that need to be done to receive programmatic access depends of the uses app lifecycle. 
 
-For UIKit lifecycle need to implement the `PushNotificationSettingsDelegate` protocol. The protocol contains `openPushNotificationSettings` callback that will be called when the button inside app's system notifications settings has been tapped.
+For UIKit lifecycle need to implement the `PushNotificationCategoriesDelegate` protocol. The protocol contains `openPushNotificationCategories` callback that will be called when the button inside app's notifications settings has been tapped.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-let pushNotificationSettingsHandler = YourImplementationOfTheProtocol()  
-CordialApiConfiguration.shared.pushNotificationSettingsDelegate = pushNotificationSettingsHandler
+let pushNotificationCategoriesHandler = YourImplementationOfTheProtocol()  
+CordialApiConfiguration.shared.pushNotificationCategoriesDelegate = pushNotificationCategoriesHandler
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-YourImplementationOfTheProtocol *pushNotificationSettingsHandler = [[YourImplementationOfTheProtocol alloc] init];
-[CordialApiConfiguration shared].pushNotificationSettingsDelegate = pushNotificationSettingsHandler;
+YourImplementationOfTheProtocol *pushNotificationCategoriesHandler = [[YourImplementationOfTheProtocol alloc] init];
+[CordialApiConfiguration shared].pushNotificationCategoriesDelegate = pushNotificationCategoriesHandler;
 ```
 
-For SwiftUI lifecycle need to make `onReceive` subscription to the `CordialSwiftUIPushNotificationSettingsPublisher` at your app certain view:
+For SwiftUI lifecycle need to make `onReceive` subscription to the `CordialSwiftUIPushNotificationCategoriesPublisher` at your app certain view:
 
 ```
 AppliationView()
-    .onReceive(self.pushNotificationSettingsPublisher.openPushNotificationSettings, perform: { _ in
+    .onReceive(self.pushNotificationCategoriesPublisher.openPushNotificationCategories, perform: { _ in
         // Update the view 
     })
 ```

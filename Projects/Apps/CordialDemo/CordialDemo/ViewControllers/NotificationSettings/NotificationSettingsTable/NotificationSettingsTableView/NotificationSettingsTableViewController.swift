@@ -18,17 +18,17 @@ class NotificationSettingsTableViewController: UIViewController, UITableViewDele
     
     private var sections: [NotificationSettingsTableData] = [
         NotificationSettingsTableData(title: "NAVIGATION BAR", data: [
-            NotificationSettingsData(key: "navigation_bar_background_color", title: "Background color", color: PushNotificationSettingsHandler.shared.navigationBarBackgroundColor),
-            NotificationSettingsData(key: "navigation_bar_title_color", title: "Title color", color: PushNotificationSettingsHandler.shared.navigationBarTitleColor),
-            NotificationSettingsData(key: "navigation_bar_xmark_color", title: "Xmark color", color: PushNotificationSettingsHandler.shared.navigationBarXmarkColor)
+            NotificationSettingsData(key: "navigation_bar_background_color", title: "Background color", color: PushNotificationCategoriesHandler.shared.navigationBarBackgroundColor),
+            NotificationSettingsData(key: "navigation_bar_title_color", title: "Title color", color: PushNotificationCategoriesHandler.shared.navigationBarTitleColor),
+            NotificationSettingsData(key: "navigation_bar_xmark_color", title: "Xmark color", color: PushNotificationCategoriesHandler.shared.navigationBarXmarkColor)
         ]),
         NotificationSettingsTableData(title: "TABLE VIEW", data: [
-            NotificationSettingsData(key: "table_view_background_color", title: "Background color", color: PushNotificationSettingsHandler.shared.tableViewBackgroundColor),
-            NotificationSettingsData(key: "table_view_section_title_color", title: "Section title color", color: PushNotificationSettingsHandler.shared.tableViewSectionTitleColor),
-            NotificationSettingsData(key: "table_view_cell_background_color", title: "Cell background color", color: PushNotificationSettingsHandler.shared.tableViewCellBackgroundColor),
-            NotificationSettingsData(key: "table_view_cell_title_color", title: "Cell title color", color: PushNotificationSettingsHandler.shared.tableViewCellTitleColor),
-            NotificationSettingsData(key: "table_view_cell_switch_on_color", title: "Cell switch on color", color: PushNotificationSettingsHandler.shared.tableViewCellSwitchOnColor),
-            NotificationSettingsData(key: "table_view_cell_switch_thumb_color", title: "Cell switch thumb color", color: PushNotificationSettingsHandler.shared.tableViewCellSwitchThumbColor)
+            NotificationSettingsData(key: "table_view_background_color", title: "Background color", color: PushNotificationCategoriesHandler.shared.tableViewBackgroundColor),
+            NotificationSettingsData(key: "table_view_section_title_color", title: "Section title color", color: PushNotificationCategoriesHandler.shared.tableViewSectionTitleColor),
+            NotificationSettingsData(key: "table_view_cell_background_color", title: "Cell background color", color: PushNotificationCategoriesHandler.shared.tableViewCellBackgroundColor),
+            NotificationSettingsData(key: "table_view_cell_title_color", title: "Cell title color", color: PushNotificationCategoriesHandler.shared.tableViewCellTitleColor),
+            NotificationSettingsData(key: "table_view_cell_switch_on_color", title: "Cell switch on color", color: PushNotificationCategoriesHandler.shared.tableViewCellSwitchOnColor),
+            NotificationSettingsData(key: "table_view_cell_switch_thumb_color", title: "Cell switch thumb color", color: PushNotificationCategoriesHandler.shared.tableViewCellSwitchThumbColor)
         ])
     ]
     
@@ -76,11 +76,11 @@ class NotificationSettingsTableViewController: UIViewController, UITableViewDele
     }
     
     @objc func openEducationalPushNotificationSettings() {
-        PushNotificationSettingsHandler.shared.openEducationalPushNotificationSettings(options: [])
+        PushNotificationCategoriesHandler.shared.openEducationalPushNotificationCategories(options: [])
     }
     
     @objc func openPushNotificationSettings() {
-        PushNotificationSettingsHandler.shared.openPushNotificationSettings()
+        PushNotificationCategoriesHandler.shared.openPushNotificationCategories()
     }
     
     @available(iOS 14.0, *)
@@ -133,40 +133,40 @@ class NotificationSettingsTableViewController: UIViewController, UITableViewDele
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         switch self.key {
         case "navigation_bar_background_color":
-            PushNotificationSettingsHandler.shared.navigationBarBackgroundColor = viewController.selectedColor
+            PushNotificationCategoriesHandler.shared.navigationBarBackgroundColor = viewController.selectedColor
         case "navigation_bar_title_color":
-            PushNotificationSettingsHandler.shared.navigationBarTitleColor = viewController.selectedColor
+            PushNotificationCategoriesHandler.shared.navigationBarTitleColor = viewController.selectedColor
         case "navigation_bar_xmark_color":
-            PushNotificationSettingsHandler.shared.navigationBarXmarkColor = viewController.selectedColor
+            PushNotificationCategoriesHandler.shared.navigationBarXmarkColor = viewController.selectedColor
         case "table_view_background_color":
-            PushNotificationSettingsHandler.shared.tableViewBackgroundColor = viewController.selectedColor
+            PushNotificationCategoriesHandler.shared.tableViewBackgroundColor = viewController.selectedColor
         case "table_view_section_title_color":
-            PushNotificationSettingsHandler.shared.tableViewSectionTitleColor = viewController.selectedColor
+            PushNotificationCategoriesHandler.shared.tableViewSectionTitleColor = viewController.selectedColor
         case "table_view_cell_background_color":
-            PushNotificationSettingsHandler.shared.tableViewCellBackgroundColor = viewController.selectedColor
+            PushNotificationCategoriesHandler.shared.tableViewCellBackgroundColor = viewController.selectedColor
         case "table_view_cell_title_color":
-            PushNotificationSettingsHandler.shared.tableViewCellTitleColor = viewController.selectedColor
+            PushNotificationCategoriesHandler.shared.tableViewCellTitleColor = viewController.selectedColor
         case "table_view_cell_switch_on_color":
-            PushNotificationSettingsHandler.shared.tableViewCellSwitchOnColor = viewController.selectedColor
+            PushNotificationCategoriesHandler.shared.tableViewCellSwitchOnColor = viewController.selectedColor
         case "table_view_cell_switch_thumb_color":
-            PushNotificationSettingsHandler.shared.tableViewCellSwitchThumbColor = viewController.selectedColor
+            PushNotificationCategoriesHandler.shared.tableViewCellSwitchThumbColor = viewController.selectedColor
         default:
             break
         }
         
         self.sections = [
             NotificationSettingsTableData(title: "NAVIGATION BAR", data: [
-                NotificationSettingsData(key: "navigation_bar_background_color", title: "Background color", color: PushNotificationSettingsHandler.shared.navigationBarBackgroundColor),
-                NotificationSettingsData(key: "navigation_bar_title_color", title: "Title color", color: PushNotificationSettingsHandler.shared.navigationBarTitleColor),
-                NotificationSettingsData(key: "navigation_bar_xmark_color", title: "Xmark color", color: PushNotificationSettingsHandler.shared.navigationBarXmarkColor)
+                NotificationSettingsData(key: "navigation_bar_background_color", title: "Background color", color: PushNotificationCategoriesHandler.shared.navigationBarBackgroundColor),
+                NotificationSettingsData(key: "navigation_bar_title_color", title: "Title color", color: PushNotificationCategoriesHandler.shared.navigationBarTitleColor),
+                NotificationSettingsData(key: "navigation_bar_xmark_color", title: "Xmark color", color: PushNotificationCategoriesHandler.shared.navigationBarXmarkColor)
             ]),
             NotificationSettingsTableData(title: "TABLE VIEW", data: [
-                NotificationSettingsData(key: "table_view_background_color", title: "Background color", color: PushNotificationSettingsHandler.shared.tableViewBackgroundColor),
-                NotificationSettingsData(key: "table_view_section_title_color", title: "Section title color", color: PushNotificationSettingsHandler.shared.tableViewSectionTitleColor),
-                NotificationSettingsData(key: "table_view_cell_background_color", title: "Cell background color", color: PushNotificationSettingsHandler.shared.tableViewCellBackgroundColor),
-                NotificationSettingsData(key: "table_view_cell_title_color", title: "Cell title color", color: PushNotificationSettingsHandler.shared.tableViewCellTitleColor),
-                NotificationSettingsData(key: "table_view_cell_switch_on_color", title: "Cell switch on color", color: PushNotificationSettingsHandler.shared.tableViewCellSwitchOnColor),
-                NotificationSettingsData(key: "table_view_cell_switch_thumb_color", title: "Cell switch thumb color", color: PushNotificationSettingsHandler.shared.tableViewCellSwitchThumbColor)
+                NotificationSettingsData(key: "table_view_background_color", title: "Background color", color: PushNotificationCategoriesHandler.shared.tableViewBackgroundColor),
+                NotificationSettingsData(key: "table_view_section_title_color", title: "Section title color", color: PushNotificationCategoriesHandler.shared.tableViewSectionTitleColor),
+                NotificationSettingsData(key: "table_view_cell_background_color", title: "Cell background color", color: PushNotificationCategoriesHandler.shared.tableViewCellBackgroundColor),
+                NotificationSettingsData(key: "table_view_cell_title_color", title: "Cell title color", color: PushNotificationCategoriesHandler.shared.tableViewCellTitleColor),
+                NotificationSettingsData(key: "table_view_cell_switch_on_color", title: "Cell switch on color", color: PushNotificationCategoriesHandler.shared.tableViewCellSwitchOnColor),
+                NotificationSettingsData(key: "table_view_cell_switch_thumb_color", title: "Cell switch thumb color", color: PushNotificationCategoriesHandler.shared.tableViewCellSwitchThumbColor)
             ])
         ]
         

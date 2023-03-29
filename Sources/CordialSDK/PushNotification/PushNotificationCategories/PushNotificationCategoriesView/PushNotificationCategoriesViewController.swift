@@ -1,5 +1,5 @@
 //
-//  PushNotificationSettingsViewController.swift
+//  PushNotificationCategoriesViewController.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 22.03.2023.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-class PushNotificationSettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PushNotificationCategoriesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    private var rows = InternalCordialAPI().getPushNotificationSettings()
+    private var rows = InternalCordialAPI().getPushNotificationCategories()
     
-    let pushNotificationSettingsHandler = PushNotificationSettingsHandler.shared
+    let pushNotificationCategoriesHandler = PushNotificationCategoriesHandler.shared
     
-    let tableView = PushNotificationSettingsTableView(frame: UIScreen.main.nativeBounds)
+    let tableView = PushNotificationCategoriesTableView(frame: UIScreen.main.nativeBounds)
     
     var options: UNAuthorizationOptions = []
     
@@ -32,13 +32,13 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         
         // UITableView
         self.tableView.showsVerticalScrollIndicator = false
-        self.tableView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
-        self.tableView.separatorColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
+        self.tableView.backgroundColor = self.pushNotificationCategoriesHandler.tableViewBackgroundColor
+        self.tableView.separatorColor = self.pushNotificationCategoriesHandler.tableViewBackgroundColor
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.tableView.register(PushNotificationSettingsTableViewCell.self, forCellReuseIdentifier: "cell")
+        self.tableView.register(PushNotificationCategoriesTableViewCell.self, forCellReuseIdentifier: "cell")
         
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.allowsSelection = false
@@ -50,7 +50,7 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         let upperLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
         upperLabel.font = mediumFont
         upperLabel.textAlignment = .center
-        upperLabel.textColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor()
+        upperLabel.textColor = self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor()
         upperLabel.numberOfLines = 0
         upperLabel.text = "We will be sending you only the notifications selected"
         
@@ -58,19 +58,19 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         self.tableView.tableHeaderView = tableHeaderView
         
         // UITableView - FooterView
-        let tableFooterView = PushNotificationSettingsViewFooterView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let tableFooterView = PushNotificationCategoriesViewFooterView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         
         let wrapTableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.frame = CGRect(x: 0, y: 0, width: width, height: height / 3)
-        button.setTitleColor(self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
+        button.setTitleColor(self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
         button.titleLabel?.font = font
         button.setTitle("Enable Notifications", for: .normal)
         
         button.layer.borderWidth = 1
-        button.layer.borderColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor().cgColor
+        button.layer.borderColor = self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor().cgColor
         button.layer.cornerRadius = 10
         
         button.addTarget(self, action: #selector(self.buttonTapped(_:)), for: .touchUpInside)
@@ -78,7 +78,7 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         let buttonLabel = UIButton(type: .system)
         buttonLabel.translatesAutoresizingMaskIntoConstraints = false
         buttonLabel.frame = CGRect(x: 0, y: 0, width: width, height: height / 4)
-        buttonLabel.setTitleColor(self.pushNotificationSettingsHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
+        buttonLabel.setTitleColor(self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
         buttonLabel.titleLabel?.font = lightFont
         buttonLabel.setTitle("Not now", for: .normal)
         
@@ -101,7 +101,7 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         
         // UITableView - Configuration
         let wrapView = UIView(frame: self.view.frame)
-        wrapView.backgroundColor = self.pushNotificationSettingsHandler.tableViewBackgroundColor
+        wrapView.backgroundColor = self.pushNotificationCategoriesHandler.tableViewBackgroundColor
   
         wrapView.addSubview(self.tableView)
         
@@ -129,9 +129,9 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
         let name = row.name
         let initState = sender.isOn
         
-        self.rows[sender.tag] = PushNotificationSettings(key: key, name: name, initState: initState)
+        self.rows[sender.tag] = PushNotificationCategory(key: key, name: name, initState: initState)
         
-        InternalCordialAPI().setPushNotificationSettings(pushNotificationSettings: self.rows)
+        InternalCordialAPI().setPushNotificationCategories(pushNotificationCategories: self.rows)
     }
     
     // MARK: - Table view data source
@@ -141,27 +141,27 @@ class PushNotificationSettingsViewController: UIViewController, UITableViewDeleg
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PushNotificationSettingsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PushNotificationCategoriesTableViewCell
         
-        let settings = self.rows[indexPath.row]
+        let row = self.rows[indexPath.row]
         
-        cell.title.text = "\(settings.name)"
-        cell.title.textColor = self.pushNotificationSettingsHandler.tableViewCellTitleColor
+        cell.title.text = "\(row.name)"
+        cell.title.textColor = self.pushNotificationCategoriesHandler.tableViewCellTitleColor
         
-        cell.switcher.isOn = settings.initState
+        cell.switcher.isOn = row.initState
         cell.switcher.tag = indexPath.row // for detect which row switch changed
         cell.switcher.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
         
-        cell.switcher.thumbTintColor = self.pushNotificationSettingsHandler.tableViewCellSwitchThumbColor
+        cell.switcher.thumbTintColor = self.pushNotificationCategoriesHandler.tableViewCellSwitchThumbColor
         
-        cell.switcher.tintColor = self.pushNotificationSettingsHandler.tableViewCellSwitchOnColor
-        cell.switcher.onTintColor = self.pushNotificationSettingsHandler.tableViewCellSwitchOnColor
+        cell.switcher.tintColor = self.pushNotificationCategoriesHandler.tableViewCellSwitchOnColor
+        cell.switcher.onTintColor = self.pushNotificationCategoriesHandler.tableViewCellSwitchOnColor
         
         return cell
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = self.pushNotificationSettingsHandler.tableViewCellBackgroundColor
+        cell.backgroundColor = self.pushNotificationCategoriesHandler.tableViewCellBackgroundColor
         
         let cornerRadius: CGFloat = 10
         

@@ -1,5 +1,5 @@
 //
-//  PushNotificationSettingsTableView.swift
+//  PushNotificationCategoriesTableView.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 03.02.2023.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PushNotificationSettingsTableView: UITableView {
+class PushNotificationCategoriesTableView: UITableView {
 
     init(frame: CGRect) {
         super.init(frame: frame, style: .grouped)

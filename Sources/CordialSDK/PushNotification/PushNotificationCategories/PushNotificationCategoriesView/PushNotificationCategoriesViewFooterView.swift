@@ -1,5 +1,5 @@
 //
-//  PushNotificationSettingsViewFooterView.swift
+//  PushNotificationCategoriesViewFooterView.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 24.03.2023.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PushNotificationSettingsViewFooterView: UIView {
+class PushNotificationCategoriesViewFooterView: UIView {
 
     // Forward all the touches through this overlay view
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
