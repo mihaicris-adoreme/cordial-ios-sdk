@@ -192,5 +192,9 @@ import os.log
             }
         }
     }
+    
+    @objc public func registerForPushNotifications(options: UNAuthorizationOptions) {
+        self.registerForPushNotifications(options: options, isEducational: false)
+    }
 }
 

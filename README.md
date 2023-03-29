@@ -340,6 +340,22 @@ AppliationView()
     })
 ```
 
+### Show push categories in educational screen
+
+In order to help client choose preferable push notifications categories and presenting a clear explanation of the reasons, SDK provides ability to show self educational screen within the request of push notifications permissions. After the user has selected the categories, the default push notification permission prompt should be displayed.
+
+To do so provide addition parameter `isEducational` to the call `CordialAPI.registerForPushNotifications`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+___
+```
+cordialAPI.registerForPushNotifications(options: [.alert, .sound], isEducational: true)
+```
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+___
+```
+[cordialAPI registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound isEducational:YES];
+```
 
 ## Multiple Push Notification Providers
 Cordial SDK supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
