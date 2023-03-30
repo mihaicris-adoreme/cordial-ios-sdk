@@ -178,7 +178,7 @@ import os.log
     
     // MARK: Register for push notifications
     
-    @objc public func registerForPushNotifications(options: UNAuthorizationOptions, isEducational: Bool = false) {
+    @objc public func registerForPushNotifications(options: UNAuthorizationOptions, isEducational: Bool) {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             if !InternalCordialAPI().getPushNotificationCategories().isEmpty && !options.contains(.providesAppNotificationSettings) {
                 let newOptions = options.union([.providesAppNotificationSettings])
