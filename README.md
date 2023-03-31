@@ -232,9 +232,9 @@ class NotificationViewController: CordialNotificationContentExtension {
 
 ## Push Notifications Categories
 
-Push notification categories let app developers control the types of in-app pop-up notifications that users can receive to improve engagement and personalization. Developers can specify the specific types of notifications that can be delivered to the user via an in-app popup by the button within the app's notifications settings.
+Push notification categories let app users control the categories of push notifications they will receive. For example, they might allow Discounts and deny New Arrivals push notifications. Presenting users with a choice of which categories of push notifications they want to receive and communicating that up-front before requesting the push notification permission may drastically improve push notifications opt-in rates.
 
-To activate the feature would be sufficient to create a new list of notification categories with the different available categories and their corresponding configuration options:
+To start using the feature pass available push notification categories to the SDK:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -254,10 +254,15 @@ ___
     [[PushNotificationCategory alloc] initWithKey:@"top-products" name:@"Top Products" initState:YES]
 ]];
 ```
+After the categories are set, your app will have the '[App name] Notification Settings' button in the app's notification settings:
 
-The notification categories screen has a default view, but it can be customized by the client developer to match their desired color scheme. The SDK offers `PushNotificationCategoriesHandler` class to manage the view of the notification categories. 
+![notification-settings-button](docs/images/notification-settings-button.jpeg "Notification settings button")
 
-To change the color of any available part of the view, please use appropriate property from the provided list:
+Clicking the button will open the default categories selection screen:
+
+![categories-selection-screen](docs/images/categories-selection-screen.jpeg "Categories selection screen")
+
+To configure the colors of this screen use the following API:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -286,7 +291,7 @@ ___
 [PushNotificationCategoriesHandler shared].tableViewCellSwitchThumbColor = UIColor.selectedColor;
 ```
 
-In addition to a button within the app's notification settings the SDK provides a call to show the notification categories screen within the app:
+To show the categories selection screen programmatically use the `openPushNotificationCategories` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -298,10 +303,11 @@ ___
 ```
 [[PushNotificationCategoriesHandler shared] openPushNotificationCategories];
 ```
+### Custom screen for selecting push notification categories
 
-If changing colors of the notification categories screen is not enough to achieve the desired goal the SDK provides programmatic access to customize appearance of the notification categories screen view. This can be done by using the `CordialApiConfiguration.pushNotificationCategoriesConfiguration` option which can take one of the two values `SDK` or `APP`.
+Rather than relying on the SDK to show the default categories selection screen, your application can show a custom screen. 
 
-In order to enable programmatic access set configuration field `pushNotificationCategoriesConfiguration` to `APP` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
+First, tell the SDK that it should not display the default categories selection screen in `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -314,9 +320,7 @@ ___
 [CordialApiConfiguration shared].pushNotificationCategoriesConfiguration = PushNotificationCategoriesConfigurationTypeAPP;
 ```
 
-The second step that need to be done to receive programmatic access depends of the uses app lifecycle. 
-
-For UIKit lifecycle need to implement the `PushNotificationCategoriesDelegate` protocol. The protocol contains `openPushNotificationCategories` callback that will be called when the button inside app's notifications settings has been tapped.
+Second, if your app uses UIKit, implement the `PushNotificationCategoriesDelegate` protocol. The protocol contains `openPushNotificationCategories` callback that will be called when a user clicks the '[App name] Notification Settings' button in your app's notifications settings.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -331,7 +335,7 @@ YourImplementationOfTheProtocol *pushNotificationCategoriesHandler = [[YourImple
 [CordialApiConfiguration shared].pushNotificationCategoriesDelegate = pushNotificationCategoriesHandler;
 ```
 
-For SwiftUI lifecycle need to make `onReceive` subscription to the `CordialSwiftUIPushNotificationCategoriesPublisher` at your app certain view:
+If your app uses SwiftUI, subscribe to `CordialSwiftUIPushNotificationCategoriesPublisher` in your app's view:
 
 ```
 AppliationView()
@@ -340,11 +344,9 @@ AppliationView()
     })
 ```
 
-### Show push categories in educational screen
+### Show push categories selection screen prior to asking a push notification permission
 
-In order to help client choose preferable push notifications categories and presenting a clear explanation of the reasons, SDK provides ability to show self educational screen within the request of push notifications permissions. After the user has selected the categories, the default push notification permission prompt should be displayed.
-
-To do so provide addition parameter `isEducational` to the call `CordialAPI.registerForPushNotifications`:
+To show the categories selection screen before displaying the push notification permission prompt, set `isEducational` parameter in `CordialAPI.registerForPushNotifications` to true:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
@@ -581,7 +583,7 @@ Updates to contact's cart can be sent to Cordial by calling the `CordialApi.upse
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-сordialAPI.upsertContactCart(cartItems: cartItems)
+cordialAPI.upsertContactCart(cartItems: cartItems)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
@@ -629,7 +631,7 @@ The orders collection can be updated any time the contact places an order via th
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-сordialAPI.sendContactOrder(order: order)
+cordialAPI.sendContactOrder(order: order)
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
@@ -1290,7 +1292,7 @@ AppliationView()
     .onOpenURL { url in
         CordialSwiftUIDeepLinksHandler().processDeepLink(url: url)
     }.onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
-    	// self.deepLinks is the @State object of CordialSwiftUIDeepLinks class that will trigger view refresh
+        // self.deepLinks is the @State object of CordialSwiftUIDeepLinks class that will trigger view refresh
         self.deepLinks = deepLinks
     }
 ```
