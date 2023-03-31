@@ -256,11 +256,11 @@ ___
 ```
 After the categories are set, your app will have the '[App name] Notification Settings' button in the app's notification settings:
 
-![notification-settings-button](docs/images/notification-settings-button.jpeg "Notification settings button")
+![notification-settings-button](docs/images/notification-settings-button.jpeg =400x)
 
 Clicking the button will open the default categories selection screen:
 
-![categories-selection-screen](docs/images/categories-selection-screen.jpeg "Categories selection screen")
+![categories-selection-screen](docs/images/categories-selection-screen.jpeg =400x)
 
 To configure the colors of this screen use the following API:
 
