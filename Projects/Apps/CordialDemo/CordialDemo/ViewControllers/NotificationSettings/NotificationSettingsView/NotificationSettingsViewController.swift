@@ -26,9 +26,8 @@ class NotificationSettingsViewController: UIViewController {
         let x = self.view.frame.size.width / 2 - width / 2
         let y = self.view.frame.size.height / 2 - height / 2
         
-        let notificationSettingsLabel = NotificationSettingsLabel(frame: CGRect(x: x, y: y, width: width, height: height))
+        let notificationSettingsLabel = NotificationSettingsLabel(frame: CGRect(x: x, y: y, width: width, height: height), fontSize: 17)
         notificationSettingsLabel.text = "Notification Settings"
-        notificationSettingsLabel.textAlignment = .center
         
         self.view.addSubview(notificationSettingsLabel)
     }

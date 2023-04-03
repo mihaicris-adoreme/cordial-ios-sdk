@@ -178,11 +178,11 @@ import os.log
     
     // MARK: Register for push notifications
     
-    @objc public func registerForPushNotifications(options: UNAuthorizationOptions) {
+    @objc public func registerForPushNotifications(options: UNAuthorizationOptions, isEducational: Bool) {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
-            if !InternalCordialAPI().getPushNotificationSettings().isEmpty && !options.contains(.providesAppNotificationSettings) {
+            if !InternalCordialAPI().getPushNotificationCategories().isEmpty && !options.contains(.providesAppNotificationSettings) {
                 let newOptions = options.union([.providesAppNotificationSettings])
-                CordialPushNotification.shared.registerForPushNotifications(options: newOptions)
+                CordialPushNotification.shared.providesAppNotificationSettings(options: newOptions, isEducational: isEducational)
             } else {
                 CordialPushNotification.shared.registerForPushNotifications(options: options)
             }
@@ -191,6 +191,10 @@ import os.log
                 os_log("Register for push notifications failed: pushesConfiguration not equals to SDK value", log: OSLog.cordialPushNotification, type: .info)
             }
         }
+    }
+    
+    @objc public func registerForPushNotifications(options: UNAuthorizationOptions) {
+        self.registerForPushNotifications(options: options, isEducational: false)
     }
 }
 

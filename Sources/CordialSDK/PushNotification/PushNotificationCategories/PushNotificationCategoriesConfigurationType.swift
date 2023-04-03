@@ -1,5 +1,5 @@
 //
-//  PushNotificationSettingsConfigurationType.swift
+//  PushNotificationCategoriesConfigurationType.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 10.03.2023.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public enum PushNotificationSettingsConfigurationType: Int {
+@objc public enum PushNotificationCategoriesConfigurationType: Int {
     case SDK
     case APP
 }

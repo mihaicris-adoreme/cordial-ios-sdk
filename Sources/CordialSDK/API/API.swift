@@ -18,8 +18,8 @@ struct API {
     static let USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN = "USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN"
     static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID"
     static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME"
-    static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS"
-    static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN"
+    static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES"
+    static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES_ORIGIN = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES_ORIGIN"
     static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES"
     static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS"
     static let USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID = "USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID"
@@ -111,15 +111,28 @@ struct API {
         
         return byteCountFormatter.string(fromByteCount: Int64(data.count))
     }
-    
-    static func isDeviceSmallScreen() -> Bool {
-        if UIDevice().userInterfaceIdiom == .phone,
-           UIScreen.main.nativeBounds.height == 1136 { // 1136 px - iPhone5S/SE
-            
-            return true
+}
+
+extension UIColor {
+    func inverseColor() -> UIColor {
+        var alpha: CGFloat = 1.0
+
+        var red: CGFloat = 0.0, green: CGFloat = 0.0, blue: CGFloat = 0.0
+        if self.getRed(&red, green: &green, blue: &blue, alpha: &alpha) {
+            return UIColor(red: 1.0 - red, green: 1.0 - green, blue: 1.0 - blue, alpha: alpha)
         }
-        
-        return false
+
+        var hue: CGFloat = 0.0, saturation: CGFloat = 0.0, brightness: CGFloat = 0.0
+        if self.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha) {
+            return UIColor(hue: 1.0 - hue, saturation: 1.0 - saturation, brightness: 1.0 - brightness, alpha: alpha)
+        }
+
+        var white: CGFloat = 0.0
+        if self.getWhite(&white, alpha: &alpha) {
+            return UIColor(white: 1.0 - white, alpha: alpha)
+        }
+
+        return self
     }
 }
 

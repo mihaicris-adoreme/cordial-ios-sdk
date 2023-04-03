@@ -75,6 +75,7 @@
 		9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */; };
 		9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB260CA229FF489005786BD /* SettingsViewController.swift */; };
 		9EB806FE264A9DBF004C0B02 /* InboxMessageWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB806FD264A9DBF004C0B02 /* InboxMessageWebViewController.swift */; };
+		9EBC6ADA29D20EB300CAA6B1 /* NotificationSettingsTableViewColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBC6AD929D20EB300CAA6B1 /* NotificationSettingsTableViewColorPicker.swift */; };
 		9EC1E141245051E500A4C756 /* CustomEventProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E140245051E500A4C756 /* CustomEventProperty.swift */; };
 		9EC1E1472450891B00A4C756 /* CustomEventTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */; };
 		9EC1E1492450892F00A4C756 /* CustomEventTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */; };
@@ -269,6 +270,7 @@
 		9EB0058F253E5EE800156E8E /* InboxMessagesFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesFilterViewController.swift; sourceTree = "<group>"; };
 		9EB260CA229FF489005786BD /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9EB806FD264A9DBF004C0B02 /* InboxMessageWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageWebViewController.swift; sourceTree = "<group>"; };
+		9EBC6AD929D20EB300CAA6B1 /* NotificationSettingsTableViewColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingsTableViewColorPicker.swift; sourceTree = "<group>"; };
 		9EC1E140245051E500A4C756 /* CustomEventProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventProperty.swift; sourceTree = "<group>"; };
 		9EC1E1462450891B00A4C756 /* CustomEventTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEventTableFooterView.swift; sourceTree = "<group>"; };
 		9EC1E1482450892F00A4C756 /* CustomEventTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomEventTableFooterView.xib; sourceTree = "<group>"; };
@@ -379,6 +381,7 @@
 				9E0F69EA29B612C3002BCAF3 /* NotificationSettingsTableViewCell.swift */,
 				9E2330D129BA10EC00033BCF /* NotificationSettingsTableViewCellTapGestureRecognizer.swift */,
 				9E19E4F329B7704F0047C852 /* NotificationSettingsTableViewTapGestureRecognizer.swift */,
+				9EBC6AD929D20EB300CAA6B1 /* NotificationSettingsTableViewColorPicker.swift */,
 				9E0F69EC29B612EA002BCAF3 /* NotificationSettingsTableView.swift */,
 			);
 			path = NotificationSettingsTableView;
@@ -1120,6 +1123,7 @@
 				9E7EC4242510CE5C00314A18 /* InboxMessagesTableRawViewCell.swift in Sources */,
 				9EB806FE264A9DBF004C0B02 /* InboxMessageWebViewController.swift in Sources */,
 				9E1EB39C241DC61E004CAD90 /* Attribute.swift in Sources */,
+				9EBC6ADA29D20EB300CAA6B1 /* NotificationSettingsTableViewColorPicker.swift in Sources */,
 				9E2330D229BA10EC00033BCF /* NotificationSettingsTableViewCellTapGestureRecognizer.swift in Sources */,
 				9E19E4C429B636050047C852 /* NotificationSettingsData.swift in Sources */,
 				9EC1E141245051E500A4C756 /* CustomEventProperty.swift in Sources */,

@@ -9,9 +9,9 @@
 import Foundation
 import CordialSDK
 
-class NotificationSettingsHandler: PushNotificationSettingsDelegate {
+class NotificationSettingsHandler: PushNotificationCategoriesDelegate {
     
-    func openPushNotificationSettings() {
+    func openPushNotificationCategories() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
         let catalogNavigationController = storyboard.instantiateViewController(withIdentifier: "CatalogNavigationController") as! UINavigationController

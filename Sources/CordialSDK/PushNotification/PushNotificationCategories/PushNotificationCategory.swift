@@ -1,5 +1,5 @@
 //
-//  PushNotificationSettings.swift
+//  PushNotificationCategory.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 09.02.2023.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objcMembers public class PushNotificationSettings: NSObject, NSCoding {
+@objcMembers public class PushNotificationCategory: NSObject, NSCoding {
     
     let key: String
     let name: String

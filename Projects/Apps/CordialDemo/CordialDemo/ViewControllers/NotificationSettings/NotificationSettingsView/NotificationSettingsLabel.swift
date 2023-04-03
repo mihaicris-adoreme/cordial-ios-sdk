@@ -10,21 +10,19 @@ import UIKit
 
 class NotificationSettingsLabel: UILabel {
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        self.initializeLabel()
-    }
-
-    override init(frame: CGRect) {
+    init(frame: CGRect, fontSize: CGFloat) {
         super.init(frame: frame)
         
-        self.initializeLabel()
+        self.initialize(fontSize: fontSize)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 
-    func initializeLabel() {
-        self.textAlignment = .left
-        self.font = UIFont(name: "Halvetica", size: 17)
+    func initialize(fontSize: CGFloat) {
+        self.font = UIFont(name: "Halvetica", size: fontSize)
         self.textColor = UIColor.white
+        self.textAlignment = .center
     }
 }

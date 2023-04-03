@@ -17,7 +17,7 @@ struct ContentView: View {
     @EnvironmentObject var appHandler: AppHandler
     
     @EnvironmentObject var pushNotificationPublisher: CordialSwiftUIPushNotificationPublisher
-    @EnvironmentObject var pushNotificationSettingsPublisher: CordialSwiftUIPushNotificationSettingsPublisher
+    @EnvironmentObject var pushNotificationCategoriesPublisher: CordialSwiftUIPushNotificationCategoriesPublisher
     @EnvironmentObject var deepLinksPublisher: CordialSwiftUIDeepLinksPublisher
     @EnvironmentObject var inboxMessagePublisher: CordialSwiftUIInboxMessagePublisher
     @EnvironmentObject var inAppMessagePublisher: CordialSwiftUIInAppMessagePublisher
@@ -82,7 +82,7 @@ struct ContentView: View {
                 .onReceive(self.pushNotificationPublisher.apnsTokenReceived) { apnsTokenReceived in
                     print("SwiftUIApp: apnsTokenReceived, token: \(apnsTokenReceived.token)")
                 }
-                .onReceive(self.pushNotificationSettingsPublisher.openPushNotificationSettings, perform: { _ in
+                .onReceive(self.pushNotificationCategoriesPublisher.openPushNotificationCategories, perform: { _ in
                     self.notificationSettings = "notificationSettings"
                 })
                 .onReceive(self.inboxMessagePublisher.newInboxMessageDelivered) { newInboxMessageDelivered in

@@ -594,13 +594,13 @@ class InternalCordialAPI {
         CordialUserDefaults.set(token, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN)
     }
     
-    // MARK: Set push notification settings
+    // MARK: Set push notification categories
     
-    func setPushNotificationSettings(pushNotificationSettings: [PushNotificationSettings], key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS) {
-        if key == API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS {
+    func setPushNotificationCategories(pushNotificationCategories: [PushNotificationCategory], key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES) {
+        if key == API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES {
             var enabledKeys: [String] = []
             
-            pushNotificationSettings.forEach { settings in
+            pushNotificationCategories.forEach { settings in
                 if settings.initState {
                     enabledKeys.append(settings.key)
                 }
@@ -610,42 +610,42 @@ class InternalCordialAPI {
             CordialAPI().upsertContact(attributes: [API.UPSERT_CONTACT_ATTRIBUTES_NAME_PUSH_NOTIFICATION_CATEGORIES: attributes])
         }
         
-        let pushNotificationSettingsData = try? NSKeyedArchiver.archivedData(withRootObject: pushNotificationSettings, requiringSecureCoding: false)
-        CordialUserDefaults.set(pushNotificationSettingsData, forKey: key)
+        let pushNotificationCategoriesData = try? NSKeyedArchiver.archivedData(withRootObject: pushNotificationCategories, requiringSecureCoding: false)
+        CordialUserDefaults.set(pushNotificationCategoriesData, forKey: key)
     }
     
-    // MARK: Get push notification settings
+    // MARK: Get push notification categories
     
-    func getPushNotificationSettings(key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS) -> [PushNotificationSettings] {
-        guard let pushNotificationSettingsData = CordialUserDefaults.object(forKey: key) as? Data,
-              let pushNotificationSettingsUnarchive = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(pushNotificationSettingsData),
-              let pushNotificationSettings = pushNotificationSettingsUnarchive as? [PushNotificationSettings] else {
+    func getPushNotificationCategories(key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES) -> [PushNotificationCategory] {
+        guard let pushNotificationCategoriesData = CordialUserDefaults.object(forKey: key) as? Data,
+              let pushNotificationCategoriesUnarchive = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(pushNotificationCategoriesData),
+              let pushNotificationCategories = pushNotificationCategoriesUnarchive as? [PushNotificationCategory] else {
             
-            return [PushNotificationSettings]()
+            return [PushNotificationCategory]()
         }
         
-        for settings in pushNotificationSettings {
-            if settings.isError {
-                return [PushNotificationSettings]()
+        for pushNotificationCategory in pushNotificationCategories {
+            if pushNotificationCategory.isError {
+                return [PushNotificationCategory]()
             }
         }
         
-        return pushNotificationSettings
+        return pushNotificationCategories
     }
     
-    // MARK: Is new push notification settings
+    // MARK: Is new push notification categories
     
-    func isNewPushNotificationSettings(pushNotificationSettings: [PushNotificationSettings]) -> Bool {
-        let pushNotificationSettingsOrigin = self.getPushNotificationSettings(key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_SETTINGS_ORIGIN)
+    func isNewPushNotificationCategories(pushNotificationCategories: [PushNotificationCategory]) -> Bool {
+        let pushNotificationCategoriesOrigin = self.getPushNotificationCategories(key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES_ORIGIN)
         
-        func getSettingsJSON(_ pushNotificationSettings: [PushNotificationSettings]) -> String {
+        func getSettingsJSON(_ pushNotificationCategories: [PushNotificationCategory]) -> String {
             var rootContainer = [String]()
             
-            for settings in pushNotificationSettings {
+            for pushNotificationCategory in pushNotificationCategories {
                 let container = [
-                    "\"key\": \"\(settings.key)\"",
-                    "\"name\": \"\(settings.name)\"",
-                    "\"initState\": \(settings.initState)"
+                    "\"key\": \"\(pushNotificationCategory.key)\"",
+                    "\"name\": \"\(pushNotificationCategory.name)\"",
+                    "\"initState\": \(pushNotificationCategory.initState)"
                 ]
                 
                 let containerString = "{ \(container.joined(separator: ", ")) }"
@@ -656,10 +656,10 @@ class InternalCordialAPI {
             return "[ \(rootContainer.joined(separator: ", ")) ]"
         }
         
-        let pushNotificationSettingsJSON = getSettingsJSON(pushNotificationSettings)
-        let pushNotificationSettingsOriginJSON = getSettingsJSON(pushNotificationSettingsOrigin)
+        let pushNotificationCategoriesJSON = getSettingsJSON(pushNotificationCategories)
+        let pushNotificationCategoriesOriginJSON = getSettingsJSON(pushNotificationCategoriesOrigin)
         
-        if pushNotificationSettingsJSON != pushNotificationSettingsOriginJSON {
+        if pushNotificationCategoriesJSON != pushNotificationCategoriesOriginJSON {
             return true
         }
         
