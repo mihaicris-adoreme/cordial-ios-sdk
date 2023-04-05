@@ -122,7 +122,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BF4-SP-GVS">
-                                <rect key="frame" x="0.0" y="44" width="320" height="722"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="706"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Events stream URL" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HiI-Dr-GUO">
                                         <rect key="frame" x="16" y="16" width="288" height="20.5"/>
@@ -303,7 +303,8 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QOd-gh-tbv">
-                                <rect key="frame" x="0.0" y="766" width="320" height="34"/>
+                                <rect key="frame" x="0.0" y="758" width="320" height="34"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
                                 <state key="normal" title="Choose Preset"/>
                                 <connections>
@@ -314,11 +315,11 @@
                         <viewLayoutGuide key="safeArea" id="IWa-pk-kkl"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="QOd-gh-tbv" firstAttribute="bottom" secondItem="IWa-pk-kkl" secondAttribute="bottom" id="91l-qK-aja"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="bottom" secondItem="IWa-pk-kkl" secondAttribute="bottom" constant="-8" id="91l-qK-aja"/>
                             <constraint firstItem="BF4-SP-GVS" firstAttribute="trailing" secondItem="IWa-pk-kkl" secondAttribute="trailing" id="SM1-BN-ry4"/>
                             <constraint firstItem="QOd-gh-tbv" firstAttribute="leading" secondItem="IWa-pk-kkl" secondAttribute="leading" id="epu-Yq-BNe"/>
                             <constraint firstItem="QOd-gh-tbv" firstAttribute="trailing" secondItem="IWa-pk-kkl" secondAttribute="trailing" id="p9g-jy-tgy"/>
-                            <constraint firstItem="QOd-gh-tbv" firstAttribute="top" secondItem="BF4-SP-GVS" secondAttribute="bottom" id="t3v-ML-jwe"/>
+                            <constraint firstItem="QOd-gh-tbv" firstAttribute="top" secondItem="BF4-SP-GVS" secondAttribute="bottom" constant="8" id="t3v-ML-jwe"/>
                             <constraint firstItem="BF4-SP-GVS" firstAttribute="leading" secondItem="IWa-pk-kkl" secondAttribute="leading" id="vpx-g4-gAO"/>
                             <constraint firstItem="BF4-SP-GVS" firstAttribute="top" secondItem="IWa-pk-kkl" secondAttribute="top" id="yvn-wZ-Iwf"/>
                         </constraints>
@@ -1995,6 +1996,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

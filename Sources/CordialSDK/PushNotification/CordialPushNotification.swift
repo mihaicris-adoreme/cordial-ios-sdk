@@ -35,7 +35,7 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         let current = UNUserNotificationCenter.current()
         
         current.getNotificationSettings { settings in
-            if isEducational && settings.authorizationStatus != .authorized && settings.authorizationStatus != .provisional {
+            if isEducational && settings.authorizationStatus != .authorized {
                 PushNotificationCategoriesHandler.shared.openEducationalPushNotificationCategories(options: options)
             } else {
                 self.registerForPushNotifications(options: options)
