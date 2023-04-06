@@ -45,7 +45,24 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
     }
     
     @objc func refreshButtonAction(_ sender: UIBarButtonItem) {
+        self.inboxMessages.forEach { inboxMessage in
+            self.cancelTask(inboxMessage: inboxMessage)
+        }
+        
         self.refreshCollectionViewData()
+    }
+    
+    func cancelTask(inboxMessage: InboxMessage) {
+        if let inboxMessageMetadata = App.getInboxMessageMetadata(inboxMessage: inboxMessage),
+           let inboxMessageMetadataData = inboxMessageMetadata.data(using: .utf8),
+           let inboxMessageMetadataJSON = try? JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
+            
+            if let imageUrl = inboxMessageMetadataJSON["imageUrl"],
+               let imageURL = URL(string: imageUrl) {
+                
+                App.cancelTask(imageURL)
+            }
+        }
     }
     
     func refreshCollectionViewData() {
@@ -150,6 +167,8 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesCollectionCardsViewCell
         
+        cell.imageViewActivityIndicator.startAnimating()
+        
         cell.inboxMessageView.layer.shadowColor = UIColor.gray.cgColor
         cell.inboxMessageView.layer.shadowOpacity = 1
         cell.inboxMessageView.layer.shadowOffset = .zero
@@ -163,7 +182,9 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
                let inboxMessageMetadataData = inboxMessageMetadata.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
                 
                 if let image = inboxMessageMetadataJSON["imageUrl"], let imageURL = URL(string: image) {
-                    cell.imageView.asyncImage(url: imageURL)
+                    DispatchQueue.main.async {
+                        cell.imageView.asyncImage(url: imageURL)
+                    }
                     cell.imageView.contentMode = .scaleAspectFill
                     cell.imageView.clipsToBounds = true
                     cell.imageView.layer.cornerRadius = 10
@@ -186,6 +207,22 @@ class InboxMessagesCollectionCardsViewController: UIViewController, UICollection
         let inboxMessage = self.inboxMessages[indexPath.row]
         
         self.openInboxMessageDeepLink(inboxMessage: inboxMessage)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        DispatchQueue.main.async {
+            if let indexPath = context.previouslyFocusedIndexPath {
+                let inboxMessage = self.inboxMessages[indexPath.row]
+                
+                self.cancelTask(inboxMessage: inboxMessage)
+            }
+            
+            if let indexPath = context.nextFocusedIndexPath {
+                let inboxMessage = self.inboxMessages[indexPath.row]
+                
+                self.cancelTask(inboxMessage: inboxMessage)
+            }
+        }
     }
     
     // MARK: UICollectionViewDelegateFlowLayout
