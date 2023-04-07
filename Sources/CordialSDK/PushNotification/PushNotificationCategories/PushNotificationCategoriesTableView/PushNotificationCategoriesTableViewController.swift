@@ -10,7 +10,7 @@ import UIKit
 
 class PushNotificationCategoriesTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    private let section = "PUSH NOTIFICATIONS FILTER"
+    private let section = NSLocalizedString("PUSH NOTIFICATIONS FILTER", comment: "PushNotificationCategories - TableView section title")
     private var rows = InternalCordialAPI().getPushNotificationCategories()
     
     let pushNotificationCategoriesHandler = PushNotificationCategoriesHandler.shared
@@ -27,7 +27,7 @@ class PushNotificationCategoriesTableViewController: UIViewController, UITableVi
         self.navigationBar.isTranslucent = false
         self.navigationBar.barTintColor = self.pushNotificationCategoriesHandler.navigationBarBackgroundColor
         
-        let navigationItem = UINavigationItem(title: "Notifications")
+        let navigationItem = UINavigationItem(title: NSLocalizedString("Notifications", comment: "PushNotificationCategories - NavigationBar title"))
         self.navigationBar.titleTextAttributes = [.foregroundColor: self.pushNotificationCategoriesHandler.navigationBarTitleColor]
     
         let dismissItem: UIBarButtonItem?

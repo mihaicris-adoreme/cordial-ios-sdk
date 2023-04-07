@@ -158,6 +158,7 @@
 		9E8546E425D652C800C04741 /* MockRequestSenderVanityDeepLinkHasBeenOpen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8546E325D652C800C04741 /* MockRequestSenderVanityDeepLinkHasBeenOpen.swift */; };
 		9E876C6026307A8300FF2FE2 /* JSONStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E876C5F26307A8300FF2FE2 /* JSONStructure.swift */; };
 		9E876C6A263083FF00FF2FE2 /* JSONStructureExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E876C69263083FF00FF2FE2 /* JSONStructureExtensions.swift */; };
+		9E8A7DEE29E036F60019D981 /* PushNotificationCategories.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A7DF029E036F60019D981 /* PushNotificationCategories.strings */; };
 		9E8E323626023BB200CA771E /* InAppMessageContentGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8E323526023BB200CA771E /* InAppMessageContentGetter.swift */; };
 		9E92D3D2228EF26500D8AFE0 /* SendContactLogoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */; };
 		9E92D3D7228F01CA00D8AFE0 /* ContactLogoutSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D6228F01CA00D8AFE0 /* ContactLogoutSender.swift */; };
@@ -490,6 +491,7 @@
 		9E8546E325D652C800C04741 /* MockRequestSenderVanityDeepLinkHasBeenOpen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderVanityDeepLinkHasBeenOpen.swift; sourceTree = "<group>"; };
 		9E876C5F26307A8300FF2FE2 /* JSONStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStructure.swift; sourceTree = "<group>"; };
 		9E876C69263083FF00FF2FE2 /* JSONStructureExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStructureExtensions.swift; sourceTree = "<group>"; };
+		9E8A7DEF29E036F60019D981 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PushNotificationCategories.strings; sourceTree = "<group>"; };
 		9E8E323526023BB200CA771E /* InAppMessageContentGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageContentGetter.swift; sourceTree = "<group>"; };
 		9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogoutRequest.swift; sourceTree = "<group>"; };
 		9E92D3D6228F01CA00D8AFE0 /* ContactLogoutSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLogoutSender.swift; sourceTree = "<group>"; };
@@ -1248,6 +1250,7 @@
 				9E23313129BB858A00033BCF /* PushNotificationCategoriesConfigurationType.swift */,
 				9EF77D5E29A7C00400994141 /* PushNotificationCategoriesHandler.swift */,
 				9E9A1A772995541C0093DA41 /* PushNotificationCategory.swift */,
+				9E8A7DF029E036F60019D981 /* PushNotificationCategories.strings */,
 			);
 			path = PushNotificationCategories;
 			sourceTree = "<group>";
@@ -1776,6 +1779,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9ED9266A22CB5BDF00809EC0 /* InAppMessage.js in Resources */,
+				9E8A7DEE29E036F60019D981 /* PushNotificationCategories.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2120,6 +2124,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9E8A7DF029E036F60019D981 /* PushNotificationCategories.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9E8A7DEF29E036F60019D981 /* en */,
+			);
+			name = PushNotificationCategories.strings;
+			sourceTree = "<group>";
+		};
 		9EBA1B0123FFE14D00005054 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

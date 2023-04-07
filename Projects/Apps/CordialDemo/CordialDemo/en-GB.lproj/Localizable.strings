@@ -5,3 +5,14 @@
   Created by Yan Malinovsky on 06.04.2023.
   Copyright © 2023 cordial.io. All rights reserved.
 */
+
+// PushNotificationCategories - NavigationBar title
+"Notifications" = "Notifications - TEST";
+// PushNotificationCategories - TableView section title
+"PUSH NOTIFICATIONS FILTER" = "PUSH NOTIFICATIONS FILTER - TEST";
+// PushNotificationCategories - Educational upper label
+"We will be sending you only the notifications selected" = "We will be sending you only the notifications selected - TEST";
+// PushNotificationCategories - Educational button to enable notifications
+"Enable Notifications" = "Enable Notifications - TEST";
+// PushNotificationCategories - Educational button to dismiss the screen
+"Not now" = "Not now - TEST";
