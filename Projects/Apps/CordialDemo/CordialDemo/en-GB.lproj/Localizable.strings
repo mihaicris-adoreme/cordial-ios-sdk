@@ -7,12 +7,12 @@
 */
 
 // PushNotificationCategories - NavigationBar title
-"Notifications" = "Notifications - TEST";
+"Notifications" = "Notifications";
 // PushNotificationCategories - TableView section title
-"PUSH NOTIFICATIONS FILTER" = "PUSH NOTIFICATIONS FILTER - TEST";
+"PUSH NOTIFICATIONS FILTER" = "PUSH NOTIFICATIONS FILTER";
 // PushNotificationCategories - Educational upper label
-"We will be sending you only the notifications selected" = "We will be sending you only the notifications selected - TEST";
+"We will be sending you only the notifications selected" = "We will be sending you only the notifications selected";
 // PushNotificationCategories - Educational button to enable notifications
-"Enable Notifications" = "Enable Notifications - TEST";
+"Enable Notifications" = "Enable Notifications";
 // PushNotificationCategories - Educational button to dismiss the screen
-"Not now" = "Not now - TEST";
+"Not now" = "Not now";
