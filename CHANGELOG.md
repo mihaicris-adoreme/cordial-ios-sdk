@@ -2,6 +2,16 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.1.6 (2023-04-10)
+
+### Added
+
+- Updating a channel's `subscribeStatus` from the SDK
+
+### Fixed
+
+- Displaying an inbox image preview preloader 
+
 ## 4.1.5 (2023-03-24)
 
 ### Added

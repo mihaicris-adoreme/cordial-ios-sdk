@@ -49,7 +49,24 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
     }
     
     @objc func refreshButtonAction(_ sender: UIBarButtonItem) {
+        self.inboxMessages.forEach { inboxMessage in
+            self.cancelTask(inboxMessage: inboxMessage)
+        }
+        
         self.refreshTableViewData()
+    }
+    
+    func cancelTask(inboxMessage: InboxMessage) {
+        if let inboxMessageMetadata = App.getInboxMessageMetadata(inboxMessage: inboxMessage),
+           let inboxMessageMetadataData = inboxMessageMetadata.data(using: .utf8),
+           let inboxMessageMetadataJSON = try? JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
+            
+            if let imageUrl = inboxMessageMetadataJSON["imageUrl"],
+               let imageURL = URL(string: imageUrl) {
+                
+                App.cancelTask(imageURL)
+            }
+        }
     }
     
     func refreshTableViewData() {
@@ -146,6 +163,8 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: self.reuseIdentifier, for: indexPath) as! InboxMessagesTableListViewCell
         
+        cell.imagePreviewActivityIndicator.startAnimating()
+        
         let inboxMessage = self.inboxMessages[indexPath.row]
         
         do {
@@ -153,7 +172,9 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
                let inboxMessageMetadataData = inboxMessageMetadata.data(using: .utf8), let inboxMessageMetadataJSON = try JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
                 
                 if let image = inboxMessageMetadataJSON["imageUrl"], let imageURL = URL(string: image) {
-                    cell.imagePreview.asyncImage(url: imageURL)
+                    DispatchQueue.main.async {
+                        cell.imagePreview.asyncImage(url: imageURL)
+                    }
                     cell.imagePreview.roundImage(borderWidth: 2, borderColor: UIColor.lightGray)
                     cell.imagePreview.contentMode = .scaleAspectFill
                 }
@@ -201,6 +222,22 @@ class InboxMessagesTableListViewController: UIViewController, UITableViewDelegat
             
             self.inboxMessages.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didUpdateFocusIn context: UITableViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        DispatchQueue.main.async {
+            if let indexPath = context.previouslyFocusedIndexPath {
+                let inboxMessage = self.inboxMessages[indexPath.row]
+                
+                self.cancelTask(inboxMessage: inboxMessage)
+            }
+            
+            if let indexPath = context.nextFocusedIndexPath {
+                let inboxMessage = self.inboxMessages[indexPath.row]
+                
+                self.cancelTask(inboxMessage: inboxMessage)
+            }
         }
     }
 }

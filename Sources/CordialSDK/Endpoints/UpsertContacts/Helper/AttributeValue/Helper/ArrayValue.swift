@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class ArrayValue: NSObject, NSCoding, AttributeValue {
+@objc public class ArrayValue: NSObject, NSCoding, AttributeValue, JSONValue {
     
     public let value: [String]
     

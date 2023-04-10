@@ -11,6 +11,7 @@ import UIKit
 class InboxMessagesTableListViewCell: UITableViewCell {
     
     @IBOutlet weak var imagePreview: UIImageView!
+    @IBOutlet weak var imagePreviewActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var timestampLabel: UILabel!

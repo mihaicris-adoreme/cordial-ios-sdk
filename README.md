@@ -871,12 +871,12 @@ The SDK allows to send all cached events immediately. This is done by calling th
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 ___
 ```
-cordialAPI.flushEvents(reason: "Flush events from the app")
+cordialAPI.flushEvents()
 ```
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 ___
 ```
-[cordialAPI flushEventsWithReason:@"Flush events from the app"];
+[cordialAPI flushEvents];
 ```
 
 ### Configuring Location Tracking Updates

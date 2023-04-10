@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class GeoValue: NSObject, NSCoding, AttributeValue {
+@objc public class GeoValue: NSObject, NSCoding, AttributeValue, JSONValue {
     
     var city = String()
     var country = String()
