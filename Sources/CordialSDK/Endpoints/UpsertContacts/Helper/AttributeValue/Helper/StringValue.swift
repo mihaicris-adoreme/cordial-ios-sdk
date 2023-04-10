@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class StringValue: NSObject, NSCoding, AttributeValue {
+@objc public class StringValue: NSObject, NSCoding, AttributeValue, JSONValue {
     
     public let value: String?
     

@@ -12,6 +12,7 @@ class InboxMessagesCollectionCardsViewCell: UICollectionViewCell {
     
     @IBOutlet weak var inboxMessageView: UIView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageViewActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     
