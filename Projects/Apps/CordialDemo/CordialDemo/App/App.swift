@@ -106,18 +106,35 @@ struct App {
     // MARK: App
     
     static func getInboxMessageMetadata(inboxMessage: InboxMessage) -> String? {
-        var inboxMessageMetadata = inboxMessage.metadata
-        if inboxMessageMetadata == nil {
-            inboxMessageMetadata = """
-                        {
-                          "title": "No title provided",
-                          "subtitle": "No subtitle provided",
-                          "imageUrl": "https://i.imgur.com/bhjRMtD.png"
-                        }
-                    """
+        var metadata: [String: String] = [
+            "title": "[No title provided]",
+            "subtitle": "[No subtitle provided]",
+            "imageUrl": "https://i.imgur.com/bhjRMtD.png"
+        ]
+        
+        if let inboxMessageMetadata = inboxMessage.metadata,
+           let inboxMessageMetadataData = inboxMessageMetadata.data(using: .utf8),
+           let inboxMessageMetadataJSON = try? JSONSerialization.jsonObject(with: inboxMessageMetadataData, options: []) as? [String: String] {
+            
+            for (key, data) in inboxMessageMetadataJSON {
+                metadata[key] = data
+            }
         }
         
-        return inboxMessageMetadata
+        var metadataContainer: [String] = []
+        for (key, data) in metadata {
+            metadataContainer.append("\"\(key)\": \"\(data)\"")
+        }
+        
+        return "{ \(metadataContainer.joined(separator: ", ")) }"
+    }
+    
+    static func cancelTask(_ url: URL) {
+        URLSession.shared.getAllTasks { tasks in
+            tasks.filter { $0.state == .running }
+                 .filter { $0.originalRequest?.url == url }.first?
+                 .cancel()
+        }
     }
     
     static func isUserLogIn() -> Bool {
@@ -186,8 +203,12 @@ extension UIImageView {
             }
             
             if let responseData = data {
+                let jpegData = UIImage(data: responseData)?.jpegData(compressionQuality: 1)
+                
                 DispatchQueue.main.async {
-                    self.image = UIImage(data: responseData)
+                    if self.image == nil {
+                        self.image = UIImage(data: jpegData ?? responseData)
+                    }
                 }
             } else {
                 print("Image is absent by the URL")
