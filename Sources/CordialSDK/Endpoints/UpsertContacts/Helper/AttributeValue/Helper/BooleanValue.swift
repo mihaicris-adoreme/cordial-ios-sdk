@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class BooleanValue: NSObject, NSCoding, AttributeValue {
+@objc public class BooleanValue: NSObject, NSCoding, AttributeValue, JSONValue {
 
     public let value: Bool
     

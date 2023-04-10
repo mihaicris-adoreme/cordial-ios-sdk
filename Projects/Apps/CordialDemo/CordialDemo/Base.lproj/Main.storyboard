@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgU-rg-A1D">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="rgU-rg-A1D">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -413,6 +413,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="imagePreview" destination="wwb-ex-688" id="CB7-dZ-rdk"/>
+                                            <outlet property="imagePreviewActivityIndicator" destination="beQ-XU-Uwh" id="Wf0-Ob-JeY"/>
                                             <outlet property="subtitleLabel" destination="ysn-d4-CLZ" id="8SK-tF-T0W"/>
                                             <outlet property="timestampLabel" destination="1I8-ll-vQM" id="ALC-yQ-z4E"/>
                                             <outlet property="titleLabel" destination="fwv-Nf-KHM" id="AgA-d4-46M"/>
@@ -554,6 +555,7 @@
                                         <size key="customSize" width="320" height="240"/>
                                         <connections>
                                             <outlet property="imageView" destination="10M-lh-Btw" id="ao4-yH-utz"/>
+                                            <outlet property="imageViewActivityIndicator" destination="FRz-TQ-r7N" id="l9q-GM-H8L"/>
                                             <outlet property="inboxMessageView" destination="Euk-EH-zgi" id="br1-Eu-wiS"/>
                                             <outlet property="subtitleLabel" destination="4hq-KM-e1o" id="OVs-hj-g2q"/>
                                             <outlet property="titleLabel" destination="XyI-MS-OHQ" id="vUT-oU-u06"/>

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 class UpsertContacts {
     
@@ -36,7 +37,7 @@ class UpsertContacts {
         var upsertContactsArrayJSON = [String]()
         
         upsertContactRequests.forEach { upsertContactRequest in
-            let upsertContactJSON = self.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest)
+            let upsertContactJSON = self.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest, isLogs: true)
             
             upsertContactsArrayJSON.append(upsertContactJSON)
         }
@@ -48,7 +49,7 @@ class UpsertContacts {
         return upsertContactsJSON
     }
     
-    internal func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest) -> String {
+    func getUpsertContactRequestJSON(upsertContactRequest: UpsertContactRequest, isLogs: Bool) -> String {
         
         var rootContainer  = [
             "\"deviceId\": \"\(InternalCordialAPI().getDeviceIdentifier())\"",
@@ -64,7 +65,7 @@ class UpsertContacts {
         }
         
         if let attributes = upsertContactRequest.attributes {
-            rootContainer.append("\"attributes\": \(self.getAttributesJSON(attributes: attributes))")
+            rootContainer.append("\"attributes\": { \(self.getAttributesJSON(attributes: self.getPreparedAttributes(attributes: attributes, isLogs: isLogs))) }")
         }
         
         let rootContainerString = rootContainer.joined(separator: ", ")
@@ -112,15 +113,270 @@ class UpsertContacts {
             case is GeoValue:
                 let geoValue = value as! GeoValue
                 container.append("\"\(key)\": \(self.getGeoAttributeJSON(geoValue: geoValue))")
+            case is JSONObjectValues:
+                let objectValues = value as! JSONObjectValues
+                if let attributes = objectValues.value {
+                    container.append("\"\(key)\": { \(self.getObjectValuesJSON(attributes: attributes)) }")
+                }
+            case is JSONObjectsValues:
+                let objectsValues = value as! JSONObjectsValues
+                if let attributes = objectsValues.value {
+                    container.append("\"\(key)\": { \(self.getObjectsValuesJSON(attributes: attributes)) }")
+                }
             default:
                 break
             }
             
         }
         
-        let stringContainer = container.joined(separator: ", ")
+        return container.joined(separator: ", ")
+    }
+    
+    private func getObjectValuesJSON(attributes: Dictionary<String, JSONValue>) -> String {
+        var container = [String]()
+
+        attributes.forEach { (key: String, value: JSONValue) in
+            switch value {
+            case is JSONObjectValue:
+                let objectValue = value as! JSONObjectValue
+                if let attributes = objectValue.value {
+                    container.append(self.getAttributesJSON(attributes: attributes))
+                }
+            case is JSONObjectValues:
+                let objectValues = value as! JSONObjectValues
+                if let attributes = objectValues.value {
+                    if self.isLastJSONObjectValues(attributes: attributes) {
+                        container.append(self.getObjectValuesJSON(attributes: attributes))
+                    } else {
+                        container.append("\"\(key)\": { \(self.getObjectValuesJSON(attributes: attributes)) }")
+                    }
+                }
+            case is JSONObjectsValues:
+                let objectsValues = value as! JSONObjectsValues
+                if let attributes = objectsValues.value {
+                    container.append("\"\(key)\": { \(self.getObjectsValuesJSON(attributes: attributes)) }")
+                }
+            default:
+                break
+            }
+        }
+
+        return container.joined(separator: ", ")
+    }
+    
+    private func isLastJSONObjectValues(attributes: Dictionary<String, JSONValue>) -> Bool {
+        var returnValue = false
         
-        return "{ \(stringContainer) }"
+        attributes.forEach { (key: String, value: JSONValue) in
+            switch value {
+            case is JSONObjectValue:
+                returnValue = true
+            default:
+                break
+            }
+        }
+        
+        return returnValue
+    }
+    
+    private func getObjectsValuesJSON(attributes: Dictionary<String, [JSONValue]>) -> String {
+        var containerJSONValues = [String]()
+        
+        attributes.forEach { (key: String, values: [JSONValue]) in
+            var containerJSONValue = [String]()
+            
+            values.forEach { value in
+                switch value {
+                case is JSONObjectValue:
+                    let objectValue = value as! JSONObjectValue
+                    if let attributes = objectValue.value {
+                        containerJSONValue.append(self.getAttributesJSON(attributes: attributes))
+                    }
+                case is JSONObjectValues:
+                    let objectValues = value as! JSONObjectValues
+                    if let attributes = objectValues.value {
+                        containerJSONValue.append(self.getObjectValuesJSON(attributes: attributes))
+                    }
+                case is JSONObjectsValues:
+                    let objectsValues = value as! JSONObjectsValues
+                    if let attributes = objectsValues.value {
+                        containerJSONValue.append(self.getObjectsValuesJSON(attributes: attributes))
+                    }
+                default:
+                    break
+                }
+            }
+            
+            containerJSONValues.append("\"\(key)\": { \(containerJSONValue.joined(separator: ", ")) }")
+        }
+        
+        return containerJSONValues.joined(separator: ", ")
+    }
+    
+    private func getPreparedAttributes(attributes: Dictionary<String, AttributeValue>, isLogs: Bool) -> Dictionary<String, AttributeValue> {
+        var preparedAttributes: Dictionary<String, AttributeValue> = [:]
+        
+        var dotsAttributes: [[String]] = [[String]]()
+        
+        attributes.forEach { (key: String, value: AttributeValue) in
+            var keys = [String]()
+            
+            var isValidKeys = true
+            key.components(separatedBy: ".").forEach({ key in
+                if self.isValidAttributeValueKey(key: key) {
+                    keys.append(key)
+                } else {
+                    isValidKeys = false
+                }
+            })
+            
+            if keys.count > 1 && isValidKeys {
+                dotsAttributes.append(keys)
+            } else if self.isValidAttributeValueKey(key: key) {
+                preparedAttributes[key] = value
+            } else {
+                if isLogs && CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                    os_log("Contact attribute key [%{public}@] is invalid", log: OSLog.cordialUpsertContacts, type: .error, key)
+                }
+            }
+        }
+        
+        dotsAttributes.forEach { keys in
+            if let value = attributes[keys.joined(separator:".")] {
+                self.getPreparedAttributesDictionary(keys: keys, value: value).forEach { (key: String, value: JSONValue) in
+                    if let objectValues = value as? JSONObjectValues {
+                        if let preparedAttributesKey = preparedAttributes[key] as? JSONObjectValues,
+                           let attributeValue = preparedAttributesKey.value,
+                           let objectValue = objectValues.value {
+                            
+                            let mergedAttributes = self.getMergedAttributesObjectWithObject(attributeValue: attributeValue, objectValue: objectValue)
+                            
+                            preparedAttributes[key] = mergedAttributes
+                            
+                        } else if let preparedAttributesKey = preparedAttributes[key] as? JSONObjectsValues,
+                                  let attributeValues = preparedAttributesKey.value,
+                                  let objectValue = objectValues.value {
+                            
+                            let mergedAttributes = self.getMergedAttributesObjectsWithObject(objectsValue: attributeValues, objectValue: objectValue)
+                            
+                            preparedAttributes[key] = mergedAttributes
+                            
+                        } else {
+                            preparedAttributes[key] = objectValues
+                        }
+                    }
+                }
+            }
+        }
+        
+        return preparedAttributes
+    }
+    
+    private func isValidAttributeValueKey(key: String) -> Bool {
+        if key.isEmpty || key.contains(" ") || key.contains(".") || key != key.trimmingCharacters(in: .whitespacesAndNewlines) {
+            return false
+        }
+        
+        return true
+    }
+    
+    private func getPreparedAttributesDictionary(keys: [String], value: AttributeValue) -> Dictionary<String, JSONValue> {
+        var preparedAttributes: Dictionary<String, JSONValue> = [:]
+        
+        if let key = keys.first {
+            if keys.count == 1 {
+                let objectValue = JSONObjectValue([key: value])
+                let objectValues = JSONObjectValues([key: objectValue])
+                
+                preparedAttributes[key] = objectValues
+            } else {
+                let subtractedAttributeKeys = self.getSubtractedAttributeKeys(keys: keys)
+
+                let preparedAttributesDictionary = self.getPreparedAttributesDictionary(keys: subtractedAttributeKeys, value: value)
+                
+                let objectValues = JSONObjectValues(preparedAttributesDictionary)
+                
+                preparedAttributes[key] = objectValues
+            }
+        }
+        
+        return preparedAttributes
+    }
+    
+    private func getSubtractedAttributeKeys(keys: [String]) -> [String] {
+        var returnKeys: [String] = []
+        
+        var index = 0
+        keys.forEach { key in
+            if index > 0 {
+                returnKeys.append(key)
+            }
+            
+            index += 1
+        }
+        
+        return returnKeys
+    }
+    
+    private func getMergedAttributesObjectWithObject(attributeValue: Dictionary<String, JSONValue>, objectValue: Dictionary<String, JSONValue>) -> JSONObjectsValues {
+        var mergedAttributes: Dictionary<String, [JSONValue]> = [:]
+                
+        var addedObjectValueKeys = [String]()
+        
+        attributeValue.forEach { (key: String, value: JSONValue) in
+            var JSONValues = [JSONValue]()
+            
+            if let objectValues = objectValue[key] {
+                JSONValues.append(value)
+                JSONValues.append(objectValues)
+                
+                addedObjectValueKeys.append(key)
+                
+                mergedAttributes[key] = JSONValues
+            } else {
+                mergedAttributes[key] = [value]
+            }
+        }
+        
+        objectValue.forEach { (key: String, value: JSONValue) in
+            if !addedObjectValueKeys.contains(key) {
+                mergedAttributes[key] = [value]
+            }
+        }
+    
+        return JSONObjectsValues(mergedAttributes)
+    }
+    
+    private func getMergedAttributesObjectsWithObject(objectsValue: Dictionary<String, [JSONValue]>, objectValue: Dictionary<String, JSONValue>) -> JSONObjectsValues {
+        var mergedAttributes: Dictionary<String, [JSONValue]> = [:]
+                
+        var addedObjectValueKeys = [String]()
+        
+        objectsValue.forEach { (key: String, values: [JSONValue]) in
+            var JSONValues = [JSONValue]()
+            
+            if let objectValues = objectValue[key] {
+                values.forEach { value in
+                    JSONValues.append(value)
+                }
+
+                JSONValues.append(objectValues)
+                
+                addedObjectValueKeys.append(key)
+                
+                mergedAttributes[key] = JSONValues
+            } else {
+                mergedAttributes[key] = values
+            }
+        }
+        
+        objectValue.forEach { (key: String, value: JSONValue) in
+            if !addedObjectValueKeys.contains(key) {
+                mergedAttributes[key] = [value]
+            }
+        }
+        
+        return JSONObjectsValues(mergedAttributes)
     }
     
     private func getGeoAttributeJSON(geoValue: GeoValue) -> String {

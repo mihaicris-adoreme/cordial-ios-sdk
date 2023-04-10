@@ -8385,6 +8385,13 @@
           },
           {
             "kind": "Conformance",
+            "name": "JSONValue",
+            "printedName": "JSONValue",
+            "usr": "c:@M@CordialSDK@objc(pl)JSONValue",
+            "mangledName": "$s10CordialSDK9JSONValueP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Equatable",
             "printedName": "Equatable",
             "usr": "s:SQ",
@@ -15207,6 +15214,501 @@
         "mangledName": "$s10CordialSDK33ContactTimestampURLSessionManagerC",
         "moduleName": "CordialSDK",
         "isOpen": true
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "JSONObjectValue",
+        "printedName": "JSONObjectValue",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "value",
+            "printedName": "value",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : CordialSDK.AttributeValue]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : CordialSDK.AttributeValue]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AttributeValue",
+                        "printedName": "CordialSDK.AttributeValue",
+                        "usr": "c:@M@CordialSDK@objc(pl)AttributeValue"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK15JSONObjectValueC5valueSDySSAA09AttributeD0_pGSgvp",
+            "mangledName": "$s10CordialSDK15JSONObjectValueC5valueSDySSAA09AttributeD0_pGSgvp",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 0,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[Swift.String : CordialSDK.AttributeValue]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Dictionary",
+                        "printedName": "[Swift.String : CordialSDK.AttributeValue]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "AttributeValue",
+                            "printedName": "CordialSDK.AttributeValue",
+                            "usr": "c:@M@CordialSDK@objc(pl)AttributeValue"
+                          }
+                        ],
+                        "usr": "s:SD"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK15JSONObjectValueC5valueSDySSAA09AttributeD0_pGSgvg",
+                "mangledName": "$s10CordialSDK15JSONObjectValueC5valueSDySSAA09AttributeD0_pGSgvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "Key",
+            "printedName": "Key",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "value",
+                "printedName": "value",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(CordialSDK.JSONObjectValue.Key.Type) -> CordialSDK.JSONObjectValue.Key",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Key",
+                        "printedName": "CordialSDK.JSONObjectValue.Key",
+                        "usr": "s:10CordialSDK15JSONObjectValueC3KeyO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "CordialSDK.JSONObjectValue.Key.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Key",
+                            "printedName": "CordialSDK.JSONObjectValue.Key",
+                            "usr": "s:10CordialSDK15JSONObjectValueC3KeyO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:10CordialSDK15JSONObjectValueC3KeyO5valueyA2EmF",
+                "mangledName": "$s10CordialSDK15JSONObjectValueC3KeyO5valueyA2EmF",
+                "moduleName": "CordialSDK",
+                "fixedbinaryorder": 0
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "CordialSDK.JSONObjectValue.Key?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Key",
+                        "printedName": "CordialSDK.JSONObjectValue.Key",
+                        "usr": "s:10CordialSDK15JSONObjectValueC3KeyO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:10CordialSDK15JSONObjectValueC3KeyO03rawD0AESgSS_tcfc",
+                "mangledName": "$s10CordialSDK15JSONObjectValueC3KeyO03rawD0AESgSS_tcfc",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:10CordialSDK15JSONObjectValueC3KeyO03rawD0SSvp",
+                "mangledName": "$s10CordialSDK15JSONObjectValueC3KeyO03rawD0SSvp",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:10CordialSDK15JSONObjectValueC3KeyO03rawD0SSvg",
+                    "mangledName": "$s10CordialSDK15JSONObjectValueC3KeyO03rawD0SSvg",
+                    "moduleName": "CordialSDK",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:10CordialSDK15JSONObjectValueC3KeyO",
+            "mangledName": "$s10CordialSDK15JSONObjectValueC3KeyO",
+            "moduleName": "CordialSDK",
+            "enumRawTypeName": "String",
+            "isEnumExhaustive": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Sendable",
+                "printedName": "Sendable",
+                "usr": "s:s8SendableP",
+                "mangledName": "$ss8SendableP"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "JSONObjectValue",
+                "printedName": "CordialSDK.JSONObjectValue",
+                "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValue"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : CordialSDK.AttributeValue]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : CordialSDK.AttributeValue]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AttributeValue",
+                        "printedName": "CordialSDK.AttributeValue",
+                        "usr": "c:@M@CordialSDK@objc(pl)AttributeValue"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValue(im)init:",
+            "mangledName": "$s10CordialSDK15JSONObjectValueCyACSDySSAA09AttributeD0_pGSgcfc",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValue(im)encodeWithCoder:",
+            "mangledName": "$s10CordialSDK15JSONObjectValueC6encode4withySo7NSCoderC_tF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "objc_name": "encodeWithCoder:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(coder:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "CordialSDK.JSONObjectValue?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "JSONObjectValue",
+                    "printedName": "CordialSDK.JSONObjectValue",
+                    "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValue"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValue(im)initWithCoder:",
+            "mangledName": "$s10CordialSDK15JSONObjectValueC5coderACSgSo7NSCoderC_tcfc",
+            "moduleName": "CordialSDK",
+            "objc_name": "initWithCoder:",
+            "declAttributes": [
+              "ObjC",
+              "Convenience",
+              "Required"
+            ],
+            "init_kind": "Convenience"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "JSONObjectValue",
+                "printedName": "CordialSDK.JSONObjectValue",
+                "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValue"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValue(im)init",
+            "mangledName": "$s10CordialSDK15JSONObjectValueCACycfc",
+            "moduleName": "CordialSDK",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValue",
+        "mangledName": "$s10CordialSDK15JSONObjectValueC",
+        "moduleName": "CordialSDK",
+        "isOpen": true,
+        "declAttributes": [
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "AttributeValue",
+            "printedName": "AttributeValue",
+            "usr": "c:@M@CordialSDK@objc(pl)AttributeValue",
+            "mangledName": "$s10CordialSDK14AttributeValueP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "JSONValue",
+            "printedName": "JSONValue",
+            "usr": "c:@M@CordialSDK@objc(pl)JSONValue",
+            "mangledName": "$s10CordialSDK9JSONValueP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
       },
       {
         "kind": "Import",
@@ -22074,6 +22576,501 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "JSONObjectValues",
+        "printedName": "JSONObjectValues",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "value",
+            "printedName": "value",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : CordialSDK.JSONValue]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : CordialSDK.JSONValue]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JSONValue",
+                        "printedName": "CordialSDK.JSONValue",
+                        "usr": "c:@M@CordialSDK@objc(pl)JSONValue"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK16JSONObjectValuesC5valueSDySSAA9JSONValue_pGSgvp",
+            "mangledName": "$s10CordialSDK16JSONObjectValuesC5valueSDySSAA9JSONValue_pGSgvp",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 0,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[Swift.String : CordialSDK.JSONValue]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Dictionary",
+                        "printedName": "[Swift.String : CordialSDK.JSONValue]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "JSONValue",
+                            "printedName": "CordialSDK.JSONValue",
+                            "usr": "c:@M@CordialSDK@objc(pl)JSONValue"
+                          }
+                        ],
+                        "usr": "s:SD"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK16JSONObjectValuesC5valueSDySSAA9JSONValue_pGSgvg",
+                "mangledName": "$s10CordialSDK16JSONObjectValuesC5valueSDySSAA9JSONValue_pGSgvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "Key",
+            "printedName": "Key",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "value",
+                "printedName": "value",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(CordialSDK.JSONObjectValues.Key.Type) -> CordialSDK.JSONObjectValues.Key",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Key",
+                        "printedName": "CordialSDK.JSONObjectValues.Key",
+                        "usr": "s:10CordialSDK16JSONObjectValuesC3KeyO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "CordialSDK.JSONObjectValues.Key.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Key",
+                            "printedName": "CordialSDK.JSONObjectValues.Key",
+                            "usr": "s:10CordialSDK16JSONObjectValuesC3KeyO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:10CordialSDK16JSONObjectValuesC3KeyO5valueyA2EmF",
+                "mangledName": "$s10CordialSDK16JSONObjectValuesC3KeyO5valueyA2EmF",
+                "moduleName": "CordialSDK",
+                "fixedbinaryorder": 0
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "CordialSDK.JSONObjectValues.Key?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Key",
+                        "printedName": "CordialSDK.JSONObjectValues.Key",
+                        "usr": "s:10CordialSDK16JSONObjectValuesC3KeyO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:10CordialSDK16JSONObjectValuesC3KeyO8rawValueAESgSS_tcfc",
+                "mangledName": "$s10CordialSDK16JSONObjectValuesC3KeyO8rawValueAESgSS_tcfc",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:10CordialSDK16JSONObjectValuesC3KeyO8rawValueSSvp",
+                "mangledName": "$s10CordialSDK16JSONObjectValuesC3KeyO8rawValueSSvp",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:10CordialSDK16JSONObjectValuesC3KeyO8rawValueSSvg",
+                    "mangledName": "$s10CordialSDK16JSONObjectValuesC3KeyO8rawValueSSvg",
+                    "moduleName": "CordialSDK",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:10CordialSDK16JSONObjectValuesC3KeyO",
+            "mangledName": "$s10CordialSDK16JSONObjectValuesC3KeyO",
+            "moduleName": "CordialSDK",
+            "enumRawTypeName": "String",
+            "isEnumExhaustive": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Sendable",
+                "printedName": "Sendable",
+                "usr": "s:s8SendableP",
+                "mangledName": "$ss8SendableP"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "JSONObjectValues",
+                "printedName": "CordialSDK.JSONObjectValues",
+                "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValues"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : CordialSDK.JSONValue]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : CordialSDK.JSONValue]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "JSONValue",
+                        "printedName": "CordialSDK.JSONValue",
+                        "usr": "c:@M@CordialSDK@objc(pl)JSONValue"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValues(im)init:",
+            "mangledName": "$s10CordialSDK16JSONObjectValuesCyACSDySSAA9JSONValue_pGSgcfc",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValues(im)encodeWithCoder:",
+            "mangledName": "$s10CordialSDK16JSONObjectValuesC6encode4withySo7NSCoderC_tF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "objc_name": "encodeWithCoder:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(coder:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "CordialSDK.JSONObjectValues?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "JSONObjectValues",
+                    "printedName": "CordialSDK.JSONObjectValues",
+                    "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValues"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValues(im)initWithCoder:",
+            "mangledName": "$s10CordialSDK16JSONObjectValuesC5coderACSgSo7NSCoderC_tcfc",
+            "moduleName": "CordialSDK",
+            "objc_name": "initWithCoder:",
+            "declAttributes": [
+              "ObjC",
+              "Convenience",
+              "Required"
+            ],
+            "init_kind": "Convenience"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "JSONObjectValues",
+                "printedName": "CordialSDK.JSONObjectValues",
+                "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValues"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValues(im)init",
+            "mangledName": "$s10CordialSDK16JSONObjectValuesCACycfc",
+            "moduleName": "CordialSDK",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@CordialSDK@objc(cs)JSONObjectValues",
+        "mangledName": "$s10CordialSDK16JSONObjectValuesC",
+        "moduleName": "CordialSDK",
+        "isOpen": true,
+        "declAttributes": [
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "AttributeValue",
+            "printedName": "AttributeValue",
+            "usr": "c:@M@CordialSDK@objc(pl)AttributeValue",
+            "mangledName": "$s10CordialSDK14AttributeValueP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "JSONValue",
+            "printedName": "JSONValue",
+            "usr": "c:@M@CordialSDK@objc(pl)JSONValue",
+            "mangledName": "$s10CordialSDK9JSONValueP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "InboxPage",
         "printedName": "InboxPage",
         "children": [
@@ -27941,6 +28938,525 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "JSONObjectsValues",
+        "printedName": "JSONObjectsValues",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "value",
+            "printedName": "value",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : [CordialSDK.JSONValue]]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : [CordialSDK.JSONValue]]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[CordialSDK.JSONValue]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "JSONValue",
+                            "printedName": "CordialSDK.JSONValue",
+                            "usr": "c:@M@CordialSDK@objc(pl)JSONValue"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK17JSONObjectsValuesC5valueSDySSSayAA9JSONValue_pGGSgvp",
+            "mangledName": "$s10CordialSDK17JSONObjectsValuesC5valueSDySSSayAA9JSONValue_pGGSgvp",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "Final",
+              "HasStorage"
+            ],
+            "fixedbinaryorder": 0,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[Swift.String : [CordialSDK.JSONValue]]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Dictionary",
+                        "printedName": "[Swift.String : [CordialSDK.JSONValue]]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "String",
+                            "printedName": "Swift.String",
+                            "usr": "s:SS"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Array",
+                            "printedName": "[CordialSDK.JSONValue]",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "JSONValue",
+                                "printedName": "CordialSDK.JSONValue",
+                                "usr": "c:@M@CordialSDK@objc(pl)JSONValue"
+                              }
+                            ],
+                            "usr": "s:Sa"
+                          }
+                        ],
+                        "usr": "s:SD"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK17JSONObjectsValuesC5valueSDySSSayAA9JSONValue_pGGSgvg",
+                "mangledName": "$s10CordialSDK17JSONObjectsValuesC5valueSDySSSayAA9JSONValue_pGGSgvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "Key",
+            "printedName": "Key",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "value",
+                "printedName": "value",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(CordialSDK.JSONObjectsValues.Key.Type) -> CordialSDK.JSONObjectsValues.Key",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Key",
+                        "printedName": "CordialSDK.JSONObjectsValues.Key",
+                        "usr": "s:10CordialSDK17JSONObjectsValuesC3KeyO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "CordialSDK.JSONObjectsValues.Key.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Key",
+                            "printedName": "CordialSDK.JSONObjectsValues.Key",
+                            "usr": "s:10CordialSDK17JSONObjectsValuesC3KeyO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:10CordialSDK17JSONObjectsValuesC3KeyO5valueyA2EmF",
+                "mangledName": "$s10CordialSDK17JSONObjectsValuesC3KeyO5valueyA2EmF",
+                "moduleName": "CordialSDK",
+                "fixedbinaryorder": 0
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init(rawValue:)",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "CordialSDK.JSONObjectsValues.Key?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Key",
+                        "printedName": "CordialSDK.JSONObjectsValues.Key",
+                        "usr": "s:10CordialSDK17JSONObjectsValuesC3KeyO"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:10CordialSDK17JSONObjectsValuesC3KeyO8rawValueAESgSS_tcfc",
+                "mangledName": "$s10CordialSDK17JSONObjectsValuesC3KeyO8rawValueAESgSS_tcfc",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "init_kind": "Designated"
+              },
+              {
+                "kind": "Var",
+                "name": "rawValue",
+                "printedName": "rawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:10CordialSDK17JSONObjectsValuesC3KeyO8rawValueSSvp",
+                "mangledName": "$s10CordialSDK17JSONObjectsValuesC3KeyO8rawValueSSvp",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:10CordialSDK17JSONObjectsValuesC3KeyO8rawValueSSvg",
+                    "mangledName": "$s10CordialSDK17JSONObjectsValuesC3KeyO8rawValueSSvg",
+                    "moduleName": "CordialSDK",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Enum",
+            "usr": "s:10CordialSDK17JSONObjectsValuesC3KeyO",
+            "mangledName": "$s10CordialSDK17JSONObjectsValuesC3KeyO",
+            "moduleName": "CordialSDK",
+            "enumRawTypeName": "String",
+            "isEnumExhaustive": true,
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "RawRepresentable",
+                "printedName": "RawRepresentable",
+                "children": [
+                  {
+                    "kind": "TypeWitness",
+                    "name": "RawValue",
+                    "printedName": "RawValue",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:SY",
+                "mangledName": "$sSY"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Sendable",
+                "printedName": "Sendable",
+                "usr": "s:s8SendableP",
+                "mangledName": "$ss8SendableP"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "JSONObjectsValues",
+                "printedName": "CordialSDK.JSONObjectsValues",
+                "usr": "c:@M@CordialSDK@objc(cs)JSONObjectsValues"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[Swift.String : [CordialSDK.JSONValue]]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : [CordialSDK.JSONValue]]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[CordialSDK.JSONValue]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "JSONValue",
+                            "printedName": "CordialSDK.JSONValue",
+                            "usr": "c:@M@CordialSDK@objc(pl)JSONValue"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectsValues(im)init:",
+            "mangledName": "$s10CordialSDK17JSONObjectsValuesCyACSDySSSayAA9JSONValue_pGGSgcfc",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(with:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectsValues(im)encodeWithCoder:",
+            "mangledName": "$s10CordialSDK17JSONObjectsValuesC6encode4withySo7NSCoderC_tF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "objc_name": "encodeWithCoder:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(coder:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "CordialSDK.JSONObjectsValues?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "JSONObjectsValues",
+                    "printedName": "CordialSDK.JSONObjectsValues",
+                    "usr": "c:@M@CordialSDK@objc(cs)JSONObjectsValues"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectsValues(im)initWithCoder:",
+            "mangledName": "$s10CordialSDK17JSONObjectsValuesC5coderACSgSo7NSCoderC_tcfc",
+            "moduleName": "CordialSDK",
+            "objc_name": "initWithCoder:",
+            "declAttributes": [
+              "ObjC",
+              "Convenience",
+              "Required"
+            ],
+            "init_kind": "Convenience"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "JSONObjectsValues",
+                "printedName": "CordialSDK.JSONObjectsValues",
+                "usr": "c:@M@CordialSDK@objc(cs)JSONObjectsValues"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@CordialSDK@objc(cs)JSONObjectsValues(im)init",
+            "mangledName": "$s10CordialSDK17JSONObjectsValuesCACycfc",
+            "moduleName": "CordialSDK",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@CordialSDK@objc(cs)JSONObjectsValues",
+        "mangledName": "$s10CordialSDK17JSONObjectsValuesC",
+        "moduleName": "CordialSDK",
+        "isOpen": true,
+        "declAttributes": [
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "AttributeValue",
+            "printedName": "AttributeValue",
+            "usr": "c:@M@CordialSDK@objc(pl)AttributeValue",
+            "mangledName": "$s10CordialSDK14AttributeValueP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "JSONValue",
+            "printedName": "JSONValue",
+            "usr": "c:@M@CordialSDK@objc(pl)JSONValue",
+            "mangledName": "$s10CordialSDK9JSONValueP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "InAppMessageURLSessionData",
         "printedName": "InAppMessageURLSessionData",
         "children": [
@@ -28494,6 +30010,13 @@
         ]
       },
       {
+        "kind": "Import",
+        "name": "os.log",
+        "printedName": "os.log",
+        "declKind": "Import",
+        "moduleName": "CordialSDK"
+      },
+      {
         "kind": "TypeDecl",
         "name": "UpsertContacts",
         "printedName": "UpsertContacts",
@@ -28583,7 +30106,7 @@
           {
             "kind": "Function",
             "name": "getUpsertContactRequestJSON",
-            "printedName": "getUpsertContactRequestJSON(upsertContactRequest:)",
+            "printedName": "getUpsertContactRequestJSON(upsertContactRequest:isLogs:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -28596,16 +30119,19 @@
                 "name": "UpsertContactRequest",
                 "printedName": "CordialSDK.UpsertContactRequest",
                 "usr": "c:@M@CordialSDK@objc(cs)UpsertContactRequest"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK14UpsertContactsC03getC18ContactRequestJSON06upsertfG0SSAA0cfG0C_tF",
-            "mangledName": "$s10CordialSDK14UpsertContactsC03getC18ContactRequestJSON06upsertfG0SSAA0cfG0C_tF",
+            "usr": "s:10CordialSDK14UpsertContactsC03getC18ContactRequestJSON06upsertfG06isLogsSSAA0cfG0C_SbtF",
+            "mangledName": "$s10CordialSDK14UpsertContactsC03getC18ContactRequestJSON06upsertfG06isLogsSSAA0cfG0C_SbtF",
             "moduleName": "CordialSDK",
             "isOpen": true,
-            "declAttributes": [
-              "AccessControl"
-            ],
             "funcSelfKind": "NonMutating"
           },
           {
@@ -30904,6 +32430,30 @@
             "usr": "s:s28CustomDebugStringConvertibleP",
             "mangledName": "$ss28CustomDebugStringConvertibleP"
           }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "JSONValue",
+        "printedName": "JSONValue",
+        "declKind": "Protocol",
+        "usr": "c:@M@CordialSDK@objc(pl)JSONValue",
+        "mangledName": "$s10CordialSDK9JSONValueP",
+        "moduleName": "CordialSDK",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "ObjC"
         ]
       },
       {
@@ -44070,6 +45620,13 @@
           },
           {
             "kind": "Conformance",
+            "name": "JSONValue",
+            "printedName": "JSONValue",
+            "usr": "c:@M@CordialSDK@objc(pl)JSONValue",
+            "mangledName": "$s10CordialSDK9JSONValueP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Equatable",
             "printedName": "Equatable",
             "usr": "s:SQ",
@@ -47622,6 +49179,13 @@
             "printedName": "AttributeValue",
             "usr": "c:@M@CordialSDK@objc(pl)AttributeValue",
             "mangledName": "$s10CordialSDK14AttributeValueP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "JSONValue",
+            "printedName": "JSONValue",
+            "usr": "c:@M@CordialSDK@objc(pl)JSONValue",
+            "mangledName": "$s10CordialSDK9JSONValueP"
           },
           {
             "kind": "Conformance",
@@ -51739,6 +53303,13 @@
             "printedName": "AttributeValue",
             "usr": "c:@M@CordialSDK@objc(pl)AttributeValue",
             "mangledName": "$s10CordialSDK14AttributeValueP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "JSONValue",
+            "printedName": "JSONValue",
+            "usr": "c:@M@CordialSDK@objc(pl)JSONValue",
+            "mangledName": "$s10CordialSDK9JSONValueP"
           },
           {
             "kind": "Conformance",
@@ -58776,6 +60347,13 @@
             "printedName": "AttributeValue",
             "usr": "c:@M@CordialSDK@objc(pl)AttributeValue",
             "mangledName": "$s10CordialSDK14AttributeValueP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "JSONValue",
+            "printedName": "JSONValue",
+            "usr": "c:@M@CordialSDK@objc(pl)JSONValue",
+            "mangledName": "$s10CordialSDK9JSONValueP"
           },
           {
             "kind": "Conformance",
@@ -71515,6 +73093,13 @@
           },
           {
             "kind": "Conformance",
+            "name": "JSONValue",
+            "printedName": "JSONValue",
+            "usr": "c:@M@CordialSDK@objc(pl)JSONValue",
+            "mangledName": "$s10CordialSDK9JSONValueP"
+          },
+          {
+            "kind": "Conformance",
             "name": "Equatable",
             "printedName": "Equatable",
             "usr": "s:SQ",
@@ -81794,14 +83379,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/StringValue.swift",
       "kind": "StringLiteral",
-      "offset": 319,
+      "offset": 330,
       "length": 7,
       "value": "\"value\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/StringValue.swift",
       "kind": "StringLiteral",
-      "offset": 319,
+      "offset": 330,
       "length": 7,
       "value": "\"value\""
     },
@@ -82058,6 +83643,27 @@
       "value": "\"ContactLogout\""
     },
     {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/JSONObjectValue.swift",
+      "kind": "StringLiteral",
+      "offset": 352,
+      "length": 7,
+      "value": "\"value\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/JSONObjectValue.swift",
+      "kind": "StringLiteral",
+      "offset": 352,
+      "length": 7,
+      "value": "\"value\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/JSONObjectValue.swift",
+      "kind": "StringLiteral",
+      "offset": 182,
+      "length": 15,
+      "value": "\"CordialSDK.JSONObjectValue\""
+    },
+    {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/InboxMessagesMarkReadUnread\/InboxMessagesMarkReadUnreadRequest.swift",
       "kind": "BooleanLiteral",
       "offset": 423,
@@ -82233,6 +83839,27 @@
       "value": "\"InAppMessagesShown\""
     },
     {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/JSONObjectValues.swift",
+      "kind": "StringLiteral",
+      "offset": 349,
+      "length": 7,
+      "value": "\"value\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/JSONObjectValues.swift",
+      "kind": "StringLiteral",
+      "offset": 349,
+      "length": 7,
+      "value": "\"value\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/JSONObjectValues.swift",
+      "kind": "StringLiteral",
+      "offset": 183,
+      "length": 16,
+      "value": "\"CordialSDK.JSONObjectValues\""
+    },
+    {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Inbox\/Pagination\/InboxPage.swift",
       "kind": "StringLiteral",
       "offset": 183,
@@ -82315,6 +83942,27 @@
       "offset": 185,
       "length": 11,
       "value": "\"CordialSDK.InboxFilter\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/JSONObjectsValues.swift",
+      "kind": "StringLiteral",
+      "offset": 353,
+      "length": 7,
+      "value": "\"value\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/JSONObjectsValues.swift",
+      "kind": "StringLiteral",
+      "offset": 353,
+      "length": 7,
+      "value": "\"value\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/JSONObjectsValues.swift",
+      "kind": "StringLiteral",
+      "offset": 184,
+      "length": 17,
+      "value": "\"CordialSDK.JSONObjectsValues\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageDelayType.swift",
@@ -82692,7 +84340,7 @@
       "kind": "StringLiteral",
       "offset": 393,
       "length": 7,
-      "value": "\"4.1.5\""
+      "value": "\"4.1.6\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
@@ -83061,14 +84709,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/NumericValue.swift",
       "kind": "StringLiteral",
-      "offset": 321,
+      "offset": 332,
       "length": 7,
       "value": "\"value\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/NumericValue.swift",
       "kind": "StringLiteral",
-      "offset": 321,
+      "offset": 332,
       "length": 7,
       "value": "\"value\""
     },
@@ -83180,14 +84828,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/BooleanValue.swift",
       "kind": "StringLiteral",
-      "offset": 314,
+      "offset": 325,
       "length": 7,
       "value": "\"value\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/BooleanValue.swift",
       "kind": "StringLiteral",
-      "offset": 314,
+      "offset": 325,
       "length": 7,
       "value": "\"value\""
     },
@@ -83432,98 +85080,98 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 483,
+      "offset": 494,
       "length": 6,
       "value": "\"city\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 513,
+      "offset": 524,
       "length": 9,
       "value": "\"country\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 549,
+      "offset": 560,
       "length": 12,
       "value": "\"postalCode\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 583,
+      "offset": 594,
       "length": 7,
       "value": "\"state\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 620,
+      "offset": 631,
       "length": 15,
       "value": "\"streetAddress\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 666,
+      "offset": 677,
       "length": 16,
       "value": "\"streetAddress2\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 707,
+      "offset": 718,
       "length": 10,
       "value": "\"timeZone\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 483,
+      "offset": 494,
       "length": 6,
       "value": "\"city\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 513,
+      "offset": 524,
       "length": 9,
       "value": "\"country\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 549,
+      "offset": 560,
       "length": 12,
       "value": "\"postalCode\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 583,
+      "offset": 594,
       "length": 7,
       "value": "\"state\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 620,
+      "offset": 631,
       "length": 15,
       "value": "\"streetAddress\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 666,
+      "offset": 677,
       "length": 16,
       "value": "\"streetAddress2\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/GeoValue.swift",
       "kind": "StringLiteral",
-      "offset": 707,
+      "offset": 718,
       "length": 10,
       "value": "\"timeZone\""
     },
@@ -83796,14 +85444,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/DateValue.swift",
       "kind": "StringLiteral",
-      "offset": 313,
+      "offset": 324,
       "length": 7,
       "value": "\"value\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/DateValue.swift",
       "kind": "StringLiteral",
-      "offset": 313,
+      "offset": 324,
       "length": 7,
       "value": "\"value\""
     },
@@ -83929,14 +85577,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/ArrayValue.swift",
       "kind": "StringLiteral",
-      "offset": 318,
+      "offset": 329,
       "length": 7,
       "value": "\"value\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContacts\/Helper\/AttributeValue\/Helper\/ArrayValue.swift",
       "kind": "StringLiteral",
-      "offset": 318,
+      "offset": 329,
       "length": 7,
       "value": "\"value\""
     },
