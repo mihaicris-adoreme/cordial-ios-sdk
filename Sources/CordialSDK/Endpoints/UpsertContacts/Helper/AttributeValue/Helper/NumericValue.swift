@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class NumericValue: NSObject, NSCoding, AttributeValue {
+@objc public class NumericValue: NSObject, NSCoding, AttributeValue, JSONValue {
     
     public let value: Double?
     
