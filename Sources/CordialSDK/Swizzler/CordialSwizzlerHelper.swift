@@ -202,10 +202,8 @@ class CordialSwizzlerHelper {
     // MARK: SceneDelegate URL schemes method
     
     @available(iOS 13.0, *)
-    func processSceneOpenURLContexts(URLContexts: Set<UIOpenURLContext>, scene: UIScene) {
-        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate,
-           let url = URLContexts.first?.url {
-            
+    func processSceneOpenURLContexts(url: URL, scene: UIScene) {
+        if let cordialDeepLinksDelegate = CordialApiConfiguration.shared.cordialDeepLinksDelegate {
             DispatchQueue.main.async {
                 let internalCordialAPI = InternalCordialAPI()
                 

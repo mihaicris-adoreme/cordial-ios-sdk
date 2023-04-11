@@ -2,6 +2,26 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.1.5 (2023-03-24)
+
+### Added
+
+- Provisional push notifications support
+
+### Fixed
+
+- Redirecting schema deep links to browser
+
+## 4.1.4 (2023-02-23)
+
+### Fixed
+
+- Fetching inbox messages intermittent crash
+
+### Changed
+
+- Catalog demo app product images and cart item URLs
+
 ## 4.1.3 (2022-12-23)
 
 ### Added
