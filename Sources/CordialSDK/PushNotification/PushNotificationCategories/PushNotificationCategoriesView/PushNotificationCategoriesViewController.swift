@@ -58,13 +58,14 @@ class PushNotificationCategoriesViewController: UIViewController, UITableViewDel
         self.tableView.tableHeaderView = tableHeaderView
         
         // UITableView - FooterView
-        let tableFooterView = PushNotificationCategoriesViewFooterView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let tableFooterView = PushNotificationCategoriesViewFooterView(frame: CGRect(x: 0, y: 0, width: width, height: height * 1.5))
         
-        let wrapTableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let wrapTableFooterViewHeight = 100.0
+        let wrapTableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: wrapTableFooterViewHeight))
         
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.frame = CGRect(x: 0, y: 0, width: width, height: height / 3)
+        button.frame = CGRect(x: 0, y: 0, width: width, height: wrapTableFooterViewHeight / 2)
         button.setTitleColor(self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
         button.titleLabel?.font = font
         button.setTitle(NSLocalizedString("Enable Notifications", comment: "PushNotificationCategories - Educational button to enable notifications"), for: .normal)
@@ -77,7 +78,7 @@ class PushNotificationCategoriesViewController: UIViewController, UITableViewDel
         
         let buttonLabel = UIButton(type: .system)
         buttonLabel.translatesAutoresizingMaskIntoConstraints = false
-        buttonLabel.frame = CGRect(x: 0, y: 0, width: width, height: height / 4)
+        buttonLabel.frame = CGRect(x: 0, y: 0, width: width, height: wrapTableFooterViewHeight / 2)
         buttonLabel.setTitleColor(self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
         buttonLabel.titleLabel?.font = lightFont
         buttonLabel.setTitle(NSLocalizedString("Not now", comment: "PushNotificationCategories - Educational button to dismiss the screen"), for: .normal)
@@ -93,8 +94,10 @@ class PushNotificationCategoriesViewController: UIViewController, UITableViewDel
 
         wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[button]|", options: [], metrics: nil, views: wrapTableFooterViews))
         wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[buttonLabel]|", options: [], metrics: nil, views: wrapTableFooterViews))
-        wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-\(margin * 3)-[button(\(button.frame.height))]-[buttonLabel]-|", options: [], metrics: nil, views: wrapTableFooterViews))
+        wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[button(\(button.frame.height))][buttonLabel(\(buttonLabel.frame.height))]|", options: [], metrics: nil, views: wrapTableFooterViews))
         
+        wrapTableFooterView.center = tableFooterView.center
+
         tableFooterView.addSubview(wrapTableFooterView)
         
         self.tableView.tableFooterView = tableFooterView
