@@ -372,6 +372,18 @@ cordialAPI.registerForPushNotifications(options: [.alert, .sound], isEducational
 [cordialAPI registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound isEducational:YES];
 ```
 
+### Localization push notification categories 
+
+As the SDK take a part of responsibility to show notification categories views it also helps to prepare app for a global audience. 
+
+Below provided the path for a localizable key-value pairs file uses inside notification categories screens:
+
+```
+Sources/CordialSDK/PushNotification/PushNotificationCategories/en.lproj/PushNotificationCategories.strings
+```
+
+Use these data inside your localization dataset.
+
 ## Multiple Push Notification Providers
 Cordial SDK supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
 
