@@ -1393,6 +1393,7 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 - `CordialSwiftUIInAppMessagePublisher` - notifies the app of the inputs that were captured in an in-app message
 - `CordialSwiftUIInboxMessagePublisher` - notifies the app of new inbox messages
 - `CordialSwiftUIPushNotificationPublisher` - notifies the app that a new push notification token is received, push notification delivered when an app is on the foreground and app opened via push notification tap
+- `CordialSwiftUIPushNotificationCategoriesPublisher` - notifies the app that a user clicks the `[App name] Notification Settings` button in app's notifications settings
 
 ## Updating Major SDK Versions
 
