@@ -50,7 +50,7 @@ class PushNotificationCategoriesViewController: UIViewController, UITableViewDel
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
         label.font = mediumFont
         label.textAlignment = .center
-        label.textColor = self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor()
+        label.textColor = self.pushNotificationCategoriesHandler.tableViewCellTitleColor
         label.numberOfLines = 0
         label.text = NSLocalizedString("We will be sending you only the notifications selected", comment: "PushNotificationCategories - Educational label")
         
@@ -66,12 +66,12 @@ class PushNotificationCategoriesViewController: UIViewController, UITableViewDel
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.frame = CGRect(x: 0, y: 0, width: width, height: wrapTableFooterViewHeight / 2)
-        button.setTitleColor(self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
+        button.setTitleColor(self.pushNotificationCategoriesHandler.tableViewCellTitleColor, for: .normal)
         button.titleLabel?.font = font
         button.setTitle(NSLocalizedString("Enable Notifications", comment: "PushNotificationCategories - Educational button to enable notifications"), for: .normal)
         
         button.layer.borderWidth = 1
-        button.layer.borderColor = self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor().cgColor
+        button.layer.borderColor = self.pushNotificationCategoriesHandler.tableViewCellTitleColor.cgColor
         button.layer.cornerRadius = 10
         
         button.addTarget(self, action: #selector(self.buttonTapped(_:)), for: .touchUpInside)
@@ -79,7 +79,7 @@ class PushNotificationCategoriesViewController: UIViewController, UITableViewDel
         let buttonLabel = UIButton(type: .system)
         buttonLabel.translatesAutoresizingMaskIntoConstraints = false
         buttonLabel.frame = CGRect(x: 0, y: 0, width: width, height: wrapTableFooterViewHeight / 2)
-        buttonLabel.setTitleColor(self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
+        buttonLabel.setTitleColor(self.pushNotificationCategoriesHandler.tableViewCellTitleColor, for: .normal)
         buttonLabel.titleLabel?.font = lightFont
         buttonLabel.setTitle(NSLocalizedString("Not now", comment: "PushNotificationCategories - Educational button to dismiss the screen"), for: .normal)
         
