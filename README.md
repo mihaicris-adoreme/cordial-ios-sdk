@@ -374,9 +374,9 @@ cordialAPI.registerForPushNotifications(options: [.alert, .sound], isEducational
 
 ### Localization push notification categories 
 
-As the SDK take a part of responsibility to show notification categories views it also helps to prepare app for a global audience. 
+The SDK lets your app localize the texts in the default categories selection screen.
 
-Below provided the path for a localizable key-value pairs file uses inside notification categories screens:
+Here is the path to a key-value file used inside the notification categories screens:
 
 ```
 Sources/CordialSDK/PushNotification/PushNotificationCategories/en.lproj/PushNotificationCategories.strings
@@ -1393,7 +1393,7 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 - `CordialSwiftUIInAppMessagePublisher` - notifies the app of the inputs that were captured in an in-app message
 - `CordialSwiftUIInboxMessagePublisher` - notifies the app of new inbox messages
 - `CordialSwiftUIPushNotificationPublisher` - notifies the app that a new push notification token is received, push notification delivered when an app is on the foreground and app opened via push notification tap
-- `CordialSwiftUIPushNotificationCategoriesPublisher` - notifies the app that a user clicks the `[App name] Notification Settings` button in app's notifications settings
+- `CordialSwiftUIPushNotificationCategoriesPublisher` - notifies the app that a user clicked the `[App name] Notification Settings` button in app's notifications settings
 
 ## Updating Major SDK Versions
 
