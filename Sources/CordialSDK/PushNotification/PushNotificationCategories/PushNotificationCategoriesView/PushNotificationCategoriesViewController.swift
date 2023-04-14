@@ -47,40 +47,41 @@ class PushNotificationCategoriesViewController: UIViewController, UITableViewDel
         // UITableView - HeaderView
         let tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
         
-        let upperLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        upperLabel.font = mediumFont
-        upperLabel.textAlignment = .center
-        upperLabel.textColor = self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor()
-        upperLabel.numberOfLines = 0
-        upperLabel.text = "We will be sending you only the notifications selected"
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        label.font = mediumFont
+        label.textAlignment = .center
+        label.textColor = self.pushNotificationCategoriesHandler.tableViewCellTitleColor
+        label.numberOfLines = 0
+        label.text = NSLocalizedString("We will be sending you only the notifications selected", comment: "PushNotificationCategories - Educational label")
         
-        tableHeaderView.addSubview(upperLabel)
+        tableHeaderView.addSubview(label)
         self.tableView.tableHeaderView = tableHeaderView
         
         // UITableView - FooterView
-        let tableFooterView = PushNotificationCategoriesViewFooterView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let tableFooterView = PushNotificationCategoriesViewFooterView(frame: CGRect(x: 0, y: 0, width: width, height: height * 1.5))
         
-        let wrapTableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        let wrapTableFooterViewHeight = 100.0
+        let wrapTableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: wrapTableFooterViewHeight))
         
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.frame = CGRect(x: 0, y: 0, width: width, height: height / 3)
-        button.setTitleColor(self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: width, height: wrapTableFooterViewHeight / 2)
+        button.setTitleColor(self.pushNotificationCategoriesHandler.tableViewCellTitleColor, for: .normal)
         button.titleLabel?.font = font
-        button.setTitle("Enable Notifications", for: .normal)
+        button.setTitle(NSLocalizedString("Enable Notifications", comment: "PushNotificationCategories - Educational button to enable notifications"), for: .normal)
         
         button.layer.borderWidth = 1
-        button.layer.borderColor = self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor().cgColor
+        button.layer.borderColor = self.pushNotificationCategoriesHandler.tableViewCellTitleColor.cgColor
         button.layer.cornerRadius = 10
         
         button.addTarget(self, action: #selector(self.buttonTapped(_:)), for: .touchUpInside)
         
         let buttonLabel = UIButton(type: .system)
         buttonLabel.translatesAutoresizingMaskIntoConstraints = false
-        buttonLabel.frame = CGRect(x: 0, y: 0, width: width, height: height / 4)
-        buttonLabel.setTitleColor(self.pushNotificationCategoriesHandler.tableViewBackgroundColor.inverseColor(), for: .normal)
+        buttonLabel.frame = CGRect(x: 0, y: 0, width: width, height: wrapTableFooterViewHeight / 2)
+        buttonLabel.setTitleColor(self.pushNotificationCategoriesHandler.tableViewCellTitleColor, for: .normal)
         buttonLabel.titleLabel?.font = lightFont
-        buttonLabel.setTitle("Not now", for: .normal)
+        buttonLabel.setTitle(NSLocalizedString("Not now", comment: "PushNotificationCategories - Educational button to dismiss the screen"), for: .normal)
         
         buttonLabel.addTarget(self, action: #selector(self.buttonLabelTapped(_:)), for: .touchUpInside)
         
@@ -93,8 +94,10 @@ class PushNotificationCategoriesViewController: UIViewController, UITableViewDel
 
         wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[button]|", options: [], metrics: nil, views: wrapTableFooterViews))
         wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[buttonLabel]|", options: [], metrics: nil, views: wrapTableFooterViews))
-        wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-\(margin * 3)-[button(\(button.frame.height))]-[buttonLabel]-|", options: [], metrics: nil, views: wrapTableFooterViews))
+        wrapTableFooterView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[button(\(button.frame.height))][buttonLabel(\(buttonLabel.frame.height))]|", options: [], metrics: nil, views: wrapTableFooterViews))
         
+        wrapTableFooterView.center = tableFooterView.center
+
         tableFooterView.addSubview(wrapTableFooterView)
         
         self.tableView.tableFooterView = tableFooterView
