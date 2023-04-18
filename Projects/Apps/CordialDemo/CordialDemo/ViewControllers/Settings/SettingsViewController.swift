@@ -43,6 +43,10 @@ class SettingsViewController: UIViewController {
         self.saveSettingsData()
     }
     
+    @IBAction func pushNotificationsCategoriesSwitchAction(_ sender: UISwitch) {
+        // TODO
+    }
+    
     @IBAction func choosePresetAction(_ sender: UIButton) {
         let alertController = UIAlertController(title: "Settings", message: "Choose Preset", preferredStyle: .actionSheet)
 
