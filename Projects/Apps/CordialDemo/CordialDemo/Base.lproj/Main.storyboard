@@ -102,7 +102,7 @@
             <objects>
                 <navigationController storyboardIdentifier="LoginNavigationController" id="rgU-rg-A1D" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AMN-Tr-aUf">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -352,12 +352,13 @@
                         <outlet property="inboxMaxCachableMessageSizeTextField" destination="Sly-8c-HIN" id="FyI-6l-AJc"/>
                         <outlet property="inboxMaxCacheSizeTextField" destination="F6Z-hr-kYs" id="R9l-Th-SLw"/>
                         <outlet property="messageHubURLTextField" destination="JX5-bA-Mr5" id="Ka1-5t-QmD"/>
+                        <outlet property="pushNotificationsCategoriesSwitch" destination="0TB-ZW-G4v" id="Kq6-bN-J0o"/>
                         <outlet property="qtyCachedEventQueueTextField" destination="trI-V3-xbA" id="8Nm-eO-oDn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMy-uq-mV0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="138.75" y="1008.8028169014085"/>
+            <point key="canvasLocation" x="139" y="1089"/>
         </scene>
         <!--Inbox Messages Table List View Controller-->
         <scene sceneID="T7M-Kf-kFu">
@@ -604,7 +605,7 @@
             <objects>
                 <navigationController storyboardIdentifier="CatalogNavigationController" id="NUN-ha-vwX" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="JiE-CS-eJg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

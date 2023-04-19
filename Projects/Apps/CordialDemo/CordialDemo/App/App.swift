@@ -20,6 +20,7 @@ struct App {
     static private let USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL = "USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL"
     static private let USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY = "USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY"
     static private let USER_DEFAULTS_KEY_FOR_CHANNEL_KEY = "USER_DEFAULTS_KEY_FOR_CHANNEL_KEY"
+    static private let USER_DEFAULTS_KEY_FOR_IS_EDUCATIONAL_NOTIFICATION_CATEGORIES = "USER_DEFAULTS_KEY_FOR_IS_EDUCATIONAL_NOTIFICATION_CATEGORIES"
      
     // MARK: CordialSDK - Get Init Params
     
@@ -101,6 +102,14 @@ struct App {
     
     static func setMessageHubURL(messageHubURL: String) {
         UserDefaults.standard.set(messageHubURL, forKey: USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL)
+    }
+    
+    static func getNotificationCategoriesIsEducational() -> Bool {
+        return UserDefaults.standard.bool(forKey: USER_DEFAULTS_KEY_FOR_IS_EDUCATIONAL_NOTIFICATION_CATEGORIES)
+    }
+    
+    static func setNotificationCategoriesIsEducational(_ isEducational: Bool) {
+        UserDefaults.standard.set(isEducational, forKey: USER_DEFAULTS_KEY_FOR_IS_EDUCATIONAL_NOTIFICATION_CATEGORIES)
     }
     
     // MARK: App
