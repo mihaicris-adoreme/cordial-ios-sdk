@@ -338,6 +338,21 @@ class InternalCordialAPI {
         
         return nil
     }
+    
+    // MARK: Get top view controller
+    
+    func getTopViewController(of viewController: UIViewController?) -> UIViewController? {
+        switch viewController {
+        case is UIAlertController:
+            let alertController = viewController as! UIAlertController
+            return self.getTopViewController(of: alertController.presentingViewController)
+        case is UIActivityViewController:
+            let activityViewController = viewController as! UIActivityViewController
+            return self.getTopViewController(of: activityViewController.presentingViewController)
+        default:
+            return viewController
+        }
+    }
 
     // MARK: Send first launch custom event
     
