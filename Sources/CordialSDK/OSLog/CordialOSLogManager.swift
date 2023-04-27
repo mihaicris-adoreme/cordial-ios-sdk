@@ -53,6 +53,10 @@ public enum osLogLevel: String {
 }
 
 @objc public class CordialOSLogManager: NSObject {
+    
+    @objc static let shared = CordialOSLogManager()
+    
+    private override init() {}
         
     var currentOSLogLevel = osLogLevel.error
     
