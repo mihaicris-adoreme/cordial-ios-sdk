@@ -36,25 +36,19 @@ class InboxMessagesMarkReadUnreadSender {
     }
     
     func completionHandler(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Inbox messages read/unread marks have been sent. Request ID: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID)
-        }
+        CordialApiConfiguration.shared.osLogManager.logging("Inbox messages read/unread marks have been sent. Request ID: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID)
     }
     
     func systemErrorHandler(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest, error: ResponseError) {
         CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending inbox messages read/unread marks failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
-        }
+        CordialApiConfiguration.shared.osLogManager.logging("Sending inbox messages read/unread marks failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
     }
     
     func logicErrorHandler(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialInboxMessagesMarkReadUnreadLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending inbox messages read/unread marks failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
-        }
+        CordialApiConfiguration.shared.osLogManager.logging("Sending inbox messages read/unread marks failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
         
         if error.statusCode == 422, let responseBody = error.responseBody {
             let inboxMessagesMarkReadUnreadRequestWithoutBrokenMarks = self.getInboxMessagesMarkReadUnreadRequestWithoutBrokenMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest, responseBody: responseBody)
@@ -62,9 +56,7 @@ class InboxMessagesMarkReadUnreadSender {
             if !inboxMessagesMarkReadUnreadRequestWithoutBrokenMarks.markAsReadMcIDs.isEmpty ||
                 !inboxMessagesMarkReadUnreadRequestWithoutBrokenMarks.markAsUnreadMcIDs.isEmpty {
     
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Request [%{public}@] has valid inbox messages read/unread marks. Sending again those read/unread marks.", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID)
-                }
+                CordialApiConfiguration.shared.osLogManager.logging("Request [%{public}@] has valid inbox messages read/unread marks. Sending again those read/unread marks.", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID)
                 
                 self.sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequestWithoutBrokenMarks)
             }
@@ -125,14 +117,10 @@ class InboxMessagesMarkReadUnreadSender {
                     }
                 }
             } else {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("Failed decode response", log: OSLog.cordialInboxMessages, type: .error)
-                }
+                CordialApiConfiguration.shared.osLogManager.logging("Failed decode response", log: OSLog.cordialInboxMessages, type: .error)
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, error.localizedDescription)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, error.localizedDescription)
         }
         
         return (errorMarkAsReadIDs, errorMarkAsUnreadIDs)

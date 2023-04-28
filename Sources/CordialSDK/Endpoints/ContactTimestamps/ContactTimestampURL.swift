@@ -75,8 +75,6 @@ class ContactTimestampURL {
     func errorHandler(error: ResponseError) {
         self.isCurrentlyUpdatingContactTimestampURL = false
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("%{public}@", log: OSLog.cordialContactTimestamps, type: .error, error.message)
-        }
+        CordialApiConfiguration.shared.osLogManager.logging("%{public}@", log: OSLog.cordialContactTimestamps, type: .error, error.message)
     }
 }

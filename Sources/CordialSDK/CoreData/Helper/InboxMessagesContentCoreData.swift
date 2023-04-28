@@ -26,16 +26,12 @@ class InboxMessagesContentCoreData {
             } else {
                 self.removeLastInboxMessageContentFromCoreData()
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Exceeded max cache size. Removing the firstest cached inbox message content to free storage capacity.", log: OSLog.cordialInboxMessages, type: .info)
-                }
+                CordialApiConfiguration.shared.osLogManager.logging("Exceeded max cache size. Removing the firstest cached inbox message content to free storage capacity.", log: OSLog.cordialInboxMessages, type: .info)
                 
                 self.putInboxMessageContentToCoreData(mcID: mcID, content: content)
             }
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Message didn't enter the cache. Message size exceeded max cache size.", log: OSLog.cordialInboxMessages, type: .info)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Message didn't enter the cache. Message size exceeded max cache size.", log: OSLog.cordialInboxMessages, type: .info)
         }
     }
     
@@ -58,9 +54,7 @@ class InboxMessagesContentCoreData {
                 }
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
         }
         
         return nil
@@ -84,9 +78,7 @@ class InboxMessagesContentCoreData {
                 try context.save()
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
         }
     }
     
@@ -105,9 +97,7 @@ class InboxMessagesContentCoreData {
                 try context.save()
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
         }
     }
     
@@ -117,9 +107,7 @@ class InboxMessagesContentCoreData {
             
             self.setInboxMessageContentToCoreData(mcID: mcID, content: content)
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Message didn't enter the cache. Message size exceeded max cacheable message size.", log: OSLog.cordialInboxMessages, type: .info)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Message didn't enter the cache. Message size exceeded max cacheable message size.", log: OSLog.cordialInboxMessages, type: .info)
         }
     }
     
@@ -136,9 +124,7 @@ class InboxMessagesContentCoreData {
                 
                 try context.save()
             } catch let error {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-                }
+                CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
     }
@@ -160,9 +146,7 @@ class InboxMessagesContentCoreData {
                 }
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
         }
         
         return storageSize

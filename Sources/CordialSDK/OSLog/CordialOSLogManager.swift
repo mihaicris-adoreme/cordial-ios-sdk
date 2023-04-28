@@ -86,13 +86,13 @@ public enum osLogLevel: String {
         }
     }
     
-    func logging(_ message: StaticString, log: OSLog, osLogLevel: osLogLevel, _ args: CVarArg...) {
-        if self.isAvailableOsLogLevelForPrint(osLogLevel: osLogLevel) {
-            os_log(message, log: log, type: self.getOSLogType(osLogLevel: osLogLevel), args)
+    func logging(_ message: StaticString, log: OSLog, type: osLogLevel, _ args: CVarArg...) {
+        if self.isAvailableOsLogLevelForPrint(type) {
+            os_log(message, log: log, type: self.getOSLogType(type), args)
         }
     }
     
-    private func getOSLogType(osLogLevel: osLogLevel) -> OSLogType {
+    private func getOSLogType(_ osLogLevel: osLogLevel) -> OSLogType {
         switch osLogLevel {
         case .error:
             return .error
@@ -101,7 +101,7 @@ public enum osLogLevel: String {
         }
     }
     
-    func isAvailableOsLogLevelForPrint(osLogLevel: osLogLevel) -> Bool {
+    private func isAvailableOsLogLevelForPrint(_ osLogLevel: osLogLevel) -> Bool {
         switch self.currentOSLogLevel {
         case .none:
             return false

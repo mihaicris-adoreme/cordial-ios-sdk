@@ -108,10 +108,7 @@ class InAppMessageGetter {
         if InternalCordialAPI().isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
                 if InternalCordialAPI().getCurrentJWT() != nil {
-                    
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
-                    }
+                    CordialApiConfiguration.shared.osLogManager.logging("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
                     
                     InAppMessage().getInAppMessage(mcID: mcID)
                 } else {
@@ -133,20 +130,16 @@ class InAppMessageGetter {
     func completionHandler(inAppMessageData: InAppMessageData) {
         InAppMessage().prepareAndShowInAppMessage(inAppMessageData: inAppMessageData)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            guard let htmlData = inAppMessageData.html.data(using: .utf8) else { return }
-            let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
-            
-            os_log("IAM with mcID: [%{public}@] has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID, payloadSize)
-        }
+        guard let htmlData = inAppMessageData.html.data(using: .utf8) else { return }
+        let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
+        
+        CordialApiConfiguration.shared.osLogManager.logging("IAM with mcID: [%{public}@] has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID, payloadSize)
     }
     
     func systemErrorHandler(mcID: String, error: ResponseError) {
         CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [mcID])
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Fetching IAM failed. Saved to retry later. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID, error.message)
-        }
+        CordialApiConfiguration.shared.osLogManager.logging("Fetching IAM failed. Saved to retry later. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID, error.message)
     }
     
     func logicErrorHandler(mcID: String, error: ResponseError) {
@@ -154,8 +147,6 @@ class InAppMessageGetter {
         
         NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Fetching IAM failed. Will not retry. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, mcID, error.message)
-        }
+        CordialApiConfiguration.shared.osLogManager.logging("Fetching IAM failed. Will not retry. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, mcID, error.message)
     }
 }

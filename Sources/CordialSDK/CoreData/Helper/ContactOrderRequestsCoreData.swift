@@ -28,9 +28,7 @@ class ContactOrderRequestsCoreData {
                     
                     try context.save()
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-                    }
+                    CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
                 }
             }
         }
@@ -56,15 +54,11 @@ class ContactOrderRequestsCoreData {
                     context.delete(managedObject)
                     try context.save()
                     
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed unarchiving SendContactOrderRequest", log: OSLog.cordialError, type: .error)
-                    }
+                    CordialApiConfiguration.shared.osLogManager.logging("Failed unarchiving SendContactOrderRequest", log: OSLog.cordialError, type: .error)
                 }
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
         }
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)

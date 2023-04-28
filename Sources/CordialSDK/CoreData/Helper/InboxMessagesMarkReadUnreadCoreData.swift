@@ -28,9 +28,7 @@ class InboxMessagesMarkReadUnreadCoreData {
                 
                 try context.save()
             } catch let error {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-                }
+                CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
             }
         }
     }
@@ -53,18 +51,14 @@ class InboxMessagesMarkReadUnreadCoreData {
                 if let inboxMessagesMarkReadUnreadRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InboxMessagesMarkReadUnreadRequest, !inboxMessagesMarkReadUnreadRequest.isError {
                     inboxMessagesMarkReadUnreadRequests.append(inboxMessagesMarkReadUnreadRequest)
                 } else {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed unarchiving InboxMessagesMarkReadUnreadRequest", log: OSLog.cordialError, type: .error)
-                    }
+                    CordialApiConfiguration.shared.osLogManager.logging("Failed unarchiving InboxMessagesMarkReadUnreadRequest", log: OSLog.cordialError, type: .error)
                 }
                 
                 context.delete(managedObject)
                 try context.save()
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
         }
 
         return inboxMessagesMarkReadUnreadRequests

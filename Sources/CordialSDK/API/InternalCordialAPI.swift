@@ -43,17 +43,13 @@ class InternalCordialAPI {
     
     func getResourceBundleURL(forResource: String, withExtension: String) -> URL? {
         guard let resourceBundle = self.getResourceBundle() else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Error: [Could not get bundle that contains the model]", log: OSLog.cordialError, type: .error)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Error: [Could not get bundle that contains the model]", log: OSLog.cordialError, type: .error)
             
             return nil
         }
         
         guard let resourceBundleURL = resourceBundle.url(forResource: forResource, withExtension: withExtension) else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Error: [Could not get bundle url for file %{public}@.%{public}@]", log: OSLog.cordialError, type: .error, forResource, withExtension)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Error: [Could not get bundle url for file %{public}@.%{public}@]", log: OSLog.cordialError, type: .error, forResource, withExtension)
             
             return nil
         }
@@ -68,32 +64,24 @@ class InternalCordialAPI {
         let frameworkName = "CordialSDK"
         
         if let bundle = Bundle(identifier: frameworkIdentifier) {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Using resource bundle by framework identifier", log: OSLog.cordialInfo, type: .info)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Using resource bundle by framework identifier", log: OSLog.cordialInfo, type: .info)
             
             return bundle
         }
         
         guard let resourceBundleURL = Bundle(for: type(of: self)).url(forResource: frameworkName, withExtension: "bundle") else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Using resource bundle found in SPM way", log: OSLog.cordialInfo, type: .info)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Using resource bundle found in SPM way", log: OSLog.cordialInfo, type: .info)
             
             return Bundle.resourceBundle
         }
         
         guard let resourceBundle = Bundle(url: resourceBundleURL) else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("ResourceBundle Error: [resourceBundle is nil] resourceBundleURL: [%{public}@] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, resourceBundleURL.absoluteString, frameworkName)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("ResourceBundle Error: [resourceBundle is nil] resourceBundleURL: [%{public}@] frameworkName: [%{public}@]", log: OSLog.cordialError, type: .error, resourceBundleURL.absoluteString, frameworkName)
             
             return nil
         }
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Using resource bundle of self object", log: OSLog.cordialInfo, type: .info)
-        }
+        CordialApiConfiguration.shared.osLogManager.logging("Using resource bundle of self object", log: OSLog.cordialInfo, type: .info)
         
         return resourceBundle
     }
@@ -297,10 +285,8 @@ class InternalCordialAPI {
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
         CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            if CordialApiConfiguration.shared.eventsBulkSize != 1 {
-                os_log("Event [eventName: %{public}@, eventID: %{public}@] added to bulk", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
-            }
+        if CordialApiConfiguration.shared.eventsBulkSize != 1 {
+            CordialApiConfiguration.shared.osLogManager.logging("Event [eventName: %{public}@, eventID: %{public}@] added to bulk", log: OSLog.cordialSendCustomEvents, type: .info, sendCustomEventRequest.eventName, sendCustomEventRequest.requestID)
         }
         
         ThrottlerManager.shared.sendCustomEventRequest.throttle {

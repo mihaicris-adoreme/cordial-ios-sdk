@@ -20,13 +20,9 @@ class CordialSwizzler {
             self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
             self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
             
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Push notification related functions swizzled successfully", log: OSLog.cordialPushNotification, type: .info)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Push notification related functions swizzled successfully", log: OSLog.cordialPushNotification, type: .info)
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Push notification related functions not swizzled: pushesConfiguration not equals to SDK value", log: OSLog.cordialPushNotification, type: .info)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Push notification related functions not swizzled: pushesConfiguration not equals to SDK value", log: OSLog.cordialPushNotification, type: .info)
         }
         
         if CordialApiConfiguration.shared.deepLinksConfiguration == .SDK {
@@ -39,30 +35,20 @@ class CordialSwizzler {
                     self.swizzleAppOpenOptions()
                 }
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Deep links related functions swizzled successfully", log: OSLog.cordialDeepLinks, type: .info)
-                }
+                CordialApiConfiguration.shared.osLogManager.logging("Deep links related functions swizzled successfully", log: OSLog.cordialDeepLinks, type: .info)
             } else {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Deep links related functions not swizzled: Deep links delegate not setted up", log: OSLog.cordialDeepLinks, type: .info)
-                }
+                CordialApiConfiguration.shared.osLogManager.logging("Deep links related functions not swizzled: Deep links delegate not setted up", log: OSLog.cordialDeepLinks, type: .info)
             }
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Deep links related functions not swizzled: deepLinksConfiguration not equals to SDK value", log: OSLog.cordialDeepLinks, type: .info)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Deep links related functions not swizzled: deepLinksConfiguration not equals to SDK value", log: OSLog.cordialDeepLinks, type: .info)
         }
         
         if CordialApiConfiguration.shared.backgroundURLSessionConfiguration == .SDK {
             self.swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler()
             
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Background URLSession related function swizzled successfully", log: OSLog.cordialBackgroundURLSession, type: .info)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Background URLSession related function swizzled successfully", log: OSLog.cordialBackgroundURLSession, type: .info)
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Background URLSession related function not swizzled: backgroundURLSessionConfiguration not equals to SDK value", log: OSLog.cordialBackgroundURLSession, type: .info)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Background URLSession related function not swizzled: backgroundURLSessionConfiguration not equals to SDK value", log: OSLog.cordialBackgroundURLSession, type: .info)
         }
     }
     
@@ -182,9 +168,7 @@ class CordialSwizzler {
     }
     
     @objc func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("RegisterForRemoteNotifications fail with error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
-        }
+        CordialApiConfiguration.shared.osLogManager.logging("RegisterForRemoteNotifications fail with error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
     }
     
     // MARK: Swizzled AppDelegate universal links method
@@ -211,9 +195,7 @@ class CordialSwizzler {
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         guard let url = URLContexts.first?.url else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("DeepLink URL is absent or not in a valid format.", log: OSLog.cordialDeepLinks, type: .error)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("DeepLink URL is absent or not in a valid format.", log: OSLog.cordialDeepLinks, type: .error)
             
             return
         }

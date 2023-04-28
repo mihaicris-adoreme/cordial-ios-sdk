@@ -32,9 +32,7 @@ class InAppMessages {
             if ReachabilityManager.shared.isConnectedToInternet {
                 if InternalCordialAPI().getCurrentJWT() != nil {
                     
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("Fetching IAMs has been started.", log: OSLog.cordialInAppMessages, type: .info)
-                    }
+                    CordialApiConfiguration.shared.osLogManager.logging("Fetching IAMs has been started.", log: OSLog.cordialInAppMessages, type: .info)
                     
                     if let contactKey = InternalCordialAPI().getContactKey(),
                        let url = URL(string: CordialApiEndpoints().getInAppMessagesURL(contactKey: contactKey)) {
@@ -80,19 +78,15 @@ class InAppMessages {
             InAppMessagesGetter().setInAppMessagesParamsToCoreData(messages: messages)
         }
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            guard let htmlData = messages.description.data(using: .utf8) else { return }
-            let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
-            
-            os_log("IAMs has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessages, type: .info, payloadSize)
-        }
+        guard let htmlData = messages.description.data(using: .utf8) else { return }
+        let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
+        
+        CordialApiConfiguration.shared.osLogManager.logging("IAMs has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessages, type: .info, payloadSize)
     }
     
     func errorHandler(error: ResponseError) {
         self.isCurrentlyUpdatingInAppMessages = false
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("%{public}@", log: OSLog.cordialInAppMessages, type: .error, error.message)
-        }
+        CordialApiConfiguration.shared.osLogManager.logging("%{public}@", log: OSLog.cordialInAppMessages, type: .error, error.message)
     }
 }

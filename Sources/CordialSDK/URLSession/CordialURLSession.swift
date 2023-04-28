@@ -181,9 +181,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                     }
                     
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, error.localizedDescription)
-                    }
+                    CordialApiConfiguration.shared.osLogManager.logging("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, error.localizedDescription)
                 }
             case .image:
                 if let image = UIImage(named: location.path),
@@ -199,9 +197,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                         }
                     }
                 } else {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed decode response data. Error: [Image data by URL is not a image]", log: OSLog.cordialInAppMessage, type: .error)
-                    }
+                    CordialApiConfiguration.shared.osLogManager.logging("Failed decode response data. Error: [Image data by URL is not a image]", log: OSLog.cordialInAppMessage, type: .error)
                 }
             default: break
             }

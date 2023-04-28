@@ -81,16 +81,12 @@ class CordialLocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.locationManager.stopUpdatingLocation()
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("LocationManager fail with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
-        }
+        CordialApiConfiguration.shared.osLogManager.logging("LocationManager fail with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
     }
     
     func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
         if let error = error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("LocationManager deferred updates finish with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("LocationManager deferred updates finish with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
         }
     }
     
