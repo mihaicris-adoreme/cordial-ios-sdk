@@ -18,7 +18,6 @@ import os.log
     
     let sdkVersion = "4.1.6"
     
-    let initPushNotification = CordialPushNotification.shared
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
@@ -33,12 +32,14 @@ import os.log
     
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
+    @objc public var pushNotificationCategoriesDelegate: PushNotificationCategoriesDelegate?
     @objc public var inAppMessageInputsDelegate: InAppMessageInputsDelegate?
     @objc public var inboxMessageDelegate: InboxMessageDelegate?
     
     @objc public var pushesConfiguration: CordialPushNotificationConfigurationType = .SDK
     @objc public var deepLinksConfiguration: CordialDeepLinksConfigurationType = .SDK
     @objc public var backgroundURLSessionConfiguration: CordialURLSessionConfigurationType = .SDK
+    @objc public var pushNotificationCategoriesConfiguration: PushNotificationCategoriesConfigurationType = .SDK
     @objc public var inAppMessagesDeliveryConfiguration: InAppMessagesDeliveryConfigurationType = .directDelivery
     
     @objc public let inboxMessageCache = InboxMessageCache.shared
@@ -46,13 +47,28 @@ import os.log
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, Any>?
     
+    @objc public func setNotificationCategories(_ pushNotificationCategories: [PushNotificationCategory]) {
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if !pushNotificationCategories.isEmpty {
+            if internalCordialAPI.isNewPushNotificationCategories(pushNotificationCategories: pushNotificationCategories) {
+                internalCordialAPI.setPushNotificationCategories(pushNotificationCategories: pushNotificationCategories)
+                internalCordialAPI.setPushNotificationCategories(pushNotificationCategories: pushNotificationCategories, key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES_ORIGIN)
+            }
+        } else {
+            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
+                os_log("Setting empty push notification categories array is unsupported", log: OSLog.cordialPushNotification, type: .error)
+            }
+        }
+    }
+    
     @objc public var vanityDomains = [String]()
     
     @objc public var eventsBulkSize: Int = 1 {
         didSet {
             CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         }
-        willSet(newEventsBulkSize) {
+        willSet (newEventsBulkSize) {
             if eventsBulkSize != newEventsBulkSize && newEventsBulkSize.signum() == 1 {
                 CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
             }
@@ -63,7 +79,7 @@ import os.log
         didSet {
             CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
         }
-        willSet(newEventsBulkUploadInterval) {
+        willSet (newEventsBulkUploadInterval) {
             if eventsBulkUploadInterval != newEventsBulkUploadInterval && Int(newEventsBulkUploadInterval).signum() == 1 {
                 CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
             }
@@ -95,6 +111,8 @@ import os.log
         
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         os_log("Device Identifier: [%{public}@] SDK: [%{public}@]", log: OSLog.cordialInfo, type: .info, deviceID, self.sdkVersion)
+        
+        CordialPushNotification.shared.setupPushNotifications()
         
         NotificationManager.shared.setupNotificationManager()
         

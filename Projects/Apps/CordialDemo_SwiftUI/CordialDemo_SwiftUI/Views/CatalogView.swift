@@ -13,6 +13,7 @@ struct CatalogView: View {
     let title = "Catalog"
     
     @Binding var deepLinks: CordialSwiftUIDeepLinks?
+    @Binding var notificationSettings: String?
     
     @State var productID: Int? = nil
     
@@ -20,13 +21,13 @@ struct CatalogView: View {
         NavigationView {
             VStack {
                 
+                if self.notificationSettings == "notificationSettings" {
+                    NavigationLink(destination: NotificationSettingsView(), tag: "notificationSettings", selection: $notificationSettings) { EmptyView() }
+                }
+                
                 if let deepLinks = self.deepLinks, let productID = DeepLinks(deepLinks: deepLinks).getProductID() {
-                    NavigationLink(destination: ProductView(productID: productID), tag: productID, selection: self.$productID) {
-                        EmptyView()
-                    }
-                    .onAppear {
-                        self.productID = productID
-                    }
+                    NavigationLink(destination: ProductView(productID: productID), tag: productID, selection: self.$productID) { EmptyView() }
+                        .onAppear { self.productID = productID }
                 }
                 
                 HStack {
@@ -69,9 +70,10 @@ struct CatalogView: View {
 
 struct CatalogView_Previews: PreviewProvider {
     
-    @State static private var deepLinks: CordialSwiftUIDeepLinks?
+    @State static var deepLinks: CordialSwiftUIDeepLinks?
+    @State static var notificationSettings: String? 
     
     static var previews: some View {
-        CatalogView(deepLinks: self.$deepLinks)
+        CatalogView(deepLinks: self.$deepLinks, notificationSettings: self.$notificationSettings)
     }
 }

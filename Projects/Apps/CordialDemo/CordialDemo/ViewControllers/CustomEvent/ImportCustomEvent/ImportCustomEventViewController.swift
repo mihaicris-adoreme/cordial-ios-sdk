@@ -26,7 +26,7 @@ class ImportCustomEventViewController: UIViewController {
             var isJSONValidated = false
             
             if json.isEmpty {
-                popupSimpleNoteAlert(title:  nil, message: "JSON cannot be empty", controller: self)
+                App.popupSimpleNoteAlert(title:  nil, message: "JSON cannot be empty", controller: self)
             } else {
                 isJSONValidated = true
             }
@@ -52,7 +52,7 @@ class ImportCustomEventViewController: UIViewController {
                         self.navigationController?.popViewController(animated: true)
                     }
                 } catch let error {
-                    popupSimpleNoteAlert(title: "ERROR", message: error.localizedDescription, controller: self)
+                    App.popupSimpleNoteAlert(title: "ERROR", message: error.localizedDescription, controller: self)
                 }
             }
         }

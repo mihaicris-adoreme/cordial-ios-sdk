@@ -45,7 +45,7 @@ class CartViewController: InAppMessageDelayViewController, UITableViewDelegate, 
     
     @objc func checkoutAction() {
         self.sendContactOrder()
-        popupSimpleNoteAlert(title: "CHECKOUT", message: "SUCCESS", controller: self)
+        App.popupSimpleNoteAlert(title: "CHECKOUT", message: "SUCCESS", controller: self)
         
         self.deleteAllCartItems()
     }
