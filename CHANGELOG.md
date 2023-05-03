@@ -2,6 +2,16 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.2.0 (2023-05-03)
+
+### Added
+
+- Push notifications categories support
+
+### Fixed
+
+- Displaying IAM within system controllers
+
 ## 4.1.6 (2023-04-10)
 
 ### Added

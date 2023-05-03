@@ -18,20 +18,28 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     private override init() {}
     
     let pushNotificationHelper = PushNotificationHelper()
+    
+    var isScreenPushNotificationCategoriesShown = false
 
     func registerForPushNotifications(options: UNAuthorizationOptions) {
-        let notificationCenter = UNUserNotificationCenter.current()
-        
-        notificationCenter.requestAuthorization(options: options) { granted, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, error in
             guard error == nil else { return }
             
             DispatchQueue.main.async {
                 UIApplication.shared.registerForRemoteNotifications()
             }
         }
+    }
+    
+    func providesAppNotificationSettings(options: UNAuthorizationOptions, isEducational: Bool) {
+        let current = UNUserNotificationCenter.current()
         
-        if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
-            notificationCenter.delegate = self
+        current.getNotificationSettings { settings in
+            if isEducational && settings.authorizationStatus != .authorized {
+                PushNotificationCategoriesHandler.shared.openEducationalPushNotificationCategories(options: options)
+            } else {
+                self.registerForPushNotifications(options: options)
+            }
         }
     }
     
@@ -41,7 +49,9 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
             
             UIApplication.shared.registerForRemoteNotifications()
         }
-        
+    }
+    
+    func setupPushNotifications() {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             UNUserNotificationCenter.current().delegate = self
         }
@@ -76,5 +86,25 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         let userInfo = notification.request.content.userInfo
         
         self.pushNotificationHelper.pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: completionHandler)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, openSettingsFor notification: UNNotification?) {
+        if CordialApiConfiguration.shared.pushNotificationCategoriesConfiguration == .SDK {
+            PushNotificationCategoriesHandler.shared.openPushNotificationCategories()
+        } else {
+            // UIKit
+            if let pushNotificationCategoriesDelegate = CordialApiConfiguration.shared.pushNotificationCategoriesDelegate {
+                DispatchQueue.main.async {
+                    pushNotificationCategoriesDelegate.openPushNotificationCategories()
+                }
+            }
+            
+            // SwiftUI
+            if #available(iOS 13.0, *) {
+                DispatchQueue.main.async {
+                    CordialSwiftUIPushNotificationCategoriesPublisher.shared.publishOpenPushNotificationCategories()
+                }
+            }
+        }
     }
 }

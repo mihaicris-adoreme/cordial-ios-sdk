@@ -20,6 +20,7 @@ struct App {
     static private let USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL = "USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL"
     static private let USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY = "USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY"
     static private let USER_DEFAULTS_KEY_FOR_CHANNEL_KEY = "USER_DEFAULTS_KEY_FOR_CHANNEL_KEY"
+    static private let USER_DEFAULTS_KEY_FOR_IS_EDUCATIONAL_NOTIFICATION_CATEGORIES = "USER_DEFAULTS_KEY_FOR_IS_EDUCATIONAL_NOTIFICATION_CATEGORIES"
      
     // MARK: CordialSDK - Get Init Params
     
@@ -103,6 +104,14 @@ struct App {
         UserDefaults.standard.set(messageHubURL, forKey: USER_DEFAULTS_KEY_FOR_MESSAGE_HUB_URL)
     }
     
+    static func getNotificationCategoriesIsEducational() -> Bool {
+        return UserDefaults.standard.bool(forKey: USER_DEFAULTS_KEY_FOR_IS_EDUCATIONAL_NOTIFICATION_CATEGORIES)
+    }
+    
+    static func setNotificationCategoriesIsEducational(_ isEducational: Bool) {
+        UserDefaults.standard.set(isEducational, forKey: USER_DEFAULTS_KEY_FOR_IS_EDUCATIONAL_NOTIFICATION_CATEGORIES)
+    }
+    
     // MARK: App
     
     static func getInboxMessageMetadata(inboxMessage: InboxMessage) -> String? {
@@ -169,6 +178,43 @@ struct App {
             return Settings.custom.rawValue
         }
     }
+    
+    static func popupSimpleNoteAlert(title: String?, message: String?, controller: UIViewController) {
+        DispatchQueue.main.async {
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .cancel)
+            alertController.addAction(okAction)
+            
+            controller.present(alertController, animated: true, completion: nil)
+        }
+    }
+
+    static func getActiveViewController() -> UIViewController? {
+        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+
+            return topController
+        }
+        
+        return nil
+    }
+}
+
+extension UIApplication {
+    var icon: UIImage? {
+        guard let iconsDictionary = Bundle.main.infoDictionary?["CFBundleIcons"] as? NSDictionary,
+            let primaryIconsDictionary = iconsDictionary["CFBundlePrimaryIcon"] as? NSDictionary,
+            let iconFiles = primaryIconsDictionary["CFBundleIconFiles"] as? NSArray,
+            // First will be smallest for the device class, last will be the largest for device class
+            let lastIcon = iconFiles.lastObject as? String,
+            let icon = UIImage(named: lastIcon) else {
+                return nil
+        }
+
+        return icon
+    }
 }
 
 extension UITextField {
@@ -193,7 +239,7 @@ extension UIViewController {
 }
 
 extension UIImageView {
-    public func asyncImage(url: URL) {
+    func asyncImage(url: URL) {
         self.image = nil
         
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -217,34 +263,58 @@ extension UIImageView {
     }
     
     func roundImage(borderWidth: CGFloat, borderColor: UIColor) {
-        self.layer.borderWidth = borderWidth
-        self.layer.masksToBounds = false
-        self.layer.borderColor = borderColor.cgColor
-        self.layer.cornerRadius = self.frame.height / 2
-        self.clipsToBounds = true
-    }
-}
-
-func popupSimpleNoteAlert(title: String?, message: String?, controller: UIViewController) {
-    DispatchQueue.main.async {
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .cancel)
-        alertController.addAction(okAction)
-        
-        controller.present(alertController, animated: true, completion: nil)
-    }
-}
-
-func getActiveViewController() -> UIViewController? {
-    if var topController = UIApplication.shared.keyWindow?.rootViewController {
-        while let presentedViewController = topController.presentedViewController {
-            topController = presentedViewController
+        DispatchQueue.main.async {
+            self.layer.borderWidth = borderWidth
+            self.layer.masksToBounds = false
+            self.layer.borderColor = borderColor.cgColor
+            self.layer.cornerRadius = self.frame.height / 2
+            self.clipsToBounds = true
         }
+    }
+}
 
-        return topController
+extension UIColor {
+    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { rendererContext in
+            self.setFill()
+            rendererContext.fill(CGRect(origin: .zero, size: size))
+        }
+    }
+}
+
+extension UIImage {
+    func round(_ radius: CGFloat) -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        let renderer = UIGraphicsImageRenderer(size: rect.size)
+        let result = renderer.image { c in
+            let rounded = UIBezierPath(roundedRect: rect, cornerRadius: radius)
+            rounded.addClip()
+            if let cgImage = self.cgImage {
+                UIImage(cgImage: cgImage, scale: self.scale, orientation: self.imageOrientation).draw(in: rect)
+            }
+        }
+      
+        return result
     }
     
-    return nil
+    func circle() -> UIImage {
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        let renderer = UIGraphicsImageRenderer(size: rect.size)
+        let result = renderer.image { c in
+            let isPortrait = size.height > size.width
+            let isLandscape = size.width > size.height
+            let breadth = min(size.width, size.height)
+            let breadthSize = CGSize(width: breadth, height: breadth)
+            let breadthRect = CGRect(origin: .zero, size: breadthSize)
+            let origin = CGPoint(x: isLandscape ? floor((size.width - size.height) / 2) : 0,
+                                 y: isPortrait  ? floor((size.height - size.width) / 2) : 0)
+            let circle = UIBezierPath(ovalIn: breadthRect)
+            circle.addClip()
+            if let cgImage = self.cgImage?.cropping(to: CGRect(origin: origin, size: breadthSize)) {
+                UIImage(cgImage: cgImage, scale: self.scale, orientation: self.imageOrientation).draw(in: rect)
+            }
+        }
+        
+        return result
+    }
 }
-
-

@@ -8,6 +8,7 @@
 [Push Notifications](#push-notifications)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Images In Push Notifications](#images-in-push-notifications)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Carousel Push Notifications [future feature]](#carousel-push-notifications)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Push Notifications Categories [future feature]](#push-notifications-categories)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Multiple Push Notification Providers](#multiple-push-notification-providers)<br>
 [Method Swizzling](#method-swizzling)<br>
 [Post a Cart](#post-a-cart)<br>
@@ -60,12 +61,13 @@ This will add the latest version of CordialSDK to your project.
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initialize` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key")
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"" messageHubURL:@""];
 ```
@@ -75,12 +77,13 @@ ___
 If your Cordial account is in us-west-2 region, pass events stream and message hub urls to SDK initialization methods:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "https://events-stream-svc.usw2.cordial.com/", messageHubURL: "https://message-hub-svc.usw2.cordial.com/")
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"https://events-stream-svc.usw2.cordial.com/" messageHubURL:@"https://message-hub-svc.usw2.cordial.com/"];
 ```
@@ -102,12 +105,13 @@ Besides automatic events tracking, the SDK allows developers to call Cordial spe
 The access point for every action above is the `CordialAPI` class. You can either have a global reference to the object of the class or create an object for every action - that choice is left to the client application.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let cordialAPI = CordialAPI()
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 ```
@@ -117,12 +121,13 @@ CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 You can choose one of four message logging levels: `none`, `all`, `error`, `info`. The logging level is set to `error` by default. Yo can change the logging level during SDK initialization:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[[CordialApiConfiguration shared] osLogManager] setLogLevel:logLevelAll];
 ```
@@ -136,12 +141,13 @@ Make sure to add `Remote notifications` background mode and `Push Notifications`
 1. Register for receiving push notifications:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 cordialAPI.registerForPushNotifications(options: [.alert, .sound, .badge])
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 #import <UserNotifications/UserNotifications.h>
 
@@ -151,13 +157,14 @@ ___
 2. Optionally provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. This should be done in `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let pushNotificationHandler = YourImplementationOfTheProtocol()  
 CordialApiConfiguration.shared.pushNotificationDelegate = pushNotificationHandler
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationOfTheProtocol alloc] init];
 [CordialApiConfiguration shared].pushNotificationDelegate = pushNotificationHandler;
@@ -166,12 +173,13 @@ YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationO
 3. Let the SDK know when your app receives a silent push notification. Silent push notifications are used for notifying the app of a new in-app or inbox message:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialPushNotificationHandler().processSilentPushDelivery(userInfo: userInfo)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[[CordialPushNotificationHandler alloc] init] processSilentPushDeliveryWithUserInfo:userInfo];
 ```
@@ -180,7 +188,6 @@ ___
 
 In order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. The new target's language should be `Swift`. In order to do that, create the **Notification Service Extension** and add `CordialAppExtensions` to it:
 
-___
 ```
 target "The name of the new Notification Service Extension target" do  
     use_frameworks!
@@ -190,7 +197,6 @@ end
 
 Ensure that your new target **Notification Service Extension** bundle identifier is prefixed with your app bundle identifier, for example: `yourAppBundleIdentifier.NotificationServiceExtension`. Delete the code that your IDE generated for the new extension and inherit it from `CordialNotificationServiceExtension`:  
 
-___
 ```
 import CordialAppExtensions
 class NotificationService: CordialNotificationServiceExtension {  
@@ -229,6 +235,155 @@ class NotificationViewController: CordialNotificationContentExtension {
 }
 ```
 
+## Push Notifications Categories
+
+Push notification categories let app users control the categories of push notifications they will receive. For example, they might allow `Discounts` and deny `New Arrivals` push notifications. Presenting users with a choice of which categories of push notifications they want to receive and communicating that up-front before requesting the push notification permission may drastically improve push notifications opt-in rates.
+
+To start using the feature pass available push notification categories to the SDK:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+CordialApiConfiguration.shared.setNotificationCategories([
+    PushNotificationCategory(key: "discounts", name: "Discounts", initState: true),
+    PushNotificationCategory(key: "new-arrivals", name: "New Arrivals", initState: false),
+    PushNotificationCategory(key: "top-products", name: "Top Products", initState: true)
+])
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+[[CordialApiConfiguration shared] setNotificationCategories:@[
+    [[PushNotificationCategory alloc] initWithKey:@"discounts" name:@"Discounts" initState:YES],
+    [[PushNotificationCategory alloc] initWithKey:@"new-arrivals" name:@"New Arrivals" initState:NO],
+    [[PushNotificationCategory alloc] initWithKey:@"top-products" name:@"Top Products" initState:YES]
+]];
+```
+
+After the categories are set and request for push notification permission has been made, your app will have the `[App name] Notification Settings` button in the app's notification settings:
+
+![Screenshot](docs/images/notification-settings-button.jpeg)
+
+Clicking the button will open the default categories selection screen:
+
+![Screenshot](docs/images/categories-selection-screen.jpeg)
+
+To configure the colors of this screen use the following API:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+PushNotificationCategoriesHandler.shared.navigationBarBackgroundColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.navigationBarTitleColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.navigationBarXmarkColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewBackgroundColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewSectionTitleColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewCellBackgroundColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewCellTitleColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewCellSwitchOnColor = UIColor.selectedColor
+PushNotificationCategoriesHandler.shared.tableViewCellSwitchThumbColor = UIColor.selectedColor
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+[PushNotificationCategoriesHandler shared].navigationBarBackgroundColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].navigationBarTitleColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].navigationBarXmarkColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewBackgroundColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewSectionTitleColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewCellBackgroundColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewCellTitleColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewCellSwitchOnColor = UIColor.selectedColor;
+[PushNotificationCategoriesHandler shared].tableViewCellSwitchThumbColor = UIColor.selectedColor;
+```
+
+To show the categories selection screen programmatically use the `openPushNotificationCategories` method:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+PushNotificationCategoriesHandler.shared.openPushNotificationCategories()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+[[PushNotificationCategoriesHandler shared] openPushNotificationCategories];
+```
+
+### Custom screen for selecting push notification categories
+
+Rather than relying on the SDK to show the default categories selection screen, your application can show a custom screen. 
+
+First, tell the SDK that it should not display the default categories selection screen in `AppDelegate.didFinishLaunchingWithOptions`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+CordialApiConfiguration.shared.pushNotificationCategoriesConfiguration = .APP
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+[CordialApiConfiguration shared].pushNotificationCategoriesConfiguration = PushNotificationCategoriesConfigurationTypeAPP;
+```
+
+Second, if your app uses UIKit, implement the `PushNotificationCategoriesDelegate` protocol. The protocol contains `openPushNotificationCategories` callback that will be called when a user clicks the `[App name] Notification Settings` button in your app's notifications settings.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let pushNotificationCategoriesHandler = YourImplementationOfTheProtocol()  
+CordialApiConfiguration.shared.pushNotificationCategoriesDelegate = pushNotificationCategoriesHandler
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+YourImplementationOfTheProtocol *pushNotificationCategoriesHandler = [[YourImplementationOfTheProtocol alloc] init];
+[CordialApiConfiguration shared].pushNotificationCategoriesDelegate = pushNotificationCategoriesHandler;
+```
+
+If your app uses SwiftUI, subscribe to `CordialSwiftUIPushNotificationCategoriesPublisher` in your app's view:
+
+```
+AppliationView()
+    .onReceive(self.pushNotificationCategoriesPublisher.openPushNotificationCategories, perform: { _ in
+        // Update the view 
+    })
+```
+
+### Show push categories selection screen prior to asking a push notification permission
+
+To show the categories selection screen before displaying the push notification permission prompt, set `isEducational` parameter in `CordialAPI.registerForPushNotifications` to true:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+cordialAPI.registerForPushNotifications(options: [.alert, .sound], isEducational: true)
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+[cordialAPI registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound isEducational:YES];
+```
+
+### Localization push notification categories 
+
+The SDK lets your app localize the texts in the default categories selection screen.
+
+Here is the path to a key-value file used inside the notification categories screens:
+
+```
+Sources/CordialSDK/PushNotification/PushNotificationCategories/en.lproj/PushNotificationCategories.strings
+```
+
+Use these data inside your localization dataset.
+
 ## Multiple Push Notification Providers
 Cordial SDK supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
 
@@ -237,12 +392,13 @@ It allows to use several notification providers in a single app simultaneously. 
 By default Cordial SDK is set up as the only push notification provider for your application. This behavior can be changed using `pushesConfiguration` option which can take one of the two values `SDK` or `APP`.  In order to enable multiple notification providers set `CordialApiConfiguration.pushesConfiguration` to `APP` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.pushesConfiguration = .APP
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationConfigurationTypeAPP;
 ```
@@ -250,7 +406,7 @@ ___
 After enabling multiple push notification providers support the application needs to know if a push notification is from Cordial. To check if push notification is from Cordial use `isCordialMessage` function:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 if CordialPushNotificationHandler().isCordialMessage(userInfo: userInfo) {
     // Any Cordial push notification handler call
@@ -258,7 +414,7 @@ if CordialPushNotificationHandler().isCordialMessage(userInfo: userInfo) {
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 if ([[[CordialPushNotificationHandler alloc] init] isCordialMessageWithUserInfo:userInfo]) {
     // Any Cordial push notification handler call
@@ -272,12 +428,13 @@ To handle Cordial push notifications after enabling multiple notification provid
 1. Pass push notification token to the Cordial SDK:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialPushNotificationHandler().processNewPushNotificationToken(deviceToken: deviceToken)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[[CordialPushNotificationHandler alloc] init] processNewPushNotificationTokenWithDeviceToken:deviceToken];
 ```
@@ -285,12 +442,13 @@ ___
 2. Call method `processAppOpenViaPushNotificationTap` if app has been open via push notification tap:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialPushNotificationHandler().processAppOpenViaPushNotificationTap(userInfo: userInfo, completionHandler: completionHandler)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[[CordialPushNotificationHandler alloc] init] processAppOpenViaPushNotificationTapWithUserInfo:userInfo completionHandler:completionHandler];
 ```
@@ -298,12 +456,13 @@ ___
 3. Call method `processNotificationDeliveryInForeground` if push notification has been foreground delivered:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialPushNotificationHandler().processNotificationDeliveryInForeground(userInfo: userInfo, completionHandler: completionHandler)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[[CordialPushNotificationHandler alloc] init] processNotificationDeliveryInForegroundWithUserInfo:userInfo completionHandler:completionHandler];
 ```
@@ -321,7 +480,7 @@ Swizzling allows minimum SDK configuration by the container app. Developers who 
 If swizzling for the three areas is enabled is controlled by three fields:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.pushesConfiguration = .APP
 CordialApiConfiguration.shared.deepLinksConfiguration = .SDK
@@ -329,7 +488,7 @@ CordialApiConfiguration.shared.backgroundURLSessionConfiguration = .SDK
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationConfigurationTypeAPP;
 [CordialApiConfiguration shared].deepLinksConfiguration = CordialDeepLinksConfigurationTypeSDK;
@@ -343,13 +502,13 @@ Below are the details on how to disable swizzling for each specific area
 ### Disable swizzling for registering and receiving push notifications
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.pushesConfiguration = .APP
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [CordialApiConfiguration shared].pushesConfiguration = CordialPushNotificationConfigurationTypeAPP;
 ```
@@ -359,13 +518,13 @@ In order to disable swizzling for registering and receiving push notifications s
 ### Disable swizzling for handling deep links
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.deepLinksConfiguration = .APP
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [CordialApiConfiguration shared].deepLinksConfiguration = CordialDeepLinksConfigurationTypeAPP;
 ```
@@ -375,7 +534,7 @@ Depending on iOS version and if your app use scenes, you should call correspondi
 In case the app is iOS 13 and greater and the app uses scenes, call the SDK from these two methods:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 // scene(_:continue:)
 CordialDeepLinksConfigurationHandler().processSceneContinue(userActivity: userActivity, scene: scene)
@@ -383,8 +542,9 @@ CordialDeepLinksConfigurationHandler().processSceneContinue(userActivity: userAc
 // scene(_:openURLContexts:)
 CordialDeepLinksConfigurationHandler().processSceneOpenURLContexts(URLContexts: URLContexts, scene: scene)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 // scene(_:continue:)
 [[CordialDeepLinksConfigurationHandler alloc] processSceneContinueWithUserActivity:userActivity scene:scene];
@@ -396,7 +556,7 @@ ___
 Otherwise call the SDK from these methods:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 // application(_:continue:restorationHandler:)
 CordialDeepLinksConfigurationHandler().processAppContinueRestorationHandler(userActivity: userActivity)
@@ -404,8 +564,9 @@ CordialDeepLinksConfigurationHandler().processAppContinueRestorationHandler(user
 // application(_:open:options:)
 CordialDeepLinksConfigurationHandler().processAppOpenOptions(url: url)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 // application(_:continue:restorationHandler:)
 [[CordialDeepLinksConfigurationHandler alloc] processAppContinueRestorationHandlerWithUserActivity:userActivity];
@@ -417,12 +578,13 @@ ___
 ### Disable swizzling for processing events from completing a URL session request
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.backgroundURLSessionConfiguration = .APP
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [CordialApiConfiguration shared].backgroundURLSessionConfiguration = CordialURLSessionConfigurationTypeAPP;
 ```
@@ -430,15 +592,16 @@ ___
 To turn off swizzling for processing events from completing a URL session, call `processURLSessionCompletionHandler` from your `application(_:handleEventsForBackgroundURLSession:completionHandler:)` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let cordialURLSessionConfigurationHandler = CordialURLSessionConfigurationHandler()
 if cordialURLSessionConfigurationHandler.isCordialURLSession(identifier: identifier) {
     cordialURLSessionConfigurationHandler.processURLSessionCompletionHandler(identifier: identifier, completionHandler: completionHandler)
 }
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 CordialURLSessionConfigurationHandler *cordialURLSessionConfigurationHandler = [CordialURLSessionConfigurationHandler alloc];
 if ([cordialURLSessionConfigurationHandler isCordialURLSessionWithIdentifier:identifier]) {
@@ -446,17 +609,17 @@ if ([cordialURLSessionConfigurationHandler isCordialURLSessionWithIdentifier:ide
 }
 ```
 
-
 ## Post a Cart
 Updates to contact's cart can be sent to Cordial by calling the `CordialApi.upsertContactCart` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
-сordialAPI.upsertContactCart(cartItems: cartItems)
+cordialAPI.upsertContactCart(cartItems: cartItems)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [cordialAPI upsertContactCartWithCartItems:cartItems];
 ```
@@ -464,14 +627,15 @@ ___
 `cartItems` - an array of cart items. Each item is assigned attributes such as SKU, quantity, price and other cart item specific attributes:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let cartItem = CartItem(productID: "productID", name: "productName", sku: "productSKU", category: "productCategory", url: nil, itemDescription: nil, qty: 1, itemPrice: 20, salePrice: 20, attr: nil, images: nil, properties: nil)
 
 let cartItems = [cartItem]
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 NSNumber *qty = [NSNumber numberWithInteger:1];
 NSNumber *price = [NSNumber numberWithDouble:20.00];
@@ -484,12 +648,13 @@ NSArray *cartItems = [[NSArray alloc] initWithObjects:cartItem, nil];
 You can also set the timestamp by passing the instance of the `Date` class to the `setTimestamp` method, otherwise the `timestamp` will be initialized when the `CartItem` object is created.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 cartItem.seTimestamp(date: Date())
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 NSDate *date = [[NSDate alloc] init];
 [cartItem seTimestampWithDate:date];
@@ -499,19 +664,21 @@ NSDate *date = [[NSDate alloc] init];
 The orders collection can be updated any time the contact places an order via the app. In order to post an order to Cordial, use the `CordialApi.sendContactOrder` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
-сordialAPI.sendContactOrder(order: order)
+cordialAPI.sendContactOrder(order: order)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [cordialAPI sendContactOrderWithOrder:order];
 ```
+
 `order`- used to specify order parameters such as orderID, storeID, customerID, billing and shipping addresses, etc:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let shippingAddress = Address(name: "shippingAddressName", address: "shippingAddress", city: "shippingAddressCity", state: "shippingAddressState", postalCode: "shippingAddressPostalCode", country: "shippingAddressCountry")
 
@@ -525,8 +692,9 @@ let orderID = UUID().uuidString
 
 let order = Order(orderID: orderID, status: "orderStatus", storeID: "storeID", customerID: "customerID", shippingAddress: shippingAddress, billingAddress: billingAddress, items: cartItems, tax: nil, shippingAndHandling: nil, properties: nil)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 Address *shippingAddress = [[Address alloc] initWithName:@"shippingAddressName" address:@"shippingAddress" city:@"shippingAddressCity" state:@"shippingAddressState" postalCode:@"shippingAddressPostalCode" country:@"shippingAddressCountry"];
 
@@ -547,12 +715,13 @@ Order *order = [[Order alloc] initWithOrderID:orderID status:@"orderStatus" stor
 You can also set the `purchaseDate` by passing the instance of the `Date` class to the `setPurchaseDate` method, otherwise the `purchaseDate` will be initialized when the `Order` object is created.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 order.setPurchaseDate(date: Date())
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 NSDate *date = [[NSDate alloc] init];
 [order setPurchaseDateWithDate:date];
@@ -564,13 +733,14 @@ Cordial SDK allows you to track deep link open events. Two types of deep links a
 In the body of the `AppDelegate.didFinishLaunchingWithOptions` function, provide the following implementation:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let cordialDeepLinksHandler = YourImplementationOfCordialDeepLinksHandler()
 CordialApiConfiguration.shared.cordialDeepLinksDelegate = cordialDeepLinksHandler
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImplementationOfCordialDeepLinksHandler alloc] init];
 [CordialApiConfiguration shared].cordialDeepLinksDelegate = cordialDeepLinksHandler;
@@ -579,12 +749,13 @@ YourImplementationOfCordialDeepLinksHandler *cordialDeepLinksHandler = [[YourImp
 ### Have the SDK opening deep links unknown to the application
 In case the SDK calls `openDeepLink` function at the protocol `CordialDeepLinksDelegate` with a deep link url that the application doesn't know how to handle, the app should ask the SDK to open the deep link in a web browser. The application can open the deep link in a web browser itself but in this case revenue attribution flow may be lost. In order to tell the SDK to open an unknown deep link, call `completionHandler` callback in your `openDeepLink` method, passing it `OPEN_IN_BROWSER` option:
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 completionHandler(.OPEN_IN_BROWSER)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 completionHandler(CordialDeepLinkActionTypeOPEN_IN_BROWSER);
 ```
@@ -596,12 +767,13 @@ When an application is killed the process the iOS starts the app makes it imposs
 Since iOS 13 if the application uses scenes:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialDeepLinksAPI().openSceneDelegateUniversalLink(scene: scene, userActivity: userActivity)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[CordialDeepLinksAPI alloc] openSceneDelegateUniversalLinkWithScene:scene userActivity:userActivity];
 ```
@@ -609,12 +781,13 @@ ___
 Since iOS 13 if the application does not use scenes:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialDeepLinksAPI().openAppDelegateUniversalLink(userActivity: userActivity)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[CordialDeepLinksAPI alloc] openAppDelegateUniversalLinkWithUserActivity:userActivity];
 ```
@@ -630,12 +803,13 @@ In order to configure the SDK with a vanity domain:
 2. The domain should be added to SDK as a vanity domain:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.vanityDomains = ["vanity.domain.com"]
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [CordialApiConfiguration shared].vanityDomains = @[@"vanity.domain.com"];
 ```
@@ -650,13 +824,14 @@ In case the app receives a deep link from Cordial, for example as part of inbox 
 To ask the SDK to open deep links received from Cordial use `openDeepLink` function on `CordialAPI`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let url = URL(string: "https://appdomain.com/link")!
 cordialAPI.openDeepLink(url: url)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 NSURL *url = [NSURL URLWithString: @"https://appdomain.com/link"];
 [cordialAPI openDeepLinkWithUrl:url];
@@ -677,12 +852,13 @@ There are two states in the SDK: `Logged in` and `Logged out`. The difference is
 `setContact` with primary key usage:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 cordialAPI.setContact(primaryKey: "foo@example.com")
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [cordialAPI setContactWithPrimaryKey: @"foo@example.com"];
 ```
@@ -690,12 +866,13 @@ ___
 `setContact` with secondary key usage:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 cordialAPI.setContact(primaryKey: "email:foo@example.com")
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [cordialAPI setContactWithPrimaryKey: @"email:foo@example.com"];
 ```
@@ -705,12 +882,13 @@ ___
 Whenever a contact is disassociated with the application, typically due to a logout event, the Cordial SDK should be notified so that contact generated events are no longer associated with their profile. This is done by calling the `unsetContact` method.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 cordialAPI.unsetContact()
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [cordialAPI unsetContact];
 ```
@@ -719,7 +897,7 @@ ___
 In order to udpate a contact's attributes, call the upsertContact method passing it new attributes values, for example:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 var attributes = Dictionary<String, AttributeValue>()
 
@@ -730,8 +908,9 @@ attributes["children"] = ArrayValue(["Sofia", "Jack"])
 
 cordialAPI.upsertContact(attributes: attributes)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 StringValue *name = [[StringValue alloc] init:@"Jon Doe"];
 BooleanValue *employed = [[BooleanValue alloc] init:TRUE];
@@ -746,16 +925,18 @@ NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 
 [cordialAPI upsertContactWithAttributes:attributes];
 ```
+
 Adding a contact to a list is done via passing an attribute update with list name as a key and boolean as a value. The boolean means if the contact is added to or removed from the list. The following code makes sure the contact is added to `list1` and removed from `list2`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let attributes = ["list1": BooleanValue(true), "list2": BooleanValue(false)]
 cordialAPI.upsertContact(attributes: attributes)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 BooleanValue *trueValue = [[BooleanValue alloc] init:TRUE];
 BooleanValue *falseValue = [[BooleanValue alloc] init:FALSE];
@@ -773,14 +954,14 @@ NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 Aside from internal events, the SDK allows sending of custom events specific to each app. Those may be, for example, user logged in, discount applied or app preferences updated to name a few. To send a custom event, use the `CordialApi.sendCustomEvent` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let properties = ["<property_name>": "<property_value>"]
 cordialAPI.sendCustomEvent(eventName: "{custom_event_name}", properties: properties)
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 NSDictionary *properties = @{ @"<property_name>":@"<property_value>" };
 [cordialAPI sendCustomEventWithEventName:@"{custom_event_name}" properties:properties];
@@ -791,24 +972,30 @@ NSDictionary *properties = @{ @"<property_name>":@"<property_value>" };
 Example of sending a product browse event:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
 ```
 let properties = ["productName": "Back Off Polo", "SKU": "polo543"]
 cordialAPI.sendCustomEvent(eventName: "browse_product", properties: properties)
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
 ```
 NSDictionary *properties = @{ @"productName":@"Back Off Polo", @"SKU":@"polo543" };
 [cordialAPI sendCustomEventWithEventName:@"browse_product" properties:properties];
 ```
+
 Example of sending a category browse event:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
 ```
 let properties = ["categoryName": "Men's"]
 cordialAPI.sendCustomEvent(eventName: "browse_category", properties: properties)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
 ```
 NSDictionary *properties = @{ @"categoryName":@"Men's" };
 [cordialAPI sendCustomEventWithEventName:@"browse_category" properties:properties];
@@ -819,10 +1006,13 @@ NSDictionary *properties = @{ @"categoryName":@"Men's" };
 To attached custom  `properties`  to internal system events set property `systemEventsProperties` after initialization CordilSDK.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
 ```
 CordialApiConfiguration.shared.systemEventsProperties = ["<property name>": "<property value>"]
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
 ```
 [CordialApiConfiguration shared].systemEventsProperties = @{ @"<property name>":@"<property value>" };
 ```
@@ -833,12 +1023,13 @@ Every request described above is cached in case of failure to post. For example,
 Cordial SDK limits the number of events that may be cached at any given time. When the limit of cached events is reached, the oldest events are removed and replaced by the incoming events, and will not be resent. By default, the cache limit is set to 1,000 events. Use the following method to modify the default cache limit:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.qtyCachedEventQueue = 100
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
 ```
@@ -852,13 +1043,14 @@ In order to optimize devices resource usage, Cordial SDK groups events into bulk
 3. The application is closed.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.eventsBulkSize = 3
 CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [CordialApiConfiguration shared].eventsBulkSize = 3;
 [CordialApiConfiguration shared].eventsBulkUploadInterval = 15;
@@ -869,12 +1061,13 @@ ___
 The SDK allows to send all cached events immediately. This is done by calling the `flushEvents` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 cordialAPI.flushEvents()
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [cordialAPI flushEvents];
 ```
@@ -885,15 +1078,17 @@ You can expand custom events data by setting geo locations to be sent with each 
 2. Initialize SDK location manager by adding the following to the end of  `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.initializeLocationManager(desiredAccuracy: kCLLocationAccuracyBest, distanceFilter: kCLDistanceFilterNone, untilTraveled: CLLocationDistanceMax, timeout: CLTimeIntervalMax)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
 ```
+
 The above example configures the location manager for maximum geo accuracy. To increase phone battery life, you can configure SDK location manager by changing the `desiredAccuracy`, `distanceFilter`, `untilTraveled`, and `timeout` properties.
 
 ## In-App Messages
@@ -917,14 +1112,15 @@ Cordial SDK allows application developers to delay displaying of in-app messages
 To switch between modes, call corresponding methods in the CordialApiConfiguration class:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.inAppMessageDelayMode.show()
 CordialApiConfiguration.shared.inAppMessageDelayMode.delayedShow()
 CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ClassName.self])
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
 [[[CordialApiConfiguration shared] inAppMessageDelayMode] delayedShow];
@@ -940,7 +1136,7 @@ To work with inbox messages you will have to use the `InboxMessageAPI` class. It
 ### Fetch all inbox messages for currently logged in contact
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let pageRequest = PageRequest(page: 1, size: 10) 
 CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, onSuccess: { inboxPage in
@@ -949,8 +1145,9 @@ CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, onSuccess:
     // your code
 })
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 PageRequest *pageRequest = [[PageRequest alloc] initWithPage:1 size:10];
 [[[CordialInboxMessageAPI alloc] init] fetchInboxMessagesWithPageRequest:pageRequest inboxFilter:nil onSuccess:^(InboxPage *inboxPage) {
@@ -965,7 +1162,7 @@ Response is an `InboxPage` object which contains pagination parameters. `InboxPa
 To filter inbox messages, pass an `InboxFilter` instance to the `fetchInboxMessages` method:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let pageRequest = PageRequest(page: 1, size: 10) 
 let fromDate = Date()
@@ -977,8 +1174,9 @@ CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilte
     // your code
 })
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 PageRequest *pageRequest = [[PageRequest alloc] initWithPage:1 size:10];
 NSDate *fromDate = [[NSDate alloc] init];
@@ -1000,13 +1198,14 @@ InboxFilter *inboxFilter = [[InboxFilter alloc] initWithIsRead:InboxFilterIsRead
 ### Send up an inbox message is read event.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let mcID = "example_mc_id"
 InboxMessageAPI().sendInboxMessageReadEvent(mcID: mcID)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 NSString *mcID = @"example_mc_id";
 [[[InboxMessageAPI alloc] init] sendInboxMessageReadEventWithMcID:mcID];
@@ -1021,13 +1220,14 @@ This operations actually marks a message as read or unread which toggles the `is
 To mark messages as read:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let mcIDs = ["example_mc_id_1", "example_mc_id_2"]
 InboxMessageAPI().markInboxMessagesRead(mcIDs: mcIDs)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 [[[InboxMessageAPI alloc] init] markInboxMessagesReadWithMcIDs:mcIDs];
@@ -1036,13 +1236,14 @@ NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 ### To mark messages as unread:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let mcIDs = ["example_mc_id_1", "example_mc_id_2"]
 InboxMessageAPI().markInboxMessagesUnread(mcIDs: mcIDs)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 [[[InboxMessageAPI alloc] init] markInboxMessagesUnreadWithMcIDs:mcIDs];
@@ -1053,13 +1254,14 @@ NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 To remove an inbox message from user's inbox, call
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let mcID = "example_mc_id"
 InboxMessageAPI().deleteInboxMessage(mcID: mcID)
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 NSString *mcID = @"example_mc_id";
 [[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
@@ -1070,13 +1272,14 @@ NSString *mcID = @"example_mc_id";
 The SDK can notify when a new inbox message has been delivered to the device. In order to be notified set a `InboxMessageDelegate`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 let inboxMessageHandler = YourImplementationOfInboxMessageDelegate()
 CordialApiConfiguration.shared.inboxMessageDelegate = inboxMessageHandler
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 YourImplementationOfInboxMessageDelegate *inboxMessageHandler = [[YourImplementationOfInboxMessageDelegate alloc] init];
 [CordialApiConfiguration shared].inboxMessageDelegate = inboxMessageHandler;
@@ -1092,13 +1295,14 @@ The SDK caches inbox messages in order to limit the number of requests the SDK m
 To override default values, set them via:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = 10 * 1024 * 1024 // 10 MB
 CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize = 200 * 1024 // 200 kB
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [[CordialApiConfiguration shared] inboxMessageCache].maxCacheSize = 10 * 1024 * 1024; // 10 MB
 [[CordialApiConfiguration shared] inboxMessageCache].maxCachableMessageSize = 200 * 1024; // 200 kB
@@ -1109,12 +1313,13 @@ ___
 To attribute future events the SDK sends to a message, a client app should explicitly set `mcID` of the message. Note, this typically should be done for inbox messages only as in-app messages and push notifications set `mcID` automatically when a user interacts with the message:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
-___
+
 ```
 cordialAPI.setCurrentMcID(mcID: "mcID")
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-___
+
 ```
 [cordialAPI setCurrentMcIDWithMcID:@"mcID"];
 ```
@@ -1124,6 +1329,7 @@ ___
 If your application is built on a WebView that views a mobile friendly version of your website which is running the Cordial JavaScript Listener, you will need to change how you process deep links to fix attribution. This is because when a message is clicked, the Cordial SDK will store the `mcID`, but the website will not know about this `mcID`. To fix this in your implementation of the `CordialDeepLinksDelegate`, the app should pass the `vanityURL` version of the deep link to the WebView which allows the JavaScript Listener to correctly store the `mcID` for event and order attribution.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
 ```
 @available(iOS 13.0, *)
 func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, scene: UIScene, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
@@ -1132,7 +1338,9 @@ func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, scene: UIScene, 
     yourWebView.load(request)
 }
 ```
+
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
 ```
 - (void)openDeepLinkWithDeepLink:(CordialDeepLink * _Nonnull)deepLink fallbackURL:(NSURL * _Nullable)fallbackURL scene:(UIScene * _Nonnull)scene completionHandler:(void (^ _Nonnull)(enum CordialDeepLinkActionType))completionHandler  API_AVAILABLE(ios(13.0)){
     NSURL *url = deepLink.vanityURL ? deepLink.vanityURL : deepLink.url;
@@ -1162,7 +1370,7 @@ AppliationView()
     .onOpenURL { url in
         CordialSwiftUIDeepLinksHandler().processDeepLink(url: url)
     }.onReceive(self.deepLinksPublisher.deepLinks) { deepLinks in
-    	// self.deepLinks is the @State object of CordialSwiftUIDeepLinks class that will trigger view refresh
+        // self.deepLinks is the @State object of CordialSwiftUIDeepLinks class that will trigger view refresh
         self.deepLinks = deepLinks
     }
 ```
@@ -1185,6 +1393,7 @@ In addition to `CordialSwiftUIDeepLinksPublisher`, the SDK contains these additi
 - `CordialSwiftUIInAppMessagePublisher` - notifies the app of the inputs that were captured in an in-app message
 - `CordialSwiftUIInboxMessagePublisher` - notifies the app of new inbox messages
 - `CordialSwiftUIPushNotificationPublisher` - notifies the app that a new push notification token is received, push notification delivered when an app is on the foreground and app opened via push notification tap
+- `CordialSwiftUIPushNotificationCategoriesPublisher` - notifies the app that a user clicked the `[App name] Notification Settings` button in app's notifications settings
 
 ## Updating Major SDK Versions
 
