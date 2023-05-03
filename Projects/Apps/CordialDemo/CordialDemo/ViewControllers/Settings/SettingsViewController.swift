@@ -15,6 +15,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var messageHubURLTextField: UITextField!
     @IBOutlet weak var accountKeyTextField: UITextField!
     @IBOutlet weak var channelKeyTextField: UITextField!
+    @IBOutlet weak var pushNotificationsCategoriesSwitch: UISwitch!
     @IBOutlet weak var qtyCachedEventQueueTextField: UITextField!
     @IBOutlet weak var eventsBulkSizeTextField: UITextField!
     @IBOutlet weak var eventsBulkUploadIntervalTextField: UITextField!
@@ -36,11 +37,17 @@ class SettingsViewController: UIViewController {
         self.inboxMaxCacheSizeTextField.text = String(CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize)
         self.inboxMaxCachableMessageSizeTextField.text = String(CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize)
         
+        self.pushNotificationsCategoriesSwitch.setOn(App.getNotificationCategoriesIsEducational(), animated: false)
+        
         self.updateSettingsPage()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         self.saveSettingsData()
+    }
+    
+    @IBAction func pushNotificationsCategoriesSwitchAction(_ sender: UISwitch) {
+        App.setNotificationCategoriesIsEducational(sender.isOn)
     }
     
     @IBAction func choosePresetAction(_ sender: UIButton) {
