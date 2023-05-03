@@ -35,6 +35,7 @@ public extension Notification.Name {
     static let cordialSendContactLogoutLogicError = Notification.Name.cordialSendContactLogoutLogicError
     static let cordialInAppMessageLogicError = Notification.Name.cordialInAppMessageLogicError
     static let cordialInboxMessagesMarkReadUnreadLogicError = Notification.Name.cordialInboxMessagesMarkReadUnreadLogicError
+    static let cordialInboxMessageDeleteRequestLogicError = Notification.Name.cordialInboxMessageDeleteRequestLogicError
 }
 
 class NotificationManager {

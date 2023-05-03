@@ -13,12 +13,12 @@ class ProfileTableFooterView: UITableViewHeaderFooterView {
     
     @IBAction func updateProfileAction(_ sender: UIButton) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-           let controller = getActiveViewController() {
+           let controller = App.getActiveViewController() {
             
             let attributes = AppDataManager.shared.attributes.getAttributesFromCoreData(appDelegate: appDelegate)
             CordialAPI().upsertContact(attributes: self.getAttributesDictionaryForCordialSDK(attributes: attributes))
             
-            popupSimpleNoteAlert(title: "PROFILE", message: "UPDATED", controller: controller)
+            App.popupSimpleNoteAlert(title: "PROFILE", message: "UPDATED", controller: controller)
         }
     }
     

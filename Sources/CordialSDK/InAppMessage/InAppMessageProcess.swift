@@ -81,7 +81,7 @@ class InAppMessageProcess {
         CoreDataManager.shared.inAppMessagesShown.deleteInAppMessageShownStatusByMcID(mcID: mcID)
     }
     
-    func addAnimationSubviewInAppMessageBanner(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, activeViewController: UIViewController) {
+    func addAnimationSubviewInAppMessageBanner(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, topViewController: UIViewController) {
         switch inAppMessageData.type {
         case InAppMessageType.banner_up:
             let x = webViewController.view.frame.origin.x
@@ -91,7 +91,7 @@ class InAppMessageProcess {
             
             webViewController.view.frame = CGRect(x: x, y: -y, width: width, height: height)
             
-            activeViewController.view.addSubview(webViewController.view)
+            topViewController.view.addSubview(webViewController.view)
             
             UIView.animate(withDuration: self.bannerAnimationDuration, animations: {
                 let x = webViewController.view.frame.origin.x
@@ -103,13 +103,13 @@ class InAppMessageProcess {
             })
         case InAppMessageType.banner_bottom:
             let x = webViewController.view.frame.origin.x
-            let y = activeViewController.view.frame.size.height - webViewController.view.frame.origin.y
+            let y = topViewController.view.frame.size.height - webViewController.view.frame.origin.y
             let width = webViewController.view.frame.size.width
             let height = webViewController.view.frame.size.height
             
             webViewController.view.frame = CGRect(x: x, y: y, width: width, height: height)
             
-            activeViewController.view.addSubview(webViewController.view)
+            topViewController.view.addSubview(webViewController.view)
             
             UIView.animate(withDuration: self.bannerAnimationDuration, animations: {
                 let x = webViewController.view.frame.origin.x
@@ -166,13 +166,15 @@ class InAppMessageProcess {
     }
     
     private func showModalInAppMessage(inAppMessageData: InAppMessageData) {
-        if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-            if self.inAppMessageManager.isActiveViewControllerCanPresentInAppMessage(activeViewController: activeViewController) {
-                let modalWebViewController = self.inAppMessageManager.getModalWebViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+        if let activeViewController = self.internalCordialAPI.getActiveViewController(),
+           let topViewController = self.internalCordialAPI.getTopViewController(of: activeViewController) {
+            
+            if self.inAppMessageManager.isTopViewControllerCanPresentInAppMessage(topViewController: topViewController) {
+                let modalWebViewController = self.inAppMessageManager.getModalWebViewController(topViewController: topViewController, inAppMessageData: inAppMessageData)
                                 
                 self.addDismissButtonToModalInAppMessageViewController(modalWebViewController: modalWebViewController)
                 
-                activeViewController.view.addSubview(modalWebViewController.view)
+                topViewController.view.addSubview(modalWebViewController.view)
                 
                 self.isPresentedInAppMessage = true
                 
@@ -208,11 +210,13 @@ class InAppMessageProcess {
     }
     
     private func showBannerInAppMessage(inAppMessageData: InAppMessageData) {
-        if let activeViewController = self.internalCordialAPI.getActiveViewController() {
-            if self.inAppMessageManager.isActiveViewControllerCanPresentInAppMessage(activeViewController: activeViewController) {
-                let bannerWebViewController = self.inAppMessageManager.getBannerViewController(activeViewController: activeViewController, inAppMessageData: inAppMessageData)
+        if let activeViewController = self.internalCordialAPI.getActiveViewController(),
+           let topViewController = self.internalCordialAPI.getTopViewController(of: activeViewController) {
+            
+            if self.inAppMessageManager.isTopViewControllerCanPresentInAppMessage(topViewController: topViewController) {
+                let bannerWebViewController = self.inAppMessageManager.getBannerViewController(topViewController: topViewController, inAppMessageData: inAppMessageData)
                 
-                self.addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: bannerWebViewController, activeViewController: activeViewController)
+                self.addAnimationSubviewInAppMessageBanner(inAppMessageData: inAppMessageData, webViewController: bannerWebViewController, topViewController: topViewController)
                 
                 self.isPresentedInAppMessage = true
                 

@@ -20,9 +20,9 @@ class PushNotificationHelper {
         DispatchQueue.main.async {
             let current = UNUserNotificationCenter.current()
             
-            current.getNotificationSettings(completionHandler: { settings in
+            current.getNotificationSettings { settings in
                 self.pushNotificationHasBeenTapped(userInfo: userInfo, authorizationStatus: settings.authorizationStatus)
-            })
+            }
         }
         
         completionHandler()
@@ -119,7 +119,7 @@ class PushNotificationHelper {
         DispatchQueue.main.async {
             let current = UNUserNotificationCenter.current()
             
-            current.getNotificationSettings(completionHandler: { settings in
+            current.getNotificationSettings { settings in
                 DispatchQueue.main.async {
                     if !self.internalCordialAPI.isCurrentlyUpsertingContacts(),
                        let token = self.internalCordialAPI.getPushNotificationToken() {
@@ -141,7 +141,7 @@ class PushNotificationHelper {
                         }
                     }
                 }
-            })
+            }
         }
     }
     
