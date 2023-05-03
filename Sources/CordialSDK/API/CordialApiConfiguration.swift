@@ -56,9 +56,7 @@ import os.log
                 internalCordialAPI.setPushNotificationCategories(pushNotificationCategories: pushNotificationCategories, key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES_ORIGIN)
             }
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Setting empty push notification categories array is unsupported", log: OSLog.cordialPushNotification, type: .error)
-            }
+            CordialApiConfiguration.shared.osLogManager.logging("Setting empty push notification categories array is unsupported", log: OSLog.cordialPushNotification, type: .error)
         }
     }
     
