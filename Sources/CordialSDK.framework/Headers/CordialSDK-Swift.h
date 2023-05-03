@@ -392,6 +392,7 @@ SWIFT_CLASS("_TtC10CordialSDK10CordialAPI")
 - (void)flushEvents;
 - (void)upsertContactCartWithCartItems:(NSArray<CartItem *> * _Nonnull)cartItems;
 - (void)sendContactOrderWithOrder:(Order * _Nonnull)order;
+- (void)registerForPushNotificationsWithOptions:(UNAuthorizationOptions)options isEducational:(BOOL)isEducational;
 - (void)registerForPushNotificationsWithOptions:(UNAuthorizationOptions)options;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -399,13 +400,16 @@ SWIFT_CLASS("_TtC10CordialSDK10CordialAPI")
 @class CordialOSLogManager;
 @protocol CordialDeepLinksDelegate;
 @protocol CordialPushNotificationDelegate;
+@protocol PushNotificationCategoriesDelegate;
 @protocol InAppMessageInputsDelegate;
 @protocol InboxMessageDelegate;
 enum CordialPushNotificationConfigurationType : NSInteger;
 enum CordialDeepLinksConfigurationType : NSInteger;
 enum CordialURLSessionConfigurationType : NSInteger;
+enum PushNotificationCategoriesConfigurationType : NSInteger;
 enum InAppMessagesDeliveryConfigurationType : NSInteger;
 @class InboxMessageCache;
+@class PushNotificationCategory;
 @class InAppMessageDelayMode;
 
 SWIFT_CLASS("_TtC10CordialSDK23CordialApiConfiguration")
@@ -417,15 +421,18 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) CordialApiCo
 @property (nonatomic, readonly, strong) CordialOSLogManager * _Nonnull osLogManager;
 @property (nonatomic, strong) id <CordialDeepLinksDelegate> _Nullable cordialDeepLinksDelegate;
 @property (nonatomic, strong) id <CordialPushNotificationDelegate> _Nullable pushNotificationDelegate;
+@property (nonatomic, strong) id <PushNotificationCategoriesDelegate> _Nullable pushNotificationCategoriesDelegate;
 @property (nonatomic, strong) id <InAppMessageInputsDelegate> _Nullable inAppMessageInputsDelegate;
 @property (nonatomic, strong) id <InboxMessageDelegate> _Nullable inboxMessageDelegate;
 @property (nonatomic) enum CordialPushNotificationConfigurationType pushesConfiguration;
 @property (nonatomic) enum CordialDeepLinksConfigurationType deepLinksConfiguration;
 @property (nonatomic) enum CordialURLSessionConfigurationType backgroundURLSessionConfiguration;
+@property (nonatomic) enum PushNotificationCategoriesConfigurationType pushNotificationCategoriesConfiguration;
 @property (nonatomic) enum InAppMessagesDeliveryConfigurationType inAppMessagesDeliveryConfiguration;
 @property (nonatomic, readonly, strong) InboxMessageCache * _Nonnull inboxMessageCache;
 @property (nonatomic) NSInteger qtyCachedEventQueue;
 @property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable systemEventsProperties;
+- (void)setNotificationCategories:(NSArray<PushNotificationCategory *> * _Nonnull)pushNotificationCategories;
 @property (nonatomic, copy) NSArray<NSString *> * _Nonnull vanityDomains;
 @property (nonatomic) NSInteger eventsBulkSize;
 @property (nonatomic) NSTimeInterval eventsBulkUploadInterval;
@@ -839,6 +846,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _
 + (NSNotificationName _Nonnull)cordialInAppMessageLogicError SWIFT_WARN_UNUSED_RESULT;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull cordialInboxMessagesMarkReadUnreadLogicError;)
 + (NSNotificationName _Nonnull)cordialInboxMessagesMarkReadUnreadLogicError SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) NSNotificationName _Nonnull cordialInboxMessageDeleteRequestLogicError;)
++ (NSNotificationName _Nonnull)cordialInboxMessageDeleteRequestLogicError SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -875,6 +884,48 @@ SWIFT_CLASS("_TtC10CordialSDK11PageRequest")
 - (nonnull instancetype)initWithPage:(NSInteger)page size:(NSInteger)size OBJC_DESIGNATED_INITIALIZER;
 - (PageRequest * _Nonnull)next SWIFT_WARN_UNUSED_RESULT;
 - (PageRequest * _Nonnull)previous SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@end
+
+typedef SWIFT_ENUM(NSInteger, PushNotificationCategoriesConfigurationType, open) {
+  PushNotificationCategoriesConfigurationTypeSDK = 0,
+  PushNotificationCategoriesConfigurationTypeAPP = 1,
+};
+
+
+SWIFT_PROTOCOL("_TtP10CordialSDK34PushNotificationCategoriesDelegate_")
+@protocol PushNotificationCategoriesDelegate
+- (void)openPushNotificationCategories;
+@end
+
+@class UIColor;
+
+SWIFT_CLASS("_TtC10CordialSDK33PushNotificationCategoriesHandler")
+@interface PushNotificationCategoriesHandler : NSObject
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushNotificationCategoriesHandler * _Nonnull shared;)
++ (PushNotificationCategoriesHandler * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+@property (nonatomic, strong) UIColor * _Nonnull navigationBarBackgroundColor;
+@property (nonatomic, strong) UIColor * _Nonnull navigationBarTitleColor;
+@property (nonatomic, strong) UIColor * _Nonnull navigationBarXmarkColor;
+@property (nonatomic, strong) UIColor * _Nonnull tableViewBackgroundColor;
+@property (nonatomic, strong) UIColor * _Nonnull tableViewSectionTitleColor;
+@property (nonatomic, strong) UIColor * _Nonnull tableViewCellBackgroundColor;
+@property (nonatomic, strong) UIColor * _Nonnull tableViewCellTitleColor;
+@property (nonatomic, strong) UIColor * _Nonnull tableViewCellSwitchOnColor;
+@property (nonatomic, strong) UIColor * _Nonnull tableViewCellSwitchThumbColor;
+- (void)openPushNotificationCategories;
+- (void)openEducationalPushNotificationCategoriesWithOptions:(UNAuthorizationOptions)options;
+@end
+
+
+SWIFT_CLASS("_TtC10CordialSDK24PushNotificationCategory")
+@interface PushNotificationCategory : NSObject <NSCoding>
+- (nonnull instancetype)initWithKey:(NSString * _Nonnull)key name:(NSString * _Nonnull)name initState:(BOOL)initState OBJC_DESIGNATED_INITIALIZER;
+- (void)encodeWithCoder:(NSCoder * _Nonnull)coder;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end

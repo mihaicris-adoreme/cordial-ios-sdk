@@ -23,6 +23,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToInboxTableIdentifier = "segueToInboxTable"
     let segueToInboxTableListIdentifier = "segueToInboxTableList"
     let segueToInboxCollectionIdentifier = "segueToInboxCollection"
+    let segueToPushNotificationSettings = "segueToPushNotificationSettings"
     
     let catalogName = "Mens"
     
@@ -59,16 +60,10 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     }
     
     @IBAction func menuButtonAction(_ sender: UIBarButtonItem) {
-        let activities: [UIActivity] = [
-            CustomUIActivityProfile(sender: self),
-            CustomUIActivityCustomEvent(sender: self),
-            CustomUIActivityInbox(sender: self),
-            CustomUIActivityLogin(sender: self),
-            CustomUIActivityLogout(sender: self)
-        ]
+        let menuTableViewController = MenuTableViewController()
+        menuTableViewController.sender = self
         
-        let activitySheet = UIActivityViewController(activityItems: [Any](), applicationActivities: activities)
-        self.present(activitySheet, animated: true, completion: nil)
+        self.present(menuTableViewController, animated: true)
     }
     
     func loginAction() {
@@ -110,7 +105,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         
     }
     
-    // MARK: UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.products.count
@@ -131,9 +126,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
         return cell
     }
     
-    // MARK: - UICollectionViewDelegate
-    
-    // MARK: UICollectionViewDelegateFlowLayout
+    // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         

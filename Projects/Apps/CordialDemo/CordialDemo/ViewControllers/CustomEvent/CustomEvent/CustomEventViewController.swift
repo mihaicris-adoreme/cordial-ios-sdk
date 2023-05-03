@@ -93,7 +93,7 @@ class CustomEventViewController: UIViewController, UITableViewDelegate, UITableV
                             }
                         }
                     } catch let error {
-                        popupSimpleNoteAlert(title: "ERROR", message: error.localizedDescription, controller: self)
+                        App.popupSimpleNoteAlert(title: "ERROR", message: error.localizedDescription, controller: self)
                     }
                 }
             }
