@@ -16,14 +16,14 @@ class InAppMessageManager {
         return self.inAppMessageViewController
     }
     
-    func getModalWebViewController(activeViewController: UIViewController, inAppMessageData: InAppMessageData) -> InAppMessageViewController {
+    func getModalWebViewController(topViewController: UIViewController, inAppMessageData: InAppMessageData) -> InAppMessageViewController {
         self.inAppMessageViewController = InAppMessageViewController()
         
         self.inAppMessageViewController.isBanner = false
         
         self.prepareModalInAppMessage(inAppMessageData: inAppMessageData)
         
-        self.inAppMessageViewController.view.frame = activeViewController.view.bounds
+        self.inAppMessageViewController.view.frame = topViewController.view.bounds
         
         return self.inAppMessageViewController
     }
@@ -34,14 +34,14 @@ class InAppMessageManager {
         self.inAppMessageViewController.view.backgroundColor = UIColor.gray.withAlphaComponent(0.7)
     }
     
-    func getBannerViewController(activeViewController: UIViewController, inAppMessageData: InAppMessageData) -> InAppMessageViewController {
+    func getBannerViewController(topViewController: UIViewController, inAppMessageData: InAppMessageData) -> InAppMessageViewController {
         self.inAppMessageViewController = InAppMessageViewController()
         
         self.inAppMessageViewController.isBanner = true
         
         self.prepareBannerInAppMessage(inAppMessageData: inAppMessageData)
         
-        self.inAppMessageViewController.view.frame = activeViewController.view.bounds
+        self.inAppMessageViewController.view.frame = topViewController.view.bounds
         
         return self.inAppMessageViewController
     }
@@ -55,31 +55,16 @@ class InAppMessageManager {
         self.inAppMessageViewController.view.layer.shadowRadius = 10
     }
     
-    func isActiveViewControllerCanPresentInAppMessage(activeViewController: UIViewController?) -> Bool {
-        var topViewController: UIViewController?
-        
-        switch activeViewController {
-        case is UINavigationController:
-            let navigationController = activeViewController as! UINavigationController
-            topViewController = navigationController.viewControllers.last!
-        case is UITabBarController:
-            let tabBarController = activeViewController as! UITabBarController
-            topViewController = tabBarController.selectedViewController
-        default:
-            topViewController = activeViewController
-        }
-        
-        if let topViewController = topViewController {
-            switch CordialApiConfiguration.shared.inAppMessageDelayMode.currentMode {
-            case InAppMessageDelayType.show:
-                return true
-            case InAppMessageDelayType.delayedShow:
-                return false
-            case InAppMessageDelayType.disallowedControllers:
-                for controllerType in CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllersType {
-                    if type(of: topViewController) === controllerType {
-                        return false
-                    }
+    func isTopViewControllerCanPresentInAppMessage(topViewController: UIViewController) -> Bool {
+        switch CordialApiConfiguration.shared.inAppMessageDelayMode.currentMode {
+        case InAppMessageDelayType.show:
+            return true
+        case InAppMessageDelayType.delayedShow:
+            return false
+        case InAppMessageDelayType.disallowedControllers:
+            for controllerType in CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllersType {
+                if type(of: topViewController) === controllerType {
+                    return false
                 }
             }
         }
