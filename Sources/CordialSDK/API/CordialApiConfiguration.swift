@@ -28,7 +28,7 @@ import os.log
     internal var eventsStreamURL = String()
     internal var messageHubURL = String()
     
-    @objc public let osLogManager = CordialOSLogManager.shared
+    @objc public let osLogManager = OSLogManager.shared
     
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?

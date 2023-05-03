@@ -1,5 +1,5 @@
 //
-//  CordialOSLogManager.swift
+//  OSLogManager.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 4/9/19.
@@ -52,9 +52,9 @@ public enum osLogLevel: String {
     case info = "info"
 }
 
-@objc public class CordialOSLogManager: NSObject {
+@objc public class OSLogManager: NSObject {
     
-    @objc static let shared = CordialOSLogManager()
+    @objc static let shared = OSLogManager()
     
     private override init() {}
         
