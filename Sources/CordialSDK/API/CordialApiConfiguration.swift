@@ -127,5 +127,8 @@ import os.log
         CordialLocationManager.shared.locationManager.requestWhenInUseAuthorization()
     }
     
+    @objc public func setLoggers(logger: LoggerDelegate) {
+        LogsManager.shared.loggers.append(logger)
+    }
 }
 

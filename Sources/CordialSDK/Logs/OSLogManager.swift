@@ -52,13 +52,33 @@ public enum osLogLevel: String {
     case info = "info"
 }
 
-@objc public class OSLogManager: NSObject {
+@objc public class OSLogManager: NSObject, LoggerDelegate {
     
     @objc static let shared = OSLogManager()
     
     private override init() {}
         
     var currentOSLogLevel = osLogLevel.error
+    
+    public func log(_ message: String) {
+        // TODO
+    }
+    
+    public func info(_ message: String) {
+        // TODO
+    }
+    
+    public func debug(_ message: String) {
+        // TODO
+    }
+    
+    public func error(_ message: String) {
+        // TODO
+    }
+    
+    public func fault(_ message: String) {
+        // TODO
+    }
     
     @objc public func setLogLevel(_ logLevel: logLevel) {
         switch logLevel {

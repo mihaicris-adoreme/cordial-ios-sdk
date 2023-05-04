@@ -10,7 +10,11 @@ import Foundation
 
 class LogsManager {
     
-    var loggers: [LoggerDelegate] = []
+    static let shared = LogsManager()
+    
+    private init() {}
+    
+    var loggers: [LoggerDelegate] = [OSLogManager.shared] 
     
     func log(message: String) {
         self.loggers.forEach { logger in
