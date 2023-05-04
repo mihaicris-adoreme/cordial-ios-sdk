@@ -38,108 +38,32 @@ extension OSLog {
     
 }
 
-@objc public enum logLevel: Int {
-    case none
-    case all
-    case error
-    case info 
-}
-
-public enum osLogLevel: String {
-    case none = "none"
-    case all = "all"
-    case error = "error"
-    case info = "info"
-}
-
+// TMP public control access – Major update should delete it as `osLogLevel` and `osLogManager`
 @objc public class OSLogManager: NSObject, LoggerDelegate {
     
     @objc static let shared = OSLogManager()
     
     private override init() {}
-        
-    var currentOSLogLevel = osLogLevel.error
+    
+    // MARK: - LoggerDelegate
     
     public func log(_ message: String) {
-        // TODO
+        os_log("%s", log: .default, type: .default, message)
     }
     
     public func info(_ message: String) {
-        // TODO
+        os_log("%s", log: .default, type: .info, message)
     }
     
     public func debug(_ message: String) {
-        // TODO
+        os_log("%s", log: .default, type: .debug, message)
     }
     
     public func error(_ message: String) {
-        // TODO
+        os_log("%s", log: .default, type: .error, message)
     }
     
     public func fault(_ message: String) {
-        // TODO
-    }
-    
-    @objc public func setLogLevel(_ logLevel: logLevel) {
-        switch logLevel {
-        case .none:
-            self.setOSLogLevel(osLogLevel.none)
-        case .all:
-            self.setOSLogLevel(osLogLevel.all)
-        case .error:
-            self.setOSLogLevel(osLogLevel.error)
-        case .info:
-            self.setOSLogLevel(osLogLevel.info)
-        }
-    }
-    
-    public func setOSLogLevel(_ osLogLevel: osLogLevel) {
-        switch osLogLevel {
-        case .none:
-            self.currentOSLogLevel = .none
-        case .all:
-            self.currentOSLogLevel = .all
-        case .error:
-            self.currentOSLogLevel = .error
-        case .info:
-            self.currentOSLogLevel = .info
-        }
-    }
-    
-    func logging(_ message: StaticString, log: OSLog, type: osLogLevel, _ args: CVarArg...) {
-        if self.isAvailableOsLogLevelForPrint(type) {
-            os_log(message, log: log, type: self.getOSLogType(type), args)
-        }
-    }
-    
-    private func getOSLogType(_ osLogLevel: osLogLevel) -> OSLogType {
-        switch osLogLevel {
-        case .error:
-            return .error
-        default:
-            return .info
-        }
-    }
-    
-    private func isAvailableOsLogLevelForPrint(_ osLogLevel: osLogLevel) -> Bool {
-        switch self.currentOSLogLevel {
-        case .none:
-            return false
-        case .all:
-            return true
-        default: break
-        }
-        
-        switch osLogLevel {
-        case .error:
-            return true
-        case .info:
-            if self.currentOSLogLevel == .info {
-                return true
-            }
-        default: break
-        }
-        
-        return false
+        os_log("%s", log: .default, type: .fault, message)
     }
 }
