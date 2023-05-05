@@ -163,7 +163,7 @@
 		9E876C6026307A8300FF2FE2 /* JSONStructure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E876C5F26307A8300FF2FE2 /* JSONStructure.swift */; };
 		9E876C6A263083FF00FF2FE2 /* JSONStructureExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E876C69263083FF00FF2FE2 /* JSONStructureExtensions.swift */; };
 		9E8A7DEE29E036F60019D981 /* PushNotificationCategories.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A7DF029E036F60019D981 /* PushNotificationCategories.strings */; };
-		9E8E04382A02AF18000F3D19 /* LogsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8E04372A02AF18000F3D19 /* LogsManager.swift */; };
+		9E8E04382A02AF18000F3D19 /* LoggerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8E04372A02AF18000F3D19 /* LoggerManager.swift */; };
 		9E8E043A2A02AF32000F3D19 /* LoggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8E04392A02AF32000F3D19 /* LoggerDelegate.swift */; };
 		9E8E323626023BB200CA771E /* InAppMessageContentGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8E323526023BB200CA771E /* InAppMessageContentGetter.swift */; };
 		9E92D3D2228EF26500D8AFE0 /* SendContactLogoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */; };
@@ -503,7 +503,7 @@
 		9E876C5F26307A8300FF2FE2 /* JSONStructure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStructure.swift; sourceTree = "<group>"; };
 		9E876C69263083FF00FF2FE2 /* JSONStructureExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStructureExtensions.swift; sourceTree = "<group>"; };
 		9E8A7DEF29E036F60019D981 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PushNotificationCategories.strings; sourceTree = "<group>"; };
-		9E8E04372A02AF18000F3D19 /* LogsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsManager.swift; sourceTree = "<group>"; };
+		9E8E04372A02AF18000F3D19 /* LoggerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerManager.swift; sourceTree = "<group>"; };
 		9E8E04392A02AF32000F3D19 /* LoggerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerDelegate.swift; sourceTree = "<group>"; };
 		9E8E323526023BB200CA771E /* InAppMessageContentGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageContentGetter.swift; sourceTree = "<group>"; };
 		9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogoutRequest.swift; sourceTree = "<group>"; };
@@ -1201,7 +1201,7 @@
 		9E8E04362A02AEFE000F3D19 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				9E8E04372A02AF18000F3D19 /* LogsManager.swift */,
+				9E8E04372A02AF18000F3D19 /* LoggerManager.swift */,
 				9E8E04392A02AF32000F3D19 /* LoggerDelegate.swift */,
 				9E30A7192A03E0A0003D218E /* LoggerLevel.swift */,
 			);
@@ -1953,7 +1953,7 @@
 				9E97DEF5226F307E00856341 /* Order.swift in Sources */,
 				9E31E78322CF7E5200CB99E7 /* InAppMessagesQueue+CoreDataProperties.swift in Sources */,
 				9E565B8C225B6E7C005EC4AF /* CordialApiConfiguration.swift in Sources */,
-				9E8E04382A02AF18000F3D19 /* LogsManager.swift in Sources */,
+				9E8E04382A02AF18000F3D19 /* LoggerManager.swift in Sources */,
 				9E44F426255C8A3500D163E6 /* InboxMessagesContent+CoreDataClass.swift in Sources */,
 				9EC4EE97265E8E6B00675E29 /* CordialURLSessionConfigurationHandler.swift in Sources */,
 				9EAAAC8A265D2D4B005AD01C /* CordialDeepLinksConfigurationType.swift in Sources */,

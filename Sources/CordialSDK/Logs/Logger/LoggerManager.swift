@@ -1,5 +1,5 @@
 //
-//  LogsManager.swift
+//  LoggerManager.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 03.05.2023.
@@ -21,40 +21,50 @@ import os.log
     
     // TMP
     func logging(_ message: StaticString, log: OSLog, type: LoggerLevel, _ args: CVarArg...) {
-        if self.isAvailableOsLogLevelForPrint(type) {
+        if self.isLoggerAvailable(type) {
             os_log(message, log: log, type: self.getLogType(type), args)
         }
     }
     
-    // MARK: - Logs
+    // MARK: - Logger manager
     
     func log(message: String, category: String) {
-        self.loggers.forEach { logger in
-            logger.log(message: message, category: category)
+        if self.logsLevel != .none {
+            self.loggers.forEach { logger in
+                logger.log(message: message, category: category)
+            }
         }
     }
     
     func info(message: String, category: String) {
-        self.loggers.forEach { logger in
-            logger.info(message: message, category: category)
+        if self.isLoggerAvailable(.info) {
+            self.loggers.forEach { logger in
+                logger.info(message: message, category: category)
+            }
         }
     }
     
     func debug(message: String, category: String) {
-        self.loggers.forEach { logger in
-            logger.debug(message: message, category: category)
+        if self.logsLevel != .none {
+            self.loggers.forEach { logger in
+                logger.debug(message: message, category: category)
+            }
         }
     }
     
     func error(message: String, category: String) {
-        self.loggers.forEach { logger in
-            logger.error(message: message, category: category)
+        if self.isLoggerAvailable(.error) {
+            self.loggers.forEach { logger in
+                logger.error(message: message, category: category)
+            }
         }
     }
     
     func fault(message: String, category: String) {
-        self.loggers.forEach { logger in
-            logger.fault(message: message, category: category)
+        if self.logsLevel != .none {
+            self.loggers.forEach { logger in
+                logger.fault(message: message, category: category)
+            }
         }
     }
     
@@ -101,7 +111,7 @@ import os.log
         }
     }
     
-    // MARK: - Is logging available
+    // MARK: - Logger availability
     
     func getLogType(_ loggerLevel: LoggerLevel) -> OSLogType {
         switch loggerLevel {
@@ -112,7 +122,7 @@ import os.log
         }
     }
     
-    func isAvailableOsLogLevelForPrint(_ loggerLevel: LoggerLevel) -> Bool {
+    func isLoggerAvailable(_ loggerLevel: LoggerLevel) -> Bool {
         switch loggerLevel {
         case .none:
             return false

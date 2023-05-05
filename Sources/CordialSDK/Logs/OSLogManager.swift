@@ -61,22 +61,22 @@ extension OSLog {
     // MARK: - LoggerDelegate
     
     public func log(message: String, category: String) {
-        os_log("%s", log: self.getOSLogCategory(category: category), type: .default, message)
+        os_log("%{public}@", log: self.getOSLogCategory(category: category), type: .default, message)
     }
     
     public func info(message: String, category: String) {
-        os_log("%s", log: self.getOSLogCategory(category: category), type: .info, message)
+        os_log("%{public}@", log: self.getOSLogCategory(category: category), type: .info, message)
     }
     
     public func debug(message: String, category: String) {
-        os_log("%s", log: self.getOSLogCategory(category: category), type: .debug, message)
+        os_log("%{public}@", log: self.getOSLogCategory(category: category), type: .debug, message)
     }
     
     public func error(message: String, category: String) {
-        os_log("%s", log: self.getOSLogCategory(category: category), type: .error, message)
+        os_log("%{public}@", log: self.getOSLogCategory(category: category), type: .error, message)
     }
     
     public func fault(message: String, category: String) {
-        os_log("%s", log: self.getOSLogCategory(category: category), type: .fault, message)
+        os_log("%{public}@", log: self.getOSLogCategory(category: category), type: .fault, message)
     }
 }
