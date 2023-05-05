@@ -1,5 +1,5 @@
 //
-//  LogsLevelManager.swift
+//  LoggerLevel.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 04.05.2023.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-@objc public enum LogsLevel: Int {
+@objc public enum LoggerLevel: Int {
     case none
     case all
     case error
     case info
 }
 
-@available(*, deprecated, message: "Use LogsLevel instead")
+@available(*, deprecated, message: "Use LoggerLevel instead")
 @objc public enum logLevel: Int {
     case none
     case all

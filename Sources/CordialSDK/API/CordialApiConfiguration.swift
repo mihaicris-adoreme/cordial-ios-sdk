@@ -28,10 +28,10 @@ import os.log
     internal var eventsStreamURL = String()
     internal var messageHubURL = String()
     
-    @available(*, deprecated, message: "Use logsManager instead")
-    @objc public let osLogManager = LogsManager.shared
+    @available(*, deprecated, message: "Use loggerManager instead")
+    @objc public let osLogManager = LoggerManager.shared
     
-    @objc public let logsManager = LogsManager.shared
+    @objc public let loggerManager = LoggerManager.shared
     
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
@@ -130,8 +130,7 @@ import os.log
         CordialLocationManager.shared.locationManager.requestWhenInUseAuthorization()
     }
     
-    @objc public func setLoggers(logger: LoggerDelegate) {
-        LogsManager.shared.loggers.append(logger)
+    @objc public func setLoggers(loggers: [LoggerDelegate]) {
+        LoggerManager.shared.loggers = [OSLogManager.shared] + loggers
     }
 }
-

@@ -38,32 +38,45 @@ extension OSLog {
     
 }
 
-// TMP public control access – Major update should delete it as `osLogLevel` and `osLogManager`
-@objc public class OSLogManager: NSObject, LoggerDelegate {
+@objc class OSLogManager: NSObject, LoggerDelegate {
     
     @objc static let shared = OSLogManager()
     
     private override init() {}
     
+    private let subsystem = Bundle.main.bundleIdentifier!
+    private var categories: [String: OSLog] = [:]
+    
+    private func getOSLogCategory(category: String) -> OSLog {
+        if let categoryOSLog = self.categories[category] {
+            return categoryOSLog
+        }
+        
+        let categoryOSLog = OSLog(subsystem: self.subsystem, category: category)
+        self.categories[category] = categoryOSLog
+        
+        return categoryOSLog
+    }
+    
     // MARK: - LoggerDelegate
     
-    public func log(_ message: String) {
-        os_log("%s", log: .default, type: .default, message)
+    public func log(message: String, category: String) {
+        os_log("%s", log: self.getOSLogCategory(category: category), type: .default, message)
     }
     
-    public func info(_ message: String) {
-        os_log("%s", log: .default, type: .info, message)
+    public func info(message: String, category: String) {
+        os_log("%s", log: self.getOSLogCategory(category: category), type: .info, message)
     }
     
-    public func debug(_ message: String) {
-        os_log("%s", log: .default, type: .debug, message)
+    public func debug(message: String, category: String) {
+        os_log("%s", log: self.getOSLogCategory(category: category), type: .debug, message)
     }
     
-    public func error(_ message: String) {
-        os_log("%s", log: .default, type: .error, message)
+    public func error(message: String, category: String) {
+        os_log("%s", log: self.getOSLogCategory(category: category), type: .error, message)
     }
     
-    public func fault(_ message: String) {
-        os_log("%s", log: .default, type: .fault, message)
+    public func fault(message: String, category: String) {
+        os_log("%s", log: self.getOSLogCategory(category: category), type: .fault, message)
     }
 }
