@@ -27,7 +27,7 @@ import os.log
     @available(iOS 13.0, *)
     @objc public func processSceneOpenURLContexts(URLContexts: Set<UIOpenURLContext>, scene: UIScene) {
         guard let url = URLContexts.first?.url else {
-            CordialApiConfiguration.shared.osLogManager.logging("DeepLink URL is absent or not in a valid format.", log: OSLog.cordialDeepLinks, type: .error)
+            LoggerManager.shared.error(message: "DeepLink URL is absent or not in a valid format.", category: "CordialSDKDeepLinks")
             
             return
         }

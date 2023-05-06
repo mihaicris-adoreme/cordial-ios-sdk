@@ -51,7 +51,7 @@ class CoreDataManager {
             
             container.loadPersistentStores(completionHandler: { (storeDescription, error) in
                 if let error = error as NSError? {
-                    CordialApiConfiguration.shared.osLogManager.logging("CoreData Unresolved Error: [%{public}@] Info: %{public}@", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, error.userInfo)
+                    LoggerManager.shared.error(message: "CoreData Unresolved Error: [\(error.localizedDescription)] Info: \(error.userInfo)", category: "CordialSDKCoreDataError")
                  }
             })
             
@@ -65,7 +65,7 @@ class CoreDataManager {
         guard let resourceBundleURL = InternalCordialAPI().getResourceBundleURL(forResource: self.modelName, withExtension: "momd") else { return nil }
         
         guard let model = NSManagedObjectModel(contentsOf: resourceBundleURL) else {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [Could not get bundle for managed object model]", log: OSLog.cordialCoreDataError, type: .error)
+            LoggerManager.shared.error(message: "CoreData Error: [Could not get bundle for managed object model]", category: "CordialSDKCoreDataError")
             
             return nil
         }
@@ -79,7 +79,7 @@ class CoreDataManager {
             try context.save()
         
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -95,7 +95,7 @@ class CoreDataManager {
             try context.execute(deleteRequest)
             try context.save()
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("Delete CoreData Entity Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, entityName)
+            LoggerManager.shared.error(message: "Delete CoreData Entity Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     

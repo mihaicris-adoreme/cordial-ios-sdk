@@ -19,13 +19,6 @@ import os.log
     
     var loggers: [LoggerDelegate] = [OSLogManager.shared] 
     
-    // TMP
-    func logging(_ message: StaticString, log: OSLog, type: LoggerLevel, _ args: CVarArg...) {
-        if self.isLoggerAvailable(type) {
-            os_log(message, log: log, type: self.getLogType(type), args)
-        }
-    }
-    
     // MARK: - Logger manager
     
     func log(message: String, category: String) {

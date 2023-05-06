@@ -48,11 +48,11 @@ class InboxMessagesCacheCoreData {
                     context.delete(managedObject)
                     try context.save()
                     
-                    CordialApiConfiguration.shared.osLogManager.logging("Failed unarchiving InboxMessage", log: OSLog.cordialError, type: .error)
+                    LoggerManager.shared.error(message: "Failed unarchiving InboxMessage", category: "CordialSDKError")
                 }
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         return nil
@@ -76,7 +76,7 @@ class InboxMessagesCacheCoreData {
                 try context.save()
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -107,7 +107,7 @@ class InboxMessagesCacheCoreData {
                 self.saveInboxMessageToCoreData(inboxMessage: inboxMessage, object: managedObject, context: context)
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -120,7 +120,7 @@ class InboxMessagesCacheCoreData {
             
             try context.save()
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -139,7 +139,7 @@ class InboxMessagesCacheCoreData {
                 return true
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
 
         return false

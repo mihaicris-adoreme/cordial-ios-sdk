@@ -51,7 +51,7 @@ class CustomEventRequestsCoreData {
 
                         try context.save()
                     } catch let error {
-                        CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                        LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
                     }
                 }
             }
@@ -79,7 +79,7 @@ class CustomEventRequestsCoreData {
                 }
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -103,11 +103,11 @@ class CustomEventRequestsCoreData {
                     context.delete(managedObject)
                     try context.save()
                     
-                    CordialApiConfiguration.shared.osLogManager.logging("Failed unarchiving SendCustomEventRequest", log: OSLog.cordialError, type: .error)
+                    LoggerManager.shared.error(message: "Failed unarchiving SendCustomEventRequest", category: "CordialSDKError")
                 }
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
 
         return sendCustomEventRequests
@@ -128,7 +128,7 @@ class CustomEventRequestsCoreData {
                 return true
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
 
         return false
@@ -155,7 +155,7 @@ class CustomEventRequestsCoreData {
             return count
             
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         return 0

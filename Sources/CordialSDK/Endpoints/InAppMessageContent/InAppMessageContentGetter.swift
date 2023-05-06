@@ -18,7 +18,7 @@ class InAppMessageContentGetter {
             if ReachabilityManager.shared.isConnectedToInternet {
                 // This is S3 - No need check JWT 
                 
-                CordialApiConfiguration.shared.osLogManager.logging("Fetching IAM content has been started with mcID: [%{public}@]", log: OSLog.cordialInAppMessageContent, type: .info, mcID)
+                LoggerManager.shared.info(message: "Fetching IAM content has been started with mcID: [\(mcID)]", category: "CordialSDKInAppMessageContent")
                 
                 let request = CordialRequestFactory().getBaseURLRequest(url: url, httpMethod: .GET)
 
@@ -48,13 +48,13 @@ class InAppMessageContentGetter {
         guard let htmlData = inAppMessageData.html.data(using: .utf8) else { return }
         let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
         
-        CordialApiConfiguration.shared.osLogManager.logging("IAM content has been successfully fetch with mcID: [%{public}@]. Payload size: %{public}@.", log: OSLog.cordialInAppMessageContent, type: .info, inAppMessageData.mcID, payloadSize)
+        LoggerManager.shared.info(message: "IAM content has been successfully fetch with mcID: [\(inAppMessageData.mcID)]. Payload size: \(payloadSize).", category: "CordialSDKInAppMessageContent")
     }
     
     func errorHandler(mcID: String, error: ResponseError) {
         InAppMessageGetter().fetchInAppMessage(mcID: mcID)
         
-        CordialApiConfiguration.shared.osLogManager.logging("%{public}@", log: OSLog.cordialInAppMessageContent, type: .error, error.message)
+        LoggerManager.shared.error(message: "\(error.message)", category: "CordialSDKInAppMessageContent")
     }
     
 }

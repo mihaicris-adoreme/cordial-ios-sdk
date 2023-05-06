@@ -23,23 +23,23 @@ class CustomEventsSender {
                 // Function has been called through barrier queue. No need additional barrier.
                 CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
                 
-                CordialApiConfiguration.shared.osLogManager.logging("Sending events { %{public}@ } failed. Saved to retry later. Error: [No Internet connection]", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
+                LoggerManager.shared.info(message: "Sending events { \(eventNamesAndRequestIDs) } failed. Saved to retry later. Error: [No Internet connection]", category: "CordialSDKSendCustomEvents")
             }
         } else {
             // Function has been called through barrier queue. No need additional barrier.
             CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
             
-            CordialApiConfiguration.shared.osLogManager.logging("Sending events { %{public}@ } failed. Saved to retry later. Error: [User no login]", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
+            LoggerManager.shared.info(message: "Sending events { \(eventNamesAndRequestIDs) } failed. Saved to retry later. Error: [User no login]", category: "CordialSDKSendCustomEvents")
         }
     }
     
     private func sendCustomEventsData(sendCustomEventRequests: [SendCustomEventRequest]) {
         if InternalCordialAPI().getCurrentJWT() != nil {
             let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
-            CordialApiConfiguration.shared.osLogManager.logging("Sending events: { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
+            LoggerManager.shared.info(message: "Sending events: { \(eventNamesAndRequestIDs) }", category: "CordialSDKSendCustomEvents")
                 
             let payload = self.sendCustomEvents.getSendCustomEventsJSON(sendCustomEventRequests: sendCustomEventRequests)
-            CordialApiConfiguration.shared.osLogManager.logging("Payload: %{public}@", log: OSLog.cordialSendCustomEvents, type: .info, payload)
+            LoggerManager.shared.info(message: "Payload: \(payload)", category: "CordialSDKSendCustomEvents")
             
             SendCustomEvents().sendCustomEvents(sendCustomEventRequests: sendCustomEventRequests)
         } else {
@@ -52,21 +52,21 @@ class CustomEventsSender {
     
     func completionHandler(sendCustomEventRequests: [SendCustomEventRequest]) {
         let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
-        CordialApiConfiguration.shared.osLogManager.logging("Events { %{public}@ } have been sent", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs)
+        LoggerManager.shared.info(message: "Events { \(eventNamesAndRequestIDs) } have been sent", category: "CordialSDKSendCustomEvents")
     }
     
     func systemErrorHandler(sendCustomEventRequests: [SendCustomEventRequest], error: ResponseError) {
         CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
         
         let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
-        CordialApiConfiguration.shared.osLogManager.logging("Sending events { %{public}@ } failed. Saved to retry later. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDs, error.message)
+        LoggerManager.shared.info(message: "Sending events { \(eventNamesAndRequestIDs) } failed. Saved to retry later. Error: [\(error.message)]", category: "CordialSDKSendCustomEvents")
     }
 
     func logicErrorHandler(sendCustomEventRequests: [SendCustomEventRequest], error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendCustomEventsLogicError, object: error)
         
         let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
-        CordialApiConfiguration.shared.osLogManager.logging("Sending some events { %{public}@ } failed. Will not retry. Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, eventNamesAndRequestIDs, error.message)
+        LoggerManager.shared.error(message: "Sending some events { \(eventNamesAndRequestIDs) } failed. Will not retry. Error: [\(error.message)]", category: "CordialSDKSendCustomEvents")
         
         if error.statusCode == 422, let responseBody = error.responseBody {
             let sendCustomEventRequestsWithoutBrokenEvents = self.getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: sendCustomEventRequests, responseBody: responseBody)
@@ -75,7 +75,7 @@ class CustomEventsSender {
                 self.sendCustomEvents(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
                 
                 let eventNamesAndRequestIDsWithoutBrokenEvents = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
-                CordialApiConfiguration.shared.osLogManager.logging("Sending again valid events { %{public}@ }", log: OSLog.cordialSendCustomEvents, type: .info, eventNamesAndRequestIDsWithoutBrokenEvents)
+                LoggerManager.shared.info(message: "Sending again valid events { \(eventNamesAndRequestIDsWithoutBrokenEvents) }", category: "CordialSDKSendCustomEvents")
             }
         }
     }
@@ -109,10 +109,10 @@ class CustomEventsSender {
                     }
                 }
             } else {
-                CordialApiConfiguration.shared.osLogManager.logging("Failed decode response", log: OSLog.cordialSendCustomEvents, type: .error)
+                LoggerManager.shared.error(message: "Failed decode response", category: "CordialSDKSendCustomEvents")
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("Error: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .error, error.localizedDescription)
+            LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKSendCustomEvents")
         }
         
         return errorIDs

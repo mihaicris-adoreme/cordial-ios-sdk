@@ -55,7 +55,7 @@ class CoreDataSender {
             let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
             if customEventRequests.count > 0 {
                 if CordialApiConfiguration.shared.eventsBulkSize != 1 {
-                    CordialApiConfiguration.shared.osLogManager.logging("Flushing events. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
+                    LoggerManager.shared.info(message: "Flushing events. Reason: [\(reason)]", category: "CordialSDKSendCustomEvents")
                 }
                 
                 CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)

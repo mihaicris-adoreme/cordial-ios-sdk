@@ -43,7 +43,7 @@ class ContactsSenderHelper {
                 CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: [upsertContactRequest])
                 
                 upsertContactRequests.forEach({ upsertContactRequest in
-                    CordialApiConfiguration.shared.osLogManager.logging("Sending contact failed. Saved to retry later. Request ID: [%{public}@] Error: [Device token is absent]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
+                    LoggerManager.shared.info(message: "Sending contact failed. Saved to retry later. Request ID: [\(upsertContactRequest.requestID)] Error: [Device token is absent]", category: "CordialSDKUpsertContacts")
                 })
             }
         }

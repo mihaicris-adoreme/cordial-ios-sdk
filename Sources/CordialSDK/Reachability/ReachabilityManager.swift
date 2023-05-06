@@ -25,7 +25,7 @@ class ReachabilityManager {
         do {
             try reachability.startNotifier()
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("Could not start reachability notifier. Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
+            LoggerManager.shared.error(message: "Could not start reachability notifier. Error: [\(error.localizedDescription)]", category: "CordialSDKError")
         }
     }
     

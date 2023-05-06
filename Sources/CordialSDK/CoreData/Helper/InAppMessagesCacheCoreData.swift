@@ -33,7 +33,7 @@ class InAppMessagesCacheCoreData {
                     
                     try context.save()
                 } catch let error {
-                    CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                    LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
                 }
             }
         }
@@ -87,11 +87,11 @@ class InAppMessagesCacheCoreData {
                 } else {
                     CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                     
-                    CordialApiConfiguration.shared.osLogManager.logging("Failed unarchiving InAppMessageData", log: OSLog.cordialError, type: .error)
+                    LoggerManager.shared.error(message: "Failed unarchiving InAppMessageData", category: "CordialSDKError")
                 }
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         return nil
@@ -114,7 +114,7 @@ class InAppMessagesCacheCoreData {
                 try context.save()
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
 }

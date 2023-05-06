@@ -108,7 +108,7 @@ class InAppMessageGetter {
         if InternalCordialAPI().isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
                 if InternalCordialAPI().getCurrentJWT() != nil {
-                    CordialApiConfiguration.shared.osLogManager.logging("Fetching IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID)
+                    LoggerManager.shared.info(message: "Fetching IAM with mcID: [\(mcID)]", category: "CordialSDKInAppMessage")
                     
                     InAppMessage().getInAppMessage(mcID: mcID)
                 } else {
@@ -133,13 +133,13 @@ class InAppMessageGetter {
         guard let htmlData = inAppMessageData.html.data(using: .utf8) else { return }
         let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
         
-        CordialApiConfiguration.shared.osLogManager.logging("IAM with mcID: [%{public}@] has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID, payloadSize)
+        LoggerManager.shared.info(message: "IAM with mcID: [\(inAppMessageData.mcID)] has been successfully fetch. Payload size: \(payloadSize).", category: "CordialSDKInAppMessage")
     }
     
     func systemErrorHandler(mcID: String, error: ResponseError) {
         CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [mcID])
         
-        CordialApiConfiguration.shared.osLogManager.logging("Fetching IAM failed. Saved to retry later. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, mcID, error.message)
+        LoggerManager.shared.info(message: "Fetching IAM failed. Saved to retry later. mcID: [\(mcID)] Error: [\(error.message)]", category: "CordialSDKInAppMessage")
     }
     
     func logicErrorHandler(mcID: String, error: ResponseError) {
@@ -147,6 +147,6 @@ class InAppMessageGetter {
         
         NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
         
-        CordialApiConfiguration.shared.osLogManager.logging("Fetching IAM failed. Will not retry. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, mcID, error.message)
+        LoggerManager.shared.error(message: "Fetching IAM failed. Will not retry. mcID: [\(mcID)] Error: [\(error.message)]", category: "CordialSDKInAppMessage")
     }
 }

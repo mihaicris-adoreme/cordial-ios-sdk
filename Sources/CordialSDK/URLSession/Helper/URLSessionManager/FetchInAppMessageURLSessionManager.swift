@@ -39,7 +39,7 @@ class FetchInAppMessageURLSessionManager {
                     self.inAppMessageGetter.logicErrorHandler(mcID: mcID, error: responseError)
                 }
             } catch let error {
-                CordialApiConfiguration.shared.osLogManager.logging("Failed decode response data. mcID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, mcID, error.localizedDescription)
+                LoggerManager.shared.error(message: "Failed decode response data. mcID: [\(mcID)] Error: [\(error.localizedDescription)]", category: "CordialSDKInAppMessage")
             }
         case 401:
             let message = "Status code: \(statusCode). Description: \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"

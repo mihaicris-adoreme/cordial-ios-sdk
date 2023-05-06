@@ -32,7 +32,7 @@ class InAppMessages {
             if ReachabilityManager.shared.isConnectedToInternet {
                 if InternalCordialAPI().getCurrentJWT() != nil {
                     
-                    CordialApiConfiguration.shared.osLogManager.logging("Fetching IAMs has been started.", log: OSLog.cordialInAppMessages, type: .info)
+                    LoggerManager.shared.info(message: "Fetching IAMs has been started", category: "CordialSDKInAppMessages")
                     
                     if let contactKey = InternalCordialAPI().getContactKey(),
                        let url = URL(string: CordialApiEndpoints().getInAppMessagesURL(contactKey: contactKey)) {
@@ -81,12 +81,12 @@ class InAppMessages {
         guard let htmlData = messages.description.data(using: .utf8) else { return }
         let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
         
-        CordialApiConfiguration.shared.osLogManager.logging("IAMs has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessages, type: .info, payloadSize)
+        LoggerManager.shared.info(message: "IAMs has been successfully fetch. Payload size: \(payloadSize).", category: "CordialSDKInAppMessages")
     }
     
     func errorHandler(error: ResponseError) {
         self.isCurrentlyUpdatingInAppMessages = false
         
-        CordialApiConfiguration.shared.osLogManager.logging("%{public}@", log: OSLog.cordialInAppMessages, type: .error, error.message)
+        LoggerManager.shared.error(message: "\(error.message)", category: "CordialSDKInAppMessages")
     }
 }

@@ -21,7 +21,7 @@ class CordialVanityDeepLink {
             
             NotificationManager.shared.vanityDeepLink = String()
             
-            CordialApiConfiguration.shared.osLogManager.logging("Vanity DeepLink converted successfully", log: OSLog.cordialDeepLinks, type: .info)
+            LoggerManager.shared.info(message: "Vanity DeepLink converted successfully", category: "CordialSDKDeepLinks")
             
         }, onFailure: { error in
             if !NotificationManager.shared.vanityDeepLink.isEmpty,
@@ -34,7 +34,7 @@ class CordialVanityDeepLink {
             
             NotificationManager.shared.vanityDeepLink = String()
             
-            CordialApiConfiguration.shared.osLogManager.logging("Vanity DeepLink opening failed. Error: [%{public}@]", log: OSLog.cordialDeepLinks, type: .error, error)
+            LoggerManager.shared.error(message: "Vanity DeepLink opening failed. Error: [\(error)]", category: "CordialSDKDeepLinks")
         })
     }
     

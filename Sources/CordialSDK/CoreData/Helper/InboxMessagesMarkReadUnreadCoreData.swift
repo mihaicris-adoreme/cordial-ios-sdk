@@ -28,7 +28,7 @@ class InboxMessagesMarkReadUnreadCoreData {
                 
                 try context.save()
             } catch let error {
-                CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
             }
         }
     }
@@ -51,14 +51,14 @@ class InboxMessagesMarkReadUnreadCoreData {
                 if let inboxMessagesMarkReadUnreadRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InboxMessagesMarkReadUnreadRequest, !inboxMessagesMarkReadUnreadRequest.isError {
                     inboxMessagesMarkReadUnreadRequests.append(inboxMessagesMarkReadUnreadRequest)
                 } else {
-                    CordialApiConfiguration.shared.osLogManager.logging("Failed unarchiving InboxMessagesMarkReadUnreadRequest", log: OSLog.cordialError, type: .error)
+                    LoggerManager.shared.error(message: "Failed unarchiving InboxMessagesMarkReadUnreadRequest", category: "CordialSDKError")
                 }
                 
                 context.delete(managedObject)
                 try context.save()
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
 
         return inboxMessagesMarkReadUnreadRequests

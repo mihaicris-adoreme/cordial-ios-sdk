@@ -235,7 +235,7 @@ class UpsertContacts {
             } else if self.isValidAttributeValueKey(key: key) {
                 preparedAttributes[key] = value
             } else if isLogs {
-                CordialApiConfiguration.shared.osLogManager.logging("Contact attribute key [%{public}@] is invalid", log: OSLog.cordialUpsertContacts, type: .error, key)
+                LoggerManager.shared.error(message: "Contact attribute key [\(key)] is invalid", category: "CordialSDKUpsertContacts")
             }
         }
         

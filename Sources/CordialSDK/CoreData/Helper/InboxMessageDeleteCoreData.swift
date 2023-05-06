@@ -27,7 +27,7 @@ class InboxMessageDeleteCoreData {
                 
                 try context.save()
             } catch let error {
-                CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
             }
         }
     }
@@ -49,14 +49,14 @@ class InboxMessageDeleteCoreData {
                 if let inboxMessageDeleteRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InboxMessageDeleteRequest, !inboxMessageDeleteRequest.isError {
                     inboxMessageDeleteRequests.append(inboxMessageDeleteRequest)
                 } else {
-                    CordialApiConfiguration.shared.osLogManager.logging("Failed unarchiving InboxMessageDeleteRequest", log: OSLog.cordialError, type: .error)
+                    LoggerManager.shared.error(message: "Failed unarchiving InboxMessageDeleteRequest", category: "CordialSDKError")
                 }
                 
                 context.delete(managedObject)
                 try context.save()
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
 
         return inboxMessageDeleteRequests

@@ -14,7 +14,7 @@ class CordialSwizzlerHelper {
     // MARK: Push notification
     
     func didReceiveRemoteNotification(userInfo: [AnyHashable : Any]) {
-        CordialApiConfiguration.shared.osLogManager.logging("Silent push notification received. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
+        LoggerManager.shared.info(message: "Silent push notification received. Payload: \(userInfo)", category: "CordialSDKPushNotification")
         
         let pushNotificationParser = PushNotificationParser()
         
@@ -70,7 +70,7 @@ class CordialSwizzlerHelper {
             }
         }
         
-        CordialApiConfiguration.shared.osLogManager.logging("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
+        LoggerManager.shared.info(message: "Device Token: [\(token)]", category: "CordialSDKPushNotification")
         
         internalCordialAPI.setPushNotificationToken(token: token)
         

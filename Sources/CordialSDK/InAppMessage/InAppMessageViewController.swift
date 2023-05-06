@@ -119,7 +119,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             webConfiguration.userContentController = contentController
             
-            CordialApiConfiguration.shared.osLogManager.logging("IAM Info: [contentController added to webConfiguration successfully]", log: OSLog.cordialInAppMessage, type: .info)
+            LoggerManager.shared.info(message: "IAM Info: [contentController added to webConfiguration successfully]", category: "CordialSDKInAppMessage")
         }
 
         let webFrame = CGRect(x: 0, y: 0, width: self.getInAppMessageWidth(), height: 0)

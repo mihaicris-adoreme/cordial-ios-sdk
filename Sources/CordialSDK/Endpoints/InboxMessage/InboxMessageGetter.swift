@@ -18,10 +18,10 @@ class InboxMessageGetter {
         if internalCordialAPI.isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
                 if internalCordialAPI.getCurrentJWT() != nil {
-                    CordialApiConfiguration.shared.osLogManager.logging("Fetching inbox message", log: OSLog.cordialInboxMessages, type: .info)
+                    LoggerManager.shared.info(message: "Fetching inbox message", category: "CordialSDKInboxMessages")
                     
                     self.getInboxMessage(contactKey: contactKey, mcID: mcID, onSuccess: { response in
-                        CordialApiConfiguration.shared.osLogManager.logging("Inbox message has been received successfully", log: OSLog.cordialInboxMessages, type: .info)
+                        LoggerManager.shared.info(message: "Inbox message has been received successfully", category: "CordialSDKInboxMessages")
 
                         onSuccess(response)
                     }, onFailure: { error in

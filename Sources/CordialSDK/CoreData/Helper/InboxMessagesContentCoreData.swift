@@ -26,12 +26,12 @@ class InboxMessagesContentCoreData {
             } else {
                 self.removeLastInboxMessageContentFromCoreData()
                 
-                CordialApiConfiguration.shared.osLogManager.logging("Exceeded max cache size. Removing the firstest cached inbox message content to free storage capacity.", log: OSLog.cordialInboxMessages, type: .info)
+                LoggerManager.shared.info(message: "Exceeded max cache size. Removing the firstest cached inbox message content to free storage capacity.", category: "CordialSDKInboxMessages")
                 
                 self.putInboxMessageContentToCoreData(mcID: mcID, content: content)
             }
         } else {
-            CordialApiConfiguration.shared.osLogManager.logging("Message didn't enter the cache. Message size exceeded max cache size.", log: OSLog.cordialInboxMessages, type: .info)
+            LoggerManager.shared.info(message: "Message didn't enter the cache. Message size exceeded max cache size.", category: "CordialSDKInboxMessages")
         }
     }
     
@@ -54,7 +54,7 @@ class InboxMessagesContentCoreData {
                 }
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         return nil
@@ -78,7 +78,7 @@ class InboxMessagesContentCoreData {
                 try context.save()
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -97,7 +97,7 @@ class InboxMessagesContentCoreData {
                 try context.save()
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -107,7 +107,7 @@ class InboxMessagesContentCoreData {
             
             self.setInboxMessageContentToCoreData(mcID: mcID, content: content)
         } else {
-            CordialApiConfiguration.shared.osLogManager.logging("Message didn't enter the cache. Message size exceeded max cacheable message size.", log: OSLog.cordialInboxMessages, type: .info)
+            LoggerManager.shared.info(message: "Message didn't enter the cache. Message size exceeded max cacheable message size.", category: "CordialSDKInboxMessages")
         }
     }
     
@@ -124,7 +124,7 @@ class InboxMessagesContentCoreData {
                 
                 try context.save()
             } catch let error {
-                CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+                LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
             }
         }
     }
@@ -146,7 +146,7 @@ class InboxMessagesContentCoreData {
                 }
             }
         } catch let error {
-            CordialApiConfiguration.shared.osLogManager.logging("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         return storageSize

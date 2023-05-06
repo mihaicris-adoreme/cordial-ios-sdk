@@ -113,7 +113,7 @@ import os.log
             
             internalCordialAPI.setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: previousPrimaryKey)
         } else {
-            CordialApiConfiguration.shared.osLogManager.logging("Sending contact logout failed. Error: [User no login]", log: OSLog.cordialPushNotification, type: .error)
+            LoggerManager.shared.error(message: "Sending contact logout failed. Error: [User no login]", category: "CordialSDKPushNotification")
         }
     }
     
@@ -185,7 +185,7 @@ import os.log
                 CordialPushNotification.shared.registerForPushNotifications(options: options)
             }
         } else {
-            CordialApiConfiguration.shared.osLogManager.logging("Register for push notifications failed: pushesConfiguration not equals to SDK value", log: OSLog.cordialPushNotification, type: .info)
+            LoggerManager.shared.info(message: "Register for push notifications failed: pushesConfiguration not equals to SDK value", category: "CordialSDKPushNotification")
         }
     }
     

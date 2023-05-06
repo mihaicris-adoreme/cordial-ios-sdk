@@ -26,10 +26,10 @@ class InboxMessageContentGetter {
             if ReachabilityManager.shared.isConnectedToInternet {
                 // This is S3 - No need check JWT
                 
-                CordialApiConfiguration.shared.osLogManager.logging("Fetching inbox message content", log: OSLog.cordialInboxMessages, type: .info)
+                LoggerManager.shared.info(message: "Fetching inbox message content", category: "CordialSDKInboxMessages")
                 
                 self.getInboxMessageContent(url: url, mcID: mcID, onSuccess: { response in
-                    CordialApiConfiguration.shared.osLogManager.logging("Inbox message content has been received successfully", log: OSLog.cordialInboxMessages, type: .info)
+                    LoggerManager.shared.info(message: "Inbox message content has been received successfully", category: "CordialSDKInboxMessages")
 
                     onSuccess(response)
                 }, onFailure: { error in

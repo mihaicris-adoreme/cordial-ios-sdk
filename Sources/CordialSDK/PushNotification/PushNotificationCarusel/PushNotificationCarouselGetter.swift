@@ -51,11 +51,11 @@ class PushNotificationCarouselGetter {
                 CordialGroupUserDefaults.set(carousels, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES)
             }
         default:
-            CordialApiConfiguration.shared.osLogManager.logging("Downloading push notification carousel image failed with URL: [%{public}@] Error [Image by the URL is absent]", log: OSLog.cordialPushNotificationCarousel, type: .error, pushNotificationCarouselURLSessionData.carousel.imageURL.absoluteString)
+            LoggerManager.shared.error(message: "Downloading push notification carousel image failed with URL: [\(pushNotificationCarouselURLSessionData.carousel.imageURL.absoluteString)] Error [Image by the URL is absent]", category: "CordialSDKPushNotificationCarousel")
         }
     }
     
     func errorHandler(pushNotificationCarouselURLSessionData: PushNotificationCarouselURLSessionData, error: Error) {
-        CordialApiConfiguration.shared.osLogManager.logging("Downloading push notification carousel image failed with URL: [%{public}@] Error: [%{public}@]", log: OSLog.cordialPushNotificationCarousel, type: .error, pushNotificationCarouselURLSessionData.carousel.imageURL.absoluteString, error.localizedDescription)
+        LoggerManager.shared.error(message: "Downloading push notification carousel image failed with URL: [\(pushNotificationCarouselURLSessionData.carousel.imageURL.absoluteString)] Error: [\(error.localizedDescription)]", category: "CordialSDKPushNotificationCarousel")
     }
 }

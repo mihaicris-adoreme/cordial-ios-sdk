@@ -18,10 +18,10 @@ class InboxMessagesGetter {
         if internalCordialAPI.isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
                 if internalCordialAPI.getCurrentJWT() != nil {
-                    CordialApiConfiguration.shared.osLogManager.logging("Fetching inbox messages", log: OSLog.cordialInboxMessages, type: .info)
+                    LoggerManager.shared.info(message: "Fetching inbox messages", category: "CordialSDKInboxMessages")
                     
                     InboxMessages().getInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, contactKey: contactKey, onSuccess: { response in
-                        CordialApiConfiguration.shared.osLogManager.logging("Inbox messages have been received successfully", log: OSLog.cordialInboxMessages, type: .info)
+                        LoggerManager.shared.info(message: "Inbox messages have been received successfully", category: "CordialSDKInboxMessages")
                         
                         onSuccess(response)
                     }, onFailure: { error in
