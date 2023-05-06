@@ -15,14 +15,14 @@ import os.log
     
     private override init() {}
     
-    var logsLevel = LoggerLevel.error
+    var loggerManagerLevel = LoggerLevel.error
     
     var loggers: [LoggerDelegate] = [OSLogManager.shared] 
     
     // MARK: - Logger manager
     
     func log(message: String, category: String) {
-        if self.logsLevel != .none {
+        if self.isLoggerAvailable() {
             self.loggers.forEach { logger in
                 logger.log(message: message, category: category)
             }
@@ -38,7 +38,7 @@ import os.log
     }
     
     func debug(message: String, category: String) {
-        if self.logsLevel != .none {
+        if self.isLoggerAvailable() {
             self.loggers.forEach { logger in
                 logger.debug(message: message, category: category)
             }
@@ -54,7 +54,7 @@ import os.log
     }
     
     func fault(message: String, category: String) {
-        if self.logsLevel != .none {
+        if self.isLoggerAvailable() {
             self.loggers.forEach { logger in
                 logger.fault(message: message, category: category)
             }
@@ -66,13 +66,13 @@ import os.log
     public func setLoggerLevel(_ loggerLevel: LoggerLevel) {
         switch loggerLevel {
         case .none:
-            self.logsLevel = LoggerLevel.none
+            self.loggerManagerLevel = LoggerLevel.none
         case .all:
-            self.logsLevel = LoggerLevel.all
+            self.loggerManagerLevel = LoggerLevel.all
         case .error:
-            self.logsLevel = LoggerLevel.error
+            self.loggerManagerLevel = LoggerLevel.error
         case .info:
-            self.logsLevel = LoggerLevel.info
+            self.loggerManagerLevel = LoggerLevel.info
         }
     }
     
@@ -106,25 +106,18 @@ import os.log
     
     // MARK: - Logger availability
     
-    func getLogType(_ loggerLevel: LoggerLevel) -> OSLogType {
-        switch loggerLevel {
-        case .error:
-            return .error
-        default:
-            return .info
-        }
-    }
-    
-    func isLoggerAvailable(_ loggerLevel: LoggerLevel) -> Bool {
-        switch loggerLevel {
+    func isLoggerAvailable(_ loggerLevel: LoggerLevel = .all) -> Bool {
+        switch self.loggerManagerLevel {
         case .none:
             return false
         case .all:
             return true
         case .error:
-            return true
+            if loggerLevel == .error {
+                return true
+            }
         case .info:
-            if self.logsLevel == .info {
+            if loggerLevel == .info {
                 return true
             }
         }
