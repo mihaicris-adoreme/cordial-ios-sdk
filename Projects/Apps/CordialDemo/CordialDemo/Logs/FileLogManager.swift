@@ -1,23 +1,19 @@
 //
-//  OSLogManager.swift
+//  FileLogManager.swift
 //  CordialDemo
 //
-//  Created by Yan Malinovsky on 28.08.2020.
-//  Copyright © 2020 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 06.05.2023.
+//  Copyright © 2023 cordial.io. All rights reserved.
 //
 
 import Foundation
 import os.log
 
-extension OSLog {
+class FileLogManager {
     
-    private static var subsystem = Bundle.main.bundleIdentifier!
-    
-    static let сordialSDKDemo = OSLog(subsystem: subsystem, category: "CordialSDKDemo")
-        
     func loging(row: String) {
         let folderName = "logs"
-        let fileName = "\(OSLog.subsystem).log"
+        let fileName = "\(Bundle.main.bundleIdentifier!).log"
         
         let folderURL = self.getDocumentsDirectory().appendingPathComponent(folderName, isDirectory: true)
         

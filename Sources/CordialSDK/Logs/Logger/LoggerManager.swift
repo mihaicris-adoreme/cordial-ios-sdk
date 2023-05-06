@@ -19,9 +19,13 @@ import os.log
     
     var loggers: [LoggerDelegate] = [OSLogManager.shared] 
     
+    public func setLoggers(loggers: [LoggerDelegate]) {
+        self.loggers = [OSLogManager.shared] + loggers
+    }
+    
     // MARK: - Logger manager
     
-    func log(message: String, category: String) {
+    public func log(message: String, category: String) {
         if self.isLoggerAvailable() {
             self.loggers.forEach { logger in
                 logger.log(message: message, category: category)
@@ -29,7 +33,7 @@ import os.log
         }
     }
     
-    func info(message: String, category: String) {
+    public func info(message: String, category: String) {
         if self.isLoggerAvailable(.info) {
             self.loggers.forEach { logger in
                 logger.info(message: message, category: category)
@@ -37,7 +41,7 @@ import os.log
         }
     }
     
-    func debug(message: String, category: String) {
+    public func debug(message: String, category: String) {
         if self.isLoggerAvailable() {
             self.loggers.forEach { logger in
                 logger.debug(message: message, category: category)
@@ -45,7 +49,7 @@ import os.log
         }
     }
     
-    func error(message: String, category: String) {
+    public func error(message: String, category: String) {
         if self.isLoggerAvailable(.error) {
             self.loggers.forEach { logger in
                 logger.error(message: message, category: category)
@@ -53,7 +57,7 @@ import os.log
         }
     }
     
-    func fault(message: String, category: String) {
+    public func fault(message: String, category: String) {
         if self.isLoggerAvailable() {
             self.loggers.forEach { logger in
                 logger.fault(message: message, category: category)
@@ -106,7 +110,7 @@ import os.log
     
     // MARK: - Logger availability
     
-    func isLoggerAvailable(_ loggerLevel: LoggerLevel = .all) -> Bool {
+    private func isLoggerAvailable(_ loggerLevel: LoggerLevel = .all) -> Bool {
         switch self.loggerManagerLevel {
         case .none:
             return false

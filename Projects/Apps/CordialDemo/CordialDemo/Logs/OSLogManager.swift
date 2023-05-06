@@ -1,34 +1,25 @@
 //
 //  OSLogManager.swift
-//  CordialSDK
+//  CordialDemo
 //
-//  Created by Yan Malinovsky on 4/9/19.
-//  Copyright © 2019 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 28.08.2020.
+//  Copyright © 2020 cordial.io. All rights reserved.
 //
 
 import Foundation
+import CordialSDK
 import os.log
+
+extension OSLog {
+    
+    private static var subsystem = Bundle.main.bundleIdentifier!
+    
+    static let сordialSDKDemo = OSLog(subsystem: subsystem, category: "CordialSDKDemo")
+}
 
 // OSLog Category
 //
-// CordialSDKInfo
-// CordialSDKError
-// CordialSDKCoreDataError
-// CordialSDKPushNotification
-// CordialSDKPushNotificationCarousel
-// CordialSDKBackgroundURLSession
-// CordialSDKDeepLinks
-// CordialSDKSendCustomEvents
-// CordialSDKUpsertContactCart
-// CordialSDKSendContactOrders
-// CordialSDKUpsertContacts
-// CordialSDKSendContactLogout
-// CordialSDKInAppMessage
-// CordialSDKInAppMessageContent
-// CordialSDKInAppMessages
-// CordialSDKSecurity
-// CordialSDKInboxMessages
-// CordialSDKContactTimestamps
+// CordialSDKDemo
 
 class OSLogManager: LoggerDelegate {
     
