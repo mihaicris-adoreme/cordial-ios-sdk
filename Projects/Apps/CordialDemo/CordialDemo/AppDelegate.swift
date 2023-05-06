@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.eventsBulkSize = 3
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
         CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
-        CordialApiConfiguration.shared.loggerManager.setLoggers(loggers: [FileLogger()])
+        CordialApiConfiguration.shared.loggerManager.setLoggers(loggers: [FileLogger.shared])
         CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ProductViewController.self, CartViewController.self])
         CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
         CordialApiConfiguration.shared.cordialDeepLinksDelegate = CordialDeepLinksHandler()
