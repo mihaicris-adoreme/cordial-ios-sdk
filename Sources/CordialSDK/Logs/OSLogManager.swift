@@ -9,34 +9,26 @@
 import Foundation
 import os.log
 
-extension OSLog {
-    
-    private static var subsystem = Bundle.main.bundleIdentifier!
-    
-    static let cordialInfo = OSLog(subsystem: subsystem, category: "CordialSDKInfo")
-    static let cordialError = OSLog(subsystem: subsystem, category: "CordialSDKError")
-    
-    static let cordialCoreDataError = OSLog(subsystem: subsystem, category: "CordialSDKCoreDataError")
-    
-    static let cordialPushNotification = OSLog(subsystem: subsystem, category: "CordialSDKPushNotification")
-    static let cordialPushNotificationCarousel = OSLog(subsystem: subsystem, category: "CordialSDKPushNotificationCarousel")
-    
-    static let cordialBackgroundURLSession = OSLog(subsystem: subsystem, category: "CordialSDKBackgroundURLSession")
-    static let cordialDeepLinks = OSLog(subsystem: subsystem, category: "CordialSDKDeepLinks")
-    
-    static let cordialSendCustomEvents = OSLog(subsystem: subsystem, category: "CordialSDKSendCustomEvents")
-    static let cordialUpsertContactCart = OSLog(subsystem: subsystem, category: "CordialSDKUpsertContactCart")
-    static let cordialSendContactOrders = OSLog(subsystem: subsystem, category: "CordialSDKSendContactOrders")
-    static let cordialUpsertContacts = OSLog(subsystem: subsystem, category: "CordialSDKUpsertContacts")
-    static let cordialSendContactLogout = OSLog(subsystem: subsystem, category: "CordialSDKSendContactLogout")
-    static let cordialInAppMessage = OSLog(subsystem: subsystem, category: "CordialSDKInAppMessage")
-    static let cordialInAppMessageContent = OSLog(subsystem: subsystem, category: "CordialSDKInAppMessageContent")
-    static let cordialInAppMessages = OSLog(subsystem: subsystem, category: "CordialSDKInAppMessages")
-    static let cordialSecurity = OSLog(subsystem: subsystem, category: "CordialSDKSecurity")
-    static let cordialInboxMessages = OSLog(subsystem: subsystem, category: "CordialSDKInboxMessages")
-    static let cordialContactTimestamps = OSLog(subsystem: subsystem, category: "CordialSDKContactTimestamps")
-    
-}
+// Cordial OSLog
+//
+// CordialSDKInfo
+// CordialSDKError
+// CordialSDKCoreDataError
+// CordialSDKPushNotification
+// CordialSDKPushNotificationCarousel
+// CordialSDKBackgroundURLSession
+// CordialSDKDeepLinks
+// CordialSDKSendCustomEvents
+// CordialSDKUpsertContactCart
+// CordialSDKSendContactOrders
+// CordialSDKUpsertContacts
+// CordialSDKSendContactLogout
+// CordialSDKInAppMessage
+// CordialSDKInAppMessageContent
+// CordialSDKInAppMessages
+// CordialSDKSecurity
+// CordialSDKInboxMessages
+// CordialSDKContactTimestamps
 
 @objc class OSLogManager: NSObject, LoggerDelegate {
     
