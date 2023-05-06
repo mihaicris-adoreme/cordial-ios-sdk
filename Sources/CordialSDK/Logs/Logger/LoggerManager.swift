@@ -7,11 +7,10 @@
 //
 
 import Foundation
-import os.log
 
 @objcMembers public class LoggerManager: NSObject {
     
-    static let shared = LoggerManager()
+    public static let shared = LoggerManager()
     
     private override init() {}
     

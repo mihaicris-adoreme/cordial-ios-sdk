@@ -11,6 +11,7 @@ import os.log
 
 // OSLog Category
 //
+// CordialSDKDemo
 // CordialSDKInfo
 // CordialSDKError
 // CordialSDKCoreDataError

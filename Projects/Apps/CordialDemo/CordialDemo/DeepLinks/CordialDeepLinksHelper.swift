@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import os.log
+import CordialSDK
 
 class CordialDeepLinksHelper {
     
@@ -24,17 +24,17 @@ class CordialDeepLinksHelper {
     
     private func logsOutputWithoutFallbackURL(isSceneLog: String, url: URL, vanityURL: URL?) {
         if let vanityURL = vanityURL {
-            os_log("DeepLink handler has been called [%{public}@] \n\t url: %{public}@ \n\t vanityURL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, isSceneLog, url.absoluteString, vanityURL.absoluteString)
+            LoggerManager.shared.info(message: "DeepLink handler has been called [\(isSceneLog)] \n\t url: \(url.absoluteString) \n\t vanityURL: \(vanityURL.absoluteString)", category: "CordialSDKDemo")
         } else {
-            os_log("DeepLink handler has been called [%{public}@] \n\t url: %{public}@", log: OSLog.сordialSDKDemo, type: .info, isSceneLog, url.absoluteString)
+            LoggerManager.shared.info(message: "DeepLink handler has been called [\(isSceneLog)] \n\t url: \(url.absoluteString)", category: "CordialSDKDemo")
         }
     }
     
     private func logsOutputWithFallbackURL(isSceneLog: String, url: URL, vanityURL: URL?, fallbackURL: URL) {
         if let vanityURL = vanityURL {
-            os_log("DeepLink handler has been called [%{public}@] \n\t url: %{public}@ \n\t vanityURL: %{public}@ \n\t fallbackURL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, isSceneLog, url.absoluteString, vanityURL.absoluteString, fallbackURL.absoluteString)
+            LoggerManager.shared.info(message: "DeepLink handler has been called [\(isSceneLog)] \n\t url: \(url.absoluteString) \n\t vanityURL: \(vanityURL.absoluteString) \n\t fallbackURL: \(fallbackURL.absoluteString)", category: "CordialSDKDemo")
         } else {
-            os_log("DeepLink handler has been called [%{public}@] \n\t url: %{public}@ \n\t fallbackURL: %{public}@", log: OSLog.сordialSDKDemo, type: .info, isSceneLog, url.absoluteString, fallbackURL.absoluteString)
+            LoggerManager.shared.info(message: "DeepLink handler has been called [\(isSceneLog)] \n\t url: \(url.absoluteString) \n\t fallbackURL: \(fallbackURL.absoluteString)", category: "CordialSDKDemo")
         }
     }
 }

@@ -53,14 +53,13 @@
 		9E7A5A8D222EB64C0020054F /* CordialDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A8C222EB64C0020054F /* CordialDemoUITests.swift */; };
 		9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */; };
 		9E7CEC7D242857F800E054BF /* GeoAttributeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */; };
-		9E7DF22E24F95808005533A7 /* OSLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7DF22D24F95808005533A7 /* OSLogManager.swift */; };
 		9E7EC4222510CE3200314A18 /* InboxMessagesTableRawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EC4212510CE3200314A18 /* InboxMessagesTableRawViewController.swift */; };
 		9E7EC4242510CE5C00314A18 /* InboxMessagesTableRawViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EC4232510CE5C00314A18 /* InboxMessagesTableRawViewCell.swift */; };
 		9E7F2917256BF3B1006D3BED /* InboxMessagesCollectionCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2916256BF3B1006D3BED /* InboxMessagesCollectionCardsViewController.swift */; };
 		9E7F2966256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2965256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift */; };
 		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
 		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
-		9E814C9A2A06A31200570809 /* FileLogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E814C992A06A31200570809 /* FileLogManager.swift */; };
+		9E814C9A2A06A31200570809 /* FileLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E814C992A06A31200570809 /* FileLogger.swift */; };
 		9E8A7DCD29DF0B3A0019D981 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A7DCF29DF0B3A0019D981 /* Localizable.strings */; };
 		9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8B95A923A53A1300936630 /* SceneDelegate.swift */; };
 		9E8F1B4A2511802F00B90139 /* InboxMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8F1B492511802F00B90139 /* InboxMessageViewController.swift */; };
@@ -250,14 +249,13 @@
 		9E7A5A8E222EB64C0020054F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E7BD8C8228DADFF004B4EB9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		9E7CEC7C242857F800E054BF /* GeoAttributeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoAttributeViewController.swift; sourceTree = "<group>"; };
-		9E7DF22D24F95808005533A7 /* OSLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLogManager.swift; sourceTree = "<group>"; };
 		9E7EC4212510CE3200314A18 /* InboxMessagesTableRawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableRawViewController.swift; sourceTree = "<group>"; };
 		9E7EC4232510CE5C00314A18 /* InboxMessagesTableRawViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableRawViewCell.swift; sourceTree = "<group>"; };
 		9E7F2916256BF3B1006D3BED /* InboxMessagesCollectionCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesCollectionCardsViewController.swift; sourceTree = "<group>"; };
 		9E7F2965256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesCollectionCardsViewCell.swift; sourceTree = "<group>"; };
 		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
 		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
-		9E814C992A06A31200570809 /* FileLogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogManager.swift; sourceTree = "<group>"; };
+		9E814C992A06A31200570809 /* FileLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogger.swift; sourceTree = "<group>"; };
 		9E8A7DD029DF0B3D0019D981 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9E8B95A923A53A1300936630 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9E8F1B492511802F00B90139 /* InboxMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageViewController.swift; sourceTree = "<group>"; };
@@ -534,7 +532,7 @@
 			children = (
 				9E6A56CC244FB30700E6495A /* ViewControllers */,
 				9EAB97252427365500C5C5DA /* App */,
-				9E7DF22C24F957EF005533A7 /* Logs */,
+				9E7DF22C24F957EF005533A7 /* FileLogger */,
 				9ECF6B7D2298559300E6E88F /* ProductHandler */,
 				9ECF6B7A22984FEA00E6E88F /* DeepLinks */,
 				9EABE876262082560066BADC /* InAppMessage */,
@@ -599,13 +597,12 @@
 			path = GeoAttribute;
 			sourceTree = "<group>";
 		};
-		9E7DF22C24F957EF005533A7 /* Logs */ = {
+		9E7DF22C24F957EF005533A7 /* FileLogger */ = {
 			isa = PBXGroup;
 			children = (
-				9E7DF22D24F95808005533A7 /* OSLogManager.swift */,
-				9E814C992A06A31200570809 /* FileLogManager.swift */,
+				9E814C992A06A31200570809 /* FileLogger.swift */,
 			);
-			path = Logs;
+			path = FileLogger;
 			sourceTree = "<group>";
 		};
 		9E7EC41D2510CD4900314A18 /* Inbox */ = {
@@ -1139,7 +1136,7 @@
 				9E005F5F24297D2700425C5B /* AttributeType.swift in Sources */,
 				9E7BD8C9228DADFF004B4EB9 /* ProfileViewController.swift in Sources */,
 				9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */,
-				9E814C9A2A06A31200570809 /* FileLogManager.swift in Sources */,
+				9E814C9A2A06A31200570809 /* FileLogger.swift in Sources */,
 				9E96BA4B244FCA6700DB8BEC /* CustomEventPropertyViewController.swift in Sources */,
 				9EF7B20B2266259B003B223D /* Product.swift in Sources */,
 				9E1EB3D6241F1700004CAD90 /* ProfileTableViewCell.swift in Sources */,
@@ -1174,7 +1171,6 @@
 				9EA151F525220E43009B85C3 /* AppNotificationManager.swift in Sources */,
 				9E8B95AA23A53A1300936630 /* SceneDelegate.swift in Sources */,
 				9E4EEC86225E366500F473A6 /* CatalogCollectionViewController.swift in Sources */,
-				9E7DF22E24F95808005533A7 /* OSLogManager.swift in Sources */,
 				9E318F1029B0E1ED00DEA661 /* NotificationSettingsTableViewController.swift in Sources */,
 				9EAE4E5529B118040069596A /* Menu.swift in Sources */,
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,

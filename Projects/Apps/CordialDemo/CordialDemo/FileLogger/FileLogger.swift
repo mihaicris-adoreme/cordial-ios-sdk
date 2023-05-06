@@ -1,5 +1,5 @@
 //
-//  FileLogManager.swift
+//  FileLogger.swift
 //  CordialDemo
 //
 //  Created by Yan Malinovsky on 06.05.2023.
@@ -7,9 +7,9 @@
 //
 
 import Foundation
-import os.log
+import CordialSDK
 
-class FileLogManager {
+class FileLogger {
     
     func loging(row: String) {
         let folderName = "logs"
@@ -29,7 +29,7 @@ class FileLogManager {
             fileUpdater.closeFile()
             
         } catch let error {
-            os_log("Error: [%{public}@]", log: .сordialSDKDemo, type: .error, error.localizedDescription)
+            LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKDemo")
         }
     }
     

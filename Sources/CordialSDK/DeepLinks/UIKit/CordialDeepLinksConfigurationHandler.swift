@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import os.log
 
 @objc public class CordialDeepLinksConfigurationHandler: NSObject {
     

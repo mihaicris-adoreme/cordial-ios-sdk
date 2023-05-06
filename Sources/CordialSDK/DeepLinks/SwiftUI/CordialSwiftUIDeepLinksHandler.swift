@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 public class CordialSwiftUIDeepLinksHandler {
     

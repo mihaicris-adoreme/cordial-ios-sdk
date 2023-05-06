@@ -8,7 +8,6 @@
 
 import UIKit
 import WebKit
-import os.log
 
 class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, UIScrollViewDelegate {
     

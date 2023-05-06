@@ -9,7 +9,6 @@
 import Foundation
 import UserNotifications
 import UserNotificationsUI
-import os.log
 
 class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
     

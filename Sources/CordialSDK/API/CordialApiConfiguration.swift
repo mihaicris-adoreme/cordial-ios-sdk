@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreLocation
-import os.log
 
 @objc public class CordialApiConfiguration: NSObject {
     

@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreLocation
-import os.log
 
 class CordialLocationManager: NSObject, CLLocationManagerDelegate {
     
