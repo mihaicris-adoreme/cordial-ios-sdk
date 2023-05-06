@@ -117,7 +117,7 @@ import os.log
                 return true
             }
         case .info:
-            if loggerLevel == .info {
+            if loggerLevel == .error || loggerLevel == .info {
                 return true
             }
         }
