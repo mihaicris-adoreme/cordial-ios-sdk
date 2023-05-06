@@ -9,9 +9,9 @@
 import Foundation
 import CordialSDK
 
-class FileLogger {
+class FileLogger: LoggerDelegate {
     
-    func loging(row: String) {
+    func loging(_ row: String) {
         let folderName = "logs"
         let fileName = "\(Bundle.main.bundleIdentifier!).log"
         
@@ -38,5 +38,32 @@ class FileLogger {
         let documentsDirectory = paths[0]
         
         return documentsDirectory
+    }
+    
+    // MARK: - LoggerDelegate
+    
+    func log(message: String, category: String) {
+        let timestamp = AppDateFormatter().getTimestampFromDate(date: Date())
+        self.loging("\(timestamp) [\(category)]: \(message)")
+    }
+    
+    func info(message: String, category: String) {
+        let timestamp = AppDateFormatter().getTimestampFromDate(date: Date())
+        self.loging("\(timestamp) [\(category)]: \(message)")
+    }
+    
+    func debug(message: String, category: String) {
+        let timestamp = AppDateFormatter().getTimestampFromDate(date: Date())
+        self.loging("\(timestamp) [\(category)]: \(message)")
+    }
+    
+    func error(message: String, category: String) {
+        let timestamp = AppDateFormatter().getTimestampFromDate(date: Date())
+        self.loging("\(timestamp) [\(category)]: \(message)")
+    }
+    
+    func fault(message: String, category: String) {
+        let timestamp = AppDateFormatter().getTimestampFromDate(date: Date())
+        self.loging("\(timestamp) [\(category)]: \(message)")
     }
 }
