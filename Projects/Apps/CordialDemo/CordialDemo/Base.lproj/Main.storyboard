@@ -1771,11 +1771,18 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yCc-3A-YfB">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="oWt-ci-YrK">
-                            <connections>
-                                <action selector="logsRefreshAction:" destination="xdy-pj-sDf" id="y1E-yS-gIw"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="oWt-ci-YrK">
+                                <connections>
+                                    <action selector="logsRefreshAction:" destination="xdy-pj-sDf" id="y1E-yS-gIw"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="trash" id="Jng-77-Byd">
+                                <connections>
+                                    <action selector="logsRemoveAction:" destination="xdy-pj-sDf" id="cIV-U7-1sI"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="logsTextView" destination="EPo-uK-jqr" id="ugK-Py-lKm"/>

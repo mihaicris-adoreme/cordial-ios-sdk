@@ -24,9 +24,15 @@ class LogsViewController: UIViewController {
         self.prepareLogsTextView()
     }
     
+    @IBAction func logsRemoveAction(_ sender: UIBarButtonItem) {
+        FileLogger.shared.remove()
+        
+        self.prepareLogsTextView()
+    }
+    
     func prepareLogsTextView() {
         if #available(iOS 13.4, *) {
-            self.logsTextView.text = FileLogger.shared.reading()
+            self.logsTextView.text = FileLogger.shared.read()
         }
     }
 }
