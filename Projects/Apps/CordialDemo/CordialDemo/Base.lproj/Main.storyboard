@@ -1752,14 +1752,38 @@
                     <view key="view" contentMode="scaleToFill" id="0ZH-dL-Umh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="EPo-uK-jqr">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="fS5-vC-dDc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="EPo-uK-jqr" firstAttribute="trailing" secondItem="fS5-vC-dDc" secondAttribute="trailing" id="CVV-AF-Ymb"/>
+                            <constraint firstItem="EPo-uK-jqr" firstAttribute="bottom" secondItem="fS5-vC-dDc" secondAttribute="bottom" id="L7Q-9O-jn1"/>
+                            <constraint firstItem="EPo-uK-jqr" firstAttribute="leading" secondItem="fS5-vC-dDc" secondAttribute="leading" id="Mte-1s-p3w"/>
+                            <constraint firstItem="EPo-uK-jqr" firstAttribute="top" secondItem="fS5-vC-dDc" secondAttribute="top" id="cTc-6q-Q2r"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="yCc-3A-YfB"/>
+                    <navigationItem key="navigationItem" id="yCc-3A-YfB">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="oWt-ci-YrK">
+                            <connections>
+                                <action selector="logsRefreshAction:" destination="xdy-pj-sDf" id="y1E-yS-gIw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="logsTextView" destination="EPo-uK-jqr" id="ugK-Py-lKm"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gt6-RV-560" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1766" y="911"/>
+            <point key="canvasLocation" x="1764.375" y="910.56338028169012"/>
         </scene>
         <!--Custom Event View Controller-->
         <scene sceneID="H4Q-yf-Lu5">

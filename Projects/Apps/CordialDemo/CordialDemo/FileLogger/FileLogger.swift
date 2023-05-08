@@ -67,7 +67,7 @@ class FileLogger: LoggerDelegate {
     }
     
     private func loging(_ row: String) {
-        guard let fileURL = self.getFileURL(), let rowData = row.data(using: .utf8) else { return }
+        guard let fileURL = self.getFileURL(), let rowData = "\(row)\n\n".data(using: .utf8) else { return }
         
         do {
             if FileManager.default.fileExists(atPath: fileURL.path) {
