@@ -123,13 +123,33 @@ You can choose one of four message logging levels: `none`, `all`, `error`, `info
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
 ```
-CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
+CordialApiConfiguration.shared.loggerManager.setLoggerLevel(.all)
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 
 ```
-[[[CordialApiConfiguration shared] osLogManager] setLogLevel:logLevelAll];
+[[[CordialApiConfiguration shared] loggerManager] setLoggerLevel:LoggerLevelAll];
+```
+
+### Setting Message Loggers
+
+SDK provide ability to receive SDK logs in your application. 
+
+To do so, create a logger object by implement the `LoggerDelegate` protocol and set it to the SDK by the following call:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let logger = YourImplementationOfTheProtocol()
+CordialApiConfiguration.shared.loggerManager.setLoggers(loggers: [logger])
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+YourImplementationOfTheProtocol *logger = [[YourImplementationOfTheProtocol alloc] init];
+[[[CordialApiConfiguration shared] loggerManager] setLoggersWithLoggers:@[logger]];
 ```
 
 ## Push Notifications

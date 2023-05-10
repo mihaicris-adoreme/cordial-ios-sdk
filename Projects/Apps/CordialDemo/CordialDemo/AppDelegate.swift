@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.eventsBulkSize = 3
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 15
-        CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.all)
+        CordialApiConfiguration.shared.loggerManager.setLoggerLevel(.all)
         CordialApiConfiguration.shared.loggerManager.setLoggers(loggers: [FileLogger.shared])
         CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ProductViewController.self, CartViewController.self])
         CordialApiConfiguration.shared.pushNotificationDelegate = PushNotificationHandler()
