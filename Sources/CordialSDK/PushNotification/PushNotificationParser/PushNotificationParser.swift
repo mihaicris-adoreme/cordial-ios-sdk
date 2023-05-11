@@ -16,6 +16,20 @@ class PushNotificationParser {
     private let inboxMessageParser = PushNotificationParserInboxMessage()
     private let carouselParser = PushNotificationParserCarousel()
     
+    // MARK: Get payload JSON
+    
+    func getPayloadJSON(userInfo: [AnyHashable : Any]) -> String {
+        var payload = userInfo.description
+        
+        if let jsonData = try? JSONSerialization.data(withJSONObject: userInfo, options: []),
+           let dictionary = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? Dictionary<String, Any> {
+            
+            payload = API.getDictionaryJSON(dictionary)
+        }
+        
+        return payload
+    }
+    
     // MARK: Get deep link URL
     
     func getDeepLinkURL(userInfo: [AnyHashable : Any]) -> URL? {

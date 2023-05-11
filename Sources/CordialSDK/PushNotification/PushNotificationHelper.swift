@@ -40,7 +40,7 @@ class PushNotificationHelper {
             }
         }
         
-        LoggerManager.shared.info(message: "Push notification app open via tap. Payload: \(userInfo.description)", category: "CordialSDKPushNotification")
+        LoggerManager.shared.info(message: "Push notification app open via tap. Payload: \(self.pushNotificationParser.getPayloadJSON(userInfo: userInfo))", category: "CordialSDKPushNotification")
         
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             self.cordialAPI.setCurrentMcID(mcID: mcID)

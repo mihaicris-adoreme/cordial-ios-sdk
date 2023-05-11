@@ -13,9 +13,9 @@ class CordialSwizzlerHelper {
     // MARK: Push notification
     
     func didReceiveRemoteNotification(userInfo: [AnyHashable : Any]) {
-        LoggerManager.shared.info(message: "Silent push notification received. Payload: \(userInfo.description)", category: "CordialSDKPushNotification")
-        
         let pushNotificationParser = PushNotificationParser()
+        
+        LoggerManager.shared.info(message: "Silent push notification received. Payload: \(pushNotificationParser.getPayloadJSON(userInfo: userInfo))", category: "CordialSDKPushNotification")
         
         if pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
             switch CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration {
