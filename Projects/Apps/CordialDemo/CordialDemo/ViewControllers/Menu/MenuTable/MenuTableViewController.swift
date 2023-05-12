@@ -60,7 +60,7 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         let appIcon = UIApplication.shared.icon?.round(15).withRenderingMode(.alwaysOriginal)
-        let appIconItem = UIBarButtonItem(image: appIcon, style: .done, target: nil, action: nil)
+        let appIconItem = UIBarButtonItem(image: appIcon, style: .done, target: nil, action: #selector(self.openLogsViewController))
         
         navigationItem.rightBarButtonItem = dismissItem
         navigationItem.leftBarButtonItem = appIconItem
@@ -104,6 +104,15 @@ class MenuTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     @objc func dismissViewController() {
         self.dismiss(animated: true)
+    }
+    
+    @objc func openLogsViewController() {
+        guard let catalogCollectionViewController = self.sender as? CatalogCollectionViewController else { return }
+        
+        self.dismissViewController()
+        
+        let identifier = catalogCollectionViewController.sequeToLogsIdentifier
+        catalogCollectionViewController.performSegue(withIdentifier: identifier, sender: self)
     }
     
     // MARK: - Table view data source

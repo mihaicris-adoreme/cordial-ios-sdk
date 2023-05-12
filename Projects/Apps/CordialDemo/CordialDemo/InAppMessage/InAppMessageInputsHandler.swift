@@ -8,12 +8,11 @@
 
 import Foundation
 import CordialSDK
-import os.log
 
 class InAppMessageInputsHandler: InAppMessageInputsDelegate {
     
     func inputsCaptured(eventName: String, properties: Dictionary<String, Any>) {
-        os_log("IAM inputs successfully captured. Event name: [%{public}@]. Properties: %{public}@", log: OSLog.сordialSDKDemo, type: .info, eventName, properties.description)
+        LoggerManager.shared.info(message: "IAM inputs successfully captured. Event name: [\(eventName)]. Properties: \(properties.description)", category: "CordialSDKDemo")
     }
     
 }

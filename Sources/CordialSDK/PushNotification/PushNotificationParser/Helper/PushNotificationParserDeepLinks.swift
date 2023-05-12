@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class PushNotificationParserDeepLinks {
     
@@ -30,9 +29,7 @@ class PushNotificationParserDeepLinks {
                             return deepLinkURL
                     }
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
-                    }
+                    LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKPushNotification")
                 }
         }
         
@@ -54,9 +51,7 @@ class PushNotificationParserDeepLinks {
                             return deepLinkURL
                     }
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
-                    }
+                    LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKPushNotification")
                 }
         }
         
@@ -82,9 +77,7 @@ class PushNotificationParserDeepLinks {
                             return vanityDeepLinkURL
                     }
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
-                    }
+                    LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKPushNotification")
                 }
         }
         
@@ -106,9 +99,7 @@ class PushNotificationParserDeepLinks {
                             return vanityDeepLinkURL
                     }
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
-                    }
+                    LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKPushNotification")
                 }
         }
         
@@ -134,9 +125,7 @@ class PushNotificationParserDeepLinks {
                             return fallbackURL
                     }
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
-                    }
+                    LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKPushNotification")
                 }
         }
         
@@ -158,9 +147,7 @@ class PushNotificationParserDeepLinks {
                             return fallbackURL
                     }
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Error: [%{public}@]", log: OSLog.cordialPushNotification, type: .error, error.localizedDescription)
-                    }
+                    LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKPushNotification")
                 }
         }
         

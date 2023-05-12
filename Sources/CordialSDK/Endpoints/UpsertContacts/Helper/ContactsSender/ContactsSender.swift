@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class ContactsSender {
     
@@ -36,12 +35,10 @@ class ContactsSender {
         if ReachabilityManager.shared.isConnectedToInternet {
             if internalCordialAPI.getCurrentJWT() != nil {
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    upsertContactRequests.forEach({ upsertContactRequest in
-                        let payload = self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest, isLogs: false)
-                        os_log("Sending contact. Request ID: [%{public}@] Payload: %{public}@", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID, payload)
-                    })
-                }
+                upsertContactRequests.forEach({ upsertContactRequest in
+                    let payload = self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest, isLogs: false)
+                    LoggerManager.shared.info(message: "Sending contact. Request ID: [\(upsertContactRequest.requestID)] Payload: \(payload)", category: "CordialSDKUpsertContacts")
+                })
                 
                 self.upsertContacts.upsertContacts(upsertContactRequests: upsertContactRequests)
                 
@@ -55,11 +52,9 @@ class ContactsSender {
             
             CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
             
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                upsertContactRequests.forEach({ upsertContactRequest in
-                    os_log("Sending contact failed. Saved to retry later. Request ID: [%{public}@] Error: [No Internet connection]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
-                })
-            }
+            upsertContactRequests.forEach({ upsertContactRequest in
+                LoggerManager.shared.info(message: "Sending contact failed. Saved to retry later. Request ID: [\(upsertContactRequest.requestID)] Error: [No Internet connection]", category: "CordialSDKUpsertContacts")
+            })
         }
     }
     
@@ -77,30 +72,24 @@ class ContactsSender {
                  
         CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
     
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            upsertContactRequests.forEach({ upsertContactRequest in
-                os_log("Contact has been sent. Request ID: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID)
-            })
-        }
+        upsertContactRequests.forEach({ upsertContactRequest in
+            LoggerManager.shared.info(message: "Contact has been sent. Request ID: [\(upsertContactRequest.requestID)]", category: "CordialSDKUpsertContacts")
+        })
     }
     
     func systemErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {
         CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            upsertContactRequests.forEach({ upsertContactRequest in
-                os_log("Sending contact failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .info, upsertContactRequest.requestID, error.message)
-            })
-        }
+        upsertContactRequests.forEach({ upsertContactRequest in
+            LoggerManager.shared.info(message: "Sending contact failed. Saved to retry later. Request ID: [\(upsertContactRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContacts")
+        })
     }
     
     func logicErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {
         NotificationCenter.default.post(name: .cordialUpsertContactsLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            upsertContactRequests.forEach({ upsertContactRequest in
-                os_log("Sending contact failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialUpsertContacts, type: .error, upsertContactRequest.requestID, error.message)
-            })
-        }
+        upsertContactRequests.forEach({ upsertContactRequest in
+            LoggerManager.shared.error(message: "Sending contact failed. Will not retry. Request ID: [\(upsertContactRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContacts")
+        })
     }
 }

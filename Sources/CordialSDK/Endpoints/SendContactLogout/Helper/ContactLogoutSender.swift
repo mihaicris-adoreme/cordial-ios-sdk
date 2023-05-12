@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class ContactLogoutSender {
     
@@ -22,9 +21,7 @@ class ContactLogoutSender {
         if internalCordialAPI.getPushNotificationToken() != nil {
             self.sendContactLogoutData(sendContactLogoutRequest: sendContactLogoutRequest)
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact logout failed. Request ID: [%{public}@] Error: [Device token is absent]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
-            }
+            LoggerManager.shared.info(message: "Sending contact logout failed. Request ID: [\(sendContactLogoutRequest.requestID)] Error: [Device token is absent]", category: "CordialSDKSendContactLogout")
         }
     }
     
@@ -32,12 +29,10 @@ class ContactLogoutSender {
         if ReachabilityManager.shared.isConnectedToInternet {
             if InternalCordialAPI().getCurrentJWT() != nil {
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Sending contact logout. Request ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
-                    
-                    let payload = self.sendContactLogout.getSendContactLogoutJSON(sendContactLogoutRequest: sendContactLogoutRequest)
-                    os_log("Payload: %{public}@", log: OSLog.cordialSendContactLogout, type: .info, payload)
-                }
+                LoggerManager.shared.info(message: "Sending contact logout. Request ID: [\(sendContactLogoutRequest.requestID)]", category: "CordialSDKSendContactLogout")
+                
+                let payload = self.sendContactLogout.getSendContactLogoutJSON(sendContactLogoutRequest: sendContactLogoutRequest)
+                LoggerManager.shared.info(message: "Payload: \(payload)", category: "CordialSDKSendContactLogout")
                 
                 SendContactLogout().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
                 
@@ -50,32 +45,24 @@ class ContactLogoutSender {
         } else {
             CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
             
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact logout failed. Saved to retry later. Request ID: [%{public}@] Error: [No Internet connection]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
-            }
+            LoggerManager.shared.info(message: "Sending contact logout failed. Saved to retry later. Request ID: [\(sendContactLogoutRequest.requestID)] Error: [No Internet connection]", category: "CordialSDKSendContactLogout")
         }
     }
     
     func completionHandler(sendContactLogoutRequest: SendContactLogoutRequest) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Contact logout has been sent. Request ID: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID)
-        }
+        LoggerManager.shared.info(message: "Contact logout has been sent. Request ID: [\(sendContactLogoutRequest.requestID)]", category: "CordialSDKSendContactLogout")
     }
     
     func systemErrorHandler(sendContactLogoutRequest: SendContactLogoutRequest, error: ResponseError) {
         CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending contact logout failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .info, sendContactLogoutRequest.requestID, error.message)
-        }
+        LoggerManager.shared.info(message: "Sending contact logout failed. Saved to retry later. Request ID: [\(sendContactLogoutRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKSendContactLogout")
     }
     
     func logicErrorHandler(sendContactLogoutRequest: SendContactLogoutRequest, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactLogoutLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending contact logout failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialSendContactLogout, type: .error, sendContactLogoutRequest.requestID, error.message)
-        }
+        LoggerManager.shared.error(message: "Sending contact logout failed. Will not retry. Request ID: [\(sendContactLogoutRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKSendContactLogout")
     }
 }
 
