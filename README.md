@@ -134,9 +134,9 @@ CordialApiConfiguration.shared.loggerManager.setLoggerLevel(.all)
 
 ### Setting Message Loggers
 
-SDK provide ability to receive SDK logs in your application. 
+SDK allows to receive SDK logs in your application.
 
-To do so, create a logger object by implement the `LoggerDelegate` protocol and set it to the SDK by the following call:
+To do so, create a logger object implementing the `LoggerDelegate` protocol and set it to the SDK using the following call:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
