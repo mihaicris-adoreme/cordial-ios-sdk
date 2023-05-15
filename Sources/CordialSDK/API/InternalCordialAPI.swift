@@ -515,12 +515,22 @@ class InternalCordialAPI {
         let mcID = CordialAPI().getCurrentMcID()
         
         var properties: Dictionary<String, Any> = ["deepLinkUrl": url]
+        properties = self.getMergedDictionaryToSystemEventsProperties(properties: properties)
+        
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
+        self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+    }
+    
+    // MARK: Get merged dictionary to systemEventsProperties
+    
+    private func getMergedDictionaryToSystemEventsProperties(properties: Dictionary<String, Any>) -> Dictionary<String, Any> {
+        var properties = properties
+        
         if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
             properties.merge(systemEventsProperties) { (current, new) in current }
         }
         
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
-        self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        return properties
     }
     
     // MARK: Get push notification status
@@ -589,10 +599,7 @@ class InternalCordialAPI {
         }
         
         var properties: Dictionary<String, Any> = ["authorizationStatus": authorizationStatusName]
-        
-        if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
-            properties.merge(systemEventsProperties) { (current, new) in current }
-        }
+        properties = self.getMergedDictionaryToSystemEventsProperties(properties: properties)
         
         return properties
     }
