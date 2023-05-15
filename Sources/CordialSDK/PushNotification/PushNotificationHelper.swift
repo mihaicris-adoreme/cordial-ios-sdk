@@ -152,6 +152,9 @@ class PushNotificationHelper {
     private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {
         self.internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
         
+        let systemEventsProperties = self.internalCordialAPI.getMergedDictionaryToSystemEventsProperties(properties: ["notificationStatus": status])
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+        
         if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
             ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])

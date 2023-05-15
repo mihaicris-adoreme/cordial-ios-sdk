@@ -60,6 +60,9 @@ class CordialSwizzlerHelper {
         
         let token = internalCordialAPI.getPreparedRemoteNotificationsDeviceToken(deviceToken: deviceToken)
         
+        let systemEventsProperties = internalCordialAPI.getMergedDictionaryToSystemEventsProperties(properties: ["notificationToken": token])
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+        
         // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.apnsTokenReceived(token: token)

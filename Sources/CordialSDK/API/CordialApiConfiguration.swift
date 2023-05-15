@@ -112,6 +112,9 @@ import os.log
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         os_log("Device Identifier: [%{public}@] SDK: [%{public}@]", log: OSLog.cordialInfo, type: .info, deviceID, self.sdkVersion)
         
+        let systemEventsProperties = InternalCordialAPI().getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+        
         CordialPushNotification.shared.setupPushNotifications()
         
         NotificationManager.shared.setupNotificationManager()

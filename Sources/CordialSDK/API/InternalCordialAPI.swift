@@ -523,7 +523,7 @@ class InternalCordialAPI {
     
     // MARK: Get merged dictionary to systemEventsProperties
     
-    private func getMergedDictionaryToSystemEventsProperties(properties: Dictionary<String, Any>) -> Dictionary<String, Any> {
+    func getMergedDictionaryToSystemEventsProperties(properties: Dictionary<String, Any>) -> Dictionary<String, Any> {
         var properties = properties
         
         if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
