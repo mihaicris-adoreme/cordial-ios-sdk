@@ -166,10 +166,12 @@ class PushNotificationHelper {
     }
     
     private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {
-        self.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
+        let currentTimestamp = CordialDateFormatter().getCurrentTimestamp()
+        CordialUserDefaults.set(currentTimestamp, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE)
         
-        let systemEventsProperties = self.internalCordialAPI.getMergedDictionaryToSystemEventsProperties(properties: ["notificationStatus": status])
-        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+        self.internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
+        
+        self.sentPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)
         
         if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
@@ -177,13 +179,7 @@ class PushNotificationHelper {
         }
     }
     
-    private func setPushNotificationStatus(status: String, authorizationStatus: UNAuthorizationStatus) {
-        CordialUserDefaults.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
-        
-        self.setPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)
-    }
-    
-    private func setPushNotificationAuthorizationStatus(authorizationStatus: UNAuthorizationStatus) {
+    private func sentPushNotificationAuthorizationStatus(authorizationStatus: UNAuthorizationStatus) {
         let mcID = CordialAPI().getCurrentMcID()
         
         switch authorizationStatus {
@@ -191,14 +187,10 @@ class PushNotificationHelper {
             let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: self.getPushNotificationAuthorizationStatus())
             let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT, mcID: mcID, properties: systemEventsProperties)
             self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-            
-            CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
         case .authorized, .provisional:
             let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
             let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN, mcID: mcID, properties: systemEventsProperties)
             self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-            
-            CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
         default: break
         }
     }

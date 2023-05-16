@@ -539,10 +539,20 @@ class InternalCordialAPI {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
     }
     
-    // MARK: Remove push notification status
+    // MARK: Set push notification status
     
-    func removePushNotificationStatus() {
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
+    func setPushNotificationStatus(status: String, authorizationStatus: UNAuthorizationStatus) {
+        CordialUserDefaults.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
+        CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
+        
+        let systemEventsProperties = self.getMergedDictionaryToSystemEventsProperties(properties: ["notificationStatus": status])
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+    }
+    
+    // MARK: Remove upsert contacts last update date
+    
+    func removeUpsertContactsLastUpdateDate() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE)
     }
     
     // MARK: Get push notification token

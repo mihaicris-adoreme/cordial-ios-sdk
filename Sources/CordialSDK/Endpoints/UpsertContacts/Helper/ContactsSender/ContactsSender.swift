@@ -70,9 +70,6 @@ class ContactsSender {
         
         internalCordialAPI.setIsCurrentlyUpsertingContacts(false)
         
-        let currentTimestamp = CordialDateFormatter().getCurrentTimestamp()
-        CordialUserDefaults.set(currentTimestamp, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE)
-        
         PushNotificationHelper().prepareCurrentPushNotificationStatus()
                  
         CoreDataManager.shared.coreDataSender.sendCacheFromCoreData()
