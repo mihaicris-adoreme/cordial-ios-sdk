@@ -82,34 +82,13 @@ class CordialSwizzlerHelper {
         internalCordialAPI.setPushNotificationToken(token: token)
         
         if internalCordialAPI.isUserLogin() || !internalCordialAPI.hasUserBeenLoggedIn() {
-            self.preparePushNotificationStatus(token: token)
+            self.sendPushNotificationToken(token: token)
         }
     }
-    
-    private func preparePushNotificationStatus(token: String) {
-        DispatchQueue.main.async {
-            let current = UNUserNotificationCenter.current()
-            
-            var status = String()
-            
-            current.getNotificationSettings { settings in
-                DispatchQueue.main.async {
-                    if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
-                        status = API.PUSH_NOTIFICATION_STATUS_ALLOW
-                    } else {
-                        status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
-                    }
-                    
-                    InternalCordialAPI().setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus)
-                    
-                    self.sendPushNotificationToken(token: token, status: status)
-                }
-            }
-        }
-    }
-    
-    private func sendPushNotificationToken(token: String, status: String) {
+        
+    private func sendPushNotificationToken(token: String) {
         let primaryKey = CordialAPI().getContactPrimaryKey()
+        let status = InternalCordialAPI().getPushNotificationStatus()
         
         let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
         ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
