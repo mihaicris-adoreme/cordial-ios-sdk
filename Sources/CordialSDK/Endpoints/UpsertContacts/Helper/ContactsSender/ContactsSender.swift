@@ -18,10 +18,32 @@ class ContactsSender {
         let upsertContactRequests = ContactsSenderHelper().prepareCoreDataCacheBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
          
         if !upsertContactRequests.isEmpty {
+            let internalCordialAPI = InternalCordialAPI()
+            
             upsertContactRequests.forEach({ upsertContactRequest in
-                if let primaryKey = upsertContactRequest.primaryKey {
-                    InternalCordialAPI().setContactPrimaryKey(primaryKey: primaryKey)
+                let primaryKey = upsertContactRequest.primaryKey
+                
+                if primaryKey != CordialAPI().getContactPrimaryKey() {
+                    DispatchQueue.main.async {
+                        let current = UNUserNotificationCenter.current()
+                        
+                        current.getNotificationSettings { settings in
+                            DispatchQueue.main.async {
+                                var status = String()
+                                
+                                if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
+                                    status = API.PUSH_NOTIFICATION_STATUS_ALLOW
+                                } else {
+                                    status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+                                }
+                                
+                                internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus, isSentPushNotificationAuthorizationStatus: true)
+                            }
+                        }
+                    }
                 }
+                
+                internalCordialAPI.setContactPrimaryKey(primaryKey: primaryKey)
             })
             
             self.upsertContactsData(upsertContactRequests: upsertContactRequests)

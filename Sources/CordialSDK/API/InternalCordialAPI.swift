@@ -198,7 +198,7 @@ class InternalCordialAPI {
     
     // MARK: Set primary key
     
-    func setContactPrimaryKey(primaryKey: String) {
+    func setContactPrimaryKey(primaryKey: String?) {
         CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
@@ -214,11 +214,10 @@ class InternalCordialAPI {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
     }
 
-    // MARK: Set previous primary key and remove current
+    // MARK: Set previous primary key
     
-    func setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: String?) {
+    func setPreviousContactPrimaryKey(previousPrimaryKey: String?) {
         CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
         
     // MARK: Remove current mcID
@@ -541,11 +540,11 @@ class InternalCordialAPI {
     
     // MARK: Set push notification status
     
-    func setPushNotificationStatus(status: String, authorizationStatus: UNAuthorizationStatus) {
+    func setPushNotificationStatus(status: String, authorizationStatus: UNAuthorizationStatus, isSentPushNotificationAuthorizationStatus: Bool = false) {
         let systemEventsProperties = self.getMergedDictionaryToSystemEventsProperties(properties: ["notificationStatus": status])
         CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
         
-        if status != self.getPushNotificationStatus() {
+        if status != self.getPushNotificationStatus() || isSentPushNotificationAuthorizationStatus {
             self.sentPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)
         }
         
