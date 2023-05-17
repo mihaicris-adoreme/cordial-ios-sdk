@@ -71,7 +71,7 @@ class PushNotificationHelper {
         
         let mcID = self.cordialAPI.getCurrentMcID()
         
-        let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
+        let systemEventsProperties = self.internalCordialAPI.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
         let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATION_TAP, mcID: mcID, properties: systemEventsProperties)
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
         
@@ -165,62 +165,12 @@ class PushNotificationHelper {
         return true
     }
     
-    private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {
-        let currentTimestamp = CordialDateFormatter().getCurrentTimestamp()
-        CordialUserDefaults.set(currentTimestamp, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE)
-        
+    private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {        
         self.internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
-        
-        self.sentPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)
         
         if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
             ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
         }
-    }
-    
-    private func sentPushNotificationAuthorizationStatus(authorizationStatus: UNAuthorizationStatus) {
-        let mcID = CordialAPI().getCurrentMcID()
-        
-        switch authorizationStatus {
-        case .denied:
-            let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: self.getPushNotificationAuthorizationStatus())
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT, mcID: mcID, properties: systemEventsProperties)
-            self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-        case .authorized, .provisional:
-            let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
-            let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN, mcID: mcID, properties: systemEventsProperties)
-            self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-        default: break
-        }
-    }
-    
-    private func getPushNotificationAuthorizationStatus() -> UNAuthorizationStatus {
-        guard let rawValue = CordialUserDefaults.integer(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS),
-                let authorizationStatus = UNAuthorizationStatus(rawValue: rawValue) else {
-            
-            return .notDetermined
-        }
-        
-        return authorizationStatus
-    }
-    
-    private func getAuthorizationStatusSystemEventsProperties(authorizationStatus: UNAuthorizationStatus) -> Dictionary<String, Any> {
-        var authorizationStatusName = "notDetermined"
-        
-        switch authorizationStatus {
-        case .denied:
-            authorizationStatusName = "denied"
-        case .authorized:
-            authorizationStatusName = "authorized"
-        case .provisional:
-            authorizationStatusName = "provisional"
-        default: break
-        }
-        
-        var properties: Dictionary<String, Any> = ["authorizationStatus": authorizationStatusName]
-        properties = self.internalCordialAPI.getMergedDictionaryToSystemEventsProperties(properties: properties)
-        
-        return properties
     }
 }

@@ -542,17 +542,62 @@ class InternalCordialAPI {
     // MARK: Set push notification status
     
     func setPushNotificationStatus(status: String, authorizationStatus: UNAuthorizationStatus) {
-        CordialUserDefaults.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
-        CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
-        
         let systemEventsProperties = self.getMergedDictionaryToSystemEventsProperties(properties: ["notificationStatus": status])
         CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+        
+        if status != self.getPushNotificationStatus() {
+            self.sentPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)
+        }
+        
+        CordialUserDefaults.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
+        CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
     }
     
-    // MARK: Remove upsert contacts last update date
+    private func sentPushNotificationAuthorizationStatus(authorizationStatus: UNAuthorizationStatus) {
+        let mcID = CordialAPI().getCurrentMcID()
+        
+        switch authorizationStatus {
+        case .denied:
+            let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: self.getPushNotificationAuthorizationStatus())
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT, mcID: mcID, properties: systemEventsProperties)
+            self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        case .authorized, .provisional:
+            let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN, mcID: mcID, properties: systemEventsProperties)
+            self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        default: break
+        }
+    }
     
-    func removeUpsertContactsLastUpdateDate() {
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE)
+    private func getPushNotificationAuthorizationStatus() -> UNAuthorizationStatus {
+        guard let rawValue = CordialUserDefaults.integer(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS),
+                let authorizationStatus = UNAuthorizationStatus(rawValue: rawValue) else {
+            
+            return .notDetermined
+        }
+        
+        return authorizationStatus
+    }
+    
+    // MARK: Get authorization status systemEventsProperties
+    
+    func getAuthorizationStatusSystemEventsProperties(authorizationStatus: UNAuthorizationStatus) -> Dictionary<String, Any> {
+        var authorizationStatusName = "notDetermined"
+        
+        switch authorizationStatus {
+        case .denied:
+            authorizationStatusName = "denied"
+        case .authorized:
+            authorizationStatusName = "authorized"
+        case .provisional:
+            authorizationStatusName = "provisional"
+        default: break
+        }
+        
+        var properties: Dictionary<String, Any> = ["authorizationStatus": authorizationStatusName]
+        properties = self.getMergedDictionaryToSystemEventsProperties(properties: properties)
+        
+        return properties
     }
     
     // MARK: Get push notification token

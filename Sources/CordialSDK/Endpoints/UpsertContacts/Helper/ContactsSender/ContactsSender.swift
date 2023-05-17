@@ -66,9 +66,10 @@ class ContactsSender {
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
         CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         
-        let internalCordialAPI = InternalCordialAPI()
+        let currentTimestamp = CordialDateFormatter().getCurrentTimestamp()
+        CordialUserDefaults.set(currentTimestamp, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE)
         
-        internalCordialAPI.setIsCurrentlyUpsertingContacts(false)
+        InternalCordialAPI().setIsCurrentlyUpsertingContacts(false)
         
         PushNotificationHelper().prepareCurrentPushNotificationStatus()
                  
