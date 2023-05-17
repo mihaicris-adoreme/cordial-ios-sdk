@@ -95,9 +95,9 @@ class CordialSwizzlerHelper {
                     var status = String()
                     
                     if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
-                        let status = API.PUSH_NOTIFICATION_STATUS_ALLOW
+                        status = API.PUSH_NOTIFICATION_STATUS_ALLOW
                     } else {
-                        let status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+                        status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                     }
                     
                     InternalCordialAPI().setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus)
