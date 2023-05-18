@@ -541,7 +541,7 @@ class InternalCordialAPI {
     // MARK: Set push notification status
     
     func setPushNotificationStatus(status: String, authorizationStatus: UNAuthorizationStatus, isSentPushNotificationAuthorizationStatus: Bool = false) {
-        let systemEventsProperties = self.getMergedDictionaryToSystemEventsProperties(properties: ["notificationStatus": status])
+        let systemEventsProperties = self.getMergedDictionaryToSystemEventsProperties(properties: ["pushStatus": status])
         CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
         
         if status != self.getPushNotificationStatus() || isSentPushNotificationAuthorizationStatus {
@@ -593,8 +593,7 @@ class InternalCordialAPI {
         default: break
         }
         
-        var properties: Dictionary<String, Any> = ["authorizationStatus": authorizationStatusName]
-        properties = self.getMergedDictionaryToSystemEventsProperties(properties: properties)
+        let properties = self.getMergedDictionaryToSystemEventsProperties(properties: ["authStatus": authorizationStatusName])
         
         return properties
     }
