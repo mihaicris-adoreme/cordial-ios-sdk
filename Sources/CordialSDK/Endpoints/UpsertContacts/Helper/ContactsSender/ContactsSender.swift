@@ -23,7 +23,7 @@ class ContactsSender {
             upsertContactRequests.forEach({ upsertContactRequest in
                 let primaryKey = upsertContactRequest.primaryKey
                 
-                if primaryKey != CordialAPI().getContactPrimaryKey() {
+                if primaryKey != CordialAPI().getContactPrimaryKey() || (primaryKey == nil && !internalCordialAPI.isUserLogin()) {
                     DispatchQueue.main.async {
                         let current = UNUserNotificationCenter.current()
                         
