@@ -149,15 +149,6 @@ class PushNotificationHelper {
         }
     }
     
-    private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {
-        self.internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
-        
-        if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
-            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
-        }
-    }
-    
     private func isUpsertContacts24HoursSelfHealingCanBeProcessed() -> Bool {
         if let lastUpdateDateTimestamp = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE),
             let lastUpdateDate = CordialDateFormatter().getDateFromTimestamp(timestamp: lastUpdateDateTimestamp) {
@@ -172,5 +163,14 @@ class PushNotificationHelper {
         }
         
         return true
+    }
+    
+    private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {        
+        self.internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
+        
+        if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
+            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+        }
     }
 }

@@ -83,7 +83,7 @@ import os.log
         
         let previousPrimaryKey = self.getContactPrimaryKey()
         
-        internalCordialAPI.setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: previousPrimaryKey)
+        internalCordialAPI.setPreviousContactPrimaryKey(previousPrimaryKey: previousPrimaryKey)
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
         
@@ -111,7 +111,7 @@ import os.log
             let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: previousPrimaryKey)
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
             
-            internalCordialAPI.setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: previousPrimaryKey)
+            internalCordialAPI.setPreviousContactPrimaryKey(previousPrimaryKey: previousPrimaryKey)
         } else {
             if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
                 os_log("Sending contact logout failed. Error: [User no login]", log: OSLog.cordialPushNotification, type: .error)
