@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreData
-import os.log
 
 class ContactRequestsCoreData {
     
@@ -28,9 +27,7 @@ class ContactRequestsCoreData {
                     
                     try context.save()
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-                    }
+                    LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
                 }
             }
         }
@@ -56,15 +53,11 @@ class ContactRequestsCoreData {
                     context.delete(managedObject)
                     try context.save()
                     
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed unarchiving UpsertContactRequest", log: OSLog.cordialError, type: .error)
-                    }
+                    LoggerManager.shared.error(message: "Failed unarchiving UpsertContactRequest", category: "CordialSDKError")
                 }
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-            }
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)

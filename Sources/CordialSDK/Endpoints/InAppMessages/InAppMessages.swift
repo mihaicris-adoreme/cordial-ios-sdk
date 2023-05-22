@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class InAppMessages {
     
@@ -32,9 +31,7 @@ class InAppMessages {
             if ReachabilityManager.shared.isConnectedToInternet {
                 if InternalCordialAPI().getCurrentJWT() != nil {
                     
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("Fetching IAMs has been started.", log: OSLog.cordialInAppMessages, type: .info)
-                    }
+                    LoggerManager.shared.info(message: "Fetching IAMs has been started", category: "CordialSDKInAppMessages")
                     
                     if let contactKey = InternalCordialAPI().getContactKey(),
                        let url = URL(string: CordialApiEndpoints().getInAppMessagesURL(contactKey: contactKey)) {
@@ -80,19 +77,15 @@ class InAppMessages {
             InAppMessagesGetter().setInAppMessagesParamsToCoreData(messages: messages)
         }
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            guard let htmlData = messages.description.data(using: .utf8) else { return }
-            let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
-            
-            os_log("IAMs has been successfully fetch. Payload size: %{public}@.", log: OSLog.cordialInAppMessages, type: .info, payloadSize)
-        }
+        guard let htmlData = messages.description.data(using: .utf8) else { return }
+        let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
+        
+        LoggerManager.shared.info(message: "IAMs has been successfully fetch. Payload size: \(payloadSize).", category: "CordialSDKInAppMessages")
     }
     
     func errorHandler(error: ResponseError) {
         self.isCurrentlyUpdatingInAppMessages = false
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("%{public}@", log: OSLog.cordialInAppMessages, type: .error, error.message)
-        }
+        LoggerManager.shared.error(message: "\(error.message)", category: "CordialSDKInAppMessages")
     }
 }

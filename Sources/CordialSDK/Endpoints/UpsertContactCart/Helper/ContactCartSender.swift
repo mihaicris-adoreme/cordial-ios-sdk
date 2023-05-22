@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class ContactCartSender {
     
@@ -21,16 +20,12 @@ class ContactCartSender {
             } else {
                 CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Sending contact cart failed. Saved to retry later. Request ID: [%{public}@] Error: [No Internet connection]", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID)
-                }
+                LoggerManager.shared.info(message: "Sending contact cart failed. Saved to retry later. Request ID: [\(upsertContactCartRequest.requestID)] Error: [No Internet connection]", category: "CordialSDKUpsertContactCart")
             }
         } else {
             CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
             
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact cart failed. Saved to retry later. Request ID: [%{public}@] Error: [User no login]", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID)
-            }
+            LoggerManager.shared.info(message: "Sending contact cart failed. Saved to retry later. Request ID: [\(upsertContactCartRequest.requestID)] Error: [User no login]", category: "CordialSDKUpsertContactCart")
         }
     }
     
@@ -38,16 +33,12 @@ class ContactCartSender {
         let upsertContactCart = UpsertContactCart()
                 
         if InternalCordialAPI().getCurrentJWT() != nil {
+            LoggerManager.shared.info(message: "Sending contact cart. Request ID: [\(upsertContactCartRequest.requestID)]", category: "CordialSDKUpsertContactCart")
             
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("Sending contact cart. Request ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID)
-                
-                let payload = self.upsertContactCart.getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
-                os_log("Payload: %{public}@", log: OSLog.cordialUpsertContactCart, type: .info, payload)
-            }
+            let payload = self.upsertContactCart.getUpsertContactCartJSON(upsertContactCartRequest: upsertContactCartRequest)
+            LoggerManager.shared.info(message: "Payload: \(payload)", category: "CordialSDKUpsertContactCart")
             
             upsertContactCart.upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
-            
         } else {
             let responseError = ResponseError(message: "JWT is absent", statusCode: nil, responseBody: nil, systemError: nil)
             self.systemErrorHandler(upsertContactCartRequest: upsertContactCartRequest, error: responseError)
@@ -57,25 +48,18 @@ class ContactCartSender {
     }
     
     func completionHandler(upsertContactCartRequest: UpsertContactCartRequest) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Contact cart has been sent. Request ID: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, String(upsertContactCartRequest.requestID))
-        }
+        LoggerManager.shared.info(message: "Contact cart has been sent. Request ID: [\(String(upsertContactCartRequest.requestID))]", category: "CordialSDKUpsertContactCart")
     }
     
     func systemErrorHandler(upsertContactCartRequest: UpsertContactCartRequest, error: ResponseError) {
         CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending contact cart failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .info, upsertContactCartRequest.requestID, error.message)
-        }
+        LoggerManager.shared.info(message: "Sending contact cart failed. Saved to retry later. Request ID: [\(upsertContactCartRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContactCart")
     }
     
     func logicErrorHandler(upsertContactCartRequest: UpsertContactCartRequest, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialUpsertContactCartLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending contact cart failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialUpsertContactCart, type: .error, upsertContactCartRequest.requestID, error.message)
-        }
+        LoggerManager.shared.error(message: "Sending contact cart failed. Will not retry. Request ID: [\(upsertContactCartRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContactCart")
     }
-    
 }

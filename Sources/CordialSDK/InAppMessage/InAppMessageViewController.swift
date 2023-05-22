@@ -8,7 +8,6 @@
 
 import UIKit
 import WebKit
-import os.log
 
 class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler, UIScrollViewDelegate {
     
@@ -119,9 +118,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             
             webConfiguration.userContentController = contentController
             
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("IAM Info: [contentController added to webConfiguration successfully]", log: OSLog.cordialInAppMessage, type: .info)
-            }
+            LoggerManager.shared.info(message: "IAM Info: [contentController added to webConfiguration successfully]", category: "CordialSDKInAppMessage")
         }
 
         let webFrame = CGRect(x: 0, y: 0, width: self.getInAppMessageWidth(), height: 0)

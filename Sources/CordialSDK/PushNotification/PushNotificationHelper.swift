@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import os.log
 
 class PushNotificationHelper {
     
@@ -41,9 +40,7 @@ class PushNotificationHelper {
             }
         }
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Push notification app open via tap. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
-        }
+        LoggerManager.shared.info(message: "Push notification app open via tap. Payload: \(self.pushNotificationParser.getPayloadJSON(userInfo: userInfo))", category: "CordialSDKPushNotification")
         
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             self.cordialAPI.setCurrentMcID(mcID: mcID)
@@ -53,9 +50,7 @@ class PushNotificationHelper {
                 
                 InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, mcID)
-                }
+                LoggerManager.shared.info(message: "IAM with mcID [\(mcID)] has been removed.", category: "CordialSDKInAppMessage")
             }
             
             if self.pushNotificationParser.isPayloadContainIAM(userInfo: userInfo),

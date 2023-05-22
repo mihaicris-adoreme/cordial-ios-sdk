@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import os.log
 
 @objc public class CordialDeepLinksConfigurationHandler: NSObject {
     
@@ -27,9 +26,7 @@ import os.log
     @available(iOS 13.0, *)
     @objc public func processSceneOpenURLContexts(URLContexts: Set<UIOpenURLContext>, scene: UIScene) {
         guard let url = URLContexts.first?.url else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("DeepLink URL is absent or not in a valid format.", log: OSLog.cordialDeepLinks, type: .error)
-            }
+            LoggerManager.shared.error(message: "DeepLink URL is absent or not in a valid format.", category: "CordialSDKDeepLinks")
             
             return
         }

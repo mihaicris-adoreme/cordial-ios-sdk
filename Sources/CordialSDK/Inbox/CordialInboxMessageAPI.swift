@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 @objc public class CordialInboxMessageAPI: NSObject {
     

@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreLocation
-import os.log
 
 class CordialLocationManager: NSObject, CLLocationManagerDelegate {
     
@@ -81,16 +80,12 @@ class CordialLocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         self.locationManager.stopUpdatingLocation()
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("LocationManager fail with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
-        }
+        LoggerManager.shared.error(message: "LocationManager fail with error: [\(error.localizedDescription)]", category: "CordialSDKError")
     }
     
     func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
         if let error = error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("LocationManager deferred updates finish with error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
-            }
+            LoggerManager.shared.error(message: "LocationManager deferred updates finish with error: [\(error.localizedDescription)]", category: "CordialSDKError")
         }
     }
     

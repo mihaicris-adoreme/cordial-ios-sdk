@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class InAppMessageContentGetter {
     
@@ -18,9 +17,7 @@ class InAppMessageContentGetter {
             if ReachabilityManager.shared.isConnectedToInternet {
                 // This is S3 - No need check JWT 
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Fetching IAM content has been started with mcID: [%{public}@]", log: OSLog.cordialInAppMessageContent, type: .info, mcID)
-                }
+                LoggerManager.shared.info(message: "Fetching IAM content has been started with mcID: [\(mcID)]", category: "CordialSDKInAppMessageContent")
                 
                 let request = CordialRequestFactory().getBaseURLRequest(url: url, httpMethod: .GET)
 
@@ -47,20 +44,16 @@ class InAppMessageContentGetter {
     func completionHandler(inAppMessageData: InAppMessageData) {
         InAppMessage().prepareAndShowInAppMessage(inAppMessageData: inAppMessageData)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            guard let htmlData = inAppMessageData.html.data(using: .utf8) else { return }
-            let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
-            
-            os_log("IAM content has been successfully fetch with mcID: [%{public}@]. Payload size: %{public}@.", log: OSLog.cordialInAppMessageContent, type: .info, inAppMessageData.mcID, payloadSize)
-        }
+        guard let htmlData = inAppMessageData.html.data(using: .utf8) else { return }
+        let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
+        
+        LoggerManager.shared.info(message: "IAM content has been successfully fetch with mcID: [\(inAppMessageData.mcID)]. Payload size: \(payloadSize).", category: "CordialSDKInAppMessageContent")
     }
     
     func errorHandler(mcID: String, error: ResponseError) {
         InAppMessageGetter().fetchInAppMessage(mcID: mcID)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("%{public}@", log: OSLog.cordialInAppMessageContent, type: .error, error.message)
-        }
+        LoggerManager.shared.error(message: "\(error.message)", category: "CordialSDKInAppMessageContent")
     }
     
 }
