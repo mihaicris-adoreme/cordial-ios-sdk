@@ -220,7 +220,33 @@ class InternalCordialAPI {
         CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
+    
+    // Set contact attributes
+    
+    func setContactAttributes(attributes: Dictionary<String, AttributeValue>?) {
+        if let savedAttributes = CordialUserDefaults.object(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES) as? Dictionary<String, AttributeValue>,
+           var attributes = attributes {
+            
+            attributes.merge(savedAttributes) { (current, new) in current }
+        }
         
+        CordialUserDefaults.set(attributes, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES)
+    }
+    
+    // Get contact attributes
+    
+    func getContactAttributes() -> Dictionary<String, AttributeValue>? {
+        guard let attributes = CordialUserDefaults.dictionary(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES) as? Dictionary<String, AttributeValue> else { return nil }
+        
+        return attributes
+    }
+        
+    // MARK: Remove contact attributes
+    
+    func removeContactAttributes() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES)
+    }
+    
     // MARK: Remove current mcID
     
     func removeCurrentMcID() {

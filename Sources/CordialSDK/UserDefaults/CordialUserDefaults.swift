@@ -36,6 +36,10 @@ struct CordialUserDefaults {
         return self.cordialUserDefaults?.double(forKey: key)
     }
     
+    static func dictionary(forKey key: String) -> Dictionary<String, Any>? {
+        return self.cordialUserDefaults?.dictionary(forKey: key)
+    }
+    
     static func removeObject(forKey key: String) {
         self.cordialUserDefaults?.removeObject(forKey: key)
     }

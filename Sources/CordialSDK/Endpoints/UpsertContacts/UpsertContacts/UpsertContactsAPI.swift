@@ -25,6 +25,6 @@ import Foundation
     }
     
     public func getContactAttributes() -> Dictionary<String, AttributeValue>? {
-        return nil
+        return self.internalCordialAPI.getContactAttributes()
     }
 }
