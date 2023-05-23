@@ -22,7 +22,8 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
     ]
     
     let navigationBarBackgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
-    var navigationBarTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+    let navigationBarTitleColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1)
+    let navigationBarXmarkColor = UIColor(red: 135/255, green: 135/255, blue: 135/255, alpha: 1)
     
     let tableViewBackgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1)
 
@@ -49,6 +50,16 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
     
         let navigationItem = UINavigationItem(title: "\(CordialAPI().getContactPrimaryKey() ?? "Guest")")
         navigationBar.titleTextAttributes = [.foregroundColor: self.navigationBarTitleColor]
+        
+        if #unavailable(iOS 13.0) {
+            let dismissItem = UIBarButtonItem(title: "X", style: .plain, target: nil, action: #selector(self.dismissViewController))
+            dismissItem.setTitleTextAttributes([
+                .font: UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.5),
+                .foregroundColor: self.navigationBarXmarkColor
+            ], for: .normal)
+            
+            navigationItem.rightBarButtonItem = dismissItem
+        }
         
         navigationBar.setItems([navigationItem], animated: false)
         
