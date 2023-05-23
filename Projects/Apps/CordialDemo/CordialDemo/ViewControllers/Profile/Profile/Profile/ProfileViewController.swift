@@ -54,7 +54,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     @objc func profileInfoButtonAction() {
-        // TODO
+        self.present(ProfileInfoViewController(), animated: true)
     }
     
     // MARK: UITableViewDelegate
