@@ -211,21 +211,26 @@ class InternalCordialAPI {
     // Set contact attributes
     
     func setContactAttributes(attributes: Dictionary<String, AttributeValue>?) {
-        if let savedAttributes = CordialUserDefaults.object(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES) as? Dictionary<String, AttributeValue>,
-           var attributes = attributes {
+        guard var attributes = attributes else { return }
             
+        if let savedAttributes = self.getContactAttributes() {
             attributes.merge(savedAttributes) { (current, new) in current }
         }
         
-        CordialUserDefaults.set(attributes, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES)
+        let upsertContactsAttributes = UpsertContactsAttributes(attributes: attributes)
+        let upsertContactsAttributesData = try? NSKeyedArchiver.archivedData(withRootObject: upsertContactsAttributes, requiringSecureCoding: false)
+        CordialUserDefaults.set(upsertContactsAttributesData, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES)
     }
     
     // Get contact attributes
     
     func getContactAttributes() -> Dictionary<String, AttributeValue>? {
-        guard let attributes = CordialUserDefaults.dictionary(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES) as? Dictionary<String, AttributeValue> else { return nil }
+        guard let upsertContactsAttributesData = CordialUserDefaults.object(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES) as? Data,
+              let upsertContactsAttributesUnarchive = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(upsertContactsAttributesData),
+              let upsertContactsAttributes = upsertContactsAttributesUnarchive as? UpsertContactsAttributes,
+              !upsertContactsAttributes.isError else { return nil }
         
-        return attributes
+        return upsertContactsAttributes.attributes
     }
         
     // MARK: Remove contact attributes

@@ -279,6 +279,7 @@
 		9EDA6B6324A3BACB001EB81C /* MockRequestSenderInAppMessageHasBeenShown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA6B6224A3BACB001EB81C /* MockRequestSenderInAppMessageHasBeenShown.swift */; };
 		9EDA71F327AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDA71F227AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift */; };
 		9EDE27672A1B94CB00DD3376 /* UpsertContactsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE27662A1B94CB00DD3376 /* UpsertContactsAPI.swift */; };
+		9EDE280F2A1D1FA700DD3376 /* UpsertContactsAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EDE280E2A1D1FA700DD3376 /* UpsertContactsAttributes.swift */; };
 		9EE29BE722F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */; };
 		9EE29BE922F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */; };
 		9EE31D452909681100CA1971 /* JSONObjectsValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE31D442909681100CA1971 /* JSONObjectsValues.swift */; };
@@ -620,6 +621,7 @@
 		9EDA6B6224A3BACB001EB81C /* MockRequestSenderInAppMessageHasBeenShown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInAppMessageHasBeenShown.swift; sourceTree = "<group>"; };
 		9EDA71F227AAF34200FC9046 /* MockRequestSenderQtyCachedEventQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderQtyCachedEventQueue.swift; sourceTree = "<group>"; };
 		9EDE27662A1B94CB00DD3376 /* UpsertContactsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactsAPI.swift; sourceTree = "<group>"; };
+		9EDE280E2A1D1FA700DD3376 /* UpsertContactsAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactsAttributes.swift; sourceTree = "<group>"; };
 		9EE29BE622F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchInAppMessageURLSessionManager.swift; sourceTree = "<group>"; };
 		9EE29BE822F9AA5E004DC8F9 /* SDKSecurityGetJWTURLSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDKSecurityGetJWTURLSessionManager.swift; sourceTree = "<group>"; };
 		9EE31D442909681100CA1971 /* JSONObjectsValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONObjectsValues.swift; sourceTree = "<group>"; };
@@ -1618,6 +1620,7 @@
 			children = (
 				9E081385227458C800BD1412 /* UpsertContacts.swift */,
 				9EDE27662A1B94CB00DD3376 /* UpsertContactsAPI.swift */,
+				9EDE280E2A1D1FA700DD3376 /* UpsertContactsAttributes.swift */,
 			);
 			path = UpsertContacts;
 			sourceTree = "<group>";
@@ -1979,6 +1982,7 @@
 				9E3EA6272257A02400ECE52E /* CustomEventsSender.swift in Sources */,
 				9E30A71A2A03E0A0003D218E /* LoggerLevel.swift in Sources */,
 				9E876C6A263083FF00FF2FE2 /* JSONStructureExtensions.swift in Sources */,
+				9EDE280F2A1D1FA700DD3376 /* UpsertContactsAttributes.swift in Sources */,
 				9EABE8412620811A0066BADC /* InAppMessageInputsDelegate.swift in Sources */,
 				9EB448B622E9B6160043C256 /* InAppMessageDisplayType.swift in Sources */,
 				9E4FA38022FAF75200D630A7 /* SendCustomEventsURLSessionManager.swift in Sources */,
