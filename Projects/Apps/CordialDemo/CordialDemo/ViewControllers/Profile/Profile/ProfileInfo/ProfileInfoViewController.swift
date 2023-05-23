@@ -13,7 +13,7 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
     
     var tableView: UITableView!
     
-    let profileInfo: [ProfileInfoTableData] = [
+    var profileInfo: [ProfileInfoTableData] = [
         ProfileInfoTableData(title: "Info", data: [
             ProfileInfoData(key: "Device Identifier:", value: UpsertContactsAPI().getDeviceIdentifier()),
             ProfileInfoData(key: "Push Token:", value: UpsertContactsAPI().getPushNotificationToken() ?? "Device token is absent"),
@@ -31,6 +31,11 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let attributesProfileInfoData = self.getAttributesProfileInfoData()
+        if !attributesProfileInfoData.isEmpty {
+            self.profileInfo.append(ProfileInfoTableData(title: "Attributes", data: attributesProfileInfoData))
+        }
         
         let width = self.view.frame.width
         let height = UINavigationController().navigationBar.frame.size.height
@@ -80,6 +85,26 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         } else {
             self.dismiss(animated: false)
         }
+    }
+    
+    private func getAttributesProfileInfoData() -> [ProfileInfoData] {
+        let upsertContactsAPI = UpsertContactsAPI()
+        
+        var attributesProfileInfoData: [ProfileInfoData] = []
+        
+        guard let attributes = upsertContactsAPI.getContactAttributes() else { return attributesProfileInfoData }
+        
+        let attributesJSON = upsertContactsAPI.getContactAttributesJSON(attributes: attributes)
+        
+        if let attributesJSONData = attributesJSON.data(using: .utf8),
+           let attributesJSONDictionary = try? JSONSerialization.jsonObject(with: attributesJSONData, options: []) as? [String: String] {
+            
+            attributesJSONDictionary.forEach { (key: String, value: String) in
+                attributesProfileInfoData.append(ProfileInfoData(key: key, value: value))
+            }
+        }
+        
+        return attributesProfileInfoData
     }
     
     @objc func dismissViewController() {

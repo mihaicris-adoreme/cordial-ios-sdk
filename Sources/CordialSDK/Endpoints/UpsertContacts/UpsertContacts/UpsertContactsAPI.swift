@@ -27,4 +27,8 @@ import Foundation
     public func getContactAttributes() -> Dictionary<String, AttributeValue>? {
         return self.internalCordialAPI.getContactAttributes()
     }
+    
+    public func getContactAttributesJSON(attributes: Dictionary<String, AttributeValue>) -> String {
+        return "{ \(UpsertContacts().getAttributesJSON(attributes: attributes)) }"
+    }
 }
