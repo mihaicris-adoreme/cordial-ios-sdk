@@ -106,12 +106,28 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         guard let attributes = upsertContactsAPI.getContactAttributes() else { return attributesProfileInfoData }
         
         let attributesJSON = upsertContactsAPI.getContactAttributesJSON(attributes: attributes)
+
+        guard let attributesJSONData = attributesJSON.data(using: .utf8),
+           let attributesJSONDictionary = try? JSONSerialization.jsonObject(with: attributesJSONData, options: []) as? [String: String] else { return attributesProfileInfoData }
         
-        if let attributesJSONData = attributesJSON.data(using: .utf8),
-           let attributesJSONDictionary = try? JSONSerialization.jsonObject(with: attributesJSONData, options: []) as? [String: String] {
-            
-            attributesJSONDictionary.forEach { (key: String, value: String) in
-                attributesProfileInfoData.append(ProfileInfoData(key: key, value: value))
+        attributes.forEach { (key: String, value: AttributeValue) in
+            if let stringValue = attributesJSONDictionary[key] {
+                switch value {
+                case is NumericValue:
+                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "Numeric"))
+                case is BooleanValue:
+                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "Boolean"))
+                case is ArrayValue:
+                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "Array"))
+                case is StringValue:
+                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "String"))
+                case is DateValue:
+                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "Date"))
+                case is GeoValue:
+                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "Geo"))
+                default:
+                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "JSON"))
+                }
             }
         }
         

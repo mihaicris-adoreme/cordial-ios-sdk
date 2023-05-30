@@ -12,5 +12,11 @@ struct ProfileInfoData {
     
     let key: String
     let value: String
+    let type: String?
     
+    init(key: String, value: String, type: String? = nil) {
+        self.key = key
+        self.value = value
+        self.type = type
+    }
 }
