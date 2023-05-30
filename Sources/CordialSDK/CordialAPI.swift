@@ -82,7 +82,7 @@ import UIKit
         
         let previousPrimaryKey = self.getContactPrimaryKey()
         
-        internalCordialAPI.setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: previousPrimaryKey)
+        internalCordialAPI.setPreviousContactPrimaryKey(previousPrimaryKey: previousPrimaryKey)
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
         
@@ -110,7 +110,7 @@ import UIKit
             let sendContactLogoutRequest = SendContactLogoutRequest(primaryKey: previousPrimaryKey)
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
             
-            internalCordialAPI.setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: previousPrimaryKey)
+            internalCordialAPI.setPreviousContactPrimaryKey(previousPrimaryKey: previousPrimaryKey)
         } else {
             LoggerManager.shared.error(message: "Sending contact logout failed. Error: [User no login]", category: "CordialSDKPushNotification")
         }

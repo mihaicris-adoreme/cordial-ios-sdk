@@ -57,6 +57,9 @@ class CordialSwizzlerHelper {
         
         let token = internalCordialAPI.getPreparedRemoteNotificationsDeviceToken(deviceToken: deviceToken)
         
+        let systemEventsProperties = internalCordialAPI.getMergedDictionaryToSystemEventsProperties(properties: ["pushToken": token])
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+        
         // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.apnsTokenReceived(token: token)
@@ -79,11 +82,27 @@ class CordialSwizzlerHelper {
     }
         
     private func sendPushNotificationToken(token: String) {
-        let primaryKey = CordialAPI().getContactPrimaryKey()
-        let status = InternalCordialAPI().getPushNotificationStatus()
-        
-        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+        DispatchQueue.main.async {
+            let current = UNUserNotificationCenter.current()
+            
+            current.getNotificationSettings { settings in
+                DispatchQueue.main.async {
+                    var status = String()
+                    
+                    if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
+                        status = API.PUSH_NOTIFICATION_STATUS_ALLOW
+                    } else {
+                        status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+                    }
+                    
+                    InternalCordialAPI().setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus)
+                    
+                    let primaryKey = CordialAPI().getContactPrimaryKey()
+                    let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+                    ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+                }
+            }
+        }
     }
     
     // MARK: AppDelegate universal links method

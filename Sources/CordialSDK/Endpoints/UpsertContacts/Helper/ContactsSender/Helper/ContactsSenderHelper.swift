@@ -26,7 +26,6 @@ class ContactsSenderHelper {
                 if upsertContactRequest.primaryKey != previousPrimaryKey && previousPrimaryKey != nil {
                     internalCordialAPI.removeAllCachedData()
                     internalCordialAPI.removePreviousContactPrimaryKey()
-                    internalCordialAPI.removePushNotificationStatus()
                 }
             }
         }
