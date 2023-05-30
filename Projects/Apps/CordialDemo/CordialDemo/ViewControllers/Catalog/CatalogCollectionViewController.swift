@@ -24,6 +24,7 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     let segueToInboxTableListIdentifier = "segueToInboxTableList"
     let segueToInboxCollectionIdentifier = "segueToInboxCollection"
     let segueToPushNotificationSettings = "segueToPushNotificationSettings"
+    let sequeToLogsIdentifier = "segueToLogs"
     
     let catalogName = "Mens"
     

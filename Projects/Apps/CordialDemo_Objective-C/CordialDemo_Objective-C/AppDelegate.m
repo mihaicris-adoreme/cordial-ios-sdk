@@ -20,7 +20,7 @@
     [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
     [CordialApiConfiguration shared].eventsBulkSize = 3;
     [CordialApiConfiguration shared].eventsBulkUploadInterval = 15;
-    [[[CordialApiConfiguration shared] osLogManager] setLogLevel:logLevelAll];
+    [[[CordialApiConfiguration shared] loggerManager] setLoggerLevel:LoggerLevelAll];
     [[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
     [CordialApiConfiguration shared].pushNotificationDelegate = [[PushNotificationHandler alloc] init];
     [CordialApiConfiguration shared].cordialDeepLinksDelegate = [[CordialDeepLinksHandler alloc] init];

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import os.log
 
 class InAppMessageProcess {
     
@@ -33,9 +32,7 @@ class InAppMessageProcess {
             return contents
             
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("IAM Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, error.localizedDescription)
-            }
+            LoggerManager.shared.error(message: "IAM Error: [\(error.localizedDescription)]", category: "CordialSDKInAppMessage")
             
             return nil
         }
@@ -49,17 +46,13 @@ class InAppMessageProcess {
                     
                     InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
                     
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.mcID)
-                    }
+                    LoggerManager.shared.info(message: "IAM with mcID [\(inAppMessageData.mcID)] has been removed", category: "CordialSDKInAppMessage")
                 } else {
                     self.showInAppMessageProcess(inAppMessageData: inAppMessageData)
                 }
             }
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("IAM: [User no login]. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-            }
+            LoggerManager.shared.info(message: "IAM: [User no login]. Save \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]", category: "CordialSDKInAppMessage")
         }
     }
     
@@ -76,9 +69,7 @@ class InAppMessageProcess {
                 self.showBannerInAppMessage(inAppMessageData: inAppMessageData)
             }
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("IAM already presented. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-            }
+            LoggerManager.shared.info(message: "IAM already presented. Save \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]", category: "CordialSDKInAppMessage")
         }
     }
     
@@ -144,9 +135,7 @@ class InAppMessageProcess {
             } else {
                 InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Not showing %{public}@ IAM with mcID: [%{public}@]. Reason: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                }
+                LoggerManager.shared.info(message: "Not showing \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]. Reason: [Live time has expired]", category: "CordialSDKInAppMessage")
                 
                 self.showInAppMessageIfExistAndAvailable()
             }
@@ -160,9 +149,7 @@ class InAppMessageProcess {
             } else {
                 InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                }
+                LoggerManager.shared.info(message: "Failed showing \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]. Error: [Live time has expired]", category: "CordialSDKInAppMessage")
 
                 self.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
             }
@@ -190,15 +177,11 @@ class InAppMessageProcess {
                 
                 self.isPresentedInAppMessage = true
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Showing %{public}@ IAM modal with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                }
+                LoggerManager.shared.info(message: "Showing \(inAppMessageData.type.rawValue) IAM modal with mcID: [\(inAppMessageData.mcID)]", category: "CordialSDKInAppMessage")
     
                 self.sendSystemEventInAppMessageHasBeenShown(inAppMessageData: inAppMessageData)
             } else {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                }
+                LoggerManager.shared.info(message: "Skipped display \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.", category: "CordialSDKInAppMessage")
             }
         }
     }
@@ -236,15 +219,11 @@ class InAppMessageProcess {
                 
                 self.isPresentedInAppMessage = true
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Showing %{public}@ IAM banner with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                }
+                LoggerManager.shared.info(message: "Showing \(inAppMessageData.type.rawValue) IAM banner with mcID: [\(inAppMessageData.mcID)]", category: "CordialSDKInAppMessage")
                 
                 self.sendSystemEventInAppMessageHasBeenShown(inAppMessageData: inAppMessageData)
             } else {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Skipped display %{public}@ IAM with mcID: [%{public}@]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                }
+                LoggerManager.shared.info(message: "Skipped display \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.", category: "CordialSDKInAppMessage")
             }
         }
     }

@@ -8,7 +8,6 @@
 
 import UIKit
 import CordialSDK
-import os.log
 
 class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     

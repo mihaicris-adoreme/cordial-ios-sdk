@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class InboxMessagesMarkReadUnreadSender {
     
@@ -36,25 +35,19 @@ class InboxMessagesMarkReadUnreadSender {
     }
     
     func completionHandler(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Inbox messages read/unread marks have been sent. Request ID: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID)
-        }
+        LoggerManager.shared.info(message: "Inbox messages read/unread marks have been sent. Request ID: [\(inboxMessagesMarkReadUnreadRequest.requestID)]", category: "CordialSDKInboxMessages")
     }
     
     func systemErrorHandler(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest, error: ResponseError) {
         CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Sending inbox messages read/unread marks failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
-        }
+        LoggerManager.shared.info(message: "Sending inbox messages read/unread marks failed. Saved to retry later. Request ID: [\(inboxMessagesMarkReadUnreadRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKInboxMessages")
     }
     
     func logicErrorHandler(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialInboxMessagesMarkReadUnreadLogicError, object: error)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Sending inbox messages read/unread marks failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, inboxMessagesMarkReadUnreadRequest.requestID, error.message)
-        }
+        LoggerManager.shared.error(message: "Sending inbox messages read/unread marks failed. Will not retry. Request ID: [\(inboxMessagesMarkReadUnreadRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKInboxMessages")
         
         if error.statusCode == 422, let responseBody = error.responseBody {
             let inboxMessagesMarkReadUnreadRequestWithoutBrokenMarks = self.getInboxMessagesMarkReadUnreadRequestWithoutBrokenMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest, responseBody: responseBody)
@@ -62,9 +55,7 @@ class InboxMessagesMarkReadUnreadSender {
             if !inboxMessagesMarkReadUnreadRequestWithoutBrokenMarks.markAsReadMcIDs.isEmpty ||
                 !inboxMessagesMarkReadUnreadRequestWithoutBrokenMarks.markAsUnreadMcIDs.isEmpty {
     
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("Request [%{public}@] has valid inbox messages read/unread marks. Sending again those read/unread marks.", log: OSLog.cordialInboxMessages, type: .info, inboxMessagesMarkReadUnreadRequest.requestID)
-                }
+                LoggerManager.shared.info(message: "Request [\(inboxMessagesMarkReadUnreadRequest.requestID)] has valid inbox messages read/unread marks. Sending again those read/unread marks.", category: "CordialSDKInboxMessages")
                 
                 self.sendInboxMessagesReadUnreadMarks(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequestWithoutBrokenMarks)
             }
@@ -125,14 +116,10 @@ class InboxMessagesMarkReadUnreadSender {
                     }
                 }
             } else {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("Failed decode response", log: OSLog.cordialInboxMessages, type: .error)
-                }
+                LoggerManager.shared.error(message: "Failed decode response", category: "CordialSDKInboxMessages")
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, error.localizedDescription)
-            }
+            LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKInboxMessages")
         }
         
         return (errorMarkAsReadIDs, errorMarkAsUnreadIDs)

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import os.log
 
 class PushNotificationHelper {
     
@@ -41,9 +40,7 @@ class PushNotificationHelper {
             }
         }
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Push notification app open via tap. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
-        }
+        LoggerManager.shared.info(message: "Push notification app open via tap. Payload: \(self.pushNotificationParser.getPayloadJSON(userInfo: userInfo))", category: "CordialSDKPushNotification")
         
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             self.cordialAPI.setCurrentMcID(mcID: mcID)
@@ -53,9 +50,7 @@ class PushNotificationHelper {
                 
                 InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
                 
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    os_log("IAM with mcID [%{public}@] has been removed.", log: OSLog.cordialInAppMessage, type: .info, mcID)
-                }
+                LoggerManager.shared.info(message: "IAM with mcID [\(mcID)] has been removed.", category: "CordialSDKInAppMessage")
             }
             
             if self.pushNotificationParser.isPayloadContainIAM(userInfo: userInfo),
@@ -149,15 +144,6 @@ class PushNotificationHelper {
         }
     }
     
-    private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {
-        self.internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
-        
-        if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
-            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
-        }
-    }
-    
     private func isUpsertContacts24HoursSelfHealingCanBeProcessed() -> Bool {
         if let lastUpdateDateTimestamp = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE),
             let lastUpdateDate = CordialDateFormatter().getDateFromTimestamp(timestamp: lastUpdateDateTimestamp) {
@@ -172,5 +158,14 @@ class PushNotificationHelper {
         }
         
         return true
+    }
+    
+    private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {        
+        self.internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
+        
+        if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
+            let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+            ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
+        }
     }
 }

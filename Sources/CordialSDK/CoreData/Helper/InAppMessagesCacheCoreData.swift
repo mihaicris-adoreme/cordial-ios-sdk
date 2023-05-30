@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreData
-import os.log
 
 class InAppMessagesCacheCoreData {
     
@@ -33,9 +32,7 @@ class InAppMessagesCacheCoreData {
                     
                     try context.save()
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-                    }
+                    LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
                 }
             }
         }
@@ -89,15 +86,11 @@ class InAppMessagesCacheCoreData {
                 } else {
                     CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                     
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed unarchiving InAppMessageData", log: OSLog.cordialError, type: .error)
-                    }
+                    LoggerManager.shared.error(message: "Failed unarchiving InAppMessageData", category: "CordialSDKError")
                 }
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-            }
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         return nil
@@ -120,9 +113,7 @@ class InAppMessagesCacheCoreData {
                 try context.save()
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-            }
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
 }

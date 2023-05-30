@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class CoreDataSender {
     
@@ -54,10 +53,8 @@ class CoreDataSender {
         if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
             let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
             if customEventRequests.count > 0 {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                    if CordialApiConfiguration.shared.eventsBulkSize != 1 {
-                        os_log("Flushing events. Reason: [%{public}@]", log: OSLog.cordialSendCustomEvents, type: .info, reason)
-                    }
+                if CordialApiConfiguration.shared.eventsBulkSize != 1 {
+                    LoggerManager.shared.info(message: "Flushing events. Reason: [\(reason)]", category: "CordialSDKSendCustomEvents")
                 }
                 
                 CustomEventsSender().sendCustomEvents(sendCustomEventRequests: customEventRequests)
