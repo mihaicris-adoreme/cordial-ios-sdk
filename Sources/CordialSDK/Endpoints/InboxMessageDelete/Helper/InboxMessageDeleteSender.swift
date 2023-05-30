@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class InboxMessageDeleteSender {
     
@@ -36,25 +35,19 @@ class InboxMessageDeleteSender {
     }
     
     func completionHandler(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Inbox message has been successfully deleted. Request ID: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessageDeleteRequest.requestID)
-        }
+        LoggerManager.shared.info(message: "Inbox message has been successfully deleted. Request ID: [\(inboxMessageDeleteRequest.requestID)]", category: "CordialSDKInboxMessages")
     }
     
     func systemErrorHandler(inboxMessageDeleteRequest: InboxMessageDeleteRequest, error: ResponseError) {
         CoreDataManager.shared.inboxMessageDelete.putInboxMessageDeleteRequestToCoreData(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Deleting inbox message failed. Saved to retry later. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .info, inboxMessageDeleteRequest.requestID, error.message)
-        }
+        LoggerManager.shared.info(message: "Deleting inbox message failed. Saved to retry later. Request ID: [\(inboxMessageDeleteRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKInboxMessages")
     }
     
     func logicErrorHandler(inboxMessageDeleteRequest: InboxMessageDeleteRequest, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialInboxMessageDeleteRequestLogicError, object: error)
 
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-            os_log("Deleting inbox message failed. Will not retry. Request ID: [%{public}@] Error: [%{public}@]", log: OSLog.cordialInboxMessages, type: .error, inboxMessageDeleteRequest.requestID, error.message)
-        }
+        LoggerManager.shared.error(message: "Deleting inbox message failed. Will not retry. Request ID: [\(inboxMessageDeleteRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKInboxMessages")
     }
 
 }

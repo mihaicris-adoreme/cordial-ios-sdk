@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreData
-import os.log
 
 class InboxMessageDeleteCoreData {
     
@@ -27,9 +26,7 @@ class InboxMessageDeleteCoreData {
                 
                 try context.save()
             } catch let error {
-                if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-                }
+                LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
             }
         }
     }
@@ -51,18 +48,14 @@ class InboxMessageDeleteCoreData {
                 if let inboxMessageDeleteRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InboxMessageDeleteRequest, !inboxMessageDeleteRequest.isError {
                     inboxMessageDeleteRequests.append(inboxMessageDeleteRequest)
                 } else {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed unarchiving InboxMessageDeleteRequest", log: OSLog.cordialError, type: .error)
-                    }
+                    LoggerManager.shared.error(message: "Failed unarchiving InboxMessageDeleteRequest", category: "CordialSDKError")
                 }
                 
                 context.delete(managedObject)
                 try context.save()
             }
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("CoreData Error: [%{public}@] Entity: [%{public}@]", log: OSLog.cordialCoreDataError, type: .error, error.localizedDescription, self.entityName)
-            }
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
 
         return inboxMessageDeleteRequests

@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreLocation
-import os.log
 
 @objc public class CordialApiConfiguration: NSObject {
     
@@ -16,7 +15,7 @@ import os.log
     
     private override init() {}
     
-    let sdkVersion = "4.2.0"
+    let sdkVersion = "4.2.1"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
@@ -28,7 +27,10 @@ import os.log
     internal var eventsStreamURL = String()
     internal var messageHubURL = String()
     
-    @objc public let osLogManager = CordialOSLogManager()
+    @available(*, deprecated, message: "Use loggerManager instead")
+    @objc public let osLogManager = LoggerManager.shared
+    
+    @objc public let loggerManager = LoggerManager.shared
     
     @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
     @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
@@ -56,9 +58,7 @@ import os.log
                 internalCordialAPI.setPushNotificationCategories(pushNotificationCategories: pushNotificationCategories, key: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES_ORIGIN)
             }
         } else {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Setting empty push notification categories array is unsupported", log: OSLog.cordialPushNotification, type: .error)
-            }
+            LoggerManager.shared.error(message: "Setting empty push notification categories array is unsupported", category: "CordialSDKPushNotification")
         }
     }
     
@@ -110,7 +110,10 @@ import os.log
         }
         
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
-        os_log("Device Identifier: [%{public}@] SDK: [%{public}@]", log: OSLog.cordialInfo, type: .info, deviceID, self.sdkVersion)
+        LoggerManager.shared.log(message: "Device Identifier: [\(deviceID)] SDK: [\(self.sdkVersion)]", category: "CordialSDKInfo")
+        
+        let systemEventsProperties = InternalCordialAPI().getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
         
         CordialPushNotification.shared.setupPushNotifications()
         
@@ -128,6 +131,4 @@ import os.log
         
         CordialLocationManager.shared.locationManager.requestWhenInUseAuthorization()
     }
-    
 }
-

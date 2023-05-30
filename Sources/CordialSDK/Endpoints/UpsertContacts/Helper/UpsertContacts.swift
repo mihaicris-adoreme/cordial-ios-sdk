@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class UpsertContacts {
     
@@ -234,10 +233,8 @@ class UpsertContacts {
                 dotsAttributes.append(keys)
             } else if self.isValidAttributeValueKey(key: key) {
                 preparedAttributes[key] = value
-            } else {
-                if isLogs && CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                    os_log("Contact attribute key [%{public}@] is invalid", log: OSLog.cordialUpsertContacts, type: .error, key)
-                }
+            } else if isLogs {
+                LoggerManager.shared.error(message: "Contact attribute key [\(key)] is invalid", category: "CordialSDKUpsertContacts")
             }
         }
         

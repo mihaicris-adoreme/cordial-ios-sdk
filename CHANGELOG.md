@@ -2,6 +2,15 @@
 
 The latest version of this file can be found at the master branch.
 
+
+## 4.2.1 (2023-05-30)
+
+### Added
+
+- Logger to catch SDK logs 
+- System device notifications `optin`/`optout` events
+- `deviceId`, `notificationStatus`, and `pushToken` are sent in system events' properties
+
 ## 4.2.0 (2023-05-03)
 
 ### Added

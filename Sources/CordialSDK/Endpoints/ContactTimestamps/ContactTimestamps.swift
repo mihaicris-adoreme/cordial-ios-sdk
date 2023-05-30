@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class ContactTimestamps {
     
@@ -87,9 +86,7 @@ class ContactTimestamps {
         self.isCurrentlyUpdatingContactTimestamps = false
         
         if !self.isEmptyContactTimestamps(error: error) {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("%{public}@", log: OSLog.cordialContactTimestamps, type: .error, error.message)
-            }
+            LoggerManager.shared.error(message: "\(error.message)", category: "CordialSDKContactTimestamps")
         }
     }
     
@@ -97,9 +94,7 @@ class ContactTimestamps {
         
         switch error.statusCode {
         case 400:
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                os_log("No timestamps URL yet", log: OSLog.cordialContactTimestamps, type: .info)
-            }
+            LoggerManager.shared.info(message: "No timestamps URL yet", category: "CordialSDKContactTimestamps")
             
             return true
         case 404:

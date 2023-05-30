@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class InboxMessageGetter {
     
@@ -18,15 +17,10 @@ class InboxMessageGetter {
         if internalCordialAPI.isUserLogin() {
             if ReachabilityManager.shared.isConnectedToInternet {
                 if internalCordialAPI.getCurrentJWT() != nil {
-                    
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("Fetching inbox message", log: OSLog.cordialInboxMessages, type: .info)
-                    }
+                    LoggerManager.shared.info(message: "Fetching inbox message", category: "CordialSDKInboxMessages")
                     
                     self.getInboxMessage(contactKey: contactKey, mcID: mcID, onSuccess: { response in
-                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                            os_log("Inbox message has been received successfully", log: OSLog.cordialInboxMessages, type: .info)
-                        }
+                        LoggerManager.shared.info(message: "Inbox message has been received successfully", category: "CordialSDKInboxMessages")
 
                         onSuccess(response)
                     }, onFailure: { error in
