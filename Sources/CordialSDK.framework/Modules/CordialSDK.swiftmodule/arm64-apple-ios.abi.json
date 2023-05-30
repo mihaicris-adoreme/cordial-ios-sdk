@@ -22,13 +22,6 @@
         "moduleName": "CordialSDK"
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "InAppMessagesParamCoreData",
         "printedName": "InAppMessagesParamCoreData",
@@ -245,13 +238,6 @@
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -830,13 +816,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "CordialDeepLinksConfigurationHandler",
         "printedName": "CordialDeepLinksConfigurationHandler",
@@ -1085,13 +1064,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -1367,13 +1339,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -3777,13 +3742,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "ContactOrdersSender",
         "printedName": "ContactOrdersSender",
@@ -4013,13 +3971,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -6990,8 +6941,7 @@
             "static": true,
             "declAttributes": [
               "HasInitialValue",
-              "HasStorage",
-              "RawDocComment"
+              "HasStorage"
             ],
             "isLet": true,
             "hasStorage": true,
@@ -7040,8 +6990,7 @@
             "static": true,
             "declAttributes": [
               "HasInitialValue",
-              "HasStorage",
-              "RawDocComment"
+              "HasStorage"
             ],
             "isLet": true,
             "hasStorage": true,
@@ -9973,13 +9922,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "ContactsSender",
         "printedName": "ContactsSender",
@@ -10221,13 +10163,6 @@
         "kind": "Import",
         "name": "UserNotificationsUI",
         "printedName": "UserNotificationsUI",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -11564,13 +11499,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "PushNotificationHelper",
         "printedName": "PushNotificationHelper",
@@ -11895,13 +11823,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "CoreDataSender",
         "printedName": "CoreDataSender",
@@ -12223,13 +12144,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -12796,13 +12710,6 @@
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -14681,13 +14588,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "ContactTimestampURL",
         "printedName": "ContactTimestampURL",
@@ -14989,13 +14889,6 @@
         "moduleName": "CordialSDK"
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "InAppMessagesCacheCoreData",
         "printedName": "InAppMessagesCacheCoreData",
@@ -15192,13 +15085,6 @@
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -17395,6 +17281,47 @@
           },
           {
             "kind": "Function",
+            "name": "getPayloadJSON",
+            "printedName": "getPayloadJSON(userInfo:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK22PushNotificationParserC14getPayloadJSON8userInfoSSSDys11AnyHashableVypG_tF",
+            "mangledName": "$s10CordialSDK22PushNotificationParserC14getPayloadJSON8userInfoSSSDys11AnyHashableVypG_tF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "getDeepLinkURL",
             "printedName": "getDeepLinkURL(userInfo:)",
             "children": [
@@ -18051,13 +17978,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "InboxMessageGetter",
         "printedName": "InboxMessageGetter",
@@ -18582,13 +18502,6 @@
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -20651,13 +20564,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "SendContactLogoutURLSessionManager",
         "printedName": "SendContactLogoutURLSessionManager",
@@ -20818,13 +20724,6 @@
         "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -22085,13 +21984,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "UpsertContactsURLSessionManager",
         "printedName": "UpsertContactsURLSessionManager",
@@ -23139,13 +23031,6 @@
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -24498,13 +24383,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "SendContactOrdersURLSessionManager",
         "printedName": "SendContactOrdersURLSessionManager",
@@ -24760,13 +24638,6 @@
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -26279,13 +26150,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -29246,13 +29110,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "InboxMessagesGetter",
         "printedName": "InboxMessagesGetter",
@@ -30407,13 +30264,6 @@
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -32555,13 +32405,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "UpsertContacts",
         "printedName": "UpsertContacts",
@@ -34275,13 +34118,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "FetchInAppMessageURLSessionManager",
         "printedName": "FetchInAppMessageURLSessionManager",
@@ -34437,13 +34273,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -34606,13 +34435,6 @@
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -35017,13 +34839,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -35517,6 +35332,218 @@
         "mangledName": "$s10CordialSDK12InAppMessageC",
         "moduleName": "CordialSDK",
         "isOpen": true
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "LoggerDelegate",
+        "printedName": "LoggerDelegate",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "log",
+            "printedName": "log(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate(im)logWithMessage:category:",
+            "mangledName": "$s10CordialSDK14LoggerDelegateP3log7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : CordialSDK.LoggerDelegate>",
+            "sugared_genericSig": "<Self where Self : CordialSDK.LoggerDelegate>",
+            "protocolReq": true,
+            "objc_name": "logWithMessage:category:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "info",
+            "printedName": "info(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate(im)infoWithMessage:category:",
+            "mangledName": "$s10CordialSDK14LoggerDelegateP4info7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : CordialSDK.LoggerDelegate>",
+            "sugared_genericSig": "<Self where Self : CordialSDK.LoggerDelegate>",
+            "protocolReq": true,
+            "objc_name": "infoWithMessage:category:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "debug",
+            "printedName": "debug(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate(im)debugWithMessage:category:",
+            "mangledName": "$s10CordialSDK14LoggerDelegateP5debug7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : CordialSDK.LoggerDelegate>",
+            "sugared_genericSig": "<Self where Self : CordialSDK.LoggerDelegate>",
+            "protocolReq": true,
+            "objc_name": "debugWithMessage:category:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "error",
+            "printedName": "error(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate(im)errorWithMessage:category:",
+            "mangledName": "$s10CordialSDK14LoggerDelegateP5error7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : CordialSDK.LoggerDelegate>",
+            "sugared_genericSig": "<Self where Self : CordialSDK.LoggerDelegate>",
+            "protocolReq": true,
+            "objc_name": "errorWithMessage:category:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "fault",
+            "printedName": "fault(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate(im)faultWithMessage:category:",
+            "mangledName": "$s10CordialSDK14LoggerDelegateP5fault7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "genericSig": "<τ_0_0 where τ_0_0 : CordialSDK.LoggerDelegate>",
+            "sugared_genericSig": "<Self where Self : CordialSDK.LoggerDelegate>",
+            "protocolReq": true,
+            "objc_name": "faultWithMessage:category:",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate",
+        "mangledName": "$s10CordialSDK14LoggerDelegateP",
+        "moduleName": "CordialSDK",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ]
       },
       {
         "kind": "Import",
@@ -37461,13 +37488,6 @@
         "moduleName": "CordialSDK"
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "CordialApiConfiguration",
         "printedName": "CordialApiConfiguration",
@@ -38132,14 +38152,67 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialOSLogManager",
-                "printedName": "CordialSDK.CordialOSLogManager",
-                "usr": "c:@M@CordialSDK@objc(cs)CordialOSLogManager"
+                "name": "LoggerManager",
+                "printedName": "CordialSDK.LoggerManager",
+                "usr": "c:@M@CordialSDK@objc(cs)LoggerManager"
               }
             ],
             "declKind": "Var",
             "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(py)osLogManager",
-            "mangledName": "$s10CordialSDK0A16ApiConfigurationC12osLogManagerAA0a5OSLogG0Cvp",
+            "mangledName": "$s10CordialSDK0A16ApiConfigurationC12osLogManagerAA06LoggerG0Cvp",
+            "moduleName": "CordialSDK",
+            "deprecated": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "Available"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerManager",
+                    "printedName": "CordialSDK.LoggerManager",
+                    "usr": "c:@M@CordialSDK@objc(cs)LoggerManager"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(im)osLogManager",
+                "mangledName": "$s10CordialSDK0A16ApiConfigurationC12osLogManagerAA06LoggerG0Cvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "loggerManager",
+            "printedName": "loggerManager",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "LoggerManager",
+                "printedName": "CordialSDK.LoggerManager",
+                "usr": "c:@M@CordialSDK@objc(cs)LoggerManager"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(py)loggerManager",
+            "mangledName": "$s10CordialSDK0A16ApiConfigurationC13loggerManagerAA06LoggerF0Cvp",
             "moduleName": "CordialSDK",
             "declAttributes": [
               "HasInitialValue",
@@ -38158,14 +38231,14 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "CordialOSLogManager",
-                    "printedName": "CordialSDK.CordialOSLogManager",
-                    "usr": "c:@M@CordialSDK@objc(cs)CordialOSLogManager"
+                    "name": "LoggerManager",
+                    "printedName": "CordialSDK.LoggerManager",
+                    "usr": "c:@M@CordialSDK@objc(cs)LoggerManager"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(im)osLogManager",
-                "mangledName": "$s10CordialSDK0A16ApiConfigurationC12osLogManagerAA0a5OSLogG0Cvg",
+                "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(im)loggerManager",
+                "mangledName": "$s10CordialSDK0A16ApiConfigurationC13loggerManagerAA06LoggerF0Cvg",
                 "moduleName": "CordialSDK",
                 "implicit": true,
                 "declAttributes": [
@@ -40151,6 +40224,655 @@
         ]
       },
       {
+        "kind": "TypeDecl",
+        "name": "LoggerManager",
+        "printedName": "LoggerManager",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "LoggerManager",
+                "printedName": "CordialSDK.LoggerManager",
+                "usr": "c:@M@CordialSDK@objc(cs)LoggerManager"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(cpy)shared",
+            "mangledName": "$s10CordialSDK13LoggerManagerC6sharedACvpZ",
+            "moduleName": "CordialSDK",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerManager",
+                    "printedName": "CordialSDK.LoggerManager",
+                    "usr": "c:@M@CordialSDK@objc(cs)LoggerManager"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(cm)shared",
+                "mangledName": "$s10CordialSDK13LoggerManagerC6sharedACvgZ",
+                "moduleName": "CordialSDK",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "loggerManagerLevel",
+            "printedName": "loggerManagerLevel",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "LoggerLevel",
+                "printedName": "CordialSDK.LoggerLevel",
+                "usr": "c:@M@CordialSDK@E@LoggerLevel"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(py)loggerManagerLevel",
+            "mangledName": "$s10CordialSDK13LoggerManagerC06loggerD5LevelAA0cF0Ovp",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerLevel",
+                    "printedName": "CordialSDK.LoggerLevel",
+                    "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)loggerManagerLevel",
+                "mangledName": "$s10CordialSDK13LoggerManagerC06loggerD5LevelAA0cF0Ovg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "isOpen": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerLevel",
+                    "printedName": "CordialSDK.LoggerLevel",
+                    "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)setLoggerManagerLevel:",
+                "mangledName": "$s10CordialSDK13LoggerManagerC06loggerD5LevelAA0cF0Ovs",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "isOpen": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK13LoggerManagerC06loggerD5LevelAA0cF0OvM",
+                "mangledName": "$s10CordialSDK13LoggerManagerC06loggerD5LevelAA0cF0OvM",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "loggers",
+            "printedName": "loggers",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[CordialSDK.LoggerDelegate]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerDelegate",
+                    "printedName": "CordialSDK.LoggerDelegate",
+                    "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(py)loggers",
+            "mangledName": "$s10CordialSDK13LoggerManagerC7loggersSayAA0C8Delegate_pGvp",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[CordialSDK.LoggerDelegate]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LoggerDelegate",
+                        "printedName": "CordialSDK.LoggerDelegate",
+                        "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)loggers",
+                "mangledName": "$s10CordialSDK13LoggerManagerC7loggersSayAA0C8Delegate_pGvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "isOpen": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[CordialSDK.LoggerDelegate]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LoggerDelegate",
+                        "printedName": "CordialSDK.LoggerDelegate",
+                        "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)setLoggers:",
+                "mangledName": "$s10CordialSDK13LoggerManagerC7loggersSayAA0C8Delegate_pGvs",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "isOpen": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK13LoggerManagerC7loggersSayAA0C8Delegate_pGvM",
+                "mangledName": "$s10CordialSDK13LoggerManagerC7loggersSayAA0C8Delegate_pGvM",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "isOpen": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "setLoggers",
+            "printedName": "setLoggers(loggers:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[CordialSDK.LoggerDelegate]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerDelegate",
+                    "printedName": "CordialSDK.LoggerDelegate",
+                    "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)setLoggersWithLoggers:",
+            "mangledName": "$s10CordialSDK13LoggerManagerC10setLoggers7loggersySayAA0C8Delegate_pG_tF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "log",
+            "printedName": "log(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)logWithMessage:category:",
+            "mangledName": "$s10CordialSDK13LoggerManagerC3log7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "info",
+            "printedName": "info(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)infoWithMessage:category:",
+            "mangledName": "$s10CordialSDK13LoggerManagerC4info7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "debug",
+            "printedName": "debug(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)debugWithMessage:category:",
+            "mangledName": "$s10CordialSDK13LoggerManagerC5debug7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "error",
+            "printedName": "error(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)errorWithMessage:category:",
+            "mangledName": "$s10CordialSDK13LoggerManagerC5error7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "fault",
+            "printedName": "fault(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)faultWithMessage:category:",
+            "mangledName": "$s10CordialSDK13LoggerManagerC5fault7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setLoggerLevel",
+            "printedName": "setLoggerLevel(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "LoggerLevel",
+                "printedName": "CordialSDK.LoggerLevel",
+                "usr": "c:@M@CordialSDK@E@LoggerLevel"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)setLoggerLevel:",
+            "mangledName": "$s10CordialSDK13LoggerManagerC03setC5LevelyyAA0cF0OF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setLogLevel",
+            "printedName": "setLogLevel(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "logLevel",
+                "printedName": "CordialSDK.logLevel",
+                "usr": "c:@M@CordialSDK@E@logLevel"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)setLogLevel:",
+            "mangledName": "$s10CordialSDK13LoggerManagerC11setLogLevelyyAA03logG0OF",
+            "moduleName": "CordialSDK",
+            "deprecated": true,
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "Available",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setOSLogLevel",
+            "printedName": "setOSLogLevel(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "logLevel",
+                "printedName": "CordialSDK.logLevel",
+                "usr": "c:@M@CordialSDK@E@logLevel"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)LoggerManager(im)setOSLogLevel:",
+            "mangledName": "$s10CordialSDK13LoggerManagerC13setOSLogLevelyyAA03logG0OF",
+            "moduleName": "CordialSDK",
+            "deprecated": true,
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "Available",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@CordialSDK@objc(cs)LoggerManager",
+        "mangledName": "$s10CordialSDK13LoggerManagerC",
+        "moduleName": "CordialSDK",
+        "isOpen": true,
+        "declAttributes": [
+          "AccessControl",
+          "ObjCMembers",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "hasMissingDesignatedInitializers": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
@@ -41037,13 +41759,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -41954,13 +42669,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "InAppMessageGetter",
         "printedName": "InAppMessageGetter",
@@ -42595,13 +43303,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "CordialDeepLinksAPI",
         "printedName": "CordialDeepLinksAPI",
@@ -42779,13 +43480,6 @@
         "kind": "Import",
         "name": "WebKit",
         "printedName": "WebKit",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -47393,13 +48087,6 @@
         "moduleName": "CordialSDK"
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "ContactTimestampsURLCoreData",
         "printedName": "ContactTimestampsURLCoreData",
@@ -47558,13 +48245,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -48445,13 +49125,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "CustomEventsSender",
         "printedName": "CustomEventsSender",
@@ -48735,6 +49408,598 @@
         "mangledName": "$s10CordialSDK18CustomEventsSenderC",
         "moduleName": "CordialSDK",
         "isOpen": true
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "LoggerLevel",
+        "printedName": "LoggerLevel",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "none",
+            "printedName": "none",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.LoggerLevel.Type) -> CordialSDK.LoggerLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerLevel",
+                    "printedName": "CordialSDK.LoggerLevel",
+                    "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.LoggerLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LoggerLevel",
+                        "printedName": "CordialSDK.LoggerLevel",
+                        "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@CordialSDK@E@LoggerLevel@LoggerLevelNone",
+            "mangledName": "$s10CordialSDK11LoggerLevelO4noneyA2CmF",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "all",
+            "printedName": "all",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.LoggerLevel.Type) -> CordialSDK.LoggerLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerLevel",
+                    "printedName": "CordialSDK.LoggerLevel",
+                    "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.LoggerLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LoggerLevel",
+                        "printedName": "CordialSDK.LoggerLevel",
+                        "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@CordialSDK@E@LoggerLevel@LoggerLevelAll",
+            "mangledName": "$s10CordialSDK11LoggerLevelO3allyA2CmF",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "error",
+            "printedName": "error",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.LoggerLevel.Type) -> CordialSDK.LoggerLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerLevel",
+                    "printedName": "CordialSDK.LoggerLevel",
+                    "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.LoggerLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LoggerLevel",
+                        "printedName": "CordialSDK.LoggerLevel",
+                        "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@CordialSDK@E@LoggerLevel@LoggerLevelError",
+            "mangledName": "$s10CordialSDK11LoggerLevelO5erroryA2CmF",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Var",
+            "name": "info",
+            "printedName": "info",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.LoggerLevel.Type) -> CordialSDK.LoggerLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerLevel",
+                    "printedName": "CordialSDK.LoggerLevel",
+                    "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.LoggerLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "LoggerLevel",
+                        "printedName": "CordialSDK.LoggerLevel",
+                        "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@CordialSDK@E@LoggerLevel@LoggerLevelInfo",
+            "mangledName": "$s10CordialSDK11LoggerLevelO4infoyA2CmF",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 3
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "CordialSDK.LoggerLevel?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "LoggerLevel",
+                    "printedName": "CordialSDK.LoggerLevel",
+                    "usr": "c:@M@CordialSDK@E@LoggerLevel"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10CordialSDK11LoggerLevelO8rawValueACSgSi_tcfc",
+            "mangledName": "$s10CordialSDK11LoggerLevelO8rawValueACSgSi_tcfc",
+            "moduleName": "CordialSDK",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK11LoggerLevelO8rawValueSivp",
+            "mangledName": "$s10CordialSDK11LoggerLevelO8rawValueSivp",
+            "moduleName": "CordialSDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK11LoggerLevelO8rawValueSivg",
+                "mangledName": "$s10CordialSDK11LoggerLevelO8rawValueSivg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@CordialSDK@E@LoggerLevel",
+        "mangledName": "$s10CordialSDK11LoggerLevelO",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "logLevel",
+        "printedName": "logLevel",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "none",
+            "printedName": "none",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.logLevel.Type) -> CordialSDK.logLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "logLevel",
+                    "printedName": "CordialSDK.logLevel",
+                    "usr": "c:@M@CordialSDK@E@logLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.logLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "logLevel",
+                        "printedName": "CordialSDK.logLevel",
+                        "usr": "c:@M@CordialSDK@E@logLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@CordialSDK@E@logLevel@logLevelNone",
+            "mangledName": "$s10CordialSDK8logLevelO4noneyA2CmF",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "all",
+            "printedName": "all",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.logLevel.Type) -> CordialSDK.logLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "logLevel",
+                    "printedName": "CordialSDK.logLevel",
+                    "usr": "c:@M@CordialSDK@E@logLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.logLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "logLevel",
+                        "printedName": "CordialSDK.logLevel",
+                        "usr": "c:@M@CordialSDK@E@logLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@CordialSDK@E@logLevel@logLevelAll",
+            "mangledName": "$s10CordialSDK8logLevelO3allyA2CmF",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "error",
+            "printedName": "error",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.logLevel.Type) -> CordialSDK.logLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "logLevel",
+                    "printedName": "CordialSDK.logLevel",
+                    "usr": "c:@M@CordialSDK@E@logLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.logLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "logLevel",
+                        "printedName": "CordialSDK.logLevel",
+                        "usr": "c:@M@CordialSDK@E@logLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@CordialSDK@E@logLevel@logLevelError",
+            "mangledName": "$s10CordialSDK8logLevelO5erroryA2CmF",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Var",
+            "name": "info",
+            "printedName": "info",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(CordialSDK.logLevel.Type) -> CordialSDK.logLevel",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "logLevel",
+                    "printedName": "CordialSDK.logLevel",
+                    "usr": "c:@M@CordialSDK@E@logLevel"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "CordialSDK.logLevel.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "logLevel",
+                        "printedName": "CordialSDK.logLevel",
+                        "usr": "c:@M@CordialSDK@E@logLevel"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@CordialSDK@E@logLevel@logLevelInfo",
+            "mangledName": "$s10CordialSDK8logLevelO4infoyA2CmF",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 3
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "CordialSDK.logLevel?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "logLevel",
+                    "printedName": "CordialSDK.logLevel",
+                    "usr": "c:@M@CordialSDK@E@logLevel"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:10CordialSDK8logLevelO8rawValueACSgSi_tcfc",
+            "mangledName": "$s10CordialSDK8logLevelO8rawValueACSgSi_tcfc",
+            "moduleName": "CordialSDK",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK8logLevelO8rawValueSivp",
+            "mangledName": "$s10CordialSDK8logLevelO8rawValueSivp",
+            "moduleName": "CordialSDK",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK8logLevelO8rawValueSivg",
+                "mangledName": "$s10CordialSDK8logLevelO8rawValueSivg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@CordialSDK@E@logLevel",
+        "mangledName": "$s10CordialSDK8logLevelO",
+        "moduleName": "CordialSDK",
+        "deprecated": true,
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "Available"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
       },
       {
         "kind": "Import",
@@ -49050,13 +50315,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "SendCustomEventsURLSessionManager",
         "printedName": "SendCustomEventsURLSessionManager",
@@ -49221,13 +50479,6 @@
         "moduleName": "CordialSDK"
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "ContactOrderRequestsCoreData",
         "printedName": "ContactOrderRequestsCoreData",
@@ -49376,13 +50627,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -49558,13 +50802,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -50720,13 +51957,6 @@
         "moduleName": "CordialSDK"
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "ContactRequestsCoreData",
         "printedName": "ContactRequestsCoreData",
@@ -51021,13 +52251,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -52362,593 +53585,32 @@
       },
       {
         "kind": "TypeDecl",
-        "name": "logLevel",
-        "printedName": "logLevel",
+        "name": "OSLogManager",
+        "printedName": "OSLogManager",
         "children": [
           {
             "kind": "Var",
-            "name": "none",
-            "printedName": "none",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(CordialSDK.logLevel.Type) -> CordialSDK.logLevel",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "logLevel",
-                    "printedName": "CordialSDK.logLevel",
-                    "usr": "c:@M@CordialSDK@E@logLevel"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "CordialSDK.logLevel.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "logLevel",
-                        "printedName": "CordialSDK.logLevel",
-                        "usr": "c:@M@CordialSDK@E@logLevel"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "c:@M@CordialSDK@E@logLevel@logLevelNone",
-            "mangledName": "$s10CordialSDK8logLevelO4noneyA2CmF",
-            "moduleName": "CordialSDK",
-            "declAttributes": [
-              "ObjC"
-            ],
-            "fixedbinaryorder": 0
-          },
-          {
-            "kind": "Var",
-            "name": "all",
-            "printedName": "all",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(CordialSDK.logLevel.Type) -> CordialSDK.logLevel",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "logLevel",
-                    "printedName": "CordialSDK.logLevel",
-                    "usr": "c:@M@CordialSDK@E@logLevel"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "CordialSDK.logLevel.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "logLevel",
-                        "printedName": "CordialSDK.logLevel",
-                        "usr": "c:@M@CordialSDK@E@logLevel"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "c:@M@CordialSDK@E@logLevel@logLevelAll",
-            "mangledName": "$s10CordialSDK8logLevelO3allyA2CmF",
-            "moduleName": "CordialSDK",
-            "declAttributes": [
-              "ObjC"
-            ],
-            "fixedbinaryorder": 1
-          },
-          {
-            "kind": "Var",
-            "name": "error",
-            "printedName": "error",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(CordialSDK.logLevel.Type) -> CordialSDK.logLevel",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "logLevel",
-                    "printedName": "CordialSDK.logLevel",
-                    "usr": "c:@M@CordialSDK@E@logLevel"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "CordialSDK.logLevel.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "logLevel",
-                        "printedName": "CordialSDK.logLevel",
-                        "usr": "c:@M@CordialSDK@E@logLevel"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "c:@M@CordialSDK@E@logLevel@logLevelError",
-            "mangledName": "$s10CordialSDK8logLevelO5erroryA2CmF",
-            "moduleName": "CordialSDK",
-            "declAttributes": [
-              "ObjC"
-            ],
-            "fixedbinaryorder": 2
-          },
-          {
-            "kind": "Var",
-            "name": "info",
-            "printedName": "info",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(CordialSDK.logLevel.Type) -> CordialSDK.logLevel",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "logLevel",
-                    "printedName": "CordialSDK.logLevel",
-                    "usr": "c:@M@CordialSDK@E@logLevel"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "CordialSDK.logLevel.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "logLevel",
-                        "printedName": "CordialSDK.logLevel",
-                        "usr": "c:@M@CordialSDK@E@logLevel"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "c:@M@CordialSDK@E@logLevel@logLevelInfo",
-            "mangledName": "$s10CordialSDK8logLevelO4infoyA2CmF",
-            "moduleName": "CordialSDK",
-            "declAttributes": [
-              "ObjC"
-            ],
-            "fixedbinaryorder": 3
-          },
-          {
-            "kind": "Constructor",
-            "name": "init",
-            "printedName": "init(rawValue:)",
+            "name": "shared",
+            "printedName": "shared",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "CordialSDK.logLevel?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "logLevel",
-                    "printedName": "CordialSDK.logLevel",
-                    "usr": "c:@M@CordialSDK@E@logLevel"
-                  }
-                ],
-                "usr": "s:Sq"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Int",
-                "printedName": "Swift.Int",
-                "usr": "s:Si"
-              }
-            ],
-            "declKind": "Constructor",
-            "usr": "s:10CordialSDK8logLevelO8rawValueACSgSi_tcfc",
-            "mangledName": "$s10CordialSDK8logLevelO8rawValueACSgSi_tcfc",
-            "moduleName": "CordialSDK",
-            "implicit": true,
-            "init_kind": "Designated"
-          },
-          {
-            "kind": "Var",
-            "name": "rawValue",
-            "printedName": "rawValue",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Int",
-                "printedName": "Swift.Int",
-                "usr": "s:Si"
+                "name": "OSLogManager",
+                "printedName": "CordialSDK.OSLogManager",
+                "usr": "s:10CordialSDK12OSLogManagerC"
               }
             ],
             "declKind": "Var",
-            "usr": "s:10CordialSDK8logLevelO8rawValueSivp",
-            "mangledName": "$s10CordialSDK8logLevelO8rawValueSivp",
+            "usr": "s:10CordialSDK12OSLogManagerC6sharedACvpZ",
+            "mangledName": "$s10CordialSDK12OSLogManagerC6sharedACvpZ",
             "moduleName": "CordialSDK",
-            "implicit": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Int",
-                    "printedName": "Swift.Int",
-                    "usr": "s:Si"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:10CordialSDK8logLevelO8rawValueSivg",
-                "mangledName": "$s10CordialSDK8logLevelO8rawValueSivg",
-                "moduleName": "CordialSDK",
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
-          }
-        ],
-        "declKind": "Enum",
-        "usr": "c:@M@CordialSDK@E@logLevel",
-        "mangledName": "$s10CordialSDK8logLevelO",
-        "moduleName": "CordialSDK",
-        "declAttributes": [
-          "AccessControl",
-          "ObjC"
-        ],
-        "enumRawTypeName": "Int",
-        "conformances": [
-          {
-            "kind": "Conformance",
-            "name": "Equatable",
-            "printedName": "Equatable",
-            "usr": "s:SQ",
-            "mangledName": "$sSQ"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Hashable",
-            "printedName": "Hashable",
-            "usr": "s:SH",
-            "mangledName": "$sSH"
-          },
-          {
-            "kind": "Conformance",
-            "name": "RawRepresentable",
-            "printedName": "RawRepresentable",
-            "children": [
-              {
-                "kind": "TypeWitness",
-                "name": "RawValue",
-                "printedName": "RawValue",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Int",
-                    "printedName": "Swift.Int",
-                    "usr": "s:Si"
-                  }
-                ]
-              }
-            ],
-            "usr": "s:SY",
-            "mangledName": "$sSY"
-          }
-        ]
-      },
-      {
-        "kind": "TypeDecl",
-        "name": "osLogLevel",
-        "printedName": "osLogLevel",
-        "children": [
-          {
-            "kind": "Var",
-            "name": "none",
-            "printedName": "none",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(CordialSDK.osLogLevel.Type) -> CordialSDK.osLogLevel",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "osLogLevel",
-                    "printedName": "CordialSDK.osLogLevel",
-                    "usr": "s:10CordialSDK10osLogLevelO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "CordialSDK.osLogLevel.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "osLogLevel",
-                        "printedName": "CordialSDK.osLogLevel",
-                        "usr": "s:10CordialSDK10osLogLevelO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:10CordialSDK10osLogLevelO4noneyA2CmF",
-            "mangledName": "$s10CordialSDK10osLogLevelO4noneyA2CmF",
-            "moduleName": "CordialSDK"
-          },
-          {
-            "kind": "Var",
-            "name": "all",
-            "printedName": "all",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(CordialSDK.osLogLevel.Type) -> CordialSDK.osLogLevel",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "osLogLevel",
-                    "printedName": "CordialSDK.osLogLevel",
-                    "usr": "s:10CordialSDK10osLogLevelO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "CordialSDK.osLogLevel.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "osLogLevel",
-                        "printedName": "CordialSDK.osLogLevel",
-                        "usr": "s:10CordialSDK10osLogLevelO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:10CordialSDK10osLogLevelO3allyA2CmF",
-            "mangledName": "$s10CordialSDK10osLogLevelO3allyA2CmF",
-            "moduleName": "CordialSDK"
-          },
-          {
-            "kind": "Var",
-            "name": "error",
-            "printedName": "error",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(CordialSDK.osLogLevel.Type) -> CordialSDK.osLogLevel",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "osLogLevel",
-                    "printedName": "CordialSDK.osLogLevel",
-                    "usr": "s:10CordialSDK10osLogLevelO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "CordialSDK.osLogLevel.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "osLogLevel",
-                        "printedName": "CordialSDK.osLogLevel",
-                        "usr": "s:10CordialSDK10osLogLevelO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:10CordialSDK10osLogLevelO5erroryA2CmF",
-            "mangledName": "$s10CordialSDK10osLogLevelO5erroryA2CmF",
-            "moduleName": "CordialSDK"
-          },
-          {
-            "kind": "Var",
-            "name": "info",
-            "printedName": "info",
-            "children": [
-              {
-                "kind": "TypeFunc",
-                "name": "Function",
-                "printedName": "(CordialSDK.osLogLevel.Type) -> CordialSDK.osLogLevel",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "osLogLevel",
-                    "printedName": "CordialSDK.osLogLevel",
-                    "usr": "s:10CordialSDK10osLogLevelO"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Metatype",
-                    "printedName": "CordialSDK.osLogLevel.Type",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "osLogLevel",
-                        "printedName": "CordialSDK.osLogLevel",
-                        "usr": "s:10CordialSDK10osLogLevelO"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ],
-            "declKind": "EnumElement",
-            "usr": "s:10CordialSDK10osLogLevelO4infoyA2CmF",
-            "mangledName": "$s10CordialSDK10osLogLevelO4infoyA2CmF",
-            "moduleName": "CordialSDK"
-          },
-          {
-            "kind": "Constructor",
-            "name": "init",
-            "printedName": "init(rawValue:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Optional",
-                "printedName": "CordialSDK.osLogLevel?",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "osLogLevel",
-                    "printedName": "CordialSDK.osLogLevel",
-                    "usr": "s:10CordialSDK10osLogLevelO"
-                  }
-                ],
-                "usr": "s:Sq"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Constructor",
-            "usr": "s:10CordialSDK10osLogLevelO8rawValueACSgSS_tcfc",
-            "mangledName": "$s10CordialSDK10osLogLevelO8rawValueACSgSS_tcfc",
-            "moduleName": "CordialSDK",
-            "implicit": true,
-            "init_kind": "Designated"
-          },
-          {
-            "kind": "Var",
-            "name": "rawValue",
-            "printedName": "rawValue",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:10CordialSDK10osLogLevelO8rawValueSSvp",
-            "mangledName": "$s10CordialSDK10osLogLevelO8rawValueSSvp",
-            "moduleName": "CordialSDK",
-            "implicit": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:10CordialSDK10osLogLevelO8rawValueSSvg",
-                "mangledName": "$s10CordialSDK10osLogLevelO8rawValueSSvg",
-                "moduleName": "CordialSDK",
-                "implicit": true,
-                "accessorKind": "get"
-              }
-            ]
-          }
-        ],
-        "declKind": "Enum",
-        "usr": "s:10CordialSDK10osLogLevelO",
-        "mangledName": "$s10CordialSDK10osLogLevelO",
-        "moduleName": "CordialSDK",
-        "declAttributes": [
-          "AccessControl"
-        ],
-        "enumRawTypeName": "String",
-        "conformances": [
-          {
-            "kind": "Conformance",
-            "name": "Equatable",
-            "printedName": "Equatable",
-            "usr": "s:SQ",
-            "mangledName": "$sSQ"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Hashable",
-            "printedName": "Hashable",
-            "usr": "s:SH",
-            "mangledName": "$sSH"
-          },
-          {
-            "kind": "Conformance",
-            "name": "RawRepresentable",
-            "printedName": "RawRepresentable",
-            "children": [
-              {
-                "kind": "TypeWitness",
-                "name": "RawValue",
-                "printedName": "RawValue",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ]
-              }
-            ],
-            "usr": "s:SY",
-            "mangledName": "$sSY"
-          }
-        ]
-      },
-      {
-        "kind": "TypeDecl",
-        "name": "CordialOSLogManager",
-        "printedName": "CordialOSLogManager",
-        "children": [
-          {
-            "kind": "Var",
-            "name": "currentOSLogLevel",
-            "printedName": "currentOSLogLevel",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "osLogLevel",
-                "printedName": "CordialSDK.osLogLevel",
-                "usr": "s:10CordialSDK10osLogLevelO"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:10CordialSDK0A12OSLogManagerC07currentC5LevelAA05osLogF0Ovp",
-            "mangledName": "$s10CordialSDK0A12OSLogManagerC07currentC5LevelAA05osLogF0Ovp",
-            "moduleName": "CordialSDK",
-            "isOpen": true,
+            "static": true,
             "declAttributes": [
               "HasInitialValue",
+              "Final",
               "HasStorage"
             ],
+            "isLet": true,
             "hasStorage": true,
             "accessors": [
               {
@@ -52958,69 +53620,95 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "osLogLevel",
-                    "printedName": "CordialSDK.osLogLevel",
-                    "usr": "s:10CordialSDK10osLogLevelO"
+                    "name": "OSLogManager",
+                    "printedName": "CordialSDK.OSLogManager",
+                    "usr": "s:10CordialSDK12OSLogManagerC"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:10CordialSDK0A12OSLogManagerC07currentC5LevelAA05osLogF0Ovg",
-                "mangledName": "$s10CordialSDK0A12OSLogManagerC07currentC5LevelAA05osLogF0Ovg",
+                "usr": "s:10CordialSDK12OSLogManagerC6sharedACvgZ",
+                "mangledName": "$s10CordialSDK12OSLogManagerC6sharedACvgZ",
                 "moduleName": "CordialSDK",
+                "static": true,
                 "implicit": true,
-                "isOpen": true,
+                "declAttributes": [
+                  "Transparent",
+                  "Final"
+                ],
                 "accessorKind": "get"
-              },
-              {
-                "kind": "Accessor",
-                "name": "Set",
-                "printedName": "Set()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "osLogLevel",
-                    "printedName": "CordialSDK.osLogLevel",
-                    "usr": "s:10CordialSDK10osLogLevelO"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:10CordialSDK0A12OSLogManagerC07currentC5LevelAA05osLogF0Ovs",
-                "mangledName": "$s10CordialSDK0A12OSLogManagerC07currentC5LevelAA05osLogF0Ovs",
-                "moduleName": "CordialSDK",
-                "implicit": true,
-                "isOpen": true,
-                "accessorKind": "set"
-              },
-              {
-                "kind": "Accessor",
-                "name": "Modify",
-                "printedName": "Modify()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:10CordialSDK0A12OSLogManagerC07currentC5LevelAA05osLogF0OvM",
-                "mangledName": "$s10CordialSDK0A12OSLogManagerC07currentC5LevelAA05osLogF0OvM",
-                "moduleName": "CordialSDK",
-                "implicit": true,
-                "isOpen": true,
-                "accessorKind": "_modify"
               }
             ]
           },
           {
+            "kind": "Var",
+            "name": "subsystem",
+            "printedName": "subsystem",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK12OSLogManagerC9subsystem33_8C52E65819B67342F90FD8E6496C033DLLSSvp",
+            "mangledName": "$s10CordialSDK12OSLogManagerC9subsystem33_8C52E65819B67342F90FD8E6496C033DLLSSvp",
+            "moduleName": "CordialSDK",
+            "isInternal": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "fixedbinaryorder": 0,
+            "isLet": true,
+            "hasStorage": true
+          },
+          {
+            "kind": "Var",
+            "name": "categories",
+            "printedName": "categories",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : os.OSLog]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "OSLog",
+                    "printedName": "os.OSLog",
+                    "usr": "c:objc(cs)OS_os_log"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:10CordialSDK12OSLogManagerC10categories33_8C52E65819B67342F90FD8E6496C033DLLSDySSSo9OS_os_logCGvp",
+            "mangledName": "$s10CordialSDK12OSLogManagerC10categories33_8C52E65819B67342F90FD8E6496C033DLLSDySSSo9OS_os_logCGvp",
+            "moduleName": "CordialSDK",
+            "isInternal": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "fixedbinaryorder": 1,
+            "hasStorage": true
+          },
+          {
             "kind": "Function",
-            "name": "setLogLevel",
-            "printedName": "setLogLevel(_:)",
+            "name": "log",
+            "printedName": "log(message:category:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -53029,26 +53717,67 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "logLevel",
-                "printedName": "CordialSDK.logLevel",
-                "usr": "c:@M@CordialSDK@E@logLevel"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Func",
-            "usr": "c:@M@CordialSDK@objc(cs)CordialOSLogManager(im)setLogLevel:",
-            "mangledName": "$s10CordialSDK0A12OSLogManagerC11setLogLevelyyAA03logG0OF",
+            "usr": "s:10CordialSDK12OSLogManagerC3log7message8categoryySS_SStF",
+            "mangledName": "$s10CordialSDK12OSLogManagerC3log7message8categoryySS_SStF",
             "moduleName": "CordialSDK",
             "isOpen": true,
+            "objc_name": "logWithMessage:category:",
             "declAttributes": [
-              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "info",
+            "printedName": "info(message:category:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK12OSLogManagerC4info7message8categoryySS_SStF",
+            "mangledName": "$s10CordialSDK12OSLogManagerC4info7message8categoryySS_SStF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "objc_name": "infoWithMessage:category:",
+            "declAttributes": [
               "ObjC"
             ],
             "funcSelfKind": "NonMutating"
           },
           {
             "kind": "Function",
-            "name": "setOSLogLevel",
-            "printedName": "setOSLogLevel(_:)",
+            "name": "debug",
+            "printedName": "debug(message:category:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -53057,136 +53786,112 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "osLogLevel",
-                "printedName": "CordialSDK.osLogLevel",
-                "usr": "s:10CordialSDK10osLogLevelO"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A12OSLogManagerC03setC5LevelyyAA05osLogF0OF",
-            "mangledName": "$s10CordialSDK0A12OSLogManagerC03setC5LevelyyAA05osLogF0OF",
+            "usr": "s:10CordialSDK12OSLogManagerC5debug7message8categoryySS_SStF",
+            "mangledName": "$s10CordialSDK12OSLogManagerC5debug7message8categoryySS_SStF",
             "moduleName": "CordialSDK",
             "isOpen": true,
+            "objc_name": "debugWithMessage:category:",
             "declAttributes": [
-              "AccessControl"
+              "ObjC"
             ],
             "funcSelfKind": "NonMutating"
           },
           {
             "kind": "Function",
-            "name": "isAvailableOsLogLevelForPrint",
-            "printedName": "isAvailableOsLogLevelForPrint(osLogLevel:)",
+            "name": "error",
+            "printedName": "error(message:category:)",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "Bool",
-                "printedName": "Swift.Bool",
-                "usr": "s:Sb"
+                "name": "Void",
+                "printedName": "()"
               },
               {
                 "kind": "TypeNominal",
-                "name": "osLogLevel",
-                "printedName": "CordialSDK.osLogLevel",
-                "usr": "s:10CordialSDK10osLogLevelO"
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A12OSLogManagerC29isAvailableOsLogLevelForPrint02oshI0SbAaEO_tF",
-            "mangledName": "$s10CordialSDK0A12OSLogManagerC29isAvailableOsLogLevelForPrint02oshI0SbAaEO_tF",
+            "usr": "s:10CordialSDK12OSLogManagerC5error7message8categoryySS_SStF",
+            "mangledName": "$s10CordialSDK12OSLogManagerC5error7message8categoryySS_SStF",
             "moduleName": "CordialSDK",
             "isOpen": true,
+            "objc_name": "errorWithMessage:category:",
+            "declAttributes": [
+              "ObjC"
+            ],
             "funcSelfKind": "NonMutating"
           },
           {
-            "kind": "Constructor",
-            "name": "init",
-            "printedName": "init()",
+            "kind": "Function",
+            "name": "fault",
+            "printedName": "fault(message:category:)",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "CordialOSLogManager",
-                "printedName": "CordialSDK.CordialOSLogManager",
-                "usr": "c:@M@CordialSDK@objc(cs)CordialOSLogManager"
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
-            "declKind": "Constructor",
-            "usr": "c:@M@CordialSDK@objc(cs)CordialOSLogManager(im)init",
-            "mangledName": "$s10CordialSDK0A12OSLogManagerCACycfc",
+            "declKind": "Func",
+            "usr": "s:10CordialSDK12OSLogManagerC5fault7message8categoryySS_SStF",
+            "mangledName": "$s10CordialSDK12OSLogManagerC5fault7message8categoryySS_SStF",
             "moduleName": "CordialSDK",
-            "overriding": true,
-            "implicit": true,
-            "objc_name": "init",
+            "isOpen": true,
+            "objc_name": "faultWithMessage:category:",
             "declAttributes": [
-              "Dynamic",
-              "ObjC",
-              "Override"
+              "ObjC"
             ],
-            "init_kind": "Designated"
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Class",
-        "usr": "c:@M@CordialSDK@objc(cs)CordialOSLogManager",
-        "mangledName": "$s10CordialSDK0A12OSLogManagerC",
+        "usr": "s:10CordialSDK12OSLogManagerC",
+        "mangledName": "$s10CordialSDK12OSLogManagerC",
         "moduleName": "CordialSDK",
         "isOpen": true,
         "declAttributes": [
-          "AccessControl",
-          "ObjC"
-        ],
-        "superclassUsr": "c:objc(cs)NSObject",
-        "inheritsConvenienceInitializers": true,
-        "superclassNames": [
-          "ObjectiveC.NSObject"
+          "RawDocComment"
         ],
         "conformances": [
           {
             "kind": "Conformance",
-            "name": "Equatable",
-            "printedName": "Equatable",
-            "usr": "s:SQ",
-            "mangledName": "$sSQ"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Hashable",
-            "printedName": "Hashable",
-            "usr": "s:SH",
-            "mangledName": "$sSH"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CVarArg",
-            "printedName": "CVarArg",
-            "usr": "s:s7CVarArgP",
-            "mangledName": "$ss7CVarArgP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "_KeyValueCodingAndObservingPublishing",
-            "printedName": "_KeyValueCodingAndObservingPublishing",
-            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
-            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "_KeyValueCodingAndObserving",
-            "printedName": "_KeyValueCodingAndObserving",
-            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
-            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CustomStringConvertible",
-            "printedName": "CustomStringConvertible",
-            "usr": "s:s23CustomStringConvertibleP",
-            "mangledName": "$ss23CustomStringConvertibleP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CustomDebugStringConvertible",
-            "printedName": "CustomDebugStringConvertible",
-            "usr": "s:s28CustomDebugStringConvertibleP",
-            "mangledName": "$ss28CustomDebugStringConvertibleP"
+            "name": "LoggerDelegate",
+            "printedName": "LoggerDelegate",
+            "usr": "c:@M@CordialSDK@objc(pl)LoggerDelegate",
+            "mangledName": "$s10CordialSDK14LoggerDelegateP"
           }
         ]
       },
@@ -53199,13 +53904,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -53405,13 +54103,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -56644,13 +57335,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -60891,13 +61575,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "ReachabilityManager",
         "printedName": "ReachabilityManager",
@@ -63879,13 +64556,6 @@
         "moduleName": "CordialSDK"
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "InboxMessagesContentCoreData",
         "printedName": "InboxMessagesContentCoreData",
@@ -64080,13 +64750,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -66185,13 +66848,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "InboxMessageContentGetter",
         "printedName": "InboxMessageContentGetter",
@@ -66527,13 +67183,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -66966,13 +67615,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -67686,13 +68328,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "InternalCordialAPI",
         "printedName": "InternalCordialAPI",
@@ -67951,14 +68586,22 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK08InternalA3APIC20setContactPrimaryKey07primaryH0ySS_tF",
-            "mangledName": "$s10CordialSDK08InternalA3APIC20setContactPrimaryKey07primaryH0ySS_tF",
+            "usr": "s:10CordialSDK08InternalA3APIC20setContactPrimaryKey07primaryH0ySSSg_tF",
+            "mangledName": "$s10CordialSDK08InternalA3APIC20setContactPrimaryKey07primaryH0ySSSg_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -68019,8 +68662,8 @@
           },
           {
             "kind": "Function",
-            "name": "setPreviousPrimaryKeyAndRemoveCurrent",
-            "printedName": "setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey:)",
+            "name": "setPreviousContactPrimaryKey",
+            "printedName": "setPreviousContactPrimaryKey(previousPrimaryKey:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -68043,8 +68686,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK08InternalA3APIC37setPreviousPrimaryKeyAndRemoveCurrent08previousgH0ySSSg_tF",
-            "mangledName": "$s10CordialSDK08InternalA3APIC37setPreviousPrimaryKeyAndRemoveCurrent08previousgH0ySSSg_tF",
+            "usr": "s:10CordialSDK08InternalA3APIC28setPreviousContactPrimaryKey08previoushI0ySSSg_tF",
+            "mangledName": "$s10CordialSDK08InternalA3APIC28setPreviousContactPrimaryKey08previoushI0ySSSg_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -68546,6 +69189,60 @@
           },
           {
             "kind": "Function",
+            "name": "getMergedDictionaryToSystemEventsProperties",
+            "printedName": "getMergedDictionaryToSystemEventsProperties(properties:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK08InternalA3APIC43getMergedDictionaryToSystemEventsProperties10propertiesSDySSypGAF_tF",
+            "mangledName": "$s10CordialSDK08InternalA3APIC43getMergedDictionaryToSystemEventsProperties10propertiesSDySSypGAF_tF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "getPushNotificationStatus",
             "printedName": "getPushNotificationStatus()",
             "children": [
@@ -68569,7 +69266,7 @@
           {
             "kind": "Function",
             "name": "setPushNotificationStatus",
-            "printedName": "setPushNotificationStatus(status:authorizationStatus:)",
+            "printedName": "setPushNotificationStatus(status:authorizationStatus:isSentPushNotificationAuthorizationStatus:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -68587,11 +69284,18 @@
                 "name": "UNAuthorizationStatus",
                 "printedName": "UserNotifications.UNAuthorizationStatus",
                 "usr": "c:@E@UNAuthorizationStatus"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "hasDefaultArg": true,
+                "usr": "s:Sb"
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK08InternalA3APIC25setPushNotificationStatus6status013authorizationH0ySS_So015UNAuthorizationH0VtF",
-            "mangledName": "$s10CordialSDK08InternalA3APIC25setPushNotificationStatus6status013authorizationH0ySS_So015UNAuthorizationH0VtF",
+            "usr": "s:10CordialSDK08InternalA3APIC25setPushNotificationStatus6status013authorizationH006isSentfg13AuthorizationH0ySS_So015UNAuthorizationH0VSbtF",
+            "mangledName": "$s10CordialSDK08InternalA3APIC25setPushNotificationStatus6status013authorizationH006isSentfg13AuthorizationH0ySS_So015UNAuthorizationH0VSbtF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "declAttributes": [
@@ -68940,13 +69644,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -70893,13 +71590,6 @@
         "moduleName": "CordialSDK"
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "InboxMessageDeleteCoreData",
         "printedName": "InboxMessageDeleteCoreData",
@@ -72279,13 +72969,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "InboxMessagesMarkReadUnreadSender",
         "printedName": "InboxMessagesMarkReadUnreadSender",
@@ -73169,13 +73852,6 @@
         "kind": "Import",
         "name": "CoreLocation",
         "printedName": "CoreLocation",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -75053,13 +75729,6 @@
         "moduleName": "CordialSDK"
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "SDKSecurity",
         "printedName": "SDKSecurity",
@@ -76016,13 +76685,6 @@
         ]
       },
       {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
         "kind": "TypeDecl",
         "name": "CordialSwiftUIDeepLinksHandler",
         "printedName": "CordialSwiftUIDeepLinksHandler",
@@ -76544,13 +77206,6 @@
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -78080,13 +78735,6 @@
         "declAttributes": [
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
       },
       {
         "kind": "TypeDecl",
@@ -80203,13 +80851,6 @@
         "kind": "Import",
         "name": "CoreData",
         "printedName": "CoreData",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "os.log",
-        "printedName": "os.log",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -86143,1015 +86784,6 @@
       },
       {
         "kind": "TypeDecl",
-        "name": "OSLog",
-        "printedName": "OSLog",
-        "children": [
-          {
-            "kind": "Var",
-            "name": "cordialInfo",
-            "printedName": "cordialInfo",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE11cordialInfoABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE11cordialInfoABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE11cordialInfoABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE11cordialInfoABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialError",
-            "printedName": "cordialError",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE12cordialErrorABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE12cordialErrorABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE12cordialErrorABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE12cordialErrorABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialCoreDataError",
-            "printedName": "cordialCoreDataError",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE20cordialCoreDataErrorABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE20cordialCoreDataErrorABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE20cordialCoreDataErrorABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE20cordialCoreDataErrorABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialPushNotification",
-            "printedName": "cordialPushNotification",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE23cordialPushNotificationABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE23cordialPushNotificationABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE23cordialPushNotificationABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE23cordialPushNotificationABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialPushNotificationCarousel",
-            "printedName": "cordialPushNotificationCarousel",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE31cordialPushNotificationCarouselABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE31cordialPushNotificationCarouselABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE31cordialPushNotificationCarouselABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE31cordialPushNotificationCarouselABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialBackgroundURLSession",
-            "printedName": "cordialBackgroundURLSession",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE27cordialBackgroundURLSessionABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE27cordialBackgroundURLSessionABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE27cordialBackgroundURLSessionABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE27cordialBackgroundURLSessionABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialDeepLinks",
-            "printedName": "cordialDeepLinks",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE16cordialDeepLinksABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE16cordialDeepLinksABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE16cordialDeepLinksABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE16cordialDeepLinksABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialSendCustomEvents",
-            "printedName": "cordialSendCustomEvents",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE23cordialSendCustomEventsABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE23cordialSendCustomEventsABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE23cordialSendCustomEventsABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE23cordialSendCustomEventsABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialUpsertContactCart",
-            "printedName": "cordialUpsertContactCart",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE24cordialUpsertContactCartABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE24cordialUpsertContactCartABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE24cordialUpsertContactCartABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE24cordialUpsertContactCartABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialSendContactOrders",
-            "printedName": "cordialSendContactOrders",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE24cordialSendContactOrdersABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE24cordialSendContactOrdersABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE24cordialSendContactOrdersABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE24cordialSendContactOrdersABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialUpsertContacts",
-            "printedName": "cordialUpsertContacts",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE21cordialUpsertContactsABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE21cordialUpsertContactsABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE21cordialUpsertContactsABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE21cordialUpsertContactsABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialSendContactLogout",
-            "printedName": "cordialSendContactLogout",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE24cordialSendContactLogoutABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE24cordialSendContactLogoutABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE24cordialSendContactLogoutABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE24cordialSendContactLogoutABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialInAppMessage",
-            "printedName": "cordialInAppMessage",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE19cordialInAppMessageABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE19cordialInAppMessageABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE19cordialInAppMessageABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE19cordialInAppMessageABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialInAppMessageContent",
-            "printedName": "cordialInAppMessageContent",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE26cordialInAppMessageContentABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE26cordialInAppMessageContentABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE26cordialInAppMessageContentABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE26cordialInAppMessageContentABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialInAppMessages",
-            "printedName": "cordialInAppMessages",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE20cordialInAppMessagesABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE20cordialInAppMessagesABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE20cordialInAppMessagesABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE20cordialInAppMessagesABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialSecurity",
-            "printedName": "cordialSecurity",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE15cordialSecurityABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE15cordialSecurityABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE15cordialSecurityABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE15cordialSecurityABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialInboxMessages",
-            "printedName": "cordialInboxMessages",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE20cordialInboxMessagesABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE20cordialInboxMessagesABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE20cordialInboxMessagesABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE20cordialInboxMessagesABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
-            "name": "cordialContactTimestamps",
-            "printedName": "cordialContactTimestamps",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "OSLog",
-                "printedName": "os.OSLog",
-                "usr": "c:objc(cs)OS_os_log"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "s:So9OS_os_logC10CordialSDKE24cordialContactTimestampsABvpZ",
-            "mangledName": "$sSo9OS_os_logC10CordialSDKE24cordialContactTimestampsABvpZ",
-            "moduleName": "CordialSDK",
-            "static": true,
-            "declAttributes": [
-              "HasInitialValue",
-              "Final",
-              "HasStorage"
-            ],
-            "isFromExtension": true,
-            "isLet": true,
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "OSLog",
-                    "printedName": "os.OSLog",
-                    "usr": "c:objc(cs)OS_os_log"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:So9OS_os_logC10CordialSDKE24cordialContactTimestampsABvgZ",
-                "mangledName": "$sSo9OS_os_logC10CordialSDKE24cordialContactTimestampsABvgZ",
-                "moduleName": "CordialSDK",
-                "static": true,
-                "implicit": true,
-                "declAttributes": [
-                  "Final"
-                ],
-                "isFromExtension": true,
-                "accessorKind": "get"
-              }
-            ]
-          }
-        ],
-        "declKind": "Class",
-        "usr": "c:objc(cs)OS_os_log",
-        "moduleName": "os",
-        "isOpen": true,
-        "objc_name": "OS_os_log",
-        "declAttributes": [
-          "ObjC",
-          "Dynamic"
-        ],
-        "superclassUsr": "c:objc(cs)NSObject",
-        "isExternal": true,
-        "inheritsConvenienceInitializers": true,
-        "superclassNames": [
-          "ObjectiveC.NSObject"
-        ],
-        "conformances": [
-          {
-            "kind": "Conformance",
-            "name": "Equatable",
-            "printedName": "Equatable",
-            "usr": "s:SQ",
-            "mangledName": "$sSQ"
-          },
-          {
-            "kind": "Conformance",
-            "name": "Hashable",
-            "printedName": "Hashable",
-            "usr": "s:SH",
-            "mangledName": "$sSH"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CVarArg",
-            "printedName": "CVarArg",
-            "usr": "s:s7CVarArgP",
-            "mangledName": "$ss7CVarArgP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "_KeyValueCodingAndObservingPublishing",
-            "printedName": "_KeyValueCodingAndObservingPublishing",
-            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
-            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "_KeyValueCodingAndObserving",
-            "printedName": "_KeyValueCodingAndObserving",
-            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
-            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CustomStringConvertible",
-            "printedName": "CustomStringConvertible",
-            "usr": "s:s23CustomStringConvertibleP",
-            "mangledName": "$ss23CustomStringConvertibleP"
-          },
-          {
-            "kind": "Conformance",
-            "name": "CustomDebugStringConvertible",
-            "printedName": "CustomDebugStringConvertible",
-            "usr": "s:s28CustomDebugStringConvertibleP",
-            "mangledName": "$ss28CustomDebugStringConvertibleP"
-          }
-        ]
-      },
-      {
-        "kind": "TypeDecl",
         "name": "SCNetworkReachabilityFlags",
         "printedName": "SCNetworkReachabilityFlags",
         "children": [
@@ -88102,14 +87734,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/InAppMessagesParamCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 269,
+      "offset": 255,
       "length": 20,
       "value": "\"InAppMessagesParam\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/ContactCartRequestCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 269,
+      "offset": 255,
       "length": 20,
       "value": "\"ContactCartRequest\""
     },
@@ -88221,7 +87853,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/DeepLinks\/VanityDeepLink\/CordialVanityDeepLink.swift",
       "kind": "IntegerLiteral",
-      "offset": 253,
+      "offset": 239,
       "length": 1,
       "value": "3"
     },
@@ -88565,132 +88197,146 @@
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
       "offset": 5048,
-      "length": 35,
+      "length": 61,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 5075,
+      "length": 33,
       "value": "\"device_notifications_manual_optin\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5174,
-      "length": 36,
+      "offset": 5171,
+      "length": 62,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 5198,
+      "length": 34,
       "value": "\"device_notifications_manual_optout\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5283,
+      "offset": 5277,
       "length": 42,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5310,
+      "offset": 5304,
       "length": 14,
       "value": "\"deep_link_open\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5379,
+      "offset": 5373,
       "length": 48,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5406,
+      "offset": 5400,
       "length": 20,
       "value": "\"in_app_message_shown\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5483,
+      "offset": 5477,
       "length": 55,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5510,
+      "offset": 5504,
       "length": 27,
       "value": "\"in_app_message_auto_dismiss\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5596,
+      "offset": 5590,
       "length": 57,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5623,
+      "offset": 5617,
       "length": 29,
       "value": "\"in_app_message_manual_dismiss\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5701,
+      "offset": 5695,
       "length": 38,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5728,
+      "offset": 5722,
       "length": 10,
       "value": "\"inbox_read\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5822,
+      "offset": 5816,
       "length": 51,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5849,
+      "offset": 5843,
       "length": 23,
       "value": "\"notification_categories\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5930,
+      "offset": 5924,
       "length": 32,
       "value": "\"CordialSDKBackgroundURLSession\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 6023,
+      "offset": 6017,
       "length": 19,
       "value": "\"group.cordial.sdk\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 6087,
+      "offset": 6081,
       "length": 23,
       "value": "\"IAM_WEB_VIEW_BASE_URL\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 6164,
+      "offset": 6158,
       "length": 8,
       "value": "\"opt-in\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 6224,
+      "offset": 6218,
       "length": 9,
       "value": "\"opt-out\""
     },
@@ -88760,7 +88406,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/PushNotification\/CordialPushNotification.swift",
       "kind": "BooleanLiteral",
-      "offset": 525,
+      "offset": 511,
       "length": 5,
       "value": "false"
     },
@@ -88823,14 +88469,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/CoreDataSender.swift",
       "kind": "BooleanLiteral",
-      "offset": 260,
+      "offset": 246,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/InAppMessagesRelatedCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 276,
+      "offset": 262,
       "length": 22,
       "value": "\"InAppMessagesRelated\""
     },
@@ -88991,21 +88637,21 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/ContactTimestamps\/ContactTimestampURL.swift",
       "kind": "BooleanLiteral",
-      "offset": 422,
+      "offset": 408,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/InAppMessagesCacheCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 268,
+      "offset": 254,
       "length": 20,
       "value": "\"InAppMessagesCache\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/ContactLogoutRequestCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 273,
+      "offset": 259,
       "length": 15,
       "value": "\"ContactLogout\""
     },
@@ -89117,30 +88763,51 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/CoreDataManager.swift",
       "kind": "StringLiteral",
-      "offset": 362,
+      "offset": 348,
       "length": 15,
       "value": "\"CoreDataModel\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/CoreDataManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 1741,
+      "offset": 1727,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/CoreDataManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 1804,
+      "offset": 1790,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/CoreDataManager.swift",
       "kind": "StringLiteral",
-      "offset": 2187,
-      "length": 58,
-      "value": "\"CoreData Unresolved Error: [%{public}@] Info: %{public}@\""
+      "offset": 2079,
+      "length": 84,
+      "value": "\"CoreData Unresolved Error: [\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 2137,
+      "length": 1,
+      "value": "\"] Info: \""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 2162,
+      "length": 14,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/CoreDataManager.swift",
+      "kind": "StringLiteral",
+      "offset": 2175,
+      "length": 25,
+      "value": "\"CordialSDKCoreDataError\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/URLSession\/CordialURLSessionConfigurationType.swift",
@@ -89166,21 +88833,21 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/URLSession\/CordialURLSession.swift",
       "kind": "StringLiteral",
-      "offset": 536,
+      "offset": 522,
       "length": 43,
       "value": "\"CordialSDKBackgroundURLSessionThreadQueue\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/URLSession\/CordialURLSession.swift",
       "kind": "BooleanLiteral",
-      "offset": 805,
+      "offset": 791,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/URLSession\/CordialURLSession.swift",
       "kind": "BooleanLiteral",
-      "offset": 853,
+      "offset": 839,
       "length": 4,
       "value": "true"
     },
@@ -89208,7 +88875,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/InAppMessagesShownCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 272,
+      "offset": 258,
       "length": 20,
       "value": "\"InAppMessagesShown\""
     },
@@ -89257,7 +88924,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/InAppMessageContentURLCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 280,
+      "offset": 266,
       "length": 24,
       "value": "\"InAppMessageContentURL\""
     },
@@ -89663,7 +89330,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/CustomEventRequestsCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 271,
+      "offset": 257,
       "length": 20,
       "value": "\"CustomEventRequest\""
     },
@@ -89880,7 +89547,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/InAppMessagesQueueCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 268,
+      "offset": 254,
       "length": 20,
       "value": "\"InAppMessagesQueue\""
     },
@@ -90069,42 +89736,42 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 393,
+      "offset": 379,
       "length": 7,
-      "value": "\"4.2.0\""
+      "value": "\"4.2.1\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 1908,
+      "offset": 2024,
       "length": 4,
       "value": "1000"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 3055,
+      "offset": 3061,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 3510,
+      "offset": 3516,
       "length": 2,
       "value": "30"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4118,
+      "offset": 4124,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4146,
+      "offset": 4152,
       "length": 2,
       "value": "\"\""
     },
@@ -90216,14 +89883,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 623,
+      "offset": 609,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 746,
+      "offset": 732,
       "length": 5,
       "value": "false"
     },
@@ -90426,14 +90093,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/ContactTimestampsURLCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 276,
+      "offset": 262,
       "length": 22,
       "value": "\"ContactTimestampsURL\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/ContactTimestamps\/ContactTimestamps.swift",
       "kind": "BooleanLiteral",
-      "offset": 414,
+      "offset": 400,
       "length": 5,
       "value": "false"
     },
@@ -90457,6 +90124,90 @@
       "offset": 186,
       "length": 12,
       "value": "\"CordialSDK.NumericValue\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 226,
+      "length": 3,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 239,
+      "length": 5,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 254,
+      "length": 4,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 226,
+      "length": 3,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 239,
+      "length": 5,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 254,
+      "length": 4,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 381,
+      "length": 3,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 394,
+      "length": 5,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 409,
+      "length": 4,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 381,
+      "length": 3,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 394,
+      "length": 5,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/Logger\/LoggerLevel.swift",
+      "kind": "IntegerLiteral",
+      "offset": 409,
+      "length": 4,
+      "value": "3"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageDisplayType.swift",
@@ -90489,14 +90240,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/ContactOrderRequestsCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 273,
+      "offset": 259,
       "length": 21,
       "value": "\"ContactOrderRequest\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/InAppMessages\/InAppMessages.swift",
       "kind": "BooleanLiteral",
-      "offset": 398,
+      "offset": 384,
       "length": 5,
       "value": "false"
     },
@@ -90538,21 +90289,21 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/ContactRequestsCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 263,
+      "offset": 249,
       "length": 16,
       "value": "\"ContactRequest\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "BooleanLiteral",
-      "offset": 470,
+      "offset": 456,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "FloatLiteral",
-      "offset": 515,
+      "offset": 501,
       "length": 3,
       "value": "1.0"
     },
@@ -90578,228 +90329,11 @@
       "value": "\"CordialSDK.BooleanValue\""
     },
     {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 344,
-      "length": 16,
-      "value": "\"CordialSDKInfo\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 430,
-      "length": 17,
-      "value": "\"CordialSDKError\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 530,
-      "length": 25,
-      "value": "\"CordialSDKCoreDataError\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 641,
-      "length": 28,
-      "value": "\"CordialSDKPushNotification\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 758,
-      "length": 36,
-      "value": "\"CordialSDKPushNotificationCarousel\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 884,
-      "length": 32,
-      "value": "\"CordialSDKBackgroundURLSession\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 990,
-      "length": 21,
-      "value": "\"CordialSDKDeepLinks\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1097,
-      "length": 28,
-      "value": "\"CordialSDKSendCustomEvents\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1207,
-      "length": 29,
-      "value": "\"CordialSDKUpsertContactCart\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1318,
-      "length": 29,
-      "value": "\"CordialSDKSendContactOrders\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1426,
-      "length": 26,
-      "value": "\"CordialSDKUpsertContacts\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1534,
-      "length": 29,
-      "value": "\"CordialSDKSendContactLogout\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1640,
-      "length": 24,
-      "value": "\"CordialSDKInAppMessage\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1748,
-      "length": 31,
-      "value": "\"CordialSDKInAppMessageContent\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1857,
-      "length": 25,
-      "value": "\"CordialSDKInAppMessages\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 1955,
-      "length": 20,
-      "value": "\"CordialSDKSecurity\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2053,
-      "length": 25,
-      "value": "\"CordialSDKInboxMessages\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2160,
-      "length": 29,
-      "value": "\"CordialSDKContactTimestamps\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2256,
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Logs\/OSLogManager.swift",
+      "kind": "Dictionary",
+      "offset": 940,
       "length": 3,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2269,
-      "length": 5,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2284,
-      "length": 4,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2256,
-      "length": 3,
-      "value": "1"
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2269,
-      "length": 5,
-      "value": "2"
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "IntegerLiteral",
-      "offset": 2284,
-      "length": 4,
-      "value": "3"
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2342,
-      "length": 6,
-      "value": "\"none\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2364,
-      "length": 5,
-      "value": "\"all\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2387,
-      "length": 7,
-      "value": "\"error\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2411,
-      "length": 6,
-      "value": "\"info\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2342,
-      "length": 6,
-      "value": "\"none\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2364,
-      "length": 5,
-      "value": "\"all\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2387,
-      "length": 7,
-      "value": "\"error\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/OSLog\/CordialOSLogManager.swift",
-      "kind": "StringLiteral",
-      "offset": 2411,
-      "length": 6,
-      "value": "\"info\""
+      "value": "[]"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/ResponseError.swift",
@@ -91070,7 +90604,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Reachability\/ReachabilityManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 339,
+      "offset": 325,
       "length": 4,
       "value": "true"
     },
@@ -91196,7 +90730,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/InboxMessagesContentCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 276,
+      "offset": 262,
       "length": 22,
       "value": "\"InboxMessagesContent\""
     },
@@ -91231,21 +90765,28 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/InboxMessage\/InboxMessageContentGetter.swift",
       "kind": "BooleanLiteral",
-      "offset": 347,
+      "offset": 333,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/InboxMessage\/InboxMessageContentGetter.swift",
       "kind": "BooleanLiteral",
-      "offset": 383,
+      "offset": 369,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/InternalCordialAPI.swift",
+      "kind": "BooleanLiteral",
+      "offset": 20989,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Swizzler\/CordialSwizzler.swift",
       "kind": "Dictionary",
-      "offset": 10967,
+      "offset": 10063,
       "length": 3,
       "value": "[]"
     },
@@ -91266,14 +90807,14 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/InboxMessageDeleteCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 272,
+      "offset": 258,
       "length": 28,
       "value": "\"InboxMessageDeleteRequests\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/SDKSecurity\/SDKSecurity.swift",
       "kind": "BooleanLiteral",
-      "offset": 430,
+      "offset": 416,
       "length": 5,
       "value": "false"
     },
@@ -91308,7 +90849,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/InboxMessagesCacheCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 272,
+      "offset": 258,
       "length": 20,
       "value": "\"InboxMessagesCache\""
     },
@@ -91518,7 +91059,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/CoreData\/Helper\/InboxMessagesMarkReadUnreadCoreData.swift",
       "kind": "StringLiteral",
-      "offset": 290,
+      "offset": 276,
       "length": 30,
       "value": "\"InboxMessagesReadUnreadMarks\""
     },

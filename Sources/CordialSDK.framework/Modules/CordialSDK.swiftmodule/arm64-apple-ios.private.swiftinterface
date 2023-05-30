@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
+// swift-compiler-version: Apple Swift version 5.8 (swiftlang-5.8.0.124.2 clang-1403.0.22.11.100)
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name CordialSDK
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import Combine
@@ -127,7 +127,7 @@ extension CordialSDK.ContactOrderRequest {
 @_inheritsConvenienceInitializers @objc public class InAppMessageDelayMode : ObjectiveC.NSObject {
   @objc public func show()
   @objc public func delayedShow()
-  @objc public func disallowedControllers(_ disallowedControllersType: [Swift.AnyObject.Type])
+  @objc public func disallowedControllers(_ disallowedControllersType: [any Swift.AnyObject.Type])
   @objc override dynamic public init()
   @objc deinit
 }
@@ -288,6 +288,13 @@ extension CordialSDK.InboxMessagesContent {
     @objc set
   }
 }
+@objc public protocol LoggerDelegate {
+  @objc func log(message: Swift.String, category: Swift.String)
+  @objc func info(message: Swift.String, category: Swift.String)
+  @objc func debug(message: Swift.String, category: Swift.String)
+  @objc func error(message: Swift.String, category: Swift.String)
+  @objc func fault(message: Swift.String, category: Swift.String)
+}
 @objc public protocol AttributeValue {
 }
 @_hasMissingDesignatedInitializers @objc public class Order : ObjectiveC.NSObject, Foundation.NSCoding {
@@ -312,12 +319,14 @@ extension CordialSDK.InAppMessagesQueue {
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class CordialApiConfiguration : ObjectiveC.NSObject {
   @objc public static let shared: CordialSDK.CordialApiConfiguration
-  @objc final public let osLogManager: CordialSDK.CordialOSLogManager
-  @objc public var cordialDeepLinksDelegate: CordialSDK.CordialDeepLinksDelegate?
-  @objc public var pushNotificationDelegate: CordialSDK.CordialPushNotificationDelegate?
-  @objc public var pushNotificationCategoriesDelegate: CordialSDK.PushNotificationCategoriesDelegate?
-  @objc public var inAppMessageInputsDelegate: CordialSDK.InAppMessageInputsDelegate?
-  @objc public var inboxMessageDelegate: CordialSDK.InboxMessageDelegate?
+  @available(*, deprecated, message: "Use loggerManager instead")
+  @objc final public let osLogManager: CordialSDK.LoggerManager
+  @objc final public let loggerManager: CordialSDK.LoggerManager
+  @objc public var cordialDeepLinksDelegate: (any CordialSDK.CordialDeepLinksDelegate)?
+  @objc public var pushNotificationDelegate: (any CordialSDK.CordialPushNotificationDelegate)?
+  @objc public var pushNotificationCategoriesDelegate: (any CordialSDK.PushNotificationCategoriesDelegate)?
+  @objc public var inAppMessageInputsDelegate: (any CordialSDK.InAppMessageInputsDelegate)?
+  @objc public var inboxMessageDelegate: (any CordialSDK.InboxMessageDelegate)?
   @objc public var pushesConfiguration: CordialSDK.CordialPushNotificationConfigurationType
   @objc public var deepLinksConfiguration: CordialSDK.CordialDeepLinksConfigurationType
   @objc public var backgroundURLSessionConfiguration: CordialSDK.CordialURLSessionConfigurationType
@@ -339,6 +348,21 @@ extension CordialSDK.InAppMessagesQueue {
   @objc final public let inAppMessageDelayMode: CordialSDK.InAppMessageDelayMode
   @objc public func initialize(accountKey: Swift.String, channelKey: Swift.String, eventsStreamURL: Swift.String = "", messageHubURL: Swift.String = "")
   @objc public func initializeLocationManager(desiredAccuracy: CoreLocation.CLLocationAccuracy, distanceFilter: CoreLocation.CLLocationDistance, untilTraveled: CoreLocation.CLLocationDistance, timeout: Foundation.TimeInterval)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class LoggerManager : ObjectiveC.NSObject {
+  @objc public static let shared: CordialSDK.LoggerManager
+  @objc public func setLoggers(loggers: [any CordialSDK.LoggerDelegate])
+  @objc public func log(message: Swift.String, category: Swift.String)
+  @objc public func info(message: Swift.String, category: Swift.String)
+  @objc public func debug(message: Swift.String, category: Swift.String)
+  @objc public func error(message: Swift.String, category: Swift.String)
+  @objc public func fault(message: Swift.String, category: Swift.String)
+  @objc public func setLoggerLevel(_ loggerLevel: CordialSDK.LoggerLevel)
+  @objc @available(*, deprecated, message: "Use setLoggerLevel instead")
+  public func setLogLevel(_ logLevel: CordialSDK.logLevel)
+  @objc @available(*, deprecated, message: "Use setLoggerLevel instead")
+  public func setOSLogLevel(_ logLevel: CordialSDK.logLevel)
   @objc deinit
 }
 @_inheritsConvenienceInitializers @objc(InboxMessagesContent) public class InboxMessagesContent : CoreData.NSManagedObject {
@@ -445,6 +469,29 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   @objc required convenience public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
+@objc public enum LoggerLevel : Swift.Int {
+  case none
+  case all
+  case error
+  case info
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@available(*, deprecated, message: "Use LoggerLevel instead")
+@objc public enum logLevel : Swift.Int {
+  case none
+  case all
+  case error
+  case info
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
 @objc public protocol InAppMessageInputsDelegate {
   @objc func inputsCaptured(eventName: Swift.String, properties: Swift.Dictionary<Swift.String, Any>)
 }
@@ -478,34 +525,6 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   @objc override dynamic public init()
   @objc deinit
 }
-@objc public enum logLevel : Swift.Int {
-  case none
-  case all
-  case error
-  case info
-  public init?(rawValue: Swift.Int)
-  public typealias RawValue = Swift.Int
-  public var rawValue: Swift.Int {
-    get
-  }
-}
-public enum osLogLevel : Swift.String {
-  case none
-  case all
-  case error
-  case info
-  public init?(rawValue: Swift.String)
-  public typealias RawValue = Swift.String
-  public var rawValue: Swift.String {
-    get
-  }
-}
-@_inheritsConvenienceInitializers @objc public class CordialOSLogManager : ObjectiveC.NSObject {
-  @objc public func setLogLevel(_ logLevel: CordialSDK.logLevel)
-  public func setOSLogLevel(_ osLogLevel: CordialSDK.osLogLevel)
-  @objc override dynamic public init()
-  @objc deinit
-}
 @_inheritsConvenienceInitializers @objc public class CordialAPI : ObjectiveC.NSObject {
   @objc public func getAccountKey() -> Swift.String
   @objc public func getChannelKey() -> Swift.String
@@ -518,7 +537,7 @@ public enum osLogLevel : Swift.String {
   @objc public func setCurrentMcID(mcID: Swift.String)
   @objc public func setContact(primaryKey: Swift.String?)
   @objc public func unsetContact()
-  @objc public func upsertContact(attributes: Swift.Dictionary<Swift.String, CordialSDK.AttributeValue>?)
+  @objc public func upsertContact(attributes: Swift.Dictionary<Swift.String, any CordialSDK.AttributeValue>?)
   @objc public func sendCustomEvent(eventName: Swift.String, properties: Swift.Dictionary<Swift.String, Any>?)
   @objc public func flushEvents()
   @objc public func upsertContactCart(cartItems: [CordialSDK.CartItem])
@@ -532,9 +551,9 @@ public enum osLogLevel : Swift.String {
   @objc final public let message: Swift.String
   final public let statusCode: Swift.Int?
   @objc final public let responseBody: Swift.String?
-  @objc final public let systemError: Swift.Error?
-  @objc convenience public init(message: Swift.String, statusCodeNumber: Foundation.NSNumber?, responseBody: Swift.String?, systemError: Swift.Error?)
-  public init(message: Swift.String, statusCode: Swift.Int?, responseBody: Swift.String?, systemError: Swift.Error?)
+  @objc final public let systemError: (any Swift.Error)?
+  @objc convenience public init(message: Swift.String, statusCodeNumber: Foundation.NSNumber?, responseBody: Swift.String?, systemError: (any Swift.Error)?)
+  public init(message: Swift.String, statusCode: Swift.Int?, responseBody: Swift.String?, systemError: (any Swift.Error)?)
   @objc deinit
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class GeoValue : ObjectiveC.NSObject, Foundation.NSCoding, CordialSDK.AttributeValue {
@@ -908,12 +927,15 @@ extension CordialSDK.CordialDeepLinksConfigurationType : Swift.RawRepresentable 
 extension CordialSDK.CordialDeepLinkActionType : Swift.Equatable {}
 extension CordialSDK.CordialDeepLinkActionType : Swift.Hashable {}
 extension CordialSDK.CordialDeepLinkActionType : Swift.RawRepresentable {}
+extension CordialSDK.LoggerLevel : Swift.Equatable {}
+extension CordialSDK.LoggerLevel : Swift.Hashable {}
+extension CordialSDK.LoggerLevel : Swift.RawRepresentable {}
+@available(*, deprecated, message: "Use LoggerLevel instead")
 extension CordialSDK.logLevel : Swift.Equatable {}
+@available(*, deprecated, message: "Use LoggerLevel instead")
 extension CordialSDK.logLevel : Swift.Hashable {}
+@available(*, deprecated, message: "Use LoggerLevel instead")
 extension CordialSDK.logLevel : Swift.RawRepresentable {}
-extension CordialSDK.osLogLevel : Swift.Equatable {}
-extension CordialSDK.osLogLevel : Swift.Hashable {}
-extension CordialSDK.osLogLevel : Swift.RawRepresentable {}
 @available(*, unavailable, renamed: "Connection")
 extension CordialSDK.Reachability.NetworkStatus : Swift.Equatable {}
 @available(*, unavailable, renamed: "Connection")
