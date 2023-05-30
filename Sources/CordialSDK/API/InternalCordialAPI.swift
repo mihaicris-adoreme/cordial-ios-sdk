@@ -514,6 +514,12 @@ class InternalCordialAPI {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
     }
     
+    // MARK: Remove push notification status
+    
+    func removePushNotificationStatus() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
+    }
+    
     // MARK: Get push notification authorization status
     
     private func getPushNotificationAuthorizationStatus() -> UNAuthorizationStatus {
@@ -535,26 +541,22 @@ class InternalCordialAPI {
     }
     
     private func setPushNotificationAuthorizationStatus(authorizationStatus: UNAuthorizationStatus) {
-        let prevAuthorizationStatus = self.getPushNotificationAuthorizationStatus()
+        let mcID = CordialAPI().getCurrentMcID()
         
-        if authorizationStatus != prevAuthorizationStatus {
-            let mcID = CordialAPI().getCurrentMcID()
+        switch authorizationStatus {
+        case .denied:
+            let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: self.getPushNotificationAuthorizationStatus())
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT, mcID: mcID, properties: systemEventsProperties)
+            self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
             
-            switch authorizationStatus {
-            case .denied:
-                let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: prevAuthorizationStatus)
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT, mcID: mcID, properties: systemEventsProperties)
-                self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-                
-                CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
-            case .authorized, .provisional:
-                let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN, mcID: mcID, properties: systemEventsProperties)
-                self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-                
-                CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
-            default: break
-            }
+            CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
+        case .authorized, .provisional:
+            let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN, mcID: mcID, properties: systemEventsProperties)
+            self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+            
+            CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
+        default: break
         }
     }
     
