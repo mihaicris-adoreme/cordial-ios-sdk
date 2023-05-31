@@ -9922,6 +9922,13 @@
         ]
       },
       {
+        "kind": "Import",
+        "name": "UserNotifications",
+        "printedName": "UserNotifications",
+        "declKind": "Import",
+        "moduleName": "CordialSDK"
+      },
+      {
         "kind": "TypeDecl",
         "name": "ContactsSender",
         "printedName": "ContactsSender",
