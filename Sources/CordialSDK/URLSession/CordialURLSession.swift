@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import os.log
 
 class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegate {
     
@@ -181,9 +180,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                     }
                     
                 } catch let error {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed decode response data. Error: [%{public}@]", log: OSLog.cordialInAppMessage, type: .error, error.localizedDescription)
-                    }
+                    LoggerManager.shared.error(message: "Failed decode response data. Error: [\(error.localizedDescription)]", category: "CordialSDKInAppMessage")
                 }
             case .image:
                 if let image = UIImage(named: location.path),
@@ -199,9 +196,7 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
                         }
                     }
                 } else {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                        os_log("Failed decode response data. Error: [Image data by URL is not a image]", log: OSLog.cordialInAppMessage, type: .error)
-                    }
+                    LoggerManager.shared.error(message: "Failed decode response data. Error: [Image data by URL is not a image]", category: "CordialSDKInAppMessage")
                 }
             default: break
             }

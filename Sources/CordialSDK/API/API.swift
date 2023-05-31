@@ -56,8 +56,8 @@ struct API {
     static let EVENT_NAME_APP_MOVED_FROM_BACKGROUND = "\(API.SYSTEM_EVENT_PREFIX)app_open"
     static let EVENT_NAME_PUSH_NOTIFICATION_DELIVERED_FOREGROUND = "\(API.SYSTEM_EVENT_PREFIX)notification_delivered_in_foreground"
     static let EVENT_NAME_PUSH_NOTIFICATION_TAP = "\(API.SYSTEM_EVENT_PREFIX)notification_tap"
-    static let EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN = "device_notifications_manual_optin" // TMP - need to add `crdl_`
-    static let EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT = "device_notifications_manual_optout" // TMP - need to add `crdl_`
+    static let EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN = "\(API.SYSTEM_EVENT_PREFIX)device_notifications_manual_optin"
+    static let EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT = "\(API.SYSTEM_EVENT_PREFIX)device_notifications_manual_optout"
     static let EVENT_NAME_DEEP_LINK_OPEN = "\(API.SYSTEM_EVENT_PREFIX)deep_link_open"
     static let EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_shown"
     static let EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE = "\(API.SYSTEM_EVENT_PREFIX)in_app_message_auto_dismiss"

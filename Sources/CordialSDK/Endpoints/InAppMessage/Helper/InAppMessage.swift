@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import os.log
 
 class InAppMessage {
     
@@ -39,24 +38,18 @@ class InAppMessage {
                 if UIApplication.shared.applicationState == .active {
                     switch inAppMessageData.displayType {
                     case InAppMessageDisplayType.displayOnAppOpenEvent:
-                        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                            os_log("IAM: [Display on next app open]. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                        }
+                        LoggerManager.shared.info(message: "IAM: [Display on next app open]. Save \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]", category: "CordialSDKInAppMessage")
                     case InAppMessageDisplayType.displayImmediately:
                         if InAppMessageProcess.shared.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                             InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
                         } else {
                             InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
                             
-                            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                                os_log("Failed showing %{public}@ IAM with mcID: [%{public}@]. Error: [Live time has expired]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                            }
+                            LoggerManager.shared.info(message: "Failed showing \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]. Error: [Live time has expired]", category: "CordialSDKInAppMessage")
                         }
                     }
                 } else {
-                    if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-                        os_log("IAM: [App is not on foreground]. Save %{public}@ IAM with mcID: [%{public}@]", log: OSLog.cordialInAppMessage, type: .info, inAppMessageData.type.rawValue, inAppMessageData.mcID)
-                    }
+                    LoggerManager.shared.info(message: "IAM: [App is not on foreground]. Save \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]", category: "CordialSDKInAppMessage")
                 }
             }
         }

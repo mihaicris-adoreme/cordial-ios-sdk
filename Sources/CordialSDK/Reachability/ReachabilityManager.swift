@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os.log
 
 class ReachabilityManager {
     
@@ -25,9 +24,7 @@ class ReachabilityManager {
         do {
             try reachability.startNotifier()
         } catch let error {
-            if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .error) {
-                os_log("Could not start reachability notifier. Error: [%{public}@]", log: OSLog.cordialError, type: .error, error.localizedDescription)
-            }
+            LoggerManager.shared.error(message: "Could not start reachability notifier. Error: [\(error.localizedDescription)]", category: "CordialSDKError")
         }
     }
     

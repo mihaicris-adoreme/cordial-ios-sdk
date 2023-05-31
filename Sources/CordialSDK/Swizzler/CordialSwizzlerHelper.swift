@@ -7,18 +7,15 @@
 //
 
 import UIKit
-import os.log
 
 class CordialSwizzlerHelper {
     
     // MARK: Push notification
     
     func didReceiveRemoteNotification(userInfo: [AnyHashable : Any]) {
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Silent push notification received. Payload: %{public}@", log: OSLog.cordialPushNotification, type: .info, userInfo)
-        }
-        
         let pushNotificationParser = PushNotificationParser()
+        
+        LoggerManager.shared.info(message: "Silent push notification received. Payload: \(pushNotificationParser.getPayloadJSON(userInfo: userInfo))", category: "CordialSDKPushNotification")
         
         if pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
             switch CordialApiConfiguration.shared.inAppMessagesDeliveryConfiguration {
@@ -60,6 +57,9 @@ class CordialSwizzlerHelper {
         
         let token = internalCordialAPI.getPreparedRemoteNotificationsDeviceToken(deviceToken: deviceToken)
         
+        let systemEventsProperties = internalCordialAPI.getMergedDictionaryToSystemEventsProperties(properties: ["pushToken": token])
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+        
         // UIKit
         if let pushNotificationDelegate = CordialApiConfiguration.shared.pushNotificationDelegate {
             pushNotificationDelegate.apnsTokenReceived(token: token)
@@ -72,25 +72,23 @@ class CordialSwizzlerHelper {
             }
         }
         
-        if CordialApiConfiguration.shared.osLogManager.isAvailableOsLogLevelForPrint(osLogLevel: .info) {
-            os_log("Device Token: [%{public}@]", log: OSLog.cordialPushNotification, type: .info, token)
-        }
+        LoggerManager.shared.info(message: "Device Token: [\(token)]", category: "CordialSDKPushNotification")
         
         internalCordialAPI.setPushNotificationToken(token: token)
         
         if internalCordialAPI.isUserLogin() || !internalCordialAPI.hasUserBeenLoggedIn() {
-            self.preparePushNotificationStatus(token: token)
+            self.sendPushNotificationToken(token: token)
         }
     }
-    
-    private func preparePushNotificationStatus(token: String) {
+        
+    private func sendPushNotificationToken(token: String) {
         DispatchQueue.main.async {
             let current = UNUserNotificationCenter.current()
             
-            var status = String()
-            
             current.getNotificationSettings { settings in
                 DispatchQueue.main.async {
+                    var status = String()
+                    
                     if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
                         status = API.PUSH_NOTIFICATION_STATUS_ALLOW
                     } else {
@@ -99,17 +97,12 @@ class CordialSwizzlerHelper {
                     
                     InternalCordialAPI().setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus)
                     
-                    self.sendPushNotificationToken(token: token, status: status)
+                    let primaryKey = CordialAPI().getContactPrimaryKey()
+                    let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
+                    ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
                 }
             }
         }
-    }
-    
-    private func sendPushNotificationToken(token: String, status: String) {
-        let primaryKey = CordialAPI().getContactPrimaryKey()
-        
-        let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
-        ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
     }
     
     // MARK: AppDelegate universal links method

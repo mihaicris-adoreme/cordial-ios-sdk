@@ -172,7 +172,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show push categories selection screen prior to asking a push notification permission" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFs-DS-E29">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show push categories selection screen prior to asking a push notification permission" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFs-DS-E29">
                                         <rect key="frame" x="32" y="350" width="175" height="62.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -358,7 +358,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMy-uq-mV0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="1089"/>
+            <point key="canvasLocation" x="139" y="1112"/>
         </scene>
         <!--Inbox Messages Table List View Controller-->
         <scene sceneID="T7M-Kf-kFu">
@@ -724,6 +724,7 @@
                         <segue destination="GOw-pz-0e3" kind="show" identifier="segueToInboxCollection" id="MAf-P6-8Od"/>
                         <segue destination="1GM-d5-H2X" kind="show" identifier="segueToInboxTableList" id="U4e-MT-WJc"/>
                         <segue destination="GqP-qo-1Rk" kind="show" identifier="segueToPushNotificationSettings" id="3YW-Nv-P9Z"/>
+                        <segue destination="xdy-pj-sDf" kind="show" identifier="segueToLogs" id="nfA-O9-Gy3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjF-Ku-Fu9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1744,6 +1745,53 @@
             </objects>
             <point key="canvasLocation" x="4281" y="-631"/>
         </scene>
+        <!--Logs View Controller-->
+        <scene sceneID="nwV-c2-Hvq">
+            <objects>
+                <viewController id="xdy-pj-sDf" customClass="LogsViewController" customModule="CordialDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0ZH-dL-Umh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="EPo-uK-jqr">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fS5-vC-dDc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="EPo-uK-jqr" firstAttribute="trailing" secondItem="fS5-vC-dDc" secondAttribute="trailing" id="CVV-AF-Ymb"/>
+                            <constraint firstItem="EPo-uK-jqr" firstAttribute="bottom" secondItem="fS5-vC-dDc" secondAttribute="bottom" id="L7Q-9O-jn1"/>
+                            <constraint firstItem="EPo-uK-jqr" firstAttribute="leading" secondItem="fS5-vC-dDc" secondAttribute="leading" id="Mte-1s-p3w"/>
+                            <constraint firstItem="EPo-uK-jqr" firstAttribute="top" secondItem="fS5-vC-dDc" secondAttribute="top" id="cTc-6q-Q2r"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="yCc-3A-YfB">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="oWt-ci-YrK">
+                                <connections>
+                                    <action selector="logsRefreshAction:" destination="xdy-pj-sDf" id="y1E-yS-gIw"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="trash" id="Jng-77-Byd">
+                                <connections>
+                                    <action selector="logsRemoveAction:" destination="xdy-pj-sDf" id="cIV-U7-1sI"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="logsTextView" destination="EPo-uK-jqr" id="ugK-Py-lKm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gt6-RV-560" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1764.375" y="910.56338028169012"/>
+        </scene>
         <!--Custom Event View Controller-->
         <scene sceneID="H4Q-yf-Lu5">
             <objects>
@@ -1880,7 +1928,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5rn-79-Cjz" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2643.75" y="887.32394366197184"/>
+            <point key="canvasLocation" x="2644" y="911"/>
         </scene>
         <!--Import Custom Event View Controller-->
         <scene sceneID="Sp8-f2-8In">
@@ -1999,7 +2047,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xPz-v1-aT4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3482" y="887"/>
+            <point key="canvasLocation" x="3482" y="911"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
