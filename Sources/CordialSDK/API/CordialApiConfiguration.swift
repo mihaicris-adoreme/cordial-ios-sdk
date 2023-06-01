@@ -15,7 +15,7 @@ import CoreLocation
     
     private override init() {}
     
-    let sdkVersion = "4.2.0"
+    let sdkVersion = "4.2.1"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
@@ -111,6 +111,9 @@ import CoreLocation
         
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         LoggerManager.shared.log(message: "Device Identifier: [\(deviceID)] SDK: [\(self.sdkVersion)]", category: "CordialSDKInfo")
+        
+        let systemEventsProperties = InternalCordialAPI().getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
         
         CordialPushNotification.shared.setupPushNotifications()
         

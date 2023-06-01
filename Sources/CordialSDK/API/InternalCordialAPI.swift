@@ -185,7 +185,7 @@ class InternalCordialAPI {
     
     // MARK: Set primary key
     
-    func setContactPrimaryKey(primaryKey: String) {
+    func setContactPrimaryKey(primaryKey: String?) {
         CordialUserDefaults.set(primaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
@@ -201,11 +201,10 @@ class InternalCordialAPI {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
     }
 
-    // MARK: Set previous primary key and remove current
+    // MARK: Set previous primary key
     
-    func setPreviousPrimaryKeyAndRemoveCurrent(previousPrimaryKey: String?) {
+    func setPreviousContactPrimaryKey(previousPrimaryKey: String?) {
         CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
-        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
     // Set contact attributes
@@ -531,12 +530,22 @@ class InternalCordialAPI {
         let mcID = CordialAPI().getCurrentMcID()
         
         var properties: Dictionary<String, Any> = ["deepLinkUrl": url]
+        properties = self.getMergedDictionaryToSystemEventsProperties(properties: properties)
+        
+        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
+        self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+    }
+    
+    // MARK: Get merged dictionary to systemEventsProperties
+    
+    func getMergedDictionaryToSystemEventsProperties(properties: Dictionary<String, Any>) -> Dictionary<String, Any> {
+        var properties = properties
+        
         if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
             properties.merge(systemEventsProperties) { (current, new) in current }
         }
         
-        let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
-        self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        return properties
     }
     
     // MARK: Get push notification status
@@ -545,7 +554,35 @@ class InternalCordialAPI {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
     }
     
-    // MARK: Get push notification authorization status
+    // MARK: Set push notification status
+    
+    func setPushNotificationStatus(status: String, authorizationStatus: UNAuthorizationStatus, isSentPushNotificationAuthorizationStatus: Bool = false) {
+        let systemEventsProperties = self.getMergedDictionaryToSystemEventsProperties(properties: ["notificationStatus": status])
+        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+        
+        if status != self.getPushNotificationStatus() || isSentPushNotificationAuthorizationStatus {
+            self.sentPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)
+        }
+        
+        CordialUserDefaults.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
+        CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
+    }
+    
+    private func sentPushNotificationAuthorizationStatus(authorizationStatus: UNAuthorizationStatus) {
+        let mcID = CordialAPI().getCurrentMcID()
+        
+        switch authorizationStatus {
+        case .denied:
+            let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: self.getPushNotificationAuthorizationStatus())
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT, mcID: mcID, properties: systemEventsProperties)
+            self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        case .authorized, .provisional:
+            let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
+            let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN, mcID: mcID, properties: systemEventsProperties)
+            self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
+        default: break
+        }
+    }
     
     private func getPushNotificationAuthorizationStatus() -> UNAuthorizationStatus {
         guard let rawValue = CordialUserDefaults.integer(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS),
@@ -555,38 +592,6 @@ class InternalCordialAPI {
         }
         
         return authorizationStatus
-    }
-     
-    // MARK: Set push notification status
-    
-    func setPushNotificationStatus(status: String, authorizationStatus: UNAuthorizationStatus) {
-        CordialUserDefaults.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
-        
-        self.setPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)
-    }
-    
-    private func setPushNotificationAuthorizationStatus(authorizationStatus: UNAuthorizationStatus) {
-        let prevAuthorizationStatus = self.getPushNotificationAuthorizationStatus()
-        
-        if authorizationStatus != prevAuthorizationStatus {
-            let mcID = CordialAPI().getCurrentMcID()
-            
-            switch authorizationStatus {
-            case .denied:
-                let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: prevAuthorizationStatus)
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTOUT, mcID: mcID, properties: systemEventsProperties)
-                self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-                
-                CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
-            case .authorized, .provisional:
-                let systemEventsProperties = self.getAuthorizationStatusSystemEventsProperties(authorizationStatus: authorizationStatus)
-                let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_PUSH_NOTIFICATIONS_MANUAL_OPTIN, mcID: mcID, properties: systemEventsProperties)
-                self.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
-                
-                CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
-            default: break
-            }
-        }
     }
     
     // MARK: Get authorization status systemEventsProperties
@@ -604,11 +609,7 @@ class InternalCordialAPI {
         default: break
         }
         
-        var properties: Dictionary<String, Any> = ["authorizationStatus": authorizationStatusName]
-        
-        if let systemEventsProperties = CordialApiConfiguration.shared.systemEventsProperties {
-            properties.merge(systemEventsProperties) { (current, new) in current }
-        }
+        let properties = self.getMergedDictionaryToSystemEventsProperties(properties: ["authorizationStatus": authorizationStatusName])
         
         return properties
     }

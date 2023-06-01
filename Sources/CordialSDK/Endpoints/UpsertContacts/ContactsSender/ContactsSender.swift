@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UserNotifications
 
 class ContactsSender {
     
@@ -17,10 +18,32 @@ class ContactsSender {
         let upsertContactRequests = ContactsSenderHelper().prepareCoreDataCacheBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
          
         if !upsertContactRequests.isEmpty {
+            let internalCordialAPI = InternalCordialAPI()
+            
             upsertContactRequests.forEach({ upsertContactRequest in
-                if let primaryKey = upsertContactRequest.primaryKey {
-                    InternalCordialAPI().setContactPrimaryKey(primaryKey: primaryKey)
+                let primaryKey = upsertContactRequest.primaryKey
+                
+                if primaryKey != CordialAPI().getContactPrimaryKey() || (primaryKey == nil && !internalCordialAPI.isUserLogin()) {
+                    DispatchQueue.main.async {
+                        let current = UNUserNotificationCenter.current()
+                        
+                        current.getNotificationSettings { settings in
+                            DispatchQueue.main.async {
+                                var status = String()
+                                
+                                if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
+                                    status = API.PUSH_NOTIFICATION_STATUS_ALLOW
+                                } else {
+                                    status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
+                                }
+                                
+                                internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus, isSentPushNotificationAuthorizationStatus: true)
+                            }
+                        }
+                    }
                 }
+                
+                internalCordialAPI.setContactPrimaryKey(primaryKey: primaryKey)
             })
             
             self.upsertContactsData(upsertContactRequests: upsertContactRequests)
@@ -63,12 +86,10 @@ class ContactsSender {
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
         CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         
-        let internalCordialAPI = InternalCordialAPI()
-        
-        internalCordialAPI.setIsCurrentlyUpsertingContacts(false)
-        
         let currentTimestamp = CordialDateFormatter().getCurrentTimestamp()
         CordialUserDefaults.set(currentTimestamp, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE)
+        
+        InternalCordialAPI().setIsCurrentlyUpsertingContacts(false)
         
         PushNotificationHelper().prepareCurrentPushNotificationStatus()
                  
