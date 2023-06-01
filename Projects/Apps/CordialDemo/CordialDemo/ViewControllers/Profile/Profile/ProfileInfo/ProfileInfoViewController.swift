@@ -69,7 +69,7 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.backgroundColor = self.tableViewBackgroundColor
         self.tableView.separatorColor = self.tableViewBackgroundColor
         
-        self.tableView.rowHeight = height * 2
+        self.tableView.rowHeight = height * 2.2
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -156,6 +156,11 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ProfileInfoTableViewCell
                 
         let settings = self.profileInfo[indexPath.section].data[indexPath.row]
+        
+        cell.type.textColor = self.tableViewCellTitleColor
+        if let type = settings.type {
+            cell.type.text = type
+        }
         
         cell.key.text = "\(settings.key)"
         cell.key.textColor = self.tableViewCellTitleColor

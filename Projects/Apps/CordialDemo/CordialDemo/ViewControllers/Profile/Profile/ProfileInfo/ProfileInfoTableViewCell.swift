@@ -38,6 +38,8 @@ class ProfileInfoTableViewCell: UITableViewCell {
         self.value.font = lightFont
         self.value.textAlignment = .center
         self.value.isEditable = false
+        self.value.bounces = false
+        self.value.textContainerInset = .zero
         
         self.contentView.addSubview(self.type)
         self.contentView.addSubview(self.key)
