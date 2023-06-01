@@ -105,8 +105,6 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         
         guard let attributes = upsertContactsAPI.getContactAttributes() else { return attributesProfileInfoData }
         
-        let attributesJSON = upsertContactsAPI.getContactAttributesJSON(attributes: attributes)
-        
         attributes.forEach { (key: String, value: AttributeValue) in
             switch value {
             case is NumericValue:
