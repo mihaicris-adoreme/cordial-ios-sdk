@@ -106,28 +106,58 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         guard let attributes = upsertContactsAPI.getContactAttributes() else { return attributesProfileInfoData }
         
         let attributesJSON = upsertContactsAPI.getContactAttributesJSON(attributes: attributes)
-
-        guard let attributesJSONData = attributesJSON.data(using: .utf8),
-           let attributesJSONDictionary = try? JSONSerialization.jsonObject(with: attributesJSONData, options: []) as? [String: String] else { return attributesProfileInfoData }
         
         attributes.forEach { (key: String, value: AttributeValue) in
-            if let stringValue = attributesJSONDictionary[key] {
-                switch value {
-                case is NumericValue:
-                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "Numeric"))
-                case is BooleanValue:
-                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "Boolean"))
-                case is ArrayValue:
-                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "Array"))
-                case is StringValue:
-                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "String"))
-                case is DateValue:
-                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "Date"))
-                case is GeoValue:
-                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "Geo"))
-                default:
-                    attributesProfileInfoData.append(ProfileInfoData(key: key, value: stringValue, type: "JSON"))
+            switch value {
+            case is NumericValue:
+                let numericValue = value as! NumericValue
+                
+                var profileInfoValue = "null"
+                if let numericDoubleValue = numericValue.value { profileInfoValue = String(numericDoubleValue) }
+                
+                attributesProfileInfoData.append(ProfileInfoData(key: key, value: profileInfoValue, type: "Numeric"))
+            case is BooleanValue:
+                let booleanValue = value as! BooleanValue
+                
+                var profileInfoValue = "false"
+                if booleanValue.value { profileInfoValue = "true" }
+                    
+                attributesProfileInfoData.append(ProfileInfoData(key: key, value: profileInfoValue, type: "Boolean"))
+            case is ArrayValue:
+                let arrayValue = value as! ArrayValue
+                
+                var profileInfoValue = String()
+                arrayValue.value.forEach { string in
+                    if profileInfoValue.isEmpty {
+                        profileInfoValue = string
+                    } else {
+                        profileInfoValue += ", \(string)"
+                    }
                 }
+                
+                attributesProfileInfoData.append(ProfileInfoData(key: key, value: profileInfoValue, type: "Array"))
+            case is StringValue:
+                let stringValue = value as! StringValue
+                
+                var profileInfoValue = "null"
+                if let stringValueString = stringValue.value { profileInfoValue = stringValueString }
+                
+                attributesProfileInfoData.append(ProfileInfoData(key: key, value: profileInfoValue, type: "String"))
+            case is DateValue:
+                let dateValue = value as! DateValue
+                
+                var profileInfoValue = "null"
+                if let dateValueDate = dateValue.value { profileInfoValue = AppDateFormatter().getTimestampFromDate(date: dateValueDate) }
+                
+                attributesProfileInfoData.append(ProfileInfoData(key: key, value: profileInfoValue, type: "Date"))
+            case is GeoValue:
+                let geoValue = value as! GeoValue
+                
+                let profileInfoValue = self.getGeoValueString(geoValue: geoValue)
+                
+                attributesProfileInfoData.append(ProfileInfoData(key: key, value: profileInfoValue.string, type: "Geo"))
+            default:
+                break
             }
         }
         
@@ -136,6 +166,65 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc func dismissViewController() {
         self.dismiss(animated: true)
+    }
+    
+    private func getGeoValueString(geoValue: GeoValue) -> NSAttributedString {
+        let titleAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
+        let valueAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)]
+        
+        let cityTitle = NSAttributedString(string: "City: ", attributes: titleAttributes)
+        let countryTitle = NSAttributedString(string: "Country: ", attributes: titleAttributes)
+        let postalCodeTitle = NSAttributedString(string: "Postal Code: ", attributes: titleAttributes)
+        let stateTitle = NSAttributedString(string: "State: ", attributes: titleAttributes)
+        let streetAddressTitle = NSAttributedString(string: "Street Address: ", attributes: titleAttributes)
+        let streetAddress2Title = NSAttributedString(string: "Street Address 2: ", attributes: titleAttributes)
+        let timeZoneTitle = NSAttributedString(string: "Time Zone: ", attributes: titleAttributes)
+        
+        let cityValue = NSAttributedString(string: "\(geoValue.getCity())", attributes: valueAttributes)
+        let countryValue = NSAttributedString(string: "\(geoValue.getCountry())", attributes: valueAttributes)
+        let postalCodeValue = NSAttributedString(string: "\(geoValue.getPostalCode())", attributes: valueAttributes)
+        let stateValue = NSAttributedString(string: "\(geoValue.getState())", attributes: valueAttributes)
+        let streetAddressValue = NSAttributedString(string: "\(geoValue.getStreetAddress())", attributes: valueAttributes)
+        let streetAddress2Value = NSAttributedString(string: "\(geoValue.getStreetAddress2())", attributes: valueAttributes)
+        let timeZoneValue = NSAttributedString(string: "\(geoValue.getTimeZone())", attributes: valueAttributes)
+        
+        let newLine = NSAttributedString(string: "\n", attributes: titleAttributes)
+        
+        let geoValueString = NSMutableAttributedString()
+        geoValueString.append(cityTitle)
+        geoValueString.append(cityValue)
+        
+        geoValueString.append(newLine)
+        
+        geoValueString.append(countryTitle)
+        geoValueString.append(countryValue)
+        
+        geoValueString.append(newLine)
+        
+        geoValueString.append(postalCodeTitle)
+        geoValueString.append(postalCodeValue)
+        
+        geoValueString.append(newLine)
+        
+        geoValueString.append(stateTitle)
+        geoValueString.append(stateValue)
+        
+        geoValueString.append(newLine)
+        
+        geoValueString.append(streetAddressTitle)
+        geoValueString.append(streetAddressValue)
+        
+        geoValueString.append(newLine)
+        
+        geoValueString.append(streetAddress2Title)
+        geoValueString.append(streetAddress2Value)
+        
+        geoValueString.append(newLine)
+        
+        geoValueString.append(timeZoneTitle)
+        geoValueString.append(timeZoneValue)
+        
+        return geoValueString
     }
     
     // MARK: - Table view data source
