@@ -69,7 +69,9 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.backgroundColor = self.tableViewBackgroundColor
         self.tableView.separatorColor = self.tableViewBackgroundColor
         
-        self.tableView.rowHeight = height * 2.2
+        self.tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.estimatedRowHeight = UITableView.automaticDimension
+        self.tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -247,12 +249,14 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
         cell.type.textColor = self.tableViewCellTitleColor
         if let type = settings.type {
             cell.type.text = type
+        } else {
+            cell.type.text = String()
         }
         
-        cell.key.text = "\(settings.key)"
+        cell.key.text = settings.key
         cell.key.textColor = self.tableViewCellTitleColor
         
-        cell.value.text = "\(settings.value)"
+        cell.value.text = settings.value
         cell.value.textColor = self.tableViewCellTitleColor
         
         return cell
@@ -295,6 +299,26 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
             
             cell.layer.mask = maskLayer
         }
+        
+        cell.layoutIfNeeded()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let settings = self.profileInfo[indexPath.section].data[indexPath.row]
+        
+        guard let type = settings.type else { return 95 }
+        
+        switch type {
+        case "Array":
+            return 125
+        case "Geo":
+            return 200
+        default:
+            return 100
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
 }
-
