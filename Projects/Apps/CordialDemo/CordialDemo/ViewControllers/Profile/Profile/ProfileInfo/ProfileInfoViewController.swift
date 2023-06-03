@@ -280,8 +280,13 @@ class ProfileInfoViewController: UIViewController, UITableViewDelegate, UITableV
             maskLayer.cornerRadius = cornerRadius
             maskLayer.backgroundColor = UIColor.black.cgColor
             maskLayer.frame = CGRect(x: cell.bounds.origin.x, y: cell.bounds.origin.y, width: cell.bounds.width, height: cell.bounds.height).insetBy(dx: 0, dy: verticalPadding / 2)
-            maskLayer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             
+            if self.profileInfo[indexPath.section].data.count == 1 {
+                maskLayer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+            } else {
+                maskLayer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            }
+
             cell.layer.mask = maskLayer
         case self.profileInfo[indexPath.section].data.count - 1:
             let maskLayer = CALayer()
