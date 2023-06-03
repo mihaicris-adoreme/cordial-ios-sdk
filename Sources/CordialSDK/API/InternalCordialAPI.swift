@@ -126,7 +126,11 @@ class InternalCordialAPI {
     
     func removeAllCachedData() {
         CoreDataManager.shared.deleteAllCoreData()
+        
         self.removeCurrentMcID()
+        self.removeContactAttributes()
+        self.removePreviousContactPrimaryKey()
+        self.removePushNotificationCategories()
     }
     
     // MARK: Set isCurrentlyUpsertingContacts
@@ -197,7 +201,7 @@ class InternalCordialAPI {
     
     // MARK: Remove previous primary key
     
-    func removePreviousContactPrimaryKey() {
+    private func removePreviousContactPrimaryKey() {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
     }
 
@@ -234,7 +238,7 @@ class InternalCordialAPI {
         
     // MARK: Remove contact attributes
     
-    func removeContactAttributes() {
+    private func removeContactAttributes() {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES)
     }
     
@@ -663,6 +667,12 @@ class InternalCordialAPI {
         }
         
         return pushNotificationCategories
+    }
+    
+    // MARK: Remove push notification categories
+    
+    private func removePushNotificationCategories() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES_ORIGIN)
     }
     
     // MARK: Is new push notification categories
