@@ -18,6 +18,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[Setting a Contact](#setting-a-contact)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Unsetting a Contact](#unsetting-a-contact)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Updating Attributes and Lists Memberships](#updating-attributes-and-lists-memberships)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Expose a Device Information](#expose-a-device-information)<br>
 [Events](#events)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Sending Custom Events](#sending-custom-events)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Tracking Internal Events](#tracking-internal-events)<br>
@@ -966,6 +967,68 @@ NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 [attributes setObject:falseValue forKey:@"list2"];
 
 [cordialAPI upsertContactWithAttributes:attributes];
+```
+
+### Expose a Device Information
+
+SDK provide an ability to get access the device information that is being sent to Cordial for upserts. To receive the data needs to use the entry point `UpsertContactsAPI`. 
+
+The API supports the following operations:
+
+#### Getting a device identifier
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let deviceID = UpsertContactsAPI().getDeviceIdentifier()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSString *deviceID = [[UpsertContactsAPI alloc] getDeviceIdentifier];
+```
+
+#### Getting push notification token
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let token = UpsertContactsAPI().getPushNotificationToken()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSString *token = [[UpsertContactsAPI alloc] getPushNotificationToken];
+```
+
+#### Getting push notification status
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let status = UpsertContactsAPI().getPushNotificationStatus()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSString *status = [[UpsertContactsAPI alloc] getPushNotificationStatus];
+```
+
+#### Getting contact attributes
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let attributes = UpsertContactsAPI().getContactAttributes()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSDictionary *attributes = [[UpsertContactsAPI alloc] getContactAttributes];
 ```
 
 ## Events
