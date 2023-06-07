@@ -971,11 +971,11 @@ NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 
 ### Expose a Device Information
 
-SDK provide an ability to get access the device information that is being sent to Cordial for upserts. To receive the data needs to use the entry point `UpsertContactsAPI`. 
+SDK allows to get device info and contact attributes that were sent with upsert contact requests. This data is available via the `UpsertContactsAPI` class.
 
 The API supports the following operations:
 
-#### Getting a device identifier
+#### Get a device identifier
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -989,7 +989,7 @@ let deviceID = UpsertContactsAPI().getDeviceIdentifier()
 NSString *deviceID = [[UpsertContactsAPI alloc] getDeviceIdentifier];
 ```
 
-#### Getting push notification token
+#### Get push notification token
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -1003,7 +1003,7 @@ let token = UpsertContactsAPI().getPushNotificationToken()
 NSString *token = [[UpsertContactsAPI alloc] getPushNotificationToken];
 ```
 
-#### Getting push notification status
+#### Get push notification status
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -1017,7 +1017,7 @@ let status = UpsertContactsAPI().getPushNotificationStatus()
 NSString *status = [[UpsertContactsAPI alloc] getPushNotificationStatus];
 ```
 
-#### Getting contact attributes
+#### Get contact attributes
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
