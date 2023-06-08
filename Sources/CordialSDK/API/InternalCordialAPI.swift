@@ -126,7 +126,11 @@ class InternalCordialAPI {
     
     func removeAllCachedData() {
         CoreDataManager.shared.deleteAllCoreData()
+        
         self.removeCurrentMcID()
+        self.removeContactAttributes()
+        self.removePreviousContactPrimaryKey()
+        self.removePushNotificationCategories()
     }
     
     // MARK: Set isCurrentlyUpsertingContacts
@@ -197,7 +201,7 @@ class InternalCordialAPI {
     
     // MARK: Remove previous primary key
     
-    func removePreviousContactPrimaryKey() {
+    private func removePreviousContactPrimaryKey() {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
     }
 
@@ -206,7 +210,38 @@ class InternalCordialAPI {
     func setPreviousContactPrimaryKey(previousPrimaryKey: String?) {
         CordialUserDefaults.set(previousPrimaryKey, forKey: API.USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY)
     }
+    
+    // Set contact attributes
+    
+    func setContactAttributes(attributes: Dictionary<String, AttributeValue>?) {
+        guard var attributes = attributes else { return }
+            
+        if let savedAttributes = self.getContactAttributes() {
+            attributes.merge(savedAttributes) { (current, new) in current }
+        }
         
+        let upsertContactsAttributes = UpsertContactsAttributes(attributes: attributes)
+        let upsertContactsAttributesData = try? NSKeyedArchiver.archivedData(withRootObject: upsertContactsAttributes, requiringSecureCoding: false)
+        CordialUserDefaults.set(upsertContactsAttributesData, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES)
+    }
+    
+    // Get contact attributes
+    
+    func getContactAttributes() -> Dictionary<String, AttributeValue>? {
+        guard let upsertContactsAttributesData = CordialUserDefaults.object(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES) as? Data,
+              let upsertContactsAttributesUnarchive = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(upsertContactsAttributesData),
+              let upsertContactsAttributes = upsertContactsAttributesUnarchive as? UpsertContactsAttributes,
+              !upsertContactsAttributes.isError else { return nil }
+        
+        return upsertContactsAttributes.attributes
+    }
+        
+    // MARK: Remove contact attributes
+    
+    private func removeContactAttributes() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES)
+    }
+    
     // MARK: Remove current mcID
     
     func removeCurrentMcID() {
@@ -632,6 +667,12 @@ class InternalCordialAPI {
         }
         
         return pushNotificationCategories
+    }
+    
+    // MARK: Remove push notification categories
+    
+    private func removePushNotificationCategories() {
+        CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES_ORIGIN)
     }
     
     // MARK: Is new push notification categories

@@ -25,7 +25,6 @@ class ContactsSenderHelper {
             upsertContactRequests.forEach { upsertContactRequest in
                 if upsertContactRequest.primaryKey != previousPrimaryKey && previousPrimaryKey != nil {
                     internalCordialAPI.removeAllCachedData()
-                    internalCordialAPI.removePreviousContactPrimaryKey()
                 }
             }
         }
