@@ -45,12 +45,12 @@ class ContactCartRequestCoreData {
                 guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [UpsertContactCartRequest.self, CartItem.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? UpsertContactCartRequest,
-                   !sendCustomEventRequest.isError {
+                if let upsertContactCartRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [UpsertContactCartRequest.self, CartItem.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? UpsertContactCartRequest,
+                   !upsertContactCartRequest.isError {
                     
                     CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
                     
-                    return sendCustomEventRequest
+                    return upsertContactCartRequest
                 } else {
                     context.delete(managedObject)
                     try context.save()
