@@ -8,8 +8,10 @@
 
 import Foundation
 
-class UpsertContactCartRequest: NSObject, NSCoding {
-
+class UpsertContactCartRequest: NSObject, NSCoding, NSSecureCoding {
+    
+    static var supportsSecureCoding = true
+    
     let requestID: String
     let cartItems: [CartItem]
     let primaryKey: String?
@@ -34,16 +36,16 @@ class UpsertContactCartRequest: NSObject, NSCoding {
         self.primaryKey = primaryKey
     }
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
-        aCoder.encode(self.cartItems, forKey: Key.cartItems.rawValue)
-        aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
+    func encode(with coder: NSCoder) {
+        coder.encode(self.requestID, forKey: Key.requestID.rawValue)
+        coder.encode(self.cartItems, forKey: Key.cartItems.rawValue)
+        coder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String,
-           let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String?,
-           let cartItems = aDecoder.decodeObject(forKey: Key.cartItems.rawValue) as? [CartItem] {
+    required convenience init?(coder: NSCoder) {
+        if let requestID = coder.decodeObject(forKey: Key.requestID.rawValue) as? String,
+           let primaryKey = coder.decodeObject(forKey: Key.primaryKey.rawValue) as? String?,
+           let cartItems = coder.decodeObject(forKey: Key.cartItems.rawValue) as? [CartItem] {
             
             var isCartItemError = false
             cartItems.forEach { cartItem in
