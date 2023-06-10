@@ -18,7 +18,7 @@ import Foundation
     
     var currentMode = InAppMessageDelayType.show
     
-    @objc public func show(type: InAppMessageDelayShowType = .nextAppOpen) {
+    @objc public func show(_ type: InAppMessageDelayShowType = .immediately) {
         self.currentMode = InAppMessageDelayType.show
         
         if type == .immediately {
