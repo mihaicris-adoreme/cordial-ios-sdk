@@ -10,12 +10,22 @@ import Foundation
 
 @objc public class InAppMessageDelayMode: NSObject {
     
+    static let shared = InAppMessageDelayMode()
+    
+    private override init() {}
+    
     var disallowedControllersType = [AnyObject.Type]()
     
     var currentMode = InAppMessageDelayType.show
     
-    @objc public func show() {
+    @objc public func show(type: InAppMessageDelayShowType = .nextAppOpen) {
         self.currentMode = InAppMessageDelayType.show
+        
+        if type == .immediately {
+            DispatchQueue.main.async {
+                InAppMessageProcess.shared.showInAppMessageIfPopupCanBePresented()
+            }
+        }
     }
     
     @objc public func delayedShow() {
