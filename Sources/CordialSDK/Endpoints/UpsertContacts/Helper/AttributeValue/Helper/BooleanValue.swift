@@ -8,7 +8,9 @@
 
 import Foundation
 
-@objc public class BooleanValue: NSObject, NSCoding, AttributeValue, JSONValue {
+@objcMembers public class BooleanValue: NSObject, NSCoding, NSSecureCoding, AttributeValue, JSONValue {
+    
+    public static var supportsSecureCoding = true
 
     public let value: Bool
     
@@ -16,7 +18,7 @@ import Foundation
         case value = "value"
     }
     
-    @objc public init(_ value: Bool) {
+    public init(_ value: Bool) {
         self.value = value
     }
     

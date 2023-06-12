@@ -8,7 +8,9 @@
 
 import Foundation
 
-@objc public class DateValue: NSObject, NSCoding, AttributeValue, JSONValue {
+@objcMembers public class DateValue: NSObject, NSCoding, NSSecureCoding, AttributeValue, JSONValue {
+    
+    public static var supportsSecureCoding = true
     
     public let value: Date?
     
@@ -16,7 +18,7 @@ import Foundation
         case value = "value"
     }
     
-    @objc public init(_ value: Date?) {
+    public init(_ value: Date?) {
         self.value = value
     }
     
