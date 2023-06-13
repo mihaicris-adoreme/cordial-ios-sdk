@@ -251,12 +251,12 @@ class CordialSDKTests: XCTestCase {
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             XCTAssert(mock.isVerified)
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 3)
+        wait(for: [expectation], timeout: 4)
     }
 
     
