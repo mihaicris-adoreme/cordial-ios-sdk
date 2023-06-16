@@ -8,7 +8,9 @@
 
 import Foundation
 
-class UpsertContactsAttributes: NSObject, NSCoding {
+class UpsertContactsAttributes: NSObject, NSCoding, NSSecureCoding {
+    
+    static var supportsSecureCoding = true
     
     let attributes: Dictionary<String, AttributeValue>?
     
@@ -22,12 +24,12 @@ class UpsertContactsAttributes: NSObject, NSCoding {
         self.attributes = attributes
     }
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.attributes, forKey: Key.attributes.rawValue)
+    func encode(with coder: NSCoder) {
+        coder.encode(self.attributes, forKey: Key.attributes.rawValue)
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        if let attributes = aDecoder.decodeObject(forKey: Key.attributes.rawValue) as? Dictionary<String, AttributeValue>? {
+    required convenience init?(coder: NSCoder) {
+        if let attributes = coder.decodeObject(forKey: Key.attributes.rawValue) as? Dictionary<String, AttributeValue>? {
             
             self.init(attributes: attributes)
         } else {

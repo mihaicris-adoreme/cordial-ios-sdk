@@ -221,7 +221,7 @@ class InternalCordialAPI {
         }
         
         let upsertContactsAttributes = UpsertContactsAttributes(attributes: attributes)
-        let upsertContactsAttributesData = try? NSKeyedArchiver.archivedData(withRootObject: upsertContactsAttributes, requiringSecureCoding: false)
+        let upsertContactsAttributesData = try? NSKeyedArchiver.archivedData(withRootObject: upsertContactsAttributes, requiringSecureCoding: true)
         CordialUserDefaults.set(upsertContactsAttributesData, forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES)
     }
     
@@ -229,7 +229,7 @@ class InternalCordialAPI {
     
     func getContactAttributes() -> Dictionary<String, AttributeValue>? {
         guard let upsertContactsAttributesData = CordialUserDefaults.object(forKey: API.USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES) as? Data,
-              let upsertContactsAttributesUnarchive = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(upsertContactsAttributesData),
+              let upsertContactsAttributesUnarchive = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [UpsertContactsAttributes.self, NumericValue.self, BooleanValue.self, ArrayValue.self, StringValue.self, DateValue.self, GeoValue.self, JSONObjectValue.self, JSONObjectValues.self, JSONObjectsValues.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: upsertContactsAttributesData),
               let upsertContactsAttributes = upsertContactsAttributesUnarchive as? UpsertContactsAttributes,
               !upsertContactsAttributes.isError else { return nil }
         
