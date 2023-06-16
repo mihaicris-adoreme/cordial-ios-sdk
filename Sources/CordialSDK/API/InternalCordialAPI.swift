@@ -611,7 +611,7 @@ class InternalCordialAPI {
             CordialAPI().upsertContact(attributes: [API.UPSERT_CONTACT_ATTRIBUTES_NAME_PUSH_NOTIFICATION_CATEGORIES: attributes])
         }
         
-        let pushNotificationCategoriesData = try? NSKeyedArchiver.archivedData(withRootObject: pushNotificationCategories, requiringSecureCoding: false)
+        let pushNotificationCategoriesData = try? NSKeyedArchiver.archivedData(withRootObject: pushNotificationCategories, requiringSecureCoding: true)
         CordialUserDefaults.set(pushNotificationCategoriesData, forKey: key)
     }
     
@@ -619,7 +619,7 @@ class InternalCordialAPI {
     
     func getPushNotificationCategories(key: String = API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES) -> [PushNotificationCategory] {
         guard let pushNotificationCategoriesData = CordialUserDefaults.object(forKey: key) as? Data,
-              let pushNotificationCategoriesUnarchive = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(pushNotificationCategoriesData),
+              let pushNotificationCategoriesUnarchive = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [PushNotificationCategory.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: pushNotificationCategoriesData),
               let pushNotificationCategories = pushNotificationCategoriesUnarchive as? [PushNotificationCategory] else {
             
             return [PushNotificationCategory]()
