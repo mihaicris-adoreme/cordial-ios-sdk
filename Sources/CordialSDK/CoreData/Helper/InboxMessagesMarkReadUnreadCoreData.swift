@@ -20,7 +20,7 @@ class InboxMessagesMarkReadUnreadCoreData {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                let inboxMessagesMarkReadUnreadRequestArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessagesMarkReadUnreadRequest, requiringSecureCoding: false)
+                let inboxMessagesMarkReadUnreadRequestArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessagesMarkReadUnreadRequest, requiringSecureCoding: true)
         
                 newRow.setValue(inboxMessagesMarkReadUnreadRequestArchivedData, forKey: "data")
                 newRow.setValue(inboxMessagesMarkReadUnreadRequest.date, forKey: "date")
@@ -47,7 +47,9 @@ class InboxMessagesMarkReadUnreadCoreData {
                 guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
 
-                if let inboxMessagesMarkReadUnreadRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InboxMessagesMarkReadUnreadRequest, !inboxMessagesMarkReadUnreadRequest.isError {
+                if let inboxMessagesMarkReadUnreadRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [InboxMessagesMarkReadUnreadRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? InboxMessagesMarkReadUnreadRequest,
+                   !inboxMessagesMarkReadUnreadRequest.isError {
+                    
                     inboxMessagesMarkReadUnreadRequests.append(inboxMessagesMarkReadUnreadRequest)
                 } else {
                     LoggerManager.shared.error(message: "Failed unarchiving InboxMessagesMarkReadUnreadRequest", category: "CordialSDKError")
@@ -57,6 +59,8 @@ class InboxMessagesMarkReadUnreadCoreData {
                 try context.save()
             }
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
 

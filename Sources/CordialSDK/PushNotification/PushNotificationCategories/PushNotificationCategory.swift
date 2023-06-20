@@ -8,7 +8,9 @@
 
 import Foundation
 
-@objcMembers public class PushNotificationCategory: NSObject, NSCoding {
+@objcMembers public class PushNotificationCategory: NSObject, NSCoding, NSSecureCoding {
+    
+    public static var supportsSecureCoding = true
     
     let key: String
     let name: String

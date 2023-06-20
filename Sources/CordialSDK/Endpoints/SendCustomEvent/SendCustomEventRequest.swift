@@ -8,7 +8,9 @@
 
 import Foundation
 
-class SendCustomEventRequest: NSObject, NSCoding {
+class SendCustomEventRequest: NSObject, NSCoding, NSSecureCoding {
+    
+    static var supportsSecureCoding = true
     
     let requestID: String
     let eventName: String
@@ -54,32 +56,32 @@ class SendCustomEventRequest: NSObject, NSCoding {
         self.primaryKey = primaryKey
     }
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
-        aCoder.encode(self.eventName, forKey: Key.eventName.rawValue)
-        aCoder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
-        aCoder.encode(self.mcID, forKey: Key.mcID.rawValue)
-        aCoder.encode(self.latitude, forKey: Key.latitude.rawValue)
-        aCoder.encode(self.longitude, forKey: Key.longitude.rawValue)
-        aCoder.encode(self.properties, forKey: Key.properties.rawValue)
-        aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
+    func encode(with coder: NSCoder) {
+        coder.encode(self.requestID, forKey: Key.requestID.rawValue)
+        coder.encode(self.eventName, forKey: Key.eventName.rawValue)
+        coder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
+        coder.encode(self.mcID, forKey: Key.mcID.rawValue)
+        coder.encode(self.latitude, forKey: Key.latitude.rawValue)
+        coder.encode(self.longitude, forKey: Key.longitude.rawValue)
+        coder.encode(self.properties, forKey: Key.properties.rawValue)
+        coder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String,
-           let eventName = aDecoder.decodeObject(forKey: Key.eventName.rawValue) as? String,
-           let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as? String,
-           let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as? String?,
-           let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as? Dictionary<String, Any>?,
-           let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String? {
+    required convenience init?(coder: NSCoder) {
+        if let requestID = coder.decodeObject(forKey: Key.requestID.rawValue) as? String,
+           let eventName = coder.decodeObject(forKey: Key.eventName.rawValue) as? String,
+           let timestamp = coder.decodeObject(forKey: Key.timestamp.rawValue) as? String,
+           let mcID = coder.decodeObject(forKey: Key.mcID.rawValue) as? String?,
+           let properties = coder.decodeObject(forKey: Key.properties.rawValue) as? Dictionary<String, Any>?,
+           let primaryKey = coder.decodeObject(forKey: Key.primaryKey.rawValue) as? String? {
             
             var latitude: Double?
-            if let decodedLatitudeNumber = aDecoder.decodeObject(forKey: Key.latitude.rawValue) as? NSNumber {
+            if let decodedLatitudeNumber = coder.decodeObject(forKey: Key.latitude.rawValue) as? NSNumber {
                 latitude = decodedLatitudeNumber.doubleValue
             }
             
             var longitude: Double?
-            if let decodedLongitudeNumber = aDecoder.decodeObject(forKey: Key.longitude.rawValue) as? NSNumber {
+            if let decodedLongitudeNumber = coder.decodeObject(forKey: Key.longitude.rawValue) as? NSNumber {
                 longitude = decodedLongitudeNumber.doubleValue
             }
             

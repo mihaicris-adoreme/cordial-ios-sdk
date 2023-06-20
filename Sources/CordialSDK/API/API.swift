@@ -76,6 +76,8 @@ struct API {
     static let PUSH_NOTIFICATION_STATUS_ALLOW = "opt-in"
     static let PUSH_NOTIFICATION_STATUS_DISALLOW = "opt-out"
     
+    static let DEFAULT_UNARCHIVER_CLASSES = [NSData.self, NSArray.self, NSDictionary.self, NSString.self, NSDate.self, NSNumber.self, NSURL.self]
+    
     static func getDictionaryJSON(_ dictionary: Dictionary<String, Any>?) -> String {
         guard let json = dictionary as NSDictionary?,
               let jsonString = JSONStructure().box(json)?.walk() else {

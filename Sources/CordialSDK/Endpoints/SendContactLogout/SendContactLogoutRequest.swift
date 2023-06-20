@@ -8,7 +8,9 @@
 
 import Foundation
 
-class SendContactLogoutRequest: NSObject, NSCoding {
+class SendContactLogoutRequest: NSObject, NSCoding, NSSecureCoding {
+    
+    static var supportsSecureCoding = true
     
     let requestID: String
     let primaryKey: String?
@@ -30,14 +32,14 @@ class SendContactLogoutRequest: NSObject, NSCoding {
         self.primaryKey = primaryKey
     }
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
-        aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
+    func encode(with coder: NSCoder) {
+        coder.encode(self.requestID, forKey: Key.requestID.rawValue)
+        coder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String,
-           let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String? {
+    required convenience init?(coder: NSCoder) {
+        if let requestID = coder.decodeObject(forKey: Key.requestID.rawValue) as? String,
+           let primaryKey = coder.decodeObject(forKey: Key.primaryKey.rawValue) as? String? {
             
             self.init(requestID: requestID, primaryKey: primaryKey)
         } else {

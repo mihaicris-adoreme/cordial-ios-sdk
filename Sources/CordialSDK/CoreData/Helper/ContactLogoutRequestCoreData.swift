@@ -22,7 +22,7 @@ class ContactLogoutRequestCoreData {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                let sendContactLogoutRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactLogoutRequest, requiringSecureCoding: false)
+                let sendContactLogoutRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactLogoutRequest, requiringSecureCoding: true)
                 
                 newRow.setValue(sendContactLogoutRequestData, forKey: "data")
                 
@@ -45,7 +45,9 @@ class ContactLogoutRequestCoreData {
                 guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let sendContactLogoutRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendContactLogoutRequest, !sendContactLogoutRequest.isError {
+                if let sendContactLogoutRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [SendContactLogoutRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? SendContactLogoutRequest,
+                   !sendContactLogoutRequest.isError {
+                    
                     CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
                     
                     return sendContactLogoutRequest
@@ -57,6 +59,8 @@ class ContactLogoutRequestCoreData {
                 }
             }
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         

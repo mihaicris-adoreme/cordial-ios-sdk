@@ -8,7 +8,9 @@
 
 import Foundation
 
-class InAppMessageData: NSObject, NSCoding {
+class InAppMessageData: NSObject, NSCoding, NSSecureCoding {
+    
+    static var supportsSecureCoding = true
     
     let mcID: String
     let html: String
@@ -46,31 +48,31 @@ class InAppMessageData: NSObject, NSCoding {
         self.expirationTime = expirationTime
     }
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.mcID, forKey: Key.mcID.rawValue)
-        aCoder.encode(self.html, forKey: Key.html.rawValue)
-        aCoder.encode(self.type.rawValue, forKey: Key.type.rawValue)
-        aCoder.encode(self.displayType.rawValue, forKey: Key.displayType.rawValue)
-        aCoder.encode(self.top, forKey: Key.top.rawValue)
-        aCoder.encode(self.right, forKey: Key.right.rawValue)
-        aCoder.encode(self.bottom, forKey: Key.bottom.rawValue)
-        aCoder.encode(self.left, forKey: Key.left.rawValue)
-        aCoder.encode(self.expirationTime, forKey: Key.expirationTime.rawValue)
+    func encode(with coder: NSCoder) {
+        coder.encode(self.mcID, forKey: Key.mcID.rawValue)
+        coder.encode(self.html, forKey: Key.html.rawValue)
+        coder.encode(self.type.rawValue, forKey: Key.type.rawValue)
+        coder.encode(self.displayType.rawValue, forKey: Key.displayType.rawValue)
+        coder.encode(self.top, forKey: Key.top.rawValue)
+        coder.encode(self.right, forKey: Key.right.rawValue)
+        coder.encode(self.bottom, forKey: Key.bottom.rawValue)
+        coder.encode(self.left, forKey: Key.left.rawValue)
+        coder.encode(self.expirationTime, forKey: Key.expirationTime.rawValue)
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        if let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as? String,
-           let html = aDecoder.decodeObject(forKey: Key.html.rawValue) as? String,
-           let InAppMessageTypeString = aDecoder.decodeObject(forKey: Key.type.rawValue) as? String,
+    required convenience init?(coder: NSCoder) {
+        if let mcID = coder.decodeObject(forKey: Key.mcID.rawValue) as? String,
+           let html = coder.decodeObject(forKey: Key.html.rawValue) as? String,
+           let InAppMessageTypeString = coder.decodeObject(forKey: Key.type.rawValue) as? String,
            let type = InAppMessageType(rawValue: InAppMessageTypeString),
-           let displayTypeString = aDecoder.decodeObject(forKey: Key.displayType.rawValue) as? String,
+           let displayTypeString = coder.decodeObject(forKey: Key.displayType.rawValue) as? String,
            let displayType = InAppMessageDisplayType(rawValue: displayTypeString) {
             
-            let top = Int(aDecoder.decodeInt32(forKey: Key.top.rawValue))
-            let right = Int(aDecoder.decodeInt32(forKey: Key.right.rawValue))
-            let bottom = Int(aDecoder.decodeInt32(forKey: Key.bottom.rawValue))
-            let left = Int(aDecoder.decodeInt32(forKey: Key.left.rawValue))
-            let expirationTime = aDecoder.decodeObject(forKey: Key.expirationTime.rawValue) as? Date
+            let top = Int(coder.decodeInt32(forKey: Key.top.rawValue))
+            let right = Int(coder.decodeInt32(forKey: Key.right.rawValue))
+            let bottom = Int(coder.decodeInt32(forKey: Key.bottom.rawValue))
+            let left = Int(coder.decodeInt32(forKey: Key.left.rawValue))
+            let expirationTime = coder.decodeObject(forKey: Key.expirationTime.rawValue) as? Date
             
             self.init(mcID: mcID, html: html, type: type, displayType: displayType, top: top, right: right, bottom: bottom, left: left, expirationTime: expirationTime)
         } else {

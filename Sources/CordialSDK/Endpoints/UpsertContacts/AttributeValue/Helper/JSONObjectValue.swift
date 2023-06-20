@@ -8,7 +8,9 @@
 
 import Foundation
 
-@objc class JSONObjectValue: NSObject, NSCoding, AttributeValue, JSONValue {
+@objcMembers class JSONObjectValue: NSObject, NSCoding, NSSecureCoding, AttributeValue, JSONValue {
+    
+    static var supportsSecureCoding = true
     
     let value: Dictionary<String, AttributeValue>?
     
@@ -16,7 +18,7 @@ import Foundation
         case value = "value"
     }
     
-    @objc init(_ value: Dictionary<String, AttributeValue>?) {
+    init(_ value: Dictionary<String, AttributeValue>?) {
         self.value = value
     }
     

@@ -8,14 +8,16 @@
 
 import Foundation
 
-@objc public class InboxMessage: NSObject, NSCoding {
+@objcMembers public class InboxMessage: NSObject, NSCoding, NSSecureCoding {
     
-    @objc public let mcID: String
+    public static var supportsSecureCoding = true
+    
+    public let mcID: String
     let url: String
     let urlExpireAt: Date
-    @objc public let isRead: Bool
-    @objc public let sentAt: Date
-    @objc public let metadata: String?
+    public let isRead: Bool
+    public let sentAt: Date
+    public let metadata: String?
     
     var isError = false
     

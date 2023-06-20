@@ -8,7 +8,9 @@
 
 import Foundation
 
-@objc public class Order: NSObject, NSCoding {
+@objcMembers public class Order: NSObject, NSCoding, NSSecureCoding {
+    
+    public static var supportsSecureCoding = true
     
     let orderID: String
     let status: String
@@ -38,7 +40,7 @@ import Foundation
         case properties = "properties"
     }
     
-    @objc public convenience init(orderID: String, status: String, storeID: String, customerID: String, shippingAddress: Address, billingAddress: Address, items: [CartItem], taxNumber: NSNumber?, shippingAndHandling: NSNumber?, properties: Dictionary<String, Any>?) {
+    public convenience init(orderID: String, status: String, storeID: String, customerID: String, shippingAddress: Address, billingAddress: Address, items: [CartItem], taxNumber: NSNumber?, shippingAndHandling: NSNumber?, properties: Dictionary<String, Any>?) {
         self.init(orderID: orderID, status: status, storeID: storeID, customerID: customerID, shippingAddress: shippingAddress, billingAddress: billingAddress, items: items, tax: taxNumber?.doubleValue, shippingAndHandling: shippingAndHandling?.doubleValue, properties: properties)
     }
     
@@ -56,26 +58,26 @@ import Foundation
         self.properties = properties
     }
     
-    @objc public func setPurchaseDate(date: Date) {
+    public func setPurchaseDate(date: Date) {
         self.purchaseDate = date
     }
     
-    @objc public func getPurchaseDate() -> String {
+    public func getPurchaseDate() -> String {
         return CordialDateFormatter().getTimestampFromDate(date: self.purchaseDate)
     }
     
-    @objc public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.orderID, forKey: Key.orderID.rawValue)
-        aCoder.encode(self.status, forKey: Key.status.rawValue)
-        aCoder.encode(self.storeID, forKey: Key.storeID.rawValue)
-        aCoder.encode(self.customerID, forKey: Key.customerID.rawValue)
-        aCoder.encode(self.purchaseDate, forKey: Key.purchaseDate.rawValue)
-        aCoder.encode(self.shippingAddress, forKey: Key.shippingAddress.rawValue)
-        aCoder.encode(self.billingAddress, forKey: Key.billingAddress.rawValue)
-        aCoder.encode(self.items, forKey: Key.items.rawValue)
-        aCoder.encode(self.tax, forKey: Key.tax.rawValue)
-        aCoder.encode(self.shippingAndHandling, forKey: Key.shippingAndHandling.rawValue)
-        aCoder.encode(self.properties, forKey: Key.properties.rawValue)
+    public func encode(with coder: NSCoder) {
+        coder.encode(self.orderID, forKey: Key.orderID.rawValue)
+        coder.encode(self.status, forKey: Key.status.rawValue)
+        coder.encode(self.storeID, forKey: Key.storeID.rawValue)
+        coder.encode(self.customerID, forKey: Key.customerID.rawValue)
+        coder.encode(self.purchaseDate, forKey: Key.purchaseDate.rawValue)
+        coder.encode(self.shippingAddress, forKey: Key.shippingAddress.rawValue)
+        coder.encode(self.billingAddress, forKey: Key.billingAddress.rawValue)
+        coder.encode(self.items, forKey: Key.items.rawValue)
+        coder.encode(self.tax, forKey: Key.tax.rawValue)
+        coder.encode(self.shippingAndHandling, forKey: Key.shippingAndHandling.rawValue)
+        coder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
     private init(orderID: String, status: String, storeID: String, customerID: String, purchaseDate: Date, shippingAddress: Address, billingAddress: Address, items: [CartItem], tax: Double?, shippingAndHandling: Double?, properties: Dictionary<String, Any>?) {
@@ -92,18 +94,18 @@ import Foundation
         self.properties = properties
     }
     
-    @objc public required convenience init?(coder aDecoder: NSCoder) {
-        if let orderID = aDecoder.decodeObject(forKey: Key.orderID.rawValue) as? String,
-           let status = aDecoder.decodeObject(forKey: Key.status.rawValue) as? String,
-           let storeID = aDecoder.decodeObject(forKey: Key.storeID.rawValue) as? String,
-           let customerID = aDecoder.decodeObject(forKey: Key.customerID.rawValue) as? String,
-           let purchaseDate = aDecoder.decodeObject(forKey: Key.purchaseDate.rawValue) as? Date,
-           let shippingAddress = aDecoder.decodeObject(forKey: Key.shippingAddress.rawValue) as? Address,
-           let billingAddress = aDecoder.decodeObject(forKey: Key.billingAddress.rawValue) as? Address,
-           let items = aDecoder.decodeObject(forKey: Key.items.rawValue) as? [CartItem],
-           let tax = aDecoder.decodeObject(forKey: Key.tax.rawValue) as? Double?,
-           let shippingAndHandling = aDecoder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as? Double?,
-           let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as? Dictionary<String, Any>? {
+    public required convenience init?(coder: NSCoder) {
+        if let orderID = coder.decodeObject(forKey: Key.orderID.rawValue) as? String,
+           let status = coder.decodeObject(forKey: Key.status.rawValue) as? String,
+           let storeID = coder.decodeObject(forKey: Key.storeID.rawValue) as? String,
+           let customerID = coder.decodeObject(forKey: Key.customerID.rawValue) as? String,
+           let purchaseDate = coder.decodeObject(forKey: Key.purchaseDate.rawValue) as? Date,
+           let shippingAddress = coder.decodeObject(forKey: Key.shippingAddress.rawValue) as? Address,
+           let billingAddress = coder.decodeObject(forKey: Key.billingAddress.rawValue) as? Address,
+           let items = coder.decodeObject(forKey: Key.items.rawValue) as? [CartItem],
+           let tax = coder.decodeObject(forKey: Key.tax.rawValue) as? Double?,
+           let shippingAndHandling = coder.decodeObject(forKey: Key.shippingAndHandling.rawValue) as? Double?,
+           let properties = coder.decodeObject(forKey: Key.properties.rawValue) as? Dictionary<String, Any>? {
             
             var isItemError = false
             items.forEach { item in

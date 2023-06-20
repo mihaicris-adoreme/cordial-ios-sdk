@@ -43,7 +43,7 @@ class CustomEventRequestsCoreData {
                     let newRow = NSManagedObject(entity: entity, insertInto: context)
 
                     do {
-                        let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: false)
+                        let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: true)
                         
                         newRow.setValue(sendCustomEventRequestData, forKey: "data")
                         newRow.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
@@ -96,7 +96,9 @@ class CustomEventRequestsCoreData {
                 guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
 
-                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendCustomEventRequest, !sendCustomEventRequest.isError {
+                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [SendCustomEventRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? SendCustomEventRequest,
+                   !sendCustomEventRequest.isError {
+                    
                     sendCustomEventRequests.append(sendCustomEventRequest)
                 } else {
                     context.delete(managedObject)
@@ -106,6 +108,8 @@ class CustomEventRequestsCoreData {
                 }
             }
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
 
