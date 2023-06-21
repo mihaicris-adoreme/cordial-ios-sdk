@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc public class InAppMessageDelayMode: NSObject {
+@objcMembers public class InAppMessageDelayMode: NSObject {
     
     static let shared = InAppMessageDelayMode()
     
@@ -18,7 +18,7 @@ import Foundation
     
     var currentMode = InAppMessageDelayType.show
     
-    @objc public func show(_ type: InAppMessageDelayShowType = .immediately) {
+    public func show(_ type: InAppMessageDelayShowType = .nextAppOpen) {
         self.currentMode = InAppMessageDelayType.show
         
         if type == .immediately {
@@ -28,11 +28,11 @@ import Foundation
         }
     }
     
-    @objc public func delayedShow() {
+    public func delayedShow() {
         self.currentMode = InAppMessageDelayType.delayedShow
     }
     
-    @objc public func disallowedControllers(_ disallowedControllersType: [AnyObject.Type]) {
+    public func disallowedControllers(_ disallowedControllersType: [AnyObject.Type]) {
         self.currentMode = InAppMessageDelayType.disallowedControllers
         self.disallowedControllersType = disallowedControllersType
     }
