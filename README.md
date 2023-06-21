@@ -1136,16 +1136,24 @@ To switch between modes, call corresponding methods in the CordialApiConfigurati
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
 ```
-CordialApiConfiguration.shared.inAppMessageDelayMode.show()
 CordialApiConfiguration.shared.inAppMessageDelayMode.delayedShow()
+
+CordialApiConfiguration.shared.inAppMessageDelayMode.show()
+CordialApiConfiguration.shared.inAppMessageDelayMode.show(.immediately)
+CordialApiConfiguration.shared.inAppMessageDelayMode.show(.nextAppOpen)
+
 CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ClassName.self])
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 
 ```
-[[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
 [[[CordialApiConfiguration shared] inAppMessageDelayMode] delayedShow];
+
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show:InAppMessageDelayShowTypeImmediately];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show:InAppMessageDelayShowTypeNextAppOpen];
+
 [[[CordialApiConfiguration shared] inAppMessageDelayMode] disallowedControllers:@[[ClassName class]]];
 ```
 

@@ -18,7 +18,11 @@ import Foundation
     
     var currentMode = InAppMessageDelayType.show
     
-    public func show(_ type: InAppMessageDelayShowType = .nextAppOpen) {
+    public func show() {
+        self.show(.nextAppOpen)
+    }
+    
+    public func show(_ type: InAppMessageDelayShowType) {
         self.currentMode = InAppMessageDelayType.show
         
         if type == .immediately {
