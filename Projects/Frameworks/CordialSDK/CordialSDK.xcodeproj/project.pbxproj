@@ -186,6 +186,7 @@
 		9EA43D3A24C9A8B6000A1F45 /* CordialPushNotificationConfigurationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA43D3924C9A8B6000A1F45 /* CordialPushNotificationConfigurationType.swift */; };
 		9EA63E59282D2E7600337B5B /* CordialDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA63E58282D2E7600337B5B /* CordialDeepLink.swift */; };
 		9EA68D7826EA835E00D36C22 /* ResourceBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA68D7726EA835E00D36C22 /* ResourceBundle.swift */; };
+		9EA6AAC22A34ADA6008626BB /* InAppMessageDelayShowType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA6AAC12A34ADA6008626BB /* InAppMessageDelayShowType.swift */; };
 		9EA7098D25C83EC7001E277F /* CordialDeepLinksAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA7098C25C83EC7001E277F /* CordialDeepLinksAPI.swift */; };
 		9EA785CB258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA785CA258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift */; };
 		9EA785D02590DC8C00F02C64 /* InboxMessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EA785CF2590DC8C00F02C64 /* InboxMessageHandler.swift */; };
@@ -526,6 +527,7 @@
 		9EA43D3924C9A8B6000A1F45 /* CordialPushNotificationConfigurationType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialPushNotificationConfigurationType.swift; sourceTree = "<group>"; };
 		9EA63E58282D2E7600337B5B /* CordialDeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLink.swift; sourceTree = "<group>"; };
 		9EA68D7726EA835E00D36C22 /* ResourceBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceBundle.swift; sourceTree = "<group>"; };
+		9EA6AAC12A34ADA6008626BB /* InAppMessageDelayShowType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageDelayShowType.swift; sourceTree = "<group>"; };
 		9EA7098C25C83EC7001E277F /* CordialDeepLinksAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksAPI.swift; sourceTree = "<group>"; };
 		9EA785CA258FEA1500F02C64 /* MockRequestSenderInboxMessagesMarkUnreadCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestSenderInboxMessagesMarkUnreadCache.swift; sourceTree = "<group>"; };
 		9EA785CF2590DC8C00F02C64 /* InboxMessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessageHandler.swift; sourceTree = "<group>"; };
@@ -1284,15 +1286,14 @@
 			children = (
 				9E6A935026A992FC00C1990B /* SwiftUI */,
 				9E6A934F26A992E800C1990B /* UIKit */,
+				9EA6AAC32A34AE21008626BB /* InAppMessageDelay */,
 				9EA2EFA522C4F0700047314C /* InAppMessageManager.swift */,
 				9EA2EFA722C4F4670047314C /* InAppMessageViewController.swift */,
 				9E9F2FDE238BF6CC0034F811 /* InAppMessageDelayViewController.swift */,
 				9EEE941022E099A200A61FD3 /* InAppMessageBannerView.swift */,
 				9E189E0622CB7D790031C427 /* InAppMessageProcess.swift */,
-				9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */,
 				9EE94E2C233CF8C9009651DF /* InAppMessageInactiveSessionDisplayType.swift */,
 				9EB448B522E9B6160043C256 /* InAppMessageDisplayType.swift */,
-				9E1B0D2E2379CE510010B86E /* InAppMessageDelayType.swift */,
 				9E1D8CC822D7656F00CD9CDD /* InAppMessageType.swift */,
 				9ED9266922CB5BDF00809EC0 /* InAppMessage.js */,
 			);
@@ -1305,6 +1306,16 @@
 				9EA68D7726EA835E00D36C22 /* ResourceBundle.swift */,
 			);
 			path = ResourceBundle;
+			sourceTree = "<group>";
+		};
+		9EA6AAC32A34AE21008626BB /* InAppMessageDelay */ = {
+			isa = PBXGroup;
+			children = (
+				9E1B0D2C2379C1520010B86E /* InAppMessageDelayMode.swift */,
+				9E1B0D2E2379CE510010B86E /* InAppMessageDelayType.swift */,
+				9EA6AAC12A34ADA6008626BB /* InAppMessageDelayShowType.swift */,
+			);
+			path = InAppMessageDelay;
 			sourceTree = "<group>";
 		};
 		9EA785CE2590DC6B00F02C64 /* InboxMessage */ = {
@@ -1944,6 +1955,7 @@
 				9EE29BE722F9A936004DC8F9 /* FetchInAppMessageURLSessionManager.swift in Sources */,
 				9E6D1E2E250ECB2500940363 /* InboxMessageDeleteURLSessionManager.swift in Sources */,
 				9ED621F322CE388900A55DB2 /* InAppMessagesQueueCoreData.swift in Sources */,
+				9EA6AAC22A34ADA6008626BB /* InAppMessageDelayShowType.swift in Sources */,
 				9E0F49FF257874E800E2FA95 /* InboxMessagesURLSession.swift in Sources */,
 				9E11AA092906E23800EF6E11 /* JSONValue.swift in Sources */,
 				9E12EA4522CCD45100C2DED4 /* InAppMessage.swift in Sources */,

@@ -45,9 +45,12 @@ import CoreLocation
     @objc public var inAppMessagesDeliveryConfiguration: InAppMessagesDeliveryConfigurationType = .directDelivery
     
     @objc public let inboxMessageCache = InboxMessageCache.shared
+    @objc public let inAppMessageDelayMode = InAppMessageDelayMode.shared
     
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, Any>?
+    
+    @objc public var vanityDomains: [String] = []
     
     @objc public func setNotificationCategories(_ pushNotificationCategories: [PushNotificationCategory]) {
         let internalCordialAPI = InternalCordialAPI()
@@ -61,8 +64,6 @@ import CoreLocation
             LoggerManager.shared.error(message: "Setting empty push notification categories array is unsupported", category: "CordialSDKPushNotification")
         }
     }
-    
-    @objc public var vanityDomains = [String]()
     
     @objc public var eventsBulkSize: Int = 1 {
         didSet {
@@ -85,8 +86,6 @@ import CoreLocation
             }
         }
     }
-
-    @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
     @objc public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String = "", messageHubURL: String = "") {
         
