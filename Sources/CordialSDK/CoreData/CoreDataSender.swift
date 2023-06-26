@@ -51,7 +51,8 @@ class CoreDataSender {
     
     func sendCachedCustomEventRequests(reason: String) {
         if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
-            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
+            let customEventRequests = CoreDataManager.shared.customEventRequests.getCustomEventRequestsFromCoreData()
+            
             if customEventRequests.count > 0 {
                 if CordialApiConfiguration.shared.eventsBulkSize != 1 {
                     LoggerManager.shared.info(message: "Flushing events. Reason: [\(reason)]", category: "CordialSDKSendCustomEvents")

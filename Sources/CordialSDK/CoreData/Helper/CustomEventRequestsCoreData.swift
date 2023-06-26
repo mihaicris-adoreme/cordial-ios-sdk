@@ -47,6 +47,7 @@ class CustomEventRequestsCoreData {
                         
                         newRow.setValue(sendCustomEventRequestData, forKey: "data")
                         newRow.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
+                        newRow.setValue(false, forKey: "flushing")
 
                         try context.save()
                     } catch let error {
@@ -82,7 +83,7 @@ class CustomEventRequestsCoreData {
         }
     }
     
-    private func getCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
+    func getCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
         var sendCustomEventRequests = [SendCustomEventRequest]()
         
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return sendCustomEventRequests }
@@ -98,6 +99,9 @@ class CustomEventRequestsCoreData {
 
                 if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [SendCustomEventRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? SendCustomEventRequest,
                    !sendCustomEventRequest.isError {
+                    
+                    managedObject.setValue(true, forKey: "flushing")
+                    try context.save()
                     
                     sendCustomEventRequests.append(sendCustomEventRequest)
                 } else {
@@ -136,14 +140,6 @@ class CustomEventRequestsCoreData {
 
         return false
         
-    }
-    
-    func fetchCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
-        let sendCustomEventRequests = self.getCustomEventRequestsFromCoreData()
-        
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
-        
-        return sendCustomEventRequests
     }
 
     func getQtyCachedCustomEventRequests() -> Int? {
