@@ -50,7 +50,9 @@ class CoreDataSender {
     }
     
     func sendCachedCustomEventRequests(reason: String) {
-        if InternalCordialAPI().isUserLogin() && !InternalCordialAPI().isCurrentlyUpsertingContacts() {
+        let internalCordialAPI = InternalCordialAPI()
+        
+        if internalCordialAPI.isUserLogin() && !internalCordialAPI.isCurrentlyUpsertingContacts() {
             let customEventRequests = CoreDataManager.shared.customEventRequests.getCustomEventRequestsFromCoreData()
             
             if customEventRequests.count > 0 {

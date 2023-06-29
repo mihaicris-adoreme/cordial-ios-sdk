@@ -36,10 +36,12 @@ class CustomEventRequestsCoreData {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            sendCustomEventRequests.forEach { sendCustomEventRequest in
-                if let isCustomEventRequestExistAtCoreData = self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID),
-                   !isCustomEventRequestExistAtCoreData {
-                    
+            for sendCustomEventRequest in sendCustomEventRequests {
+                guard let isCustomEventRequestExistAtCoreData = self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID) else { continue }
+                
+                if isCustomEventRequestExistAtCoreData {
+                   // TODO - Update event request by requestID
+                } else {
                     let newRow = NSManagedObject(entity: entity, insertInto: context)
 
                     do {
@@ -98,7 +100,9 @@ class CustomEventRequestsCoreData {
                 let data = anyData as! Data
 
                 if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [SendCustomEventRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? SendCustomEventRequest,
-                   !sendCustomEventRequest.isError {
+                   let isFlushing = managedObject.value(forKey: "flushing") as? Bool,
+                   !sendCustomEventRequest.isError,
+                   !isFlushing {
                     
                     managedObject.setValue(true, forKey: "flushing")
                     try context.save()

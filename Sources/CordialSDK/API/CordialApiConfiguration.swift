@@ -109,6 +109,11 @@ import CoreLocation
             self.messageHubURL = messageHubURL
         }
         
+        let internalCordialAPI = InternalCordialAPI()
+        if internalCordialAPI.isUserLogin() && !internalCordialAPI.isCurrentlySendingCustomEvents() {
+            // TODO - Unmark flushing true events to false
+        }
+        
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         LoggerManager.shared.log(message: "Device Identifier: [\(deviceID)] SDK: [\(self.sdkVersion)]", category: "CordialSDKInfo")
         
