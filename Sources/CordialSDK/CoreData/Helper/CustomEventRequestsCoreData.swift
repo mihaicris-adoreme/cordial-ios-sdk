@@ -40,23 +40,46 @@ class CustomEventRequestsCoreData {
                 guard let isCustomEventRequestExistAtCoreData = self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID) else { continue }
                 
                 if isCustomEventRequestExistAtCoreData {
-                   // TODO - Update event request by requestID
+                    self.updateCustomEventRequestsAtCoreData(sendCustomEventRequest: sendCustomEventRequest)
                 } else {
-                    let newRow = NSManagedObject(entity: entity, insertInto: context)
-
-                    do {
-                        let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: true)
-                        
-                        newRow.setValue(sendCustomEventRequestData, forKey: "data")
-                        newRow.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
-                        newRow.setValue(false, forKey: "flushing")
-
-                        try context.save()
-                    } catch let error {
-                        LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-                    }
+                    let managedObject = NSManagedObject(entity: entity, insertInto: context)
+                    self.setCustomEventRequestToCoreData(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
                 }
             }
+        }
+    }
+    
+    private func setCustomEventRequestToCoreData(managedObject: NSManagedObject, context: NSManagedObjectContext, sendCustomEventRequest: SendCustomEventRequest) {
+        do {
+            let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: true)
+            
+            managedObject.setValue(sendCustomEventRequestData, forKey: "data")
+            managedObject.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
+            managedObject.setValue(false, forKey: "flushing")
+
+            try context.save()
+        } catch let error {
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
+    private func updateCustomEventRequestsAtCoreData(sendCustomEventRequest: SendCustomEventRequest) {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
+        
+        request.predicate = NSPredicate(format: "requestID = %@", sendCustomEventRequest.requestID)
+        
+        do {
+            let result = try context.fetch(request)
+            
+            for managedObject in result as! [NSManagedObject] {
+                self.setCustomEventRequestToCoreData(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
+            }
+        } catch let error {
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
