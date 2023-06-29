@@ -20,7 +20,6 @@ import CoreLocation
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
-    let initCoreDataManager = CoreDataManager.shared
     
     internal var accountKey = String()
     internal var channelKey = String()
@@ -109,16 +108,12 @@ import CoreLocation
             self.messageHubURL = messageHubURL
         }
         
-        let internalCordialAPI = InternalCordialAPI()
-        if internalCordialAPI.isUserLogin() && !internalCordialAPI.isCurrentlySendingCustomEvents() {
-            // TODO - Unmark flushing true events to false
-        }
-        
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         LoggerManager.shared.log(message: "Device Identifier: [\(deviceID)] SDK: [\(self.sdkVersion)]", category: "CordialSDKInfo")
         
-        let systemEventsProperties = InternalCordialAPI().getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
-        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+        self.systemEventsProperties = InternalCordialAPI().getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
+        
+        CoreDataManager.shared.customEventRequests.updateSendingCustomEventRequestsIfNeeded()
         
         CordialPushNotification.shared.setupPushNotifications()
         
