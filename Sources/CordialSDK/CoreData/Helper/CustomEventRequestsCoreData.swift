@@ -36,7 +36,9 @@ class CustomEventRequestsCoreData {
         let internalCordialAPI = InternalCordialAPI()
         
         if internalCordialAPI.isUserLogin() && !internalCordialAPI.isCurrentlySendingCustomEvents() {
-            self.updateSendingCustomEventRequests()
+            DispatchQueue.main.async {
+                self.updateSendingCustomEventRequests()
+            }
         }
     }
     
@@ -46,7 +48,7 @@ class CustomEventRequestsCoreData {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         
-        request.predicate = NSPredicate(format: "flushing = %@", true)
+        request.predicate = NSPredicate(format: "flushing = %@", NSNumber(value: true))
         
         do {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
@@ -117,7 +119,7 @@ class CustomEventRequestsCoreData {
         do {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
-            for managedObject in managedObjects {
+            if let managedObject = managedObjects.first {
                 self.setCustomEventRequestToCoreData(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
             }
         } catch let error {
@@ -174,14 +176,21 @@ class CustomEventRequestsCoreData {
                 }
 
                 if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [SendCustomEventRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? SendCustomEventRequest,
-                   let isFlushing = managedObject.value(forKey: "flushing") as? Bool,
-                   !sendCustomEventRequest.isError,
-                   !isFlushing {
+                   !sendCustomEventRequest.isError {
                     
-                    managedObject.setValue(true, forKey: "flushing")
-                    try context.save()
+                    guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
+                        context.delete(managedObject)
+                        try context.save()
+                        
+                        continue
+                    }
                     
-                    sendCustomEventRequests.append(sendCustomEventRequest)
+                    if !isFlushing {
+                        managedObject.setValue(true, forKey: "flushing")
+                        try context.save()
+                        
+                        sendCustomEventRequests.append(sendCustomEventRequest)
+                    }
                 } else {
                     context.delete(managedObject)
                     try context.save()
