@@ -56,6 +56,8 @@ class CustomEventsSender {
     func completionHandler(sendCustomEventRequests: [SendCustomEventRequest]) {
         InternalCordialAPI().setIsCurrentlySendingCustomEvents(false)
         
+        CoreDataManager.shared.customEventRequests.removeCustomEventRequestsFromCoreData(sendCustomEventRequests: sendCustomEventRequests)
+        
         let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
         LoggerManager.shared.info(message: "Events { \(eventNamesAndRequestIDs) } have been sent", category: "CordialSDKSendCustomEvents")
     }

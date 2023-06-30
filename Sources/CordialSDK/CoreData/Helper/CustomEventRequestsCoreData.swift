@@ -32,6 +32,12 @@ class CustomEventRequestsCoreData {
         }
     }
     
+    func removeCustomEventRequestsFromCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
+        sendCustomEventRequests.forEach { sendCustomEventRequests in
+            self.removeCustomEventRequestFromCoreData(sendCustomEventRequest: sendCustomEventRequests)
+        }
+    }
+    
     func updateSendingCustomEventRequestsIfNeeded() {
         let internalCordialAPI = InternalCordialAPI()
         
@@ -65,6 +71,11 @@ class CustomEventRequestsCoreData {
                    !sendCustomEventRequest.isError {
                     
                     self.setCustomEventRequestToCoreData(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
+                } else {
+                    context.delete(managedObject)
+                    try context.save()
+                    
+                    LoggerManager.shared.error(message: "Failed unarchiving SendCustomEventRequest", category: "CordialSDKError")
                 }
             }
         } catch let error {
@@ -112,15 +123,36 @@ class CustomEventRequestsCoreData {
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.fetchLimit = 1
         
         request.predicate = NSPredicate(format: "requestID = %@", sendCustomEventRequest.requestID)
         
         do {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
-            if let managedObject = managedObjects.first {
+            for managedObject in managedObjects {
                 self.setCustomEventRequestToCoreData(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
+            }
+        } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
+    private func removeCustomEventRequestFromCoreData(sendCustomEventRequest: SendCustomEventRequest) {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        
+        request.predicate = NSPredicate(format: "requestID = %@", sendCustomEventRequest.requestID)
+        
+        do {
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
+            
+            for managedObject in managedObjects {
+                context.delete(managedObject)
+                try context.save()
             }
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
@@ -212,7 +244,6 @@ class CustomEventRequestsCoreData {
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.fetchLimit = 1
 
         let predicate = NSPredicate(format: "requestID = %@", requestID)
         request.predicate = predicate
