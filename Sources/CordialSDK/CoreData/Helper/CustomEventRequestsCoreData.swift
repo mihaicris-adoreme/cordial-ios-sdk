@@ -39,9 +39,7 @@ class CustomEventRequestsCoreData {
     }
     
     func updateSendingCustomEventRequestsIfNeeded() {
-        let internalCordialAPI = InternalCordialAPI()
-        
-        if internalCordialAPI.isUserLogin() && !internalCordialAPI.isCurrentlySendingCustomEvents() {
+        if InternalCordialAPI().isUserLogin() {
             DispatchQueue.main.async {
                 self.updateSendingCustomEventRequests()
             }

@@ -33,11 +33,7 @@ class CustomEventsSender {
     }
     
     private func sendCustomEventsData(sendCustomEventRequests: [SendCustomEventRequest]) {
-        let internalCordialAPI = InternalCordialAPI()
-        
-        internalCordialAPI.setIsCurrentlySendingCustomEvents(true)
-        
-        if internalCordialAPI.getCurrentJWT() != nil {
+        if InternalCordialAPI().getCurrentJWT() != nil {
             let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
             LoggerManager.shared.info(message: "Sending events: { \(eventNamesAndRequestIDs) }", category: "CordialSDKSendCustomEvents")
                 
@@ -54,8 +50,6 @@ class CustomEventsSender {
     }
     
     func completionHandler(sendCustomEventRequests: [SendCustomEventRequest]) {
-        InternalCordialAPI().setIsCurrentlySendingCustomEvents(false)
-        
         CoreDataManager.shared.customEventRequests.removeCustomEventRequestsFromCoreData(sendCustomEventRequests: sendCustomEventRequests)
         
         let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)

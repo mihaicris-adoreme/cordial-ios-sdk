@@ -344,22 +344,6 @@ class InternalCordialAPI {
         }
     }
     
-    // MARK: Set isCurrentlySendingCustomEvents
-    
-    func setIsCurrentlySendingCustomEvents(_ isCurrentlySendingCustomEvents: Bool) {
-        CordialUserDefaults.set(isCurrentlySendingCustomEvents, forKey: API.USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_SENDING_CUSTOM_EVENTS)
-    }
-    
-    // MARK: Get isCurrentlySendingCustomEvents
-    
-    func isCurrentlySendingCustomEvents() -> Bool {
-        if let isCurrentlySendingCustomEvents = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_SENDING_CUSTOM_EVENTS) {
-            return isCurrentlySendingCustomEvents
-        }
-        
-        return false
-    }
-    
     // MARK: Get active view controller
     
     func getActiveViewController() -> UIViewController? {
