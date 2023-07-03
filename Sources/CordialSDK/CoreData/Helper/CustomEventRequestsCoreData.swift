@@ -51,33 +51,14 @@ class CustomEventRequestsCoreData {
     private func updateSendingCustomEventRequests() {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
-        request.returnsObjectsAsFaults = false
+        let request = NSBatchUpdateRequest(entityName: self.entityName)
+        request.resultType = .statusOnlyResultType
         
         request.predicate = NSPredicate(format: "flushing = %@", NSNumber(value: true))
+        request.propertiesToUpdate = ["flushing": NSNumber(value: false)]
         
         do {
-            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
-            
-            for managedObject in managedObjects {
-                guard let data = managedObject.value(forKey: "data") as? Data else {
-                    context.delete(managedObject)
-                    try context.save()
-                    
-                    continue
-                }
-                
-                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [SendCustomEventRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? SendCustomEventRequest,
-                   !sendCustomEventRequest.isError {
-                    
-                    self.setCustomEventRequestToCoreData(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
-                } else {
-                    context.delete(managedObject)
-                    try context.save()
-                    
-                    LoggerManager.shared.error(message: "Failed unarchiving SendCustomEventRequest", category: "CordialSDKError")
-                }
-            }
+            try context.execute(request)
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
             
