@@ -33,8 +33,8 @@ class CustomEventRequestsCoreData {
     }
     
     func removeCustomEventRequestsFromCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
-        sendCustomEventRequests.forEach { sendCustomEventRequests in
-            self.removeCustomEventRequestFromCoreData(sendCustomEventRequest: sendCustomEventRequests)
+        sendCustomEventRequests.forEach { sendCustomEventRequest in
+            self.removeCustomEventRequestFromCoreData(sendCustomEventRequest: sendCustomEventRequest)
         }
     }
     
