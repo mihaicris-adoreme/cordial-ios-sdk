@@ -130,8 +130,7 @@ class CustomEventRequestsCoreData {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
             for managedObject in managedObjects {
-                context.delete(managedObject)
-                try context.save()
+                CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
             }
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
@@ -154,8 +153,7 @@ class CustomEventRequestsCoreData {
                 if id > countId {
                     countId+=1
                     
-                    context.delete(managedObject)
-                    try context.save()
+                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                 } else {
                     break
                 }
@@ -180,9 +178,8 @@ class CustomEventRequestsCoreData {
             
             for managedObject in managedObjects {
                 guard let data = managedObject.value(forKey: "data") as? Data else {
-                    context.delete(managedObject)
-                    try context.save()
-                    
+                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+
                     continue
                 }
 
@@ -190,8 +187,7 @@ class CustomEventRequestsCoreData {
                    !sendCustomEventRequest.isError {
                     
                     guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
-                        context.delete(managedObject)
-                        try context.save()
+                        CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                         
                         continue
                     }
@@ -203,8 +199,7 @@ class CustomEventRequestsCoreData {
                         sendCustomEventRequests.append(sendCustomEventRequest)
                     }
                 } else {
-                    context.delete(managedObject)
-                    try context.save()
+                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving SendCustomEventRequest", category: "CordialSDKError")
                 }
