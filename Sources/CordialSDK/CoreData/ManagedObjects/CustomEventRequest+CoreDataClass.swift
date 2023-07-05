@@ -2,8 +2,8 @@
 //  CustomEventRequest+CoreDataClass.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 29.10.2020.
-//  Copyright © 2020 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 26.06.2023.
+//  Copyright © 2023 cordial.io. All rights reserved.
 //
 //
 
