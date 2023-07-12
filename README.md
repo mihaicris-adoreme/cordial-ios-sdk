@@ -39,11 +39,11 @@
 
 ## Swift Package Manager
 
-For adding `Cordial SDK` to your project via Swift Package Manager use this repository: `git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git`
+For adding Cordial SDK to your project via Swift Package Manager use this repository: `git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git`
 
 ## CocoaPods
 
-Make sure you have access to `Cordial SDK` gitlab repo. We recommend adding your SSH key to `GitLab`. After that, specify `Cordial SDK` in your Podfile:
+Make sure you have access to Cordial SDK repo. We recommend adding your SSH key to GitLab. After that, specify Cordial SDK in your Podfile:
 
 ```
 use_frameworks!
@@ -56,7 +56,7 @@ Now you can run:
 pod install
 ```
 
-This will add the latest version of `Cordial SDK` to your project.
+This will add the latest version of Cordial SDK to your project.
 
 ## Initialize the SDK
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initialize` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
@@ -119,9 +119,9 @@ CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 
 ## Initialize the SDK for React Native
 
-By default, `Cordial SDK` is a dynamic framework. In contrast, `React Native` does not support the processing of dynamic libraries. For this specific case, the `Cordial SDK` public repository has a separate branch called `static_framework`.
+By default, Cordial SDK is a dynamic framework. In contrast, React Native does not support the processing of dynamic libraries. For this specific case, the Cordial SDK repository has a separate branch called `static_framework`.
 
-To start working with `React Native`, your project should have a [pre-built iOS component](https://reactnative.dev/docs/environment-setup) that can be modified in the future. The iOS folder contains a `CocoaPods` configuration file called Podfile.
+To start working with React Native on iOS, your project should have a [pre-built iOS component](https://reactnative.dev/docs/environment-setup). The `ios` folder contains a CocoaPods configuration file called Podfile.
 
 Specify `static_framework` in your Podfile:
 
@@ -137,9 +137,9 @@ Now you can run:
 pod install
 ```
 
-This will add the `Cordial SDK` static library to your project.
+This will add the Cordial SDK static library to your project.
 
-The following steps require your attention to develop an [iOS Native Module](https://reactnative.dev/docs/native-modules-ios) and expand it according to your future needs.
+The following steps require your attention to develop an [iOS Native Module](https://reactnative.dev/docs/native-modules-ios) and expand it according to your needs.
 
 ## Setting Message Logging Level
 
@@ -179,7 +179,7 @@ YourImplementationOfTheProtocol *logger = [[YourImplementationOfTheProtocol allo
 
 ## Push Notifications
 
-Your application can use `Cordial SDK` to configure push notifications.
+Your application can use Cordial SDK to configure push notifications.
 
 Make sure to add `Remote notifications` background mode and `Push Notifications` capability. In order to enable push notification delivery and handle notification taps, the code needs the following:
 
@@ -199,7 +199,7 @@ cordialAPI.registerForPushNotifications(options: [.alert, .sound, .badge])
 [cordialAPI registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound|UNAuthorizationOptionBadge];
 ```
 
-2. Optionally provide `Cordial SDK` with an instance of the `CordialPushNotificationDelegate` protocol. This should be done in `AppDelegate.didFinishLaunchingWithOptions`:
+2. Optionally provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. This should be done in `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -430,11 +430,12 @@ Sources/CordialSDK/PushNotification/PushNotificationCategories/en.lproj/PushNoti
 Use these data inside your localization dataset.
 
 ## Multiple Push Notification Providers
-`Cordial SDK` supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
 
-It allows to use several notification providers in a single app simultaneously. This requires your application to configure itself for push notifications and let `Cordial SDK` display and track notifications that were sent by Cordial. To allow `Cordial SDK` to display and track push notifications sent by Cordial, the application should send APNs token to `Cordial SDK` once received and use a specific piece of code shown below in several parts of your application. 
+Cordial SDK supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
 
-By default `Cordial SDK` is set up as the only push notification provider for your application. This behavior can be changed using `pushesConfiguration` option which can take one of the two values `SDK` or `APP`.  In order to enable multiple notification providers set `CordialApiConfiguration.pushesConfiguration` to `APP` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
+It allows to use several notification providers in a single app simultaneously. This requires your application to configure itself for push notifications and let Cordial SDK display and track notifications that were sent by Cordial. To allow Cordial SDK to display and track push notifications sent by Cordial, the application should send APNs token to Cordial SDK once received and use a specific piece of code shown below in several parts of your application. 
+
+By default Cordial SDK is set up as the only push notification provider for your application. This behavior can be changed using `pushesConfiguration` option which can take one of the two values `SDK` or `APP`.  In order to enable multiple notification providers set `CordialApiConfiguration.pushesConfiguration` to `APP` and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -470,7 +471,7 @@ After enabling multiple push notification providers the app should pass an APNs 
 
 To handle Cordial push notifications after enabling multiple notification providers support the app needs to do three additional steps:
 
-1. Pass push notification token to the `Cordial SDK`:
+1. Pass push notification token to the Cordial SDK:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -514,7 +515,7 @@ CordialPushNotificationHandler().processNotificationDeliveryInForeground(userInf
 
 ## Method Swizzling
 
-`Cordial SDK` does swizzling in three areas:
+Cordial SDK does swizzling in three areas:
 
 - Registering for and receiving push notifications
 - Handling deep links
@@ -774,7 +775,7 @@ NSDate *date = [[NSDate alloc] init];
 
 ## Deep Links
 
-`Cordial SDK` allows you to track deep link open events. Two types of deep links are supported: universal links and URL scheme links. In order to allow the SDK to track deep links, make sure to implement the `CordialDeepLinksDelegate` protocol. The protocol contains callbacks that will be called once the app gets the chance to open a deep link.
+Cordial SDK allows you to track deep link open events. Two types of deep links are supported: universal links and URL scheme links. In order to allow the SDK to track deep links, make sure to implement the `CordialDeepLinksDelegate` protocol. The protocol contains callbacks that will be called once the app gets the chance to open a deep link.
 
 In the body of the `AppDelegate.didFinishLaunchingWithOptions` function, provide the following implementation:
 
@@ -862,9 +863,9 @@ CordialApiConfiguration.shared.vanityDomains = ["vanity.domain.com"]
 
 ### Opening deep links received from Cordial
 
-In case the app receives a deep link from Cordial, for example as part of inbox message metadata, instead of trying to process the deep link itself, the app should open it via `Cordial SDK`. 
+In case the app receives a deep link from Cordial, for example as part of inbox message metadata, instead of trying to process the deep link itself, the app should open it via Cordial SDK. 
 
-`Cordial SDK` will do regular deep link processing that is required when opening the deep link and pass the final deep link to `CordialDeepLinksDelegate`. 
+Cordial SDK will do regular deep link processing that is required when opening the deep link and pass the final deep link to `CordialDeepLinksDelegate`. 
 
 Deep link processing includes:
 
@@ -929,7 +930,7 @@ cordialAPI.setContact(primaryKey: "email:foo@example.com")
 
 ### Unsetting a Contact
 
-Whenever a contact is disassociated with the application, typically due to a logout event, the `Cordial SDK` should be notified so that contact generated events are no longer associated with their profile. This is done by calling the `unsetContact` method.
+Whenever a contact is disassociated with the application, typically due to a logout event, the Cordial SDK should be notified so that contact generated events are no longer associated with their profile. This is done by calling the `unsetContact` method.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -1070,7 +1071,7 @@ CordialApiConfiguration.shared.systemEventsProperties = ["<property name>": "<pr
 ### Event Caching
 Every request described above is cached in case of failure to post. For example, if the internet is down on the device and an event failed to be delivered to Cordial, the event would be cached by the SDK and its delivery would be retried once the connection is up again.
 
-`Cordial SDK` limits the number of events that may be cached at any given time. When the limit of cached events is reached, the oldest events are removed and replaced by the incoming events, and will not be resent. By default, the cache limit is set to 1,000 events. Use the following method to modify the default cache limit:
+Cordial SDK limits the number of events that may be cached at any given time. When the limit of cached events is reached, the oldest events are removed and replaced by the incoming events, and will not be resent. By default, the cache limit is set to 1,000 events. Use the following method to modify the default cache limit:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -1086,7 +1087,7 @@ CordialApiConfiguration.shared.qtyCachedEventQueue = 100
 
 ### Events Bulking
 
-In order to optimize devices resource usage, `Cordial SDK` groups events into bulks and upload them in one request. Each event happened on a device will be added to bulk. The SDK sends a bulk of events in 3 cases:
+In order to optimize devices resource usage, Cordial SDK groups events into bulks and upload them in one request. Each event happened on a device will be added to bulk. The SDK sends a bulk of events in 3 cases:
 
 1. Events limit in bulk is reached. The bulk size is configured via `eventsBulkSize`. Set to 5 by default.
 2. The bulk has not been sent for specified time interval. Even if a bulk is not fully populated with events it will be sent every `eventsBulkUploadInterval` in seconds. Bulk upload interval is configured via `eventsBulkUploadInterval`. Set to 30 seconds by default.
@@ -1145,7 +1146,7 @@ The above example configures the location manager for maximum geo accuracy. To i
 
 ### In-App Messaging Link Actions
 
-`Cordial SDK` can handle actions from a designated HTML object. Using `crdlAction` function you can create buttons that deep link to specific content within your app or send custom events such as cart, browse, discount_applied, and dismissed. Using `crdlCaptureAllInputs` function you can capture inputs from input and select html elements and send them as properties of specified custom event. 
+Cordial SDK can handle actions from a designated HTML object. Using `crdlAction` function you can create buttons that deep link to specific content within your app or send custom events such as cart, browse, discount_applied, and dismissed. Using `crdlCaptureAllInputs` function you can capture inputs from input and select html elements and send them as properties of specified custom event. 
 
 To be able to handle deep links from an in-app message, see [Deep Links](#deep-links) section.
 
@@ -1153,7 +1154,7 @@ For more information, see  [Cordial Knowledge Base](https://support.cordial.com/
 
 ### Delaying In-App Messages
 
-`Cordial SDK` allows application developers to delay displaying of in-app messages. In case if in-app message is delayed it will be displayed the next time the application is opened. There are 3 delay modes in the SDK to control in-app messages display:
+Cordial SDK allows application developers to delay displaying of in-app messages. In case if in-app message is delayed it will be displayed the next time the application is opened. There are 3 delay modes in the SDK to control in-app messages display:
 
 1. Show. In-app messages are displayed without delay, which is the default behavior.
 2. Delayed Show. Displaying in-app messages is delayed until Delayed Show mode is turned off.
@@ -1376,7 +1377,7 @@ cordialAPI.setCurrentMcID(mcID: "mcID")
 
 ## Revenue Attribution for Web View Applications
 
-If your application is built on a WebView that views a mobile friendly version of your website which is running the Cordial JavaScript Listener, you will need to change how you process deep links to fix attribution. This is because when a message is clicked, the `Cordial SDK` will store the `mcID`, but the website will not know about this `mcID`. To fix this in your implementation of the `CordialDeepLinksDelegate`, the app should pass the `vanityURL` version of the deep link to the WebView which allows the JavaScript Listener to correctly store the `mcID` for event and order attribution.
+If your application is built on a WebView that views a mobile friendly version of your website which is running the Cordial JavaScript Listener, you will need to change how you process deep links to fix attribution. This is because when a message is clicked, the Cordial SDK will store the `mcID`, but the website will not know about this `mcID`. To fix this in your implementation of the `CordialDeepLinksDelegate`, the app should pass the `vanityURL` version of the deep link to the WebView which allows the JavaScript Listener to correctly store the `mcID` for event and order attribution.
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -1401,7 +1402,7 @@ func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, scene: UIScene, 
 
 ## SwiftUI Apps
 
-`Cordial SDK` supports SwiftUI apps. All sections above still hold for SwiftUI apps except deep links which are described below. Additionally, the SDK adds several classes to make it easier to work with it from SwiftUI app. 
+Cordial SDK supports SwiftUI apps. All sections above still hold for SwiftUI apps except deep links which are described below. Additionally, the SDK adds several classes to make it easier to work with it from SwiftUI app. 
 
 ### Initialization
 
