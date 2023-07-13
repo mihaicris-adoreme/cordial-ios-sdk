@@ -21,7 +21,7 @@ class ContactRequestsCoreData {
                 let newRow = NSManagedObject(entity: entity, insertInto: context)
                 
                 do {
-                    let upsertContactRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactRequest, requiringSecureCoding: false)
+                    let upsertContactRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactRequest, requiringSecureCoding: true)
                     
                     newRow.setValue(upsertContactRequestData, forKey: "data")
                     
@@ -47,7 +47,9 @@ class ContactRequestsCoreData {
                 guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let upsertContactRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UpsertContactRequest, !upsertContactRequest.isError {
+                if let upsertContactRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [UpsertContactRequest.self, NumericValue.self, BooleanValue.self, ArrayValue.self, StringValue.self, DateValue.self, GeoValue.self, JSONObjectValue.self, JSONObjectValues.self, JSONObjectsValues.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? UpsertContactRequest,
+                   !upsertContactRequest.isError {
+                    
                     upsertContactRequests.append(upsertContactRequest)
                 } else {
                     context.delete(managedObject)

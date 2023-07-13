@@ -56,12 +56,29 @@ class InAppMessageManager {
     }
     
     func isTopViewControllerCanPresentInAppMessage(topViewController: UIViewController) -> Bool {
+        var topViewController = topViewController
+        
         switch CordialApiConfiguration.shared.inAppMessageDelayMode.currentMode {
         case InAppMessageDelayType.show:
             return true
         case InAppMessageDelayType.delayedShow:
             return false
         case InAppMessageDelayType.disallowedControllers:
+            switch topViewController {
+            case is UINavigationController:
+                let navigationController = topViewController as! UINavigationController
+                guard let navigationTopViewController = navigationController.topViewController else { return false }
+                
+                topViewController = navigationTopViewController
+            case is UITabBarController:
+                let tabBarController = topViewController as! UITabBarController
+                guard let tabBarSelectedViewController = tabBarController.selectedViewController else { return false }
+                
+                topViewController = tabBarSelectedViewController
+            default:
+                break
+            }
+            
             for controllerType in CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllersType {
                 if type(of: topViewController) === controllerType {
                     return false

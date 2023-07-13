@@ -8,8 +8,10 @@
 
 import Foundation
 
-@objc public class CartItem: NSObject, NSCoding {
+@objcMembers public class CartItem: NSObject, NSCoding, NSSecureCoding {
 
+    public static var supportsSecureCoding = true
+    
     let productID: String
     let name: String
     let sku: String
@@ -42,7 +44,7 @@ import Foundation
         case properties = "properties"
     }
     
-    @objc public convenience init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qtyNumber: NSNumber, itemPriceNumber: NSNumber?, salePriceNumber: NSNumber?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
+    public convenience init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qtyNumber: NSNumber, itemPriceNumber: NSNumber?, salePriceNumber: NSNumber?, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
         self.init(productID: productID, name: name, sku: sku, category: category, url: url, itemDescription: itemDescription, qty: qtyNumber.int64Value, itemPrice: itemPriceNumber?.doubleValue, salePrice: salePriceNumber?.doubleValue, attr: attr, images: images, properties: properties)
     }
     
@@ -62,30 +64,30 @@ import Foundation
         self.properties = properties
     }
     
-    @objc public func seTimestamp(date: Date) {
+    public func seTimestamp(date: Date) {
         let timestamp = CordialDateFormatter().getTimestampFromDate(date: date)
         
         self.timestamp = timestamp
     }
     
-    @objc public func getTimestamp() -> String {
+    public func getTimestamp() -> String {
         return self.timestamp
     }
     
-    @objc public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.productID, forKey: Key.productID.rawValue)
-        aCoder.encode(self.name, forKey: Key.name.rawValue)
-        aCoder.encode(self.sku, forKey: Key.sku.rawValue)
-        aCoder.encode(self.category, forKey: Key.category.rawValue)
-        aCoder.encode(self.url, forKey: Key.url.rawValue)
-        aCoder.encode(self.itemDescription, forKey: Key.itemDescription.rawValue)
-        aCoder.encode(self.qty, forKey: Key.qty.rawValue)
-        aCoder.encode(self.itemPrice, forKey: Key.itemPrice.rawValue)
-        aCoder.encode(self.salePrice, forKey: Key.salePrice.rawValue)
-        aCoder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
-        aCoder.encode(self.attr, forKey: Key.attr.rawValue)
-        aCoder.encode(self.images, forKey: Key.images.rawValue)
-        aCoder.encode(self.properties, forKey: Key.properties.rawValue)
+    public func encode(with coder: NSCoder) {
+        coder.encode(self.productID, forKey: Key.productID.rawValue)
+        coder.encode(self.name, forKey: Key.name.rawValue)
+        coder.encode(self.sku, forKey: Key.sku.rawValue)
+        coder.encode(self.category, forKey: Key.category.rawValue)
+        coder.encode(self.url, forKey: Key.url.rawValue)
+        coder.encode(self.itemDescription, forKey: Key.itemDescription.rawValue)
+        coder.encode(self.qty, forKey: Key.qty.rawValue)
+        coder.encode(self.itemPrice, forKey: Key.itemPrice.rawValue)
+        coder.encode(self.salePrice, forKey: Key.salePrice.rawValue)
+        coder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
+        coder.encode(self.attr, forKey: Key.attr.rawValue)
+        coder.encode(self.images, forKey: Key.images.rawValue)
+        coder.encode(self.properties, forKey: Key.properties.rawValue)
     }
     
     private init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qty: Int64, itemPrice: Double?, salePrice: Double?, timestamp: String, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
@@ -104,21 +106,21 @@ import Foundation
         self.properties = properties
     }
     
-    @objc public required convenience init?(coder aDecoder: NSCoder) {
-        if let productID = aDecoder.decodeObject(forKey: Key.productID.rawValue) as? String,
-           let name = aDecoder.decodeObject(forKey: Key.name.rawValue) as? String,
-           let sku = aDecoder.decodeObject(forKey: Key.sku.rawValue) as? String,
-           let category = aDecoder.decodeObject(forKey: Key.category.rawValue) as? String,
-           let url = aDecoder.decodeObject(forKey: Key.url.rawValue) as? String?,
-           let itemDescription = aDecoder.decodeObject(forKey: Key.itemDescription.rawValue) as? String?,
-           let itemPrice = aDecoder.decodeObject(forKey: Key.itemPrice.rawValue) as? Double?,
-           let salePrice = aDecoder.decodeObject(forKey: Key.salePrice.rawValue) as? Double?,
-           let timestamp = aDecoder.decodeObject(forKey: Key.timestamp.rawValue) as? String,
-           let attr = aDecoder.decodeObject(forKey: Key.attr.rawValue) as? Dictionary<String, String>?,
-           let images = aDecoder.decodeObject(forKey: Key.images.rawValue) as? [String]?,
-           let properties = aDecoder.decodeObject(forKey: Key.properties.rawValue) as? Dictionary<String, Any>? {
+    public required convenience init?(coder: NSCoder) {
+        if let productID = coder.decodeObject(forKey: Key.productID.rawValue) as? String,
+           let name = coder.decodeObject(forKey: Key.name.rawValue) as? String,
+           let sku = coder.decodeObject(forKey: Key.sku.rawValue) as? String,
+           let category = coder.decodeObject(forKey: Key.category.rawValue) as? String,
+           let url = coder.decodeObject(forKey: Key.url.rawValue) as? String?,
+           let itemDescription = coder.decodeObject(forKey: Key.itemDescription.rawValue) as? String?,
+           let itemPrice = coder.decodeObject(forKey: Key.itemPrice.rawValue) as? Double?,
+           let salePrice = coder.decodeObject(forKey: Key.salePrice.rawValue) as? Double?,
+           let timestamp = coder.decodeObject(forKey: Key.timestamp.rawValue) as? String,
+           let attr = coder.decodeObject(forKey: Key.attr.rawValue) as? Dictionary<String, String>?,
+           let images = coder.decodeObject(forKey: Key.images.rawValue) as? [String]?,
+           let properties = coder.decodeObject(forKey: Key.properties.rawValue) as? Dictionary<String, Any>? {
             
-            let qty = aDecoder.decodeInt64(forKey: Key.qty.rawValue)
+            let qty = coder.decodeInt64(forKey: Key.qty.rawValue)
             
             self.init(productID: productID, name: name, sku: sku, category: category, url: url, itemDescription: itemDescription, qty: qty, itemPrice: itemPrice, salePrice: salePrice, timestamp: timestamp, attr: attr, images: images, properties: properties)
         } else {

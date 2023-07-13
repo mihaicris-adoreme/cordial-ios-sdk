@@ -2,8 +2,8 @@
 //  CustomEventRequest+CoreDataProperties.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 29.10.2020.
-//  Copyright © 2020 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 26.06.2023.
+//  Copyright © 2023 cordial.io. All rights reserved.
 //
 //
 
@@ -19,5 +19,6 @@ extension CustomEventRequest {
 
     @NSManaged public var data: Data?
     @NSManaged public var requestID: String?
+    @NSManaged public var flushing: Bool
 
 }

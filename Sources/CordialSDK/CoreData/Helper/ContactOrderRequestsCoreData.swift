@@ -21,7 +21,7 @@ class ContactOrderRequestsCoreData {
                 let newRow = NSManagedObject(entity: entity, insertInto: context)
                 
                 do {
-                    let sendContactOrderRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactOrderRequest, requiringSecureCoding: false)
+                    let sendContactOrderRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactOrderRequest, requiringSecureCoding: true)
                     
                     newRow.setValue(sendContactOrderRequestData, forKey: "data")
                     
@@ -47,7 +47,9 @@ class ContactOrderRequestsCoreData {
                 guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let sendContactOrderRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendContactOrderRequest, !sendContactOrderRequest.isError {
+                if let sendContactOrderRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [SendContactOrderRequest.self, Order.self, Address.self, CartItem.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? SendContactOrderRequest,
+                   !sendContactOrderRequest.isError {
+                    
                     sendContactOrderRequests.append(sendContactOrderRequest)
                 } else {
                     context.delete(managedObject)

@@ -59,6 +59,8 @@ class ContactsSender {
             if internalCordialAPI.getCurrentJWT() != nil {
                 
                 upsertContactRequests.forEach({ upsertContactRequest in
+                    internalCordialAPI.setContactAttributes(attributes: upsertContactRequest.attributes)
+                    
                     let payload = self.upsertContacts.getUpsertContactRequestJSON(upsertContactRequest: upsertContactRequest, isLogs: false)
                     LoggerManager.shared.info(message: "Sending contact. Request ID: [\(upsertContactRequest.requestID)] Payload: \(payload)", category: "CordialSDKUpsertContacts")
                 })

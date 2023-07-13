@@ -40,15 +40,21 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.tableView.register(UINib(nibName: "ProfileTableFooterView", bundle: nil), forHeaderFooterViewReuseIdentifier: self.profileFooterIdentifier)
         self.profileTableFooterView = self.tableView.dequeueReusableHeaderFooterView(withIdentifier: self.profileFooterIdentifier) as? ProfileTableFooterView
+        
+        let profileInfoButton = UIBarButtonItem(image: UIImage(named: "profile"), style: .plain, target: self, action: #selector(self.profileInfoButtonAction))
+        navigationItem.rightBarButtonItems = [profileInfoButton]
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            
             self.attributes = AppDataManager.shared.attributes.getAttributesFromCoreData(appDelegate: appDelegate)
             self.tableView.tableFooterView = UIView(frame: .zero)
             self.tableView.reloadData()
         }
+    }
+    
+    @objc func profileInfoButtonAction() {
+        self.present(ProfileInfoViewController(), animated: true)
     }
     
     // MARK: UITableViewDelegate

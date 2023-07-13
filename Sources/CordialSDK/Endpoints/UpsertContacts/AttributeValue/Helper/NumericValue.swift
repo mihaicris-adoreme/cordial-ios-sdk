@@ -8,7 +8,9 @@
 
 import Foundation
 
-@objc public class NumericValue: NSObject, NSCoding, AttributeValue, JSONValue {
+@objcMembers public class NumericValue: NSObject, NSCoding, NSSecureCoding, AttributeValue, JSONValue {
+    
+    public static var supportsSecureCoding = true
     
     public let value: Double?
     
@@ -28,17 +30,17 @@ import Foundation
         }
     }
     
-    @objc public init(numberValue: NSNumber?) {
+    public init(numberValue: NSNumber?) {
         self.value = numberValue?.doubleValue
     }
     
     @available(*, deprecated, message: "Use `initWithNumberValue` instead")
-    @objc public init(doubleValue: Double) {
+    public init(doubleValue: Double) {
         self.value = doubleValue
     }
     
     @available(*, deprecated, message: "Use `initWithNumberValue` instead")
-    @objc public init(intValue: Int) {
+    public init(intValue: Int) {
         self.value = Double(intValue)
     }
     

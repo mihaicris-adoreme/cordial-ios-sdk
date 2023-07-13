@@ -8,7 +8,9 @@
 
 import Foundation
 
-@objc public class ArrayValue: NSObject, NSCoding, AttributeValue, JSONValue {
+@objcMembers public class ArrayValue: NSObject, NSCoding, NSSecureCoding, AttributeValue, JSONValue {
+    
+    public static var supportsSecureCoding = true
     
     public let value: [String]
     
@@ -16,7 +18,7 @@ import Foundation
         case value = "value"
     }
     
-    @objc public init(_ value: [String]) {
+    public init(_ value: [String]) {
         self.value = value
     }
     
