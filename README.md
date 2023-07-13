@@ -4,6 +4,7 @@
 [Installation](#installation)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK](#initialize-the-sdk)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK for US West 2 Accounts](#initialize-the-sdk-for-us-west-2-accounts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK for React Native](#initialize-the-sdk-for-react-native)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Setting Message Logging Level](#setting-message-logging-level)<br>
 [Push Notifications](#push-notifications)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Images In Push Notifications](#images-in-push-notifications)<br>
@@ -39,11 +40,11 @@
 
 ## Swift Package Manager
 
-For adding CordialSDK to your project via Swift Package Manager use this repository: `git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git`
+For adding Cordial SDK to your project via Swift Package Manager use this repository: `git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git`
 
-## Cocoapods
+## CocoaPods
 
-Make sure you have access to CordialSDK gitlab repo. We recommend adding your SSH key to Gitlab. After that, specify CordialSDK in your Podfile:
+Make sure you have access to Cordial SDK repo. We recommend adding your SSH key to GitLab. After that, specify Cordial SDK in your Podfile:
 
 ```
 use_frameworks!
@@ -56,7 +57,7 @@ Now you can run:
 pod install
 ```
 
-This will add the latest version of CordialSDK to your project.
+This will add the latest version of Cordial SDK to your project.
 
 ## Initialize the SDK
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initialize` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
@@ -116,6 +117,30 @@ let cordialAPI = CordialAPI()
 ```
 CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 ```
+
+## Initialize the SDK for React Native
+
+By default, Cordial SDK is a dynamic framework. In contrast, React Native does not support the processing of dynamic libraries. For this specific case, the Cordial SDK repository has a separate branch called `static_framework`.
+
+To start working with React Native on iOS, your project should have a [pre-built iOS component](https://reactnative.dev/docs/environment-setup). The `ios` folder contains a CocoaPods configuration file called Podfile.
+
+Specify `static_framework` in your Podfile:
+
+```
+pod 'CordialSDK', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git', :branch => 'static_framework'
+```
+
+Note that the Podfile configuration prefix `use_frameworks!` should not be used.
+
+Now you can run:
+
+```
+pod install
+```
+
+This will add the Cordial SDK static library to your project.
+
+The following steps require your attention to develop an [iOS Native Module](https://reactnative.dev/docs/native-modules-ios) and expand it according to your needs.
 
 ## Setting Message Logging Level
 
@@ -406,6 +431,7 @@ Sources/CordialSDK/PushNotification/PushNotificationCategories/en.lproj/PushNoti
 Use these data inside your localization dataset.
 
 ## Multiple Push Notification Providers
+
 Cordial SDK supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
 
 It allows to use several notification providers in a single app simultaneously. This requires your application to configure itself for push notifications and let Cordial SDK display and track notifications that were sent by Cordial. To allow Cordial SDK to display and track push notifications sent by Cordial, the application should send APNs token to Cordial SDK once received and use a specific piece of code shown below in several parts of your application. 
@@ -749,6 +775,7 @@ NSDate *date = [[NSDate alloc] init];
 ```
 
 ## Deep Links
+
 Cordial SDK allows you to track deep link open events. Two types of deep links are supported: universal links and URL scheme links. In order to allow the SDK to track deep links, make sure to implement the `CordialDeepLinksDelegate` protocol. The protocol contains callbacks that will be called once the app gets the chance to open a deep link.
 
 In the body of the `AppDelegate.didFinishLaunchingWithOptions` function, provide the following implementation:
@@ -837,7 +864,11 @@ CordialApiConfiguration.shared.vanityDomains = ["vanity.domain.com"]
 
 ### Opening deep links received from Cordial
 
-In case the app receives a deep link from Cordial, for example as part of inbox message metadata, instead of trying to process the deep link itself, the app should open it via Cordial SDK. Cordial SDK will do regular deep link processing that is required when opening the deep link and pass the final deep link to `CordialDeepLinksDelegate`. Deep link processing includes:
+In case the app receives a deep link from Cordial, for example as part of inbox message metadata, instead of trying to process the deep link itself, the app should open it via Cordial SDK. 
+
+Cordial SDK will do regular deep link processing that is required when opening the deep link and pass the final deep link to `CordialDeepLinksDelegate`. 
+
+Deep link processing includes:
 
 - Send system deep link open event to Cordial
 - Unwrap deep link in case it is shortened or wrapped up for click tracking
