@@ -1186,27 +1186,37 @@ For more information, see  [Cordial Knowledge Base](https://support.cordial.com/
 
 ### Delaying In-App Messages
 
-Cordial SDK allows application developers to delay displaying of in-app messages. In case if in-app message is delayed it will be displayed the next time the application is opened. There are 3 delay modes in the SDK to control in-app messages display:
+Cordial SDK allows application developers to delay displaying of in-app messages. If showing in-app messages is delayed, in-app messages will be queued and will be displayed after the delay mode is turned off. There are 3 delay modes in the SDK to control in-app messages display:
 
 1. Show. In-app messages are displayed without delay, which is the default behavior.
-2. Delayed Show. Displaying in-app messages is delayed until Delayed Show mode is turned off.
+2. Delayed Show. Displaying in-app messages is delayed until the Show mode is turned on.
 3. Disallowed Controllers. Displaying in-app messages is not allowed on certain screens, which are determined by the application developer.
+
+Switching to the Show mode is achieved by calling the `show()` method, which optionally takes a parameter identifying when to show the next in-app message. The next in-app can be shown immediately after calling the `show()` method or on the next app open, which is the default behaviour. To display an in-app right away, pass the value of `.immediately`.
 
 To switch between modes, call corresponding methods in the CordialApiConfiguration class:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
 ```
-CordialApiConfiguration.shared.inAppMessageDelayMode.show()
 CordialApiConfiguration.shared.inAppMessageDelayMode.delayedShow()
+
+CordialApiConfiguration.shared.inAppMessageDelayMode.show()
+CordialApiConfiguration.shared.inAppMessageDelayMode.show(.immediately)
+CordialApiConfiguration.shared.inAppMessageDelayMode.show(.nextAppOpen)
+
 CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ClassName.self])
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 
 ```
-[[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
 [[[CordialApiConfiguration shared] inAppMessageDelayMode] delayedShow];
+
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show:InAppMessageDelayShowTypeImmediately];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show:InAppMessageDelayShowTypeNextAppOpen];
+
 [[[CordialApiConfiguration shared] inAppMessageDelayMode] disallowedControllers:@[[ClassName class]]];
 ```
 
