@@ -4,6 +4,7 @@
 [Installation](#installation)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK](#initialize-the-sdk)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK for US West 2 Accounts](#initialize-the-sdk-for-us-west-2-accounts)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK for React Native](#initialize-the-sdk-for-react-native)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Setting Message Logging Level](#setting-message-logging-level)<br>
 [Push Notifications](#push-notifications)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Images In Push Notifications](#images-in-push-notifications)<br>
@@ -18,6 +19,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;[Setting a Contact](#setting-a-contact)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Unsetting a Contact](#unsetting-a-contact)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Updating Attributes and Lists Memberships](#updating-attributes-and-lists-memberships)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Expose a Device Information](#expose-a-device-information)<br>
 [Events](#events)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Sending Custom Events](#sending-custom-events)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Tracking Internal Events](#tracking-internal-events)<br>
@@ -38,11 +40,11 @@
 
 ## Swift Package Manager
 
-For adding CordialSDK to your project via Swift Package Manager use this repository: `git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git`
+For adding Cordial SDK to your project via Swift Package Manager use this repository: `git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git`
 
-## Cocoapods
+## CocoaPods
 
-Make sure you have access to CordialSDK gitlab repo. We recommend adding your SSH key to Gitlab. After that, specify CordialSDK in your Podfile:
+Make sure you have access to Cordial SDK repo. We recommend adding your SSH key to GitLab. After that, specify Cordial SDK in your Podfile:
 
 ```
 use_frameworks!
@@ -55,7 +57,7 @@ Now you can run:
 pod install
 ```
 
-This will add the latest version of CordialSDK to your project.
+This will add the latest version of Cordial SDK to your project.
 
 ## Initialize the SDK
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initialize` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
@@ -115,6 +117,30 @@ let cordialAPI = CordialAPI()
 ```
 CordialAPI *cordialAPI = [[CordialAPI alloc] init];
 ```
+
+## Initialize the SDK for React Native
+
+By default, Cordial SDK is a dynamic framework. In contrast, React Native does not support the processing of dynamic libraries. For this specific case, the Cordial SDK repository has a separate branch called `static_framework`.
+
+To start working with React Native on iOS, your project should have a [pre-built iOS component](https://reactnative.dev/docs/environment-setup). The `ios` folder contains a CocoaPods configuration file called Podfile.
+
+Specify `static_framework` in your Podfile:
+
+```
+pod 'CordialSDK', :git => 'git@gitlab.com:cordialinc/mobile-sdk/ios-sdk.git', :branch => 'static_framework'
+```
+
+Note that the Podfile configuration prefix `use_frameworks!` should not be used.
+
+Now you can run:
+
+```
+pod install
+```
+
+This will add the Cordial SDK static library to your project.
+
+The following steps require your attention to develop an [iOS Native Module](https://reactnative.dev/docs/native-modules-ios) and expand it according to your needs.
 
 ## Setting Message Logging Level
 
@@ -405,6 +431,7 @@ Sources/CordialSDK/PushNotification/PushNotificationCategories/en.lproj/PushNoti
 Use these data inside your localization dataset.
 
 ## Multiple Push Notification Providers
+
 Cordial SDK supports multiple push notification providers in your app if the app uses `UserNotifications` framework (available since iOS 10). 
 
 It allows to use several notification providers in a single app simultaneously. This requires your application to configure itself for push notifications and let Cordial SDK display and track notifications that were sent by Cordial. To allow Cordial SDK to display and track push notifications sent by Cordial, the application should send APNs token to Cordial SDK once received and use a specific piece of code shown below in several parts of your application. 
@@ -748,6 +775,7 @@ NSDate *date = [[NSDate alloc] init];
 ```
 
 ## Deep Links
+
 Cordial SDK allows you to track deep link open events. Two types of deep links are supported: universal links and URL scheme links. In order to allow the SDK to track deep links, make sure to implement the `CordialDeepLinksDelegate` protocol. The protocol contains callbacks that will be called once the app gets the chance to open a deep link.
 
 In the body of the `AppDelegate.didFinishLaunchingWithOptions` function, provide the following implementation:
@@ -836,7 +864,11 @@ CordialApiConfiguration.shared.vanityDomains = ["vanity.domain.com"]
 
 ### Opening deep links received from Cordial
 
-In case the app receives a deep link from Cordial, for example as part of inbox message metadata, instead of trying to process the deep link itself, the app should open it via Cordial SDK. Cordial SDK will do regular deep link processing that is required when opening the deep link and pass the final deep link to `CordialDeepLinksDelegate`. Deep link processing includes:
+In case the app receives a deep link from Cordial, for example as part of inbox message metadata, instead of trying to process the deep link itself, the app should open it via Cordial SDK. 
+
+Cordial SDK will do regular deep link processing that is required when opening the deep link and pass the final deep link to `CordialDeepLinksDelegate`. 
+
+Deep link processing includes:
 
 - Send system deep link open event to Cordial
 - Unwrap deep link in case it is shortened or wrapped up for click tracking
@@ -966,6 +998,68 @@ NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 [attributes setObject:falseValue forKey:@"list2"];
 
 [cordialAPI upsertContactWithAttributes:attributes];
+```
+
+### Expose a Device Information
+
+SDK allows to get device info and contact attributes that were sent with upsert contact requests. This data is available via the `UpsertContactsAPI` class.
+
+The API supports the following operations:
+
+#### Get a device identifier
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let deviceID = UpsertContactsAPI().getDeviceIdentifier()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSString *deviceID = [[UpsertContactsAPI alloc] getDeviceIdentifier];
+```
+
+#### Get push notification token
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let token = UpsertContactsAPI().getPushNotificationToken()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSString *token = [[UpsertContactsAPI alloc] getPushNotificationToken];
+```
+
+#### Get push notification status
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let status = UpsertContactsAPI().getPushNotificationStatus()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSString *status = [[UpsertContactsAPI alloc] getPushNotificationStatus];
+```
+
+#### Get contact attributes
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let attributes = UpsertContactsAPI().getContactAttributes()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSDictionary *attributes = [[UpsertContactsAPI alloc] getContactAttributes];
 ```
 
 ## Events
@@ -1123,27 +1217,37 @@ For more information, see  [Cordial Knowledge Base](https://support.cordial.com/
 
 ### Delaying In-App Messages
 
-Cordial SDK allows application developers to delay displaying of in-app messages. In case if in-app message is delayed it will be displayed the next time the application is opened. There are 3 delay modes in the SDK to control in-app messages display:
+Cordial SDK allows application developers to delay displaying of in-app messages. If showing in-app messages is delayed, in-app messages will be queued and will be displayed after the delay mode is turned off. There are 3 delay modes in the SDK to control in-app messages display:
 
 1. Show. In-app messages are displayed without delay, which is the default behavior.
-2. Delayed Show. Displaying in-app messages is delayed until Delayed Show mode is turned off.
+2. Delayed Show. Displaying in-app messages is delayed until the Show mode is turned on.
 3. Disallowed Controllers. Displaying in-app messages is not allowed on certain screens, which are determined by the application developer.
+
+Switching to the Show mode is achieved by calling the `show()` method, which optionally takes a parameter identifying when to show the next in-app message. The next in-app can be shown immediately after calling the `show()` method or on the next app open, which is the default behaviour. To display an in-app right away, pass the value of `.immediately`.
 
 To switch between modes, call corresponding methods in the CordialApiConfiguration class:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
 ```
-CordialApiConfiguration.shared.inAppMessageDelayMode.show()
 CordialApiConfiguration.shared.inAppMessageDelayMode.delayedShow()
+
+CordialApiConfiguration.shared.inAppMessageDelayMode.show()
+CordialApiConfiguration.shared.inAppMessageDelayMode.show(.immediately)
+CordialApiConfiguration.shared.inAppMessageDelayMode.show(.nextAppOpen)
+
 CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([ClassName.self])
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 
 ```
-[[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
 [[[CordialApiConfiguration shared] inAppMessageDelayMode] delayedShow];
+
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show:InAppMessageDelayShowTypeImmediately];
+[[[CordialApiConfiguration shared] inAppMessageDelayMode] show:InAppMessageDelayShowTypeNextAppOpen];
+
 [[[CordialApiConfiguration shared] inAppMessageDelayMode] disallowedControllers:@[[ClassName class]]];
 ```
 

@@ -25,10 +25,9 @@ import Foundation
     // MARK: - Logger manager
     
     public func log(message: String, category: String) {
-        if self.isLoggerAvailable() {
-            self.loggers.forEach { logger in
-                logger.log(message: message, category: category)
-            }
+        // Log level ignore LoggerLevel
+        self.loggers.forEach { logger in
+            logger.log(message: message, category: category)
         }
     }
     

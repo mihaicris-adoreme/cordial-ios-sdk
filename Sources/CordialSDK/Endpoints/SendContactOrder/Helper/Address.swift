@@ -8,7 +8,9 @@
 
 import Foundation
 
-@objc public class Address: NSObject, NSCoding {
+@objcMembers public class Address: NSObject, NSCoding, NSSecureCoding {
+    
+    public static var supportsSecureCoding = true
     
     let name: String
     let address: String
@@ -28,7 +30,7 @@ import Foundation
         case country = "country"
     }
     
-    @objc public init(name: String, address: String, city: String, state: String, postalCode: String, country: String) {
+    public init(name: String, address: String, city: String, state: String, postalCode: String, country: String) {
         self.name = name
         self.address = address
         self.city = city
@@ -37,22 +39,22 @@ import Foundation
         self.country = country
     }
     
-    @objc public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.name, forKey: Key.name.rawValue)
-        aCoder.encode(self.address, forKey: Key.address.rawValue)
-        aCoder.encode(self.city, forKey: Key.city.rawValue)
-        aCoder.encode(self.state, forKey: Key.state.rawValue)
-        aCoder.encode(self.postalCode, forKey: Key.postalCode.rawValue)
-        aCoder.encode(self.country, forKey: Key.country.rawValue)
+    public func encode(with coder: NSCoder) {
+        coder.encode(self.name, forKey: Key.name.rawValue)
+        coder.encode(self.address, forKey: Key.address.rawValue)
+        coder.encode(self.city, forKey: Key.city.rawValue)
+        coder.encode(self.state, forKey: Key.state.rawValue)
+        coder.encode(self.postalCode, forKey: Key.postalCode.rawValue)
+        coder.encode(self.country, forKey: Key.country.rawValue)
     }
     
-    @objc public required convenience init?(coder aDecoder: NSCoder) {
-        if let name = aDecoder.decodeObject(forKey: Key.name.rawValue) as? String,
-           let address = aDecoder.decodeObject(forKey: Key.address.rawValue) as? String,
-           let city = aDecoder.decodeObject(forKey: Key.city.rawValue) as? String,
-           let state = aDecoder.decodeObject(forKey: Key.state.rawValue) as? String,
-           let postalCode = aDecoder.decodeObject(forKey: Key.postalCode.rawValue) as? String,
-           let country = aDecoder.decodeObject(forKey: Key.country.rawValue) as? String {
+    public required convenience init?(coder: NSCoder) {
+        if let name = coder.decodeObject(forKey: Key.name.rawValue) as? String,
+           let address = coder.decodeObject(forKey: Key.address.rawValue) as? String,
+           let city = coder.decodeObject(forKey: Key.city.rawValue) as? String,
+           let state = coder.decodeObject(forKey: Key.state.rawValue) as? String,
+           let postalCode = coder.decodeObject(forKey: Key.postalCode.rawValue) as? String,
+           let country = coder.decodeObject(forKey: Key.country.rawValue) as? String {
             
             self.init(name: name, address: address, city: city, state: state, postalCode: postalCode, country: country)
         } else {

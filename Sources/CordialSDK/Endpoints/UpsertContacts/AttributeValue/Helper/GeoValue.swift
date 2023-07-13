@@ -8,7 +8,9 @@
 
 import Foundation
 
-@objc public class GeoValue: NSObject, NSCoding, AttributeValue, JSONValue {
+@objc public class GeoValue: NSObject, NSCoding, NSSecureCoding, AttributeValue, JSONValue {
+    
+    @objc public static var supportsSecureCoding = true
     
     var city = String()
     var country = String()
@@ -68,35 +70,35 @@ import Foundation
         self.timeZone = timeZone
     }
     
-    public func getCity() -> String {
+    @objc public func getCity() -> String {
         return self.city
     }
     
-    public func getCountry() -> String {
+    @objc public func getCountry() -> String {
         return self.country
     }
     
-    public func getPostalCode() -> String {
+    @objc public func getPostalCode() -> String {
         return self.postalCode
     }
     
-    public func getState() -> String {
+    @objc public func getState() -> String {
         return self.state
     }
     
-    public func getStreetAddress() -> String {
+    @objc public func getStreetAddress() -> String {
         return self.streetAddress
     }
     
-    public func getStreetAddress2() -> String {
+    @objc public func getStreetAddress2() -> String {
         return self.streetAddress2
     }
     
-    public func getTimeZone() -> String {
+    @objc public func getTimeZone() -> String {
         return self.timeZone
     }
     
-    public func encode(with coder: NSCoder) {
+    @objc public func encode(with coder: NSCoder) {
         coder.encode(self.city, forKey: Key.city.rawValue)
         coder.encode(self.country, forKey: Key.country.rawValue)
         coder.encode(self.postalCode, forKey: Key.postalCode.rawValue)
@@ -106,7 +108,7 @@ import Foundation
         coder.encode(self.timeZone, forKey: Key.timeZone.rawValue)
     }
     
-    public required convenience init?(coder: NSCoder) {
+    @objc public required convenience init?(coder: NSCoder) {
         let city = coder.decodeObject(forKey: Key.city.rawValue) as? String ?? String()
         let country = coder.decodeObject(forKey: Key.country.rawValue) as? String ?? String()
         let postalCode = coder.decodeObject(forKey: Key.postalCode.rawValue) as? String ?? String()

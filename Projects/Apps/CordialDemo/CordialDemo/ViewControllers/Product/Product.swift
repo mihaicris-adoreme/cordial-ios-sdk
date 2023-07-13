@@ -8,7 +8,9 @@
 
 import Foundation
 
-class Product: NSObject, NSCoding {
+class Product: NSObject, NSCoding, NSSecureCoding {
+    
+    static var supportsSecureCoding = true
     
     let id: String
     let img: String
@@ -45,28 +47,28 @@ class Product: NSObject, NSCoding {
     }
 
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.id, forKey: Key.id.rawValue)
-        aCoder.encode(self.img, forKey: Key.img.rawValue)
-        aCoder.encode(self.brand, forKey: Key.brand.rawValue)
-        aCoder.encode(self.name, forKey: Key.name.rawValue)
-        aCoder.encode(self.price, forKey: Key.price.rawValue)
-        aCoder.encode(self.sku, forKey: Key.sku.rawValue)
-        aCoder.encode(self.shortDescription, forKey: Key.shortDescription.rawValue)
-        aCoder.encode(self.image, forKey: Key.image.rawValue)
-        aCoder.encode(self.path, forKey: Key.path.rawValue)
+    func encode(with coder: NSCoder) {
+        coder.encode(self.id, forKey: Key.id.rawValue)
+        coder.encode(self.img, forKey: Key.img.rawValue)
+        coder.encode(self.brand, forKey: Key.brand.rawValue)
+        coder.encode(self.name, forKey: Key.name.rawValue)
+        coder.encode(self.price, forKey: Key.price.rawValue)
+        coder.encode(self.sku, forKey: Key.sku.rawValue)
+        coder.encode(self.shortDescription, forKey: Key.shortDescription.rawValue)
+        coder.encode(self.image, forKey: Key.image.rawValue)
+        coder.encode(self.path, forKey: Key.path.rawValue)
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        let id = aDecoder.decodeObject(forKey: Key.id.rawValue) as! String
-        let img = aDecoder.decodeObject(forKey: Key.img.rawValue) as! String
-        let brand = aDecoder.decodeObject(forKey: Key.brand.rawValue) as! String
-        let name = aDecoder.decodeObject(forKey: Key.name.rawValue) as! String
-        let price = aDecoder.decodeInteger(forKey: Key.price.rawValue)
-        let sku = aDecoder.decodeObject(forKey: Key.sku.rawValue) as! String
-        let shortDescription = aDecoder.decodeObject(forKey: Key.shortDescription.rawValue) as! String
-        let image = aDecoder.decodeObject(forKey: Key.image.rawValue) as! String
-        let path = aDecoder.decodeObject(forKey: Key.path.rawValue) as! String
+    required convenience init?(coder: NSCoder) {
+        let id = coder.decodeObject(forKey: Key.id.rawValue) as! String
+        let img = coder.decodeObject(forKey: Key.img.rawValue) as! String
+        let brand = coder.decodeObject(forKey: Key.brand.rawValue) as! String
+        let name = coder.decodeObject(forKey: Key.name.rawValue) as! String
+        let price = coder.decodeInteger(forKey: Key.price.rawValue)
+        let sku = coder.decodeObject(forKey: Key.sku.rawValue) as! String
+        let shortDescription = coder.decodeObject(forKey: Key.shortDescription.rawValue) as! String
+        let image = coder.decodeObject(forKey: Key.image.rawValue) as! String
+        let path = coder.decodeObject(forKey: Key.path.rawValue) as! String
         
         self.init(id: id, img: img, brand: brand, name: name, price: price, sku: sku, shortDescription: shortDescription, image: image, path: path)
     }

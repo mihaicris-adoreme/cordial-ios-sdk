@@ -23,7 +23,7 @@ class InAppMessagesCacheCoreData {
             
             if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
                 do {
-                    let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: false)
+                    let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: true)
                     
                     newRow.setValue(mcID, forKey: "mcID")
                     newRow.setValue(inAppMessageArchivedData, forKey: "data")
@@ -81,7 +81,9 @@ class InAppMessagesCacheCoreData {
                 guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let inAppMessageData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InAppMessageData, !inAppMessageData.isError {
+                if let inAppMessageData = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [InAppMessageData.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? InAppMessageData,
+                   !inAppMessageData.isError {
+                    
                     return inAppMessageData
                 } else {
                     CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
@@ -90,6 +92,8 @@ class InAppMessagesCacheCoreData {
                 }
             }
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         

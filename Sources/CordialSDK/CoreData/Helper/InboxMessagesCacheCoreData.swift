@@ -40,7 +40,8 @@ class InboxMessagesCacheCoreData {
                 guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let inboxMessage = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? InboxMessage, !inboxMessage.isError {
+                if let inboxMessage = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [InboxMessage.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? InboxMessage,
+                   !inboxMessage.isError {
     
                     return inboxMessage
                 } else {
@@ -51,6 +52,8 @@ class InboxMessagesCacheCoreData {
                 }
             }
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
@@ -112,7 +115,7 @@ class InboxMessagesCacheCoreData {
     
     private func saveInboxMessageToCoreData(inboxMessage: InboxMessage, object: NSManagedObject, context: NSManagedObjectContext) {
         do {
-            let inboxMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessage, requiringSecureCoding: false)
+            let inboxMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessage, requiringSecureCoding: true)
     
             object.setValue(inboxMessageArchivedData, forKey: "data")
             object.setValue(inboxMessage.mcID, forKey: "mcID")

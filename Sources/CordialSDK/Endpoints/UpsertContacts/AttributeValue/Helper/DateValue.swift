@@ -1,5 +1,5 @@
 //
-//  BooleanValue.swift
+//  DateValue.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 09.09.2022.
@@ -8,15 +8,17 @@
 
 import Foundation
 
-@objc public class BooleanValue: NSObject, NSCoding, AttributeValue, JSONValue {
-
-    public let value: Bool
+@objcMembers public class DateValue: NSObject, NSCoding, NSSecureCoding, AttributeValue, JSONValue {
+    
+    public static var supportsSecureCoding = true
+    
+    public let value: Date?
     
     enum Key: String {
         case value = "value"
     }
     
-    @objc public init(_ value: Bool) {
+    public init(_ value: Date?) {
         self.value = value
     }
     
@@ -25,7 +27,7 @@ import Foundation
     }
     
     public required convenience init?(coder: NSCoder) {
-        let value = coder.decodeBool(forKey: Key.value.rawValue)
+        let value = coder.decodeObject(forKey: Key.value.rawValue) as? Date 
         
         self.init(value)
     }

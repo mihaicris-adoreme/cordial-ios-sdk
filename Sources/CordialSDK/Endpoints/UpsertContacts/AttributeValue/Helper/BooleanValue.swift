@@ -1,5 +1,5 @@
 //
-//  StringValue.swift
+//  BooleanValue.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 09.09.2022.
@@ -8,15 +8,17 @@
 
 import Foundation
 
-@objc public class StringValue: NSObject, NSCoding, AttributeValue, JSONValue {
+@objcMembers public class BooleanValue: NSObject, NSCoding, NSSecureCoding, AttributeValue, JSONValue {
     
-    public let value: String?
+    public static var supportsSecureCoding = true
+
+    public let value: Bool
     
     enum Key: String {
         case value = "value"
     }
     
-    @objc public init(_ value: String?) {
+    public init(_ value: Bool) {
         self.value = value
     }
     
@@ -25,7 +27,7 @@ import Foundation
     }
     
     public required convenience init?(coder: NSCoder) {
-        let value = coder.decodeObject(forKey: Key.value.rawValue) as? String
+        let value = coder.decodeBool(forKey: Key.value.rawValue)
         
         self.init(value)
     }

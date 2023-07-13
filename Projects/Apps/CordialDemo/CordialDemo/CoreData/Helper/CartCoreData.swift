@@ -22,19 +22,11 @@ class CartCoreData {
                 let newRow = NSManagedObject(entity: entity, insertInto: context)
                 
                 do {
-                    if #available(iOS 11.0, *) {
-                        let productData = try NSKeyedArchiver.archivedData(withRootObject: product, requiringSecureCoding: false)
-                        
-                        newRow.setValue(productData, forKey: "product")
-                        newRow.setValue(product.sku, forKey: "sku")
-                        newRow.setValue(1, forKey: "qty")
-                    } else {
-                        let productData = NSKeyedArchiver.archivedData(withRootObject: product)
-                        
-                        newRow.setValue(productData, forKey: "product")
-                        newRow.setValue(product.sku, forKey: "sku")
-                        newRow.setValue(1, forKey: "qty")
-                    }
+                    let productData = try NSKeyedArchiver.archivedData(withRootObject: product, requiringSecureCoding: true)
+                    
+                    newRow.setValue(productData, forKey: "product")
+                    newRow.setValue(product.sku, forKey: "sku")
+                    newRow.setValue(1, forKey: "qty")
                     
                     try context.save()
                 } catch {
@@ -76,7 +68,7 @@ class CartCoreData {
                 guard let anyData = data.value(forKey: "product") else { continue }
                 let data = anyData as! Data
                 
-                if let product = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? Product {
+                if let product = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [Product.self] + App.DEFAULT_UNARCHIVER_CLASSES, from: data) as? Product {
                     products.append(product)
                 }
             }

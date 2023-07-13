@@ -1,5 +1,5 @@
 //
-//  JSONObjectValues.swift
+//  JSONObjectValue.swift
 //  CordialSDK
 //
 //  Created by Yan Malinovsky on 24.10.2022.
@@ -8,15 +8,17 @@
 
 import Foundation
 
-@objc class JSONObjectValues: NSObject, NSCoding, AttributeValue, JSONValue {
+@objcMembers class JSONObjectValue: NSObject, NSCoding, NSSecureCoding, AttributeValue, JSONValue {
     
-    let value: Dictionary<String, JSONValue>?
+    static var supportsSecureCoding = true
+    
+    let value: Dictionary<String, AttributeValue>?
     
     enum Key: String {
         case value = "value"
     }
     
-    @objc init(_ value: Dictionary<String, JSONValue>?) {
+    init(_ value: Dictionary<String, AttributeValue>?) {
         self.value = value
     }
     
@@ -25,7 +27,7 @@ import Foundation
     }
     
     required convenience init?(coder: NSCoder) {
-        let value = coder.decodeObject(forKey: Key.value.rawValue) as? Dictionary<String, JSONValue>
+        let value = coder.decodeObject(forKey: Key.value.rawValue) as? Dictionary<String, AttributeValue>
         
         self.init(value)
     }

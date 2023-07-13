@@ -8,7 +8,9 @@
 
 import Foundation
 
-class InboxMessagesMarkReadUnreadRequest: NSObject, NSCoding {
+class InboxMessagesMarkReadUnreadRequest: NSObject, NSCoding, NSSecureCoding {
+    
+    static var supportsSecureCoding = true
     
     let requestID: String
     let primaryKey: String?

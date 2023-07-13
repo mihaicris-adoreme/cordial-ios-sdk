@@ -8,7 +8,9 @@
 
 import Foundation
 
-class SendContactOrderRequest: NSObject, NSCoding {
+class SendContactOrderRequest: NSObject, NSCoding, NSSecureCoding {
+    
+    static var supportsSecureCoding = true
 
     let mcID: String?
     let order: Order
@@ -34,16 +36,16 @@ class SendContactOrderRequest: NSObject, NSCoding {
         self.primaryKey = primaryKey
     }
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.mcID, forKey: Key.mcID.rawValue)
-        aCoder.encode(self.order, forKey: Key.order.rawValue)
-        aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
+    func encode(with coder: NSCoder) {
+        coder.encode(self.mcID, forKey: Key.mcID.rawValue)
+        coder.encode(self.order, forKey: Key.order.rawValue)
+        coder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        if let order = aDecoder.decodeObject(forKey: Key.order.rawValue) as? Order,
-           let mcID = aDecoder.decodeObject(forKey: Key.mcID.rawValue) as? String?,
-           let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String?,
+    required convenience init?(coder: NSCoder) {
+        if let order = coder.decodeObject(forKey: Key.order.rawValue) as? Order,
+           let mcID = coder.decodeObject(forKey: Key.mcID.rawValue) as? String?,
+           let primaryKey = coder.decodeObject(forKey: Key.primaryKey.rawValue) as? String?,
            !order.isError {
             
             self.init(mcID: mcID, order: order, primaryKey: primaryKey)
