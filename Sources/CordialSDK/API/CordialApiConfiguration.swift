@@ -15,12 +15,11 @@ import CoreLocation
     
     private override init() {}
     
-    let sdkVersion = "4.2.1"
+    let sdkVersion = "4.3.0"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
-    let initCoreDataManager = CoreDataManager.shared
     
     internal var accountKey = String()
     internal var channelKey = String()
@@ -45,9 +44,12 @@ import CoreLocation
     @objc public var inAppMessagesDeliveryConfiguration: InAppMessagesDeliveryConfigurationType = .directDelivery
     
     @objc public let inboxMessageCache = InboxMessageCache.shared
+    @objc public let inAppMessageDelayMode = InAppMessageDelayMode.shared
     
     @objc public var qtyCachedEventQueue = 1000
     @objc public var systemEventsProperties: Dictionary<String, Any>?
+    
+    @objc public var vanityDomains: [String] = []
     
     @objc public func setNotificationCategories(_ pushNotificationCategories: [PushNotificationCategory]) {
         let internalCordialAPI = InternalCordialAPI()
@@ -61,8 +63,6 @@ import CoreLocation
             LoggerManager.shared.error(message: "Setting empty push notification categories array is unsupported", category: "CordialSDKPushNotification")
         }
     }
-    
-    @objc public var vanityDomains = [String]()
     
     @objc public var eventsBulkSize: Int = 1 {
         didSet {
@@ -85,8 +85,6 @@ import CoreLocation
             }
         }
     }
-
-    @objc public let inAppMessageDelayMode = InAppMessageDelayMode()
     
     @objc public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String = "", messageHubURL: String = "") {
         
@@ -112,8 +110,9 @@ import CoreLocation
         let deviceID = InternalCordialAPI().getDeviceIdentifier()
         LoggerManager.shared.log(message: "Device Identifier: [\(deviceID)] SDK: [\(self.sdkVersion)]", category: "CordialSDKInfo")
         
-        let systemEventsProperties = InternalCordialAPI().getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
-        CordialApiConfiguration.shared.systemEventsProperties = systemEventsProperties
+        self.systemEventsProperties = InternalCordialAPI().getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
+        
+        CoreDataManager.shared.customEventRequests.updateSendingCustomEventRequestsIfNeeded()
         
         CordialPushNotification.shared.setupPushNotifications()
         

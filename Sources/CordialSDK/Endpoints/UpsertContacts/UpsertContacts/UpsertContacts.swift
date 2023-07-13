@@ -74,7 +74,7 @@ class UpsertContacts {
         return upsertContactJSON
     }
     
-    private func getAttributesJSON(attributes: Dictionary<String, AttributeValue>) -> String {
+    func getAttributesJSON(attributes: Dictionary<String, AttributeValue>) -> String {
         var container = [String]()
         
         attributes.forEach { (key: String, value: AttributeValue) in

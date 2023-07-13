@@ -8,7 +8,9 @@
 
 import Foundation
 
-class UpsertContactRequest: NSObject, NSCoding {
+class UpsertContactRequest: NSObject, NSCoding, NSSecureCoding {
+    
+    static var supportsSecureCoding = true
     
     let requestID: String
     let token: String?
@@ -41,18 +43,18 @@ class UpsertContactRequest: NSObject, NSCoding {
         self.attributes = attributes
     }
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.requestID, forKey: Key.requestID.rawValue)
-        aCoder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
-        aCoder.encode(self.status, forKey: Key.status.rawValue)
-        aCoder.encode(self.attributes, forKey: Key.attributes.rawValue)
+    func encode(with coder: NSCoder) {
+        coder.encode(self.requestID, forKey: Key.requestID.rawValue)
+        coder.encode(self.primaryKey, forKey: Key.primaryKey.rawValue)
+        coder.encode(self.status, forKey: Key.status.rawValue)
+        coder.encode(self.attributes, forKey: Key.attributes.rawValue)
     }
     
-    required convenience init?(coder aDecoder: NSCoder) {
-        if let requestID = aDecoder.decodeObject(forKey: Key.requestID.rawValue) as? String,
-           let status = aDecoder.decodeObject(forKey: Key.status.rawValue) as? String,
-           let primaryKey = aDecoder.decodeObject(forKey: Key.primaryKey.rawValue) as? String?,
-           let attributes = aDecoder.decodeObject(forKey: Key.attributes.rawValue) as? Dictionary<String, AttributeValue>? {
+    required convenience init?(coder: NSCoder) {
+        if let requestID = coder.decodeObject(forKey: Key.requestID.rawValue) as? String,
+           let status = coder.decodeObject(forKey: Key.status.rawValue) as? String,
+           let primaryKey = coder.decodeObject(forKey: Key.primaryKey.rawValue) as? String?,
+           let attributes = coder.decodeObject(forKey: Key.attributes.rawValue) as? Dictionary<String, AttributeValue>? {
             
             self.init(requestID: requestID, primaryKey: primaryKey, status: status, attributes: attributes)
         } else {

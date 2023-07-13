@@ -22,7 +22,7 @@ class ContactCartRequestCoreData {
             let newRow = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                let upsertContactCartRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest, requiringSecureCoding: false)
+                let upsertContactCartRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest, requiringSecureCoding: true)
                 
                 newRow.setValue(upsertContactCartRequestData, forKey: "data")
                 
@@ -45,10 +45,12 @@ class ContactCartRequestCoreData {
                 guard let anyData = managedObject.value(forKey: "data") else { continue }
                 let data = anyData as! Data
                 
-                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UpsertContactCartRequest, !sendCustomEventRequest.isError {
+                if let upsertContactCartRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [UpsertContactCartRequest.self, CartItem.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? UpsertContactCartRequest,
+                   !upsertContactCartRequest.isError {
+                    
                     CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
                     
-                    return sendCustomEventRequest
+                    return upsertContactCartRequest
                 } else {
                     context.delete(managedObject)
                     try context.save()
@@ -57,6 +59,8 @@ class ContactCartRequestCoreData {
                 }
             }
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         

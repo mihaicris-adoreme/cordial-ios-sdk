@@ -48,6 +48,7 @@ import Foundation
         }
     }
     
+    @available(*, deprecated, message: "Use fetchInboxMessages instead")
     @objc public func fetchInboxMessage(mcID: String, onSuccess: @escaping (_ response: InboxMessage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         DispatchQueue.main.async {
             if let inboxMessage = CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: mcID),

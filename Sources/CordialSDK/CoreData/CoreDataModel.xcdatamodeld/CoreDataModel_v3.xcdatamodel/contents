@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ContactCartRequest" representedClassName="ContactCartRequest" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="ContactLogout" representedClassName="ContactLogout" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="ContactOrderRequest" representedClassName="ContactOrderRequest" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="ContactRequest" representedClassName="ContactRequest" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="ContactTimestampsURL" representedClassName="ContactTimestampsURL" syncable="YES">
+        <attribute name="expireDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+    </entity>
+    <entity name="CustomEventRequest" representedClassName="CustomEventRequest" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="flushing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="requestID" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="InAppMessageContentURL" representedClassName="InAppMessageContentURL" syncable="YES">
+        <attribute name="expireDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
+    </entity>
+    <entity name="InAppMessagesCache" representedClassName="InAppMessagesCache" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="displayType" optional="YES" attributeType="String"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="InAppMessagesParam" representedClassName="InAppMessagesParam" syncable="YES">
+        <attribute name="bottom" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="displayType" optional="YES" attributeType="String"/>
+        <attribute name="expirationTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="inactiveSessionDisplay" optional="YES" attributeType="String"/>
+        <attribute name="left" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+        <attribute name="right" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="top" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="InAppMessagesQueue" representedClassName="InAppMessagesQueue" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="InAppMessagesRelated" representedClassName="InAppMessagesRelated" syncable="YES">
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="InAppMessagesShown" representedClassName="InAppMessagesShown" syncable="YES">
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="InboxMessageDeleteRequests" representedClassName="InboxMessageDeleteRequests" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+    </entity>
+    <entity name="InboxMessagesCache" representedClassName="InboxMessagesCache" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="InboxMessagesContent" representedClassName="InboxMessagesContent" syncable="YES">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="mcID" optional="YES" attributeType="String"/>
+        <attribute name="size" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="InboxMessagesReadUnreadMarks" representedClassName="InboxMessagesReadUnreadMarks" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+</model>

@@ -32,28 +32,110 @@ class CustomEventRequestsCoreData {
         }
     }
     
+    func removeCustomEventRequestsFromCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
+        sendCustomEventRequests.forEach { sendCustomEventRequest in
+            self.removeCustomEventRequestFromCoreData(sendCustomEventRequest: sendCustomEventRequest)
+        }
+    }
+    
+    func updateSendingCustomEventRequestsIfNeeded() {
+        if InternalCordialAPI().isUserLogin() {
+            DispatchQueue.main.async {
+                self.updateSendingCustomEventRequests()
+            }
+        }
+    }
+    
+    private func updateSendingCustomEventRequests() {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
+
+        let request = NSBatchUpdateRequest(entityName: self.entityName)
+        request.resultType = .statusOnlyResultType
+        
+        request.predicate = NSPredicate(format: "flushing = %@", NSNumber(value: true))
+        request.propertiesToUpdate = ["flushing": NSNumber(value: false)]
+        
+        do {
+            try context.execute(request)
+        } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
     private func setCustomEventRequestsToCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            sendCustomEventRequests.forEach { sendCustomEventRequest in
-                if let isCustomEventRequestExistAtCoreData = self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID),
-                   !isCustomEventRequestExistAtCoreData {
-                    
-                    let newRow = NSManagedObject(entity: entity, insertInto: context)
-
-                    do {
-                        let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: false)
-                        
-                        newRow.setValue(sendCustomEventRequestData, forKey: "data")
-                        newRow.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
-
-                        try context.save()
-                    } catch let error {
-                        LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-                    }
+            for sendCustomEventRequest in sendCustomEventRequests {
+                guard let isCustomEventRequestExistAtCoreData = self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID) else { continue }
+                
+                if isCustomEventRequestExistAtCoreData {
+                    self.updateCustomEventRequestsAtCoreData(sendCustomEventRequest: sendCustomEventRequest)
+                } else {
+                    let managedObject = NSManagedObject(entity: entity, insertInto: context)
+                    self.setCustomEventRequestToCoreData(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
                 }
             }
+        }
+    }
+    
+    private func setCustomEventRequestToCoreData(managedObject: NSManagedObject, context: NSManagedObjectContext, sendCustomEventRequest: SendCustomEventRequest) {
+        do {
+            let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: true)
+            
+            managedObject.setValue(sendCustomEventRequestData, forKey: "data")
+            managedObject.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
+            managedObject.setValue(false, forKey: "flushing")
+
+            try context.save()
+        } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
+    private func updateCustomEventRequestsAtCoreData(sendCustomEventRequest: SendCustomEventRequest) {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        
+        request.predicate = NSPredicate(format: "requestID = %@", sendCustomEventRequest.requestID)
+        
+        do {
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
+            
+            for managedObject in managedObjects {
+                self.setCustomEventRequestToCoreData(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
+            }
+        } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
+    private func removeCustomEventRequestFromCoreData(sendCustomEventRequest: SendCustomEventRequest) {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        
+        request.predicate = NSPredicate(format: "requestID = %@", sendCustomEventRequest.requestID)
+        
+        do {
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
+            
+            for managedObject in managedObjects {
+                CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+            }
+        } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -64,25 +146,26 @@ class CustomEventRequestsCoreData {
         request.returnsObjectsAsFaults = false
 
         do {
-            let result = try context.fetch(request)
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
             var countId = 0
-            for managedObject in result as! [NSManagedObject] {
+            for managedObject in managedObjects {
                 if id > countId {
                     countId+=1
                     
-                    context.delete(managedObject)
-                    try context.save()
+                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                 } else {
                     break
                 }
             }
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
-    private func getCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
+    func getCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
         var sendCustomEventRequests = [SendCustomEventRequest]()
         
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return sendCustomEventRequests }
@@ -91,21 +174,39 @@ class CustomEventRequestsCoreData {
         request.returnsObjectsAsFaults = false
 
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let anyData = managedObject.value(forKey: "data") else { continue }
-                let data = anyData as! Data
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return sendCustomEventRequests }
+            
+            for managedObject in managedObjects {
+                guard let data = managedObject.value(forKey: "data") as? Data else {
+                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
 
-                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? SendCustomEventRequest, !sendCustomEventRequest.isError {
-                    sendCustomEventRequests.append(sendCustomEventRequest)
+                    continue
+                }
+
+                if let sendCustomEventRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [SendCustomEventRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? SendCustomEventRequest,
+                   !sendCustomEventRequest.isError {
+                    
+                    guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
+                        CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                        
+                        continue
+                    }
+                    
+                    if !isFlushing {
+                        managedObject.setValue(true, forKey: "flushing")
+                        try context.save()
+                        
+                        sendCustomEventRequests.append(sendCustomEventRequest)
+                    }
                 } else {
-                    context.delete(managedObject)
-                    try context.save()
+                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving SendCustomEventRequest", category: "CordialSDKError")
                 }
             }
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
 
@@ -117,29 +218,24 @@ class CustomEventRequestsCoreData {
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.fetchLimit = 1
 
         let predicate = NSPredicate(format: "requestID = %@", requestID)
         request.predicate = predicate
         
         do {
-            if let result = try context.fetch(request) as? [NSManagedObject], result.count > 0 {
+            if let managedObjects = try context.fetch(request) as? [NSManagedObject],
+               managedObjects.count > 0 {
+                
                 return true
             }
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
 
         return false
         
-    }
-    
-    func fetchCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
-        let sendCustomEventRequests = self.getCustomEventRequestsFromCoreData()
-        
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
-        
-        return sendCustomEventRequests
     }
 
     func getQtyCachedCustomEventRequests() -> Int? {
@@ -154,9 +250,11 @@ class CustomEventRequestsCoreData {
             return count
             
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
-        return 0
+        return nil
     }
 }

@@ -21,6 +21,8 @@ struct App {
     static private let USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY = "USER_DEFAULTS_KEY_FOR_ACCOUNT_KEY"
     static private let USER_DEFAULTS_KEY_FOR_CHANNEL_KEY = "USER_DEFAULTS_KEY_FOR_CHANNEL_KEY"
     static private let USER_DEFAULTS_KEY_FOR_IS_EDUCATIONAL_NOTIFICATION_CATEGORIES = "USER_DEFAULTS_KEY_FOR_IS_EDUCATIONAL_NOTIFICATION_CATEGORIES"
+    
+    static let DEFAULT_UNARCHIVER_CLASSES = [NSData.self, NSArray.self, NSDictionary.self, NSString.self, NSDate.self, NSNumber.self, NSURL.self]
      
     // MARK: CordialSDK - Get Init Params
     

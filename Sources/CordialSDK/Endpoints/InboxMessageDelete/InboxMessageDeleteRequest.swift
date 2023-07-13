@@ -8,7 +8,9 @@
 
 import Foundation
 
-class InboxMessageDeleteRequest: NSObject, NSCoding {
+class InboxMessageDeleteRequest: NSObject, NSCoding, NSSecureCoding {
+    
+    static var supportsSecureCoding = true
     
     let requestID: String
     let primaryKey: String?
