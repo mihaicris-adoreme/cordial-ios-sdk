@@ -3,6 +3,18 @@
 The latest version of this file can be found at the master branch.
 
 
+## 4.3.0 (2023-07-13)
+
+### Added
+
+- Exposing device information to the app developer 
+- Removing cached custom events requests on HTTP callbacks
+- In-app message delay type to the show in-app message call
+
+### Changed
+
+- Updated deprecated CoreData encode calls
+
 ## 4.2.1 (2023-05-30)
 
 ### Added
