@@ -69,7 +69,7 @@ class CustomEventRequestsCoreData {
 
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             for sendCustomEventRequest in sendCustomEventRequests {
-                guard let isCustomEventRequestExistAtCoreData = self.isCustomEventRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID) else { continue }
+                guard let isCustomEventRequestExistAtCoreData = CoreDataManager.shared.isObjectExistAtCoreData(requestID: sendCustomEventRequest.requestID, entityName: self.entityName) else { continue }
                 
                 if isCustomEventRequestExistAtCoreData {
                     self.updateCustomEventRequestsAtCoreData(sendCustomEventRequest: sendCustomEventRequest)
@@ -211,31 +211,6 @@ class CustomEventRequestsCoreData {
         }
 
         return sendCustomEventRequests
-    }
-    
-    private func isCustomEventRequestExistAtCoreData(requestID: String) -> Bool? {
-        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
-
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
-        request.returnsObjectsAsFaults = false
-
-        let predicate = NSPredicate(format: "requestID = %@", requestID)
-        request.predicate = predicate
-        
-        do {
-            if let managedObjects = try context.fetch(request) as? [NSManagedObject],
-               managedObjects.count > 0 {
-                
-                return true
-            }
-        } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
-            
-            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-        }
-
-        return false
-        
     }
 
     func getQtyCachedCustomEventRequests() -> Int? {

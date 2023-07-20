@@ -66,4 +66,42 @@ class ContactRequestsCoreData {
         
         return upsertContactRequests
     }
+    
+    private func setContactRequestToCoreData(managedObject: NSManagedObject, context: NSManagedObjectContext, upsertContactRequest: UpsertContactRequest) {
+        do {
+            let upsertContactRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactRequest, requiringSecureCoding: true)
+            
+            managedObject.setValue(upsertContactRequestData, forKey: "data")
+            managedObject.setValue(upsertContactRequest.requestID, forKey: "requestID")
+            managedObject.setValue(false, forKey: "flushing")
+
+            try context.save()
+        } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
+    private func updateContactRequestAtCoreData(upsertContactRequest: UpsertContactRequest) {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        
+        request.predicate = NSPredicate(format: "requestID = %@", upsertContactRequest.requestID)
+        
+        do {
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
+            
+            for managedObject in managedObjects {
+                self.setContactRequestToCoreData(managedObject: managedObject, context: context, upsertContactRequest: upsertContactRequest)
+            }
+        } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+
 }

@@ -72,6 +72,30 @@ class CoreDataManager {
         return model
     }
     
+    func isObjectExistAtCoreData(requestID: String, entityName: String) -> Bool? {
+        guard let context = self.persistentContainer?.viewContext else { return nil }
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        request.returnsObjectsAsFaults = false
+
+        let predicate = NSPredicate(format: "requestID = %@", requestID)
+        request.predicate = predicate
+        
+        do {
+            if let managedObjects = try context.fetch(request) as? [NSManagedObject],
+               managedObjects.count > 0 {
+                
+                return true
+            }
+        } catch let error {
+            self.deleteAllCoreDataByEntity(entityName: entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
+        }
+
+        return false
+    }
+    
     func deleteManagedObjectByContext(managedObject: NSManagedObject, context: NSManagedObjectContext) {
         do {
             context.delete(managedObject)
