@@ -37,16 +37,13 @@ class ContactTimestampsURLCoreData {
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.fetchLimit = 1
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let urlManagedObject = managedObject.value(forKey: "url") else { continue }
-                let url = urlManagedObject as! URL
-                
-                guard let expireDateManagedObject = managedObject.value(forKey: "expireDate") else { continue }
-                let expireDate = expireDateManagedObject as! Date
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return nil }
+            
+            for managedObject in managedObjects {
+                guard let url = managedObject.value(forKey: "url") as? URL else { continue }
+                guard let expireDate = managedObject.value(forKey: "expireDate") as? Date else { continue }
                 
                 return ContactTimestamp(url: url, expireDate: expireDate)
             }

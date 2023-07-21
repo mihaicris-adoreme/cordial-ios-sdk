@@ -113,6 +113,8 @@ class ContactsSender {
     func logicErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {
         NotificationCenter.default.post(name: .cordialUpsertContactsLogicError, object: error)
         
+        CoreDataManager.shared.contactRequests.removeContactRequestsFromCoreData(upsertContactRequests: upsertContactRequests)
+        
         upsertContactRequests.forEach({ upsertContactRequest in
             LoggerManager.shared.error(message: "Sending contact failed. Will not retry. Request ID: [\(upsertContactRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContacts")
         })
