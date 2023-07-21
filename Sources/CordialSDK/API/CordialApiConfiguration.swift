@@ -112,7 +112,7 @@ import CoreLocation
         
         self.systemEventsProperties = InternalCordialAPI().getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
         
-        CoreDataManager.shared.customEventRequests.updateSendingCustomEventRequestsIfNeeded()
+        CoreDataManager.shared.updateSendingRequestsIfNeeded()
         
         CordialPushNotification.shared.setupPushNotifications()
         

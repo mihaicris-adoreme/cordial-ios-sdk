@@ -88,32 +88,6 @@ class CustomEventRequestsCoreData {
         }
     }
     
-    func updateSendingCustomEventRequestsIfNeeded() {
-        if InternalCordialAPI().isUserLogin() {
-            DispatchQueue.main.async {
-                self.updateSendingCustomEventRequests()
-            }
-        }
-    }
-    
-    private func updateSendingCustomEventRequests() {
-        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
-
-        let request = NSBatchUpdateRequest(entityName: self.entityName)
-        request.resultType = .statusOnlyResultType
-        
-        request.predicate = NSPredicate(format: "flushing = %@", NSNumber(value: true))
-        request.propertiesToUpdate = ["flushing": NSNumber(value: false)]
-        
-        do {
-            try context.execute(request)
-        } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
-            
-            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-        }
-    }
-    
     // MARK: Getting Data
     
     func getCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {

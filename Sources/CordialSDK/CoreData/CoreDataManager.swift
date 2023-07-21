@@ -72,6 +72,33 @@ class CoreDataManager {
         return model
     }
     
+    func updateSendingRequestsIfNeeded() {
+        if InternalCordialAPI().isUserLogin() {
+            DispatchQueue.main.async {
+                self.updateSendingRequests(entityName: CustomEventRequestsCoreData().entityName)
+                self.updateSendingRequests(entityName: ContactRequestsCoreData().entityName)
+            }
+        }
+    }
+    
+    private func updateSendingRequests(entityName: String) {
+        guard let context = self.persistentContainer?.viewContext else { return }
+
+        let request = NSBatchUpdateRequest(entityName: entityName)
+        request.resultType = .statusOnlyResultType
+        
+        request.predicate = NSPredicate(format: "flushing = %@", NSNumber(value: true))
+        request.propertiesToUpdate = ["flushing": NSNumber(value: false)]
+        
+        do {
+            try context.execute(request)
+        } catch let error {
+            self.deleteAllCoreDataByEntity(entityName: entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
     func isRequestExistAtCoreData(requestID: String, entityName: String) -> Bool? {
         guard let context = self.persistentContainer?.viewContext else { return nil }
 
