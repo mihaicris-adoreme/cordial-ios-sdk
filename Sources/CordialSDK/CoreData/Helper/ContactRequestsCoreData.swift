@@ -20,7 +20,7 @@ class ContactRequestsCoreData {
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             for upsertContactRequest in upsertContactRequests {
-                guard let isUpsertContactRequestExistAtCoreData = CoreDataManager.shared.isObjectExistAtCoreData(requestID: upsertContactRequest.requestID, entityName: self.entityName) else { continue }
+                guard let isUpsertContactRequestExistAtCoreData = CoreDataManager.shared.isRequestExistAtCoreData(requestID: upsertContactRequest.requestID, entityName: self.entityName) else { continue }
                 
                 if isUpsertContactRequestExistAtCoreData {
                     self.updateContactRequestAtCoreData(upsertContactRequest: upsertContactRequest)
@@ -117,5 +117,13 @@ class ContactRequestsCoreData {
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
         return upsertContactRequests
+    }
+    
+    // MARK: Removing Data
+    
+    func removeContactRequestsFromCoreData(upsertContactRequests: [UpsertContactRequest]) {
+        upsertContactRequests.forEach { upsertContactRequest in
+            CoreDataManager.shared.removeRequestFromCoreData(requestID: upsertContactRequest.requestID, entityName: self.entityName)
+        }
     }
 }

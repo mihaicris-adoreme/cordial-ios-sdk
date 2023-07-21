@@ -39,7 +39,7 @@ class CustomEventRequestsCoreData {
 
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             for sendCustomEventRequest in sendCustomEventRequests {
-                guard let isCustomEventRequestExistAtCoreData = CoreDataManager.shared.isObjectExistAtCoreData(requestID: sendCustomEventRequest.requestID, entityName: self.entityName) else { continue }
+                guard let isCustomEventRequestExistAtCoreData = CoreDataManager.shared.isRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID, entityName: self.entityName) else { continue }
                 
                 if isCustomEventRequestExistAtCoreData {
                     self.updateCustomEventRequestsAtCoreData(sendCustomEventRequest: sendCustomEventRequest)
@@ -188,28 +188,7 @@ class CustomEventRequestsCoreData {
     
     func removeCustomEventRequestsFromCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
         sendCustomEventRequests.forEach { sendCustomEventRequest in
-            self.removeCustomEventRequestFromCoreData(sendCustomEventRequest: sendCustomEventRequest)
-        }
-    }
-    
-    private func removeCustomEventRequestFromCoreData(sendCustomEventRequest: SendCustomEventRequest) {
-        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
-
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
-        request.returnsObjectsAsFaults = false
-        
-        request.predicate = NSPredicate(format: "requestID = %@", sendCustomEventRequest.requestID)
-        
-        do {
-            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
-            
-            for managedObject in managedObjects {
-                CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
-            }
-        } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
-            
-            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+            CoreDataManager.shared.removeRequestFromCoreData(requestID: sendCustomEventRequest.requestID, entityName: self.entityName)
         }
     }
     

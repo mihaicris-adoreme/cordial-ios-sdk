@@ -84,6 +84,8 @@ class ContactsSender {
     }
     
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
+        CoreDataManager.shared.contactRequests.removeContactRequestsFromCoreData(upsertContactRequests: upsertContactRequests)
+        
         CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         
         let currentTimestamp = CordialDateFormatter().getCurrentTimestamp()
