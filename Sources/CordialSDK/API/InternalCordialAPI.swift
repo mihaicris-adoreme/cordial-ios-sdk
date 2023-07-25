@@ -724,8 +724,8 @@ class InternalCordialAPI {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE)
     }
     
-    func removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate() {
-        CoreDataManager.shared.contactTimestampsURL.removeContactTimestampFromCoreData()
+    func removeContactTimestampAndTheLatestSentAtInAppMessageDate() {
+        CoreDataManager.shared.contactTimestampsURL.removeContactTimestamp()
         self.removeTheLatestSentAtInAppMessageDate()
     }
 

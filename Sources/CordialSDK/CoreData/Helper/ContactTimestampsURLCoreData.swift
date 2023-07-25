@@ -15,7 +15,7 @@ class ContactTimestampsURLCoreData {
     
     // MARK: Setting Data
     
-    func putContactTimestampToCoreData(contactTimestamp: ContactTimestamp) {
+    func putContactTimestamp(contactTimestamp: ContactTimestamp) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
@@ -36,7 +36,7 @@ class ContactTimestampsURLCoreData {
     
     // MARK: Getting Data
     
-    func fetchContactTimestampFromCoreData() -> ContactTimestamp? {
+    func fetchContactTimestamp() -> ContactTimestamp? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -60,7 +60,7 @@ class ContactTimestampsURLCoreData {
     
     // MARK: Removing Data
     
-    func removeContactTimestampFromCoreData() {
+    func removeContactTimestamp() {
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
     }
     

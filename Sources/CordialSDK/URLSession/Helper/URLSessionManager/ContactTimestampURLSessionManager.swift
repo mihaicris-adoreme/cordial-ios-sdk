@@ -46,7 +46,7 @@ class ContactTimestampURLSessionManager {
         case 400:
             self.contactTimestampURL.isCurrentlyUpdatingContactTimestampURL = false
             
-            InternalCordialAPI().removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate()
+            InternalCordialAPI().removeContactTimestampAndTheLatestSentAtInAppMessageDate()
             
             ContactTimestamps.shared.updateIfNeeded()
         default:
