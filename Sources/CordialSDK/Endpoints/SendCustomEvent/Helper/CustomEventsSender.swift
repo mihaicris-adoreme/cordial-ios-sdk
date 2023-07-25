@@ -88,6 +88,8 @@ class CustomEventsSender {
                 let eventNamesAndRequestIDsWithoutBrokenEvents = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
                 LoggerManager.shared.info(message: "Sending again valid events { \(eventNamesAndRequestIDsWithoutBrokenEvents) }", category: "CordialSDKSendCustomEvents")
             }
+        } else {
+            CoreDataManager.shared.customEventRequests.removeCustomEventRequestsFromCoreData(sendCustomEventRequests: sendCustomEventRequests)
         }
     }
 
