@@ -52,7 +52,7 @@ class InAppMessagesQueueCoreData {
                 guard let anyData = managedObject.value(forKey: "mcID") else { continue }
                 let mcID = anyData as! String
                 
-                CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                 
                 return mcID
             }

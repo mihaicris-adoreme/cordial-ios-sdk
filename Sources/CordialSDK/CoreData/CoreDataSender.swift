@@ -43,7 +43,7 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactRequests() {
-        let upsertContactRequests = CoreDataManager.shared.contactRequests.fetchContactRequestsFromCoreData()
+        let upsertContactRequests = CoreDataManager.shared.contactRequests.fetchContactRequests()
         if !upsertContactRequests.isEmpty {
             ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
         }
@@ -53,7 +53,7 @@ class CoreDataSender {
         let internalCordialAPI = InternalCordialAPI()
         
         if internalCordialAPI.isUserLogin() && !internalCordialAPI.isCurrentlyUpsertingContacts() {
-            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequestsFromCoreData()
+            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequests()
             
             if customEventRequests.count > 0 {
                 if CordialApiConfiguration.shared.eventsBulkSize != 1 {
@@ -100,7 +100,7 @@ class CoreDataSender {
     
     private func sendCachedUpsertContactCartRequest() {
         if InternalCordialAPI().isUserLogin() {
-            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.fetchContactCartRequestFromCoreData() {
+            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.fetchContactCartRequest() {
                 ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
             }
         }

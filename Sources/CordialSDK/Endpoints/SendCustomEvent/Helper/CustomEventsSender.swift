@@ -20,13 +20,13 @@ class CustomEventsSender {
                 self.sendCustomEventsData(sendCustomEventRequests: sendCustomEventRequests)
             } else {
                 // Function has been called through barrier queue. No need additional barrier.
-                CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
+                CoreDataManager.shared.customEventRequests.putCustomEventRequests(sendCustomEventRequests: sendCustomEventRequests)
                 
                 LoggerManager.shared.info(message: "Sending events { \(eventNamesAndRequestIDs) } failed. Saved to retry later. Error: [No Internet connection]", category: "CordialSDKSendCustomEvents")
             }
         } else {
             // Function has been called through barrier queue. No need additional barrier.
-            CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
+            CoreDataManager.shared.customEventRequests.putCustomEventRequests(sendCustomEventRequests: sendCustomEventRequests)
             
             LoggerManager.shared.info(message: "Sending events { \(eventNamesAndRequestIDs) } failed. Saved to retry later. Error: [User no login]", category: "CordialSDKSendCustomEvents")
         }
@@ -50,14 +50,14 @@ class CustomEventsSender {
     }
     
     func completionHandler(sendCustomEventRequests: [SendCustomEventRequest]) {
-        CoreDataManager.shared.customEventRequests.removeCustomEventRequestsFromCoreData(sendCustomEventRequests: sendCustomEventRequests)
+        CoreDataManager.shared.customEventRequests.removeCustomEventRequests(sendCustomEventRequests: sendCustomEventRequests)
         
         let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
         LoggerManager.shared.info(message: "Events { \(eventNamesAndRequestIDs) } have been sent", category: "CordialSDKSendCustomEvents")
     }
     
     func systemErrorHandler(sendCustomEventRequests: [SendCustomEventRequest], error: ResponseError) {
-        CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
+        CoreDataManager.shared.customEventRequests.putCustomEventRequests(sendCustomEventRequests: sendCustomEventRequests)
         
         let eventNamesAndRequestIDs = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequests)
         LoggerManager.shared.info(message: "Sending events { \(eventNamesAndRequestIDs) } failed. Saved to retry later. Error: [\(error.message)]", category: "CordialSDKSendCustomEvents")
@@ -83,13 +83,13 @@ class CustomEventsSender {
                     }
                 }
                 
-                CoreDataManager.shared.customEventRequests.removeCustomEventRequestsFromCoreData(sendCustomEventRequests: sendCustomEventRequestsWithBrokenEvents)
+                CoreDataManager.shared.customEventRequests.removeCustomEventRequests(sendCustomEventRequests: sendCustomEventRequestsWithBrokenEvents)
                 
                 let eventNamesAndRequestIDsWithoutBrokenEvents = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
                 LoggerManager.shared.info(message: "Sending again valid events { \(eventNamesAndRequestIDsWithoutBrokenEvents) }", category: "CordialSDKSendCustomEvents")
             }
         } else {
-            CoreDataManager.shared.customEventRequests.removeCustomEventRequestsFromCoreData(sendCustomEventRequests: sendCustomEventRequests)
+            CoreDataManager.shared.customEventRequests.removeCustomEventRequests(sendCustomEventRequests: sendCustomEventRequests)
         }
     }
 

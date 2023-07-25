@@ -15,7 +15,7 @@ class ContactCartRequestCoreData {
     
     // MARK: Setting Data
     
-    func putContactCartRequestToCoreData(upsertContactCartRequest: UpsertContactCartRequest) {
+    func putContactCartRequest(upsertContactCartRequest: UpsertContactCartRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
@@ -39,7 +39,7 @@ class ContactCartRequestCoreData {
     
     // MARK: Getting Data
     
-    func fetchContactCartRequestFromCoreData() -> UpsertContactCartRequest? {
+    func fetchContactCartRequest() -> UpsertContactCartRequest? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -50,7 +50,7 @@ class ContactCartRequestCoreData {
             
             for managedObject in managedObjects {
                 guard let data = managedObject.value(forKey: "data") as? Data else {
-                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
 
                     continue
                 }
@@ -59,7 +59,7 @@ class ContactCartRequestCoreData {
                    !upsertContactCartRequest.isError {
                     
                     guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
-                        CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                         
                         continue
                     }
@@ -71,7 +71,7 @@ class ContactCartRequestCoreData {
                         return upsertContactCartRequest
                     }
                 } else {
-                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving UpsertContactCartRequest", category: "CordialSDKError")
                 }
@@ -87,7 +87,7 @@ class ContactCartRequestCoreData {
     
     // MARK: Removing Data
     
-    func removeContactCartRequestFromCoreData(upsertContactCartRequest: UpsertContactCartRequest) {
-        CoreDataManager.shared.removeRequestFromCoreData(requestID: upsertContactCartRequest.requestID, entityName: self.entityName)
+    func removeContactCartRequest(upsertContactCartRequest: UpsertContactCartRequest) {
+        CoreDataManager.shared.removeRequestObject(requestID: upsertContactCartRequest.requestID, entityName: self.entityName)
     }
 }

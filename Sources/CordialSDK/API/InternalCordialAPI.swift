@@ -316,7 +316,7 @@ class InternalCordialAPI {
     // MARK: Send Any Custom Event
     
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
+        CoreDataManager.shared.customEventRequests.putCustomEventRequests(sendCustomEventRequests: [sendCustomEventRequest])
         
         if CordialApiConfiguration.shared.eventsBulkSize != 1 {
             LoggerManager.shared.info(message: "Event [eventName: \(sendCustomEventRequest.eventName), eventID: \(sendCustomEventRequest.requestID)] added to bulk", category: "CordialSDKSendCustomEvents")

@@ -15,7 +15,7 @@ class CustomEventRequestsCoreData {
     
     // MARK: Setting Data
     
-    func putCustomEventRequestsToCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
+    func putCustomEventRequests(sendCustomEventRequests: [SendCustomEventRequest]) {
         guard let qtyCachedCustomEventRequests = self.getQtyCachedCustomEventRequests() else { return }
         
         let countSendCustomEventRequests = sendCustomEventRequests.count
@@ -27,31 +27,31 @@ class CustomEventRequestsCoreData {
             
             if sendCustomEventRequestsQty > CordialApiConfiguration.shared.qtyCachedEventQueue {
                 let removeID = sendCustomEventRequestsQty - CordialApiConfiguration.shared.qtyCachedEventQueue
-                self.removeFirstCustomEventRequestsFromCoreData(removeTo: removeID)
+                self.removeFirstCustomEventRequests(removeTo: removeID)
             }
             
-            self.setCustomEventRequestsToCoreData(sendCustomEventRequests: sendCustomEventRequests)
+            self.setCustomEventRequests(sendCustomEventRequests: sendCustomEventRequests)
         }
     }
     
-    private func setCustomEventRequestsToCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
+    private func setCustomEventRequests(sendCustomEventRequests: [SendCustomEventRequest]) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             for sendCustomEventRequest in sendCustomEventRequests {
-                guard let isCustomEventRequestExistAtCoreData = CoreDataManager.shared.isRequestExistAtCoreData(requestID: sendCustomEventRequest.requestID, entityName: self.entityName) else { continue }
+                guard let isCustomEventRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: sendCustomEventRequest.requestID, entityName: self.entityName) else { continue }
                 
-                if isCustomEventRequestExistAtCoreData {
-                    self.updateCustomEventRequestsAtCoreData(sendCustomEventRequest: sendCustomEventRequest)
+                if isCustomEventRequestExist {
+                    self.updateCustomEventRequests(sendCustomEventRequest: sendCustomEventRequest)
                 } else {
                     let managedObject = NSManagedObject(entity: entity, insertInto: context)
-                    self.setCustomEventRequestToCoreData(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
+                    self.setCustomEventRequest(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
                 }
             }
         }
     }
     
-    private func setCustomEventRequestToCoreData(managedObject: NSManagedObject, context: NSManagedObjectContext, sendCustomEventRequest: SendCustomEventRequest) {
+    private func setCustomEventRequest(managedObject: NSManagedObject, context: NSManagedObjectContext, sendCustomEventRequest: SendCustomEventRequest) {
         do {
             let sendCustomEventRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendCustomEventRequest, requiringSecureCoding: true)
             
@@ -67,7 +67,7 @@ class CustomEventRequestsCoreData {
         }
     }
     
-    private func updateCustomEventRequestsAtCoreData(sendCustomEventRequest: SendCustomEventRequest) {
+    private func updateCustomEventRequests(sendCustomEventRequest: SendCustomEventRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -79,7 +79,7 @@ class CustomEventRequestsCoreData {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
             for managedObject in managedObjects {
-                self.setCustomEventRequestToCoreData(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
+                self.setCustomEventRequest(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
             }
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
@@ -90,7 +90,7 @@ class CustomEventRequestsCoreData {
     
     // MARK: Getting Data
     
-    func fetchCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
+    func fetchCustomEventRequests() -> [SendCustomEventRequest] {
         var sendCustomEventRequests = [SendCustomEventRequest]()
         
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return sendCustomEventRequests }
@@ -103,7 +103,7 @@ class CustomEventRequestsCoreData {
             
             for managedObject in managedObjects {
                 guard let data = managedObject.value(forKey: "data") as? Data else {
-                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
 
                     continue
                 }
@@ -112,7 +112,7 @@ class CustomEventRequestsCoreData {
                    !sendCustomEventRequest.isError {
                     
                     guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
-                        CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                         
                         continue
                     }
@@ -124,7 +124,7 @@ class CustomEventRequestsCoreData {
                         sendCustomEventRequests.append(sendCustomEventRequest)
                     }
                 } else {
-                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving SendCustomEventRequest", category: "CordialSDKError")
                 }
@@ -160,13 +160,13 @@ class CustomEventRequestsCoreData {
     
     // MARK: Removing Data
     
-    func removeCustomEventRequestsFromCoreData(sendCustomEventRequests: [SendCustomEventRequest]) {
+    func removeCustomEventRequests(sendCustomEventRequests: [SendCustomEventRequest]) {
         sendCustomEventRequests.forEach { sendCustomEventRequest in
-            CoreDataManager.shared.removeRequestFromCoreData(requestID: sendCustomEventRequest.requestID, entityName: self.entityName)
+            CoreDataManager.shared.removeRequestObject(requestID: sendCustomEventRequest.requestID, entityName: self.entityName)
         }
     }
     
-    private func removeFirstCustomEventRequestsFromCoreData(removeTo id: Int) {
+    private func removeFirstCustomEventRequests(removeTo id: Int) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -180,7 +180,7 @@ class CustomEventRequestsCoreData {
                 if id > countId {
                     countId+=1
                     
-                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                 } else {
                     break
                 }

@@ -18,12 +18,12 @@ class ContactCartSender {
             if ReachabilityManager.shared.isConnectedToInternet {
                 self.upsertContactCartData(upsertContactCartRequest: upsertContactCartRequest)
             } else {
-                CoreDataManager.shared.contactCartRequest.putContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
+                CoreDataManager.shared.contactCartRequest.putContactCartRequest(upsertContactCartRequest: upsertContactCartRequest)
                 
                 LoggerManager.shared.info(message: "Sending contact cart failed. Saved to retry later. Request ID: [\(upsertContactCartRequest.requestID)] Error: [No Internet connection]", category: "CordialSDKUpsertContactCart")
             }
         } else {
-            CoreDataManager.shared.contactCartRequest.putContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
+            CoreDataManager.shared.contactCartRequest.putContactCartRequest(upsertContactCartRequest: upsertContactCartRequest)
             
             LoggerManager.shared.info(message: "Sending contact cart failed. Saved to retry later. Request ID: [\(upsertContactCartRequest.requestID)] Error: [User no login]", category: "CordialSDKUpsertContactCart")
         }
@@ -48,19 +48,19 @@ class ContactCartSender {
     }
     
     func completionHandler(upsertContactCartRequest: UpsertContactCartRequest) {
-        CoreDataManager.shared.contactCartRequest.removeContactCartRequestFromCoreData(upsertContactCartRequest: upsertContactCartRequest)
+        CoreDataManager.shared.contactCartRequest.removeContactCartRequest(upsertContactCartRequest: upsertContactCartRequest)
         
         LoggerManager.shared.info(message: "Contact cart has been sent. Request ID: [\(String(upsertContactCartRequest.requestID))]", category: "CordialSDKUpsertContactCart")
     }
     
     func systemErrorHandler(upsertContactCartRequest: UpsertContactCartRequest, error: ResponseError) {
-        CoreDataManager.shared.contactCartRequest.putContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
+        CoreDataManager.shared.contactCartRequest.putContactCartRequest(upsertContactCartRequest: upsertContactCartRequest)
         
         LoggerManager.shared.info(message: "Sending contact cart failed. Saved to retry later. Request ID: [\(upsertContactCartRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContactCart")
     }
     
     func logicErrorHandler(upsertContactCartRequest: UpsertContactCartRequest, error: ResponseError) {
-        CoreDataManager.shared.contactCartRequest.removeContactCartRequestFromCoreData(upsertContactCartRequest: upsertContactCartRequest)
+        CoreDataManager.shared.contactCartRequest.removeContactCartRequest(upsertContactCartRequest: upsertContactCartRequest)
         
         NotificationCenter.default.post(name: .cordialUpsertContactCartLogicError, object: error)
         

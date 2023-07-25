@@ -15,24 +15,24 @@ class ContactRequestsCoreData {
     
     // MARK: Setting Data
     
-    func putContactRequestsToCoreData(upsertContactRequests: [UpsertContactRequest]) {
+    func putContactRequests(upsertContactRequests: [UpsertContactRequest]) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             for upsertContactRequest in upsertContactRequests {
-                guard let isUpsertContactRequestExistAtCoreData = CoreDataManager.shared.isRequestExistAtCoreData(requestID: upsertContactRequest.requestID, entityName: self.entityName) else { continue }
+                guard let isUpsertContactRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: upsertContactRequest.requestID, entityName: self.entityName) else { continue }
                 
-                if isUpsertContactRequestExistAtCoreData {
-                    self.updateContactRequestAtCoreData(upsertContactRequest: upsertContactRequest)
+                if isUpsertContactRequestExist {
+                    self.updateContactRequest(upsertContactRequest: upsertContactRequest)
                 } else {
                     let managedObject = NSManagedObject(entity: entity, insertInto: context)
-                    self.setContactRequestToCoreData(managedObject: managedObject, context: context, upsertContactRequest: upsertContactRequest)
+                    self.setContactRequest(managedObject: managedObject, context: context, upsertContactRequest: upsertContactRequest)
                 }
             }
         }
     }
     
-    private func setContactRequestToCoreData(managedObject: NSManagedObject, context: NSManagedObjectContext, upsertContactRequest: UpsertContactRequest) {
+    private func setContactRequest(managedObject: NSManagedObject, context: NSManagedObjectContext, upsertContactRequest: UpsertContactRequest) {
         do {
             let upsertContactRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactRequest, requiringSecureCoding: true)
             
@@ -48,7 +48,7 @@ class ContactRequestsCoreData {
         }
     }
     
-    private func updateContactRequestAtCoreData(upsertContactRequest: UpsertContactRequest) {
+    private func updateContactRequest(upsertContactRequest: UpsertContactRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -60,7 +60,7 @@ class ContactRequestsCoreData {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
             for managedObject in managedObjects {
-                self.setContactRequestToCoreData(managedObject: managedObject, context: context, upsertContactRequest: upsertContactRequest)
+                self.setContactRequest(managedObject: managedObject, context: context, upsertContactRequest: upsertContactRequest)
             }
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
@@ -71,7 +71,7 @@ class ContactRequestsCoreData {
 
     // MARK: Getting Data
     
-    func fetchContactRequestsFromCoreData() -> [UpsertContactRequest] {
+    func fetchContactRequests() -> [UpsertContactRequest] {
         var upsertContactRequests = [UpsertContactRequest]()
         
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return upsertContactRequests }
@@ -84,7 +84,7 @@ class ContactRequestsCoreData {
             
             for managedObject in managedObjects {
                 guard let data = managedObject.value(forKey: "data") as? Data else {
-                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
 
                     continue
                 }
@@ -93,7 +93,7 @@ class ContactRequestsCoreData {
                    !upsertContactRequest.isError {
                     
                     guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
-                        CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                         
                         continue
                     }
@@ -105,7 +105,7 @@ class ContactRequestsCoreData {
                         upsertContactRequests.append(upsertContactRequest)
                     }
                 } else {
-                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving UpsertContactRequest", category: "CordialSDKError")
                 }
@@ -121,9 +121,9 @@ class ContactRequestsCoreData {
     
     // MARK: Removing Data
     
-    func removeContactRequestsFromCoreData(upsertContactRequests: [UpsertContactRequest]) {
+    func removeContactRequests(upsertContactRequests: [UpsertContactRequest]) {
         upsertContactRequests.forEach { upsertContactRequest in
-            CoreDataManager.shared.removeRequestFromCoreData(requestID: upsertContactRequest.requestID, entityName: self.entityName)
+            CoreDataManager.shared.removeRequestObject(requestID: upsertContactRequest.requestID, entityName: self.entityName)
         }
     }
 }

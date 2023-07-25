@@ -100,7 +100,7 @@ class CoreDataManager {
         }
     }
     
-    func isRequestExistAtCoreData(requestID: String, entityName: String) -> Bool? {
+    func isRequestObjectExist(requestID: String, entityName: String) -> Bool? {
         guard let context = self.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
@@ -124,7 +124,7 @@ class CoreDataManager {
         return false
     }
     
-    func removeRequestFromCoreData(requestID: String, entityName: String) {
+    func removeRequestObject(requestID: String, entityName: String) {
         guard let context = self.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
@@ -136,7 +136,7 @@ class CoreDataManager {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
             for managedObject in managedObjects {
-                self.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                self.removeManagedObject(managedObject: managedObject, context: context)
             }
         } catch let error {
             self.deleteAllCoreDataByEntity(entityName: entityName)
@@ -145,7 +145,7 @@ class CoreDataManager {
         }
     }
     
-    func deleteManagedObjectByContext(managedObject: NSManagedObject, context: NSManagedObjectContext) {
+    func removeManagedObject(managedObject: NSManagedObject, context: NSManagedObjectContext) {
         do {
             context.delete(managedObject)
             try context.save()

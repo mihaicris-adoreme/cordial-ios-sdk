@@ -51,7 +51,7 @@ class InAppMessageContentURLCoreData {
                 guard let urlManagedObject = managedObject.value(forKey: "url") else { return nil }
                 let url = urlManagedObject as! URL
                 
-                CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                 
                 return InAppMessageContent(mcID: mcID, url: url, expireDate: expireDate)
             }

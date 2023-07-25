@@ -86,7 +86,7 @@ class InAppMessagesCacheCoreData {
                     
                     return inAppMessageData
                 } else {
-                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving InAppMessageData", category: "CordialSDKError")
                 }
