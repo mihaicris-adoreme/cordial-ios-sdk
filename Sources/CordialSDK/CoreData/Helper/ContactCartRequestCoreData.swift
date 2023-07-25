@@ -13,18 +13,22 @@ class ContactCartRequestCoreData {
     
     let entityName = "ContactCartRequest"
     
+    // MARK: Setting Data
+    
     func setContactCartRequestToCoreData(upsertContactCartRequest: UpsertContactCartRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            let newRow = NSManagedObject(entity: entity, insertInto: context)
+            let managedObject = NSManagedObject(entity: entity, insertInto: context)
             
             do {
                 let upsertContactCartRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest, requiringSecureCoding: true)
                 
-                newRow.setValue(upsertContactCartRequestData, forKey: "data")
+                managedObject.setValue(upsertContactCartRequestData, forKey: "data")
+                managedObject.setValue(upsertContactCartRequest.requestID, forKey: "requestID")
+                managedObject.setValue(false, forKey: "flushing")
                 
                 try context.save()
             } catch let error {
@@ -33,6 +37,8 @@ class ContactCartRequestCoreData {
         }
     }
     
+    // MARK: Getting Data
+    
     func getContactCartRequestFromCoreData() -> UpsertContactCartRequest? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
@@ -40,20 +46,32 @@ class ContactCartRequestCoreData {
         request.returnsObjectsAsFaults = false
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let anyData = managedObject.value(forKey: "data") else { continue }
-                let data = anyData as! Data
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return nil }
+            
+            for managedObject in managedObjects {
+                guard let data = managedObject.value(forKey: "data") as? Data else {
+                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+
+                    continue
+                }
                 
                 if let upsertContactCartRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [UpsertContactCartRequest.self, CartItem.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? UpsertContactCartRequest,
                    !upsertContactCartRequest.isError {
                     
-                    CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+                    guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
+                        CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                        
+                        continue
+                    }
                     
-                    return upsertContactCartRequest
+                    if !isFlushing {
+                        managedObject.setValue(true, forKey: "flushing")
+                        try context.save()
+                        
+                        return upsertContactCartRequest
+                    }
                 } else {
-                    context.delete(managedObject)
-                    try context.save()
+                    CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving UpsertContactCartRequest", category: "CordialSDKError")
                 }
@@ -65,5 +83,11 @@ class ContactCartRequestCoreData {
         }
         
         return nil
+    }
+    
+    // MARK: Removing Data
+    
+    func removeContactCartRequestFromCoreData(upsertContactCartRequest: UpsertContactCartRequest) {
+        CoreDataManager.shared.removeRequestFromCoreData(requestID: upsertContactCartRequest.requestID, entityName: self.entityName)
     }
 }

@@ -48,6 +48,8 @@ class ContactCartSender {
     }
     
     func completionHandler(upsertContactCartRequest: UpsertContactCartRequest) {
+        CoreDataManager.shared.contactCartRequest.removeContactCartRequestFromCoreData(upsertContactCartRequest: upsertContactCartRequest)
+        
         LoggerManager.shared.info(message: "Contact cart has been sent. Request ID: [\(String(upsertContactCartRequest.requestID))]", category: "CordialSDKUpsertContactCart")
     }
     
@@ -58,6 +60,8 @@ class ContactCartSender {
     }
     
     func logicErrorHandler(upsertContactCartRequest: UpsertContactCartRequest, error: ResponseError) {
+        CoreDataManager.shared.contactCartRequest.removeContactCartRequestFromCoreData(upsertContactCartRequest: upsertContactCartRequest)
+        
         NotificationCenter.default.post(name: .cordialUpsertContactCartLogicError, object: error)
         
         LoggerManager.shared.error(message: "Sending contact cart failed. Will not retry. Request ID: [\(upsertContactCartRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContactCart")

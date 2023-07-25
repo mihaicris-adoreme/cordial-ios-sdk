@@ -75,8 +75,9 @@ class CoreDataManager {
     func updateSendingRequestsIfNeeded() {
         if InternalCordialAPI().isUserLogin() {
             DispatchQueue.main.async {
-                self.updateSendingRequests(entityName: CustomEventRequestsCoreData().entityName)
-                self.updateSendingRequests(entityName: ContactRequestsCoreData().entityName)
+                self.updateSendingRequests(entityName: self.customEventRequests.entityName)
+                self.updateSendingRequests(entityName: self.contactRequests.entityName)
+                self.updateSendingRequests(entityName: self.contactCartRequest.entityName)
             }
         }
     }
@@ -148,7 +149,6 @@ class CoreDataManager {
         do {
             context.delete(managedObject)
             try context.save()
-        
         } catch let error {
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)]", category: "CordialSDKCoreDataError")
         }
