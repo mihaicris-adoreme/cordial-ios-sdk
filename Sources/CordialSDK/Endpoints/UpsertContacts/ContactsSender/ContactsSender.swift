@@ -75,7 +75,7 @@ class ContactsSender {
             }
         } else {
             
-            CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
+            CoreDataManager.shared.contactRequests.putContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
             
             upsertContactRequests.forEach({ upsertContactRequest in
                 LoggerManager.shared.info(message: "Sending contact failed. Saved to retry later. Request ID: [\(upsertContactRequest.requestID)] Error: [No Internet connection]", category: "CordialSDKUpsertContacts")
@@ -103,7 +103,7 @@ class ContactsSender {
     }
     
     func systemErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {
-        CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
+        CoreDataManager.shared.contactRequests.putContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
         
         upsertContactRequests.forEach({ upsertContactRequest in
             LoggerManager.shared.info(message: "Sending contact failed. Saved to retry later. Request ID: [\(upsertContactRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContacts")

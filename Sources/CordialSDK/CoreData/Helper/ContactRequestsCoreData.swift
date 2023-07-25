@@ -15,7 +15,7 @@ class ContactRequestsCoreData {
     
     // MARK: Setting Data
     
-    func setContactRequestsToCoreData(upsertContactRequests: [UpsertContactRequest]) {
+    func putContactRequestsToCoreData(upsertContactRequests: [UpsertContactRequest]) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
@@ -71,7 +71,7 @@ class ContactRequestsCoreData {
 
     // MARK: Getting Data
     
-    func getContactRequestsFromCoreData() -> [UpsertContactRequest] {
+    func fetchContactRequestsFromCoreData() -> [UpsertContactRequest] {
         var upsertContactRequests = [UpsertContactRequest]()
         
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return upsertContactRequests }

@@ -16,7 +16,7 @@ class InAppMessagesGetter {
     func startFetchInAppMessages(isSilentPushDeliveryEvent: Bool) {
         if isSilentPushDeliveryEvent {
             InAppMessages.shared.updateIfNeeded()
-        } else if let contactTimestamp = CoreDataManager.shared.contactTimestampsURL.getContactTimestampFromCoreData(),
+        } else if let contactTimestamp = CoreDataManager.shared.contactTimestampsURL.fetchContactTimestampFromCoreData(),
            API.isValidExpirationDate(date: contactTimestamp.expireDate) {
             
             ContactTimestampURL.shared.updateIfNeeded(contactTimestamp.url)

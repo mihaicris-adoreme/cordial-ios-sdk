@@ -90,7 +90,7 @@ class CustomEventRequestsCoreData {
     
     // MARK: Getting Data
     
-    func getCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
+    func fetchCustomEventRequestsFromCoreData() -> [SendCustomEventRequest] {
         var sendCustomEventRequests = [SendCustomEventRequest]()
         
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return sendCustomEventRequests }

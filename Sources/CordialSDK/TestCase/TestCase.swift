@@ -170,7 +170,7 @@ public class TestCase {
     
     public func setContactCartRequestToCoreData(cartItems: [CartItem]) {
         let upsertContactCartRequest = UpsertContactCartRequest(cartItems: cartItems)
-        CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
+        CoreDataManager.shared.contactCartRequest.putContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
     }
     
     public func setContactOrderRequestToCoreData(order: Order) {

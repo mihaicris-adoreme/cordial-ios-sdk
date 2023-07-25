@@ -18,12 +18,12 @@ class ContactCartSender {
             if ReachabilityManager.shared.isConnectedToInternet {
                 self.upsertContactCartData(upsertContactCartRequest: upsertContactCartRequest)
             } else {
-                CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
+                CoreDataManager.shared.contactCartRequest.putContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
                 
                 LoggerManager.shared.info(message: "Sending contact cart failed. Saved to retry later. Request ID: [\(upsertContactCartRequest.requestID)] Error: [No Internet connection]", category: "CordialSDKUpsertContactCart")
             }
         } else {
-            CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
+            CoreDataManager.shared.contactCartRequest.putContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
             
             LoggerManager.shared.info(message: "Sending contact cart failed. Saved to retry later. Request ID: [\(upsertContactCartRequest.requestID)] Error: [User no login]", category: "CordialSDKUpsertContactCart")
         }
@@ -54,7 +54,7 @@ class ContactCartSender {
     }
     
     func systemErrorHandler(upsertContactCartRequest: UpsertContactCartRequest, error: ResponseError) {
-        CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
+        CoreDataManager.shared.contactCartRequest.putContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
         
         LoggerManager.shared.info(message: "Sending contact cart failed. Saved to retry later. Request ID: [\(upsertContactCartRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContactCart")
     }
