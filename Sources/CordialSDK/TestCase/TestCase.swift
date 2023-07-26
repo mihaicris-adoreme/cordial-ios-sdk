@@ -175,7 +175,7 @@ public class TestCase {
     
     public func setContactOrderRequestToCoreData(order: Order) {
         let sendContactOrderRequest = SendContactOrderRequest(mcID: nil, order: order)
-        CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: [sendContactOrderRequest])
+        CoreDataManager.shared.contactOrderRequests.putContactOrderRequests(sendContactOrderRequests: [sendContactOrderRequest])
     }
     
     public func getUserAgent() -> String {

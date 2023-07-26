@@ -13,25 +13,65 @@ class ContactOrderRequestsCoreData {
     
     let entityName = "ContactOrderRequest"
     
-    func setContactOrderRequestsToCoreData(sendContactOrderRequests: [SendContactOrderRequest]) {
+    // MARK: Setting Data
+    
+    func putContactOrderRequests(sendContactOrderRequests: [SendContactOrderRequest]) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            sendContactOrderRequests.forEach { sendContactOrderRequest in
-                let newRow = NSManagedObject(entity: entity, insertInto: context)
+            for sendContactOrderRequest in sendContactOrderRequests {
+                let requestID = sendContactOrderRequest.order.orderID
                 
-                do {
-                    let sendContactOrderRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactOrderRequest, requiringSecureCoding: true)
-                    
-                    newRow.setValue(sendContactOrderRequestData, forKey: "data")
-                    
-                    try context.save()
-                } catch let error {
-                    LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+                guard let isContactOrderRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { continue }
+                
+                if isContactOrderRequestExist {
+                    self.updateContactOrderRequest(sendContactOrderRequest: sendContactOrderRequest)
+                } else {
+                    let managedObject = NSManagedObject(entity: entity, insertInto: context)
+                    self.setContactOrderRequest(managedObject: managedObject, context: context, sendContactOrderRequest: sendContactOrderRequest)
                 }
             }
         }
     }
+    
+    private func setContactOrderRequest(managedObject: NSManagedObject, context: NSManagedObjectContext, sendContactOrderRequest: SendContactOrderRequest) {
+        do {
+            let sendContactOrderRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactOrderRequest, requiringSecureCoding: true)
+            
+            managedObject.setValue(sendContactOrderRequestData, forKey: "data")
+            managedObject.setValue(sendContactOrderRequest.order.orderID, forKey: "requestID")
+            managedObject.setValue(false, forKey: "flushing")
+            
+            try context.save()
+        } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
+    private func updateContactOrderRequest(sendContactOrderRequest: SendContactOrderRequest) {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        
+        request.predicate = NSPredicate(format: "requestID = %@", sendContactOrderRequest.order.orderID)
+        
+        do {
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
+            
+            for managedObject in managedObjects {
+                self.setContactOrderRequest(managedObject: managedObject, context: context, sendContactOrderRequest: sendContactOrderRequest)
+            }
+        } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
+    // MARK: Getting Data
     
     func getContactOrderRequestsFromCoreData() -> [SendContactOrderRequest] {
         var sendContactOrderRequests = [SendContactOrderRequest]()
@@ -66,4 +106,6 @@ class ContactOrderRequestsCoreData {
         
         return sendContactOrderRequests
     }
+    
+    // MARK: Removing Data
 }

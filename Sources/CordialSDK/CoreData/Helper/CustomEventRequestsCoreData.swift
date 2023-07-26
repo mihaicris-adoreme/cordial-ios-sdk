@@ -39,7 +39,9 @@ class CustomEventRequestsCoreData {
 
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             for sendCustomEventRequest in sendCustomEventRequests {
-                guard let isCustomEventRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: sendCustomEventRequest.requestID, entityName: self.entityName) else { continue }
+                let requestID = sendCustomEventRequest.requestID
+                
+                guard let isCustomEventRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { continue }
                 
                 if isCustomEventRequestExist {
                     self.updateCustomEventRequests(sendCustomEventRequest: sendCustomEventRequest)

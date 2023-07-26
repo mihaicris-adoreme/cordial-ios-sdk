@@ -20,7 +20,9 @@ class ContactRequestsCoreData {
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             for upsertContactRequest in upsertContactRequests {
-                guard let isUpsertContactRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: upsertContactRequest.requestID, entityName: self.entityName) else { continue }
+                let requestID = upsertContactRequest.requestID
+                
+                guard let isUpsertContactRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { continue }
                 
                 if isUpsertContactRequestExist {
                     self.updateContactRequest(upsertContactRequest: upsertContactRequest)

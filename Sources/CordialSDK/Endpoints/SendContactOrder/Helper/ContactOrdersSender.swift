@@ -18,14 +18,14 @@ class ContactOrdersSender {
             if ReachabilityManager.shared.isConnectedToInternet {
                 self.sendContactOrdersData(sendContactOrderRequests: sendContactOrderRequests)
             } else {
-                CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
+                CoreDataManager.shared.contactOrderRequests.putContactOrderRequests(sendContactOrderRequests: sendContactOrderRequests)
                 
                 sendContactOrderRequests.forEach({ sendContactOrderRequest in
                     LoggerManager.shared.info(message: "Sending contact order failed. Saved to retry later. Request ID: [\(sendContactOrderRequest.order.orderID)] Error: [No Internet connection]", category: "CordialSDKSendContactOrders")
                 })
             }
         } else {
-            CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
+            CoreDataManager.shared.contactOrderRequests.putContactOrderRequests(sendContactOrderRequests: sendContactOrderRequests)
             
             sendContactOrderRequests.forEach({ sendContactOrderRequest in
                 LoggerManager.shared.info(message: "Sending contact order failed. Saved to retry later. Request ID: [\(sendContactOrderRequest.order.orderID)] Error: [User no login]", category: "CordialSDKSendContactOrders")
@@ -60,7 +60,7 @@ class ContactOrdersSender {
     }
     
     func systemErrorHandler(sendContactOrderRequests: [SendContactOrderRequest], error: ResponseError) {
-        CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
+        CoreDataManager.shared.contactOrderRequests.putContactOrderRequests(sendContactOrderRequests: sendContactOrderRequests)
         
         sendContactOrderRequests.forEach({ sendContactOrderRequest in
             LoggerManager.shared.info(message: "Sending contact order failed. Saved to retry later. Request ID: [\(sendContactOrderRequest.order.orderID)] Error: [\(error.message)]", category: "CordialSDKSendContactOrders")
