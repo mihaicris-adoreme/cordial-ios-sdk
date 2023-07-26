@@ -54,6 +54,8 @@ class ContactOrdersSender {
     }
     
     func completionHandler(sendContactOrderRequests: [SendContactOrderRequest]) {
+        CoreDataManager.shared.contactOrderRequests.removeContactOrderRequests(sendContactOrderRequests: sendContactOrderRequests)
+        
         sendContactOrderRequests.forEach({ sendContactOrderRequest in
             LoggerManager.shared.info(message: "Order has been sent. Request ID: [\(sendContactOrderRequest.order.orderID)]", category: "CordialSDKSendContactOrders")
         })
@@ -69,6 +71,8 @@ class ContactOrdersSender {
     
     func logicErrorHandler(sendContactOrderRequests: [SendContactOrderRequest], error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactOrdersLogicError, object: error)
+        
+        CoreDataManager.shared.contactOrderRequests.removeContactOrderRequests(sendContactOrderRequests: sendContactOrderRequests)
         
         sendContactOrderRequests.forEach({ sendContactOrderRequest in
             LoggerManager.shared.error(message: "Sending contact order failed. Will not retry. Request ID: [\(sendContactOrderRequest.order.orderID)] Error: [\(error.message)]", category: "CordialSDKSendContactOrders")

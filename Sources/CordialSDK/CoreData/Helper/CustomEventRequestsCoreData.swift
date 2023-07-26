@@ -164,7 +164,9 @@ class CustomEventRequestsCoreData {
     
     func removeCustomEventRequests(sendCustomEventRequests: [SendCustomEventRequest]) {
         sendCustomEventRequests.forEach { sendCustomEventRequest in
-            CoreDataManager.shared.removeRequestObject(requestID: sendCustomEventRequest.requestID, entityName: self.entityName)
+            let requestID = sendCustomEventRequest.requestID
+            
+            CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
         }
     }
     

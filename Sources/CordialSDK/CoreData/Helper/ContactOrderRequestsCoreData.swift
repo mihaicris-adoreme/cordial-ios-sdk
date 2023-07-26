@@ -122,4 +122,12 @@ class ContactOrderRequestsCoreData {
     }
     
     // MARK: Removing Data
+    
+    func removeContactOrderRequests(sendContactOrderRequests: [SendContactOrderRequest]) {
+        sendContactOrderRequests.forEach { sendContactOrderRequest in
+            let requestID = sendContactOrderRequest.order.orderID
+            
+            CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
+        }
+    }
 }

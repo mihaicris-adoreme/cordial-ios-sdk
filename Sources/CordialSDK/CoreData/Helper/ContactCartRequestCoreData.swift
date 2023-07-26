@@ -88,6 +88,8 @@ class ContactCartRequestCoreData {
     // MARK: Removing Data
     
     func removeContactCartRequest(upsertContactCartRequest: UpsertContactCartRequest) {
-        CoreDataManager.shared.removeRequestObject(requestID: upsertContactCartRequest.requestID, entityName: self.entityName)
+        let requestID = upsertContactCartRequest.requestID
+        
+        CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
     }
 }

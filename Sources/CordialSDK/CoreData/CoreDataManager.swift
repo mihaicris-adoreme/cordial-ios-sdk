@@ -78,6 +78,7 @@ class CoreDataManager {
                 self.updateSendingRequests(entityName: self.customEventRequests.entityName)
                 self.updateSendingRequests(entityName: self.contactRequests.entityName)
                 self.updateSendingRequests(entityName: self.contactCartRequest.entityName)
+                self.updateSendingRequests(entityName: self.contactOrderRequests.entityName)
             }
         }
     }

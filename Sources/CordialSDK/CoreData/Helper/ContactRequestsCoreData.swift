@@ -125,7 +125,9 @@ class ContactRequestsCoreData {
     
     func removeContactRequests(upsertContactRequests: [UpsertContactRequest]) {
         upsertContactRequests.forEach { upsertContactRequest in
-            CoreDataManager.shared.removeRequestObject(requestID: upsertContactRequest.requestID, entityName: self.entityName)
+            let requestID = upsertContactRequest.requestID
+            
+            CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
         }
     }
 }
