@@ -73,7 +73,7 @@ class ContactOrderRequestsCoreData {
     
     // MARK: Getting Data
     
-    func getContactOrderRequestsFromCoreData() -> [SendContactOrderRequest] {
+    func fetchContactOrderRequests() -> [SendContactOrderRequest] {
         var sendContactOrderRequests = [SendContactOrderRequest]()
         
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return sendContactOrderRequests }
@@ -82,27 +82,41 @@ class ContactOrderRequestsCoreData {
         request.returnsObjectsAsFaults = false
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let anyData = managedObject.value(forKey: "data") else { continue }
-                let data = anyData as! Data
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return sendContactOrderRequests }
+            
+            for managedObject in managedObjects {
+                guard let data = managedObject.value(forKey: "data") as? Data else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+
+                    continue
+                }
                 
                 if let sendContactOrderRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [SendContactOrderRequest.self, Order.self, Address.self, CartItem.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? SendContactOrderRequest,
                    !sendContactOrderRequest.isError {
                     
-                    sendContactOrderRequests.append(sendContactOrderRequest)
+                    guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                        
+                        continue
+                    }
+                    
+                    if !isFlushing {
+                        managedObject.setValue(true, forKey: "flushing")
+                        try context.save()
+                        
+                        sendContactOrderRequests.append(sendContactOrderRequest)
+                    }
                 } else {
-                    context.delete(managedObject)
-                    try context.save()
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving SendContactOrderRequest", category: "CordialSDKError")
                 }
             }
         } catch let error {
+            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
-        
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
         return sendContactOrderRequests
     }

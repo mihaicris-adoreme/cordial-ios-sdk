@@ -108,7 +108,7 @@ class CoreDataSender {
     
     private func sendCachedContactOrderRequests() {
         if InternalCordialAPI().isUserLogin() {
-            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
+            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.fetchContactOrderRequests()
             if !sendContactOrderRequests.isEmpty {
                 ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
             }
