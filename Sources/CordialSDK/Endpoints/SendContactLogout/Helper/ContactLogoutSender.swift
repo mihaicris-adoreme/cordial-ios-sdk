@@ -50,6 +50,8 @@ class ContactLogoutSender {
     }
     
     func completionHandler(sendContactLogoutRequest: SendContactLogoutRequest) {
+        CoreDataManager.shared.contactLogoutRequest.removeContactLogoutRequest(sendContactLogoutRequest: sendContactLogoutRequest)
+        
         LoggerManager.shared.info(message: "Contact logout has been sent. Request ID: [\(sendContactLogoutRequest.requestID)]", category: "CordialSDKSendContactLogout")
     }
     
@@ -61,6 +63,8 @@ class ContactLogoutSender {
     
     func logicErrorHandler(sendContactLogoutRequest: SendContactLogoutRequest, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactLogoutLogicError, object: error)
+        
+        CoreDataManager.shared.contactLogoutRequest.removeContactLogoutRequest(sendContactLogoutRequest: sendContactLogoutRequest)
         
         LoggerManager.shared.error(message: "Sending contact logout failed. Will not retry. Request ID: [\(sendContactLogoutRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKSendContactLogout")
     }

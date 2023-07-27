@@ -84,4 +84,12 @@ class ContactLogoutRequestCoreData {
         
         return nil
     }
+    
+    // MARK: Removing Data
+    
+    func removeContactLogoutRequest(sendContactLogoutRequest: SendContactLogoutRequest) {
+        let requestID = sendContactLogoutRequest.requestID
+        
+        CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
+    }
 }
