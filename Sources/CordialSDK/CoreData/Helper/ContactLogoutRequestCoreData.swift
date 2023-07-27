@@ -32,6 +32,8 @@ class ContactLogoutRequestCoreData {
                 
                 try context.save()
             } catch let error {
+                CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+                
                 LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
             }
         }
