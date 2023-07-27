@@ -2,8 +2,8 @@
 //  ContactLogout+CoreDataProperties.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 5/20/19.
-//  Copyright © 2019 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 27.07.2023.
+//  Copyright © 2023 cordial.io. All rights reserved.
 //
 //
 
@@ -17,6 +17,8 @@ extension ContactLogout {
         return NSFetchRequest<ContactLogout>(entityName: "ContactLogout")
     }
 
-    @NSManaged public var data: NSData?
+    @NSManaged public var data: Data?
+    @NSManaged public var flushing: Bool
+    @NSManaged public var requestID: String?
 
 }

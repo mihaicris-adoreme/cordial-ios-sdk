@@ -13,18 +13,22 @@ class ContactLogoutRequestCoreData {
     
     let entityName = "ContactLogout"
     
-    func setContactLogoutRequestToCoreData(sendContactLogoutRequest: SendContactLogoutRequest) {
+    // MARK: Setting Data
+    
+    func putContactLogoutRequest(sendContactLogoutRequest: SendContactLogoutRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            let newRow = NSManagedObject(entity: entity, insertInto: context)
+            let managedObject = NSManagedObject(entity: entity, insertInto: context)
             
             do {
                 let sendContactLogoutRequestData = try NSKeyedArchiver.archivedData(withRootObject: sendContactLogoutRequest, requiringSecureCoding: true)
                 
-                newRow.setValue(sendContactLogoutRequestData, forKey: "data")
+                managedObject.setValue(sendContactLogoutRequestData, forKey: "data")
+                managedObject.setValue(sendContactLogoutRequest.requestID, forKey: "requestID")
+                managedObject.setValue(false, forKey: "flushing")
                 
                 try context.save()
             } catch let error {
@@ -33,27 +37,41 @@ class ContactLogoutRequestCoreData {
         }
     }
     
-    func getContactLogoutRequestFromCoreData() -> SendContactLogoutRequest? {
+    // MARK: Getting Data
+    
+    func fetchContactLogoutRequest() -> SendContactLogoutRequest? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let anyData = managedObject.value(forKey: "data") else { continue }
-                let data = anyData as! Data
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return nil }
+            
+            for managedObject in managedObjects {
+                guard let data = managedObject.value(forKey: "data") as? Data else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+
+                    continue
+                }
                 
                 if let sendContactLogoutRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [SendContactLogoutRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? SendContactLogoutRequest,
                    !sendContactLogoutRequest.isError {
                     
-                    CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+                    guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                        
+                        continue
+                    }
                     
-                    return sendContactLogoutRequest
+                    if !isFlushing {
+                        managedObject.setValue(true, forKey: "flushing")
+                        try context.save()
+                        
+                        return sendContactLogoutRequest
+                    }
                 } else {
-                    context.delete(managedObject)
-                    try context.save()
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving SendContactLogoutRequest", category: "CordialSDKError")
                 }

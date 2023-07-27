@@ -174,7 +174,7 @@ class CoreDataSender {
     }
     
     private func sendCachedContactLogoutRequest() {
-        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
+        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.fetchContactLogoutRequest() {
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         }
     }

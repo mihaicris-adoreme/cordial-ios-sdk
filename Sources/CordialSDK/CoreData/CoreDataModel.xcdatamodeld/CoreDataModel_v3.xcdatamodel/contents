@@ -7,6 +7,8 @@
     </entity>
     <entity name="ContactLogout" representedClassName="ContactLogout" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="flushing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="requestID" optional="YES" attributeType="String"/>
     </entity>
     <entity name="ContactOrderRequest" representedClassName="ContactOrderRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>

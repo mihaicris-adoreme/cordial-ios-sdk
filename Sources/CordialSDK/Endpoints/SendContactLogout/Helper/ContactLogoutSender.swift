@@ -43,7 +43,7 @@ class ContactLogoutSender {
                 SDKSecurity.shared.updateJWT()
             }
         } else {
-            CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
+            CoreDataManager.shared.contactLogoutRequest.putContactLogoutRequest(sendContactLogoutRequest: sendContactLogoutRequest)
             
             LoggerManager.shared.info(message: "Sending contact logout failed. Saved to retry later. Request ID: [\(sendContactLogoutRequest.requestID)] Error: [No Internet connection]", category: "CordialSDKSendContactLogout")
         }
@@ -54,7 +54,7 @@ class ContactLogoutSender {
     }
     
     func systemErrorHandler(sendContactLogoutRequest: SendContactLogoutRequest, error: ResponseError) {
-        CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
+        CoreDataManager.shared.contactLogoutRequest.putContactLogoutRequest(sendContactLogoutRequest: sendContactLogoutRequest)
         
         LoggerManager.shared.info(message: "Sending contact logout failed. Saved to retry later. Request ID: [\(sendContactLogoutRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKSendContactLogout")
     }
