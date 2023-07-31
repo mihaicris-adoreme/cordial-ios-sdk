@@ -129,7 +129,7 @@ class InAppMessageProcess {
     }
     
     private func showInAppMessageIfExistAndAvailable() {
-        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getLatestInAppMessageDataFromCoreData() {
+        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.fetchLatestInAppMessageData() {
             if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
             } else {
@@ -143,7 +143,7 @@ class InAppMessageProcess {
     }
     
     func showDisplayImmediatelyInAppMessageIfExistAndAvailable() {
-        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.getDisplayImmediatelyInAppMessageDataFromCoreData() {
+        if let inAppMessageData = CoreDataManager.shared.inAppMessagesCache.fetchDisplayImmediatelyInAppMessageData() {
             if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
             } else {

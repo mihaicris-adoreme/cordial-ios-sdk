@@ -29,7 +29,7 @@ class InAppMessage {
     // MARK: Prepare and show IAM
     
     func prepareAndShowInAppMessage(inAppMessageData: InAppMessageData) {
-        CoreDataManager.shared.inAppMessagesCache.setInAppMessageDataToCoreData(inAppMessageData: inAppMessageData)
+        CoreDataManager.shared.inAppMessagesCache.putInAppMessageData(inAppMessageData: inAppMessageData)
         
         InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
         

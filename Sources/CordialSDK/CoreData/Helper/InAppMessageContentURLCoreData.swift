@@ -13,6 +13,8 @@ class InAppMessageContentURLCoreData {
     
     let entityName = "InAppMessageContentURL"
     
+    // MARK: Setting Data
+    
     func putInAppMessageContent(inAppMessageContent: InAppMessageContent) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
@@ -32,6 +34,8 @@ class InAppMessageContentURLCoreData {
             }
         }
     }
+    
+    // MARK: Getting Data
     
     func fetchInAppMessageContent(mcID: String) -> InAppMessageContent? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
