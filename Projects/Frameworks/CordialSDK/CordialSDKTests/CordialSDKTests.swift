@@ -953,7 +953,7 @@ class CordialSDKTests: XCTestCase {
             
             if PushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
-                CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [self.testMcID])
+                CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: [self.testMcID])
             }
         }
         
@@ -1000,7 +1000,7 @@ class CordialSDKTests: XCTestCase {
 
                 if PushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                     InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
-                    CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [testMcID_2])
+                    CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: [testMcID_2])
                 }
             }
 
@@ -1070,7 +1070,7 @@ class CordialSDKTests: XCTestCase {
 
             if PushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
-                CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [self.testMcID])
+                CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: [self.testMcID])
                 
                 if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     

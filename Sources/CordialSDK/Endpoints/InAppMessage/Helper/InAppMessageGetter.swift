@@ -136,7 +136,7 @@ class InAppMessageGetter {
     }
     
     func systemErrorHandler(mcID: String, error: ResponseError) {
-        CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [mcID])
+        CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: [mcID])
         
         LoggerManager.shared.info(message: "Fetching IAM failed. Saved to retry later. mcID: [\(mcID)] Error: [\(error.message)]", category: "CordialSDKInAppMessage")
     }

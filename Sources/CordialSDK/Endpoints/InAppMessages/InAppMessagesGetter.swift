@@ -83,7 +83,7 @@ class InAppMessagesGetter {
         
         CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: inAppMessagesParams)
         
-        CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: mcIDs)
+        CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: mcIDs)
 
         InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
     }

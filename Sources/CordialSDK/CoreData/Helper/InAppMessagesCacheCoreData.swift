@@ -108,7 +108,9 @@ class InAppMessagesCacheCoreData {
         return nil
     }
     
-    func deleteInAppMessageDataByMcID(mcID: String) {
+    // MARK: Removing Data
+    
+    func removeInAppMessageData(mcID: String) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
