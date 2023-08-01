@@ -34,7 +34,7 @@ class InAppMessageGetter {
             
             let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
             
-            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: [inAppMessageParams])
+            CoreDataManager.shared.inAppMessagesParam.putInAppMessagesParams(inAppMessagesParams: [inAppMessageParams])
         }
     }
     

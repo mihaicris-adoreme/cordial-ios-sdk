@@ -20,7 +20,7 @@ class InAppMessagesQueueCoreData {
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             mcIDs.forEach { mcID in
-                if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
+                if let date = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageDateParam(mcID: mcID) {
                     
                     let managedObject = NSManagedObject(entity: entity, insertInto: context)
                     

@@ -1072,14 +1072,15 @@ class CordialSDKTests: XCTestCase {
                 InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
                 CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: [self.testMcID])
                 
-                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
+                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParams(mcID: self.testMcID),
+                    inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     
                     InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: self.testMcID)
                 }
             }
         }
 
-        if CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcID) == nil {
+        if CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParams(mcID: self.testMcID) == nil {
             XCTAssert(true, "IAM has been removed successfully")
         } else {
             XCTAssert(false, "IAM has not been removed")

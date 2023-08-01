@@ -23,7 +23,7 @@ class InAppMessagesCacheCoreData {
             
             let mcID = inAppMessageData.mcID
             
-            if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
+            if let date = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageDateParam(mcID: mcID) {
                 do {
                     let inAppMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inAppMessageData, requiringSecureCoding: true)
                     

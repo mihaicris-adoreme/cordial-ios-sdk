@@ -75,7 +75,7 @@ class InAppMessageProcess {
     
     func deleteInAppMessageFromCoreDataByMcID(mcID: String) {
         CoreDataManager.shared.inAppMessagesCache.removeInAppMessageData(mcID: mcID)
-        CoreDataManager.shared.inAppMessagesParam.deleteInAppMessageParamsByMcID(mcID: mcID)
+        CoreDataManager.shared.inAppMessagesParam.removeInAppMessageParams(mcID: mcID)
         CoreDataManager.shared.inAppMessagesRelated.deleteInAppMessageRelatedStatusByMcID(mcID: mcID)
         CoreDataManager.shared.inAppMessagesShown.deleteInAppMessageShownStatusByMcID(mcID: mcID)
     }

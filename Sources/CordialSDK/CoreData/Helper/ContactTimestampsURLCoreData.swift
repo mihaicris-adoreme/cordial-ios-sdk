@@ -21,11 +21,11 @@ class ContactTimestampsURLCoreData {
         CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            let newRow = NSManagedObject(entity: entity, insertInto: context)
+            let managedObject = NSManagedObject(entity: entity, insertInto: context)
             
             do {
-                newRow.setValue(contactTimestamp.url, forKey: "url")
-                newRow.setValue(contactTimestamp.expireDate, forKey: "expireDate")
+                managedObject.setValue(contactTimestamp.url, forKey: "url")
+                managedObject.setValue(contactTimestamp.expireDate, forKey: "expireDate")
                 
                 try context.save()
             } catch let error {
