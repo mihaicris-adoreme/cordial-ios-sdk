@@ -59,7 +59,7 @@ class PushNotificationHelper {
                 let inactiveSessionDisplay = InAppMessageGetter().getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
                 
                 if inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
-                    CoreDataManager.shared.inAppMessagesRelated.setRelatedStatusToInAppMessagesRelatedCoreData(mcID: mcID)
+                    CoreDataManager.shared.inAppMessagesRelated.putInAppMessageRelated(mcID: mcID)
                 }
             }
         }
