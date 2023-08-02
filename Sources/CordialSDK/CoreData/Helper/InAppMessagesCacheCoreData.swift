@@ -32,7 +32,8 @@ class InAppMessagesCacheCoreData {
                     managedObject.setValue(date, forKey: "date")
                     managedObject.setValue(inAppMessageData.displayType.rawValue, forKey: "displayType")
                     
-                    try context.save()
+                    CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+                    
                 } catch let error {
                     CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
                     

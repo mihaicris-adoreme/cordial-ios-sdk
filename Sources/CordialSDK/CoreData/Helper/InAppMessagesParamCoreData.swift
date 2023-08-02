@@ -34,13 +34,7 @@ class InAppMessagesParamCoreData {
                 managedObject.setValue(inAppMessageParams.inactiveSessionDisplay.rawValue, forKey: "inactiveSessionDisplay")
             }
             
-            do {
-                try context.save()
-            } catch let error {
-                CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
-                
-                LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-            }
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
         }
     }
     

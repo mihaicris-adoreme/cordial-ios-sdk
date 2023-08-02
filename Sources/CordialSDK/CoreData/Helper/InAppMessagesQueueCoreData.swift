@@ -21,21 +21,14 @@ class InAppMessagesQueueCoreData {
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             mcIDs.forEach { mcID in
                 if let date = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageDateParam(mcID: mcID) {
-                    
                     let managedObject = NSManagedObject(entity: entity, insertInto: context)
                     
                     managedObject.setValue(mcID, forKey: "mcID")
                     managedObject.setValue(date, forKey: "date")
-                    
-                    do {
-                        try context.save()
-                    } catch let error {
-                        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
-                        
-                        LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-                    }
                 }
             }
+            
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
         }
     }
     

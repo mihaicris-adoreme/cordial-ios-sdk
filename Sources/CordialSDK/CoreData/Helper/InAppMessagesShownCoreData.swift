@@ -21,15 +21,9 @@ class InAppMessagesShownCoreData {
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let managedObject = NSManagedObject(entity: entity, insertInto: context)
             
-            do {
-                managedObject.setValue(mcID, forKey: "mcID")
-                
-                try context.save()
-            } catch let error {
-                CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
-                
-                LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-            }
+            managedObject.setValue(mcID, forKey: "mcID")
+            
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
         }
     }
     
