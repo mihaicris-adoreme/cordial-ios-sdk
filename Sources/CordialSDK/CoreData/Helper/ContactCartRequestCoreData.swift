@@ -30,7 +30,8 @@ class ContactCartRequestCoreData {
                 managedObject.setValue(upsertContactCartRequest.requestID, forKey: "requestID")
                 managedObject.setValue(false, forKey: "flushing")
                 
-                try context.save()
+                CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+                
             } catch let error {
                 CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
                 
@@ -68,7 +69,8 @@ class ContactCartRequestCoreData {
                     
                     if !isFlushing {
                         managedObject.setValue(true, forKey: "flushing")
-                        try context.save()
+                        
+                        CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
                         
                         return upsertContactCartRequest
                     }

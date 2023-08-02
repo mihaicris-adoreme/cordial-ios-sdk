@@ -31,6 +31,8 @@ class ContactOrderRequestsCoreData {
                     self.setContactOrderRequest(managedObject: managedObject, context: context, sendContactOrderRequest: sendContactOrderRequest)
                 }
             }
+            
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
         }
     }
     
@@ -42,7 +44,6 @@ class ContactOrderRequestsCoreData {
             managedObject.setValue(sendContactOrderRequest.order.orderID, forKey: "requestID")
             managedObject.setValue(false, forKey: "flushing")
             
-            try context.save()
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
             
@@ -102,7 +103,6 @@ class ContactOrderRequestsCoreData {
                     
                     if !isFlushing {
                         managedObject.setValue(true, forKey: "flushing")
-                        try context.save()
                         
                         sendContactOrderRequests.append(sendContactOrderRequest)
                     }
@@ -112,6 +112,9 @@ class ContactOrderRequestsCoreData {
                     LoggerManager.shared.error(message: "Failed unarchiving SendContactOrderRequest", category: "CordialSDKError")
                 }
             }
+            
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
             
