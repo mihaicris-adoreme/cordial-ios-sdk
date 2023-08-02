@@ -1075,7 +1075,7 @@ class CordialSDKTests: XCTestCase {
                 if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParams(mcID: self.testMcID),
                     inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     
-                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: self.testMcID)
+                    InAppMessageProcess.shared.removeInAppMessageFromCoreData(mcID: self.testMcID)
                 }
             }
         }

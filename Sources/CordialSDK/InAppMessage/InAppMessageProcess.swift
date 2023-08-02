@@ -44,7 +44,7 @@ class InAppMessageProcess {
                 if let isInAppMessageRelated = CoreDataManager.shared.inAppMessagesRelated.isInAppMessageRelated(mcID: inAppMessageData.mcID),
                    isInAppMessageRelated {
                     
-                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
+                    self.removeInAppMessageFromCoreData(mcID: inAppMessageData.mcID)
                     
                     LoggerManager.shared.info(message: "IAM with mcID [\(inAppMessageData.mcID)] has been removed", category: "CordialSDKInAppMessage")
                 } else {
@@ -73,11 +73,11 @@ class InAppMessageProcess {
         }
     }
     
-    func deleteInAppMessageFromCoreDataByMcID(mcID: String) {
+    func removeInAppMessageFromCoreData(mcID: String) {
         CoreDataManager.shared.inAppMessagesCache.removeInAppMessageData(mcID: mcID)
         CoreDataManager.shared.inAppMessagesParam.removeInAppMessageParams(mcID: mcID)
         CoreDataManager.shared.inAppMessagesRelated.removeInAppMessageRelated(mcID: mcID)
-        CoreDataManager.shared.inAppMessagesShown.deleteInAppMessageShownStatusByMcID(mcID: mcID)
+        CoreDataManager.shared.inAppMessagesShown.removeInAppMessageShown(mcID: mcID)
     }
     
     func addAnimationSubviewInAppMessageBanner(inAppMessageData: InAppMessageData, webViewController: InAppMessageViewController, topViewController: UIViewController) {
@@ -133,7 +133,7 @@ class InAppMessageProcess {
             if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
             } else {
-                InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
+                self.removeInAppMessageFromCoreData(mcID: inAppMessageData.mcID)
                 
                 LoggerManager.shared.info(message: "Not showing \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]. Reason: [Live time has expired]", category: "CordialSDKInAppMessage")
                 
@@ -147,7 +147,7 @@ class InAppMessageProcess {
             if self.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                 self.showInAppMessage(inAppMessageData: inAppMessageData)
             } else {
-                InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
+                self.removeInAppMessageFromCoreData(mcID: inAppMessageData.mcID)
                 
                 LoggerManager.shared.info(message: "Failed showing \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]. Error: [Live time has expired]", category: "CordialSDKInAppMessage")
 
@@ -188,10 +188,11 @@ class InAppMessageProcess {
     
     private func sendSystemEventInAppMessageHasBeenShown(inAppMessageData: InAppMessageData) {
         let mcID = inAppMessageData.mcID
-        if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID),
-           !isInAppMessageHasBeenShown {
+        
+        if let isInAppMessageShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageShown(mcID: mcID),
+           !isInAppMessageShown {
             
-            CoreDataManager.shared.inAppMessagesShown.setShownStatusToInAppMessagesShownCoreData(mcID: mcID)
+            CoreDataManager.shared.inAppMessagesShown.putInAppMessageShown(mcID: mcID)
             
             let sendCustomEventRequest = SendCustomEventRequest(eventName: API.EVENT_NAME_IN_APP_MESSAGE_WAS_SHOWN, mcID: mcID, properties: CordialApiConfiguration.shared.systemEventsProperties)
             self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)

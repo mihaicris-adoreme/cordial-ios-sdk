@@ -43,7 +43,7 @@ class InAppMessage {
                         if InAppMessageProcess.shared.isAvailableInAppMessage(inAppMessageData: inAppMessageData) {
                             InAppMessageProcess.shared.showInAppMessage(inAppMessageData: inAppMessageData)
                         } else {
-                            InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: inAppMessageData.mcID)
+                            InAppMessageProcess.shared.removeInAppMessageFromCoreData(mcID: inAppMessageData.mcID)
                             
                             LoggerManager.shared.info(message: "Failed showing \(inAppMessageData.type.rawValue) IAM with mcID: [\(inAppMessageData.mcID)]. Error: [Live time has expired]", category: "CordialSDKInAppMessage")
                         }

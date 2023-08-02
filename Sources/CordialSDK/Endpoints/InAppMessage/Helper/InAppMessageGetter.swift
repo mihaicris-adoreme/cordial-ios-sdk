@@ -142,7 +142,7 @@ class InAppMessageGetter {
     }
     
     func logicErrorHandler(mcID: String, error: ResponseError) {
-        InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
+        InAppMessageProcess.shared.removeInAppMessageFromCoreData(mcID: mcID)
         
         NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
         
