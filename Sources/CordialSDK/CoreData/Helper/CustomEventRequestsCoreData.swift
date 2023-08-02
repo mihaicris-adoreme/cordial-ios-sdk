@@ -50,6 +50,8 @@ class CustomEventRequestsCoreData {
                     self.setCustomEventRequest(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
                 }
             }
+            
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
         }
     }
     
@@ -60,8 +62,7 @@ class CustomEventRequestsCoreData {
             managedObject.setValue(sendCustomEventRequestData, forKey: "data")
             managedObject.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
             managedObject.setValue(false, forKey: "flushing")
-
-            try context.save()
+            
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
             
@@ -121,7 +122,6 @@ class CustomEventRequestsCoreData {
                     
                     if !isFlushing {
                         managedObject.setValue(true, forKey: "flushing")
-                        try context.save()
                         
                         sendCustomEventRequests.append(sendCustomEventRequest)
                     }
@@ -131,6 +131,9 @@ class CustomEventRequestsCoreData {
                     LoggerManager.shared.error(message: "Failed unarchiving SendCustomEventRequest", category: "CordialSDKError")
                 }
             }
+            
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
             

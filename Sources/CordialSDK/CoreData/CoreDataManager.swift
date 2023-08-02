@@ -147,6 +147,16 @@ class CoreDataManager {
         }
     }
     
+    func saveManagedObjectContext(context: NSManagedObjectContext, entityName: String) {
+        do {
+            try context.save()
+        } catch let error {
+            self.deleteAllCoreDataByEntity(entityName: entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
     func removeManagedObject(managedObject: NSManagedObject, context: NSManagedObjectContext) {
         do {
             context.delete(managedObject)
