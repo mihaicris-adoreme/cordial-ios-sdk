@@ -31,6 +31,8 @@ class ContactRequestsCoreData {
                     self.setContactRequest(managedObject: managedObject, context: context, upsertContactRequest: upsertContactRequest)
                 }
             }
+            
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
         }
     }
     
@@ -42,7 +44,6 @@ class ContactRequestsCoreData {
             managedObject.setValue(upsertContactRequest.requestID, forKey: "requestID")
             managedObject.setValue(false, forKey: "flushing")
 
-            try context.save()
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
             
@@ -102,7 +103,6 @@ class ContactRequestsCoreData {
                     
                     if !isFlushing {
                         managedObject.setValue(true, forKey: "flushing")
-                        try context.save()
                         
                         upsertContactRequests.append(upsertContactRequest)
                     }
@@ -112,6 +112,9 @@ class ContactRequestsCoreData {
                     LoggerManager.shared.error(message: "Failed unarchiving UpsertContactRequest", category: "CordialSDKError")
                 }
             }
+            
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            
         } catch let error {
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
