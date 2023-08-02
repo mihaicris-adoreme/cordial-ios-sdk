@@ -50,8 +50,6 @@ class CustomEventRequestsCoreData {
                     self.setCustomEventRequest(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
                 }
             }
-            
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
         }
     }
     
@@ -62,6 +60,8 @@ class CustomEventRequestsCoreData {
             managedObject.setValue(sendCustomEventRequestData, forKey: "data")
             managedObject.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
             managedObject.setValue(false, forKey: "flushing")
+            
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
             
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)

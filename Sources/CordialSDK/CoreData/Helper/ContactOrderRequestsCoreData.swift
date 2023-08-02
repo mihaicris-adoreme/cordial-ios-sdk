@@ -31,8 +31,6 @@ class ContactOrderRequestsCoreData {
                     self.setContactOrderRequest(managedObject: managedObject, context: context, sendContactOrderRequest: sendContactOrderRequest)
                 }
             }
-            
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
         }
     }
     
@@ -43,6 +41,8 @@ class ContactOrderRequestsCoreData {
             managedObject.setValue(sendContactOrderRequestData, forKey: "data")
             managedObject.setValue(sendContactOrderRequest.order.orderID, forKey: "requestID")
             managedObject.setValue(false, forKey: "flushing")
+            
+            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
             
         } catch let error {
             CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
