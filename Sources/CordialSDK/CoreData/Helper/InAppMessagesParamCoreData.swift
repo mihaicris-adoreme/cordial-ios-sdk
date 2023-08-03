@@ -53,7 +53,7 @@ class InAppMessagesParamCoreData {
             
             for managedObject in managedObjects {
                 guard let date = managedObject.value(forKey: "date") as? Date else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
@@ -61,7 +61,7 @@ class InAppMessagesParamCoreData {
                 return date
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -84,13 +84,13 @@ class InAppMessagesParamCoreData {
             
             for managedObject in managedObjects {
                 guard let date = managedObject.value(forKey: "date") as? Date else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
                 
                 guard let typeString = managedObject.value(forKey: "type") as? String else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
@@ -98,31 +98,31 @@ class InAppMessagesParamCoreData {
                 let type = inAppMessageGetter.getInAppMessageType(typeString: typeString)
                 
                 guard let top = managedObject.value(forKey: "top") as? Int16 else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
                 
                 guard let right = managedObject.value(forKey: "right") as? Int16 else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
                 
                 guard let bottom = managedObject.value(forKey: "bottom") as? Int16 else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
                 
                 guard let left = managedObject.value(forKey: "left") as? Int16 else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
                 
                 guard let displayTypeString = managedObject.value(forKey: "displayType") as? String else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
@@ -132,7 +132,7 @@ class InAppMessagesParamCoreData {
                 let expirationTime = managedObject.value(forKey: "expirationTime") as? Date
 
                 guard let inactiveSessionDisplayString = managedObject.value(forKey: "inactiveSessionDisplay") as? String else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
@@ -144,7 +144,7 @@ class InAppMessagesParamCoreData {
                 return inAppMessageParams
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -166,10 +166,10 @@ class InAppMessagesParamCoreData {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
             for managedObject in managedObjects {
-                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }

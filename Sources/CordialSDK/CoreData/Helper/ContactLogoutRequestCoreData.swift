@@ -18,7 +18,7 @@ class ContactLogoutRequestCoreData {
     func putContactLogoutRequest(sendContactLogoutRequest: SendContactLogoutRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+        CoreDataManager.shared.deleteAll(entityName: self.entityName)
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let managedObject = NSManagedObject(entity: entity, insertInto: context)
@@ -33,7 +33,7 @@ class ContactLogoutRequestCoreData {
                 CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
                 
             } catch let error {
-                CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+                CoreDataManager.shared.deleteAll(entityName: self.entityName)
                 
                 LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
             }
@@ -53,7 +53,7 @@ class ContactLogoutRequestCoreData {
             
             for managedObject in managedObjects {
                 guard let data = managedObject.value(forKey: "data") as? Data else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
 
                     continue
                 }
@@ -62,7 +62,7 @@ class ContactLogoutRequestCoreData {
                    !sendContactLogoutRequest.isError {
                     
                     guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
-                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                         
                         continue
                     }
@@ -75,13 +75,13 @@ class ContactLogoutRequestCoreData {
                         return sendContactLogoutRequest
                     }
                 } else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving SendContactLogoutRequest", category: "CordialSDKError")
                 }
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }

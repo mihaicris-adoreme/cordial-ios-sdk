@@ -44,7 +44,7 @@ class InAppMessagesShownCoreData {
                 return true
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -66,10 +66,10 @@ class InAppMessagesShownCoreData {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
             for managedObject in managedObjects {
-                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }

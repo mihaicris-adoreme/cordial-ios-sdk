@@ -96,7 +96,7 @@ class CoreDataManager {
         do {
             try context.execute(request)
         } catch let error {
-            self.deleteAllCoreDataByEntity(entityName: entityName)
+            self.deleteAll(entityName: entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -118,7 +118,7 @@ class CoreDataManager {
                 return true
             }
         } catch let error {
-            self.deleteAllCoreDataByEntity(entityName: entityName)
+            self.deleteAll(entityName: entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -138,10 +138,10 @@ class CoreDataManager {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
             for managedObject in managedObjects {
-                self.removeManagedObject(managedObject: managedObject, context: context)
+                self.removeManagedObject(managedObject: managedObject, context: context, entityName: entityName)
             }
         } catch let error {
-            self.deleteAllCoreDataByEntity(entityName: entityName)
+            self.deleteAll(entityName: entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -151,22 +151,24 @@ class CoreDataManager {
         do {
             try context.save()
         } catch let error {
-            self.deleteAllCoreDataByEntity(entityName: entityName)
+            self.deleteAll(entityName: entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
-    func removeManagedObject(managedObject: NSManagedObject, context: NSManagedObjectContext) {
+    func removeManagedObject(managedObject: NSManagedObject, context: NSManagedObjectContext, entityName: String) {
         do {
             context.delete(managedObject)
             try context.save()
         } catch let error {
+            self.deleteAll(entityName: entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)]", category: "CordialSDKCoreDataError")
         }
     }
     
-    func deleteAllCoreDataByEntity(entityName: String) {
+    func deleteAll(entityName: String) {
         guard let context = self.persistentContainer?.viewContext else { return }
         
         context.mergePolicy = NSMergePolicyType.overwriteMergePolicyType
@@ -183,37 +185,37 @@ class CoreDataManager {
     }
     
     func deleteAllCoreData() {
-        self.deleteAllCoreDataByEntity(entityName: self.contactTimestampsURL.entityName)
+        self.deleteAll(entityName: self.contactTimestampsURL.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.customEventRequests.entityName)
+        self.deleteAll(entityName: self.customEventRequests.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.contactCartRequest.entityName)
+        self.deleteAll(entityName: self.contactCartRequest.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.contactOrderRequests.entityName)
+        self.deleteAll(entityName: self.contactOrderRequests.entityName)
             
-        self.deleteAllCoreDataByEntity(entityName: self.contactRequests.entityName)
+        self.deleteAll(entityName: self.contactRequests.entityName)
                     
-        self.deleteAllCoreDataByEntity(entityName: self.inAppMessageContentURL.entityName)
+        self.deleteAll(entityName: self.inAppMessageContentURL.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesCache.entityName)
+        self.deleteAll(entityName: self.inAppMessagesCache.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesQueue.entityName)
+        self.deleteAll(entityName: self.inAppMessagesQueue.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesParam.entityName)
+        self.deleteAll(entityName: self.inAppMessagesParam.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesRelated.entityName)
+        self.deleteAll(entityName: self.inAppMessagesRelated.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.inAppMessagesShown.entityName)
+        self.deleteAll(entityName: self.inAppMessagesShown.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.contactLogoutRequest.entityName)
+        self.deleteAll(entityName: self.contactLogoutRequest.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.inboxMessagesMarkReadUnread.entityName)
+        self.deleteAll(entityName: self.inboxMessagesMarkReadUnread.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.inboxMessageDelete.entityName)
+        self.deleteAll(entityName: self.inboxMessageDelete.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.inboxMessagesCache.entityName)
+        self.deleteAll(entityName: self.inboxMessagesCache.entityName)
         
-        self.deleteAllCoreDataByEntity(entityName: self.inboxMessagesContent.entityName)
+        self.deleteAll(entityName: self.inboxMessagesContent.entityName)
         
     }
     

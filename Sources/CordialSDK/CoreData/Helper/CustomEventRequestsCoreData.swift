@@ -64,7 +64,7 @@ class CustomEventRequestsCoreData {
             CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
             
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -85,7 +85,7 @@ class CustomEventRequestsCoreData {
                 self.setCustomEventRequest(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -106,7 +106,7 @@ class CustomEventRequestsCoreData {
             
             for managedObject in managedObjects {
                 guard let data = managedObject.value(forKey: "data") as? Data else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
 
                     continue
                 }
@@ -115,7 +115,7 @@ class CustomEventRequestsCoreData {
                    !sendCustomEventRequest.isError {
                     
                     guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
-                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                         
                         continue
                     }
@@ -126,7 +126,7 @@ class CustomEventRequestsCoreData {
                         sendCustomEventRequests.append(sendCustomEventRequest)
                     }
                 } else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving SendCustomEventRequest", category: "CordialSDKError")
                 }
@@ -135,7 +135,7 @@ class CustomEventRequestsCoreData {
             CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
             
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -155,7 +155,7 @@ class CustomEventRequestsCoreData {
             return count
             
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -187,13 +187,13 @@ class CustomEventRequestsCoreData {
                 if id > countId {
                     countId+=1
                     
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                 } else {
                     break
                 }
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }

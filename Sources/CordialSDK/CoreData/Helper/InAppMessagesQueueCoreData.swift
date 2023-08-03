@@ -46,17 +46,17 @@ class InAppMessagesQueueCoreData {
             
             for managedObject in managedObjects {
                 guard let mcID = managedObject.value(forKey: "mcID") as? String else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
                 
-                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                 
                 return mcID
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }

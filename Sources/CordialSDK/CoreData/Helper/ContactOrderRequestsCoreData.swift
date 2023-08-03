@@ -45,7 +45,7 @@ class ContactOrderRequestsCoreData {
             CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
             
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -66,7 +66,7 @@ class ContactOrderRequestsCoreData {
                 self.setContactOrderRequest(managedObject: managedObject, context: context, sendContactOrderRequest: sendContactOrderRequest)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -87,7 +87,7 @@ class ContactOrderRequestsCoreData {
             
             for managedObject in managedObjects {
                 guard let data = managedObject.value(forKey: "data") as? Data else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
 
                     continue
                 }
@@ -96,7 +96,7 @@ class ContactOrderRequestsCoreData {
                    !sendContactOrderRequest.isError {
                     
                     guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
-                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                         
                         continue
                     }
@@ -107,7 +107,7 @@ class ContactOrderRequestsCoreData {
                         sendContactOrderRequests.append(sendContactOrderRequest)
                     }
                 } else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving SendContactOrderRequest", category: "CordialSDKError")
                 }
@@ -116,7 +116,7 @@ class ContactOrderRequestsCoreData {
             CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
             
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }

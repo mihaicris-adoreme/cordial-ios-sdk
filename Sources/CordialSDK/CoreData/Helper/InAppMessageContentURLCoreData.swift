@@ -44,23 +44,23 @@ class InAppMessageContentURLCoreData {
             
             for managedObject in managedObjects {
                 guard let expireDate = managedObject.value(forKey: "expireDate") as? Date else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
 
                     continue
                 }
                 
                 guard let url = managedObject.value(forKey: "url") as? URL else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
 
                     continue
                 }
                 
-                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                 
                 return InAppMessageContent(mcID: mcID, url: url, expireDate: expireDate)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }

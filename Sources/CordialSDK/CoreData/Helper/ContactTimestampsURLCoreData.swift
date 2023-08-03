@@ -18,7 +18,7 @@ class ContactTimestampsURLCoreData {
     func putContactTimestamp(contactTimestamp: ContactTimestamp) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+        CoreDataManager.shared.deleteAll(entityName: self.entityName)
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let managedObject = NSManagedObject(entity: entity, insertInto: context)
@@ -43,12 +43,12 @@ class ContactTimestampsURLCoreData {
             
             for managedObject in managedObjects {
                 guard let url = managedObject.value(forKey: "url") as? URL else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
                 guard let expireDate = managedObject.value(forKey: "expireDate") as? Date else {
-                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context)
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     continue
                 }
@@ -56,7 +56,7 @@ class ContactTimestampsURLCoreData {
                 return ContactTimestamp(url: url, expireDate: expireDate)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -67,7 +67,7 @@ class ContactTimestampsURLCoreData {
     // MARK: Removing Data
     
     func removeContactTimestamp() {
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+        CoreDataManager.shared.deleteAll(entityName: self.entityName)
     }
     
 }
