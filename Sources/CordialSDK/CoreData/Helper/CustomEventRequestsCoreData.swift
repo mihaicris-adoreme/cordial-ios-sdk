@@ -61,7 +61,7 @@ class CustomEventRequestsCoreData {
             managedObject.setValue(sendCustomEventRequest.requestID, forKey: "requestID")
             managedObject.setValue(false, forKey: "flushing")
             
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
             
         } catch let error {
             CoreDataManager.shared.deleteAll(entityName: self.entityName)
@@ -132,7 +132,7 @@ class CustomEventRequestsCoreData {
                 }
             }
             
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
             
         } catch let error {
             CoreDataManager.shared.deleteAll(entityName: self.entityName)

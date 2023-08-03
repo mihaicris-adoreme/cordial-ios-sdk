@@ -34,7 +34,7 @@ class InAppMessagesParamCoreData {
                 managedObject.setValue(inAppMessageParams.inactiveSessionDisplay.rawValue, forKey: "inactiveSessionDisplay")
             }
             
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
         }
     }
     

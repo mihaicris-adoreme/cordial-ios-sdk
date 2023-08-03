@@ -26,7 +26,7 @@ class ContactTimestampsURLCoreData {
             managedObject.setValue(contactTimestamp.url, forKey: "url")
             managedObject.setValue(contactTimestamp.expireDate, forKey: "expireDate")
             
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
         }
     }
     

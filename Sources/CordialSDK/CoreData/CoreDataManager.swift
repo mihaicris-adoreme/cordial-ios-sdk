@@ -147,7 +147,7 @@ class CoreDataManager {
         }
     }
     
-    func saveManagedObjectContext(context: NSManagedObjectContext, entityName: String) {
+    func saveContext(context: NSManagedObjectContext, entityName: String) {
         do {
             try context.save()
         } catch let error {
@@ -164,7 +164,7 @@ class CoreDataManager {
         } catch let error {
             self.deleteAll(entityName: entityName)
             
-            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)]", category: "CordialSDKCoreDataError")
+            LoggerManager.shared.error(message: "CoreData Delete Error: [\(error.localizedDescription)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -180,7 +180,7 @@ class CoreDataManager {
             try context.execute(deleteRequest)
             try context.save()
         } catch let error {
-            LoggerManager.shared.error(message: "Delete CoreData Entity Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
+            LoggerManager.shared.error(message: "CoreData Delete Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     

@@ -23,7 +23,7 @@ class InAppMessagesShownCoreData {
             
             managedObject.setValue(mcID, forKey: "mcID")
             
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
         }
     }
     

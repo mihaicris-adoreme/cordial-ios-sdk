@@ -1775,10 +1775,10 @@ class CordialSDKTests: XCTestCase {
         
         DispatchQueue.main.async {
             let inboxMessagesMarkReadRequest_1 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: markAsReadMcIDs_1, markAsUnreadMcIDs: [])
-            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_1)
+            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_1)
 
             let inboxMessagesMarkReadRequest_2 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: markAsReadMcIDs_2, markAsUnreadMcIDs: [])
-            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_2)
+            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_2)
             
             self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         }
@@ -1808,10 +1808,10 @@ class CordialSDKTests: XCTestCase {
         
         DispatchQueue.main.async {
             let inboxMessagesMarkUnreadRequest_1 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: markAsUnreadMcIDs_1)
-            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_1)
+            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_1)
 
             let inboxMessagesMarkUnreadRequest_2 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: markAsUnreadMcIDs_2)
-            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_2)
+            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_2)
             
             self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         }

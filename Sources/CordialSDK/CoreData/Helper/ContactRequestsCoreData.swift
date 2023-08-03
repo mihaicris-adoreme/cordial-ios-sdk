@@ -42,7 +42,7 @@ class ContactRequestsCoreData {
             managedObject.setValue(upsertContactRequest.requestID, forKey: "requestID")
             managedObject.setValue(false, forKey: "flushing")
             
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
 
         } catch let error {
             CoreDataManager.shared.deleteAll(entityName: self.entityName)
@@ -113,7 +113,7 @@ class ContactRequestsCoreData {
                 }
             }
             
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
             
         } catch let error {
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")

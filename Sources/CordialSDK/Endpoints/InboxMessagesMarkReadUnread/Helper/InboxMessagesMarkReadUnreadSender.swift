@@ -39,7 +39,7 @@ class InboxMessagesMarkReadUnreadSender {
     }
     
     func systemErrorHandler(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest, error: ResponseError) {
-        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
         
         LoggerManager.shared.info(message: "Sending inbox messages read/unread marks failed. Saved to retry later. Request ID: [\(inboxMessagesMarkReadUnreadRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKInboxMessages")
     }

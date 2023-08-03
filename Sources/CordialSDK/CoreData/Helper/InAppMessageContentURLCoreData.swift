@@ -25,7 +25,7 @@ class InAppMessageContentURLCoreData {
             managedObject.setValue(inAppMessageContent.url, forKey: "url")
             managedObject.setValue(inAppMessageContent.expireDate, forKey: "expireDate")
             
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
         }
     }
     

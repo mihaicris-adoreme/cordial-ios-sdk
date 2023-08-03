@@ -28,7 +28,7 @@ class InAppMessagesQueueCoreData {
                 }
             }
             
-            CoreDataManager.shared.saveManagedObjectContext(context: context, entityName: self.entityName)
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
         }
     }
     

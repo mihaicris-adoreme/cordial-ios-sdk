@@ -13,7 +13,7 @@ class InboxMessagesMarkReadUnreadCoreData {
     
     let entityName = "InboxMessagesReadUnreadMarks"
     
-    func putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
+    func putInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
@@ -27,12 +27,14 @@ class InboxMessagesMarkReadUnreadCoreData {
                 
                 try context.save()
             } catch let error {
+                CoreDataManager.shared.deleteAll(entityName: self.entityName)
+                
                 LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
             }
         }
     }
     
-    func fetchInboxMessagesMarkReadUnreadDataFromCoreData() -> [InboxMessagesMarkReadUnreadRequest] {
+    func fetchInboxMessagesMarkReadUnreadRequests() -> [InboxMessagesMarkReadUnreadRequest] {
         var inboxMessagesMarkReadUnreadRequests = [InboxMessagesMarkReadUnreadRequest]()
         
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return inboxMessagesMarkReadUnreadRequests }
