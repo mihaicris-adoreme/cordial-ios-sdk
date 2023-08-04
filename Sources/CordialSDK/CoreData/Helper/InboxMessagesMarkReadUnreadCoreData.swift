@@ -83,22 +83,36 @@ class InboxMessagesMarkReadUnreadCoreData {
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let anyData = managedObject.value(forKey: "data") else { continue }
-                let data = anyData as! Data
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return inboxMessagesMarkReadUnreadRequests }
+            
+            for managedObject in managedObjects {
+                guard let data = managedObject.value(forKey: "data") as? Data else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
 
                 if let inboxMessagesMarkReadUnreadRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [InboxMessagesMarkReadUnreadRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? InboxMessagesMarkReadUnreadRequest,
                    !inboxMessagesMarkReadUnreadRequest.isError {
                     
-                    inboxMessagesMarkReadUnreadRequests.append(inboxMessagesMarkReadUnreadRequest)
+                    guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                        
+                        continue
+                    }
+                    
+                    if !isFlushing {
+                        managedObject.setValue(true, forKey: "flushing")
+                        
+                        inboxMessagesMarkReadUnreadRequests.append(inboxMessagesMarkReadUnreadRequest)
+                    }
                 } else {
                     LoggerManager.shared.error(message: "Failed unarchiving InboxMessagesMarkReadUnreadRequest", category: "CordialSDKError")
                 }
-                
-                context.delete(managedObject)
-                try context.save()
             }
+            
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
+            
         } catch let error {
             CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
@@ -107,4 +121,5 @@ class InboxMessagesMarkReadUnreadCoreData {
 
         return inboxMessagesMarkReadUnreadRequests
     }
+    
 }
