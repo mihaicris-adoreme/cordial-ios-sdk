@@ -35,6 +35,8 @@ class InboxMessagesMarkReadUnreadSender {
     }
     
     func completionHandler(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.removeInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
+        
         LoggerManager.shared.info(message: "Inbox messages read/unread marks have been sent. Request ID: [\(inboxMessagesMarkReadUnreadRequest.requestID)]", category: "CordialSDKInboxMessages")
     }
     
@@ -46,6 +48,8 @@ class InboxMessagesMarkReadUnreadSender {
     
     func logicErrorHandler(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialInboxMessagesMarkReadUnreadLogicError, object: error)
+        
+        CoreDataManager.shared.inboxMessagesMarkReadUnread.removeInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
         
         LoggerManager.shared.error(message: "Sending inbox messages read/unread marks failed. Will not retry. Request ID: [\(inboxMessagesMarkReadUnreadRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKInboxMessages")
         

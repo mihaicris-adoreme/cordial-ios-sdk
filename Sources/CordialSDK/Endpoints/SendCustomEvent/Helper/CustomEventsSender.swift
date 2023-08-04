@@ -73,8 +73,6 @@ class CustomEventsSender {
             let sendCustomEventRequestsWithoutBrokenEvents = self.getCustomEventRequestsWithoutBrokenEvents(sendCustomEventRequests: sendCustomEventRequests, responseBody: responseBody)
             if !sendCustomEventRequestsWithoutBrokenEvents.isEmpty {
                 
-                self.sendCustomEvents(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
-                
                 let requestIDsWithoutBrokenEvents = sendCustomEventRequestsWithoutBrokenEvents.map { $0.requestID }
                 var sendCustomEventRequestsWithBrokenEvents: [SendCustomEventRequest] = []
                 sendCustomEventRequests.forEach { sendCustomEventRequest in
@@ -82,11 +80,15 @@ class CustomEventsSender {
                         sendCustomEventRequestsWithBrokenEvents.append(sendCustomEventRequest)
                     }
                 }
-                
                 CoreDataManager.shared.customEventRequests.removeCustomEventRequests(sendCustomEventRequests: sendCustomEventRequestsWithBrokenEvents)
                 
                 let eventNamesAndRequestIDsWithoutBrokenEvents = self.getEventNamesAndRequestIDs(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
                 LoggerManager.shared.info(message: "Sending again valid events { \(eventNamesAndRequestIDsWithoutBrokenEvents) }", category: "CordialSDKSendCustomEvents")
+                
+                self.sendCustomEvents(sendCustomEventRequests: sendCustomEventRequestsWithoutBrokenEvents)
+                
+            } else {
+                CoreDataManager.shared.customEventRequests.removeCustomEventRequests(sendCustomEventRequests: sendCustomEventRequests)
             }
         } else {
             CoreDataManager.shared.customEventRequests.removeCustomEventRequests(sendCustomEventRequests: sendCustomEventRequests)

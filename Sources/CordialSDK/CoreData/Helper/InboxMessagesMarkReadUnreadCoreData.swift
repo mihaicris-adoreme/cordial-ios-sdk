@@ -122,4 +122,12 @@ class InboxMessagesMarkReadUnreadCoreData {
         return inboxMessagesMarkReadUnreadRequests
     }
     
+    // MARK: Removing Data
+    
+    func removeInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
+        let requestID = inboxMessagesMarkReadUnreadRequest.requestID
+        
+        CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
+    }
+    
 }
