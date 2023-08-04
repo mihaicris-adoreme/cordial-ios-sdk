@@ -39,7 +39,7 @@ class InboxMessageDeleteSender {
     }
     
     func systemErrorHandler(inboxMessageDeleteRequest: InboxMessageDeleteRequest, error: ResponseError) {
-        CoreDataManager.shared.inboxMessageDelete.putInboxMessageDeleteRequestToCoreData(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
+        CoreDataManager.shared.inboxMessageDelete.putInboxMessageDeleteRequest(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
         
         LoggerManager.shared.info(message: "Deleting inbox message failed. Saved to retry later. Request ID: [\(inboxMessageDeleteRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKInboxMessages")
     }

@@ -13,23 +13,64 @@ class InboxMessageDeleteCoreData {
     
     let entityName = "InboxMessageDeleteRequests"
     
-    func putInboxMessageDeleteRequestToCoreData(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
+    // MARK: Setting Data
+    
+    func putInboxMessageDeleteRequest(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            let newRow = NSManagedObject(entity: entity, insertInto: context)
+            let requestID = inboxMessageDeleteRequest.requestID
             
-            do {
-                let inboxMessageDeleteRequestArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessageDeleteRequest, requiringSecureCoding: true)
-        
-                newRow.setValue(inboxMessageDeleteRequestArchivedData, forKey: "data")
-                
-                try context.save()
-            } catch let error {
-                LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+            guard let isInboxMessageDeleteRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { return }
+            
+            if isInboxMessageDeleteRequestExist {
+                self.updateInboxMessageDeleteRequest(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
+            } else {
+                let managedObject = NSManagedObject(entity: entity, insertInto: context)
+                self.setInboxMessageDeleteRequest(managedObject: managedObject, context: context, inboxMessageDeleteRequest: inboxMessageDeleteRequest)
             }
         }
     }
+    
+    private func setInboxMessageDeleteRequest(managedObject: NSManagedObject, context: NSManagedObjectContext, inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
+        do {
+            let inboxMessageDeleteRequestArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessageDeleteRequest, requiringSecureCoding: true)
+    
+            managedObject.setValue(inboxMessageDeleteRequestArchivedData, forKey: "data")
+            managedObject.setValue(inboxMessageDeleteRequest.requestID, forKey: "requestID")
+            managedObject.setValue(false, forKey: "flushing")
+            
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
+            
+        } catch let error {
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
+    private func updateInboxMessageDeleteRequest(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
+        request.returnsObjectsAsFaults = false
+        
+        request.predicate = NSPredicate(format: "requestID = %@", inboxMessageDeleteRequest.requestID)
+        
+        do {
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
+            
+            for managedObject in managedObjects {
+                self.setInboxMessageDeleteRequest(managedObject: managedObject, context: context, inboxMessageDeleteRequest: inboxMessageDeleteRequest)
+            }
+        } catch let error {
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
+        }
+    }
+    
+    // MARK: Getting Data
     
     func fetchInboxMessageDeleteRequestsFromCoreData() -> [InboxMessageDeleteRequest] {
         var inboxMessageDeleteRequests = [InboxMessageDeleteRequest]()

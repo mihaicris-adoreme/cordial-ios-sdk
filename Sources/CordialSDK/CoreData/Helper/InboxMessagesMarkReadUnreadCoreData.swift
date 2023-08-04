@@ -21,9 +21,9 @@ class InboxMessagesMarkReadUnreadCoreData {
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let requestID = inboxMessagesMarkReadUnreadRequest.requestID
             
-            guard let isInboxMessagesMarkReadUnreadRequest = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { return }
+            guard let isInboxMessagesMarkReadUnreadRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { return }
             
-            if isInboxMessagesMarkReadUnreadRequest {
+            if isInboxMessagesMarkReadUnreadRequestExist {
                 self.updateInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
             } else {
                 let managedObject = NSManagedObject(entity: entity, insertInto: context)

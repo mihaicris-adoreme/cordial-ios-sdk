@@ -64,6 +64,8 @@
     </entity>
     <entity name="InboxMessageDeleteRequests" representedClassName="InboxMessageDeleteRequests" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="flushing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="requestID" optional="YES" attributeType="String"/>
     </entity>
     <entity name="InboxMessagesCache" representedClassName="InboxMessagesCache" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
