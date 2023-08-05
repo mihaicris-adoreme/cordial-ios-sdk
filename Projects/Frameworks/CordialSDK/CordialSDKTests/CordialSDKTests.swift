@@ -1321,7 +1321,7 @@ class CordialSDKTests: XCTestCase {
             CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, onSuccess: { inboxPage in
                 if inboxPage.content.count == 1,
                    let inboxMessage = inboxPage.content.first,
-                   CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
+                   CoreDataManager.shared.inboxMessagesCache.fetchInboxMessage(mcID: inboxMessage.mcID) != nil {
                     isVerified = true
                 } else {
                     XCTAssert(false)
@@ -1358,7 +1358,7 @@ class CordialSDKTests: XCTestCase {
             DependencyConfiguration.shared.inboxMessageURLSession = mockSession
 
             CordialInboxMessageAPI().fetchInboxMessage(mcID: self.testMcID, onSuccess: { inboxMessage in
-                if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
+                if CoreDataManager.shared.inboxMessagesCache.fetchInboxMessage(mcID: inboxMessage.mcID) != nil {
                     isVerified = true
                 } else {
                     XCTAssert(false)
@@ -1840,7 +1840,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.markUserAsLoggedIn()
         
         let inboxMessage = InboxMessage(mcID: self.testMcID, url: String(), urlExpireAt: Date(), isRead: true, sentAt: Date(), metadata: String())
-        CoreDataManager.shared.inboxMessagesCache.putInboxMessageToCoreData(inboxMessage: inboxMessage)
+        CoreDataManager.shared.inboxMessagesCache.putInboxMessage(inboxMessage: inboxMessage)
         CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
         
         CordialInboxMessageAPI().deleteInboxMessage(mcID: self.testMcID)
@@ -1850,7 +1850,7 @@ class CordialSDKTests: XCTestCase {
         expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: self.testMcID) == nil,
+            if CoreDataManager.shared.inboxMessagesCache.fetchInboxMessage(mcID: self.testMcID) == nil,
                CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil,
                mock.isVerified {
                 

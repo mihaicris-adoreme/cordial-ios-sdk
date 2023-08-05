@@ -113,6 +113,22 @@ class CoreDataManager {
         let predicate = NSPredicate(format: "requestID = %@", requestID)
         request.predicate = predicate
         
+        return self.isRequestObjectExist(context: context, request: request, entityName: entityName)
+    }
+    
+    func isRequestObjectExist(mcID: String, entityName: String) -> Bool? {
+        guard let context = self.persistentContainer?.viewContext else { return nil }
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        request.returnsObjectsAsFaults = false
+
+        let predicate = NSPredicate(format: "mcID = %@", mcID)
+        request.predicate = predicate
+        
+        return self.isRequestObjectExist(context: context, request: request, entityName: entityName)
+    }
+    
+    private func isRequestObjectExist(context: NSManagedObjectContext, request: NSFetchRequest<NSFetchRequestResult>, entityName: String) -> Bool {
         do {
             if let managedObjects = try context.fetch(request) as? [NSManagedObject],
                managedObjects.count > 0 {
