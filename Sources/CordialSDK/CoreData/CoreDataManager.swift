@@ -152,6 +152,21 @@ class CoreDataManager {
         
         request.predicate = NSPredicate(format: "requestID = %@", requestID)
         
+        self.removeObject(context: context, request: request, entityName: entityName)
+    }
+    
+    func removeObject(mcID: String, entityName: String) {
+        guard let context = self.persistentContainer?.viewContext else { return }
+
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        request.returnsObjectsAsFaults = false
+        
+        request.predicate = NSPredicate(format: "mcID = %@", mcID)
+        
+        self.removeObject(context: context, request: request, entityName: entityName)
+    }
+    
+    private func removeObject(context: NSManagedObjectContext, request: NSFetchRequest<NSFetchRequestResult>, entityName: String) {
         do {
             guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             

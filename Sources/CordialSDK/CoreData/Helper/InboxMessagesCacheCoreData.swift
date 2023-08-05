@@ -113,25 +113,7 @@ class InboxMessagesCacheCoreData {
     // MARK: Removing Data
     
     func removeInboxMessage(mcID: String) {
-        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
-
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
-        request.returnsObjectsAsFaults = false
-        request.fetchLimit = 1
-
-        let predicate = NSPredicate(format: "mcID = %@", mcID)
-        request.predicate = predicate
-        
-        do {
-            let result = try context.fetch(request)
-            
-            for managedObject in result as! [NSManagedObject] {
-                context.delete(managedObject)
-                try context.save()
-            }
-        } catch let error {
-            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-        }
+        CoreDataManager.shared.removeObject(mcID: mcID, entityName: self.entityName)
     }
     
 }
