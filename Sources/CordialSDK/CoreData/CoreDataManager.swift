@@ -104,7 +104,7 @@ class CoreDataManager {
         }
     }
     
-    func isRequestObjectExist(requestID: String, entityName: String) -> Bool? {
+    func isObjectExist(requestID: String, entityName: String) -> Bool? {
         guard let context = self.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
@@ -113,10 +113,10 @@ class CoreDataManager {
         let predicate = NSPredicate(format: "requestID = %@", requestID)
         request.predicate = predicate
         
-        return self.isRequestObjectExist(context: context, request: request, entityName: entityName)
+        return self.isObjectExist(context: context, request: request, entityName: entityName)
     }
     
-    func isRequestObjectExist(mcID: String, entityName: String) -> Bool? {
+    func isObjectExist(mcID: String, entityName: String) -> Bool? {
         guard let context = self.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
@@ -125,10 +125,10 @@ class CoreDataManager {
         let predicate = NSPredicate(format: "mcID = %@", mcID)
         request.predicate = predicate
         
-        return self.isRequestObjectExist(context: context, request: request, entityName: entityName)
+        return self.isObjectExist(context: context, request: request, entityName: entityName)
     }
     
-    private func isRequestObjectExist(context: NSManagedObjectContext, request: NSFetchRequest<NSFetchRequestResult>, entityName: String) -> Bool {
+    private func isObjectExist(context: NSManagedObjectContext, request: NSFetchRequest<NSFetchRequestResult>, entityName: String) -> Bool {
         do {
             if let managedObjects = try context.fetch(request) as? [NSManagedObject],
                managedObjects.count > 0 {
@@ -144,7 +144,7 @@ class CoreDataManager {
         return false
     }
     
-    func removeRequestObject(requestID: String, entityName: String) {
+    func removeObject(requestID: String, entityName: String) {
         guard let context = self.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)

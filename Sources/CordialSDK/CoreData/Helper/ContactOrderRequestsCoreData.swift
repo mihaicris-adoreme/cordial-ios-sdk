@@ -22,7 +22,7 @@ class ContactOrderRequestsCoreData {
             for sendContactOrderRequest in sendContactOrderRequests {
                 let requestID = sendContactOrderRequest.order.orderID
                 
-                guard let isContactOrderRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { continue }
+                guard let isContactOrderRequestExist = CoreDataManager.shared.isObjectExist(requestID: requestID, entityName: self.entityName) else { continue }
                 
                 if isContactOrderRequestExist {
                     self.updateContactOrderRequest(sendContactOrderRequest: sendContactOrderRequest)
@@ -130,7 +130,7 @@ class ContactOrderRequestsCoreData {
         sendContactOrderRequests.forEach { sendContactOrderRequest in
             let requestID = sendContactOrderRequest.order.orderID
             
-            CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
+            CoreDataManager.shared.removeObject(requestID: requestID, entityName: self.entityName)
         }
     }
 }

@@ -21,7 +21,7 @@ class InboxMessagesCacheCoreData {
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let mcID = inboxMessage.mcID
             
-            guard let isInboxMessageExist = CoreDataManager.shared.isRequestObjectExist(mcID: mcID, entityName: self.entityName) else { return }
+            guard let isInboxMessageExist = CoreDataManager.shared.isObjectExist(mcID: mcID, entityName: self.entityName) else { return }
             
             if isInboxMessageExist {
                 self.updateInboxMessage(inboxMessage: inboxMessage)

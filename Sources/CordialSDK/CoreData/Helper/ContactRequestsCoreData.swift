@@ -22,7 +22,7 @@ class ContactRequestsCoreData {
             for upsertContactRequest in upsertContactRequests {
                 let requestID = upsertContactRequest.requestID
                 
-                guard let isUpsertContactRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { continue }
+                guard let isUpsertContactRequestExist = CoreDataManager.shared.isObjectExist(requestID: requestID, entityName: self.entityName) else { continue }
                 
                 if isUpsertContactRequestExist {
                     self.updateContactRequest(upsertContactRequest: upsertContactRequest)
@@ -130,7 +130,7 @@ class ContactRequestsCoreData {
         upsertContactRequests.forEach { upsertContactRequest in
             let requestID = upsertContactRequest.requestID
             
-            CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
+            CoreDataManager.shared.removeObject(requestID: requestID, entityName: self.entityName)
         }
     }
 }

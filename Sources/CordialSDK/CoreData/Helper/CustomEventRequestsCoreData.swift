@@ -41,7 +41,7 @@ class CustomEventRequestsCoreData {
             for sendCustomEventRequest in sendCustomEventRequests {
                 let requestID = sendCustomEventRequest.requestID
                 
-                guard let isCustomEventRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { continue }
+                guard let isCustomEventRequestExist = CoreDataManager.shared.isObjectExist(requestID: requestID, entityName: self.entityName) else { continue }
                 
                 if isCustomEventRequestExist {
                     self.updateCustomEventRequests(sendCustomEventRequest: sendCustomEventRequest)
@@ -169,7 +169,7 @@ class CustomEventRequestsCoreData {
         sendCustomEventRequests.forEach { sendCustomEventRequest in
             let requestID = sendCustomEventRequest.requestID
             
-            CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
+            CoreDataManager.shared.removeObject(requestID: requestID, entityName: self.entityName)
         }
     }
     

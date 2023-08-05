@@ -94,6 +94,6 @@ class ContactLogoutRequestCoreData {
     func removeContactLogoutRequest(sendContactLogoutRequest: SendContactLogoutRequest) {
         let requestID = sendContactLogoutRequest.requestID
         
-        CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
+        CoreDataManager.shared.removeObject(requestID: requestID, entityName: self.entityName)
     }
 }

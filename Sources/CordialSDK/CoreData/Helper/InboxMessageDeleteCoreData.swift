@@ -21,7 +21,7 @@ class InboxMessageDeleteCoreData {
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let requestID = inboxMessageDeleteRequest.requestID
             
-            guard let isInboxMessageDeleteRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { return }
+            guard let isInboxMessageDeleteRequestExist = CoreDataManager.shared.isObjectExist(requestID: requestID, entityName: self.entityName) else { return }
             
             if isInboxMessageDeleteRequestExist {
                 self.updateInboxMessageDeleteRequest(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
@@ -127,6 +127,6 @@ class InboxMessageDeleteCoreData {
     func removeInboxMessageDeleteRequest(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
         let requestID = inboxMessageDeleteRequest.requestID
         
-        CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
+        CoreDataManager.shared.removeObject(requestID: requestID, entityName: self.entityName)
     }
 }

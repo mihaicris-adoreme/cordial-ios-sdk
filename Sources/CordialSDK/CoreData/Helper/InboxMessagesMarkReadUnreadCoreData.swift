@@ -21,7 +21,7 @@ class InboxMessagesMarkReadUnreadCoreData {
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let requestID = inboxMessagesMarkReadUnreadRequest.requestID
             
-            guard let isInboxMessagesMarkReadUnreadRequestExist = CoreDataManager.shared.isRequestObjectExist(requestID: requestID, entityName: self.entityName) else { return }
+            guard let isInboxMessagesMarkReadUnreadRequestExist = CoreDataManager.shared.isObjectExist(requestID: requestID, entityName: self.entityName) else { return }
             
             if isInboxMessagesMarkReadUnreadRequestExist {
                 self.updateInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadUnreadRequest)
@@ -129,7 +129,7 @@ class InboxMessagesMarkReadUnreadCoreData {
     func removeInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: InboxMessagesMarkReadUnreadRequest) {
         let requestID = inboxMessagesMarkReadUnreadRequest.requestID
         
-        CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
+        CoreDataManager.shared.removeObject(requestID: requestID, entityName: self.entityName)
     }
     
 }
