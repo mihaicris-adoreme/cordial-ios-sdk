@@ -80,6 +80,8 @@ class CoreDataManager {
                 self.updateSendingRequests(entityName: self.contactCartRequest.entityName)
                 self.updateSendingRequests(entityName: self.contactOrderRequests.entityName)
                 self.updateSendingRequests(entityName: self.contactLogoutRequest.entityName)
+                self.updateSendingRequests(entityName: self.inboxMessagesMarkReadUnread.entityName)
+                self.updateSendingRequests(entityName: self.inboxMessageDelete.entityName)
             }
         }
     }

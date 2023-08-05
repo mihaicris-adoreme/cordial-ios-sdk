@@ -121,4 +121,12 @@ class InboxMessageDeleteCoreData {
 
         return inboxMessageDeleteRequests
     }
+    
+    // MARK: Removing Data
+    
+    func removeInboxMessageDeleteRequest(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
+        let requestID = inboxMessageDeleteRequest.requestID
+        
+        CoreDataManager.shared.removeRequestObject(requestID: requestID, entityName: self.entityName)
+    }
 }

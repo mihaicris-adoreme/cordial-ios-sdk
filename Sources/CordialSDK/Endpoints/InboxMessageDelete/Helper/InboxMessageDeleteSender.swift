@@ -35,6 +35,8 @@ class InboxMessageDeleteSender {
     }
     
     func completionHandler(inboxMessageDeleteRequest: InboxMessageDeleteRequest) {
+        CoreDataManager.shared.inboxMessageDelete.removeInboxMessageDeleteRequest(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
+        
         LoggerManager.shared.info(message: "Inbox message has been successfully deleted. Request ID: [\(inboxMessageDeleteRequest.requestID)]", category: "CordialSDKInboxMessages")
     }
     
@@ -47,6 +49,8 @@ class InboxMessageDeleteSender {
     func logicErrorHandler(inboxMessageDeleteRequest: InboxMessageDeleteRequest, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialInboxMessageDeleteRequestLogicError, object: error)
 
+        CoreDataManager.shared.inboxMessageDelete.removeInboxMessageDeleteRequest(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
+        
         LoggerManager.shared.error(message: "Deleting inbox message failed. Will not retry. Request ID: [\(inboxMessageDeleteRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKInboxMessages")
     }
 
