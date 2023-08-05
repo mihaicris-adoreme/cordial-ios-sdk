@@ -166,7 +166,7 @@ class CoreDataSender {
     
     private func sendCachedInboxMessageDeleteRequests() {
         if InternalCordialAPI().isUserLogin() {
-            let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequestsFromCoreData()
+            let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequests()
             inboxMessageDeleteRequests.forEach { inboxMessageDeleteRequest in
                 InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
             }

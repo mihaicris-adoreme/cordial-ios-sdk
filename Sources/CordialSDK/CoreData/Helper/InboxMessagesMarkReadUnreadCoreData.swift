@@ -107,6 +107,8 @@ class InboxMessagesMarkReadUnreadCoreData {
                         inboxMessagesMarkReadUnreadRequests.append(inboxMessagesMarkReadUnreadRequest)
                     }
                 } else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
                     LoggerManager.shared.error(message: "Failed unarchiving InboxMessagesMarkReadUnreadRequest", category: "CordialSDKError")
                 }
             }

@@ -72,7 +72,7 @@ class InboxMessageDeleteCoreData {
     
     // MARK: Getting Data
     
-    func fetchInboxMessageDeleteRequestsFromCoreData() -> [InboxMessageDeleteRequest] {
+    func fetchInboxMessageDeleteRequests() -> [InboxMessageDeleteRequest] {
         var inboxMessageDeleteRequests = [InboxMessageDeleteRequest]()
         
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return inboxMessageDeleteRequests }
@@ -81,22 +81,38 @@ class InboxMessageDeleteCoreData {
         request.returnsObjectsAsFaults = false
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let anyData = managedObject.value(forKey: "data") else { continue }
-                let data = anyData as! Data
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return inboxMessageDeleteRequests }
+            
+            for managedObject in managedObjects {
+                guard let data = managedObject.value(forKey: "data") as? Data else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
 
                 if let inboxMessageDeleteRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [InboxMessageDeleteRequest.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? InboxMessageDeleteRequest,
                    !inboxMessageDeleteRequest.isError {
                     
-                    inboxMessageDeleteRequests.append(inboxMessageDeleteRequest)
+                    guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                        
+                        continue
+                    }
+                    
+                    if !isFlushing {
+                        managedObject.setValue(true, forKey: "flushing")
+                        
+                        inboxMessageDeleteRequests.append(inboxMessageDeleteRequest)
+                    }
                 } else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
                     LoggerManager.shared.error(message: "Failed unarchiving InboxMessageDeleteRequest", category: "CordialSDKError")
                 }
-                
-                context.delete(managedObject)
-                try context.save()
             }
+            
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
+            
         } catch let error {
             CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
