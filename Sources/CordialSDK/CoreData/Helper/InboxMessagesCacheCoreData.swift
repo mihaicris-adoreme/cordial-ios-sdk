@@ -77,25 +77,26 @@ class InboxMessagesCacheCoreData {
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.fetchLimit = 1
 
         let predicate = NSPredicate(format: "mcID = %@", mcID)
         request.predicate = predicate
         
         do {
-            let result = try context.fetch(request)
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return nil }
             
-            for managedObject in result as! [NSManagedObject] {
-                guard let anyData = managedObject.value(forKey: "data") else { continue }
-                let data = anyData as! Data
+            for managedObject in managedObjects {
+                guard let data = managedObject.value(forKey: "data") as? Data else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
                 
                 if let inboxMessage = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [InboxMessage.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? InboxMessage,
                    !inboxMessage.isError {
     
                     return inboxMessage
                 } else {
-                    context.delete(managedObject)
-                    try context.save()
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving InboxMessage", category: "CordialSDKError")
                 }
