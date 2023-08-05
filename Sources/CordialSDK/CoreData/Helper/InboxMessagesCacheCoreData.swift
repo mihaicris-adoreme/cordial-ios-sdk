@@ -16,22 +16,35 @@ class InboxMessagesCacheCoreData {
     // MARK: Setting Data
     
     func putInboxMessage(inboxMessage: InboxMessage) {
-        guard let isInboxMessageExist = CoreDataManager.shared.isRequestObjectExist(mcID: inboxMessage.mcID, entityName: self.entityName) else { return }
-        
-        if !isInboxMessageExist {
-            self.setInboxMessage(inboxMessage: inboxMessage)
-        } else {
-            self.updateInboxMessage(inboxMessage: inboxMessage)
-        }
-    }
-    
-    private func setInboxMessage(inboxMessage: InboxMessage) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            let newObject = NSManagedObject(entity: entity, insertInto: context)
+            let mcID = inboxMessage.mcID
             
-            self.saveInboxMessage(inboxMessage: inboxMessage, object: newObject, context: context)
+            guard let isInboxMessageExist = CoreDataManager.shared.isRequestObjectExist(mcID: mcID, entityName: self.entityName) else { return }
+            
+            if isInboxMessageExist {
+                self.updateInboxMessage(inboxMessage: inboxMessage)
+            } else {
+                let managedObject = NSManagedObject(entity: entity, insertInto: context)
+                self.setInboxMessage(managedObject: managedObject, context: context, inboxMessage: inboxMessage)
+            }
+        }
+    }
+    
+    private func setInboxMessage(managedObject: NSManagedObject, context: NSManagedObjectContext, inboxMessage: InboxMessage) {
+        do {
+            let inboxMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessage, requiringSecureCoding: true)
+
+            managedObject.setValue(inboxMessageArchivedData, forKey: "data")
+            managedObject.setValue(inboxMessage.mcID, forKey: "mcID")
+            
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
+            
+        } catch let error {
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            
+            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -40,31 +53,19 @@ class InboxMessagesCacheCoreData {
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.fetchLimit = 1
 
         let predicate = NSPredicate(format: "mcID = %@", inboxMessage.mcID)
         request.predicate = predicate
         
         do {
-            let result = try context.fetch(request)
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
             
-            for managedObject in result as! [NSManagedObject] {
-                self.saveInboxMessage(inboxMessage: inboxMessage, object: managedObject, context: context)
+            for managedObject in managedObjects {
+                self.setInboxMessage(managedObject: managedObject, context: context, inboxMessage: inboxMessage)
             }
         } catch let error {
-            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-        }
-    }
-    
-    private func saveInboxMessage(inboxMessage: InboxMessage, object: NSManagedObject, context: NSManagedObjectContext) {
-        do {
-            let inboxMessageArchivedData = try NSKeyedArchiver.archivedData(withRootObject: inboxMessage, requiringSecureCoding: true)
-    
-            object.setValue(inboxMessageArchivedData, forKey: "data")
-            object.setValue(inboxMessage.mcID, forKey: "mcID")
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
-            try context.save()
-        } catch let error {
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }
