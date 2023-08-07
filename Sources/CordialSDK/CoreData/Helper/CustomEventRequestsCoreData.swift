@@ -185,7 +185,7 @@ class CustomEventRequestsCoreData {
             var countId = 0
             for managedObject in managedObjects {
                 if id > countId {
-                    countId+=1
+                    countId += 1
                     
                     CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                 } else {
