@@ -29,7 +29,7 @@ class CordialSwizzlerHelper {
         if let mcID = pushNotificationParser.getMcID(userInfo: userInfo) {
             if pushNotificationParser.isPayloadContainInboxMessage(userInfo: userInfo) {
                 CoreDataManager.shared.inboxMessagesCache.removeInboxMessage(mcID: mcID)
-                CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContentFromCoreData(mcID: mcID)
+                CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContent(mcID: mcID)
                 
                 // UIKit
                 if let inboxMessageDelegate = CordialApiConfiguration.shared.inboxMessageDelegate {

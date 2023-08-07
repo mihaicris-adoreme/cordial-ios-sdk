@@ -16,11 +16,11 @@ class CustomEventRequestsCoreData {
     // MARK: Setting Data
     
     func putCustomEventRequests(sendCustomEventRequests: [SendCustomEventRequest]) {
-        guard let qtyCachedCustomEventRequests = self.getQtyCachedCustomEventRequests() else { return }
+        guard let cachedCustomEventRequestsQty = self.fetchCachedCustomEventRequestsQty() else { return }
         
         let countSendCustomEventRequests = sendCustomEventRequests.count
         
-        let addingReporting = qtyCachedCustomEventRequests.addingReportingOverflow(countSendCustomEventRequests)
+        let addingReporting = cachedCustomEventRequestsQty.addingReportingOverflow(countSendCustomEventRequests)
         
         if !addingReporting.overflow {
             let sendCustomEventRequestsQty = addingReporting.partialValue
@@ -143,7 +143,7 @@ class CustomEventRequestsCoreData {
         return sendCustomEventRequests
     }
 
-    func getQtyCachedCustomEventRequests() -> Int? {
+    func fetchCachedCustomEventRequestsQty() -> Int? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)

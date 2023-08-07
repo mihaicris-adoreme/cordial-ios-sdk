@@ -323,9 +323,9 @@ class InternalCordialAPI {
         }
         
         ThrottlerManager.shared.sendCustomEventRequest.throttle {
-            guard let qtyCachedCustomEventRequests = CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() else { return }
+            guard let cachedCustomEventRequestsQty = CoreDataManager.shared.customEventRequests.fetchCachedCustomEventRequestsQty() else { return }
             
-            if qtyCachedCustomEventRequests >= CordialApiConfiguration.shared.eventsBulkSize {
+            if cachedCustomEventRequestsQty >= CordialApiConfiguration.shared.eventsBulkSize {
                 CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
             }
         }

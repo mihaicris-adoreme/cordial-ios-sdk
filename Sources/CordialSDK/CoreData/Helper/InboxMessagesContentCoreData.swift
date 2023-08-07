@@ -13,28 +13,28 @@ class InboxMessagesContentCoreData {
     
     let entityName = "InboxMessagesContent"
     
-    func putInboxMessageContentToCoreData(mcID: String, content: String) {
+    func putInboxMessageContent(mcID: String, content: String) {
         
         if let contentSize = content.data(using: .utf8)?.count,
            InboxMessageCache.shared.maxCacheSize > contentSize {
             
-            guard let inboxMessagesContentSize = self.getInboxMessagesContentSizeAtCoreData() else { return }
+            guard let inboxMessagesContentSize = self.fetchInboxMessagesContentSize() else { return }
             
             if InboxMessageCache.shared.maxCacheSize > inboxMessagesContentSize {
-                self.saveInboxMessageContentToCoreData(mcID: mcID, content: content)
+                self.saveInboxMessageContent(mcID: mcID, content: content)
             } else {
-                self.removeLastInboxMessageContentFromCoreData()
+                self.removeLatestInboxMessageContent()
                 
                 LoggerManager.shared.info(message: "Exceeded max cache size. Removing the firstest cached inbox message content to free storage capacity.", category: "CordialSDKInboxMessages")
                 
-                self.putInboxMessageContentToCoreData(mcID: mcID, content: content)
+                self.putInboxMessageContent(mcID: mcID, content: content)
             }
         } else {
             LoggerManager.shared.info(message: "Message didn't enter the cache. Message size exceeded max cache size.", category: "CordialSDKInboxMessages")
         }
     }
     
-    func getInboxMessageContentFromCoreData(mcID: String) -> String? {
+    func fetchInboxMessageContent(mcID: String) -> String? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -59,7 +59,7 @@ class InboxMessagesContentCoreData {
         return nil
     }
     
-    func removeInboxMessageContentFromCoreData(mcID: String) {
+    func removeInboxMessageContent(mcID: String) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -81,7 +81,7 @@ class InboxMessagesContentCoreData {
         }
     }
     
-    func removeLastInboxMessageContentFromCoreData() {
+    private func removeLatestInboxMessageContent() {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
@@ -100,17 +100,17 @@ class InboxMessagesContentCoreData {
         }
     }
     
-    private func saveInboxMessageContentToCoreData(mcID: String, content: String) {
+    private func saveInboxMessageContent(mcID: String, content: String) {
         if let contentSize = content.data(using: .utf8)?.count,
            InboxMessageCache.shared.maxCachableMessageSize > contentSize {
             
-            self.setInboxMessageContentToCoreData(mcID: mcID, content: content)
+            self.setInboxMessageContent(mcID: mcID, content: content)
         } else {
             LoggerManager.shared.info(message: "Message didn't enter the cache. Message size exceeded max cacheable message size.", category: "CordialSDKInboxMessages")
         }
     }
     
-    private func setInboxMessageContentToCoreData(mcID: String, content: String) {
+    private func setInboxMessageContent(mcID: String, content: String) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
@@ -128,7 +128,7 @@ class InboxMessagesContentCoreData {
         }
     }
     
-    private func getInboxMessagesContentSizeAtCoreData() -> Int? {
+    private func fetchInboxMessagesContentSize() -> Int? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
