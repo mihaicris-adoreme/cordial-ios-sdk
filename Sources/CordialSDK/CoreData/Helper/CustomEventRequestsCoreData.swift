@@ -44,7 +44,7 @@ class CustomEventRequestsCoreData {
                 guard let isCustomEventRequestExist = CoreDataManager.shared.isObjectExist(requestID: requestID, entityName: self.entityName) else { continue }
                 
                 if isCustomEventRequestExist {
-                    self.updateCustomEventRequests(sendCustomEventRequest: sendCustomEventRequest)
+                    self.updateCustomEventRequest(sendCustomEventRequest: sendCustomEventRequest)
                 } else {
                     let managedObject = NSManagedObject(entity: entity, insertInto: context)
                     self.setCustomEventRequest(managedObject: managedObject, context: context, sendCustomEventRequest: sendCustomEventRequest)
@@ -70,7 +70,7 @@ class CustomEventRequestsCoreData {
         }
     }
     
-    private func updateCustomEventRequests(sendCustomEventRequest: SendCustomEventRequest) {
+    private func updateCustomEventRequest(sendCustomEventRequest: SendCustomEventRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
 
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
