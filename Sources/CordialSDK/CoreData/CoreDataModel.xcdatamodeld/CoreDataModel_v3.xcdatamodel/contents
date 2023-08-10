@@ -2,15 +2,23 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ContactCartRequest" representedClassName="ContactCartRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="flushing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="requestID" optional="YES" attributeType="String"/>
     </entity>
     <entity name="ContactLogout" representedClassName="ContactLogout" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="flushing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="requestID" optional="YES" attributeType="String"/>
     </entity>
     <entity name="ContactOrderRequest" representedClassName="ContactOrderRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="flushing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="requestID" optional="YES" attributeType="String"/>
     </entity>
     <entity name="ContactRequest" representedClassName="ContactRequest" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="flushing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="requestID" optional="YES" attributeType="String"/>
     </entity>
     <entity name="ContactTimestampsURL" representedClassName="ContactTimestampsURL" syncable="YES">
         <attribute name="expireDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -56,6 +64,8 @@
     </entity>
     <entity name="InboxMessageDeleteRequests" representedClassName="InboxMessageDeleteRequests" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="flushing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="requestID" optional="YES" attributeType="String"/>
     </entity>
     <entity name="InboxMessagesCache" representedClassName="InboxMessagesCache" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
@@ -69,5 +79,7 @@
     <entity name="InboxMessagesReadUnreadMarks" representedClassName="InboxMessagesReadUnreadMarks" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="flushing" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="requestID" optional="YES" attributeType="String"/>
     </entity>
 </model>

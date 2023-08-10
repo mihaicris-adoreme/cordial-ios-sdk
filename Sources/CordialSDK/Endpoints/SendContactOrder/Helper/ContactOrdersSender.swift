@@ -18,14 +18,14 @@ class ContactOrdersSender {
             if ReachabilityManager.shared.isConnectedToInternet {
                 self.sendContactOrdersData(sendContactOrderRequests: sendContactOrderRequests)
             } else {
-                CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
+                CoreDataManager.shared.contactOrderRequests.putContactOrderRequests(sendContactOrderRequests: sendContactOrderRequests)
                 
                 sendContactOrderRequests.forEach({ sendContactOrderRequest in
                     LoggerManager.shared.info(message: "Sending contact order failed. Saved to retry later. Request ID: [\(sendContactOrderRequest.order.orderID)] Error: [No Internet connection]", category: "CordialSDKSendContactOrders")
                 })
             }
         } else {
-            CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
+            CoreDataManager.shared.contactOrderRequests.putContactOrderRequests(sendContactOrderRequests: sendContactOrderRequests)
             
             sendContactOrderRequests.forEach({ sendContactOrderRequest in
                 LoggerManager.shared.info(message: "Sending contact order failed. Saved to retry later. Request ID: [\(sendContactOrderRequest.order.orderID)] Error: [User no login]", category: "CordialSDKSendContactOrders")
@@ -54,13 +54,15 @@ class ContactOrdersSender {
     }
     
     func completionHandler(sendContactOrderRequests: [SendContactOrderRequest]) {
+        CoreDataManager.shared.contactOrderRequests.removeContactOrderRequests(sendContactOrderRequests: sendContactOrderRequests)
+        
         sendContactOrderRequests.forEach({ sendContactOrderRequest in
             LoggerManager.shared.info(message: "Order has been sent. Request ID: [\(sendContactOrderRequest.order.orderID)]", category: "CordialSDKSendContactOrders")
         })
     }
     
     func systemErrorHandler(sendContactOrderRequests: [SendContactOrderRequest], error: ResponseError) {
-        CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: sendContactOrderRequests)
+        CoreDataManager.shared.contactOrderRequests.putContactOrderRequests(sendContactOrderRequests: sendContactOrderRequests)
         
         sendContactOrderRequests.forEach({ sendContactOrderRequest in
             LoggerManager.shared.info(message: "Sending contact order failed. Saved to retry later. Request ID: [\(sendContactOrderRequest.order.orderID)] Error: [\(error.message)]", category: "CordialSDKSendContactOrders")
@@ -69,6 +71,8 @@ class ContactOrdersSender {
     
     func logicErrorHandler(sendContactOrderRequests: [SendContactOrderRequest], error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactOrdersLogicError, object: error)
+        
+        CoreDataManager.shared.contactOrderRequests.removeContactOrderRequests(sendContactOrderRequests: sendContactOrderRequests)
         
         sendContactOrderRequests.forEach({ sendContactOrderRequest in
             LoggerManager.shared.error(message: "Sending contact order failed. Will not retry. Request ID: [\(sendContactOrderRequest.order.orderID)] Error: [\(error.message)]", category: "CordialSDKSendContactOrders")

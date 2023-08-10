@@ -60,7 +60,7 @@ class InboxMessageContentGetter {
                     case 200:
                         let response = String(decoding: responseData, as: UTF8.self)
                         
-                        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: mcID, content: response)
+                        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContent(mcID: mcID, content: response)
                         
                         onSuccess(response)
                     case 400:

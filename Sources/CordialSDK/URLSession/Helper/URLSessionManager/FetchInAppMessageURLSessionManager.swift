@@ -22,7 +22,7 @@ class FetchInAppMessageURLSessionManager {
                    let responseBodyJSON = try JSONSerialization.jsonObject(with: responseBodyData, options: []) as? [String: AnyObject],
                    let html = responseBodyJSON["content"] as? String {
                    
-                    if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: mcID) {
+                    if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParams(mcID: mcID) {
                         
                         let inAppMessageData = InAppMessage().getInAppMessageData(inAppMessageParams: inAppMessageParams, html: html)
                         
