@@ -11,7 +11,10 @@ import CordialSDK
 
 class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     
-    let deepLinksHost = "tjs.cordialdev.com"
+    let deepLinkHosts = [
+        "tjs.cordialdev.com",
+        "store.cordialthreads.com"
+    ]
     
     func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
         let url = deepLink.url
@@ -41,7 +44,7 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
                 return
             }
             
-            if host == self.deepLinksHost {
+            if self.deepLinkHosts.contains(host) {
                 if let deepLinkURL = self.getAbsoluteLinkURL(url: url),
                    let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
                    let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
@@ -92,7 +95,7 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
                 return
             }
             
-            if host == self.deepLinksHost {
+            if self.deepLinkHosts.contains(host) {
                 if let deepLinkURL = self.getAbsoluteLinkURL(url: url),
                    let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
                    let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
