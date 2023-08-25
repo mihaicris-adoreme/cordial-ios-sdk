@@ -68,8 +68,6 @@ class CatalogCollectionViewController: UIViewController, UICollectionViewDelegat
     }
     
     func loginAction() {
-        App.userLogOut()
-        
         self.presentLoginNavigationController(.formSheet)
     }
     
