@@ -14,10 +14,13 @@ class CordialSwizzler {
     
     private init() {}
     
+    let swizzlerHelper = CordialSwizzlerHelper()
+    
     func swizzleAppAndSceneDelegateMethods() {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             self.swizzleDidRegisterForRemoteNotificationsWithDeviceToken()
             self.swizzleDidFailToRegisterForRemoteNotificationsWithError()
+            self.swizzleDidReceiveRemoteNotificationFetchCompletionHandler()
             
             LoggerManager.shared.info(message: "Push notification related functions swizzled successfully", category: "CordialSDKPushNotification")
         } else {
@@ -73,6 +76,14 @@ class CordialSwizzler {
         guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didFailToRegisterForRemoteNotificationsWithError:))) else { return }
         guard let delegate = object_getClass(UIApplication.shared.delegate) else { return }
         let selector = #selector(UIApplicationDelegate.application(_:didFailToRegisterForRemoteNotificationsWithError:))
+        
+        self.methodImplementations(delegate: delegate, selector: selector, swizzleMethod: swizzleMethod)
+    }
+    
+    private func swizzleDidReceiveRemoteNotificationFetchCompletionHandler() {
+        guard let swizzleMethod = class_getInstanceMethod(CordialSwizzler.self, #selector(self.application(_:didReceiveRemoteNotification:fetchCompletionHandler:))) else { return }
+        guard let delegate = object_getClass(UIApplication.shared.delegate) else { return }
+        let selector = #selector(UIApplicationDelegate.application(_:didReceiveRemoteNotification:fetchCompletionHandler:))
         
         self.methodImplementations(delegate: delegate, selector: selector, swizzleMethod: swizzleMethod)
     }
@@ -138,30 +149,36 @@ class CordialSwizzler {
     // MARK: Swizzled AppDelegate remote notification registration methods
     
     @objc func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
+        self.swizzlerHelper.didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
     }
     
     @objc func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         LoggerManager.shared.error(message: "RegisterForRemoteNotifications fail with error: [\(error.localizedDescription)]", category: "CordialSDKPushNotification")
     }
     
+    @objc func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        self.swizzlerHelper.didReceiveRemoteNotification(userInfo: userInfo)
+        
+        completionHandler(.noData)
+    }
+    
     // MARK: Swizzled AppDelegate universal links method
     
     @objc func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        return CordialSwizzlerHelper().processAppContinueRestorationHandler(userActivity: userActivity)
+        return self.swizzlerHelper.processAppContinueRestorationHandler(userActivity: userActivity)
     }
     
     // MARK: Swizzled SceneDelegate universal links method
     
     @available(iOS 13.0, *)
     @objc func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        CordialSwizzlerHelper().processSceneContinue(userActivity: userActivity, scene: scene)
+        self.swizzlerHelper.processSceneContinue(userActivity: userActivity, scene: scene)
     }
     
     // MARK: Swizzled AppDelegate URL schemes method
     
     @objc func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return CordialSwizzlerHelper().processAppOpenOptions(url: url)
+        return self.swizzlerHelper.processAppOpenOptions(url: url)
     }
     
     // MARK: Swizzled SceneDelegate URL schemes method
@@ -174,12 +191,12 @@ class CordialSwizzler {
             return
         }
         
-        CordialSwizzlerHelper().processSceneOpenURLContexts(url: url, scene: scene)
+        self.swizzlerHelper.processSceneOpenURLContexts(url: url, scene: scene)
     }
     
     // MARK: Swizzled AppDelegate background URLSession method
     
     @objc func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String, completionHandler: @escaping () -> Void) {
-        CordialSwizzlerHelper().swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler(identifier: identifier, completionHandler: completionHandler)
+        self.swizzlerHelper.swizzleAppHandleEventsForBackgroundURLSessionCompletionHandler(identifier: identifier, completionHandler: completionHandler)
     }
 }
