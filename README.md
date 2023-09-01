@@ -458,7 +458,7 @@ After enabling multiple push notification providers the app should pass an APNs 
 
 To handle Cordial push notifications after enabling support for multiple notification providers the app needs to follow these steps:
 
-1. Pass push notification token to the Cordial SDK through a function `application(_:didRegisterForRemoteNotificationsWithDeviceToken:)`:
+1. Pass push notification token to the Cordial SDK in a function `application(_:didRegisterForRemoteNotificationsWithDeviceToken:)`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -472,7 +472,7 @@ CordialPushNotificationHandler().processNewPushNotificationToken(deviceToken: de
 [[[CordialPushNotificationHandler alloc] init] processNewPushNotificationTokenWithDeviceToken:deviceToken];
 ```
 
-2. Call through a function `userNotificationCenter(_:didReceive:withCompletionHandler:)` the SDK method `processAppOpenViaPushNotificationTap` to handle a case when the app has been opened via a push notification tap:
+2. In a function `userNotificationCenter(_:didReceive:withCompletionHandler:)` call the SDK method `processAppOpenViaPushNotificationTap` to handle a case when the app has been opened via a push notification tap:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -486,7 +486,7 @@ CordialPushNotificationHandler().processAppOpenViaPushNotificationTap(userInfo: 
 [[[CordialPushNotificationHandler alloc] init] processAppOpenViaPushNotificationTapWithUserInfo:userInfo completionHandler:completionHandler];
 ```
 
-3. Call through a function `userNotificationCenter(_:willPresent:withCompletionHandler:)` the SDK method `processNotificationDeliveryInForeground` to handle a case when the push notification has been foreground delivered:
+3. In a function `userNotificationCenter(_:willPresent:withCompletionHandler:)` call the SDK method `processNotificationDeliveryInForeground` to handle a case when the push notification has been foreground delivered:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -500,7 +500,7 @@ CordialPushNotificationHandler().processNotificationDeliveryInForeground(userInf
 [[[CordialPushNotificationHandler alloc] init] processNotificationDeliveryInForegroundWithUserInfo:userInfo completionHandler:completionHandler];
 ```
 
-4. Let the SDK know when your app receives a silent push notification. Silent push notifications are used for notifying the app of a new in-app or inbox message:
+4. Let the SDK know when your app receives a silent push notification. Silent push notifications are used for notifying the app of a new in-app or inbox message. In a function `application(_:didReceiveRemoteNotification:fetchCompletionHandler:)` call the SDK method `processSilentPushDelivery`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
