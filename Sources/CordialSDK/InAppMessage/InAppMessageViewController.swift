@@ -146,8 +146,8 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             let x = self.webView.frame.origin.x
             var y = self.webView.center.y + self.webView.frame.size.height
             
-            if let safeAreaInsetsTop = UIApplication.shared.keyWindow?.safeAreaInsets.top,
-               let safeAreaInsetsBottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+            if let safeAreaInsetsTop = self.internalCordialAPI.getAppKeyWindow()?.safeAreaInsets.top,
+               let safeAreaInsetsBottom = self.internalCordialAPI.getAppKeyWindow()?.safeAreaInsets.bottom {
                 
                 y += safeAreaInsetsTop
                 y += safeAreaInsetsBottom
@@ -214,7 +214,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     private func getSafeAreaTopMargin() -> CGFloat {
-        return UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0
+        return self.internalCordialAPI.getAppKeyWindow()?.safeAreaInsets.top ?? 0
     }
     
     private func getInAppMessageWidth() -> CGFloat {

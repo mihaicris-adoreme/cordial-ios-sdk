@@ -344,10 +344,25 @@ class InternalCordialAPI {
         }
     }
     
+    // MARK: Get application key window
+    
+    func getAppKeyWindow() -> UIWindow? {
+        if #available(iOS 13.0, *), self.isAppUseScenes() {
+            return UIApplication.shared.connectedScenes
+                .filter { $0.activationState == .foregroundActive }
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .last { $0.isKeyWindow }
+        } else {
+            return UIApplication.shared.windows
+                .last { $0.isKeyWindow }
+        }
+    }
+    
     // MARK: Get active view controller
     
     func getActiveViewController() -> UIViewController? {
-        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+        if var topController = self.getAppKeyWindow()?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
