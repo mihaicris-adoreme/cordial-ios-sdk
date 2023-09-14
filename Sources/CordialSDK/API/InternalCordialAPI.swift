@@ -372,6 +372,20 @@ class InternalCordialAPI {
         return nil
     }
     
+    // MARK: Show system alert
+    
+    func showSystemAlert(title: String, message: String?) {
+        DispatchQueue.main.async {
+            if let currentVC = self.getActiveViewController() {
+                let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .cancel)
+                alertController.addAction(okAction)
+                
+                currentVC.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
     // MARK: Get top view controller
     
     func getTopViewController(of viewController: UIViewController?) -> UIViewController? {

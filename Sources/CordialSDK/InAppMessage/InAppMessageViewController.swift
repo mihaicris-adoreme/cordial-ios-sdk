@@ -146,8 +146,9 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
             let x = self.webView.frame.origin.x
             var y = self.webView.center.y + self.webView.frame.size.height
             
-            if let safeAreaInsetsTop = self.internalCordialAPI.getAppKeyWindow()?.safeAreaInsets.top,
-               let safeAreaInsetsBottom = self.internalCordialAPI.getAppKeyWindow()?.safeAreaInsets.bottom {
+            if let keyWindow = self.internalCordialAPI.getAppKeyWindow() {
+                let safeAreaInsetsTop = keyWindow.safeAreaInsets.top
+                let safeAreaInsetsBottom = keyWindow.safeAreaInsets.bottom
                 
                 y += safeAreaInsetsTop
                 y += safeAreaInsetsBottom

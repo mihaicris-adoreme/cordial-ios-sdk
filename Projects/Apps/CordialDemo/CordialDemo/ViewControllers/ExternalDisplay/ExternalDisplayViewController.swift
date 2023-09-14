@@ -16,6 +16,6 @@ class ExternalDisplayViewController: UIViewController {
 
         self.view.backgroundColor = .yellow
         
-        CordialAPI().showSystemAlert(title: "ExternalDisplay", message: "")
+        App.popupSimpleNoteAlert(title: "ExternalDisplay", message: nil, controller: self)
     }
 }
