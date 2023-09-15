@@ -351,11 +351,16 @@ class InternalCordialAPI {
             return keyWindow
         } else {
             if #available(iOS 13.0, *), self.isAppUseScenes() {
-                return UIApplication.shared.connectedScenes
-                    .filter { $0.activationState == .foregroundActive }
-                    .compactMap { $0 as? UIWindowScene }
-                    .flatMap { $0.windows }
-                    .first { $0.isKeyWindow }
+                guard let keyWindow = UIApplication.shared.connectedScenes
+                    .filter( { $0.activationState == .foregroundActive } )
+                    .compactMap( { $0 as? UIWindowScene } )
+                    .flatMap( { $0.windows } )
+                    .first( where: { $0.isKeyWindow } ) else {
+                    
+                    return UIApplication.shared.windows.first( where: { $0.isKeyWindow } )
+                }
+                
+                return keyWindow
             } else {
                 return UIApplication.shared.keyWindow
             }
