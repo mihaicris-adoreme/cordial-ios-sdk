@@ -362,7 +362,7 @@ class InternalCordialAPI {
                 
                 return keyWindow
             } else {
-                return UIApplication.shared.keyWindow
+                return UIApplication.shared.windows.first( where: { $0.isKeyWindow } )
             }
         }
     }
