@@ -51,6 +51,8 @@ import CoreLocation
     
     @objc public var vanityDomains: [String] = []
     
+    @objc public var keyWindow: UIWindow? 
+    
     @objc public func setNotificationCategories(_ pushNotificationCategories: [PushNotificationCategory]) {
         let internalCordialAPI = InternalCordialAPI()
         
