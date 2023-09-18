@@ -22,9 +22,11 @@ class CordialURLSession: NSObject, URLSessionDownloadDelegate, URLSessionDelegat
     private let queue = DispatchQueue(label: "CordialSDKBackgroundURLSessionThreadQueue", attributes: .concurrent)
     
     lazy var backgroundURLSession: URLSession = {
-        let config = URLSessionConfiguration.background(withIdentifier: API.BACKGROUND_URL_SESSION_IDENTIFIER)
+        let config = CordialApiConfiguration.shared.cordialURLSessionConfiguration
+        
         config.isDiscretionary = false
         config.sessionSendsLaunchEvents = true
+        
         return URLSession(configuration: config, delegate: self, delegateQueue: .main)
     }()
     
