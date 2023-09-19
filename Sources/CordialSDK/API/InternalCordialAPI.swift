@@ -344,10 +344,33 @@ class InternalCordialAPI {
         }
     }
     
+    // MARK: Get application key window
+    
+    func getAppKeyWindow() -> UIWindow? {
+        if let keyWindow = CordialApiConfiguration.shared.keyWindow {
+            return keyWindow
+        } else {
+            if #available(iOS 13.0, *), self.isAppUseScenes() {
+                guard let keyWindow = UIApplication.shared.connectedScenes
+                    .filter( { $0.activationState == .foregroundActive } )
+                    .compactMap( { $0 as? UIWindowScene } )
+                    .flatMap( { $0.windows } )
+                    .first( where: { $0.isKeyWindow } ) else {
+                    
+                    return UIApplication.shared.windows.first( where: { $0.isKeyWindow } )
+                }
+                
+                return keyWindow
+            } else {
+                return UIApplication.shared.windows.first( where: { $0.isKeyWindow } )
+            }
+        }
+    }
+    
     // MARK: Get active view controller
     
     func getActiveViewController() -> UIViewController? {
-        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+        if var topController = self.getAppKeyWindow()?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
@@ -356,6 +379,20 @@ class InternalCordialAPI {
         }
         
         return nil
+    }
+    
+    // MARK: Show system alert
+    
+    func showSystemAlert(title: String, message: String?) {
+        DispatchQueue.main.async {
+            if let currentVC = self.getActiveViewController() {
+                let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .cancel)
+                alertController.addAction(okAction)
+                
+                currentVC.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
     
     // MARK: Get top view controller

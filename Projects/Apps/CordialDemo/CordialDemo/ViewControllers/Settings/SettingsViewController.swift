@@ -92,6 +92,14 @@ class SettingsViewController: UIViewController {
         alertController.addAction(customAction)
         alertController.addAction(cancelAction)
 
+        // iPadOS presentation
+        if let presenter = alertController.popoverPresentationController {
+            let button = sender as UIView
+            
+            presenter.sourceView = button
+            presenter.sourceRect = button.bounds
+        }
+        
         self.present(alertController, animated: true, completion: nil)
 
     }
