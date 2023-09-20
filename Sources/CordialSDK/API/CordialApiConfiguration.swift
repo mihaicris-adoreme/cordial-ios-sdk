@@ -51,6 +51,8 @@ import CoreLocation
     
     public var vanityDomains: [String] = []
     
+    public var keyWindow: UIWindow?
+    
     public var cordialURLSessionConfiguration = URLSessionConfiguration.background(withIdentifier: API.BACKGROUND_URL_SESSION_IDENTIFIER) {
         didSet {
             LoggerManager.shared.info(message: "SDK uses a passed URLSessionConfiguration setup", category: "CordialSDKInfo")
@@ -137,3 +139,4 @@ import CoreLocation
         CordialLocationManager.shared.locationManager.requestWhenInUseAuthorization()
     }
 }
+

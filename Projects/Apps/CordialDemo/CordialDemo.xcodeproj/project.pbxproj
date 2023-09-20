@@ -57,6 +57,8 @@
 		9E7EC4242510CE5C00314A18 /* InboxMessagesTableRawViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7EC4232510CE5C00314A18 /* InboxMessagesTableRawViewCell.swift */; };
 		9E7F2917256BF3B1006D3BED /* InboxMessagesCollectionCardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2916256BF3B1006D3BED /* InboxMessagesCollectionCardsViewController.swift */; };
 		9E7F2966256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2965256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift */; };
+		9E7F2C662AB1F70100174A01 /* ExternalDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2C652AB1F70100174A01 /* ExternalDisplayViewController.swift */; };
+		9E7F2C6A2AB1FA5900174A01 /* ExternalDisplaySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2C692AB1FA5900174A01 /* ExternalDisplaySceneDelegate.swift */; };
 		9E7F43322A091A2400287759 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F43312A091A2400287759 /* LogsViewController.swift */; };
 		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
 		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
@@ -259,6 +261,8 @@
 		9E7EC4232510CE5C00314A18 /* InboxMessagesTableRawViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesTableRawViewCell.swift; sourceTree = "<group>"; };
 		9E7F2916256BF3B1006D3BED /* InboxMessagesCollectionCardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesCollectionCardsViewController.swift; sourceTree = "<group>"; };
 		9E7F2965256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesCollectionCardsViewCell.swift; sourceTree = "<group>"; };
+		9E7F2C652AB1F70100174A01 /* ExternalDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalDisplayViewController.swift; sourceTree = "<group>"; };
+		9E7F2C692AB1FA5900174A01 /* ExternalDisplaySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalDisplaySceneDelegate.swift; sourceTree = "<group>"; };
 		9E7F43312A091A2400287759 /* LogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
 		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
 		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
@@ -498,6 +502,7 @@
 		9E6A56CC244FB30700E6495A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				9E7F2C642AB1F6D500174A01 /* ExternalDisplay */,
 				9E7F43302A0919FD00287759 /* Logs */,
 				9EAE4E4D29B1114D0069596A /* Menu */,
 				9E318F0C29B0E15D00DEA661 /* NotificationSettings */,
@@ -646,6 +651,15 @@
 				9E7F2965256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift */,
 			);
 			path = InboxMessagesCollectionCards;
+			sourceTree = "<group>";
+		};
+		9E7F2C642AB1F6D500174A01 /* ExternalDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				9E7F2C652AB1F70100174A01 /* ExternalDisplayViewController.swift */,
+				9E7F2C692AB1FA5900174A01 /* ExternalDisplaySceneDelegate.swift */,
+			);
+			path = ExternalDisplay;
 			sourceTree = "<group>";
 		};
 		9E7F43302A0919FD00287759 /* Logs */ = {
@@ -1164,6 +1178,7 @@
 				9EC1E1472450891B00A4C756 /* CustomEventTableFooterView.swift in Sources */,
 				9EAB97272427366900C5C5DA /* AppDateFormatter.swift in Sources */,
 				9EAE4E5129B114350069596A /* MenuTableViewCell.swift in Sources */,
+				9E7F2C6A2AB1FA5900174A01 /* ExternalDisplaySceneDelegate.swift in Sources */,
 				9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */,
 				9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */,
 				9EDE27AF2A1CDB0800DD3376 /* ProfileInfoTableView.swift in Sources */,
@@ -1224,6 +1239,7 @@
 				9ECF6B80229855F500E6E88F /* ProductHandler.swift in Sources */,
 				9EB00590253E5EE800156E8E /* InboxMessagesFilterViewController.swift in Sources */,
 				9E0FDBD829BF568300525E4C /* NotificationSettingsViewController.swift in Sources */,
+				9E7F2C662AB1F70100174A01 /* ExternalDisplayViewController.swift in Sources */,
 				9E00ED3D227084E400684F40 /* CartTableFooterView.swift in Sources */,
 				9EB260CB229FF489005786BD /* SettingsViewController.swift in Sources */,
 				9E0F46F22573DC0800E2FA95 /* InboxMessagesTableListViewController.swift in Sources */,

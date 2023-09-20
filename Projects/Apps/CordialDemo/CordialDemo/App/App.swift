@@ -192,7 +192,9 @@ struct App {
     }
 
     static func getActiveViewController() -> UIViewController? {
-        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+        let keyWindow = UIApplication.shared.windows.first( where: { $0.isKeyWindow } )
+        
+        if var topController = keyWindow?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
