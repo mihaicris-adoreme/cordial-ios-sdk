@@ -8,9 +8,9 @@
 
 import UIKit
 
-@objc public class CordialPushNotificationHandler: NSObject {
+@objcMembers public class CordialPushNotificationHandler: NSObject {
     
-    @objc public func isCordialMessage(userInfo: [AnyHashable : Any]) -> Bool {
+    public func isCordialMessage(userInfo: [AnyHashable : Any]) -> Bool {
         if PushNotificationParser().getMcID(userInfo: userInfo) != nil {
             return true
         }
@@ -18,23 +18,23 @@ import UIKit
         return false
     }
     
-    @objc public func processNewPushNotificationToken(deviceToken: Data) {
+    public func processNewPushNotificationToken(deviceToken: Data) {
         CordialSwizzlerHelper().didRegisterForRemoteNotificationsWithDeviceToken(deviceToken: deviceToken)
     }
     
-    @objc public func processAppOpenViaPushNotificationTap(userInfo: [AnyHashable : Any], completionHandler: () -> Void) {
+    public func processAppOpenViaPushNotificationTap(userInfo: [AnyHashable : Any], completionHandler: () -> Void) {
         if self.isCordialMessage(userInfo: userInfo) {
             PushNotificationHelper().pushNotificationHasBeenTapped(userInfo: userInfo, completionHandler: completionHandler)
         }
     }
     
-    @objc public func processNotificationDeliveryInForeground(userInfo: [AnyHashable : Any], completionHandler: (UNNotificationPresentationOptions) -> Void) {
+    public func processNotificationDeliveryInForeground(userInfo: [AnyHashable : Any], completionHandler: (UNNotificationPresentationOptions) -> Void) {
         if self.isCordialMessage(userInfo: userInfo) {
             PushNotificationHelper().pushNotificationHasBeenForegroundDelivered(userInfo: userInfo, completionHandler: completionHandler)
         }
     }
     
-    @objc public func processSilentPushDelivery(userInfo: [AnyHashable : Any]) {
+    public func processSilentPushDelivery(userInfo: [AnyHashable : Any]) {
         if self.isCordialMessage(userInfo: userInfo) {
             DispatchQueue.main.async {
                 CordialSwizzlerHelper().didReceiveRemoteNotification(userInfo: userInfo)
