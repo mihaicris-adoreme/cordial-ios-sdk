@@ -11,7 +11,10 @@ import CordialSDK
 
 class CordialDeepLinksHandler: CordialDeepLinksDelegate {
     
-    let deepLinksHost = "tjs.cordialdev.com"
+    let deepLinkHosts = [
+        "tjs.cordialdev.com",
+        "store.cordialthreads.com"
+    ]
     
     func openDeepLink(deepLink: CordialDeepLink, fallbackURL: URL?, completionHandler: @escaping (CordialDeepLinkActionType) -> Void) {
         let url = deepLink.url
@@ -29,19 +32,26 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
             }
 
             let deepLinksInternal = CordialDeepLinksInternal()
-            if let productDeepLinkInternal = deepLinksInternal.getProductDeepLinkInternal(url: url) {
-                self.showAppDelegateDeepLink(product: productDeepLinkInternal)
+            if let deepLinkURL = self.getAbsoluteLinkURL(url: url),
+               let product = deepLinksInternal.getProductDeepLinkInternal(url: deepLinkURL) {
+                
+                self.showAppDelegateDeepLink(product: product)
+                return
+            } else if let fallbackURL = self.getAbsoluteLinkURL(url: fallbackURL),
+                      let product = deepLinksInternal.getProductDeepLinkInternal(url: fallbackURL) {
+                
+                self.showAppDelegateDeepLink(product: product)
                 return
             }
             
-            if host == self.deepLinksHost {
-                if let deepLinkURL = self.getDeepLinkURL(url: url),
+            if self.deepLinkHosts.contains(host) {
+                if let deepLinkURL = self.getAbsoluteLinkURL(url: url),
                    let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
                    let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
 
                     self.showAppDelegateDeepLink(product: product)
 
-                } else if let fallbackURL = self.getDeepLinkURL(url: fallbackURL),
+                } else if let fallbackURL = self.getAbsoluteLinkURL(url: fallbackURL),
                           let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
                           let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
 
@@ -73,19 +83,26 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
             }
 
             let deepLinksInternal = CordialDeepLinksInternal()
-            if let productDeepLinkInternal = deepLinksInternal.getProductDeepLinkInternal(url: url) {
-                self.showSceneDelegateDeepLink(product: productDeepLinkInternal, scene: scene)
+            if let deepLinkURL = self.getAbsoluteLinkURL(url: url),
+               let product = deepLinksInternal.getProductDeepLinkInternal(url: deepLinkURL) {
+                
+                self.showSceneDelegateDeepLink(product: product, scene: scene)
+                return
+            } else if let fallbackURL = self.getAbsoluteLinkURL(url: fallbackURL),
+                      let product = deepLinksInternal.getProductDeepLinkInternal(url: fallbackURL) {
+                
+                self.showSceneDelegateDeepLink(product: product, scene: scene)
                 return
             }
             
-            if host == self.deepLinksHost {
-                if let deepLinkURL = self.getDeepLinkURL(url: url),
+            if self.deepLinkHosts.contains(host) {
+                if let deepLinkURL = self.getAbsoluteLinkURL(url: url),
                    let products = URLComponents(url: deepLinkURL, resolvingAgainstBaseURL: true),
                    let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
 
                     self.showSceneDelegateDeepLink(product: product, scene: scene)
 
-                } else if let fallbackURL = self.getDeepLinkURL(url: fallbackURL),
+                } else if let fallbackURL = self.getAbsoluteLinkURL(url: fallbackURL),
                           let products = URLComponents(url: fallbackURL, resolvingAgainstBaseURL: true),
                           let product = ProductHandler.shared.products.filter({ $0.path == products.path }).first {
 
@@ -126,7 +143,7 @@ class CordialDeepLinksHandler: CordialDeepLinksDelegate {
         return nil
     }
     
-    private func getDeepLinkURL(url: URL?) -> URL? {
+    private func getAbsoluteLinkURL(url: URL?) -> URL? {
         guard let dencodedURLString = url?.absoluteString.removingPercentEncoding else {
             return nil
         }
