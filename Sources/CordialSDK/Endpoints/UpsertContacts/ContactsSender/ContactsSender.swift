@@ -75,7 +75,7 @@ class ContactsSender {
             }
         } else {
             
-            CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
+            CoreDataManager.shared.contactRequests.putContactRequests(upsertContactRequests: upsertContactRequests)
             
             upsertContactRequests.forEach({ upsertContactRequest in
                 LoggerManager.shared.info(message: "Sending contact failed. Saved to retry later. Request ID: [\(upsertContactRequest.requestID)] Error: [No Internet connection]", category: "CordialSDKUpsertContacts")
@@ -84,6 +84,8 @@ class ContactsSender {
     }
     
     func completionHandler(upsertContactRequests: [UpsertContactRequest]) {
+        CoreDataManager.shared.contactRequests.removeContactRequests(upsertContactRequests: upsertContactRequests)
+        
         CordialUserDefaults.set(true, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
         
         let currentTimestamp = CordialDateFormatter().getCurrentTimestamp()
@@ -101,7 +103,7 @@ class ContactsSender {
     }
     
     func systemErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {
-        CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: upsertContactRequests)
+        CoreDataManager.shared.contactRequests.putContactRequests(upsertContactRequests: upsertContactRequests)
         
         upsertContactRequests.forEach({ upsertContactRequest in
             LoggerManager.shared.info(message: "Sending contact failed. Saved to retry later. Request ID: [\(upsertContactRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContacts")
@@ -110,6 +112,8 @@ class ContactsSender {
     
     func logicErrorHandler(upsertContactRequests: [UpsertContactRequest], error: ResponseError) {
         NotificationCenter.default.post(name: .cordialUpsertContactsLogicError, object: error)
+        
+        CoreDataManager.shared.contactRequests.removeContactRequests(upsertContactRequests: upsertContactRequests)
         
         upsertContactRequests.forEach({ upsertContactRequest in
             LoggerManager.shared.error(message: "Sending contact failed. Will not retry. Request ID: [\(upsertContactRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKUpsertContacts")

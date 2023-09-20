@@ -953,7 +953,7 @@ class CordialSDKTests: XCTestCase {
             
             if PushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
-                CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [self.testMcID])
+                CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: [self.testMcID])
             }
         }
         
@@ -1000,7 +1000,7 @@ class CordialSDKTests: XCTestCase {
 
                 if PushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                     InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
-                    CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [testMcID_2])
+                    CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: [testMcID_2])
                 }
             }
 
@@ -1070,16 +1070,17 @@ class CordialSDKTests: XCTestCase {
 
             if PushNotificationParser().isPayloadContainIAM(userInfo: userInfo) {
                 InAppMessageGetter().setInAppMessageParamsToCoreData(userInfo: userInfo)
-                CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [self.testMcID])
+                CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: [self.testMcID])
                 
-                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcID), inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
+                if let inAppMessageParams = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParams(mcID: self.testMcID),
+                    inAppMessageParams.inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
                     
-                    InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: self.testMcID)
+                    InAppMessageProcess.shared.removeInAppMessageFromCoreData(mcID: self.testMcID)
                 }
             }
         }
 
-        if CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParamsByMcID(mcID: self.testMcID) == nil {
+        if CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageParams(mcID: self.testMcID) == nil {
             XCTAssert(true, "IAM has been removed successfully")
         } else {
             XCTAssert(false, "IAM has not been removed")
@@ -1320,7 +1321,7 @@ class CordialSDKTests: XCTestCase {
             CordialInboxMessageAPI().fetchInboxMessages(pageRequest: pageRequest, inboxFilter: inboxFilter, onSuccess: { inboxPage in
                 if inboxPage.content.count == 1,
                    let inboxMessage = inboxPage.content.first,
-                   CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
+                   CoreDataManager.shared.inboxMessagesCache.fetchInboxMessage(mcID: inboxMessage.mcID) != nil {
                     isVerified = true
                 } else {
                     XCTAssert(false)
@@ -1357,7 +1358,7 @@ class CordialSDKTests: XCTestCase {
             DependencyConfiguration.shared.inboxMessageURLSession = mockSession
 
             CordialInboxMessageAPI().fetchInboxMessage(mcID: self.testMcID, onSuccess: { inboxMessage in
-                if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: inboxMessage.mcID) != nil {
+                if CoreDataManager.shared.inboxMessagesCache.fetchInboxMessage(mcID: inboxMessage.mcID) != nil {
                     isVerified = true
                 } else {
                     XCTAssert(false)
@@ -1453,7 +1454,7 @@ class CordialSDKTests: XCTestCase {
         
         var isVerified = false
         
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: "\(self.testInboxMessageContentPayload)_2")
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContent(mcID: self.testMcID, content: "\(self.testInboxMessageContentPayload)_2")
         
         if let testInboxMessagePayloadData = self.testInboxMessagePayload.data(using: .utf8),
            let testInboxMessageContentPayloadData = self.testInboxMessageContentPayload.data(using: .utf8),
@@ -1469,7 +1470,7 @@ class CordialSDKTests: XCTestCase {
 
             CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
                 
-                if let content = CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID),
+                if let content = CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: self.testMcID),
                    content != self.testInboxMessageContentPayload {
                     
                     isVerified = true
@@ -1516,7 +1517,7 @@ class CordialSDKTests: XCTestCase {
 
             CordialInboxMessageAPI().fetchInboxMessageContent(mcID: self.testMcID, onSuccess: { content in
                 
-                if let content = CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID),
+                if let content = CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: self.testMcID),
                    content == self.testInboxMessageContentPayload {
                     
                     isVerified = true
@@ -1774,10 +1775,10 @@ class CordialSDKTests: XCTestCase {
         
         DispatchQueue.main.async {
             let inboxMessagesMarkReadRequest_1 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: markAsReadMcIDs_1, markAsUnreadMcIDs: [])
-            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_1)
+            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_1)
 
             let inboxMessagesMarkReadRequest_2 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: markAsReadMcIDs_2, markAsUnreadMcIDs: [])
-            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_2)
+            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkReadRequest_2)
             
             self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         }
@@ -1807,10 +1808,10 @@ class CordialSDKTests: XCTestCase {
         
         DispatchQueue.main.async {
             let inboxMessagesMarkUnreadRequest_1 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: markAsUnreadMcIDs_1)
-            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_1)
+            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_1)
 
             let inboxMessagesMarkUnreadRequest_2 = InboxMessagesMarkReadUnreadRequest(markAsReadMcIDs: [], markAsUnreadMcIDs: markAsUnreadMcIDs_2)
-            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadDataToCoreData(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_2)
+            CoreDataManager.shared.inboxMessagesMarkReadUnread.putInboxMessagesMarkReadUnreadRequest(inboxMessagesMarkReadUnreadRequest: inboxMessagesMarkUnreadRequest_2)
             
             self.testCase.reachabilitySenderMakeAllNeededHTTPCalls()
         }
@@ -1839,8 +1840,8 @@ class CordialSDKTests: XCTestCase {
         self.testCase.markUserAsLoggedIn()
         
         let inboxMessage = InboxMessage(mcID: self.testMcID, url: String(), urlExpireAt: Date(), isRead: true, sentAt: Date(), metadata: String())
-        CoreDataManager.shared.inboxMessagesCache.putInboxMessageToCoreData(inboxMessage: inboxMessage)
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesCache.putInboxMessage(inboxMessage: inboxMessage)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContent(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
         
         CordialInboxMessageAPI().deleteInboxMessage(mcID: self.testMcID)
         
@@ -1849,8 +1850,8 @@ class CordialSDKTests: XCTestCase {
         expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: self.testMcID) == nil,
-               CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil,
+            if CoreDataManager.shared.inboxMessagesCache.fetchInboxMessage(mcID: self.testMcID) == nil,
+               CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: self.testMcID) == nil,
                mock.isVerified {
                 
                 XCTAssert(true)
@@ -1906,9 +1907,9 @@ class CordialSDKTests: XCTestCase {
         
         CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = self.testInboxMessageContentPayload.data(using: .utf8)!.count - 1
         
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContent(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
         
-        if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil {
+        if CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: self.testMcID) == nil {
             isVerified = true
         }
         
@@ -1920,15 +1921,15 @@ class CordialSDKTests: XCTestCase {
         
         CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize = self.testInboxMessageContentPayload.data(using: .utf8)!.count + 1
         
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_2", content: "\(self.testInboxMessageContentPayload)_2")
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContent(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContent(mcID: "\(self.testMcID)_2", content: "\(self.testInboxMessageContentPayload)_2")
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")
         expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == self.testInboxMessageContentPayload,
-               CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_2") == nil {
+            if CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: self.testMcID) == self.testInboxMessageContentPayload,
+               CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: "\(self.testMcID)_2") == nil {
                 
                 isVerified = true
             }
@@ -1945,19 +1946,19 @@ class CordialSDKTests: XCTestCase {
         CordialApiConfiguration.shared.inboxMessageCache.maxCacheSize = (self.testInboxMessageContentPayload.data(using: .utf8)!.count + 1) * 2
         CordialApiConfiguration.shared.inboxMessageCache.maxCachableMessageSize = self.testInboxMessageContentPayload.data(using: .utf8)!.count + 1
         
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_2", content: self.testInboxMessageContentPayload)
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_3", content: self.testInboxMessageContentPayload)
-        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContentToCoreData(mcID: "\(self.testMcID)_4", content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContent(mcID: self.testMcID, content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContent(mcID: "\(self.testMcID)_2", content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContent(mcID: "\(self.testMcID)_3", content: self.testInboxMessageContentPayload)
+        CoreDataManager.shared.inboxMessagesContent.putInboxMessageContent(mcID: "\(self.testMcID)_4", content: self.testInboxMessageContentPayload)
         
         let expectation = XCTestExpectation(description: "Expectation for sending request")
         expectation.fulfill()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            if CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: self.testMcID) == nil,
-               CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_2") == self.testInboxMessageContentPayload,
-               CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_3") == self.testInboxMessageContentPayload,
-               CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: "\(self.testMcID)_4") == self.testInboxMessageContentPayload {
+            if CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: self.testMcID) == nil,
+               CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: "\(self.testMcID)_2") == self.testInboxMessageContentPayload,
+               CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: "\(self.testMcID)_3") == self.testInboxMessageContentPayload,
+               CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: "\(self.testMcID)_4") == self.testInboxMessageContentPayload {
                 
                 isVerified = true
             }

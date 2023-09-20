@@ -13,104 +13,130 @@ class InAppMessagesParamCoreData {
     
     let entityName = "InAppMessagesParam"
  
-    func setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: [InAppMessageParams]) {
+    // MARK: Setting Data
+    
+    func putInAppMessagesParams(inAppMessagesParams: [InAppMessageParams]) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            
-            if !inAppMessagesParams.isEmpty {
-                inAppMessagesParams.forEach { inAppMessageParams in
-                    let newRow = NSManagedObject(entity: entity, insertInto: context)
-                                
-                    newRow.setValue(inAppMessageParams.mcID, forKey: "mcID")
-                    newRow.setValue(inAppMessageParams.date, forKey: "date")
-                    newRow.setValue(inAppMessageParams.type.rawValue, forKey: "type")
-                    newRow.setValue(inAppMessageParams.top, forKey: "top")
-                    newRow.setValue(inAppMessageParams.right, forKey: "right")
-                    newRow.setValue(inAppMessageParams.bottom, forKey: "bottom")
-                    newRow.setValue(inAppMessageParams.left, forKey: "left")
-                    newRow.setValue(inAppMessageParams.displayType.rawValue, forKey: "displayType")
-                    newRow.setValue(inAppMessageParams.expirationTime, forKey: "expirationTime")
-                    newRow.setValue(inAppMessageParams.inactiveSessionDisplay.rawValue, forKey: "inactiveSessionDisplay")
-                }
-                
-                do {
-                    try context.save()
-                } catch let error {
-                    LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-                }
+            inAppMessagesParams.forEach { inAppMessageParams in
+                let managedObject = NSManagedObject(entity: entity, insertInto: context)
+                            
+                managedObject.setValue(inAppMessageParams.mcID, forKey: "mcID")
+                managedObject.setValue(inAppMessageParams.date, forKey: "date")
+                managedObject.setValue(inAppMessageParams.type.rawValue, forKey: "type")
+                managedObject.setValue(inAppMessageParams.top, forKey: "top")
+                managedObject.setValue(inAppMessageParams.right, forKey: "right")
+                managedObject.setValue(inAppMessageParams.bottom, forKey: "bottom")
+                managedObject.setValue(inAppMessageParams.left, forKey: "left")
+                managedObject.setValue(inAppMessageParams.displayType.rawValue, forKey: "displayType")
+                managedObject.setValue(inAppMessageParams.expirationTime, forKey: "expirationTime")
+                managedObject.setValue(inAppMessageParams.inactiveSessionDisplay.rawValue, forKey: "inactiveSessionDisplay")
             }
+            
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
         }
     }
     
-    func getInAppMessageDateByMcID(mcID: String) -> Date? {
+    // MARK: Getting Data
+    
+    func fetchInAppMessageDateParam(mcID: String) -> Date? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        request.fetchLimit = 1
         
         request.predicate = NSPredicate(format: "mcID = %@", mcID)
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let managedObjectDate = managedObject.value(forKey: "date") else { continue }
-                let date = managedObjectDate as! Date
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return nil }
+            
+            for managedObject in managedObjects {
+                guard let date = managedObject.value(forKey: "date") as? Date else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
                 
                 return date
             }
         } catch let error {
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         return nil
     }
     
-    func fetchInAppMessageParamsByMcID(mcID: String) -> InAppMessageParams? {
+    func fetchInAppMessageParams(mcID: String) -> InAppMessageParams? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        request.fetchLimit = 1
         
         request.predicate = NSPredicate(format: "mcID = %@", mcID)
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {                
-                guard let managedObjectDate = managedObject.value(forKey: "date") else { continue }
-                let date = managedObjectDate as! Date
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return nil }
+            
+            let inAppMessageGetter = InAppMessageGetter()
+            
+            for managedObject in managedObjects {
+                guard let date = managedObject.value(forKey: "date") as? Date else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
                 
-                let inAppMessageGetter = InAppMessageGetter()
+                guard let typeString = managedObject.value(forKey: "type") as? String else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
                 
-                guard let managedObjectType = managedObject.value(forKey: "type") else { continue }
-                let typeString = managedObjectType as! String
                 let type = inAppMessageGetter.getInAppMessageType(typeString: typeString)
                 
-                guard let managedObjectTop = managedObject.value(forKey: "top") else { continue }
-                let top = managedObjectTop as! Int16
+                guard let top = managedObject.value(forKey: "top") as? Int16 else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
                 
-                guard let managedObjectRight = managedObject.value(forKey: "right") else { continue }
-                let right = managedObjectRight as! Int16
+                guard let right = managedObject.value(forKey: "right") as? Int16 else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
                 
-                guard let managedObjectBottom = managedObject.value(forKey: "bottom") else { continue }
-                let bottom = managedObjectBottom as! Int16
+                guard let bottom = managedObject.value(forKey: "bottom") as? Int16 else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
                 
-                guard let managedObjectLeft = managedObject.value(forKey: "left") else { continue }
-                let left = managedObjectLeft as! Int16
+                guard let left = managedObject.value(forKey: "left") as? Int16 else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
                 
-                guard let managedObjectDisplayType = managedObject.value(forKey: "displayType") else { continue }
-                let displayTypeString = managedObjectDisplayType as! String
+                guard let displayTypeString = managedObject.value(forKey: "displayType") as? String else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
+                
                 let displayType = inAppMessageGetter.getInAppMessageDisplayType(displayTypeString: displayTypeString)
                 
-                let managedObjectExpirationTime = managedObject.value(forKey: "expirationTime") 
-                let expirationTime = managedObjectExpirationTime as? Date
+                let expirationTime = managedObject.value(forKey: "expirationTime") as? Date
 
-                guard let managedObjectInactiveSessionDisplay = managedObject.value(forKey: "inactiveSessionDisplay") else { continue }
-                let inactiveSessionDisplayString = managedObjectInactiveSessionDisplay as! String
+                guard let inactiveSessionDisplayString = managedObject.value(forKey: "inactiveSessionDisplay") as? String else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
+                
                 let inactiveSessionDisplay = inAppMessageGetter.getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
                 
                 let inAppMessageParams = InAppMessageParams(mcID: mcID, date: date, type: type, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
@@ -118,29 +144,33 @@ class InAppMessagesParamCoreData {
                 return inAppMessageParams
             }
         } catch let error {
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         return nil
     }
     
-    func deleteInAppMessageParamsByMcID(mcID: String) {
+    // MARK: Removing Data
+    
+    func removeInAppMessageParams(mcID: String) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        request.fetchLimit = 1
         
         request.predicate = NSPredicate(format: "mcID = %@", mcID)
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                context.delete(managedObject)
-                try context.save()
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return }
+            
+            for managedObject in managedObjects {
+                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
             }
         } catch let error {
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
     }

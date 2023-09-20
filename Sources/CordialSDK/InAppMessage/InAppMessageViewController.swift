@@ -190,7 +190,7 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
         self.view.removeFromSuperview()
         
         let mcID = self.inAppMessageData.mcID
-        InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
+        InAppMessageProcess.shared.removeInAppMessageFromCoreData(mcID: mcID)
         
         InAppMessageProcess.shared.showDisplayImmediatelyInAppMessageIfExistAndAvailable()
     }
