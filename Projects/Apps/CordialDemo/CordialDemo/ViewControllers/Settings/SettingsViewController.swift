@@ -189,8 +189,8 @@ class SettingsViewController: UIViewController {
     }
     
     func getQCSettings() -> Credentials {
-        let eventsStreamURL = "https://events-stream-svc.cordial-core.mobile-sdk-1-12-2.cordialdev.com/"
-        let messageHubURL = "https://message-hub-svc.cordial-core.mobile-sdk-1-12-2.cordialdev.com/"
+        let eventsStreamURL = "https://events-stream-svc.cordial-core.master.cordialdev.com/"
+        let messageHubURL = "https://message-hub-svc.cordial-core.master.cordialdev.com/"
         let accountKey = "qc-all-channels-cID-pk"
         let channelKey = "push"
         
