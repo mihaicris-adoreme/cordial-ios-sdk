@@ -50,7 +50,7 @@ class CoreDataManager {
             
             container.loadPersistentStores(completionHandler: { (storeDescription, error) in
                 if let error = error as NSError? {
-                    LoggerManager.shared.error(message: "CoreData Unresolved Error: [\(error.localizedDescription)] Info: \(error.userInfo)", category: "CordialSDKCoreDataError")
+                    LoggerManager.shared.error(message: "CoreData `loadPersistentStores` Error: [\(error.localizedDescription)] Info: \(error.userInfo)", category: "CordialSDKCoreDataError")
                  }
             })
             
@@ -64,7 +64,7 @@ class CoreDataManager {
         guard let resourceBundleURL = InternalCordialAPI().getResourceBundleURL(forResource: self.modelName, withExtension: "momd") else { return nil }
         
         guard let model = NSManagedObjectModel(contentsOf: resourceBundleURL) else {
-            LoggerManager.shared.error(message: "CoreData Error: [Could not get bundle for managed object model]", category: "CordialSDKCoreDataError")
+            LoggerManager.shared.error(message: "CoreData `getManagedObjectModel` Error: [Could not get bundle for managed object model]", category: "CordialSDKCoreDataError")
             
             return nil
         }
@@ -100,7 +100,7 @@ class CoreDataManager {
         } catch let error {
             self.deleteAll(entityName: entityName)
             
-            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
+            LoggerManager.shared.error(message: "CoreData `updateSendingRequests` Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -138,7 +138,7 @@ class CoreDataManager {
         } catch let error {
             self.deleteAll(entityName: entityName)
             
-            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
+            LoggerManager.shared.error(message: "CoreData `isObjectExist` Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
 
         return false
@@ -176,7 +176,7 @@ class CoreDataManager {
         } catch let error {
             self.deleteAll(entityName: entityName)
             
-            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
+            LoggerManager.shared.error(message: "CoreData `removeObject` Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -186,7 +186,7 @@ class CoreDataManager {
         } catch let error {
             self.deleteAll(entityName: entityName)
             
-            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
+            LoggerManager.shared.error(message: "CoreData `saveContext` Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -197,7 +197,7 @@ class CoreDataManager {
         } catch let error {
             self.deleteAll(entityName: entityName)
             
-            LoggerManager.shared.error(message: "CoreData Delete Error: [\(error.localizedDescription)]", category: "CordialSDKCoreDataError")
+            LoggerManager.shared.error(message: "CoreData `removeManagedObject` Error: [\(error.localizedDescription)]", category: "CordialSDKCoreDataError")
         }
     }
     
@@ -213,7 +213,7 @@ class CoreDataManager {
             try context.execute(deleteRequest)
             try context.save()
         } catch let error {
-            LoggerManager.shared.error(message: "CoreData Delete Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
+            LoggerManager.shared.error(message: "CoreData `deleteAll` Error: [\(error.localizedDescription)] Entity: [\(entityName)]", category: "CordialSDKCoreDataError")
         }
     }
     
