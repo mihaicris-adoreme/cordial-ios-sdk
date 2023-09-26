@@ -85,9 +85,12 @@ class InAppMessagesGetter {
         
         CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: mcIDs)
 
-        DispatchQueue.main.async {
-            InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
-        }
+        guard let htmlData = messages.description.data(using: .utf8) else { return }
+        let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
+        
+        LoggerManager.shared.info(message: "IAMs with mcIDs: [\(mcIDs)] has been successfully fetch. Payload size: \(payloadSize).", category: "CordialSDKInAppMessages")
+        
+        InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
     }
     
 }

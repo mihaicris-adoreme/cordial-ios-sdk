@@ -53,7 +53,7 @@ class InAppMessageContentGetter {
     func errorHandler(mcID: String, error: ResponseError) {
         InAppMessageGetter().fetchInAppMessage(mcID: mcID)
         
-        LoggerManager.shared.error(message: "\(error.message)", category: "CordialSDKInAppMessageContent")
+        LoggerManager.shared.error(message: "Fetching IAM content failed with mcID: [\(mcID)]. Error: [\(error.message)]", category: "CordialSDKInAppMessageContent")
     }
     
 }
