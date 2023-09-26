@@ -24,6 +24,8 @@ Pod::Spec.new do |spec|
 
   spec.resource_bundles = { "CordialSDK" => ["Sources/CordialSDK/**/*.{xcdatamodeld}", "Sources/CordialSDK/**/*.{js}"] }
 
+  spec.pod_target_xcconfig = { 'APPLICATION_EXTENSION_API_ONLY' => 'NO' }
+
   spec.requires_arc  = true
 
 end

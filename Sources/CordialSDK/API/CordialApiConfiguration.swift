@@ -101,16 +101,22 @@ import CoreLocation
         
         if eventsStreamURL.isEmpty {
             self.eventsStreamURL = "https://events-stream-svc.cordial.com/"
-        } else if eventsStreamURL.last != "/" {
-            self.eventsStreamURL = "\(eventsStreamURL)/"
+        } else if eventsStreamURL.last != "/" || eventsStreamURL.prefix(8) != "https://" {
+            let prefix = (eventsStreamURL.prefix(8) != "https://") ? "https://" : ""
+            let suffix = (eventsStreamURL.last != "/") ? "/" : ""
+            
+            self.eventsStreamURL = "\(prefix)\(eventsStreamURL)\(suffix)"
         } else {
             self.eventsStreamURL = eventsStreamURL
         }
         
         if messageHubURL.isEmpty {
             self.messageHubURL = self.eventsStreamURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
-        } else if messageHubURL.last != "/" {
-            self.messageHubURL = "\(messageHubURL)/"
+        } else if messageHubURL.last != "/" || messageHubURL.prefix(8) != "https://" {
+            let prefix = (messageHubURL.prefix(8) != "https://") ? "https://" : ""
+            let suffix = (messageHubURL.last != "/") ? "/" : ""
+            
+            self.messageHubURL = "\(prefix)\(messageHubURL)\(suffix)"
         } else {
             self.messageHubURL = messageHubURL
         }

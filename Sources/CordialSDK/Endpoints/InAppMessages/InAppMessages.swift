@@ -73,19 +73,16 @@ class InAppMessages {
         
         if messages.isEmpty {
             InAppMessage().initTheLatestSentAtInAppMessageDate()
+            
+            LoggerManager.shared.info(message: "Fetching IAMs has been finished: [There are no IAMs available]", category: "CordialSDKInAppMessages")
         } else {
             InAppMessagesGetter().setInAppMessagesParamsToCoreData(messages: messages)
         }
-        
-        guard let htmlData = messages.description.data(using: .utf8) else { return }
-        let payloadSize = API.sizeFormatter(data: htmlData, formatter: .useAll)
-        
-        LoggerManager.shared.info(message: "IAMs has been successfully fetch. Payload size: \(payloadSize).", category: "CordialSDKInAppMessages")
     }
     
     func errorHandler(error: ResponseError) {
         self.isCurrentlyUpdatingInAppMessages = false
         
-        LoggerManager.shared.error(message: "\(error.message)", category: "CordialSDKInAppMessages")
+        LoggerManager.shared.error(message: "Fetching IAMs failed. Error: [\(error.message)]", category: "CordialSDKInAppMessages")
     }
 }
