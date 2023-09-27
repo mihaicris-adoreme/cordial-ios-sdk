@@ -3,6 +3,20 @@
 The latest version of this file can be found at the master branch.
 
 
+## 4.4.0 (2023-09-27)
+
+### Added
+
+- Improve sending cacheable HTTP requests
+- In-app multiple screens support
+- Silent pushes SDK configuration
+- Explicitly declare CocoaPods extension
+- Ability to setup `URLSession` configuration
+
+### Removed
+
+- Non-existent push notification format support
+
 ## 4.3.0 (2023-07-13)
 
 ### Added
