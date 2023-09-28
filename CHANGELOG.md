@@ -7,10 +7,10 @@ The latest version of this file can be found at the master branch.
 
 ### Added
 
-- Improve sending cacheable HTTP requests
+- CocoaPods support in Xcode 15
+- Sending cacheable HTTP requests robustness improvement
 - In-app multiple screens support
 - Silent pushes SDK configuration
-- Explicitly declare CocoaPods extension
 - Ability to setup `URLSession` configuration
 
 ### Removed
