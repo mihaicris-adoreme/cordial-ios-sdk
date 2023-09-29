@@ -1,7 +1,7 @@
 framework module CordialSDK {
   umbrella header "CordialSDK.h"
-
   export *
+
   module * { export * }
 }
 
