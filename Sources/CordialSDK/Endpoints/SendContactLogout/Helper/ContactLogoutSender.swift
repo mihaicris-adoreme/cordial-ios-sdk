@@ -43,24 +43,28 @@ class ContactLogoutSender {
                 SDKSecurity.shared.updateJWT()
             }
         } else {
-            CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
+            CoreDataManager.shared.contactLogoutRequest.putContactLogoutRequest(sendContactLogoutRequest: sendContactLogoutRequest)
             
             LoggerManager.shared.info(message: "Sending contact logout failed. Saved to retry later. Request ID: [\(sendContactLogoutRequest.requestID)] Error: [No Internet connection]", category: "CordialSDKSendContactLogout")
         }
     }
     
     func completionHandler(sendContactLogoutRequest: SendContactLogoutRequest) {
+        CoreDataManager.shared.contactLogoutRequest.removeContactLogoutRequest(sendContactLogoutRequest: sendContactLogoutRequest)
+        
         LoggerManager.shared.info(message: "Contact logout has been sent. Request ID: [\(sendContactLogoutRequest.requestID)]", category: "CordialSDKSendContactLogout")
     }
     
     func systemErrorHandler(sendContactLogoutRequest: SendContactLogoutRequest, error: ResponseError) {
-        CoreDataManager.shared.contactLogoutRequest.setContactLogoutRequestToCoreData(sendContactLogoutRequest: sendContactLogoutRequest)
+        CoreDataManager.shared.contactLogoutRequest.putContactLogoutRequest(sendContactLogoutRequest: sendContactLogoutRequest)
         
         LoggerManager.shared.info(message: "Sending contact logout failed. Saved to retry later. Request ID: [\(sendContactLogoutRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKSendContactLogout")
     }
     
     func logicErrorHandler(sendContactLogoutRequest: SendContactLogoutRequest, error: ResponseError) {
         NotificationCenter.default.post(name: .cordialSendContactLogoutLogicError, object: error)
+        
+        CoreDataManager.shared.contactLogoutRequest.removeContactLogoutRequest(sendContactLogoutRequest: sendContactLogoutRequest)
         
         LoggerManager.shared.error(message: "Sending contact logout failed. Will not retry. Request ID: [\(sendContactLogoutRequest.requestID)] Error: [\(error.message)]", category: "CordialSDKSendContactLogout")
     }

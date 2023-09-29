@@ -2,8 +2,8 @@
 //  ContactRequest+CoreDataProperties.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 5/20/19.
-//  Copyright © 2019 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 19.07.2023.
+//  Copyright © 2023 cordial.io. All rights reserved.
 //
 //
 
@@ -17,6 +17,8 @@ extension ContactRequest {
         return NSFetchRequest<ContactRequest>(entityName: "ContactRequest")
     }
 
-    @NSManaged public var data: NSData?
+    @NSManaged public var data: Data?
+    @NSManaged public var requestID: String?
+    @NSManaged public var flushing: Bool
 
 }

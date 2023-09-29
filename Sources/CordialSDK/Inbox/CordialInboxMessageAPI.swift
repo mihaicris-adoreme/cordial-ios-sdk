@@ -51,7 +51,7 @@ import Foundation
     @available(*, deprecated, message: "Use fetchInboxMessages instead")
     @objc public func fetchInboxMessage(mcID: String, onSuccess: @escaping (_ response: InboxMessage) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         DispatchQueue.main.async {
-            if let inboxMessage = CoreDataManager.shared.inboxMessagesCache.getInboxMessageFromCoreData(mcID: mcID),
+            if let inboxMessage = CoreDataManager.shared.inboxMessagesCache.fetchInboxMessage(mcID: mcID),
                API.isValidExpirationDate(date: inboxMessage.urlExpireAt) {
                 onSuccess(inboxMessage)
             } else {
@@ -79,7 +79,7 @@ import Foundation
     
     @objc public func fetchInboxMessageContent(mcID: String, onSuccess: @escaping (_ response: String) -> Void, onFailure: @escaping (_ error: String) -> Void) {
         DispatchQueue.main.async {
-            if let content = CoreDataManager.shared.inboxMessagesContent.getInboxMessageContentFromCoreData(mcID: mcID) {
+            if let content = CoreDataManager.shared.inboxMessagesContent.fetchInboxMessageContent(mcID: mcID) {
                 onSuccess(content)
             } else {
                 self.fetchInboxMessage(mcID: mcID, onSuccess: { inboxMessage in
@@ -103,8 +103,8 @@ import Foundation
     
     @objc public func deleteInboxMessage(mcID: String) {
         DispatchQueue.main.async {
-            CoreDataManager.shared.inboxMessagesCache.removeInboxMessageFromCoreData(mcID: mcID)
-            CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContentFromCoreData(mcID: mcID)
+            CoreDataManager.shared.inboxMessagesCache.removeInboxMessage(mcID: mcID)
+            CoreDataManager.shared.inboxMessagesContent.removeInboxMessageContent(mcID: mcID)
             
             let inboxMessageDeleteRequest = InboxMessageDeleteRequest(mcID: mcID)
             InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)

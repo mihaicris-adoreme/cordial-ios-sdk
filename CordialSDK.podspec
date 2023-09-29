@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name          = "CordialSDK"
-  spec.version       = "4.3.0"
+  spec.version       = "4.4.0"
   spec.summary       = "CordialSDK"
 
   spec.description   = <<-DESC
@@ -23,6 +23,8 @@ Pod::Spec.new do |spec|
   spec.source_files  = "CordialSDK", "Sources/CordialSDK/**/*.{swift}", "Projects/Frameworks/CordialSDK/CordialSDK.h"
 
   spec.resource_bundles = { "CordialSDK" => ["Sources/CordialSDK/**/*.{xcdatamodeld}", "Sources/CordialSDK/**/*.{js}"] }
+
+  spec.pod_target_xcconfig = { 'APPLICATION_EXTENSION_API_ONLY' => 'NO' }
 
   spec.requires_arc  = true
 

@@ -39,18 +39,25 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func loginAction(_ sender: UIButton) {
-        self.deleteAppCoreData()
-        
         if var primaryKey = self.primaryKeyTextFeild.text {
             primaryKey = primaryKey.trimmingCharacters(in: .whitespacesAndNewlines)
             
             if !primaryKey.isEmpty {
+                
+                if primaryKey != self.cordialAPI.getContactPrimaryKey() {
+                    self.deleteAppCoreData()
+                }
+
+                App.userLogIn()
                 self.cordialAPI.setContact(primaryKey: primaryKey)
                 
                 let isEducational = App.getNotificationCategoriesIsEducational()
-                self.cordialAPI.registerForPushNotifications(options: [.alert, .sound], isEducational: isEducational)
                 
-                App.userLogIn()
+                UNUserNotificationCenter.current().getNotificationSettings { settings in
+                    if settings.authorizationStatus == .notDetermined {
+                        self.cordialAPI.registerForPushNotifications(options: [.alert, .sound], isEducational: isEducational)
+                    }
+                }
                 
                 self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
             } else {
@@ -63,10 +70,15 @@ class LoginViewController: UIViewController {
     
     @IBAction func guestAction(_ sender: UIButton) {
         self.deleteAppCoreData()
-        
-        self.cordialAPI.registerForPushNotifications(options: [.alert, .sound, .provisional])
-        
+                
+        App.userLogIn()
         self.cordialAPI.setContact(primaryKey: nil)
+        
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            if settings.authorizationStatus == .notDetermined {
+                self.cordialAPI.registerForPushNotifications(options: [.alert, .sound, .provisional])
+            }
+        }
         
         self.performSegue(withIdentifier: self.segueToCatalogIdentifier, sender: self)
     }

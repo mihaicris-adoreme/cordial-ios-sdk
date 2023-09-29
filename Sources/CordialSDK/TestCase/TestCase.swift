@@ -170,12 +170,12 @@ public class TestCase {
     
     public func setContactCartRequestToCoreData(cartItems: [CartItem]) {
         let upsertContactCartRequest = UpsertContactCartRequest(cartItems: cartItems)
-        CoreDataManager.shared.contactCartRequest.setContactCartRequestToCoreData(upsertContactCartRequest: upsertContactCartRequest)
+        CoreDataManager.shared.contactCartRequest.putContactCartRequest(upsertContactCartRequest: upsertContactCartRequest)
     }
     
     public func setContactOrderRequestToCoreData(order: Order) {
         let sendContactOrderRequest = SendContactOrderRequest(mcID: nil, order: order)
-        CoreDataManager.shared.contactOrderRequests.setContactOrderRequestsToCoreData(sendContactOrderRequests: [sendContactOrderRequest])
+        CoreDataManager.shared.contactOrderRequests.putContactOrderRequests(sendContactOrderRequests: [sendContactOrderRequest])
     }
     
     public func getUserAgent() -> String {

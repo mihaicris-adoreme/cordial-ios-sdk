@@ -225,7 +225,7 @@ class InboxMessages {
                             
                             let inboxMessage = InboxMessage(mcID: messageID, url: messageURL, urlExpireAt: messageDateUrlExpireAt, isRead: messageRead, sentAt: messageDateSentAt, metadata: metadata)
                             
-                            CoreDataManager.shared.inboxMessagesCache.putInboxMessageToCoreData(inboxMessage: inboxMessage)
+                            CoreDataManager.shared.inboxMessagesCache.putInboxMessage(inboxMessage: inboxMessage)
                             
                             inboxMessages.append(inboxMessage)
                         } else {

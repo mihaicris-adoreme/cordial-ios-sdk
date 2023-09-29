@@ -9,49 +9,79 @@
 import Foundation
 import CoreLocation
 
-@objc public class CordialApiConfiguration: NSObject {
+@objcMembers public class CordialApiConfiguration: NSObject {
     
-    @objc public static let shared = CordialApiConfiguration()
+    public static let shared = CordialApiConfiguration()
     
     private override init() {}
     
-    let sdkVersion = "4.3.0"
+    let sdkVersion = "4.4.0"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
     let initInAppMessageProcess = InAppMessageProcess.shared
     
-    internal var accountKey = String()
-    internal var channelKey = String()
-    internal var eventsStreamURL = String()
-    internal var messageHubURL = String()
+    var accountKey = String()
+    var channelKey = String()
+    var eventsStreamURL = String()
+    var messageHubURL = String()
     
     @available(*, deprecated, message: "Use loggerManager instead")
-    @objc public let osLogManager = LoggerManager.shared
+    public let osLogManager = LoggerManager.shared
     
-    @objc public let loggerManager = LoggerManager.shared
+    public let loggerManager = LoggerManager.shared
     
-    @objc public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
-    @objc public var pushNotificationDelegate: CordialPushNotificationDelegate?
-    @objc public var pushNotificationCategoriesDelegate: PushNotificationCategoriesDelegate?
-    @objc public var inAppMessageInputsDelegate: InAppMessageInputsDelegate?
-    @objc public var inboxMessageDelegate: InboxMessageDelegate?
+    public var cordialDeepLinksDelegate: CordialDeepLinksDelegate?
+    public var pushNotificationDelegate: CordialPushNotificationDelegate?
+    public var pushNotificationCategoriesDelegate: PushNotificationCategoriesDelegate?
+    public var inAppMessageInputsDelegate: InAppMessageInputsDelegate?
+    public var inboxMessageDelegate: InboxMessageDelegate?
     
-    @objc public var pushesConfiguration: CordialPushNotificationConfigurationType = .SDK
-    @objc public var deepLinksConfiguration: CordialDeepLinksConfigurationType = .SDK
-    @objc public var backgroundURLSessionConfiguration: CordialURLSessionConfigurationType = .SDK
-    @objc public var pushNotificationCategoriesConfiguration: PushNotificationCategoriesConfigurationType = .SDK
-    @objc public var inAppMessagesDeliveryConfiguration: InAppMessagesDeliveryConfigurationType = .directDelivery
+    public var pushesConfiguration: CordialPushNotificationConfigurationType = .SDK
+    public var deepLinksConfiguration: CordialDeepLinksConfigurationType = .SDK
+    public var backgroundURLSessionConfiguration: CordialURLSessionConfigurationType = .SDK
+    public var pushNotificationCategoriesConfiguration: PushNotificationCategoriesConfigurationType = .SDK
+    public var inAppMessagesDeliveryConfiguration: InAppMessagesDeliveryConfigurationType = .directDelivery
     
-    @objc public let inboxMessageCache = InboxMessageCache.shared
-    @objc public let inAppMessageDelayMode = InAppMessageDelayMode.shared
+    public let inboxMessageCache = InboxMessageCache.shared
+    public let inAppMessageDelayMode = InAppMessageDelayMode.shared
     
-    @objc public var qtyCachedEventQueue = 1000
-    @objc public var systemEventsProperties: Dictionary<String, Any>?
+    public var qtyCachedEventQueue = 1000
+    public var systemEventsProperties: Dictionary<String, Any>?
     
-    @objc public var vanityDomains: [String] = []
+    public var vanityDomains: [String] = []
     
-    @objc public func setNotificationCategories(_ pushNotificationCategories: [PushNotificationCategory]) {
+    public var keyWindow: UIWindow?
+    
+    public var cordialURLSessionConfiguration = URLSessionConfiguration.background(withIdentifier: API.BACKGROUND_URL_SESSION_IDENTIFIER) {
+        didSet {
+            LoggerManager.shared.info(message: "SDK uses a passed URLSessionConfiguration setup", category: "CordialSDKInfo")
+        }
+    }
+    
+    public var eventsBulkSize: Int = 1 {
+        didSet {
+            CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
+        }
+        willSet (newEventsBulkSize) {
+            if eventsBulkSize != newEventsBulkSize && newEventsBulkSize.signum() == 1 {
+                CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
+            }
+        }
+    }
+    
+    public var eventsBulkUploadInterval: TimeInterval = 30 {
+        didSet {
+            CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
+        }
+        willSet (newEventsBulkUploadInterval) {
+            if eventsBulkUploadInterval != newEventsBulkUploadInterval && Int(newEventsBulkUploadInterval).signum() == 1 {
+                CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
+            }
+        }
+    }
+    
+    public func setNotificationCategories(_ pushNotificationCategories: [PushNotificationCategory]) {
         let internalCordialAPI = InternalCordialAPI()
         
         if !pushNotificationCategories.isEmpty {
@@ -64,45 +94,29 @@ import CoreLocation
         }
     }
     
-    @objc public var eventsBulkSize: Int = 1 {
-        didSet {
-            CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
-        }
-        willSet (newEventsBulkSize) {
-            if eventsBulkSize != newEventsBulkSize && newEventsBulkSize.signum() == 1 {
-                CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
-            }
-        }
-    }
-    
-    @objc public var eventsBulkUploadInterval: TimeInterval = 30 {
-        didSet {
-            CoreDataManager.shared.coreDataSender.startSendCachedCustomEventRequestsScheduledTimer()
-        }
-        willSet (newEventsBulkUploadInterval) {
-            if eventsBulkUploadInterval != newEventsBulkUploadInterval && Int(newEventsBulkUploadInterval).signum() == 1 {
-                CoreDataManager.shared.coreDataSender.canBeStartedCachedEventsScheduledTimer = true
-            }
-        }
-    }
-    
-    @objc public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String = "", messageHubURL: String = "") {
+    public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String = "", messageHubURL: String = "") {
         
         self.accountKey = accountKey
         self.channelKey = channelKey
         
         if eventsStreamURL.isEmpty {
             self.eventsStreamURL = "https://events-stream-svc.cordial.com/"
-        } else if eventsStreamURL.last != "/" {
-            self.eventsStreamURL = "\(eventsStreamURL)/"
+        } else if eventsStreamURL.last != "/" || eventsStreamURL.prefix(8) != "https://" {
+            let prefix = (eventsStreamURL.prefix(8) != "https://") ? "https://" : ""
+            let suffix = (eventsStreamURL.last != "/") ? "/" : ""
+            
+            self.eventsStreamURL = "\(prefix)\(eventsStreamURL)\(suffix)"
         } else {
             self.eventsStreamURL = eventsStreamURL
         }
         
         if messageHubURL.isEmpty {
             self.messageHubURL = self.eventsStreamURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
-        } else if messageHubURL.last != "/" {
-            self.messageHubURL = "\(messageHubURL)/"
+        } else if messageHubURL.last != "/" || messageHubURL.prefix(8) != "https://" {
+            let prefix = (messageHubURL.prefix(8) != "https://") ? "https://" : ""
+            let suffix = (messageHubURL.last != "/") ? "/" : ""
+            
+            self.messageHubURL = "\(prefix)\(messageHubURL)\(suffix)"
         } else {
             self.messageHubURL = messageHubURL
         }
@@ -112,7 +126,7 @@ import CoreLocation
         
         self.systemEventsProperties = InternalCordialAPI().getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
         
-        CoreDataManager.shared.customEventRequests.updateSendingCustomEventRequestsIfNeeded()
+        CoreDataManager.shared.updateSendingRequestsIfNeeded()
         
         CordialPushNotification.shared.setupPushNotifications()
         
@@ -122,7 +136,7 @@ import CoreLocation
         
     }
     
-    @objc public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance, untilTraveled: CLLocationDistance, timeout: TimeInterval) {
+    public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance, untilTraveled: CLLocationDistance, timeout: TimeInterval) {
         CordialLocationManager.shared.desiredAccuracy = desiredAccuracy
         CordialLocationManager.shared.distanceFilter = distanceFilter
         CordialLocationManager.shared.untilTraveled = untilTraveled
@@ -131,3 +145,4 @@ import CoreLocation
         CordialLocationManager.shared.locationManager.requestWhenInUseAuthorization()
     }
 }
+

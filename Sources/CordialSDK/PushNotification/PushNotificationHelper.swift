@@ -45,10 +45,10 @@ class PushNotificationHelper {
         if let mcID = self.pushNotificationParser.getMcID(userInfo: userInfo) {
             self.cordialAPI.setCurrentMcID(mcID: mcID)
             
-            if let isInAppMessageHasBeenShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageHasBeenShown(mcID: mcID),
-               isInAppMessageHasBeenShown {
+            if let isInAppMessageShown = CoreDataManager.shared.inAppMessagesShown.isInAppMessageShown(mcID: mcID),
+               isInAppMessageShown {
                 
-                InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
+                InAppMessageProcess.shared.removeInAppMessageFromCoreData(mcID: mcID)
                 
                 LoggerManager.shared.info(message: "IAM with mcID [\(mcID)] has been removed.", category: "CordialSDKInAppMessage")
             }
@@ -59,7 +59,7 @@ class PushNotificationHelper {
                 let inactiveSessionDisplay = InAppMessageGetter().getInAppMessageInactiveSessionDisplayType(inactiveSessionDisplayString: inactiveSessionDisplayString)
                 
                 if inactiveSessionDisplay == InAppMessageInactiveSessionDisplayType.hideInAppMessage {
-                    CoreDataManager.shared.inAppMessagesRelated.setRelatedStatusToInAppMessagesRelatedCoreData(mcID: mcID)
+                    CoreDataManager.shared.inAppMessagesRelated.putInAppMessageRelated(mcID: mcID)
                 }
             }
         }
