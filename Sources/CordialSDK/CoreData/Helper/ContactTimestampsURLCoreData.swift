@@ -13,52 +13,61 @@ class ContactTimestampsURLCoreData {
     
     let entityName = "ContactTimestampsURL"
     
-    func putContactTimestampToCoreData(contactTimestamp: ContactTimestamp) {
+    // MARK: Setting Data
+    
+    func putContactTimestamp(contactTimestamp: ContactTimestamp) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+        CoreDataManager.shared.deleteAll(entityName: self.entityName)
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            let newRow = NSManagedObject(entity: entity, insertInto: context)
+            let managedObject = NSManagedObject(entity: entity, insertInto: context)
             
-            do {
-                newRow.setValue(contactTimestamp.url, forKey: "url")
-                newRow.setValue(contactTimestamp.expireDate, forKey: "expireDate")
-                
-                try context.save()
-            } catch let error {
-                LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-            }
+            managedObject.setValue(contactTimestamp.url, forKey: "url")
+            managedObject.setValue(contactTimestamp.expireDate, forKey: "expireDate")
+            
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
         }
     }
     
-    func getContactTimestampFromCoreData() -> ContactTimestamp? {
+    // MARK: Getting Data
+    
+    func fetchContactTimestamp() -> ContactTimestamp? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
-        request.fetchLimit = 1
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let urlManagedObject = managedObject.value(forKey: "url") else { continue }
-                let url = urlManagedObject as! URL
-                
-                guard let expireDateManagedObject = managedObject.value(forKey: "expireDate") else { continue }
-                let expireDate = expireDateManagedObject as! Date
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return nil }
+            
+            for managedObject in managedObjects {
+                guard let url = managedObject.value(forKey: "url") as? URL else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
+                guard let expireDate = managedObject.value(forKey: "expireDate") as? Date else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
                 
                 return ContactTimestamp(url: url, expireDate: expireDate)
             }
         } catch let error {
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         return nil
     }
     
-    func removeContactTimestampFromCoreData() {
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+    // MARK: Removing Data
+    
+    func removeContactTimestamp() {
+        CoreDataManager.shared.deleteAll(entityName: self.entityName)
     }
     
 }

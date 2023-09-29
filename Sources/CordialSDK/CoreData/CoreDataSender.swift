@@ -43,7 +43,7 @@ class CoreDataSender {
     }
     
     private func sendCachedUpsertContactRequests() {
-        let upsertContactRequests = CoreDataManager.shared.contactRequests.getContactRequestsFromCoreData()
+        let upsertContactRequests = CoreDataManager.shared.contactRequests.fetchContactRequests()
         if !upsertContactRequests.isEmpty {
             ContactsSender().upsertContacts(upsertContactRequests: upsertContactRequests)
         }
@@ -53,7 +53,7 @@ class CoreDataSender {
         let internalCordialAPI = InternalCordialAPI()
         
         if internalCordialAPI.isUserLogin() && !internalCordialAPI.isCurrentlyUpsertingContacts() {
-            let customEventRequests = CoreDataManager.shared.customEventRequests.getCustomEventRequestsFromCoreData()
+            let customEventRequests = CoreDataManager.shared.customEventRequests.fetchCustomEventRequests()
             
             if customEventRequests.count > 0 {
                 if CordialApiConfiguration.shared.eventsBulkSize != 1 {
@@ -100,7 +100,7 @@ class CoreDataSender {
     
     private func sendCachedUpsertContactCartRequest() {
         if InternalCordialAPI().isUserLogin() {
-            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.getContactCartRequestFromCoreData() {
+            if let upsertContactCartRequest = CoreDataManager.shared.contactCartRequest.fetchContactCartRequest() {
                 ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
             }
         }
@@ -108,7 +108,7 @@ class CoreDataSender {
     
     private func sendCachedContactOrderRequests() {
         if InternalCordialAPI().isUserLogin() {
-            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.getContactOrderRequestsFromCoreData()
+            let sendContactOrderRequests = CoreDataManager.shared.contactOrderRequests.fetchContactOrderRequests()
             if !sendContactOrderRequests.isEmpty {
                 ContactOrdersSender().sendContactOrders(sendContactOrderRequests: sendContactOrderRequests)
             }
@@ -120,7 +120,7 @@ class CoreDataSender {
             var inboxMessagesMarkReadUnreadRequestsWithPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
             var inboxMessagesMarkReadUnreadRequestsWithoutPrimaryKey = [InboxMessagesMarkReadUnreadRequest]()
             
-            let inboxMessagesMarkReadUnreadRequests = CoreDataManager.shared.inboxMessagesMarkReadUnread.fetchInboxMessagesMarkReadUnreadDataFromCoreData()
+            let inboxMessagesMarkReadUnreadRequests = CoreDataManager.shared.inboxMessagesMarkReadUnread.fetchInboxMessagesMarkReadUnreadRequests()
             inboxMessagesMarkReadUnreadRequests.forEach { inboxMessagesMarkReadUnreadRequest in
                 if inboxMessagesMarkReadUnreadRequest.primaryKey == CordialAPI().getContactPrimaryKey() {
                     inboxMessagesMarkReadUnreadRequestsWithPrimaryKey.append(inboxMessagesMarkReadUnreadRequest)
@@ -166,7 +166,7 @@ class CoreDataSender {
     
     private func sendCachedInboxMessageDeleteRequests() {
         if InternalCordialAPI().isUserLogin() {
-            let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequestsFromCoreData()
+            let inboxMessageDeleteRequests = CoreDataManager.shared.inboxMessageDelete.fetchInboxMessageDeleteRequests()
             inboxMessageDeleteRequests.forEach { inboxMessageDeleteRequest in
                 InboxMessageDeleteSender().sendInboxMessageDelete(inboxMessageDeleteRequest: inboxMessageDeleteRequest)
             }
@@ -174,7 +174,7 @@ class CoreDataSender {
     }
     
     private func sendCachedContactLogoutRequest() {
-        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.getContactLogoutRequestFromCoreData() {
+        if let sendContactLogoutRequest = CoreDataManager.shared.contactLogoutRequest.fetchContactLogoutRequest() {
             ContactLogoutSender().sendContactLogout(sendContactLogoutRequest: sendContactLogoutRequest)
         }
     }

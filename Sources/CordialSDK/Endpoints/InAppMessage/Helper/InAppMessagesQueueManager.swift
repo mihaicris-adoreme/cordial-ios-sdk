@@ -11,8 +11,8 @@ import Foundation
 class InAppMessagesQueueManager {
     
     func fetchInAppMessageDataFromQueue() {
-        if let mcID = CoreDataManager.shared.inAppMessagesQueue.getMcIdFromCoreDataInAppMessagesQueue() {
-            if let inAppMessageContent = CoreDataManager.shared.inAppMessageContentURL.getInAppMessageContentFromCoreDataByMcID(mcID: mcID),
+        if let mcID = CoreDataManager.shared.inAppMessagesQueue.fetchLatestInAppMessageID() {
+            if let inAppMessageContent = CoreDataManager.shared.inAppMessageContentURL.fetchInAppMessageContent(mcID: mcID),
                API.isValidExpirationDate(date: inAppMessageContent.expireDate) {
                     
                 InAppMessageContentGetter().fetchInAppMessageContent(mcID: mcID, url: inAppMessageContent.url)

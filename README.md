@@ -216,20 +216,6 @@ YourImplementationOfTheProtocol *pushNotificationHandler = [[YourImplementationO
 [CordialApiConfiguration shared].pushNotificationDelegate = pushNotificationHandler;
 ```
 
-3. Let the SDK know when your app receives a silent push notification. Silent push notifications are used for notifying the app of a new in-app or inbox message:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-
-```
-CordialPushNotificationHandler().processSilentPushDelivery(userInfo: userInfo)
-```
-
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-
-```
-[[[CordialPushNotificationHandler alloc] init] processSilentPushDeliveryWithUserInfo:userInfo];
-```
-
 ## Images In Push Notifications
 
 In order to take advantage of iOS 10 notification attachments, you will need to create a notification service extension near your main application. The new target's language should be `Swift`. In order to do that, create the **Notification Service Extension** and add `CordialAppExtensions` to it:
@@ -470,9 +456,9 @@ if ([[[CordialPushNotificationHandler alloc] init] isCordialMessageWithUserInfo:
 
 After enabling multiple push notification providers the app should pass an APNs token to the SDK once it’s received and start passing push notifications sent by Cordial to the SDK. Note, it is really important to pass the token otherwise the SDK will not be tracking any user behaviour on the device.
 
-To handle Cordial push notifications after enabling multiple notification providers support the app needs to do three additional steps:
+To handle Cordial push notifications after enabling support for multiple notification providers the app needs to follow these steps:
 
-1. Pass push notification token to the Cordial SDK:
+1. From `application(_:didRegisterForRemoteNotificationsWithDeviceToken:)` pass push notification token to the Cordial SDK:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -486,7 +472,7 @@ CordialPushNotificationHandler().processNewPushNotificationToken(deviceToken: de
 [[[CordialPushNotificationHandler alloc] init] processNewPushNotificationTokenWithDeviceToken:deviceToken];
 ```
 
-2. Call method `processAppOpenViaPushNotificationTap` if app has been open via push notification tap:
+2. From `userNotificationCenter(_:didReceive:withCompletionHandler:)` call the SDK method `processAppOpenViaPushNotificationTap` to handle a case when the app has been opened via a push notification tap:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -500,7 +486,7 @@ CordialPushNotificationHandler().processAppOpenViaPushNotificationTap(userInfo: 
 [[[CordialPushNotificationHandler alloc] init] processAppOpenViaPushNotificationTapWithUserInfo:userInfo completionHandler:completionHandler];
 ```
 
-3. Call method `processNotificationDeliveryInForeground` if push notification has been foreground delivered:
+3. From `userNotificationCenter(_:willPresent:withCompletionHandler:)` call the SDK method `processNotificationDeliveryInForeground` to handle a case when the push notification has been foreground delivered:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
@@ -512,6 +498,20 @@ CordialPushNotificationHandler().processNotificationDeliveryInForeground(userInf
 
 ```
 [[[CordialPushNotificationHandler alloc] init] processNotificationDeliveryInForegroundWithUserInfo:userInfo completionHandler:completionHandler];
+```
+
+4. Let the SDK know when your app receives a silent push notification. Silent push notifications are used for notifying the app of a new in-app or inbox message. From `application(_:didReceiveRemoteNotification:fetchCompletionHandler:)` call the SDK method `processSilentPushDelivery`:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+CordialPushNotificationHandler().processSilentPushDelivery(userInfo: userInfo)
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+[[[CordialPushNotificationHandler alloc] init] processSilentPushDeliveryWithUserInfo:userInfo];
 ```
 
 ## Method Swizzling

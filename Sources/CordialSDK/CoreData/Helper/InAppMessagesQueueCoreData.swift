@@ -13,50 +13,51 @@ class InAppMessagesQueueCoreData {
     
     let entityName = "InAppMessagesQueue"
     
-    func setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [String]) {
+    // MARK: Setting Data
+    
+    func putInAppMessageIDs(mcIDs: [String]) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            
-            if !mcIDs.isEmpty {
-                mcIDs.forEach { mcID in
-                    if let date = CoreDataManager.shared.inAppMessagesParam.getInAppMessageDateByMcID(mcID: mcID) {
-                        
-                        let newRow = NSManagedObject(entity: entity, insertInto: context)
-                        
-                        newRow.setValue(mcID, forKey: "mcID")
-                        newRow.setValue(date, forKey: "date")
-                        
-                        do {
-                            try context.save()
-                        } catch let error {
-                            LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
-                        }
-                    }
+            mcIDs.forEach { mcID in
+                if let date = CoreDataManager.shared.inAppMessagesParam.fetchInAppMessageDateParam(mcID: mcID) {
+                    let managedObject = NSManagedObject(entity: entity, insertInto: context)
+                    
+                    managedObject.setValue(mcID, forKey: "mcID")
+                    managedObject.setValue(date, forKey: "date")
                 }
             }
+            
+            CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
         }
     }
     
-    func getMcIdFromCoreDataInAppMessagesQueue() -> String? {
+    // MARK: Getting Data
+    
+    func fetchLatestInAppMessageID() -> String? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        request.fetchLimit = 1
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let anyData = managedObject.value(forKey: "mcID") else { continue }
-                let mcID = anyData as! String
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return nil }
+            
+            for managedObject in managedObjects {
+                guard let mcID = managedObject.value(forKey: "mcID") as? String else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                    
+                    continue
+                }
                 
-                CoreDataManager.shared.deleteManagedObjectByContext(managedObject: managedObject, context: context)
+                CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                 
                 return mcID
             }
         } catch let error {
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         

@@ -316,16 +316,16 @@ class InternalCordialAPI {
     // MARK: Send Any Custom Event
     
     func sendAnyCustomEvent(sendCustomEventRequest: SendCustomEventRequest) {
-        CoreDataManager.shared.customEventRequests.putCustomEventRequestsToCoreData(sendCustomEventRequests: [sendCustomEventRequest])
+        CoreDataManager.shared.customEventRequests.putCustomEventRequests(sendCustomEventRequests: [sendCustomEventRequest])
         
         if CordialApiConfiguration.shared.eventsBulkSize != 1 {
             LoggerManager.shared.info(message: "Event [eventName: \(sendCustomEventRequest.eventName), eventID: \(sendCustomEventRequest.requestID)] added to bulk", category: "CordialSDKSendCustomEvents")
         }
         
         ThrottlerManager.shared.sendCustomEventRequest.throttle {
-            guard let qtyCachedCustomEventRequests = CoreDataManager.shared.customEventRequests.getQtyCachedCustomEventRequests() else { return }
+            guard let cachedCustomEventRequestsQty = CoreDataManager.shared.customEventRequests.fetchCachedCustomEventRequestsQty() else { return }
             
-            if qtyCachedCustomEventRequests >= CordialApiConfiguration.shared.eventsBulkSize {
+            if cachedCustomEventRequestsQty >= CordialApiConfiguration.shared.eventsBulkSize {
                 CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "Bulk size is full")
             }
         }
@@ -344,10 +344,33 @@ class InternalCordialAPI {
         }
     }
     
+    // MARK: Get application key window
+    
+    func getAppKeyWindow() -> UIWindow? {
+        if let keyWindow = CordialApiConfiguration.shared.keyWindow {
+            return keyWindow
+        } else {
+            if #available(iOS 13.0, *), self.isAppUseScenes() {
+                guard let keyWindow = UIApplication.shared.connectedScenes
+                    .filter( { $0.activationState == .foregroundActive } )
+                    .compactMap( { $0 as? UIWindowScene } )
+                    .flatMap( { $0.windows } )
+                    .first( where: { $0.isKeyWindow } ) else {
+                    
+                    return UIApplication.shared.windows.first( where: { $0.isKeyWindow } )
+                }
+                
+                return keyWindow
+            } else {
+                return UIApplication.shared.windows.first( where: { $0.isKeyWindow } )
+            }
+        }
+    }
+    
     // MARK: Get active view controller
     
     func getActiveViewController() -> UIViewController? {
-        if var topController = UIApplication.shared.keyWindow?.rootViewController {
+        if var topController = self.getAppKeyWindow()?.rootViewController {
             while let presentedViewController = topController.presentedViewController {
                 topController = presentedViewController
             }
@@ -356,6 +379,20 @@ class InternalCordialAPI {
         }
         
         return nil
+    }
+    
+    // MARK: Show system alert
+    
+    func showSystemAlert(title: String, message: String?) {
+        DispatchQueue.main.async {
+            if let currentVC = self.getActiveViewController() {
+                let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .cancel)
+                alertController.addAction(okAction)
+                
+                currentVC.present(alertController, animated: true, completion: nil)
+            }
+        }
     }
     
     // MARK: Get top view controller
@@ -724,8 +761,8 @@ class InternalCordialAPI {
         CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE)
     }
     
-    func removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate() {
-        CoreDataManager.shared.contactTimestampsURL.removeContactTimestampFromCoreData()
+    func removeContactTimestampAndTheLatestSentAtInAppMessageDate() {
+        CoreDataManager.shared.contactTimestampsURL.removeContactTimestamp()
         self.removeTheLatestSentAtInAppMessageDate()
     }
 

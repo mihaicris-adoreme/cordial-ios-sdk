@@ -2,8 +2,8 @@
 //  ContactCartRequest+CoreDataClass.swift
 //  CordialSDK
 //
-//  Created by Yan Malinovsky on 5/20/19.
-//  Copyright © 2019 cordial.io. All rights reserved.
+//  Created by Yan Malinovsky on 24.07.2023.
+//  Copyright © 2023 cordial.io. All rights reserved.
 //
 //
 
