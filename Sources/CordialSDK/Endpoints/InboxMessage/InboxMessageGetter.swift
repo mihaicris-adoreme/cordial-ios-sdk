@@ -199,7 +199,7 @@ class InboxMessageGetter {
                         
                         let inboxMessage = InboxMessage(mcID: mcID, url: messageURL, urlExpireAt: messageDateUrlExpireAt, isRead: messageRead, sentAt: messageDateSentAt, metadata: metadata)
                         
-                        CoreDataManager.shared.inboxMessagesCache.putInboxMessageToCoreData(inboxMessage: inboxMessage)
+                        CoreDataManager.shared.inboxMessagesCache.putInboxMessage(inboxMessage: inboxMessage)
                         
                         onSuccess(inboxMessage)
                     } else {

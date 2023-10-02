@@ -33,41 +33,25 @@ class PushNotificationParser {
     // MARK: Get deep link URL
     
     func getDeepLinkURL(userInfo: [AnyHashable : Any]) -> URL? {
-        if let deepLinkURL = self.deepLinksParser.getDeepLinkURLCurrentPayloadType(userInfo: userInfo) {
-            return deepLinkURL
-        }
-        
-        return self.deepLinksParser.getDeepLinkURLPreviousPayloadType(userInfo: userInfo)
+        return self.deepLinksParser.getDeepLinkURLCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get vanity deep link URL
     
     func getVanityDeepLinkURL(userInfo: [AnyHashable : Any]) -> URL? {
-        if let vanityDeepLinkURL = self.deepLinksParser.getVanityDeepLinkURLCurrentPayloadType(userInfo: userInfo) {
-            return vanityDeepLinkURL
-        }
-        
-        return self.deepLinksParser.getVanityDeepLinkURLPreviousPayloadType(userInfo: userInfo)
+        return self.deepLinksParser.getVanityDeepLinkURLCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get deep link fallback URL
     
     func getDeepLinkFallbackURL(userInfo: [AnyHashable : Any]) -> URL? {
-        if let fallbackURL = self.deepLinksParser.getDeepLinkFallbackURLCurrentPayloadType(userInfo: userInfo) {
-            return fallbackURL
-        }
-        
-        return self.deepLinksParser.getDeepLinkFallbackURLPreviousPayloadType(userInfo: userInfo)
+        return self.deepLinksParser.getDeepLinkFallbackURLCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Get mcID
     
     func getMcID(userInfo: [AnyHashable : Any]) -> String? {
-        if let mcID = self.messageAttributionParser.getMcIdCurrentPayloadType(userInfo: userInfo) {
-            return mcID
-        }
-        
-        return self.messageAttributionParser.getMcIdPreviousPayloadType(userInfo: userInfo)
+        return self.messageAttributionParser.getMcIdCurrentPayloadType(userInfo: userInfo)
     }
     
     // MARK: Is payload contain in app message

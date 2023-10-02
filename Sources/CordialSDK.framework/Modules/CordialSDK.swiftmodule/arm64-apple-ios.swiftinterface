@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.8.1 (swiftlang-5.8.0.124.5 clang-1403.0.22.11.100)
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name CordialSDK
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import Combine
@@ -19,8 +19,24 @@ import UserNotificationsUI
 import WebKit
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 import os.log
 import os
+extension CordialSDK.ContactCartRequest {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.ContactCartRequest>
+  @objc @NSManaged dynamic public var data: Foundation.Data? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var requestID: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var flushing: Swift.Bool {
+    @objc get
+    @objc set
+  }
+}
 @_inheritsConvenienceInitializers @objc public class CordialDeepLinksConfigurationHandler : ObjectiveC.NSObject {
   @objc public func processAppContinueRestorationHandler(userActivity: Foundation.NSUserActivity) -> Swift.Bool
   @objc public func processAppOpenOptions(url: Foundation.URL) -> Swift.Bool
@@ -90,6 +106,10 @@ extension CordialSDK.InAppMessagesCache {
   @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
   @objc deinit
 }
+@_inheritsConvenienceInitializers @objc(ContactCartRequest) public class ContactCartRequest : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
 extension CordialSDK.InAppMessageContentURL {
   @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.InAppMessageContentURL>
   @objc @NSManaged dynamic public var expireDate: Foundation.Date? {
@@ -105,9 +125,17 @@ extension CordialSDK.InAppMessageContentURL {
     @objc set
   }
 }
-extension CordialSDK.ContactOrderRequest {
-  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.ContactOrderRequest>
-  @objc @NSManaged dynamic public var data: Foundation.NSData? {
+extension CordialSDK.ContactRequest {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.ContactRequest>
+  @objc @NSManaged dynamic public var data: Foundation.Data? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var requestID: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var flushing: Swift.Bool {
     @objc get
     @objc set
   }
@@ -230,7 +258,7 @@ extension CordialSDK.InAppMessagesRelated {
   @objc public func openEducationalPushNotificationCategories(options: UserNotifications.UNAuthorizationOptions)
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objc(ContactCartRequest) public class ContactCartRequest : CoreData.NSManagedObject {
+@_inheritsConvenienceInitializers @objc(ContactLogout) public class ContactLogout : CoreData.NSManagedObject {
   @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
   @objc deinit
 }
@@ -250,9 +278,20 @@ public struct CordialSwiftUIPushNotificationApnsTokenReceived {
   @objc override dynamic public init()
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objc(ContactOrderRequest) public class ContactOrderRequest : CoreData.NSManagedObject {
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
-  @objc deinit
+extension CordialSDK.ContactOrderRequest {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.ContactOrderRequest>
+  @objc @NSManaged dynamic public var data: Foundation.Data? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var requestID: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var flushing: Swift.Bool {
+    @objc get
+    @objc set
+  }
 }
 @objc public enum CordialPushNotificationConfigurationType : Swift.Int {
   case SDK
@@ -261,13 +300,6 @@ public struct CordialSwiftUIPushNotificationApnsTokenReceived {
   public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
-  }
-}
-extension CordialSDK.ContactRequest {
-  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.ContactRequest>
-  @objc @NSManaged dynamic public var data: Foundation.NSData? {
-    @objc get
-    @objc set
   }
 }
 @objc public class InboxFilter : ObjectiveC.NSObject {
@@ -352,10 +384,10 @@ extension CordialSDK.InAppMessagesQueue {
     @objc set
   }
 }
-@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class CordialApiConfiguration : ObjectiveC.NSObject {
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class CordialApiConfiguration : ObjectiveC.NSObject {
   @objc public static let shared: CordialSDK.CordialApiConfiguration
-  @available(*, deprecated, message: "Use loggerManager instead")
-  @objc final public let osLogManager: CordialSDK.LoggerManager
+  @objc @available(*, deprecated, message: "Use loggerManager instead")
+  final public let osLogManager: CordialSDK.LoggerManager
   @objc final public let loggerManager: CordialSDK.LoggerManager
   @objc public var cordialDeepLinksDelegate: (any CordialSDK.CordialDeepLinksDelegate)?
   @objc public var pushNotificationDelegate: (any CordialSDK.CordialPushNotificationDelegate)?
@@ -372,7 +404,11 @@ extension CordialSDK.InAppMessagesQueue {
   @objc public var qtyCachedEventQueue: Swift.Int
   @objc public var systemEventsProperties: Swift.Dictionary<Swift.String, Any>?
   @objc public var vanityDomains: [Swift.String]
-  @objc public func setNotificationCategories(_ pushNotificationCategories: [CordialSDK.PushNotificationCategory])
+  @objc public var keyWindow: UIKit.UIWindow?
+  @objc public var cordialURLSessionConfiguration: Foundation.URLSessionConfiguration {
+    @objc get
+    @objc set
+  }
   @objc public var eventsBulkSize: Swift.Int {
     @objc get
     @objc set
@@ -381,6 +417,7 @@ extension CordialSDK.InAppMessagesQueue {
     @objc get
     @objc set
   }
+  @objc public func setNotificationCategories(_ pushNotificationCategories: [CordialSDK.PushNotificationCategory])
   @objc public func initialize(accountKey: Swift.String, channelKey: Swift.String, eventsStreamURL: Swift.String = "", messageHubURL: Swift.String = "")
   @objc public func initializeLocationManager(desiredAccuracy: CoreLocation.CLLocationAccuracy, distanceFilter: CoreLocation.CLLocationDistance, untilTraveled: CoreLocation.CLLocationDistance, timeout: Foundation.TimeInterval)
   @objc deinit
@@ -468,13 +505,6 @@ extension Foundation.NSNotification.Name {
   @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
   @objc deinit
 }
-extension CordialSDK.ContactLogout {
-  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.ContactLogout>
-  @objc @NSManaged dynamic public var data: Foundation.NSData? {
-    @objc get
-    @objc set
-  }
-}
 @_hasMissingDesignatedInitializers @available(iOS 13.0, *)
 public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   public static let shared: CordialSDK.CordialSwiftUIInboxMessagePublisher
@@ -554,7 +584,7 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   @objc required convenience public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objc public class CordialPushNotificationHandler : ObjectiveC.NSObject {
+@objc @_inheritsConvenienceInitializers @objcMembers public class CordialPushNotificationHandler : ObjectiveC.NSObject {
   @objc public func isCordialMessage(userInfo: [Swift.AnyHashable : Any]) -> Swift.Bool
   @objc public func processNewPushNotificationToken(deviceToken: Foundation.Data)
   @objc public func processAppOpenViaPushNotificationTap(userInfo: [Swift.AnyHashable : Any], completionHandler: () -> Swift.Void)
@@ -569,7 +599,6 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   @objc public func getEventsStreamURL() -> Swift.String
   @objc public func getMessageHubURL() -> Swift.String
   @objc public func getContactPrimaryKey() -> Swift.String?
-  @objc public func showSystemAlert(title: Swift.String, message: Swift.String?)
   @objc public func openDeepLink(url: Foundation.URL)
   @objc public func getCurrentMcID() -> Swift.String?
   @objc public func setCurrentMcID(mcID: Swift.String)
@@ -613,10 +642,6 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   @objc public func getTimeZone() -> Swift.String
   @objc public func encode(with coder: Foundation.NSCoder)
   @objc required convenience public init?(coder: Foundation.NSCoder)
-  @objc deinit
-}
-@_inheritsConvenienceInitializers @objc(ContactLogout) public class ContactLogout : CoreData.NSManagedObject {
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
   @objc deinit
 }
 public struct CordialSwiftUIInAppMessageInputsCaptured {
@@ -791,13 +816,6 @@ public class CordialSwiftUIPushNotificationPublisher : Foundation.ObservableObje
   @objc required convenience public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
-extension CordialSDK.ContactCartRequest {
-  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.ContactCartRequest>
-  @objc @NSManaged dynamic public var data: Foundation.NSData? {
-    @objc get
-    @objc set
-  }
-}
 @objc public protocol PushNotificationCategoriesDelegate {
   @objc func openPushNotificationCategories()
 }
@@ -828,6 +846,10 @@ public class CordialSwiftUIPushNotificationCategoriesPublisher : Foundation.Obse
   @objc public func fetchInboxMessageContent(mcID: Swift.String, onSuccess: @escaping (_ response: Swift.String) -> Swift.Void, onFailure: @escaping (_ error: Swift.String) -> Swift.Void)
   @objc public func deleteInboxMessage(mcID: Swift.String)
   @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(ContactRequest) public class ContactRequest : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
   @objc deinit
 }
 @_hasMissingDesignatedInitializers public class TestCase {
@@ -881,10 +903,6 @@ public class CordialSwiftUIPushNotificationCategoriesPublisher : Foundation.Obse
   @objc public func getCustomEventJSON(eventName: Swift.String, properties: Swift.Dictionary<Swift.String, Swift.String>?) -> Swift.String
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objc(ContactRequest) public class ContactRequest : CoreData.NSManagedObject {
-  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
-  @objc deinit
-}
 @_inheritsConvenienceInitializers @objc(InboxMessagesCache) public class InboxMessagesCache : CoreData.NSManagedObject {
   @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
   @objc deinit
@@ -903,12 +921,31 @@ public struct CordialSwiftUIDeepLinks {
   public let fallbackURL: Foundation.URL?
   public let completionHandler: (CordialSDK.CordialDeepLinkActionType) -> Swift.Void
 }
+extension CordialSDK.ContactLogout {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<CordialSDK.ContactLogout>
+  @objc @NSManaged dynamic public var data: Foundation.Data? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var flushing: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var requestID: Swift.String? {
+    @objc get
+    @objc set
+  }
+}
 @objc @objcMembers public class ArrayValue : ObjectiveC.NSObject, Foundation.NSCoding, Foundation.NSSecureCoding, CordialSDK.AttributeValue {
   @objc public static var supportsSecureCoding: Swift.Bool
   @objc final public let value: [Swift.String]
   @objc public init(_ value: [Swift.String])
   @objc public func encode(with coder: Foundation.NSCoder)
   @objc required convenience public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(ContactOrderRequest) public class ContactOrderRequest : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
   @objc deinit
 }
 extension CordialSDK.InboxMessagesReadUnreadMarks {

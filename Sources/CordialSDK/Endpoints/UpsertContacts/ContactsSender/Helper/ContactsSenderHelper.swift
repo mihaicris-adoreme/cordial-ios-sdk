@@ -38,7 +38,7 @@ class ContactsSenderHelper {
             if upsertContactRequest.token != nil {
                 returnUpsertContactRequests.append(upsertContactRequest)
             } else {
-                CoreDataManager.shared.contactRequests.setContactRequestsToCoreData(upsertContactRequests: [upsertContactRequest])
+                CoreDataManager.shared.contactRequests.putContactRequests(upsertContactRequests: [upsertContactRequest])
                 
                 upsertContactRequests.forEach({ upsertContactRequest in
                     LoggerManager.shared.info(message: "Sending contact failed. Saved to retry later. Request ID: [\(upsertContactRequest.requestID)] Error: [Device token is absent]", category: "CordialSDKUpsertContacts")

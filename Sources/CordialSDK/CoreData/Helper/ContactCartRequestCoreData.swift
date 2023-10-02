@@ -13,57 +13,87 @@ class ContactCartRequestCoreData {
     
     let entityName = "ContactCartRequest"
     
-    func setContactCartRequestToCoreData(upsertContactCartRequest: UpsertContactCartRequest) {
+    // MARK: Setting Data
+    
+    func putContactCartRequest(upsertContactCartRequest: UpsertContactCartRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+        CoreDataManager.shared.deleteAll(entityName: self.entityName)
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
-            let newRow = NSManagedObject(entity: entity, insertInto: context)
+            let managedObject = NSManagedObject(entity: entity, insertInto: context)
             
             do {
                 let upsertContactCartRequestData = try NSKeyedArchiver.archivedData(withRootObject: upsertContactCartRequest, requiringSecureCoding: true)
                 
-                newRow.setValue(upsertContactCartRequestData, forKey: "data")
+                managedObject.setValue(upsertContactCartRequestData, forKey: "data")
+                managedObject.setValue(upsertContactCartRequest.requestID, forKey: "requestID")
+                managedObject.setValue(false, forKey: "flushing")
                 
-                try context.save()
+                CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
+                
             } catch let error {
+                CoreDataManager.shared.deleteAll(entityName: self.entityName)
+                
                 LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
             }
         }
     }
     
-    func getContactCartRequestFromCoreData() -> UpsertContactCartRequest? {
+    // MARK: Getting Data
+    
+    func fetchContactCartRequest() -> UpsertContactCartRequest? {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return nil }
         
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: self.entityName)
         request.returnsObjectsAsFaults = false
         
         do {
-            let result = try context.fetch(request)
-            for managedObject in result as! [NSManagedObject] {
-                guard let anyData = managedObject.value(forKey: "data") else { continue }
-                let data = anyData as! Data
+            guard let managedObjects = try context.fetch(request) as? [NSManagedObject] else { return nil }
+            
+            for managedObject in managedObjects {
+                guard let data = managedObject.value(forKey: "data") as? Data else {
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+
+                    continue
+                }
                 
                 if let upsertContactCartRequest = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [UpsertContactCartRequest.self, CartItem.self] + API.DEFAULT_UNARCHIVER_CLASSES, from: data) as? UpsertContactCartRequest,
                    !upsertContactCartRequest.isError {
                     
-                    CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+                    guard let isFlushing = managedObject.value(forKey: "flushing") as? Bool else {
+                        CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
+                        
+                        continue
+                    }
                     
-                    return upsertContactCartRequest
+                    if !isFlushing {
+                        managedObject.setValue(true, forKey: "flushing")
+                        
+                        CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
+                        
+                        return upsertContactCartRequest
+                    }
                 } else {
-                    context.delete(managedObject)
-                    try context.save()
+                    CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
                     
                     LoggerManager.shared.error(message: "Failed unarchiving UpsertContactCartRequest", category: "CordialSDKError")
                 }
             }
         } catch let error {
-            CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
         
         return nil
+    }
+    
+    // MARK: Removing Data
+    
+    func removeContactCartRequest(upsertContactCartRequest: UpsertContactCartRequest) {
+        let requestID = upsertContactCartRequest.requestID
+        
+        CoreDataManager.shared.removeObject(requestID: requestID, entityName: self.entityName)
     }
 }

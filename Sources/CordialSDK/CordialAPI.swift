@@ -40,20 +40,6 @@ import UIKit
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
-    // MARK: Global alert
-    
-    @objc public func showSystemAlert(title: String, message: String?) {
-        DispatchQueue.main.async {
-            if let currentVC = InternalCordialAPI().getActiveViewController() {
-                let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .cancel)
-                alertController.addAction(okAction)
-                
-                currentVC.present(alertController, animated: true, completion: nil)
-            }
-        }
-    }
-    
     // MARK: Open deep link
     
     @objc public func openDeepLink(url: URL) {
@@ -84,9 +70,9 @@ import UIKit
         
         internalCordialAPI.setPreviousContactPrimaryKey(previousPrimaryKey: previousPrimaryKey)
         
-        CoreDataManager.shared.deleteAllCoreDataByEntity(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
+        CoreDataManager.shared.deleteAll(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
         
-        internalCordialAPI.removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate()
+        internalCordialAPI.removeContactTimestampAndTheLatestSentAtInAppMessageDate()
         
         let token = internalCordialAPI.getPushNotificationToken()
         let status = internalCordialAPI.getPushNotificationStatus()
@@ -103,7 +89,7 @@ import UIKit
         if internalCordialAPI.isUserLogin() {
             CordialUserDefaults.set(false, forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
             
-            internalCordialAPI.removeContactTimestampFromCoreDataAndTheLatestSentAtInAppMessageDate()
+            internalCordialAPI.removeContactTimestampAndTheLatestSentAtInAppMessageDate()
             
             let previousPrimaryKey = self.getContactPrimaryKey()
             

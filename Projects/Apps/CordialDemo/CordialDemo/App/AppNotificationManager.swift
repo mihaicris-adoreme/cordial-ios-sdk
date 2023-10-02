@@ -55,13 +55,16 @@ class AppNotificationManager {
     }
     
     @objc func cordialNotificationErrorHandler(notification: NSNotification) {
-        if let error = notification.object as? ResponseError {
-            CordialAPI().showSystemAlert(title: error.message, message: error.responseBody)
+        if let error = notification.object as? ResponseError,
+           let controller = App.getActiveViewController() {
+            
+            App.popupSimpleNoteAlert(title: error.message, message: error.responseBody, controller: controller)
         }
     }
 
     @objc func newInboxMessageDelivered() {
-        CordialAPI().showSystemAlert(title: "Inbox Message", message: "The new inbox message has been received")
+        if let controller = App.getActiveViewController() {
+            App.popupSimpleNoteAlert(title: "Inbox Message", message: "The new inbox message has been received", controller: controller)
+        }
     }
-        
 }

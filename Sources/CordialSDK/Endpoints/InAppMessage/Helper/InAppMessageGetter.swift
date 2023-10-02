@@ -34,7 +34,7 @@ class InAppMessageGetter {
             
             let inAppMessageParams = InAppMessageParams(mcID: mcID, date: Date(), type: type, top: top, right: right, bottom: bottom, left: left, displayType: displayType, expirationTime: expirationTime, inactiveSessionDisplay: inactiveSessionDisplay)
             
-            CoreDataManager.shared.inAppMessagesParam.setParamsToCoreDataInAppMessagesParam(inAppMessagesParams: [inAppMessageParams])
+            CoreDataManager.shared.inAppMessagesParam.putInAppMessagesParams(inAppMessagesParams: [inAppMessageParams])
         }
     }
     
@@ -136,13 +136,13 @@ class InAppMessageGetter {
     }
     
     func systemErrorHandler(mcID: String, error: ResponseError) {
-        CoreDataManager.shared.inAppMessagesQueue.setMcIDsToCoreDataInAppMessagesQueue(mcIDs: [mcID])
+        CoreDataManager.shared.inAppMessagesQueue.putInAppMessageIDs(mcIDs: [mcID])
         
         LoggerManager.shared.info(message: "Fetching IAM failed. Saved to retry later. mcID: [\(mcID)] Error: [\(error.message)]", category: "CordialSDKInAppMessage")
     }
     
     func logicErrorHandler(mcID: String, error: ResponseError) {
-        InAppMessageProcess.shared.deleteInAppMessageFromCoreDataByMcID(mcID: mcID)
+        InAppMessageProcess.shared.removeInAppMessageFromCoreData(mcID: mcID)
         
         NotificationCenter.default.post(name: .cordialInAppMessageLogicError, object: error)
         
