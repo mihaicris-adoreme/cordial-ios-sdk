@@ -40,11 +40,11 @@ class InAppMessageViewController: UIViewController, WKUIDelegate, WKNavigationDe
     }
     
     func removeInAppMessageBannerWithDelay() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 15, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 15) {
             if self.isBannerAvailable {
                 self.removeBannerFromSuperviewWithAnimation(eventName: API.EVENT_NAME_AUTO_REMOVE_IN_APP_MESSAGE, duration: InAppMessageProcess.shared.bannerAnimationDuration)
             }
-        })
+        }
     }
     
     func addInAppMessageBannerGesturesRecognizer() {
