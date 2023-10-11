@@ -91,7 +91,11 @@ class PushNotificationHelper {
         }
         
         if !self.pushNotificationParser.isPayloadContainIAM(userInfo: userInfo) {
-            completionHandler([.alert])
+            if #available(iOS 14.0, *) {
+                completionHandler([.list, .banner])
+            } else {
+                completionHandler([.alert])
+            }
         }
     }
     
