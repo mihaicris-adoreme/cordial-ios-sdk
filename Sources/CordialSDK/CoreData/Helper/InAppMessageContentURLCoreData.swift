@@ -60,7 +60,7 @@ class InAppMessageContentURLCoreData {
                 return InAppMessageContent(mcID: mcID, url: url, expireDate: expireDate)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }

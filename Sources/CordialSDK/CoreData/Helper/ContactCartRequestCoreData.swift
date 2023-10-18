@@ -18,7 +18,7 @@ class ContactCartRequestCoreData {
     func putContactCartRequest(upsertContactCartRequest: UpsertContactCartRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
-        CoreDataManager.shared.deleteAll(entityName: self.entityName)
+        CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let managedObject = NSManagedObject(entity: entity, insertInto: context)
@@ -33,7 +33,7 @@ class ContactCartRequestCoreData {
                 CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
                 
             } catch let error {
-                CoreDataManager.shared.deleteAll(entityName: self.entityName)
+                CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
                 
                 LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
             }
@@ -81,7 +81,7 @@ class ContactCartRequestCoreData {
                 }
             }
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
