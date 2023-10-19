@@ -202,6 +202,8 @@ class CoreDataManager {
     }
     
     func deleteAll(context: NSManagedObjectContext, entityName: String) {
+        context.mergePolicy = NSMergePolicyType.overwriteMergePolicyType
+        
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
         
@@ -219,8 +221,8 @@ class CoreDataManager {
         
         let entityNames = managedObjectModel.entitiesByName.map { $0.key }
         
-        entityNames.forEach { entityNames in
-            self.deleteAll(context: context, entityName: entityNames)
+        entityNames.forEach { entityName in
+            self.deleteAll(context: context, entityName: entityName)
         }
     }
 }
