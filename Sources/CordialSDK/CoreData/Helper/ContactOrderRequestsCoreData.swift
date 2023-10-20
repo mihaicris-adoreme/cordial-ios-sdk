@@ -45,7 +45,7 @@ class ContactOrderRequestsCoreData {
             CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
             
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -66,7 +66,7 @@ class ContactOrderRequestsCoreData {
                 self.setContactOrderRequest(managedObject: managedObject, context: context, sendContactOrderRequest: sendContactOrderRequest)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -116,7 +116,7 @@ class ContactOrderRequestsCoreData {
             CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
             
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
