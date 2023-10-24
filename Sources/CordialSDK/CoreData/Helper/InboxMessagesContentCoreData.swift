@@ -82,7 +82,7 @@ class InboxMessagesContentCoreData {
                 }
             }
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -107,7 +107,7 @@ class InboxMessagesContentCoreData {
                 }
             }
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -133,7 +133,7 @@ class InboxMessagesContentCoreData {
                 CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -154,7 +154,7 @@ class InboxMessagesContentCoreData {
                 CoreDataManager.shared.removeManagedObject(managedObject: managedObject, context: context, entityName: self.entityName)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }

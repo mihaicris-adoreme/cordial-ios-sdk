@@ -70,7 +70,7 @@ import UIKit
         
         internalCordialAPI.setPreviousContactPrimaryKey(previousPrimaryKey: previousPrimaryKey)
         
-        CoreDataManager.shared.deleteAll(entityName: CoreDataManager.shared.contactLogoutRequest.entityName)
+        CoreDataManager.shared.contactLogoutRequest.deleteAllContactLogoutRequests()
         
         internalCordialAPI.removeContactTimestampAndTheLatestSentAtInAppMessageDate()
         

@@ -16166,6 +16166,24 @@
             "funcSelfKind": "NonMutating"
           },
           {
+            "kind": "Function",
+            "name": "deleteAllContactLogoutRequests",
+            "printedName": "deleteAllContactLogoutRequests()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK28ContactLogoutRequestCoreDataC09deleteAllcD8RequestsyyF",
+            "mangledName": "$s10CordialSDK28ContactLogoutRequestCoreDataC09deleteAllcD8RequestsyyF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init()",
@@ -21087,12 +21105,18 @@
           {
             "kind": "Function",
             "name": "deleteAll",
-            "printedName": "deleteAll(entityName:)",
+            "printedName": "deleteAll(context:entityName:)",
             "children": [
               {
                 "kind": "TypeNominal",
                 "name": "Void",
                 "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSManagedObjectContext",
+                "printedName": "CoreData.NSManagedObjectContext",
+                "usr": "c:objc(cs)NSManagedObjectContext"
               },
               {
                 "kind": "TypeNominal",
@@ -21102,8 +21126,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK15CoreDataManagerC9deleteAll10entityNameySS_tF",
-            "mangledName": "$s10CordialSDK15CoreDataManagerC9deleteAll10entityNameySS_tF",
+            "usr": "s:10CordialSDK15CoreDataManagerC9deleteAll7context10entityNameySo22NSManagedObjectContextC_SStF",
+            "mangledName": "$s10CordialSDK15CoreDataManagerC9deleteAll7context10entityNameySo22NSManagedObjectContextC_SStF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -95224,7 +95248,7 @@
       "kind": "StringLiteral",
       "offset": 393,
       "length": 7,
-      "value": "\"4.4.0\""
+      "value": "\"4.4.1\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
@@ -96370,7 +96394,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/InternalCordialAPI.swift",
       "kind": "BooleanLiteral",
-      "offset": 24407,
+      "offset": 24182,
       "length": 5,
       "value": "false"
     },

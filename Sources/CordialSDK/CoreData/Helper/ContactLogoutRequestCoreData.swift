@@ -18,7 +18,7 @@ class ContactLogoutRequestCoreData {
     func putContactLogoutRequest(sendContactLogoutRequest: SendContactLogoutRequest) {
         guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
         
-        CoreDataManager.shared.deleteAll(entityName: self.entityName)
+        CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
         
         if let entity = NSEntityDescription.entity(forEntityName: self.entityName, in: context) {
             let managedObject = NSManagedObject(entity: entity, insertInto: context)
@@ -33,7 +33,7 @@ class ContactLogoutRequestCoreData {
                 CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
                 
             } catch let error {
-                CoreDataManager.shared.deleteAll(entityName: self.entityName)
+                CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
                 
                 LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
             }
@@ -81,7 +81,7 @@ class ContactLogoutRequestCoreData {
                 }
             }
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -95,5 +95,11 @@ class ContactLogoutRequestCoreData {
         let requestID = sendContactLogoutRequest.requestID
         
         CoreDataManager.shared.removeObject(requestID: requestID, entityName: self.entityName)
+    }
+    
+    func deleteAllContactLogoutRequests() {
+        guard let context = CoreDataManager.shared.persistentContainer?.viewContext else { return }
+        
+        CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
     }
 }
