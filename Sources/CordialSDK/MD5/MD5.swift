@@ -29,7 +29,11 @@ class MD5 {
             messageData.withUnsafeBytes { messageBytes -> UInt8 in
                 if let messageBytesBaseAddress = messageBytes.baseAddress, let digestBytesBlindMemory = digestBytes.bindMemory(to: UInt8.self).baseAddress {
                     let messageLength = CC_LONG(messageData.count)
-                    CC_MD5(messageBytesBaseAddress, messageLength, digestBytesBlindMemory)
+                    if #available(iOS 13.0, *) {
+                        LoggerManager.shared.error(message: "The CC_MD5 function is cryptographically broken", category: "CordialSDKError")
+                    } else {
+                        CC_MD5(messageBytesBaseAddress, messageLength, digestBytesBlindMemory)
+                    }
                 }
                 
                 return 0
