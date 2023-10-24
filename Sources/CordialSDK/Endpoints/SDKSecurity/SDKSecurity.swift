@@ -49,9 +49,16 @@ class SDKSecurity {
         let systemVersion = UIDevice.current.systemVersion
         
         let secretString = "{\"accountKey\":\"\(accountKey)\",\"channelKey\":\"\(channelKey)\",\"os\":\"\(systemName)\",\"version\":\"\(systemVersion)\"}"
-        let secret = MD5().getHex(string: secretString)
         
-        return CordialApiEndpoints().getSDKSecurityURL(secret: secret)
+        if #available(iOS 13.0, *) {
+            let secret = MD5().getHexCryptoKit(string: secretString)
+            
+            return CordialApiEndpoints().getSDKSecurityURL(secret: secret)
+        } else {
+            let secret = MD5().getHexCommonCrypto(string: secretString)
+            
+            return CordialApiEndpoints().getSDKSecurityURL(secret: secret)
+        }
     }
 
     func completionHandler(JWT: String) {
