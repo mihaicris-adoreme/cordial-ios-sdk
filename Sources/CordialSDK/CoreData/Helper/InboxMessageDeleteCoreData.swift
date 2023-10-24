@@ -43,7 +43,7 @@ class InboxMessageDeleteCoreData {
             CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
             
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -64,7 +64,7 @@ class InboxMessageDeleteCoreData {
                 self.setInboxMessageDeleteRequest(managedObject: managedObject, context: context, inboxMessageDeleteRequest: inboxMessageDeleteRequest)
             }
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }
@@ -114,7 +114,7 @@ class InboxMessageDeleteCoreData {
             CoreDataManager.shared.saveContext(context: context, entityName: self.entityName)
             
         } catch let error {
-            CoreDataManager.shared.deleteAll(entityName: self.entityName)
+            CoreDataManager.shared.deleteAll(context: context, entityName: self.entityName)
             
             LoggerManager.shared.error(message: "CoreData Error: [\(error.localizedDescription)] Entity: [\(self.entityName)]", category: "CordialSDKCoreDataError")
         }

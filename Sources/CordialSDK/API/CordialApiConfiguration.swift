@@ -16,7 +16,7 @@ import UIKit
     
     private override init() {}
     
-    let sdkVersion = "4.4.0"
+    let sdkVersion = "4.4.1"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared

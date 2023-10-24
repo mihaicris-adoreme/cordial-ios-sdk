@@ -3,6 +3,13 @@
 The latest version of this file can be found at the master branch.
 
 
+## 4.4.1 (2023-10-20)
+
+### Changed
+
+- Passing context instead of getting it every time when clearing SDK storage
+- Updated deprecated `UNAuthorizationOptions.alert` to `.banner` and `.list`
+
 ## 4.4.0 (2023-09-27)
 
 ### Added
