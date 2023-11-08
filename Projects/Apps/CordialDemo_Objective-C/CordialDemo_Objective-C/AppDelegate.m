@@ -16,7 +16,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [[CordialApiConfiguration shared] initializeWithAccountKey:@"qc-all-channels-cID-pk" channelKey:@"push" eventsStreamURL:@"" messageHubURL:@""];
-    [[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone untilTraveled:CLLocationDistanceMax timeout:CLTimeIntervalMax];
+    [[CordialApiConfiguration shared] initializeLocationManagerWithDesiredAccuracy:kCLLocationAccuracyBest distanceFilter:kCLDistanceFilterNone];
     [CordialApiConfiguration shared].qtyCachedEventQueue = 100;
     [CordialApiConfiguration shared].eventsBulkSize = 3;
     [CordialApiConfiguration shared].eventsBulkUploadInterval = 15;
