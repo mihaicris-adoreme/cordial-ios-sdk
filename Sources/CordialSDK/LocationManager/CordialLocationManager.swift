@@ -26,16 +26,19 @@ class CordialLocationManager: NSObject, CLLocationManagerDelegate {
         self.locationManager.delegate = self
     }
     
-    private func enableLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance, untilTraveled: CLLocationDistance, timeout: TimeInterval) {
-        
+    private func enableLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance) {
         self.locationManager.desiredAccuracy = desiredAccuracy
         self.locationManager.distanceFilter = distanceFilter
         
-        if CLLocationManager.deferredLocationUpdatesAvailable() {
-            self.locationManager.allowDeferredLocationUpdates(untilTraveled: untilTraveled, timeout: timeout)
-        }
-        
         self.locationManager.startUpdatingLocation()
+    }
+    
+    private func applyDeferredLocationUpdates(untilTraveled: CLLocationDistance, timeout: TimeInterval) {
+        if #unavailable(iOS 13.0) {
+            if CLLocationManager.deferredLocationUpdatesAvailable() {
+                self.locationManager.allowDeferredLocationUpdates(untilTraveled: untilTraveled, timeout: timeout)
+            }
+        }
     }
     
     func setLatitude(latitude: Double) {
@@ -66,12 +69,20 @@ class CordialLocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .authorizedAlways:
-            if let desiredAccuracy = self.desiredAccuracy, let distanceFilter = self.distanceFilter, let untilTraveled = self.untilTraveled, let timeout = self.timeout {
-                self.enableLocationManager(desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, untilTraveled: untilTraveled, timeout: timeout)
+            if let untilTraveled = self.untilTraveled, let timeout = self.timeout {
+                self.applyDeferredLocationUpdates(untilTraveled: untilTraveled, timeout: timeout)
+            }
+            
+            if let desiredAccuracy = self.desiredAccuracy, let distanceFilter = self.distanceFilter {
+                self.enableLocationManager(desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter)
             }
         case .authorizedWhenInUse:
-            if let desiredAccuracy = self.desiredAccuracy, let distanceFilter = self.distanceFilter, let untilTraveled = self.untilTraveled, let timeout = self.timeout {
-                self.enableLocationManager(desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter, untilTraveled: untilTraveled, timeout: timeout)
+            if let untilTraveled = self.untilTraveled, let timeout = self.timeout {
+                self.applyDeferredLocationUpdates(untilTraveled: untilTraveled, timeout: timeout)
+            }
+            
+            if let desiredAccuracy = self.desiredAccuracy, let distanceFilter = self.distanceFilter {
+                self.enableLocationManager(desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter)
             }
         default: break
         }

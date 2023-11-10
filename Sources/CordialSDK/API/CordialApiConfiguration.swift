@@ -137,6 +137,14 @@ import UIKit
         
     }
     
+    public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance) {
+        CordialLocationManager.shared.desiredAccuracy = desiredAccuracy
+        CordialLocationManager.shared.distanceFilter = distanceFilter
+        
+        CordialLocationManager.shared.locationManager.requestWhenInUseAuthorization()
+    }
+    
+    @available(iOS, deprecated, message: "Use initializeLocationManager(desiredAccuracy:distanceFilter:) instead")
     public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance, untilTraveled: CLLocationDistance, timeout: TimeInterval) {
         CordialLocationManager.shared.desiredAccuracy = desiredAccuracy
         CordialLocationManager.shared.distanceFilter = distanceFilter
