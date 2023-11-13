@@ -54,6 +54,26 @@ class CordialLocationManager: NSObject, CLLocationManagerDelegate {
         return CordialUserDefaults.double(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
     }
     
+    func updateLocationAuthorizationStatus() {
+        DispatchQueue.main.async {
+            let authorizationStatus: CLAuthorizationStatus
+
+            if #available(iOS 14, *) {
+                authorizationStatus = self.locationManager.authorizationStatus
+            } else {
+                authorizationStatus = CLLocationManager.authorizationStatus()
+            }
+            
+            switch authorizationStatus {
+            case .restricted, .denied:
+                CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE)
+                CordialUserDefaults.removeObject(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE)
+            default:
+                break
+            }
+        }
+    }
+    
     // MARK: CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
