@@ -86,6 +86,8 @@ class NotificationManager {
         
         PushNotificationHelper().prepareCurrentPushNotificationStatus()
         
+        CordialLocationManager.shared.updateLocationAuthorizationStatus()
+        
         // IAM
         InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
               
