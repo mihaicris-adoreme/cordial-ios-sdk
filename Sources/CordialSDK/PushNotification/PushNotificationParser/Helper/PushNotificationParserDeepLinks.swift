@@ -17,18 +17,6 @@ class PushNotificationParserDeepLinks {
             let deepLinkURLString = deepLinkJSON["url"] as? String,
             let deepLinkURL = URL(string: deepLinkURLString) {
                 return deepLinkURL
-        } else if let deepLinkJSONString = userInfo["deepLink"] as? String,
-            let deepLinkJSONData = deepLinkJSONString.data(using: .utf8) {
-                do {
-                    if let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject],
-                        let deepLinkURLString = deepLinkJSON["url"] as? String {
-                            let deepLinkURL = URL(string: deepLinkURLString)
-                            
-                            return deepLinkURL
-                    }
-                } catch let error {
-                    LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKPushNotification")
-                }
         }
         
         return nil
@@ -41,18 +29,6 @@ class PushNotificationParserDeepLinks {
             let vanityDeepLinkURLString = deepLinkJSON["vanityUrl"] as? String,
             let vanityDeepLinkURL = URL(string: vanityDeepLinkURLString) {
                 return vanityDeepLinkURL
-        } else if let deepLinkJSONString = userInfo["deepLink"] as? String,
-            let deepLinkJSONData = deepLinkJSONString.data(using: .utf8) {
-                do {
-                    if let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject],
-                        let vanityDeepLinkURLString = deepLinkJSON["vanityUrl"] as? String {
-                            let vanityDeepLinkURL = URL(string: vanityDeepLinkURLString)
-                            
-                            return vanityDeepLinkURL
-                    }
-                } catch let error {
-                    LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKPushNotification")
-                }
         }
         
         return nil
@@ -65,18 +41,6 @@ class PushNotificationParserDeepLinks {
             let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String,
             let fallbackURL = URL(string: fallbackURLString) {
                 return fallbackURL
-        } else if let deepLinkJSONString = userInfo["deepLink"] as? String,
-            let deepLinkJSONData = deepLinkJSONString.data(using: .utf8) {
-                do {
-                    if let deepLinkJSON = try JSONSerialization.jsonObject(with: deepLinkJSONData, options: []) as? [String: AnyObject],
-                        let fallbackURLString = deepLinkJSON["fallbackUrl"] as? String {
-                            let fallbackURL = URL(string: fallbackURLString)
-                            
-                            return fallbackURL
-                    }
-                } catch let error {
-                    LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKPushNotification")
-                }
         }
         
         return nil
