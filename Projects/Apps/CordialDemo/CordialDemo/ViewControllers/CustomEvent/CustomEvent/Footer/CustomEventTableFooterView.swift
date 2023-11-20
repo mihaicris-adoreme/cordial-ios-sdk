@@ -17,7 +17,7 @@ class CustomEventTableFooterView: UITableViewHeaderFooterView {
     
     let cordialAPI = CordialAPI()
     
-    @IBAction func sendCustomEventAction(_ sender: UIButton) {
+    @IBAction func sendCustomEventAction() {
         if let eventName = self.сustomEventViewController.eventNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
             
             var isEventNameValidated = false
@@ -44,5 +44,4 @@ class CustomEventTableFooterView: UITableViewHeaderFooterView {
             }
         }
     }
-
 }
