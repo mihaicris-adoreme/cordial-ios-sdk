@@ -7,22 +7,33 @@
 //
 
 import Foundation
-import var CommonCrypto.CC_MD5_DIGEST_LENGTH
-import func CommonCrypto.CC_MD5
-import typealias CommonCrypto.CC_LONG
+import CommonCrypto
+import CryptoKit
 
 class MD5 {
     
-    private func prepareMD5Data(string: String) -> Data {
+    @available(iOS 13.0, *)
+    private func prepareMD5DataCryptoKit(string: String) -> Insecure.MD5.Digest {
+        let messageData = string.data(using: .utf8)!
+        let digestData = Insecure.MD5.hash (data: messageData)
+        
+        return digestData
+    }
+    
+    private func prepareMD5DataCommonCrypto(string: String) -> Data {
         let length = Int(CC_MD5_DIGEST_LENGTH)
-        let messageData = string.data(using:.utf8)!
+        let messageData = string.data(using: .utf8)!
         var digestData = Data(count: length)
         
         _ = digestData.withUnsafeMutableBytes { digestBytes -> UInt8 in
             messageData.withUnsafeBytes { messageBytes -> UInt8 in
                 if let messageBytesBaseAddress = messageBytes.baseAddress, let digestBytesBlindMemory = digestBytes.bindMemory(to: UInt8.self).baseAddress {
                     let messageLength = CC_LONG(messageData.count)
-                    CC_MD5(messageBytesBaseAddress, messageLength, digestBytesBlindMemory)
+                    if #available(iOS 13.0, *) {
+                        LoggerManager.shared.error(message: "The CC_MD5 function is cryptographically broken", category: "CordialSDKError")
+                    } else {
+                        CC_MD5(messageBytesBaseAddress, messageLength, digestBytesBlindMemory)
+                    }
                 }
                 
                 return 0
@@ -32,17 +43,18 @@ class MD5 {
         return digestData
     }
     
-    func getHex(string: String) -> String {
-        let md5Data = self.prepareMD5Data(string: string)
+    @available(iOS 13.0, *)
+    func getHexCryptoKit(string: String) -> String {
+        let md5Data = self.prepareMD5DataCryptoKit(string: string)
         let md5Hex =  md5Data.map { String(format: "%02hhx", $0) }.joined()
         
         return md5Hex
     }
     
-    func getBase64(string: String) -> String {
-        let md5Data = self.prepareMD5Data(string: string)
-        let md5Base64 = md5Data.base64EncodedString()
+    func getHexCommonCrypto(string: String) -> String {
+        let md5Data = self.prepareMD5DataCommonCrypto(string: string)
+        let md5Hex =  md5Data.map { String(format: "%02hhx", $0) }.joined()
         
-        return md5Base64
+        return md5Hex
     }
 }
