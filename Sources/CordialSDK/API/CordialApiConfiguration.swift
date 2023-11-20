@@ -133,8 +133,6 @@ import UIKit
         
         NotificationManager.shared.setupNotificationManager()
         
-//        CoreDataManager.shared.deleteAllCoreData()
-        
     }
     
     public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance) {
