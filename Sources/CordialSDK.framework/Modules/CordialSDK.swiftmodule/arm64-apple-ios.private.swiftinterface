@@ -3,12 +3,11 @@
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name CordialSDK
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import Combine
-import CommonCrypto/*.CC_LONG*/
-import CommonCrypto/*.CC_MD5*/
-import CommonCrypto/*.CC_MD5_DIGEST_LENGTH*/
+import CommonCrypto
 @_exported import CordialSDK
 import CoreData
 import CoreLocation
+import CryptoKit
 import Foundation
 import Foundation/*.Bundle*/
 import Swift
@@ -419,7 +418,9 @@ extension CordialSDK.InAppMessagesQueue {
   }
   @objc public func setNotificationCategories(_ pushNotificationCategories: [CordialSDK.PushNotificationCategory])
   @objc public func initialize(accountKey: Swift.String, channelKey: Swift.String, eventsStreamURL: Swift.String = "", messageHubURL: Swift.String = "")
-  @objc public func initializeLocationManager(desiredAccuracy: CoreLocation.CLLocationAccuracy, distanceFilter: CoreLocation.CLLocationDistance, untilTraveled: CoreLocation.CLLocationDistance, timeout: Foundation.TimeInterval)
+  @objc public func initializeLocationManager(desiredAccuracy: CoreLocation.CLLocationAccuracy, distanceFilter: CoreLocation.CLLocationDistance)
+  @objc @available(iOS, deprecated, message: "Use initializeLocationManager(desiredAccuracy:distanceFilter:) instead")
+  public func initializeLocationManager(desiredAccuracy: CoreLocation.CLLocationAccuracy, distanceFilter: CoreLocation.CLLocationDistance, untilTraveled: CoreLocation.CLLocationDistance, timeout: Foundation.TimeInterval)
   @objc deinit
 }
 @objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objcMembers public class LoggerManager : ObjectiveC.NSObject {
