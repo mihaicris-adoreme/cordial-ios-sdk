@@ -511,7 +511,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) CordialApiCo
 @property (nonatomic) NSTimeInterval eventsBulkUploadInterval;
 - (void)setNotificationCategories:(NSArray<PushNotificationCategory *> * _Nonnull)pushNotificationCategories;
 - (void)initializeWithAccountKey:(NSString * _Nonnull)accountKey channelKey:(NSString * _Nonnull)channelKey eventsStreamURL:(NSString * _Nonnull)eventsStreamURL messageHubURL:(NSString * _Nonnull)messageHubURL;
-- (void)initializeLocationManagerWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy distanceFilter:(CLLocationDistance)distanceFilter untilTraveled:(CLLocationDistance)untilTraveled timeout:(NSTimeInterval)timeout;
+- (void)initializeLocationManagerWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy distanceFilter:(CLLocationDistance)distanceFilter;
+- (void)initializeLocationManagerWithDesiredAccuracy:(CLLocationAccuracy)desiredAccuracy distanceFilter:(CLLocationDistance)distanceFilter untilTraveled:(CLLocationDistance)untilTraveled timeout:(NSTimeInterval)timeout SWIFT_AVAILABILITY(ios,deprecated=0.0.1,message="Use initializeLocationManager(desiredAccuracy:distanceFilter:) instead");
 @end
 
 

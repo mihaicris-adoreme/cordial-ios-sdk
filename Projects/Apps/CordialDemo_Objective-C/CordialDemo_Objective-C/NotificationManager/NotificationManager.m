@@ -58,7 +58,7 @@ static NotificationManager *singletonObject = nil;
 - (void)cordialNotificationErrorHandler:(NSNotification*)notification {
     if ([notification.object isKindOfClass:[ResponseError class]]) {
         ResponseError *responseError = notification.object;
-        [[[CordialAPI alloc] init] showSystemAlertWithTitle:responseError.message message:responseError.responseBody];
+        // ShowSystemAlert
     }
 }
     

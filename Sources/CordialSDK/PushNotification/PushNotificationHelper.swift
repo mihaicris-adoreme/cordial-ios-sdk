@@ -96,6 +96,8 @@ class PushNotificationHelper {
             } else {
                 completionHandler([.alert])
             }
+        } else if #available(iOS 14.0, *) {
+            completionHandler([.list])
         }
     }
     

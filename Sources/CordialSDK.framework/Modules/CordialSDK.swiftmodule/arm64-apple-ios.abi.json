@@ -43180,6 +43180,40 @@
           {
             "kind": "Function",
             "name": "initializeLocationManager",
+            "printedName": "initializeLocationManager(desiredAccuracy:distanceFilter:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(im)initializeLocationManagerWithDesiredAccuracy:distanceFilter:",
+            "mangledName": "$s10CordialSDK0A16ApiConfigurationC25initializeLocationManager15desiredAccuracy14distanceFilterySd_SdtF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "initializeLocationManager",
             "printedName": "initializeLocationManager(desiredAccuracy:distanceFilter:untilTraveled:timeout:)",
             "children": [
               {
@@ -43216,9 +43250,11 @@
             "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(im)initializeLocationManagerWithDesiredAccuracy:distanceFilter:untilTraveled:timeout:",
             "mangledName": "$s10CordialSDK0A16ApiConfigurationC25initializeLocationManager15desiredAccuracy14distanceFilter13untilTraveled7timeoutySd_S3dtF",
             "moduleName": "CordialSDK",
+            "deprecated": true,
             "isOpen": true,
             "declAttributes": [
               "AccessControl",
+              "Available",
               "ObjC"
             ],
             "funcSelfKind": "NonMutating"
@@ -76562,15 +76598,8 @@
       },
       {
         "kind": "Import",
-        "name": "CommonCrypto",
-        "printedName": "CommonCrypto",
-        "declKind": "Import",
-        "moduleName": "CordialSDK"
-      },
-      {
-        "kind": "Import",
-        "name": "CommonCrypto",
-        "printedName": "CommonCrypto",
+        "name": "CryptoKit",
+        "printedName": "CryptoKit",
         "declKind": "Import",
         "moduleName": "CordialSDK"
       },
@@ -76581,8 +76610,8 @@
         "children": [
           {
             "kind": "Function",
-            "name": "getHex",
-            "printedName": "getHex(string:)",
+            "name": "getHexCryptoKit",
+            "printedName": "getHexCryptoKit(string:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -76598,16 +76627,20 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK3MD5C6getHex6stringS2S_tF",
-            "mangledName": "$s10CordialSDK3MD5C6getHex6stringS2S_tF",
+            "usr": "s:10CordialSDK3MD5C15getHexCryptoKit6stringS2S_tF",
+            "mangledName": "$s10CordialSDK3MD5C15getHexCryptoKit6stringS2S_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
+            "intro_iOS": "13.0",
+            "declAttributes": [
+              "Available"
+            ],
             "funcSelfKind": "NonMutating"
           },
           {
             "kind": "Function",
-            "name": "getBase64",
-            "printedName": "getBase64(string:)",
+            "name": "getHexCommonCrypto",
+            "printedName": "getHexCommonCrypto(string:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -76623,8 +76656,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK3MD5C9getBase646stringS2S_tF",
-            "mangledName": "$s10CordialSDK3MD5C9getBase646stringS2S_tF",
+            "usr": "s:10CordialSDK3MD5C18getHexCommonCrypto6stringS2S_tF",
+            "mangledName": "$s10CordialSDK3MD5C18getHexCommonCrypto6stringS2S_tF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -79376,6 +79409,24 @@
             "declKind": "Func",
             "usr": "s:10CordialSDK0A15LocationManagerC12getLongitudeSdSgyF",
             "mangledName": "$s10CordialSDK0A15LocationManagerC12getLongitudeSdSgyF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "updateLocationAuthorizationStatus",
+            "printedName": "updateLocationAuthorizationStatus()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK0A15LocationManagerC06updateC19AuthorizationStatusyyF",
+            "mangledName": "$s10CordialSDK0A15LocationManagerC06updateC19AuthorizationStatusyyF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -95248,7 +95299,7 @@
       "kind": "StringLiteral",
       "offset": 393,
       "length": 7,
-      "value": "\"4.4.1\""
+      "value": "\"4.4.2\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
