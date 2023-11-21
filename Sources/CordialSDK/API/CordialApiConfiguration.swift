@@ -16,7 +16,7 @@ import UIKit
     
     private override init() {}
     
-    let sdkVersion = "4.4.1"
+    let sdkVersion = "4.4.2"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
@@ -133,10 +133,16 @@ import UIKit
         
         NotificationManager.shared.setupNotificationManager()
         
-//        CoreDataManager.shared.deleteAllCoreData()
-        
     }
     
+    public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance) {
+        CordialLocationManager.shared.desiredAccuracy = desiredAccuracy
+        CordialLocationManager.shared.distanceFilter = distanceFilter
+        
+        CordialLocationManager.shared.locationManager.requestWhenInUseAuthorization()
+    }
+    
+    @available(iOS, deprecated, message: "Use initializeLocationManager(desiredAccuracy:distanceFilter:) instead")
     public func initializeLocationManager(desiredAccuracy: CLLocationAccuracy, distanceFilter: CLLocationDistance, untilTraveled: CLLocationDistance, timeout: TimeInterval) {
         CordialLocationManager.shared.desiredAccuracy = desiredAccuracy
         CordialLocationManager.shared.distanceFilter = distanceFilter

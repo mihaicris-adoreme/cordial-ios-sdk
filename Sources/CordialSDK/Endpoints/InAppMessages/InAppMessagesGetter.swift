@@ -90,7 +90,8 @@ class InAppMessagesGetter {
         
         LoggerManager.shared.info(message: "IAMs with mcIDs: [\(mcIDs)] has been successfully fetch. Payload size: \(payloadSize).", category: "CordialSDKInAppMessages")
         
-        InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            InAppMessagesQueueManager().fetchInAppMessageDataFromQueue()
+        }
     }
-    
 }
