@@ -10,11 +10,11 @@
 @implementation CordialDeepLinksHandler
 
 - (void)openDeepLinkWithDeepLink:(CordialDeepLink * _Nonnull)deepLink fallbackURL:(NSURL * _Nullable)fallbackURL completionHandler:(void (^ _Nonnull)(enum CordialDeepLinkActionType))completionHandler {
-    [[CordialAPI alloc] showSystemAlertWithTitle:@"CordialDeepLinksHandler" message:@"scenes-disabled"];
+    // ShowSystemAlert
 }
 
 - (void)openDeepLinkWithDeepLink:(CordialDeepLink * _Nonnull)deepLink fallbackURL:(NSURL * _Nullable)fallbackURL scene:(UIScene * _Nonnull)scene completionHandler:(void (^ _Nonnull)(enum CordialDeepLinkActionType))completionHandler  API_AVAILABLE(ios(13.0)){
-    [[CordialAPI alloc] showSystemAlertWithTitle:@"CordialDeepLinksHandler" message:@"scenes-enabled"];
+    // ShowSystemAlert
 }
 
 @end

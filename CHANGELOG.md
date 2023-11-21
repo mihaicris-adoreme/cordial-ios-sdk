@@ -2,6 +2,22 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.4.2 (2023-11-20)
+
+### Added
+
+- `CryptoKit` for endpoint security
+- Delivery of push notifications accompanied by in-app messages to the notification center
+
+### Fixed
+
+- Issue of location data not being cleared after location sharing is turned off
+- Display issues of in-app messages while fetching their content
+
+### Removed
+
+- The parsing of deep link objects as strings in the JSON payload
+- Deferred location updates for iOS 13 and higher
 
 ## 4.4.1 (2023-10-20)
 
