@@ -96,36 +96,43 @@ import UIKit
     }
     
     public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String = "", messageHubURL: String = "") {
-        
-        self.accountKey = accountKey
-        self.channelKey = channelKey
+        var eventsStreamURL = eventsStreamURL
+        var messageHubURL = messageHubURL
         
         if eventsStreamURL.isEmpty {
-            self.eventsStreamURL = "https://events-stream-svc.cordial.com/"
+            eventsStreamURL = "https://events-stream-svc.cordial.com/"
         } else if eventsStreamURL.last != "/" || eventsStreamURL.prefix(8) != "https://" {
             let prefix = (eventsStreamURL.prefix(8) != "https://") ? "https://" : ""
             let suffix = (eventsStreamURL.last != "/") ? "/" : ""
             
-            self.eventsStreamURL = "\(prefix)\(eventsStreamURL)\(suffix)"
-        } else {
-            self.eventsStreamURL = eventsStreamURL
+            eventsStreamURL = "\(prefix)\(eventsStreamURL)\(suffix)"
         }
         
         if messageHubURL.isEmpty {
-            self.messageHubURL = self.eventsStreamURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
+            messageHubURL = eventsStreamURL.replacingFirstOccurrence(of: "events-stream", with: "message-hub")
         } else if messageHubURL.last != "/" || messageHubURL.prefix(8) != "https://" {
             let prefix = (messageHubURL.prefix(8) != "https://") ? "https://" : ""
             let suffix = (messageHubURL.last != "/") ? "/" : ""
             
-            self.messageHubURL = "\(prefix)\(messageHubURL)\(suffix)"
-        } else {
-            self.messageHubURL = messageHubURL
+            messageHubURL = "\(prefix)\(messageHubURL)\(suffix)"
         }
         
-        let deviceID = InternalCordialAPI().getDeviceIdentifier()
+        if self.accountKey != accountKey || self.channelKey != channelKey || self.eventsStreamURL != eventsStreamURL || self.messageHubURL != messageHubURL {
+            CoreDataManager.shared.deleteAll()
+            CordialUserDefaults.deleteAll()
+        }
+        
+        self.accountKey = accountKey
+        self.channelKey = channelKey
+        self.eventsStreamURL = eventsStreamURL
+        self.messageHubURL = messageHubURL
+        
+        let internalCordialAPI = InternalCordialAPI()
+        
+        let deviceID = internalCordialAPI.getDeviceIdentifier()
         LoggerManager.shared.log(message: "Device Identifier: [\(deviceID)] SDK: [\(self.sdkVersion)]", category: "CordialSDKInfo")
         
-        self.systemEventsProperties = InternalCordialAPI().getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
+        self.systemEventsProperties = internalCordialAPI.getMergedDictionaryToSystemEventsProperties(properties: ["deviceId": deviceID])
         
         CoreDataManager.shared.updateSendingRequestsIfNeeded()
         
