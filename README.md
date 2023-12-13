@@ -60,18 +60,23 @@ pod install
 This will add the latest version of Cordial SDK to your project.
 
 ## Initialize the SDK
+
+Developers using this SDK are advised to obtain the URLs for the Message Hub Service and Event Stream Service.
+
+For the latest and accurate information, contact the Customer Service Management team.
+
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initialize` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
 ```
-CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key")
+CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "your_events_stream_url", messageHubURL: "your_message_hub_url")
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 
 ```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"" messageHubURL:@""];
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"your_events_stream_url" messageHubURL:@"your_message_hub_url"];
 ```
 
 ### Initialize the SDK for US West 2 Accounts
