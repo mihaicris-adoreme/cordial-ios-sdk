@@ -95,7 +95,12 @@ import UIKit
         }
     }
     
-    public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String = "", messageHubURL: String = "") {
+    @available(iOS, deprecated, message: "Use initialize(accountKey:channelKey:eventsStreamURL:messageHubURL) instead")
+    public func initialize(accountKey: String, channelKey: String) {
+        self.initialize(accountKey: accountKey, channelKey: channelKey, eventsStreamURL: "https://events-stream-svc.cordial.com/")
+    }
+
+    public func initialize(accountKey: String, channelKey: String, eventsStreamURL: String, messageHubURL: String = "") {
         
         self.accountKey = accountKey
         self.channelKey = channelKey
