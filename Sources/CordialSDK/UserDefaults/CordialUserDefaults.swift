@@ -40,7 +40,7 @@ struct CordialUserDefaults {
         self.cordialUserDefaults?.removeObject(forKey: key)
     }
     
-    static func removeAllData() {
+    static func deleteAll() {
         let dictionary = self.cordialUserDefaults?.dictionaryRepresentation()
         dictionary?.keys.forEach { key in
             self.removeObject(forKey: key)
