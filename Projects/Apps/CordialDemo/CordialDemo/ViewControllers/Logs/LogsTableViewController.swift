@@ -23,6 +23,9 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(sender:)))
+        self.tableView.addGestureRecognizer(longPressGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +58,30 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         self.tableView.reloadData()
+    }
+    
+    @objc func longPressGesture(sender: UILongPressGestureRecognizer) {
+        if sender.state == UIGestureRecognizer.State.began {
+            let touchPoint = sender.location(in: self.tableView)
+            
+            if let indexPath = self.tableView.indexPathForRow(at: touchPoint) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                UIPasteboard.general.string = self.logs[indexPath.row]
+                
+                if #available(iOS 13.0, *) {
+                    let size = self.view.frame.width / 5
+                    let frame = CGRect(x: 0, y: 0, width: size, height: size)
+                    let config = UIImage.SymbolConfiguration(pointSize: 1, weight: .semibold, scale: .large)
+                    let image = UIImage(systemName: "checkmark", withConfiguration: config)
+                    let imageView = UIImageView(frame: frame)
+                    imageView.image = image
+                    imageView.center = self.view.center
+                    self.view.addSubview(imageView)
+                    imageView.popIn()
+                    imageView.popOut()
+                }
+            }
+        }
     }
 
     // MARK: - Table view data source

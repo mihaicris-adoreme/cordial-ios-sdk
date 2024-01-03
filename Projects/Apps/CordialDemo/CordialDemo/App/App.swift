@@ -322,3 +322,20 @@ extension UIImage {
         return result
     }
 }
+
+extension UIView {
+    func popIn(duration: TimeInterval = 0.5, completion: ((Bool) -> ())? = nil) {
+        self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        UIView.animate(withDuration: duration, delay: 0.1, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseOut, animations: {
+            self.alpha = 1
+            self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        }, completion: completion)
+    }
+    
+    func popOut(duration: TimeInterval = 0.5, completion: ((Bool) -> ())? = nil) {
+        UIView.animate(withDuration: duration, delay: 0.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: .curveEaseOut, animations: {
+            self.alpha = 0
+            self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+        }, completion: completion)
+    }
+}
