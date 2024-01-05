@@ -55,7 +55,29 @@ class FileLogger: LoggerDelegate {
 
     @available(iOS 13.4, *)
     func removeTo(log: String) {
+        let logs = self.read()
+        guard let logIndex = self.findIndex(of: log, in: logs) else { return }
+        
+        print(logIndex)
+        
         // TODO
+    }
+    
+    func findIndex(of string: String, in str: String) -> Int? {
+        for (index, char) in str.enumerated() {
+            var found = true
+            for (offset, char2) in string.enumerated() {
+                if str[str.index(str.startIndex, offsetBy: index + offset)] != char2 {
+                    found = false
+                    break
+                }
+            }
+            if found {
+                return index
+            }
+        }
+        
+        return nil
     }
         
     private func write(_ row: String) {
