@@ -1433,6 +1433,20 @@ cordialAPI.setCurrentMcID(mcID: "mcID")
 [cordialAPI setCurrentMcIDWithMcID:@"mcID"];
 ```
 
+Obtain `mcID` can be achieved by making the following call:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let mcID = cordialAPI.getCurrentMcID()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSString *mcID = [cordialAPI getCurrentMcID];
+```
+
 ## Revenue Attribution for Web View Applications
 
 If your application is built on a WebView that views a mobile friendly version of your website which is running the Cordial JavaScript Listener, you will need to change how you process deep links to fix attribution. This is because when a message is clicked, the Cordial SDK will store the `mcID`, but the website will not know about this `mcID`. To fix this in your implementation of the `CordialDeepLinksDelegate`, the app should pass the `vanityURL` version of the deep link to the WebView which allows the JavaScript Listener to correctly store the `mcID` for event and order attribution.
