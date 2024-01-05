@@ -41,7 +41,7 @@ class FileLogger: LoggerDelegate {
         return logs
     }
     
-    func remove() {
+    func deleteAll() {
         guard let fileURL = self.getFileURL() else { return }
         
         do {
@@ -51,6 +51,11 @@ class FileLogger: LoggerDelegate {
         } catch let error {
             LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKDemo")
         }
+    }
+
+    @available(iOS 13.4, *)
+    func removeTo(log: String) {
+        // TODO
     }
         
     private func write(_ row: String) {

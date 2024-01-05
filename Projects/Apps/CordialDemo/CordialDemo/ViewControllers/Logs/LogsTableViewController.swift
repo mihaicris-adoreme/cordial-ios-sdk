@@ -15,6 +15,7 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
     let reuseIdentifier = "logsTableCell"
     
     var logs: [String] = []
+    var selectedIndex: IndexPath = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,7 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture(sender:)))
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressGesture(sender:)))
         self.tableView.addGestureRecognizer(longPressGesture)
     }
     
@@ -39,7 +40,17 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func logsRemoveAction(_ sender: UIBarButtonItem) {
-        FileLogger.shared.remove()
+        if !self.selectedIndex.isEmpty {
+            let log = self.logs[self.selectedIndex.row]
+
+            if #available(iOS 13.4, *) {
+                FileLogger.shared.removeTo(log: log)
+            } else {
+                FileLogger.shared.deleteAll()
+            }
+        } else {
+            FileLogger.shared.deleteAll()
+        }
         
         self.prepareLogsTextView()
     }
@@ -71,12 +82,16 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
                 if #available(iOS 13.0, *) {
                     let size = self.view.frame.width / 5
                     let frame = CGRect(x: 0, y: 0, width: size, height: size)
+
                     let config = UIImage.SymbolConfiguration(pointSize: 1, weight: .semibold, scale: .large)
                     let image = UIImage(systemName: "checkmark", withConfiguration: config)
+
                     let imageView = UIImageView(frame: frame)
                     imageView.image = image
                     imageView.center = self.view.center
+
                     self.view.addSubview(imageView)
+
                     imageView.popIn()
                     imageView.popOut()
                 }
@@ -101,6 +116,6 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO
+        self.selectedIndex = indexPath
     }
 }
