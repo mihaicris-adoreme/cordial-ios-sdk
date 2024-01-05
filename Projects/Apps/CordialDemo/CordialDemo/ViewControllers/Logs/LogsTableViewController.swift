@@ -69,6 +69,7 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         self.tableView.reloadData()
+        self.selectedIndex = []
     }
     
     @objc func longPressGesture(sender: UILongPressGestureRecognizer) {
