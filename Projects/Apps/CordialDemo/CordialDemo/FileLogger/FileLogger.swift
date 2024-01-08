@@ -56,24 +56,41 @@ class FileLogger: LoggerDelegate {
     @available(iOS 13.4, *)
     func removeTo(log: String) {
         let logs = self.read()
-        guard let logIndex = self.findIndex(of: log, in: logs) else { return }
         
-        print(logIndex)
+        guard let index = self.findIndex(of: log, in: logs) else { return }
+        guard let data = logs[logs.index(logs.startIndex, offsetBy: index)...].data(using: .utf8) else { return }
         
-        // TODO
+        self.update(data: data)
     }
     
-    func findIndex(of string: String, in str: String) -> Int? {
-        for (index, char) in str.enumerated() {
+    @available(iOS 13.4, *)
+    private func update(data: Data) {
+        guard let fileURL = self.getFileURL() else { return }
+        
+        do {
+            if FileManager.default.fileExists(atPath: fileURL.path) {
+                let fileUpdater = try FileHandle(forWritingTo: fileURL)
+                
+                try fileUpdater.truncate(atOffset: 0)
+                fileUpdater.write(data)
+                fileUpdater.closeFile()
+            }
+        } catch let error {
+            LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKDemo")
+        }
+    }
+    
+    private func findIndex(of string: String, in str: String) -> Int? {
+        for (index, _) in str.enumerated() {
             var found = true
-            for (offset, char2) in string.enumerated() {
-                if str[str.index(str.startIndex, offsetBy: index + offset)] != char2 {
+            for (offset, char) in string.enumerated() {
+                if str[str.index(str.startIndex, offsetBy: index + offset)] != char {
                     found = false
                     break
                 }
             }
             if found {
-                return index
+                return index + string.count
             }
         }
         
