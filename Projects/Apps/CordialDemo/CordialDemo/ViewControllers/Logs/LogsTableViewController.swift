@@ -64,6 +64,7 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
             for log in logs.components(separatedBy: "\n\n") {
                 if !log.isEmpty {
                     self.logs.append(log)
+                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                 }
             }
         }
