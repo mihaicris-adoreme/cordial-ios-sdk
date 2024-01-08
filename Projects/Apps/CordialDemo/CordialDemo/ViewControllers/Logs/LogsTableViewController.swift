@@ -44,6 +44,10 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
             let log = self.logs[self.selectedIndex.row]
 
             if #available(iOS 13.4, *) {
+                DispatchQueue.main.async {
+                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                }
+                
                 FileLogger.shared.removeTo(log: log)
             } else {
                 FileLogger.shared.deleteAll()
@@ -64,13 +68,15 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
             for log in logs.components(separatedBy: "\n\n") {
                 if !log.isEmpty {
                     self.logs.append(log)
-                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                 }
             }
         }
         
-        self.tableView.reloadData()
         self.selectedIndex = []
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     @objc func longPressGesture(sender: UILongPressGestureRecognizer) {
