@@ -110,6 +110,8 @@ class FileLogger: LoggerDelegate {
             } else {
                 try rowData.write(to: fileURL)
             }
+            
+            NotificationCenter.default.post(name: .cordialDemoNewLogMessageDelivered, object: nil)
         } catch let error {
             LoggerManager.shared.error(message: "Error: [\(error.localizedDescription)]", category: "CordialSDKDemo")
         }

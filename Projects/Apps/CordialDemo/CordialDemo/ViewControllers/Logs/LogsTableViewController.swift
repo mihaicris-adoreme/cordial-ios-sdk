@@ -27,15 +27,14 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(self.longPressGesture(sender:)))
         self.tableView.addGestureRecognizer(longPressGesture)
+        
+        NotificationCenter.default.removeObserver(self, name: .cordialDemoNewLogMessageDelivered, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.newLogMessageDelivered), name: .cordialDemoNewLogMessageDelivered, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.prepareLogsTextView()
-    }
-    
-    @IBAction func logsRefreshAction(_ sender: UIBarButtonItem) {
         self.prepareLogsTextView()
     }
     
@@ -56,7 +55,15 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
             FileLogger.shared.deleteAll()
         }
         
-        self.prepareLogsTextView()
+        DispatchQueue.main.async {
+            self.prepareLogsTextView()
+        }
+    }
+    
+    @objc func newLogMessageDelivered() {
+        DispatchQueue.main.async {
+            self.prepareLogsTextView()
+        }
     }
     
     func prepareLogsTextView() {
@@ -73,10 +80,7 @@ class LogsTableViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         self.selectedIndex = []
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+        self.tableView.reloadData()
     }
     
     @objc func longPressGesture(sender: UILongPressGestureRecognizer) {
