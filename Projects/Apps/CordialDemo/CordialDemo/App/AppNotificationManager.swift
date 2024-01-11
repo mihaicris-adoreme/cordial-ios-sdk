@@ -12,6 +12,7 @@ import CordialSDK
 
 public extension Notification.Name {
     static let cordialDemoNewInboxMessageDelivered = Notification.Name("CordialDemoNewInboxMessageDelivered")
+    static let cordialDemoNewLogMessageDelivered = Notification.Name("CordialDemoNewLogMessageDelivered")
 }
 
 class AppNotificationManager {
