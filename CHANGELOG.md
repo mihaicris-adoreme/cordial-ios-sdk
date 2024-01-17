@@ -2,6 +2,20 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.4.3 (2024-01-05)
+
+### Added
+
+- Allow using vanity domains for all URLs
+
+### Fixed
+
+- Creating contacts from another account when switching environments
+
+### Removed
+
+- Timestamp from cart item payload data
+
 ## 4.4.2 (2023-11-20)
 
 ### Added

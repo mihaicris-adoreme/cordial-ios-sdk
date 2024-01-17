@@ -42,6 +42,8 @@
 		9E602D0A226744CC00197CBD /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E602D09226744CC00197CBD /* CartTableViewCell.swift */; };
 		9E6249B227FC941F0052E43E /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6249B127FC941F0052E43E /* NotificationService.swift */; };
 		9E6249B627FC94200052E43E /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9E6249AF27FC941F0052E43E /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		9E665FF92B458CE20066D579 /* LogsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E665FF82B458CE20066D579 /* LogsTableViewController.swift */; };
+		9E665FFB2B458DB70066D579 /* LogsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E665FFA2B458DB70066D579 /* LogsTableViewCell.swift */; };
 		9E6DB89D234E1AA100711A2A /* CordialDeepLinksHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */; };
 		9E7A5A6A222EB64B0020054F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A69222EB64B0020054F /* AppDelegate.swift */; };
 		9E7A5A6C222EB64B0020054F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A5A6B222EB64B0020054F /* LoginViewController.swift */; };
@@ -59,7 +61,6 @@
 		9E7F2966256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2965256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift */; };
 		9E7F2C662AB1F70100174A01 /* ExternalDisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2C652AB1F70100174A01 /* ExternalDisplayViewController.swift */; };
 		9E7F2C6A2AB1FA5900174A01 /* ExternalDisplaySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F2C692AB1FA5900174A01 /* ExternalDisplaySceneDelegate.swift */; };
-		9E7F43322A091A2400287759 /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E7F43312A091A2400287759 /* LogsViewController.swift */; };
 		9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */; };
 		9E80E36124194E9900EE5852 /* ProfileTableFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */; };
 		9E814C9A2A06A31200570809 /* FileLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E814C992A06A31200570809 /* FileLogger.swift */; };
@@ -240,6 +241,8 @@
 		9E6249AF27FC941F0052E43E /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E6249B127FC941F0052E43E /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		9E6249B327FC94200052E43E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E665FF82B458CE20066D579 /* LogsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsTableViewController.swift; sourceTree = "<group>"; };
+		9E665FFA2B458DB70066D579 /* LogsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsTableViewCell.swift; sourceTree = "<group>"; };
 		9E6DB89C234E1AA100711A2A /* CordialDeepLinksHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialDeepLinksHandler.swift; sourceTree = "<group>"; };
 		9E7A5A66222EB64B0020054F /* CordialDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CordialDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7A5A69222EB64B0020054F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -263,7 +266,6 @@
 		9E7F2965256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxMessagesCollectionCardsViewCell.swift; sourceTree = "<group>"; };
 		9E7F2C652AB1F70100174A01 /* ExternalDisplayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalDisplayViewController.swift; sourceTree = "<group>"; };
 		9E7F2C692AB1FA5900174A01 /* ExternalDisplaySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExternalDisplaySceneDelegate.swift; sourceTree = "<group>"; };
-		9E7F43312A091A2400287759 /* LogsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
 		9E80E35E24194E4A00EE5852 /* ProfileTableFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableFooterView.swift; sourceTree = "<group>"; };
 		9E80E36024194E9900EE5852 /* ProfileTableFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableFooterView.xib; sourceTree = "<group>"; };
 		9E814C992A06A31200570809 /* FileLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLogger.swift; sourceTree = "<group>"; };
@@ -665,7 +667,8 @@
 		9E7F43302A0919FD00287759 /* Logs */ = {
 			isa = PBXGroup;
 			children = (
-				9E7F43312A091A2400287759 /* LogsViewController.swift */,
+				9E665FF82B458CE20066D579 /* LogsTableViewController.swift */,
+				9E665FFA2B458DB70066D579 /* LogsTableViewCell.swift */,
 			);
 			path = Logs;
 			sourceTree = "<group>";
@@ -1183,6 +1186,7 @@
 				9E80E35F24194E4A00EE5852 /* ProfileTableFooterView.swift in Sources */,
 				9EDE27AF2A1CDB0800DD3376 /* ProfileInfoTableView.swift in Sources */,
 				9E0F69EB29B612C3002BCAF3 /* NotificationSettingsTableViewCell.swift in Sources */,
+				9E665FFB2B458DB70066D579 /* LogsTableViewCell.swift in Sources */,
 				9E7EC4242510CE5C00314A18 /* InboxMessagesTableRawViewCell.swift in Sources */,
 				9EB806FE264A9DBF004C0B02 /* InboxMessageWebViewController.swift in Sources */,
 				9E1EB39C241DC61E004CAD90 /* Attribute.swift in Sources */,
@@ -1200,7 +1204,6 @@
 				9E96BA4B244FCA6700DB8BEC /* CustomEventPropertyViewController.swift in Sources */,
 				9EF7B20B2266259B003B223D /* Product.swift in Sources */,
 				9E1EB3D6241F1700004CAD90 /* ProfileTableViewCell.swift in Sources */,
-				9E7F43322A091A2400287759 /* LogsViewController.swift in Sources */,
 				9E0F69ED29B612EA002BCAF3 /* NotificationSettingsTableView.swift in Sources */,
 				9EDE27B12A1CDB6700DD3376 /* ProfileInfoTableViewCell.swift in Sources */,
 				9E0FDBD329BF4A5F00525E4C /* NotificationSettingsHandler.swift in Sources */,
@@ -1223,6 +1226,7 @@
 				9E7F2917256BF3B1006D3BED /* InboxMessagesCollectionCardsViewController.swift in Sources */,
 				9E45FE7622537648006A5A6B /* PushNotificationHandler.swift in Sources */,
 				9E48BEDF2965D6E3005A2718 /* CordialDeepLinksInternal.swift in Sources */,
+				9E665FF92B458CE20066D579 /* LogsTableViewController.swift in Sources */,
 				9E7F2966256C09D0006D3BED /* InboxMessagesCollectionCardsViewCell.swift in Sources */,
 				9E4EEC8B225E36EA00F473A6 /* ProductViewController.swift in Sources */,
 				9EABE878262083100066BADC /* InAppMessageInputsHandler.swift in Sources */,
