@@ -11,8 +11,8 @@ import UIKit
 public class TestCase {
     
     public func clearAllTestCaseData() {
-        CoreDataManager.shared.deleteAllCoreData()
-        CordialUserDefaults.removeAllData()
+        CoreDataManager.shared.deleteAll()
+        CordialUserDefaults.deleteAll()
     }
     
     public func setTestPushNotificationToken(token: String) {

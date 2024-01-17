@@ -198,8 +198,8 @@ class SettingsViewController: UIViewController {
     }
     
     func getStagingSettings() -> Credentials {
-        let eventsStreamURL = "https://events-stream-svc.stg.cordialdev.com/"
-        let messageHubURL = "https://message-hub-svc.stg.cordialdev.com/"
+        let eventsStreamURL = "https://stgtaras.events-stream-svc.stg.cordialdev.com/"
+        let messageHubURL = "https://stgtaras.message-hub-svc.stg.cordialdev.com/"
         let accountKey = "stgtaras"
         let channelKey = "sdk"
         

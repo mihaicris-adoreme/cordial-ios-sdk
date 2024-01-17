@@ -34,7 +34,7 @@ class CordialSDKTests: XCTestCase {
         self.testCase.clearAllTestCaseData()
         
         CordialApiConfiguration.shared.initialize(accountKey: "qc-all-channels", channelKey: "push")
-        CordialApiConfiguration.shared.osLogManager.setOSLogLevel(.none)
+        CordialApiConfiguration.shared.loggerManager.setLoggerLevel(.none)
         CordialApiConfiguration.shared.qtyCachedEventQueue = 100
         CordialApiConfiguration.shared.eventsBulkSize = 1
         CordialApiConfiguration.shared.eventsBulkUploadInterval = 30
