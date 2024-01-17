@@ -3,7 +3,6 @@
 
 [Installation](#installation)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK](#initialize-the-sdk)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK for US West 2 Accounts](#initialize-the-sdk-for-us-west-2-accounts)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Initialize the SDK for React Native](#initialize-the-sdk-for-react-native)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Setting Message Logging Level](#setting-message-logging-level)<br>
 [Push Notifications](#push-notifications)<br>
@@ -60,37 +59,22 @@ pod install
 This will add the latest version of Cordial SDK to your project.
 
 ## Initialize the SDK
+
+Please contact your Customer Success Manager (CSM) at Cordial to obtain the URLs for the Message Hub Service and the Event Stream Service.
+
 In order to initialize the SDK, pass your account key to `CordialApiConfiguration.initialize` method and call it from `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
 ```
-CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key")
+CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "your_events_stream_url", messageHubURL: "your_message_hub_url")
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 
 ```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"" messageHubURL:@""];
+[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"your_events_stream_url" messageHubURL:@"your_message_hub_url"];
 ```
-
-### Initialize the SDK for US West 2 Accounts
-
-If your Cordial account is in us-west-2 region, pass events stream and message hub urls to SDK initialization methods:
-
-&nbsp;&nbsp;&nbsp;&nbsp;Swift:
-
-```
-CordialApiConfiguration.shared.initialize(accountKey: "your_account_key", channelKey: "your_channel_key", eventsStreamURL: "https://events-stream-svc.usw2.cordial.com/", messageHubURL: "https://message-hub-svc.usw2.cordial.com/")
-```
-
-&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
-
-```
-[[CordialApiConfiguration shared] initializeWithAccountKey:@"your_account_key" channelKey:@"your_channel_key" eventsStreamURL:@"https://events-stream-svc.usw2.cordial.com/" messageHubURL:@"https://message-hub-svc.usw2.cordial.com/"];
-```
-
----
 
 After initializing, the SDK will automatically start tracking internal events as they occur in the application. Those events are:
 - App opens and closes
@@ -1447,6 +1431,20 @@ cordialAPI.setCurrentMcID(mcID: "mcID")
 
 ```
 [cordialAPI setCurrentMcIDWithMcID:@"mcID"];
+```
+
+Obtain `mcID` can be achieved by making the following call:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let mcID = cordialAPI.getCurrentMcID()
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSString *mcID = [cordialAPI getCurrentMcID];
 ```
 
 ## Revenue Attribution for Web View Applications

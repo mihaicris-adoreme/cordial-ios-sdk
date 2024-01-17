@@ -312,6 +312,8 @@
 				9ED8B1F22861D98F007D1959 /* PBXTargetDependency */,
 			);
 			name = "CordialDemo_Objective-C";
+			packageProductDependencies = (
+			);
 			productName = "CordialDemo_Objective-C";
 			productReference = 9E65C8ED22EF1A1200E30F53 /* CordialDemo_Objective-C.app */;
 			productType = "com.apple.product-type.application";

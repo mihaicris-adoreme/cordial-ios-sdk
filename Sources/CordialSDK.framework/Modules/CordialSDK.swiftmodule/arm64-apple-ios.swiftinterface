@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name CordialSDK
 // swift-module-flags-ignorable: -enable-bare-slash-regex
 import Combine
@@ -417,7 +417,9 @@ extension CordialSDK.InAppMessagesQueue {
     @objc set
   }
   @objc public func setNotificationCategories(_ pushNotificationCategories: [CordialSDK.PushNotificationCategory])
-  @objc public func initialize(accountKey: Swift.String, channelKey: Swift.String, eventsStreamURL: Swift.String = "", messageHubURL: Swift.String = "")
+  @objc @available(iOS, deprecated, message: "Use initialize(accountKey:channelKey:eventsStreamURL:messageHubURL) instead")
+  public func initialize(accountKey: Swift.String, channelKey: Swift.String)
+  @objc public func initialize(accountKey: Swift.String, channelKey: Swift.String, eventsStreamURL: Swift.String, messageHubURL: Swift.String = "")
   @objc public func initializeLocationManager(desiredAccuracy: CoreLocation.CLLocationAccuracy, distanceFilter: CoreLocation.CLLocationDistance)
   @objc @available(iOS, deprecated, message: "Use initializeLocationManager(desiredAccuracy:distanceFilter:) instead")
   public func initializeLocationManager(desiredAccuracy: CoreLocation.CLLocationAccuracy, distanceFilter: CoreLocation.CLLocationDistance, untilTraveled: CoreLocation.CLLocationDistance, timeout: Foundation.TimeInterval)
@@ -513,12 +515,10 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
   @objc deinit
 }
-@objc @_hasMissingDesignatedInitializers @objcMembers public class CartItem : ObjectiveC.NSObject, Foundation.NSCoding, Foundation.NSSecureCoding {
+@objc @objcMembers public class CartItem : ObjectiveC.NSObject, Foundation.NSCoding, Foundation.NSSecureCoding {
   @objc public static var supportsSecureCoding: Swift.Bool
   @objc convenience public init(productID: Swift.String, name: Swift.String, sku: Swift.String, category: Swift.String, url: Swift.String?, itemDescription: Swift.String?, qtyNumber: Foundation.NSNumber, itemPriceNumber: Foundation.NSNumber?, salePriceNumber: Foundation.NSNumber?, attr: Swift.Dictionary<Swift.String, Swift.String>?, images: [Swift.String]?, properties: Swift.Dictionary<Swift.String, Any>?)
   public init(productID: Swift.String, name: Swift.String, sku: Swift.String, category: Swift.String, url: Swift.String?, itemDescription: Swift.String?, qty: Swift.Int64, itemPrice: Swift.Double?, salePrice: Swift.Double?, attr: Swift.Dictionary<Swift.String, Swift.String>?, images: [Swift.String]?, properties: Swift.Dictionary<Swift.String, Any>?)
-  @objc public func seTimestamp(date: Foundation.Date)
-  @objc public func getTimestamp() -> Swift.String
   @objc public func encode(with coder: Foundation.NSCoder)
   @objc required convenience public init?(coder: Foundation.NSCoder)
   @objc deinit

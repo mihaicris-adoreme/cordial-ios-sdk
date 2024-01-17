@@ -21,7 +21,6 @@ import Foundation
     let qty: Int64
     let itemPrice: Double?
     let salePrice: Double?
-    var timestamp: String
     let attr: Dictionary<String, String>?
     let images: [String]?
     let properties: Dictionary<String, Any>?
@@ -38,7 +37,6 @@ import Foundation
         case qty = "qty"
         case itemPrice = "itemPrice"
         case salePrice = "salePrice"
-        case timestamp = "timestamp"
         case attr = "attr"
         case images = "images"
         case properties = "properties"
@@ -58,20 +56,9 @@ import Foundation
         self.qty = qty
         self.itemPrice = itemPrice
         self.salePrice = salePrice
-        self.timestamp = CordialDateFormatter().getCurrentTimestamp()
         self.attr = attr
         self.images = images
         self.properties = properties
-    }
-    
-    public func seTimestamp(date: Date) {
-        let timestamp = CordialDateFormatter().getTimestampFromDate(date: date)
-        
-        self.timestamp = timestamp
-    }
-    
-    public func getTimestamp() -> String {
-        return self.timestamp
     }
     
     public func encode(with coder: NSCoder) {
@@ -84,26 +71,9 @@ import Foundation
         coder.encode(self.qty, forKey: Key.qty.rawValue)
         coder.encode(self.itemPrice, forKey: Key.itemPrice.rawValue)
         coder.encode(self.salePrice, forKey: Key.salePrice.rawValue)
-        coder.encode(self.timestamp, forKey: Key.timestamp.rawValue)
         coder.encode(self.attr, forKey: Key.attr.rawValue)
         coder.encode(self.images, forKey: Key.images.rawValue)
         coder.encode(self.properties, forKey: Key.properties.rawValue)
-    }
-    
-    private init(productID: String, name: String, sku: String, category: String, url: String?, itemDescription: String?, qty: Int64, itemPrice: Double?, salePrice: Double?, timestamp: String, attr: Dictionary<String, String>?, images: [String]?, properties: Dictionary<String, Any>?) {
-        self.productID = productID
-        self.name = name
-        self.sku = sku
-        self.category = category
-        self.url = url
-        self.itemDescription = itemDescription
-        self.qty = qty
-        self.itemPrice = itemPrice
-        self.salePrice = salePrice
-        self.timestamp = timestamp
-        self.attr = attr
-        self.images = images
-        self.properties = properties
     }
     
     public required convenience init?(coder: NSCoder) {
@@ -115,14 +85,13 @@ import Foundation
            let itemDescription = coder.decodeObject(forKey: Key.itemDescription.rawValue) as? String?,
            let itemPrice = coder.decodeObject(forKey: Key.itemPrice.rawValue) as? Double?,
            let salePrice = coder.decodeObject(forKey: Key.salePrice.rawValue) as? Double?,
-           let timestamp = coder.decodeObject(forKey: Key.timestamp.rawValue) as? String,
            let attr = coder.decodeObject(forKey: Key.attr.rawValue) as? Dictionary<String, String>?,
            let images = coder.decodeObject(forKey: Key.images.rawValue) as? [String]?,
            let properties = coder.decodeObject(forKey: Key.properties.rawValue) as? Dictionary<String, Any>? {
             
             let qty = coder.decodeInt64(forKey: Key.qty.rawValue)
             
-            self.init(productID: productID, name: name, sku: sku, category: category, url: url, itemDescription: itemDescription, qty: qty, itemPrice: itemPrice, salePrice: salePrice, timestamp: timestamp, attr: attr, images: images, properties: properties)
+            self.init(productID: productID, name: name, sku: sku, category: category, url: url, itemDescription: itemDescription, qty: qty, itemPrice: itemPrice, salePrice: salePrice, attr: attr, images: images, properties: properties)
         } else {
             self.init(productID: String(), name: String(), sku: String(), category: String(), url: nil, itemDescription: nil, qty: 1, itemPrice: nil, salePrice: nil, attr: nil, images: nil, properties: nil)
             

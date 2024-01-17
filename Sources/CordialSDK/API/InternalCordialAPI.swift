@@ -125,7 +125,7 @@ class InternalCordialAPI {
     // MARK: Remove All Cached Data
     
     func removeAllCachedData() {
-        CoreDataManager.shared.deleteAllCoreData()
+        CoreDataManager.shared.deleteAll()
         
         self.removeCurrentMcID()
         self.removeContactAttributes()

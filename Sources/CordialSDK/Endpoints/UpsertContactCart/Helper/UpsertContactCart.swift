@@ -63,7 +63,6 @@ class UpsertContactCart {
             cartItemContainer.append("\"sku\": \"\(cartItem.sku)\"")
             cartItemContainer.append("\"category\": \"\(cartItem.category)\"")
             cartItemContainer.append("\"qty\": \(cartItem.qty)")
-            cartItemContainer.append("\"timestamp\": \"\(cartItem.timestamp)\"")
             
             if let url = cartItem.url {
                 cartItemContainer.append("\"url\": \"\(url)\"")

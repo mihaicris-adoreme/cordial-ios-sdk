@@ -21134,8 +21134,8 @@
           },
           {
             "kind": "Function",
-            "name": "deleteAllCoreData",
-            "printedName": "deleteAllCoreData()",
+            "name": "deleteAll",
+            "printedName": "deleteAll()",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -21144,8 +21144,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK15CoreDataManagerC09deleteAllcD0yyF",
-            "mangledName": "$s10CordialSDK15CoreDataManagerC09deleteAllcD0yyF",
+            "usr": "s:10CordialSDK15CoreDataManagerC9deleteAllyyF",
+            "mangledName": "$s10CordialSDK15CoreDataManagerC9deleteAllyyF",
             "moduleName": "CordialSDK",
             "isOpen": true,
             "funcSelfKind": "NonMutating"
@@ -43132,6 +43132,42 @@
           {
             "kind": "Function",
             "name": "initialize",
+            "printedName": "initialize(accountKey:channelKey:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(im)initializeWithAccountKey:channelKey:",
+            "mangledName": "$s10CordialSDK0A16ApiConfigurationC10initialize10accountKey07channelG0ySS_SStF",
+            "moduleName": "CordialSDK",
+            "deprecated": true,
+            "isOpen": true,
+            "declAttributes": [
+              "AccessControl",
+              "Available",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "initialize",
             "printedName": "initialize(accountKey:channelKey:eventsStreamURL:messageHubURL:)",
             "children": [
               {
@@ -43155,7 +43191,6 @@
                 "kind": "TypeNominal",
                 "name": "String",
                 "printedName": "Swift.String",
-                "hasDefaultArg": true,
                 "usr": "s:SS"
               },
               {
@@ -49651,101 +49686,6 @@
           },
           {
             "kind": "Var",
-            "name": "timestamp",
-            "printedName": "timestamp",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Var",
-            "usr": "c:@M@CordialSDK@objc(cs)CartItem(py)timestamp",
-            "mangledName": "$s10CordialSDK8CartItemC9timestampSSvp",
-            "moduleName": "CordialSDK",
-            "isOpen": true,
-            "declAttributes": [
-              "HasStorage",
-              "ObjC"
-            ],
-            "hasStorage": true,
-            "accessors": [
-              {
-                "kind": "Accessor",
-                "name": "Get",
-                "printedName": "Get()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "c:@M@CordialSDK@objc(cs)CartItem(im)timestamp",
-                "mangledName": "$s10CordialSDK8CartItemC9timestampSSvg",
-                "moduleName": "CordialSDK",
-                "implicit": true,
-                "isOpen": true,
-                "declAttributes": [
-                  "ObjC"
-                ],
-                "accessorKind": "get"
-              },
-              {
-                "kind": "Accessor",
-                "name": "Set",
-                "printedName": "Set()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  },
-                  {
-                    "kind": "TypeNominal",
-                    "name": "String",
-                    "printedName": "Swift.String",
-                    "usr": "s:SS"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "c:@M@CordialSDK@objc(cs)CartItem(im)setTimestamp:",
-                "mangledName": "$s10CordialSDK8CartItemC9timestampSSvs",
-                "moduleName": "CordialSDK",
-                "implicit": true,
-                "isOpen": true,
-                "declAttributes": [
-                  "ObjC"
-                ],
-                "accessorKind": "set"
-              },
-              {
-                "kind": "Accessor",
-                "name": "Modify",
-                "printedName": "Modify()",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "Void",
-                    "printedName": "()"
-                  }
-                ],
-                "declKind": "Accessor",
-                "usr": "s:10CordialSDK8CartItemC9timestampSSvM",
-                "mangledName": "$s10CordialSDK8CartItemC9timestampSSvM",
-                "moduleName": "CordialSDK",
-                "implicit": true,
-                "isOpen": true,
-                "accessorKind": "_modify"
-              }
-            ]
-          },
-          {
-            "kind": "Var",
             "name": "attr",
             "printedName": "attr",
             "children": [
@@ -50454,44 +50394,6 @@
               },
               {
                 "kind": "Var",
-                "name": "timestamp",
-                "printedName": "timestamp",
-                "children": [
-                  {
-                    "kind": "TypeFunc",
-                    "name": "Function",
-                    "printedName": "(CordialSDK.CartItem.Key.Type) -> CordialSDK.CartItem.Key",
-                    "children": [
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Key",
-                        "printedName": "CordialSDK.CartItem.Key",
-                        "usr": "s:10CordialSDK8CartItemC3KeyO"
-                      },
-                      {
-                        "kind": "TypeNominal",
-                        "name": "Metatype",
-                        "printedName": "CordialSDK.CartItem.Key.Type",
-                        "children": [
-                          {
-                            "kind": "TypeNominal",
-                            "name": "Key",
-                            "printedName": "CordialSDK.CartItem.Key",
-                            "usr": "s:10CordialSDK8CartItemC3KeyO"
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ],
-                "declKind": "EnumElement",
-                "usr": "s:10CordialSDK8CartItemC3KeyO9timestampyA2EmF",
-                "mangledName": "$s10CordialSDK8CartItemC3KeyO9timestampyA2EmF",
-                "moduleName": "CordialSDK",
-                "fixedbinaryorder": 9
-              },
-              {
-                "kind": "Var",
                 "name": "attr",
                 "printedName": "attr",
                 "children": [
@@ -50526,7 +50428,7 @@
                 "usr": "s:10CordialSDK8CartItemC3KeyO4attryA2EmF",
                 "mangledName": "$s10CordialSDK8CartItemC3KeyO4attryA2EmF",
                 "moduleName": "CordialSDK",
-                "fixedbinaryorder": 10
+                "fixedbinaryorder": 9
               },
               {
                 "kind": "Var",
@@ -50564,7 +50466,7 @@
                 "usr": "s:10CordialSDK8CartItemC3KeyO6imagesyA2EmF",
                 "mangledName": "$s10CordialSDK8CartItemC3KeyO6imagesyA2EmF",
                 "moduleName": "CordialSDK",
-                "fixedbinaryorder": 11
+                "fixedbinaryorder": 10
               },
               {
                 "kind": "Var",
@@ -50602,7 +50504,7 @@
                 "usr": "s:10CordialSDK8CartItemC3KeyO10propertiesyA2EmF",
                 "mangledName": "$s10CordialSDK8CartItemC3KeyO10propertiesyA2EmF",
                 "moduleName": "CordialSDK",
-                "fixedbinaryorder": 12
+                "fixedbinaryorder": 11
               },
               {
                 "kind": "Constructor",
@@ -51101,57 +51003,6 @@
           },
           {
             "kind": "Function",
-            "name": "seTimestamp",
-            "printedName": "seTimestamp(date:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "Date",
-                "printedName": "Foundation.Date",
-                "usr": "s:10Foundation4DateV"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "c:@M@CordialSDK@objc(cs)CartItem(im)seTimestampWithDate:",
-            "mangledName": "$s10CordialSDK8CartItemC11seTimestamp4datey10Foundation4DateV_tF",
-            "moduleName": "CordialSDK",
-            "isOpen": true,
-            "declAttributes": [
-              "AccessControl",
-              "ObjC"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "getTimestamp",
-            "printedName": "getTimestamp()",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "c:@M@CordialSDK@objc(cs)CartItem(im)getTimestamp",
-            "mangledName": "$s10CordialSDK8CartItemC12getTimestampSSyF",
-            "moduleName": "CordialSDK",
-            "isOpen": true,
-            "declAttributes": [
-              "AccessControl",
-              "ObjC"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
             "name": "encode",
             "printedName": "encode(with:)",
             "children": [
@@ -51256,7 +51107,6 @@
           "ObjC"
         ],
         "superclassUsr": "c:objc(cs)NSObject",
-        "hasMissingDesignatedInitializers": true,
         "superclassNames": [
           "ObjectiveC.NSObject"
         ],
@@ -76192,8 +76042,8 @@
           },
           {
             "kind": "Function",
-            "name": "removeAllData",
-            "printedName": "removeAllData()",
+            "name": "deleteAll",
+            "printedName": "deleteAll()",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -76202,8 +76052,8 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:10CordialSDK0A12UserDefaultsV13removeAllDatayyFZ",
-            "mangledName": "$s10CordialSDK0A12UserDefaultsV13removeAllDatayyFZ",
+            "usr": "s:10CordialSDK0A12UserDefaultsV9deleteAllyyFZ",
+            "mangledName": "$s10CordialSDK0A12UserDefaultsV9deleteAllyyFZ",
             "moduleName": "CordialSDK",
             "static": true,
             "funcSelfKind": "NonMutating"
@@ -95299,7 +95149,7 @@
       "kind": "StringLiteral",
       "offset": 393,
       "length": 7,
-      "value": "\"4.4.2\""
+      "value": "\"4.4.3\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
@@ -95346,14 +95196,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4274,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
-      "kind": "StringLiteral",
-      "offset": 4302,
+      "offset": 4624,
       "length": 2,
       "value": "\"\""
     },
@@ -95486,189 +95329,175 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "BooleanLiteral",
-      "offset": 670,
+      "offset": 644,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 733,
+      "offset": 707,
       "length": 11,
       "value": "\"productID\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 765,
+      "offset": 739,
       "length": 6,
       "value": "\"name\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 791,
+      "offset": 765,
       "length": 5,
       "value": "\"sku\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 821,
+      "offset": 795,
       "length": 10,
       "value": "\"category\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 851,
+      "offset": 825,
       "length": 5,
       "value": "\"url\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 888,
+      "offset": 862,
       "length": 17,
       "value": "\"itemDescription\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 925,
+      "offset": 899,
       "length": 5,
       "value": "\"qty\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 956,
+      "offset": 930,
       "length": 11,
       "value": "\"itemPrice\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 993,
+      "offset": 967,
       "length": 11,
       "value": "\"salePrice\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 1030,
-      "length": 11,
-      "value": "\"timestamp\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
-      "kind": "StringLiteral",
-      "offset": 1062,
+      "offset": 999,
       "length": 6,
       "value": "\"attr\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 1091,
+      "offset": 1028,
       "length": 8,
       "value": "\"images\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 1126,
+      "offset": 1063,
       "length": 12,
       "value": "\"properties\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 733,
+      "offset": 707,
       "length": 11,
       "value": "\"productID\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 765,
+      "offset": 739,
       "length": 6,
       "value": "\"name\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 791,
+      "offset": 765,
       "length": 5,
       "value": "\"sku\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 821,
+      "offset": 795,
       "length": 10,
       "value": "\"category\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 851,
+      "offset": 825,
       "length": 5,
       "value": "\"url\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 888,
+      "offset": 862,
       "length": 17,
       "value": "\"itemDescription\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 925,
+      "offset": 899,
       "length": 5,
       "value": "\"qty\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 956,
+      "offset": 930,
       "length": 11,
       "value": "\"itemPrice\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 993,
+      "offset": 967,
       "length": 11,
       "value": "\"salePrice\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 1030,
-      "length": 11,
-      "value": "\"timestamp\""
-    },
-    {
-      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
-      "kind": "StringLiteral",
-      "offset": 1062,
+      "offset": 999,
       "length": 6,
       "value": "\"attr\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 1091,
+      "offset": 1028,
       "length": 8,
       "value": "\"images\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/Endpoints\/UpsertContactCart\/Helper\/CartItem.swift",
       "kind": "StringLiteral",
-      "offset": 1126,
+      "offset": 1063,
       "length": 12,
       "value": "\"properties\""
     },
@@ -96445,7 +96274,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/InternalCordialAPI.swift",
       "kind": "BooleanLiteral",
-      "offset": 24182,
+      "offset": 24174,
       "length": 5,
       "value": "false"
     },

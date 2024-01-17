@@ -215,7 +215,7 @@ class CoreDataManager {
         }
     }
     
-    func deleteAllCoreData() {
+    func deleteAll() {
         guard let context = self.persistentContainer?.viewContext,
               let managedObjectModel = self.getManagedObjectModel() else { return }
         
