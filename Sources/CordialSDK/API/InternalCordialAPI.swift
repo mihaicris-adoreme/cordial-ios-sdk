@@ -344,6 +344,34 @@ class InternalCordialAPI {
         }
     }
     
+    // MARK: Prepare Custom Event Requests
+
+    func prepareCustomEventRequests(sendCustomEventRequests: [SendCustomEventRequest]) -> [SendCustomEventRequest] {
+        var preparedSendCustomEventRequests: [SendCustomEventRequest] = []
+
+        sendCustomEventRequests.forEach { sendCustomEventRequest in
+            if let properties = sendCustomEventRequest.properties {
+                var preparedProperties: Dictionary<String, Any> = [:]
+
+                properties.forEach { (key: String, value: Any) in
+                    if !(value is NSNull) {
+                        preparedProperties[key] = value
+                    }
+                }
+
+                let eventName = sendCustomEventRequest.eventName
+                let mcID = sendCustomEventRequest.mcID
+                let preparedSendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: preparedProperties)
+
+                preparedSendCustomEventRequests.append(preparedSendCustomEventRequest)
+            } else {
+                preparedSendCustomEventRequests.append(sendCustomEventRequest)
+            }
+        }
+
+        return preparedSendCustomEventRequests
+    }
+
     // MARK: Get application key window
     
     func getAppKeyWindow() -> UIWindow? {
