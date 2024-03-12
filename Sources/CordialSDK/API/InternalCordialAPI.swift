@@ -351,18 +351,11 @@ class InternalCordialAPI {
 
         sendCustomEventRequests.forEach { sendCustomEventRequest in
             if let properties = sendCustomEventRequest.properties {
-                var preparedProperties: Dictionary<String, Any> = [:]
-
-                properties.forEach { (key: String, value: Any) in
-                    if !(value is NSNull) {
-                        preparedProperties[key] = value
-                    }
-                }
-
                 let eventName = sendCustomEventRequest.eventName
                 let mcID = sendCustomEventRequest.mcID
-                let preparedSendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: preparedProperties)
+                let properties = self.prepareCustomEventRequestProperties(properties: properties)
 
+                let preparedSendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
                 preparedSendCustomEventRequests.append(preparedSendCustomEventRequest)
             } else {
                 preparedSendCustomEventRequests.append(sendCustomEventRequest)
@@ -370,6 +363,23 @@ class InternalCordialAPI {
         }
 
         return preparedSendCustomEventRequests
+    }
+
+    private func prepareCustomEventRequestProperties(properties: Dictionary<String, Any>) -> Dictionary<String, Any> {
+        var preparedProperties: Dictionary<String, Any> = [:]
+
+        properties.forEach { (key: String, value: Any) in
+            if !(value is NSNull) {
+                if value is Dictionary<String, Any> {
+                    let propertiesValue = value as! Dictionary<String, Any>
+                    preparedProperties[key] = self.prepareCustomEventRequestProperties(properties: propertiesValue)
+                } else {
+                    preparedProperties[key] = value
+                }
+            }
+        }
+
+        return preparedProperties
     }
 
     // MARK: Get application key window
