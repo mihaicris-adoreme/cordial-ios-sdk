@@ -353,9 +353,9 @@ class InternalCordialAPI {
             if let properties = sendCustomEventRequest.properties {
                 let eventName = sendCustomEventRequest.eventName
                 let mcID = sendCustomEventRequest.mcID
-                let properties = self.prepareCustomEventRequestProperties(properties: properties)
+                let preparedProperties = self.prepareCustomEventRequestProperties(properties: properties)
 
-                let preparedSendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
+                let preparedSendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: preparedProperties)
                 preparedSendCustomEventRequests.append(preparedSendCustomEventRequest)
             } else {
                 preparedSendCustomEventRequests.append(sendCustomEventRequest)
