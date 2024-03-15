@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.4.4 (2024-03-15)
+
+### Fixed
+
+- A rare crash that occurred when sending a custom event with a null value
+
 ## 4.4.3 (2024-01-05)
 
 ### Added
