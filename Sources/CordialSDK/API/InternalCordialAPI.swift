@@ -377,8 +377,37 @@ class InternalCordialAPI {
                         if value is Dictionary<String, Any> {
                             let propertiesValue = value as! Dictionary<String, Any>
                             preparedProperties[key] = self.prepareCustomEventRequestProperties(properties: propertiesValue)
+                        } else if value is [Any] {
+                            let propertiesValue = value as! [Any]
+                            preparedProperties[key] = self.prepareCustomEventRequestArrayValueProperties(properties: propertiesValue)
                         } else {
                             preparedProperties[key] = value
+                        }
+                    }
+                }
+            }
+        }
+
+        return preparedProperties
+    }
+
+    private func prepareCustomEventRequestArrayValueProperties(properties: [Any]) -> [Any] {
+        var preparedProperties: [Any] = []
+
+        properties.forEach { value in
+            if !(value is NSNull) {
+                if let anyObject = value as? NSObject {
+                    let objectType = type(of: anyObject)
+
+                    if objectType.conforms(to: NSCoding.self) {
+                        if value is Dictionary<String, Any> {
+                            let propertiesValue = value as! Dictionary<String, Any>
+                            preparedProperties.append(self.prepareCustomEventRequestProperties(properties: propertiesValue))
+                        } else if value is [Any] {
+                            let propertiesValue = value as! [Any]
+                            preparedProperties.append(self.prepareCustomEventRequestArrayValueProperties(properties: propertiesValue))
+                        } else {
+                            preparedProperties.append(value)
                         }
                     }
                 }
