@@ -73038,6 +73038,50 @@
           },
           {
             "kind": "Function",
+            "name": "prepareCustomEventRequests",
+            "printedName": "prepareCustomEventRequests(sendCustomEventRequests:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[CordialSDK.SendCustomEventRequest]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SendCustomEventRequest",
+                    "printedName": "CordialSDK.SendCustomEventRequest",
+                    "usr": "c:@M@CordialSDK@objc(cs)SendCustomEventRequest"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[CordialSDK.SendCustomEventRequest]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "SendCustomEventRequest",
+                    "printedName": "CordialSDK.SendCustomEventRequest",
+                    "usr": "c:@M@CordialSDK@objc(cs)SendCustomEventRequest"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:10CordialSDK08InternalA3APIC26prepareCustomEventRequests04sendfgH0SayAA04SendfG7RequestCGAH_tF",
+            "mangledName": "$s10CordialSDK08InternalA3APIC26prepareCustomEventRequests04sendfgH0SayAA04SendfG7RequestCGAH_tF",
+            "moduleName": "CordialSDK",
+            "isOpen": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "getAppKeyWindow",
             "printedName": "getAppKeyWindow()",
             "children": [
@@ -95149,7 +95193,7 @@
       "kind": "StringLiteral",
       "offset": 393,
       "length": 7,
-      "value": "\"4.4.3\""
+      "value": "\"4.4.4\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
@@ -96274,7 +96318,7 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/InternalCordialAPI.swift",
       "kind": "BooleanLiteral",
-      "offset": 24174,
+      "offset": 27520,
       "length": 5,
       "value": "false"
     },
