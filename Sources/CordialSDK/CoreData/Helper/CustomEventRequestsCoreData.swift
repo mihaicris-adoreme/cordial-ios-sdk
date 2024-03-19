@@ -16,6 +16,8 @@ class CustomEventRequestsCoreData {
     // MARK: Setting Data
     
     func putCustomEventRequests(sendCustomEventRequests: [SendCustomEventRequest]) {
+        let sendCustomEventRequests = InternalCordialAPI().prepareCustomEventRequests(sendCustomEventRequests: sendCustomEventRequests)
+
         guard let cachedCustomEventRequestsQty = self.fetchCachedCustomEventRequestsQty() else { return }
         
         let countSendCustomEventRequests = sendCustomEventRequests.count
