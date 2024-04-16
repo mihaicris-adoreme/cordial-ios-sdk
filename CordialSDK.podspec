@@ -20,7 +20,7 @@ Pod::Spec.new do |spec|
 
   spec.source        = { :git => "https://gitlab.com/cordialinc/mobile-sdk/ios-sdk.git", :tag => "#{spec.version}" }
 
-  spec.ios.vendored_frameworks = "Sources/CordialSDK.framework"
+  spec.ios.vendored_frameworks = "Sources/CordialSDK.xcframework"
 
   spec.static_framework = true
 
