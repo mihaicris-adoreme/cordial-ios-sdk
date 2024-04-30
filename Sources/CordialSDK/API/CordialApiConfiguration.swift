@@ -54,6 +54,11 @@ import UIKit
     
     public var keyWindow: UIWindow?
     
+    public var inAppMessages = InAppMessagesConfig(displayDelayInSeconds: 0.5)
+    public struct InAppMessagesConfig {
+        public var displayDelayInSeconds: Double
+    }
+
     public var cordialURLSessionConfiguration = URLSessionConfiguration.background(withIdentifier: API.BACKGROUND_URL_SESSION_IDENTIFIER) {
         didSet {
             LoggerManager.shared.info(message: "SDK uses a passed URLSessionConfiguration setup", category: "CordialSDKInfo")
