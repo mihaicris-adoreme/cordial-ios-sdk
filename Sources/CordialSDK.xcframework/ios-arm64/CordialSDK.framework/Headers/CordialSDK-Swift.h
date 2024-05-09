@@ -477,6 +477,7 @@ enum InAppMessagesDeliveryConfigurationType : NSInteger;
 @class InboxMessageCache;
 @class InAppMessageDelayMode;
 @class UIWindow;
+@class InAppMessagesConfig;
 @class NSURLSessionConfiguration;
 @class PushNotificationCategory;
 
@@ -504,6 +505,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) CordialApiCo
 @property (nonatomic, copy) NSDictionary<NSString *, id> * _Nullable systemEventsProperties;
 @property (nonatomic, copy) NSArray<NSString *> * _Nonnull vanityDomains;
 @property (nonatomic, strong) UIWindow * _Nullable keyWindow;
+@property (nonatomic, strong) InAppMessagesConfig * _Nonnull inAppMessages;
 @property (nonatomic, strong) NSURLSessionConfiguration * _Nonnull cordialURLSessionConfiguration;
 @property (nonatomic) NSInteger eventsBulkSize;
 @property (nonatomic) NSTimeInterval eventsBulkUploadInterval;
