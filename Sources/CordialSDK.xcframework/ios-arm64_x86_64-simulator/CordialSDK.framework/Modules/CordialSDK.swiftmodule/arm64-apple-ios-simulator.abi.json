@@ -13836,6 +13836,281 @@
           },
           {
             "kind": "Var",
+            "name": "inAppMessages",
+            "printedName": "inAppMessages",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "InAppMessagesConfig",
+                "printedName": "CordialSDK.CordialApiConfiguration.InAppMessagesConfig",
+                "usr": "s:10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(py)inAppMessages",
+            "mangledName": "$s10CordialSDK0A16ApiConfigurationC13inAppMessagesAC02InfG6ConfigCvp",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "InAppMessagesConfig",
+                    "printedName": "CordialSDK.CordialApiConfiguration.InAppMessagesConfig",
+                    "usr": "s:10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(im)inAppMessages",
+                "mangledName": "$s10CordialSDK0A16ApiConfigurationC13inAppMessagesAC02InfG6ConfigCvg",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "InAppMessagesConfig",
+                    "printedName": "CordialSDK.CordialApiConfiguration.InAppMessagesConfig",
+                    "usr": "s:10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@CordialSDK@objc(cs)CordialApiConfiguration(im)setInAppMessages:",
+                "mangledName": "$s10CordialSDK0A16ApiConfigurationC13inAppMessagesAC02InfG6ConfigCvs",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:10CordialSDK0A16ApiConfigurationC13inAppMessagesAC02InfG6ConfigCvM",
+                "mangledName": "$s10CordialSDK0A16ApiConfigurationC13inAppMessagesAC02InfG6ConfigCvM",
+                "moduleName": "CordialSDK",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "TypeDecl",
+            "name": "InAppMessagesConfig",
+            "printedName": "InAppMessagesConfig",
+            "children": [
+              {
+                "kind": "Var",
+                "name": "displayDelayInSeconds",
+                "printedName": "displayDelayInSeconds",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC012displayDelayE7SecondsSdvp",
+                "mangledName": "$s10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC012displayDelayE7SecondsSdvp",
+                "moduleName": "CordialSDK",
+                "declAttributes": [
+                  "HasStorage",
+                  "AccessControl"
+                ],
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Double",
+                        "printedName": "Swift.Double",
+                        "usr": "s:Sd"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC012displayDelayE7SecondsSdvg",
+                    "mangledName": "$s10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC012displayDelayE7SecondsSdvg",
+                    "moduleName": "CordialSDK",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Set",
+                    "printedName": "Set()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Double",
+                        "printedName": "Swift.Double",
+                        "usr": "s:Sd"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC012displayDelayE7SecondsSdvs",
+                    "mangledName": "$s10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC012displayDelayE7SecondsSdvs",
+                    "moduleName": "CordialSDK",
+                    "implicit": true,
+                    "accessorKind": "set"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Modify",
+                    "printedName": "Modify()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC012displayDelayE7SecondsSdvM",
+                    "mangledName": "$s10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC012displayDelayE7SecondsSdvM",
+                    "moduleName": "CordialSDK",
+                    "implicit": true,
+                    "accessorKind": "_modify"
+                  }
+                ]
+              },
+              {
+                "kind": "Constructor",
+                "name": "init",
+                "printedName": "init()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "InAppMessagesConfig",
+                    "printedName": "CordialSDK.CordialApiConfiguration.InAppMessagesConfig",
+                    "usr": "s:10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC"
+                  }
+                ],
+                "declKind": "Constructor",
+                "usr": "s:10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigCAEycfc",
+                "mangledName": "$s10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigCAEycfc",
+                "moduleName": "CordialSDK",
+                "overriding": true,
+                "implicit": true,
+                "objc_name": "init",
+                "declAttributes": [
+                  "Dynamic",
+                  "ObjC",
+                  "Override"
+                ],
+                "init_kind": "Designated"
+              }
+            ],
+            "declKind": "Class",
+            "usr": "s:10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC",
+            "mangledName": "$s10CordialSDK0A16ApiConfigurationC19InAppMessagesConfigC",
+            "moduleName": "CordialSDK",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "superclassUsr": "c:objc(cs)NSObject",
+            "hasMissingDesignatedInitializers": true,
+            "superclassNames": [
+              "ObjectiveC.NSObject"
+            ],
+            "conformances": [
+              {
+                "kind": "Conformance",
+                "name": "Equatable",
+                "printedName": "Equatable",
+                "usr": "s:SQ",
+                "mangledName": "$sSQ"
+              },
+              {
+                "kind": "Conformance",
+                "name": "Hashable",
+                "printedName": "Hashable",
+                "usr": "s:SH",
+                "mangledName": "$sSH"
+              },
+              {
+                "kind": "Conformance",
+                "name": "CVarArg",
+                "printedName": "CVarArg",
+                "usr": "s:s7CVarArgP",
+                "mangledName": "$ss7CVarArgP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "_KeyValueCodingAndObservingPublishing",
+                "printedName": "_KeyValueCodingAndObservingPublishing",
+                "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+                "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "_KeyValueCodingAndObserving",
+                "printedName": "_KeyValueCodingAndObserving",
+                "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+                "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "CustomStringConvertible",
+                "printedName": "CustomStringConvertible",
+                "usr": "s:s23CustomStringConvertibleP",
+                "mangledName": "$ss23CustomStringConvertibleP"
+              },
+              {
+                "kind": "Conformance",
+                "name": "CustomDebugStringConvertible",
+                "printedName": "CustomDebugStringConvertible",
+                "usr": "s:s28CustomDebugStringConvertibleP",
+                "mangledName": "$ss28CustomDebugStringConvertibleP"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "cordialURLSessionConfiguration",
             "printedName": "cordialURLSessionConfiguration",
             "children": [
@@ -43426,7 +43701,7 @@
       "kind": "StringLiteral",
       "offset": 393,
       "length": 7,
-      "value": "\"4.4.4\""
+      "value": "\"4.4.5\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
@@ -43444,337 +43719,351 @@
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
+      "kind": "FloatLiteral",
+      "offset": 2192,
+      "length": 3,
+      "value": "0.5"
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 2301,
+      "offset": 2214,
+      "length": 19,
+      "value": "\"CordialSDK.InAppMessagesConfig\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
+      "kind": "StringLiteral",
+      "offset": 2626,
       "length": 49,
       "value": "\"SDK uses a passed URLSessionConfiguration setup\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 2362,
+      "offset": 2687,
       "length": 16,
       "value": "\"CordialSDKInfo\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 2692,
+      "offset": 3017,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "BooleanLiteral",
-      "offset": 2791,
+      "offset": 3116,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 2438,
+      "offset": 2763,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 3187,
+      "offset": 3512,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "BooleanLiteral",
-      "offset": 3286,
+      "offset": 3611,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 2887,
+      "offset": 3212,
       "length": 2,
       "value": "30"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4053,
+      "offset": 4378,
       "length": 65,
       "value": "\"Setting empty push notification categories array is unsupported\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4130,
+      "offset": 4455,
       "length": 28,
       "value": "\"CordialSDKPushNotification\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4459,
+      "offset": 4784,
       "length": 40,
       "value": "\"https:\/\/events-stream-svc.cordial.com\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4624,
+      "offset": 4949,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4794,
+      "offset": 5119,
       "length": 40,
       "value": "\"https:\/\/events-stream-svc.cordial.com\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4877,
+      "offset": 5202,
       "length": 3,
       "value": "\"\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 4907,
+      "offset": 5232,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4913,
+      "offset": 5238,
       "length": 10,
       "value": "\"https:\/\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 4975,
+      "offset": 5300,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4981,
+      "offset": 5306,
       "length": 10,
       "value": "\"https:\/\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 4995,
+      "offset": 5320,
       "length": 10,
       "value": "\"https:\/\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5008,
+      "offset": 5333,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5061,
+      "offset": 5386,
       "length": 3,
       "value": "\"\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5068,
+      "offset": 5393,
       "length": 3,
       "value": "\"\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5074,
+      "offset": 5399,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5120,
+      "offset": 5445,
       "length": 38,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5130,
+      "offset": 5455,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5148,
+      "offset": 5473,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5157,
+      "offset": 5482,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5286,
+      "offset": 5611,
       "length": 15,
       "value": "\"events-stream\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5309,
+      "offset": 5634,
       "length": 13,
       "value": "\"message-hub\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5364,
+      "offset": 5689,
       "length": 3,
       "value": "\"\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 5392,
+      "offset": 5717,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5398,
+      "offset": 5723,
       "length": 10,
       "value": "\"https:\/\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "IntegerLiteral",
-      "offset": 5458,
+      "offset": 5783,
       "length": 1,
       "value": "8"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5464,
+      "offset": 5789,
       "length": 10,
       "value": "\"https:\/\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5478,
+      "offset": 5803,
       "length": 10,
       "value": "\"https:\/\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5491,
+      "offset": 5816,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5542,
+      "offset": 5867,
       "length": 3,
       "value": "\"\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5549,
+      "offset": 5874,
       "length": 3,
       "value": "\"\/\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5555,
+      "offset": 5880,
       "length": 2,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5599,
+      "offset": 5924,
       "length": 36,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5609,
+      "offset": 5934,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5625,
+      "offset": 5950,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 5634,
+      "offset": 5959,
       "length": 1,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 6265,
+      "offset": 6590,
       "length": 60,
       "value": "\"Device Identifier: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 6297,
+      "offset": 6622,
       "length": 1,
       "value": "\"] SDK: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 6323,
+      "offset": 6648,
       "length": 1,
       "value": "\"]\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 6337,
+      "offset": 6662,
       "length": 16,
       "value": "\"CordialSDKInfo\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 6478,
+      "offset": 6803,
       "length": 10,
       "value": "\"deviceId\""
     },
@@ -46293,309 +46582,309 @@
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
-      "kind": "FloatLiteral",
-      "offset": 1236,
-      "length": 3,
-      "value": "0.5"
+      "kind": "IntegerLiteral",
+      "offset": 1334,
+      "length": 9,
+      "value": "1000000"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 1611,
+      "offset": 1855,
       "length": 59,
       "value": "\"IAM with mcID [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 1651,
+      "offset": 1895,
       "length": 1,
       "value": "\"] has been removed\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 1682,
+      "offset": 1926,
       "length": 24,
       "value": "\"CordialSDKInAppMessage\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 1914,
+      "offset": 2158,
       "length": 104,
       "value": "\"IAM: [User no login]. Save \""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 1975,
+      "offset": 2219,
       "length": 3,
       "value": "\" IAM with mcID: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 2016,
+      "offset": 2260,
       "length": 1,
       "value": "\"]\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 2030,
+      "offset": 2274,
       "length": 24,
       "value": "\"CordialSDKInAppMessage\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 2819,
+      "offset": 3063,
       "length": 105,
       "value": "\"IAM already presented. Save \""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 2881,
+      "offset": 3125,
       "length": 3,
       "value": "\" IAM with mcID: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 2922,
+      "offset": 3166,
       "length": 1,
       "value": "\"]\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 2936,
+      "offset": 3180,
       "length": 24,
       "value": "\"CordialSDKInAppMessage\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 6424,
+      "offset": 6668,
       "length": 122,
       "value": "\"Not showing \""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 6470,
+      "offset": 6714,
       "length": 3,
       "value": "\" IAM with mcID: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 6511,
+      "offset": 6755,
       "length": 1,
       "value": "\"]. Reason: [Live time has expired]\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 6558,
+      "offset": 6802,
       "length": 24,
       "value": "\"CordialSDKInAppMessage\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 7208,
+      "offset": 7452,
       "length": 124,
       "value": "\"Failed showing \""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 7257,
+      "offset": 7501,
       "length": 3,
       "value": "\" IAM with mcID: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 7298,
+      "offset": 7542,
       "length": 1,
       "value": "\"]. Error: [Live time has expired]\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 7344,
+      "offset": 7588,
       "length": 24,
       "value": "\"CordialSDKInAppMessage\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "BooleanLiteral",
-      "offset": 7729,
+      "offset": 7973,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "BooleanLiteral",
-      "offset": 8636,
+      "offset": 8880,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 8709,
+      "offset": 8953,
       "length": 91,
       "value": "\"Showing \""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 8751,
+      "offset": 8995,
       "length": 3,
       "value": "\" IAM modal with mcID: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 8798,
+      "offset": 9042,
       "length": 1,
       "value": "\"]\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 8812,
+      "offset": 9056,
       "length": 24,
       "value": "\"CordialSDKInAppMessage\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 9012,
+      "offset": 9256,
       "length": 175,
       "value": "\"Skipped display \""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 9062,
+      "offset": 9306,
       "length": 3,
       "value": "\" IAM with mcID: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 9103,
+      "offset": 9347,
       "length": 1,
       "value": "\"]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 9199,
+      "offset": 9443,
       "length": 24,
       "value": "\"CordialSDKInAppMessage\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "IntegerLiteral",
-      "offset": 10205,
+      "offset": 10449,
       "length": 2,
       "value": "50"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "IntegerLiteral",
-      "offset": 10212,
+      "offset": 10456,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "IntegerLiteral",
-      "offset": 10222,
+      "offset": 10466,
       "length": 2,
       "value": "50"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "IntegerLiteral",
-      "offset": 10234,
+      "offset": 10478,
       "length": 2,
       "value": "50"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 10268,
+      "offset": 10512,
       "length": 8,
       "value": "\"✖️\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "BooleanLiteral",
-      "offset": 11448,
+      "offset": 11692,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 11521,
+      "offset": 11765,
       "length": 92,
       "value": "\"Showing \""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 11563,
+      "offset": 11807,
       "length": 3,
       "value": "\" IAM banner with mcID: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 11611,
+      "offset": 11855,
       "length": 1,
       "value": "\"]\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 11625,
+      "offset": 11869,
       "length": 24,
       "value": "\"CordialSDKInAppMessage\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 11837,
+      "offset": 12081,
       "length": 175,
       "value": "\"Skipped display \""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 11887,
+      "offset": 12131,
       "length": 3,
       "value": "\" IAM with mcID: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 11928,
+      "offset": 12172,
       "length": 1,
       "value": "\"]. Showing IAM has been denied by CordialSDK configuration. Saved to display later.\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/InAppMessage\/InAppMessageProcess.swift",
       "kind": "StringLiteral",
-      "offset": 12024,
+      "offset": 12268,
       "length": 24,
       "value": "\"CordialSDKInAppMessage\""
     },

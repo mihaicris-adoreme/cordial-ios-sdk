@@ -16,7 +16,7 @@ import UIKit
     
     private override init() {}
     
-    let sdkVersion = "4.4.4"
+    let sdkVersion = "4.4.5"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
@@ -54,6 +54,15 @@ import UIKit
     
     public var keyWindow: UIWindow?
     
+    public var inAppMessages: InAppMessagesConfig = InAppMessagesConfig(displayDelayInSeconds: 0.5)
+    public class InAppMessagesConfig: NSObject {
+        public var displayDelayInSeconds: Double
+
+        init(displayDelayInSeconds: Double) {
+            self.displayDelayInSeconds = displayDelayInSeconds
+        }
+    }
+
     public var cordialURLSessionConfiguration = URLSessionConfiguration.background(withIdentifier: API.BACKGROUND_URL_SESSION_IDENTIFIER) {
         didSet {
             LoggerManager.shared.info(message: "SDK uses a passed URLSessionConfiguration setup", category: "CordialSDKInfo")

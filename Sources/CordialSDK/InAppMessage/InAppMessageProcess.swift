@@ -40,7 +40,11 @@ class InAppMessageProcess {
     
     func showInAppMessage(inAppMessageData: InAppMessageData) {
         if InternalCordialAPI().isUserLogin() {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let delayInSeconds = CordialApiConfiguration.shared.inAppMessages.displayDelayInSeconds
+            let delayInMicroseconds = Int(delayInSeconds * 1_000_000)
+            let delay = DispatchTime.now() + .microseconds(delayInMicroseconds)
+
+            DispatchQueue.main.asyncAfter(deadline: delay) {
                 if let isInAppMessageRelated = CoreDataManager.shared.inAppMessagesRelated.isInAppMessageRelated(mcID: inAppMessageData.mcID),
                    isInAppMessageRelated {
                     

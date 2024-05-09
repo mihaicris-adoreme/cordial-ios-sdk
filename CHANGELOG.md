@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.4.5 (2024-05-09)
+
+### Fixed
+
+- In-app message display delay
+
 ## 4.4.4 (2024-03-19)
 
 ### Fixed

@@ -404,6 +404,11 @@ extension CordialSDK.InAppMessagesQueue {
   @objc public var systemEventsProperties: Swift.Dictionary<Swift.String, Any>?
   @objc public var vanityDomains: [Swift.String]
   @objc public var keyWindow: UIKit.UIWindow?
+  @objc public var inAppMessages: CordialSDK.CordialApiConfiguration.InAppMessagesConfig
+  @objc @_hasMissingDesignatedInitializers public class InAppMessagesConfig : ObjectiveC.NSObject {
+    public var displayDelayInSeconds: Swift.Double
+    @objc deinit
+  }
   @objc public var cordialURLSessionConfiguration: Foundation.URLSessionConfiguration {
     @objc get
     @objc set
