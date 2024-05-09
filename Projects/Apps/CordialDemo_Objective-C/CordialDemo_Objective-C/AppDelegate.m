@@ -31,6 +31,8 @@
         [[PushNotificationCategory alloc] initWithKey:@"top-products" name:@"Top Products" initState:YES]
     ]];
     
+    [CordialApiConfiguration shared].inAppMessages.displayDelayInSeconds = 1.5;
+
     [[[CordialAPI alloc] init] registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound];
     
     [[NotificationManager shared] setupCordialSDKLogicErrorHandler];

@@ -29,6 +29,7 @@
 [In-App Messages](#in-app-messages)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[In-App Messaging Link Actions](#in-app-messaging-link-actions)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;[Delaying In-App Messages](#delaying-in-app-messages)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[Configuring In-App Messages Display Delay](#configuring-in-app-messages-display-delay)<br>
 [Inbox Messages](#inbox-messages)<br>
 [Message Attribution](#message-attribution)<br>
 [Revenue Attribution for Web View Applications](#revenue-attribution-for-web-view-applications)<br>
@@ -1238,9 +1239,26 @@ CordialApiConfiguration.shared.inAppMessageDelayMode.disallowedControllers([Clas
 
 Note, disallowed ViewControllers should inherit from the `InAppMessageDelayViewController` class or otherwise delayed in-app message will be attempted to be shown on next app open.
 
+### Configuring In-App Messages Display Delay
+
+To configure in-app messages display delay in seconds set corresponding property in the `CordialApiConfiguration` class:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+CordialApiConfiguration.shared.inAppMessages.displayDelayInSeconds = 1.5
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+[CordialApiConfiguration shared].inAppMessages.displayDelayInSeconds = 1.5;
+```
+
+
 ## Inbox Messages
 
-To work with inbox messages you will have to use the `InboxMessageAPI` class. It is the entry point to all inbox messages related functionality. The API supports the following operations:
+To work with inbox messages you will have to use the `CordialInboxMessageAPI` class. It is the entry point to all inbox messages related functionality. The API supports the following operations:
 
 ### Fetch all inbox messages for currently logged in contact
 
@@ -1304,20 +1322,47 @@ InboxFilter *inboxFilter = [[InboxFilter alloc] initWithIsRead:InboxFilterIsRead
     If the inbox message was sent before the specified date
     If the inbox message was sent after the specified date
 
-### Send up an inbox message is read event.
+### Fetch inbox message content:
+
+To get inbox message content, call
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
 
 ```
 let mcID = "example_mc_id"
-InboxMessageAPI().sendInboxMessageReadEvent(mcID: mcID)
+CordialInboxMessageAPI().fetchInboxMessageContent(mcID: mcID, onSuccess: { response in
+    // your code
+}, onFailure: { error in
+    // your code
+})
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 
 ```
 NSString *mcID = @"example_mc_id";
-[[[InboxMessageAPI alloc] init] sendInboxMessageReadEventWithMcID:mcID];
+[[[CordialInboxMessageAPI alloc] init] fetchInboxMessageContentWithMcID:mcID onSuccess:^(NSString *response) {
+    // your code
+} onFailure:^(NSString *error) {
+    // your code
+}];
+``` 
+
+
+### Send up an inbox message is read event.
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+let mcID = "example_mc_id"
+CordialInboxMessageAPI().sendInboxMessageReadEvent(mcID: mcID)
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+NSString *mcID = @"example_mc_id";
+[[[CordialInboxMessageAPI alloc] init] sendInboxMessageReadEventWithMcID:mcID];
 ```
 
 This is the method to be called to signal a message is read by the user and should be triggered every time a contact reads (or opens) a message.
@@ -1332,14 +1377,14 @@ To mark messages as read:
 
 ```
 let mcIDs = ["example_mc_id_1", "example_mc_id_2"]
-InboxMessageAPI().markInboxMessagesRead(mcIDs: mcIDs)
+CordialInboxMessageAPI().markInboxMessagesRead(mcIDs: mcIDs)
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 
 ```
 NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
-[[[InboxMessageAPI alloc] init] markInboxMessagesReadWithMcIDs:mcIDs];
+[[[CordialInboxMessageAPI alloc] init] markInboxMessagesReadWithMcIDs:mcIDs];
 ```
 
 ### To mark messages as unread:
@@ -1348,14 +1393,14 @@ NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
 
 ```
 let mcIDs = ["example_mc_id_1", "example_mc_id_2"]
-InboxMessageAPI().markInboxMessagesUnread(mcIDs: mcIDs)
+CordialInboxMessageAPI().markInboxMessagesUnread(mcIDs: mcIDs)
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 
 ```
 NSArray *mcIDs = @[@"example_mc_id_1", @"example_mc_id_2"];
-[[[InboxMessageAPI alloc] init] markInboxMessagesUnreadWithMcIDs:mcIDs];
+[[[CordialInboxMessageAPI alloc] init] markInboxMessagesUnreadWithMcIDs:mcIDs];
 ```
 
 ### To delete an inbox message:
@@ -1366,14 +1411,14 @@ To remove an inbox message from user's inbox, call
 
 ```
 let mcID = "example_mc_id"
-InboxMessageAPI().deleteInboxMessage(mcID: mcID)
+CordialInboxMessageAPI().deleteInboxMessage(mcID: mcID)
 ```
 
 &nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
 
 ```
 NSString *mcID = @"example_mc_id";
-[[[InboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
+[[[CordialInboxMessageAPI alloc] init] deleteInboxMessageWithMcID:mcID];
 ```
 
 ### Notifications about new incoming inbox message
