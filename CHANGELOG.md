@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.4.6 (2024-05-24)
+
+### Added
+
+- Usage of the static vendored XCFramework
+
 ## 4.4.5 (2024-05-09)
 
 ### Fixed
