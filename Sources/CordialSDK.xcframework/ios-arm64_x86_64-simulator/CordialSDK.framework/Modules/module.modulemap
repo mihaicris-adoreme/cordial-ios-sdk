@@ -1,0 +1,11 @@
+framework module CordialSDK {
+  umbrella header "CordialSDK.h"
+  export *
+
+  module * { export * }
+}
+
+module CordialSDK.Swift {
+  header "CordialSDK-Swift.h"
+  requires objc
+}
