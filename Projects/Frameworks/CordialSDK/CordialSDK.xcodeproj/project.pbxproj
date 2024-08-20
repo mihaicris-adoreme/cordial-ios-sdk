@@ -172,6 +172,7 @@
 		9E8E04382A02AF18000F3D19 /* LoggerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8E04372A02AF18000F3D19 /* LoggerManager.swift */; };
 		9E8E043A2A02AF32000F3D19 /* LoggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8E04392A02AF32000F3D19 /* LoggerDelegate.swift */; };
 		9E8E323626023BB200CA771E /* InAppMessageContentGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8E323526023BB200CA771E /* InAppMessageContentGetter.swift */; };
+		9E8EB1AA2C73DA06000F9132 /* CordialInitUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E8EB1A92C73DA06000F9132 /* CordialInitUserDefaults.swift */; };
 		9E92D3D2228EF26500D8AFE0 /* SendContactLogoutRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */; };
 		9E92D3D7228F01CA00D8AFE0 /* ContactLogoutSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D6228F01CA00D8AFE0 /* ContactLogoutSender.swift */; };
 		9E92D3D9228F022800D8AFE0 /* SendContactLogout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E92D3D8228F022800D8AFE0 /* SendContactLogout.swift */; };
@@ -516,6 +517,7 @@
 		9E8E04372A02AF18000F3D19 /* LoggerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerManager.swift; sourceTree = "<group>"; };
 		9E8E04392A02AF32000F3D19 /* LoggerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerDelegate.swift; sourceTree = "<group>"; };
 		9E8E323526023BB200CA771E /* InAppMessageContentGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppMessageContentGetter.swift; sourceTree = "<group>"; };
+		9E8EB1A92C73DA06000F9132 /* CordialInitUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CordialInitUserDefaults.swift; sourceTree = "<group>"; };
 		9E92D3D1228EF26500D8AFE0 /* SendContactLogoutRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogoutRequest.swift; sourceTree = "<group>"; };
 		9E92D3D6228F01CA00D8AFE0 /* ContactLogoutSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactLogoutSender.swift; sourceTree = "<group>"; };
 		9E92D3D8228F022800D8AFE0 /* SendContactLogout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendContactLogout.swift; sourceTree = "<group>"; };
@@ -1239,6 +1241,7 @@
 			children = (
 				9E95842A23C7540A00061C21 /* CordialUserDefaults.swift */,
 				9E5FA13E27F1EEDB003D84FE /* CordialGroupUserDefaults.swift */,
+				9E8EB1A92C73DA06000F9132 /* CordialInitUserDefaults.swift */,
 			);
 			path = UserDefaults;
 			sourceTree = "<group>";
@@ -1943,6 +1946,7 @@
 				9E4957652602425700E187EB /* InAppMessageContentURLSessionManager.swift in Sources */,
 				9EBA1B1923FFE38600005054 /* RequestSender.swift in Sources */,
 				9E6A932B26A856A100C1990B /* CordialSwiftUIPushNotificationApnsTokenReceived.swift in Sources */,
+				9E8EB1AA2C73DA06000F9132 /* CordialInitUserDefaults.swift in Sources */,
 				9E4FA38822FB1DCF00D630A7 /* SendCustomEventsURLSessionData.swift in Sources */,
 				9EDE27672A1B94CB00DD3376 /* UpsertContactsAPI.swift in Sources */,
 				9EA68D7826EA835E00D36C22 /* ResourceBundle.swift in Sources */,
@@ -2353,7 +2357,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.4.6;
+				MARKETING_VERSION = 4.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2385,7 +2389,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.4.6;
+				MARKETING_VERSION = 4.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = io.cordial.sdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

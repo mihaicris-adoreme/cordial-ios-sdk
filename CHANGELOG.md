@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.4.7 (2024-08-20)
+
+### Fixed
+
+- The bug with SDK cache being wiped when the app is cleared from memory
+
 ## 4.4.6 (2024-05-24)
 
 ### Added

@@ -16,7 +16,7 @@ import UIKit
     
     private override init() {}
     
-    let sdkVersion = "4.4.6"
+    let sdkVersion = "4.4.7"
     
     let initReachabilityManagerSingleton = ReachabilityManager.shared
     let initReachabilitySenderSingleton = ReachabilitySender.shared
@@ -131,6 +131,11 @@ import UIKit
             messageHubURL = "\(prefix)\(messageHubURL)\(suffix)"
         }
         
+        self.accountKey = CordialInitUserDefaults.string(forKey: API.USER_DEFAULTS_SDK_INIT_KEY_FOR_ACCOUNT_KEY) ?? String()
+        self.channelKey = CordialInitUserDefaults.string(forKey: API.USER_DEFAULTS_SDK_INIT_KEY_FOR_CHANNEL_KEY) ?? String()
+        self.eventsStreamURL = CordialInitUserDefaults.string(forKey: API.USER_DEFAULTS_SDK_INIT_KEY_FOR_EVENTS_STREAM_URL) ?? String()
+        self.messageHubURL = CordialInitUserDefaults.string(forKey: API.USER_DEFAULTS_SDK_INIT_KEY_FOR_MESSAGE_HUB_URL) ?? String()
+
         if self.accountKey != accountKey || self.channelKey != channelKey || self.eventsStreamURL != eventsStreamURL || self.messageHubURL != messageHubURL {
             CoreDataManager.shared.deleteAll()
             CordialUserDefaults.deleteAll()
@@ -141,6 +146,11 @@ import UIKit
         self.eventsStreamURL = eventsStreamURL
         self.messageHubURL = messageHubURL
         
+        CordialInitUserDefaults.set(accountKey, forKey: API.USER_DEFAULTS_SDK_INIT_KEY_FOR_ACCOUNT_KEY)
+        CordialInitUserDefaults.set(channelKey, forKey: API.USER_DEFAULTS_SDK_INIT_KEY_FOR_CHANNEL_KEY)
+        CordialInitUserDefaults.set(eventsStreamURL, forKey: API.USER_DEFAULTS_SDK_INIT_KEY_FOR_EVENTS_STREAM_URL)
+        CordialInitUserDefaults.set(messageHubURL, forKey: API.USER_DEFAULTS_SDK_INIT_KEY_FOR_MESSAGE_HUB_URL)
+
         let internalCordialAPI = InternalCordialAPI()
         
         let deviceID = internalCordialAPI.getDeviceIdentifier()
