@@ -9563,6 +9563,16 @@
         ]
       },
       {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "CordialSDK",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
         "kind": "TypeDecl",
         "name": "UpsertContactsAPI",
         "printedName": "UpsertContactsAPI",
@@ -36659,539 +36669,567 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 225,
+      "offset": 232,
+      "length": 44,
+      "value": "\"USER_DEFAULTS_SDK_INIT_KEY_FOR_ACCOUNT_KEY\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 337,
+      "length": 44,
+      "value": "\"USER_DEFAULTS_SDK_INIT_KEY_FOR_CHANNEL_KEY\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 448,
+      "length": 50,
+      "value": "\"USER_DEFAULTS_SDK_INIT_KEY_FOR_EVENTS_STREAM_URL\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 563,
+      "length": 48,
+      "value": "\"USER_DEFAULTS_SDK_INIT_KEY_FOR_MESSAGE_HUB_URL\""
+    },
+    {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
+      "kind": "StringLiteral",
+      "offset": 665,
       "length": 37,
       "value": "\"USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 314,
+      "offset": 754,
       "length": 35,
       "value": "\"USER_DEFAULTS_KEY_FOR_PRIMARY_KEY\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 410,
+      "offset": 850,
       "length": 44,
       "value": "\"USER_DEFAULTS_KEY_FOR_PREVIOUS_PRIMARY_KEY\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 507,
+      "offset": 947,
       "length": 36,
       "value": "\"USER_DEFAULTS_KEY_FOR_FIRST_LAUNCH\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 593,
+      "offset": 1033,
       "length": 33,
       "value": "\"USER_DEFAULTS_KEY_FOR_DEVICE_ID\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 687,
+      "offset": 1127,
       "length": 44,
       "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_DEVICE_TOKEN\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 794,
+      "offset": 1234,
       "length": 46,
       "value": "\"USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 912,
+      "offset": 1352,
       "length": 55,
       "value": "\"USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID_TAP_TIME\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1036,
+      "offset": 1476,
       "length": 52,
       "value": "\"USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1164,
+      "offset": 1604,
       "length": 59,
       "value": "\"USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CATEGORIES_ORIGIN\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1315,
+      "offset": 1755,
       "length": 75,
       "value": "\"USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_IMAGES\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1486,
+      "offset": 1926,
       "length": 79,
       "value": "\"USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINKS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1663,
+      "offset": 2103,
       "length": 81,
       "value": "\"USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_CONTENT_EXTENSION_CAROUSEL_DEEP_LINK_ID\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1816,
+      "offset": 2256,
       "length": 55,
       "value": "\"USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 1952,
+      "offset": 2392,
       "length": 64,
       "value": "\"USER_DEFAULTS_KEY_FOR_PREVIOUS_PUSH_NOTIFICATION_MCID_TAP_TIME\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2089,
+      "offset": 2529,
       "length": 56,
       "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2232,
+      "offset": 2672,
       "length": 70,
       "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2368,
+      "offset": 2808,
       "length": 49,
       "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LATITUDE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2484,
+      "offset": 2924,
       "length": 50,
       "value": "\"USER_DEFAULTS_KEY_FOR_CURRENT_LOCATION_LONGITUDE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2591,
+      "offset": 3031,
       "length": 40,
       "value": "\"USER_DEFAULTS_KEY_FOR_SDK_SECURITY_JWT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2704,
+      "offset": 3144,
       "length": 56,
       "value": "\"USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_LAST_UPDATE_DATE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2827,
+      "offset": 3267,
       "length": 50,
       "value": "\"USER_DEFAULTS_KEY_FOR_UPSERT_CONTACTS_ATTRIBUTES\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 2949,
+      "offset": 3389,
       "length": 55,
       "value": "\"USER_DEFAULTS_KEY_FOR_IS_CURRENTLY_UPSERTING_CONTACTS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3083,
+      "offset": 3523,
       "length": 62,
       "value": "\"USER_DEFAULTS_KEY_FOR_THE_LATEST_SENT_AT_IN_APP_MESSAGE_DATE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3208,
+      "offset": 3648,
       "length": 41,
       "value": "\"DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3315,
+      "offset": 3755,
       "length": 49,
       "value": "\"DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGE_CONTENT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3423,
+      "offset": 3863,
       "length": 42,
       "value": "\"DOWNLOAD_TASK_NAME_FETCH_IN_APP_MESSAGES\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3523,
+      "offset": 3963,
       "length": 41,
       "value": "\"DOWNLOAD_TASK_NAME_SDK_SECURITY_GET_JWT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3620,
+      "offset": 4060,
       "length": 39,
       "value": "\"DOWNLOAD_TASK_NAME_SEND_CUSTOM_EVENTS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3712,
+      "offset": 4152,
       "length": 36,
       "value": "\"DOWNLOAD_TASK_NAME_UPSERT_CONTACTS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3805,
+      "offset": 4245,
       "length": 40,
       "value": "\"DOWNLOAD_TASK_NAME_SEND_CONTACT_LOGOUT\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3902,
+      "offset": 4342,
       "length": 40,
       "value": "\"DOWNLOAD_TASK_NAME_UPSERT_CONTACT_CART\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 3999,
+      "offset": 4439,
       "length": 40,
       "value": "\"DOWNLOAD_TASK_NAME_SEND_CONTACT_ORDERS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4109,
+      "offset": 4549,
       "length": 53,
       "value": "\"DOWNLOAD_TASK_NAME_INBOX_MESSAGES_READ_UNREAD_MARKS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4220,
+      "offset": 4660,
       "length": 41,
       "value": "\"DOWNLOAD_TASK_NAME_DELETE_INBOX_MESSAGE\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4317,
+      "offset": 4757,
       "length": 39,
       "value": "\"DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMPS\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4411,
+      "offset": 4851,
       "length": 38,
       "value": "\"DOWNLOAD_TASK_NAME_CONTACT_TIMESTAMP\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4513,
+      "offset": 4953,
       "length": 47,
       "value": "\"DOWNLOAD_TASK_NAME_PUSH_NOTIFICATION_CAROUSEL\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4603,
+      "offset": 5043,
       "length": 7,
       "value": "\"crdl_\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4657,
+      "offset": 5097,
       "length": 39,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4684,
+      "offset": 5124,
       "length": 11,
       "value": "\"app_install\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4749,
+      "offset": 5189,
       "length": 37,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4776,
+      "offset": 5216,
       "length": 9,
       "value": "\"app_close\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4841,
+      "offset": 5281,
       "length": 36,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4868,
+      "offset": 5308,
       "length": 8,
       "value": "\"app_open\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4945,
+      "offset": 5385,
       "length": 64,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 4972,
+      "offset": 5412,
       "length": 36,
       "value": "\"notification_delivered_in_foreground\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5060,
+      "offset": 5500,
       "length": 44,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5087,
+      "offset": 5527,
       "length": 16,
       "value": "\"notification_tap\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5165,
+      "offset": 5605,
       "length": 61,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5192,
+      "offset": 5632,
       "length": 33,
       "value": "\"device_notifications_manual_optin\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5288,
+      "offset": 5728,
       "length": 62,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5315,
+      "offset": 5755,
       "length": 34,
       "value": "\"device_notifications_manual_optout\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5394,
+      "offset": 5834,
       "length": 42,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5421,
+      "offset": 5861,
       "length": 14,
       "value": "\"deep_link_open\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5490,
+      "offset": 5930,
       "length": 48,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5517,
+      "offset": 5957,
       "length": 20,
       "value": "\"in_app_message_shown\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5594,
+      "offset": 6034,
       "length": 55,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5621,
+      "offset": 6061,
       "length": 27,
       "value": "\"in_app_message_auto_dismiss\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5707,
+      "offset": 6147,
       "length": 57,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5734,
+      "offset": 6174,
       "length": 29,
       "value": "\"in_app_message_manual_dismiss\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5812,
+      "offset": 6252,
       "length": 38,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5839,
+      "offset": 6279,
       "length": 10,
       "value": "\"inbox_read\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5933,
+      "offset": 6373,
       "length": 51,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 5960,
+      "offset": 6400,
       "length": 23,
       "value": "\"notification_categories\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 6041,
+      "offset": 6481,
       "length": 32,
       "value": "\"CordialSDKBackgroundURLSession\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 6134,
+      "offset": 6574,
       "length": 19,
       "value": "\"group.cordial.sdk\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 6198,
+      "offset": 6638,
       "length": 23,
       "value": "\"IAM_WEB_VIEW_BASE_URL\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 6275,
+      "offset": 6715,
       "length": 8,
       "value": "\"opt-in\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 6335,
+      "offset": 6775,
       "length": 9,
       "value": "\"opt-out\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 6751,
+      "offset": 7191,
       "length": 5,
       "value": "\"{ }\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "StringLiteral",
-      "offset": 7025,
+      "offset": 7465,
       "length": 5,
       "value": "\"[ ]\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "IntegerLiteral",
-      "offset": 7201,
+      "offset": 7641,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "BooleanLiteral",
-      "offset": 7224,
+      "offset": 7664,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "BooleanLiteral",
-      "offset": 7263,
+      "offset": 7703,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "IntegerLiteral",
-      "offset": 8121,
+      "offset": 8561,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/API.swift",
       "kind": "IntegerLiteral",
-      "offset": 8144,
+      "offset": 8584,
       "length": 1,
       "value": "1"
     },
@@ -41473,6 +41511,13 @@
       "value": "\"\""
     },
     {
+      "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/UserDefaults\/CordialInitUserDefaults.swift",
+      "kind": "StringLiteral",
+      "offset": 290,
+      "length": 34,
+      "value": "\"io.cordial.sdk.init.UserDefaults\""
+    },
+    {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/ResourceBundle\/ResourceBundle.swift",
       "kind": "StringLiteral",
       "offset": 389,
@@ -43703,7 +43748,7 @@
       "kind": "StringLiteral",
       "offset": 393,
       "length": 7,
-      "value": "\"4.4.5\""
+      "value": "\"4.4.7\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
@@ -44037,35 +44082,35 @@
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 6590,
+      "offset": 7544,
       "length": 60,
       "value": "\"Device Identifier: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 6622,
+      "offset": 7576,
       "length": 1,
       "value": "\"] SDK: [\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 6648,
+      "offset": 7602,
       "length": 1,
       "value": "\"]\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 6662,
+      "offset": 7616,
       "length": 16,
       "value": "\"CordialSDKInfo\""
     },
     {
       "filePath": "\/Users\/ymalinovsky\/mobile\/Cordial\/Sources\/CordialSDK\/API\/CordialApiConfiguration.swift",
       "kind": "StringLiteral",
-      "offset": 6803,
+      "offset": 7757,
       "length": 10,
       "value": "\"deviceId\""
     },
