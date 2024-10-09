@@ -185,6 +185,26 @@ cordialAPI.registerForPushNotifications(options: [.alert, .sound, .badge])
 [cordialAPI registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound|UNAuthorizationOptionBadge];
 ```
 
+Also, please note that the `registerForPushNotifications` call can include a system `completionHandler` callback if your app needs it:
+
+&nbsp;&nbsp;&nbsp;&nbsp;Swift:
+
+```
+cordialAPI.registerForPushNotifications(options: [.alert, .sound, .badge]) { granted, error in
+    // your code
+}
+```
+
+&nbsp;&nbsp;&nbsp;&nbsp;Objective-C:
+
+```
+#import <UserNotifications/UserNotifications.h>
+
+[cordialAPI registerForPushNotificationsWithOptions:UNAuthorizationOptionAlert|UNAuthorizationOptionSound|UNAuthorizationOptionBadge completionHandler:^(BOOL granted, NSError * _Nullable error) {
+    // your code
+}];
+```
+
 2. Optionally provide Cordial SDK with an instance of the `CordialPushNotificationDelegate` protocol. This should be done in `AppDelegate.didFinishLaunchingWithOptions`:
 
 &nbsp;&nbsp;&nbsp;&nbsp;Swift:
