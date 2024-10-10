@@ -6,15 +6,15 @@
 	<dict>
 		<key>CoreDataModel.momd/CoreDataModel.mom</key>
 		<data>
-		erO8WNEUc/EcLqw7wNf4cgcCy84=
+		nlUvUp30aZtoK0UOoFyfcTy9qkg=
 		</data>
 		<key>CoreDataModel.momd/CoreDataModel_v2.mom</key>
 		<data>
-		0UndxMk1tOmIhRhqR0STPDTW4AU=
+		tPeCGHlrCY8Kxcg0Kpnx5rLCPas=
 		</data>
 		<key>CoreDataModel.momd/CoreDataModel_v3.mom</key>
 		<data>
-		Lo476FSRbcnIa5d8bJ3tCS2S4oo=
+		Kkz8jto3gI2Q3Af8uYy54qj3CBQ=
 		</data>
 		<key>CoreDataModel.momd/CoreDataModel_v3.omo</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/CordialSDK-Swift.h</key>
 		<data>
-		nurLT8wMUMhtXu16uSXmjqDNb/0=
+		aHKtB/zIihLmODQCZC7hawGUZC8=
 		</data>
 		<key>Headers/CordialSDK.h</key>
 		<data>
@@ -38,47 +38,47 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		UWuqEKBza+rbK9xSXdgzsD29XjE=
+		Gb5EqE2HzWqXo9wHEy8VsQIeyt8=
 		</data>
 		<key>Modules/CordialSDK.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		V+jTR6Ky80oH1PDSTTRxislJcK0=
+		43cpcMG8bcnLGaz7bX/AtY0b0qo=
 		</data>
 		<key>Modules/CordialSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		+P4WIOPcu42FeA+UKrrtyRsSp7E=
+		t+/4E/R/0W0V6nPm4lPBtJ66dKo=
 		</data>
 		<key>Modules/CordialSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		4KIWm43m9pZFXlLK4RHbC2Lv0VA=
+		9PnS9AAZ2VSmwJ4fGfPeF6d1zT4=
 		</data>
 		<key>Modules/CordialSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		+P4WIOPcu42FeA+UKrrtyRsSp7E=
+		t+/4E/R/0W0V6nPm4lPBtJ66dKo=
 		</data>
 		<key>Modules/CordialSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		CK2MTYbxtvWOILna4FvVy4WKhhM=
+		YEBAr6CtcD47iA0UKui9J5aorPA=
 		</data>
 		<key>Modules/CordialSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		V+jTR6Ky80oH1PDSTTRxislJcK0=
+		43cpcMG8bcnLGaz7bX/AtY0b0qo=
 		</data>
 		<key>Modules/CordialSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		6Ztx4cfauvpCJgCFFcdmeFFYe28=
+		6wW9LGKLrcv5BTI+GuyrEHXxNAo=
 		</data>
 		<key>Modules/CordialSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		S7c1Qic+iss9SJJ4xokHkVr9boM=
+		PhLizXPF7z42ccbanEdikVMG+Ak=
 		</data>
 		<key>Modules/CordialSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		6Ztx4cfauvpCJgCFFcdmeFFYe28=
+		6wW9LGKLrcv5BTI+GuyrEHXxNAo=
 		</data>
 		<key>Modules/CordialSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		xJfD7+lleKEJWIQueoGhvaE7F9w=
+		XZChA3jSRjTH0Ds61efJgmU+foQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -100,21 +100,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			opFddnzyT7Fk2Cjy7EYZNi4J30Bwa0xuR7jiZKqiusY=
+			g94OQm6bUuQBrUEg98kWG97cZsxUa7WEkQy2DAkAqg8=
 			</data>
 		</dict>
 		<key>CoreDataModel.momd/CoreDataModel_v2.mom</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/hwWsL2pfCmdvrpwwMI8vjfiDp+3NOT8FxmXNP3r0CE=
+			HZVc3HI3xH2dQjQaRTtvavIOkbE+HCcHVeuX+WlmI20=
 			</data>
 		</dict>
 		<key>CoreDataModel.momd/CoreDataModel_v3.mom</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			IeVYWnfL73k6M29YCut+afKcvV6xdw6YqlLwuPWJwsk=
+			Z1DwTX6nX0TlcdMKNlTyJ1slegNnx/w/7QPn6ZV9aUw=
 			</data>
 		</dict>
 		<key>CoreDataModel.momd/CoreDataModel_v3.omo</key>
@@ -135,7 +135,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fZtzD2iMG9kPdD7pTUXobQJaSGX7TIqCIRjjk0ISUxw=
+			MycxWDaExUkW1ictPNG74UFKHV24g8I5ILmienPRbX4=
 			</data>
 		</dict>
 		<key>Headers/CordialSDK.h</key>
@@ -156,70 +156,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			HF4fxNYiPDW7Lvaf2yjr7KuayszqHH0ZH4WPV8Fkab8=
+			hfQ5PNV8439DkcSJTCzt6P5FdmfMKqkbs8PwKxTGIDM=
 			</data>
 		</dict>
 		<key>Modules/CordialSDK.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/HqO7NaumOsB2j6YSMmfgCV8xFSDDs2LdIWsNKiNqxk=
+			eFtZENiMf9ldfc4WGTscZroB1jrNOOXxm1ZAChLVpgw=
 			</data>
 		</dict>
 		<key>Modules/CordialSDK.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			EOQayaC5WSzKESKKf3/l1mDlWZOtjkrIO0LFTPVRq7I=
+			gJM64RaskS2cOtO1BxWO4pmCPgGyWPgrrwMfE2l//8g=
 			</data>
 		</dict>
 		<key>Modules/CordialSDK.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			/HqO7NaumOsB2j6YSMmfgCV8xFSDDs2LdIWsNKiNqxk=
+			eFtZENiMf9ldfc4WGTscZroB1jrNOOXxm1ZAChLVpgw=
 			</data>
 		</dict>
 		<key>Modules/CordialSDK.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			q9gnnw+K0pU7+VXQi6y3iV822tU7s8V+Tw/gfCvcSH0=
+			SlaUq3CofcBgn3M+Npeffrd4BNIQH5/wAwVlsyqYHkk=
 			</data>
 		</dict>
 		<key>Modules/CordialSDK.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			HF4fxNYiPDW7Lvaf2yjr7KuayszqHH0ZH4WPV8Fkab8=
+			hfQ5PNV8439DkcSJTCzt6P5FdmfMKqkbs8PwKxTGIDM=
 			</data>
 		</dict>
 		<key>Modules/CordialSDK.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7IpuNliPmPoYoZo1CQOPLBFQltcFLaDsqAhLgV3nsV4=
+			/XyCcjkT0RcMjyAlGIVZttBWHQtrZGxXZjHLevug3jc=
 			</data>
 		</dict>
 		<key>Modules/CordialSDK.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			S7Ji6tD7N1WG123BAquAD1D5zg+2TWBOS2ucvxIU5JY=
+			9f/3OMR2aiqrLZuCpJ0HiY+NRX4HXazI0iwLBt0euFo=
 			</data>
 		</dict>
 		<key>Modules/CordialSDK.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7IpuNliPmPoYoZo1CQOPLBFQltcFLaDsqAhLgV3nsV4=
+			/XyCcjkT0RcMjyAlGIVZttBWHQtrZGxXZjHLevug3jc=
 			</data>
 		</dict>
 		<key>Modules/CordialSDK.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			q+oX2FiQLgHw751OZK+Mz7XTRR+9mcfD0a88yK9h0kk=
+			XO2zWeiWrnd/ooNZaKHQw9lE4dsV+XhVdM2CPhRqfFU=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
