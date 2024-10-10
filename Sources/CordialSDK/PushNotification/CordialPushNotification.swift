@@ -30,6 +30,21 @@ class CordialPushNotification: NSObject, UNUserNotificationCenterDelegate {
         }
     }
     
+    func registerForPushNotifications(options: UNAuthorizationOptions, completionHandler: @escaping (Bool, (any Error)?) -> Void) {
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { granted, error in
+            guard error == nil else {
+                completionHandler(granted, error)
+                return
+            }
+
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+
+            completionHandler(granted, nil)
+        }
+    }
+
     func providesAppNotificationSettings(options: UNAuthorizationOptions, isEducational: Bool) {
         let current = UNUserNotificationCenter.current()
         

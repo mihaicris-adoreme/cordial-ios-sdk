@@ -2,6 +2,12 @@
 
 The latest version of this file can be found at the master branch.
 
+## 4.5.0 (2024-10-10)
+
+### Added
+
+- The `registerForPushNotifications` call with `completionHandler` callback
+
 ## 4.4.7 (2024-08-20)
 
 ### Fixed

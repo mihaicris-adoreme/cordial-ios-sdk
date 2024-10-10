@@ -1,7 +1,7 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
-// swift-module-flags: -target x86_64-apple-ios13.1-macabi -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name CordialSDK
-// swift-module-flags-ignorable: -enable-bare-slash-regex
+// swift-compiler-version: Apple Swift version 6.0 effective-5.10 (swiftlang-6.0.0.9.10 clang-1600.0.26.2)
+// swift-module-flags: -target x86_64-apple-ios13.1-macabi -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name CordialSDK
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
 import Combine
 import CommonCrypto
 @_exported import CordialSDK
@@ -217,6 +217,7 @@ public struct CordialSwiftUIPushNotificationDeliveredInForeground {
 public class CordialSwiftUIDeepLinksPublisher : Foundation.ObservableObject {
   public static let shared: CordialSDK.CordialSwiftUIDeepLinksPublisher
   final public let deepLinks: Combine.PassthroughSubject<CordialSDK.CordialSwiftUIDeepLinks, Swift.Never>
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
   public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
   @objc deinit
 }
@@ -308,10 +309,10 @@ extension CordialSDK.ContactOrderRequest {
   @objc public init(isRead: CordialSDK.InboxFilterIsReadType, fromDate: Foundation.Date?, toDate: Foundation.Date?)
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor(unsafe) open class InAppMessageDelayViewController : UIKit.UIViewController {
-  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidDisappear(_ animated: Swift.Bool)
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
-  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+@_inheritsConvenienceInitializers @objc @_Concurrency.MainActor @preconcurrency open class InAppMessageDelayViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic open func viewDidDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
 extension CordialSDK.InboxMessagesContent {
@@ -517,6 +518,7 @@ extension Foundation.NSNotification.Name {
 public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   public static let shared: CordialSDK.CordialSwiftUIInboxMessagePublisher
   final public let newInboxMessageDelivered: Combine.PassthroughSubject<CordialSDK.CordialSwiftUIInboxMessageNewInboxMessageDelivered, Swift.Never>
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
   public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
   @objc deinit
 }
@@ -560,6 +562,7 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   case error
   case info
   public init?(rawValue: Swift.Int)
+  @available(*, deprecated, message: "Use LoggerLevel instead")
   public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
     get
@@ -599,7 +602,7 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   @objc override dynamic public init()
   @objc deinit
 }
-@_inheritsConvenienceInitializers @objc public class CordialAPI : ObjectiveC.NSObject {
+@objc @_inheritsConvenienceInitializers @objcMembers public class CordialAPI : ObjectiveC.NSObject {
   @objc public func getAccountKey() -> Swift.String
   @objc public func getChannelKey() -> Swift.String
   @objc public func getEventsStreamURL() -> Swift.String
@@ -617,6 +620,7 @@ public class CordialSwiftUIInboxMessagePublisher : Foundation.ObservableObject {
   @objc public func sendContactOrder(order: CordialSDK.Order)
   @objc public func registerForPushNotifications(options: UserNotifications.UNAuthorizationOptions, isEducational: Swift.Bool)
   @objc public func registerForPushNotifications(options: UserNotifications.UNAuthorizationOptions)
+  @objc public func registerForPushNotifications(options: UserNotifications.UNAuthorizationOptions, completionHandler: @escaping (Swift.Bool, (any Swift.Error)?) -> Swift.Void)
   @objc override dynamic public init()
   @objc deinit
 }
@@ -811,6 +815,7 @@ public class CordialSwiftUIPushNotificationPublisher : Foundation.ObservableObje
   final public let appOpenViaNotificationTap: Combine.PassthroughSubject<CordialSDK.CordialSwiftUIPushNotificationAppOpenViaNotificationTap, Swift.Never>
   final public let notificationDeliveredInForeground: Combine.PassthroughSubject<CordialSDK.CordialSwiftUIPushNotificationDeliveredInForeground, Swift.Never>
   final public let apnsTokenReceived: Combine.PassthroughSubject<CordialSDK.CordialSwiftUIPushNotificationApnsTokenReceived, Swift.Never>
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
   public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
   @objc deinit
 }
@@ -829,6 +834,7 @@ public class CordialSwiftUIPushNotificationPublisher : Foundation.ObservableObje
 public class CordialSwiftUIInAppMessagePublisher : Foundation.ObservableObject {
   public static let shared: CordialSDK.CordialSwiftUIInAppMessagePublisher
   final public let inputsCaptured: Combine.PassthroughSubject<CordialSDK.CordialSwiftUIInAppMessageInputsCaptured, Swift.Never>
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
   public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
   @objc deinit
 }
@@ -839,6 +845,7 @@ public class CordialSwiftUIInAppMessagePublisher : Foundation.ObservableObject {
 public class CordialSwiftUIPushNotificationCategoriesPublisher : Foundation.ObservableObject {
   public static let shared: CordialSDK.CordialSwiftUIPushNotificationCategoriesPublisher
   final public let openPushNotificationCategories: Combine.PassthroughSubject<Combine.Empty<Swift.Int, Swift.Never>, Swift.Never>
+  @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
   public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
   @objc deinit
 }
