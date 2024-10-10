@@ -8,53 +8,53 @@
 
 import UIKit
 
-@objc public class CordialAPI: NSObject {
+@objcMembers public class CordialAPI: NSObject {
     
     // MARK: Get account key
     
-    @objc public func getAccountKey() -> String {
+    public func getAccountKey() -> String {
         return CordialApiConfiguration.shared.accountKey
     }
     
     // MARK: Get channel key
     
-    @objc public func getChannelKey() -> String {
+    public func getChannelKey() -> String {
         return CordialApiConfiguration.shared.channelKey
     }
     
     // MARK: Get events stream URL
     
-    @objc public func getEventsStreamURL() -> String {
+    public func getEventsStreamURL() -> String {
         return CordialApiConfiguration.shared.eventsStreamURL
     }
     
     // MARK: Get message hub URL
     
-    @objc public func getMessageHubURL() -> String {        
+    public func getMessageHubURL() -> String {
         return CordialApiConfiguration.shared.messageHubURL
     }
     
     // MARK: Get primary key
     
-    @objc public func getContactPrimaryKey() -> String? {
+    public func getContactPrimaryKey() -> String? {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PRIMARY_KEY)
     }
     
     // MARK: Open deep link
     
-    @objc public func openDeepLink(url: URL) {
+    public func openDeepLink(url: URL) {
         CordialVanityDeepLink().open(url: url)
     }
     
     // MARK: Get current mcID
     
-    @objc public func getCurrentMcID() -> String? {
+    public func getCurrentMcID() -> String? {
         return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
     }
     
     // MARK: Set current mcID
     
-    @objc public func setCurrentMcID(mcID: String) {
+    public func setCurrentMcID(mcID: String) {
         InternalCordialAPI().savePreviousMcID()
         
         CordialUserDefaults.set(mcID, forKey: API.USER_DEFAULTS_KEY_FOR_PUSH_NOTIFICATION_MCID)
@@ -63,7 +63,7 @@ import UIKit
     
     // MARK: Set Contact
     
-    @objc public func setContact(primaryKey: String?) {
+    public func setContact(primaryKey: String?) {
         let internalCordialAPI = InternalCordialAPI()
         
         let previousPrimaryKey = self.getContactPrimaryKey()
@@ -83,7 +83,7 @@ import UIKit
     
     // MARK: Unset Contact
     
-    @objc public func unsetContact() {
+    public func unsetContact() {
         let internalCordialAPI = InternalCordialAPI()
         
         if internalCordialAPI.isUserLogin() {
@@ -104,7 +104,7 @@ import UIKit
     
     // MARK: Upsert Contact
     
-    @objc public func upsertContact(attributes: Dictionary<String, AttributeValue>?) -> Void {
+    public func upsertContact(attributes: Dictionary<String, AttributeValue>?) -> Void {
         let internalCordialAPI = InternalCordialAPI()
         
         let token = internalCordialAPI.getPushNotificationToken()
@@ -122,7 +122,7 @@ import UIKit
     
     // MARK: Send Custom Event
         
-    @objc public func sendCustomEvent(eventName: String, properties: Dictionary<String, Any>?) {
+    public func sendCustomEvent(eventName: String, properties: Dictionary<String, Any>?) {
         let mcID = self.getCurrentMcID()
         let sendCustomEventRequest = SendCustomEventRequest(eventName: eventName, mcID: mcID, properties: properties)
         
@@ -138,7 +138,7 @@ import UIKit
     
     // MARK: Flush Custom Events
     
-    @objc public func flushEvents() {
+    public func flushEvents() {
         ThrottlerManager.shared.sendCustomEventRequest.throttle {
             CoreDataManager.shared.coreDataSender.sendCachedCustomEventRequests(reason: "App requested")
         }
@@ -146,14 +146,14 @@ import UIKit
     
     // MARK: Upsert Contact Cart
     
-    @objc public func upsertContactCart(cartItems: [CartItem]) {
+    public func upsertContactCart(cartItems: [CartItem]) {
         let upsertContactCartRequest = UpsertContactCartRequest(cartItems: cartItems)
         ContactCartSender().upsertContactCart(upsertContactCartRequest: upsertContactCartRequest)
     }
     
     // MARK: Send Order
     
-    @objc public func sendContactOrder(order: Order) {
+    public func sendContactOrder(order: Order) {
         let mcID = self.getCurrentMcID()
         let sendContactOrderRequest = SendContactOrderRequest(mcID: mcID, order: order)
         ContactOrdersSender().sendContactOrders(sendContactOrderRequests: [sendContactOrderRequest])
@@ -161,7 +161,7 @@ import UIKit
     
     // MARK: Register for push notifications
     
-    @objc public func registerForPushNotifications(options: UNAuthorizationOptions, isEducational: Bool) {
+    public func registerForPushNotifications(options: UNAuthorizationOptions, isEducational: Bool) {
         if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
             if !InternalCordialAPI().getPushNotificationCategories().isEmpty && !options.contains(.providesAppNotificationSettings) {
                 let newOptions = options.union([.providesAppNotificationSettings])
@@ -174,8 +174,16 @@ import UIKit
         }
     }
     
-    @objc public func registerForPushNotifications(options: UNAuthorizationOptions) {
+    public func registerForPushNotifications(options: UNAuthorizationOptions) {
         self.registerForPushNotifications(options: options, isEducational: false)
+    }
+
+    public func registerForPushNotifications(options: UNAuthorizationOptions, completionHandler: @escaping (Bool, (any Error)?) -> Void) {
+        if CordialApiConfiguration.shared.pushesConfiguration == .SDK {
+            CordialPushNotification.shared.registerForPushNotifications(options: options, completionHandler: completionHandler)
+        } else {
+            LoggerManager.shared.info(message: "Register for push notifications failed: pushesConfiguration not equals to SDK value", category: "CordialSDKPushNotification")
+        }
     }
 }
 
