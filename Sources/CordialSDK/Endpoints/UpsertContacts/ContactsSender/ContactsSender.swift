@@ -36,7 +36,12 @@ class ContactsSender {
                                 } else {
                                     status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                                 }
-                                
+
+                                LoggerManager.shared.log(
+                                    message: "ContactsSender: Authorization Status: \(status)",
+                                    category: "CordialSDKAddedByAdoreMe"
+                                )
+
                                 internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus, isSentPushNotificationAuthorizationStatus: true)
                             }
                         }

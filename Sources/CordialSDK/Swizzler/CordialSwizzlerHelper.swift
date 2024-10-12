@@ -94,7 +94,12 @@ class CordialSwizzlerHelper {
                     } else {
                         status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                     }
-                    
+
+                    LoggerManager.shared.log(
+                        message: "CordialSwizzlerHelper: Authorization Status: \(status)",
+                        category: "CordialSDKAddedByAdoreMe"
+                    )
+
                     InternalCordialAPI().setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus)
                     
                     let primaryKey = CordialAPI().getContactPrimaryKey()

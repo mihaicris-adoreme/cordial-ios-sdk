@@ -120,17 +120,55 @@ class PushNotificationHelper {
         self.internalCordialAPI.sendAnyCustomEvent(sendCustomEventRequest: sendCustomEventRequest)
     }
     
+    private func additionalLoggingAdoreMe(settings: UNNotificationSettings) {
+        let statusString: String
+        switch settings.authorizationStatus {
+        case .notDetermined:
+            statusString = "NOT DETERMINED"
+        case .denied:
+            statusString = "DENIED"
+        case .authorized:
+            statusString = "AUTHORIZED"
+        case .provisional:
+            statusString = "PROVISIONAL"
+        case .ephemeral:
+            statusString = "EPHEMERAL"
+        @unknown default:
+            statusString = "swift unknown default"
+        }
+
+        LoggerManager.shared.log(
+            message: "PushNotificationHelper: Authorization Status: \(statusString)",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
+        let userdefaultsValue = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? "nil"
+
+        LoggerManager.shared.log(
+            message: "PushNotificationHelper: UserDefaults USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS: \(userdefaultsValue)",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
+        let condition = isUpsertContacts24HoursSelfHealingCanBeProcessed()
+
+        LoggerManager.shared.log(
+            message: "PushNotificationHelper: isUpsertContacts24HoursSelfHealingCanBeProcessed: \(condition.description)",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+    }
+
     func prepareCurrentPushNotificationStatus() {
         DispatchQueue.main.async {
             let current = UNUserNotificationCenter.current()
             
             current.getNotificationSettings { settings in
                 DispatchQueue.main.async {
+                    self.additionalLoggingAdoreMe(settings: settings)
+
                     if !self.internalCordialAPI.isCurrentlyUpsertingContacts(),
                        let token = self.internalCordialAPI.getPushNotificationToken() {
                         
                         let primaryKey = CordialAPI().getContactPrimaryKey()
-                        
                         if settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional {
                             if API.PUSH_NOTIFICATION_STATUS_ALLOW != CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) || self.isUpsertContacts24HoursSelfHealingCanBeProcessed() {
                                 

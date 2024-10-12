@@ -660,7 +660,28 @@ class InternalCordialAPI {
     // MARK: Get push notification status
     
     func getPushNotificationStatus() -> String {
-        return CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
+        let userdefaultsValue = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? "nil"
+
+        LoggerManager.shared.log(
+            message: "InternalCordialAPI: UserDefaults USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS: \(userdefaultsValue)",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
+        let status = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
+
+        let defaultedToOptOut = status == API.PUSH_NOTIFICATION_STATUS_DISALLOW
+
+        LoggerManager.shared.log(
+            message: "InternalCordialAPI: Defaulted to opt-out: \(defaultedToOptOut.description)",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
+        LoggerManager.shared.log(
+            message: "InternalCordialAPI: Status: \(status)",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
+        return status
     }
     
     // MARK: Set push notification status
