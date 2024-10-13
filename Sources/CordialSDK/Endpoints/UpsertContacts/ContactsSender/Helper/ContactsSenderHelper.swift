@@ -18,12 +18,27 @@ class ContactsSenderHelper {
     
     private func removeCacheIfCurrentPrimaryKeyNotEqualToPreviousPrimaryKey(upsertContactRequests: [UpsertContactRequest]) {
         let internalCordialAPI = InternalCordialAPI()
-        
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): internalCordialAPI.isUserLogin(): \(internalCordialAPI.isUserLogin().description)",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
         if internalCordialAPI.isUserLogin() {
             let previousPrimaryKey = internalCordialAPI.getPreviousContactPrimaryKey()
             
+            LoggerManager.shared.error(
+                message: "\(String(describing: Self.self)).\(#function)): previousPrimaryKey: \(previousPrimaryKey)",
+                category: "CordialSDKAddedByAdoreMe"
+            )
+
             upsertContactRequests.forEach { upsertContactRequest in
                 if upsertContactRequest.primaryKey != previousPrimaryKey && previousPrimaryKey != nil {
+                    let value = upsertContactRequest.primaryKey != previousPrimaryKey && previousPrimaryKey != nil
+                    LoggerManager.shared.error(
+                        message: "\(String(describing: Self.self)).\(#function)): upsertContactRequest.primaryKey != previousPrimaryKey && previousPrimaryKey != nil: \(value.description)",
+                        category: "CordialSDKAddedByAdoreMe"
+                    )
+
                     internalCordialAPI.removeAllCachedData()
                 }
             }

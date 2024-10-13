@@ -110,6 +110,11 @@ import UIKit
         let token = internalCordialAPI.getPushNotificationToken()
         let status = internalCordialAPI.getPushNotificationStatus()
         
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): self.getContactPrimaryKey(): \(self.getContactPrimaryKey() ?? "nil")",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
         if let primaryKey = self.getContactPrimaryKey() {
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: attributes)
             ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])

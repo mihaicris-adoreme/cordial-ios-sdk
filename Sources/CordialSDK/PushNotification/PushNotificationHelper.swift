@@ -207,6 +207,21 @@ class PushNotificationHelper {
     private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {        
         self.internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
         
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): primaryKey: \(primaryKey ?? "nil")",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): internalCordialAPI.isUserLogin(): \(self.internalCordialAPI.isUserLogin().description)",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): !internalCordialAPI.hasUserBeenLoggedIn(): \((!self.internalCordialAPI.hasUserBeenLoggedIn()).description)",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
         if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
             ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])

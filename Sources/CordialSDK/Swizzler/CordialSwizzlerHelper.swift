@@ -103,6 +103,12 @@ class CordialSwizzlerHelper {
                     InternalCordialAPI().setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus)
                     
                     let primaryKey = CordialAPI().getContactPrimaryKey()
+
+                    LoggerManager.shared.error(
+                        message: "\(String(describing: Self.self)).\(#function)): primaryKey: \(primaryKey)",
+                        category: "CordialSDKAddedByAdoreMe"
+                    )
+
                     let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
                     ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
                 }

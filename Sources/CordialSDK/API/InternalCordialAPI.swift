@@ -296,6 +296,10 @@ class InternalCordialAPI {
     // MARK: Is user login
     
     func isUserLogin() -> Bool {
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) \(String(describing: CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)))",
+            category: "CordialSDKAddedByAdoreMe"
+        )
         if let isUserLogin = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) {
             return isUserLogin
         }
@@ -306,6 +310,11 @@ class InternalCordialAPI {
     // MARK: Is user has been ever login
     
     func hasUserBeenLoggedIn() -> Bool {
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) \(String(describing: CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)))",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+
         if CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) == nil {
             return false
         }

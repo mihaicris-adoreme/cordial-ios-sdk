@@ -16,13 +16,34 @@ class ContactsSender {
     func upsertContacts(upsertContactRequests: [UpsertContactRequest]) {
 
         let upsertContactRequests = ContactsSenderHelper().prepareCoreDataCacheBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
-         
+        
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): prepareCoreDataCacheBeforeUpsertContacts: Count: \(upsertContactRequests.count)",
+            category: "CordialSDKAddedByAdoreMe"
+        )
+        for req in upsertContactRequests {
+            LoggerManager.shared.error(
+                message: "\(String(describing: Self.self)).\(#function)): requestID: \(req.requestID), status: \(req.status), primaryKey: \(String(describing: req.primaryKey)), token: \(String(describing: req.token))",
+                category: "CordialSDKAddedByAdoreMe"
+            )
+        }
+
         if !upsertContactRequests.isEmpty {
             let internalCordialAPI = InternalCordialAPI()
             
             upsertContactRequests.forEach({ upsertContactRequest in
                 let primaryKey = upsertContactRequest.primaryKey
-                
+
+                LoggerManager.shared.error(
+                    message: "\(String(describing: Self.self)).\(#function)): primaryKey != CordialAPI().getContactPrimaryKey() : \((primaryKey != CordialAPI().getContactPrimaryKey()).description)",
+                    category: "CordialSDKAddedByAdoreMe"
+                )
+
+                LoggerManager.shared.error(
+                    message: "\(String(describing: Self.self)).\(#function)): primaryKey == nil && !internalCordialAPI.isUserLogin() : \((primaryKey == nil && !internalCordialAPI.isUserLogin())).description)",
+                    category: "CordialSDKAddedByAdoreMe"
+                )
+
                 if primaryKey != CordialAPI().getContactPrimaryKey() || (primaryKey == nil && !internalCordialAPI.isUserLogin()) {
                     DispatchQueue.main.async {
                         let current = UNUserNotificationCenter.current()
