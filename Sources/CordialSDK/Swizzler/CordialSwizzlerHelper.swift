@@ -95,8 +95,8 @@ class CordialSwizzlerHelper {
                         status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                     }
 
-                    LoggerManager.shared.log(
-                        message: "CordialSwizzlerHelper: Authorization Status: \(status)",
+                    LoggerManager.shared.error(
+                        message: "\(String(describing: Self.self)).\(#function)): Authorization Status: \(status)",
                         category: "CordialSDKAddedByAdoreMe"
                     )
 

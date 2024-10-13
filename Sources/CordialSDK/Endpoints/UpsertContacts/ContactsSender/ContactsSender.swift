@@ -37,8 +37,8 @@ class ContactsSender {
                                     status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                                 }
 
-                                LoggerManager.shared.log(
-                                    message: "ContactsSender: Authorization Status: \(status)",
+                                LoggerManager.shared.error(
+                                    message: "\(String(describing: Self.self)).\(#function)): Authorization Status: \(status)",
                                     category: "CordialSDKAddedByAdoreMe"
                                 )
 

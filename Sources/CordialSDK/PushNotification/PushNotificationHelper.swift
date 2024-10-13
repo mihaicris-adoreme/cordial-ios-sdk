@@ -137,22 +137,22 @@ class PushNotificationHelper {
             statusString = "swift unknown default"
         }
 
-        LoggerManager.shared.log(
-            message: "PushNotificationHelper: Authorization Status: \(statusString)",
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): Authorization Status: \(statusString)",
             category: "CordialSDKAddedByAdoreMe"
         )
 
         let userdefaultsValue = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? "nil"
 
-        LoggerManager.shared.log(
-            message: "PushNotificationHelper: UserDefaults USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS: \(userdefaultsValue)",
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): UserDefaults USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS: \(userdefaultsValue)",
             category: "CordialSDKAddedByAdoreMe"
         )
 
         let condition = isUpsertContacts24HoursSelfHealingCanBeProcessed()
 
-        LoggerManager.shared.log(
-            message: "PushNotificationHelper: isUpsertContacts24HoursSelfHealingCanBeProcessed: \(condition.description)",
+        LoggerManager.shared.error(
+            message: "\(String(describing: Self.self)).\(#function)): isUpsertContacts24HoursSelfHealingCanBeProcessed: \(condition.description)",
             category: "CordialSDKAddedByAdoreMe"
         )
     }
