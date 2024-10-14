@@ -38,7 +38,15 @@ import Foundation
             }
         }
     }
-    
+
+    public func infoAdoreMe(_ message: String) {
+        if self.isLoggerAvailable(.info) {
+            self.loggers.forEach { logger in
+                logger.info(message: message, category: "CordialSDK-ADOREME")
+            }
+        }
+    }
+
     public func debug(message: String, category: String) {
         if self.isLoggerAvailable() {
             self.loggers.forEach { logger in

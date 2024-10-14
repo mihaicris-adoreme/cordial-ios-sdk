@@ -41,6 +41,7 @@ struct CordialUserDefaults {
     }
     
     static func deleteAll() {
+        LoggerManager.shared.infoAdoreMe("Deleting all cordial user defaults")
         let dictionary = self.cordialUserDefaults?.dictionaryRepresentation()
         dictionary?.keys.forEach { key in
             self.removeObject(forKey: key)

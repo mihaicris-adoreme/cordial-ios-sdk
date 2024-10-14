@@ -17,15 +17,9 @@ class ContactsSender {
 
         let upsertContactRequests = ContactsSenderHelper().prepareCoreDataCacheBeforeUpsertContacts(upsertContactRequests: upsertContactRequests)
         
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): prepareCoreDataCacheBeforeUpsertContacts: Count: \(upsertContactRequests.count)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
+
         for req in upsertContactRequests {
-            LoggerManager.shared.error(
-                message: "\(String(describing: Self.self)).\(#function)): requestID: \(req.requestID), status: \(req.status), primaryKey: \(String(describing: req.primaryKey)), token: \(String(describing: req.token))",
-                category: "CordialSDKAddedByAdoreMe"
-            )
+            LoggerManager.shared.infoAdoreMe("requestID: \(req.requestID), status: \(req.status), primaryKey: \(req.primaryKey ?? nil), token: \(String(describing: req.token))")
         }
 
         if !upsertContactRequests.isEmpty {
@@ -34,15 +28,8 @@ class ContactsSender {
             upsertContactRequests.forEach({ upsertContactRequest in
                 let primaryKey = upsertContactRequest.primaryKey
 
-                LoggerManager.shared.error(
-                    message: "\(String(describing: Self.self)).\(#function)): primaryKey != CordialAPI().getContactPrimaryKey() : \((primaryKey != CordialAPI().getContactPrimaryKey()).description)",
-                    category: "CordialSDKAddedByAdoreMe"
-                )
-
-                LoggerManager.shared.error(
-                    message: "\(String(describing: Self.self)).\(#function)): primaryKey == nil && !internalCordialAPI.isUserLogin() : \((primaryKey == nil && !internalCordialAPI.isUserLogin())).description)",
-                    category: "CordialSDKAddedByAdoreMe"
-                )
+                LoggerManager.shared.infoAdoreMe("primaryKey != CordialAPI().getContactPrimaryKey() : \((primaryKey != CordialAPI().getContactPrimaryKey()).description)")
+                LoggerManager.shared.infoAdoreMe("primaryKey == nil && !internalCordialAPI.isUserLogin() : \((primaryKey == nil && !internalCordialAPI.isUserLogin()).description)")
 
                 if primaryKey != CordialAPI().getContactPrimaryKey() || (primaryKey == nil && !internalCordialAPI.isUserLogin()) {
                     DispatchQueue.main.async {
@@ -57,11 +44,6 @@ class ContactsSender {
                                 } else {
                                     status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                                 }
-
-                                LoggerManager.shared.error(
-                                    message: "\(String(describing: Self.self)).\(#function)): Authorization Status: \(status)",
-                                    category: "CordialSDKAddedByAdoreMe"
-                                )
 
                                 internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus, isSentPushNotificationAuthorizationStatus: true)
                             }

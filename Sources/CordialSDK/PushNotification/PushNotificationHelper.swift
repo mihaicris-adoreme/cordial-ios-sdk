@@ -136,25 +136,8 @@ class PushNotificationHelper {
         @unknown default:
             statusString = "swift unknown default"
         }
-
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): Authorization Status: \(statusString)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
-
         let userdefaultsValue = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? "nil"
-
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): UserDefaults USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS: \(userdefaultsValue)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
-
         let condition = isUpsertContacts24HoursSelfHealingCanBeProcessed()
-
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): isUpsertContacts24HoursSelfHealingCanBeProcessed: \(condition.description)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
     }
 
     func prepareCurrentPushNotificationStatus() {
@@ -206,22 +189,7 @@ class PushNotificationHelper {
     
     private func sentPushNotificationStatus(token: String, primaryKey: String?, status: String, authorizationStatus: UNAuthorizationStatus) {        
         self.internalCordialAPI.setPushNotificationStatus(status: status, authorizationStatus: authorizationStatus)
-        
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): primaryKey: \(primaryKey ?? "nil")",
-            category: "CordialSDKAddedByAdoreMe"
-        )
-
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): internalCordialAPI.isUserLogin(): \(self.internalCordialAPI.isUserLogin().description)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
-
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): !internalCordialAPI.hasUserBeenLoggedIn(): \((!self.internalCordialAPI.hasUserBeenLoggedIn()).description)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
-
+    
         if self.internalCordialAPI.isUserLogin() || !self.internalCordialAPI.hasUserBeenLoggedIn() {
             let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
             ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])

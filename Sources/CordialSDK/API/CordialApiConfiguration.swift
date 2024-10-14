@@ -123,6 +123,8 @@ import UIKit
         }
         
         if self.accountKey != accountKey || self.channelKey != channelKey || self.eventsStreamURL != eventsStreamURL || self.messageHubURL != messageHubURL {
+            LoggerManager.shared.infoAdoreMe("Will clear Core Data Manager entries and Cordial User Defaults entries")
+
             CoreDataManager.shared.deleteAll()
             CordialUserDefaults.deleteAll()
         }

@@ -296,10 +296,10 @@ class InternalCordialAPI {
     // MARK: Is user login
     
     func isUserLogin() -> Bool {
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) \(String(describing: CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)))",
-            category: "CordialSDKAddedByAdoreMe"
-        )
+        let flag = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+        let value = flag == nil ? "nil" : flag!.description
+        LoggerManager.shared.infoAdoreMe("USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN: \(value)")
+
         if let isUserLogin = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) {
             return isUserLogin
         }
@@ -310,11 +310,10 @@ class InternalCordialAPI {
     // MARK: Is user has been ever login
     
     func hasUserBeenLoggedIn() -> Bool {
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) \(String(describing: CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)))",
-            category: "CordialSDKAddedByAdoreMe"
-        )
 
+        let flag = CordialUserDefaults.bool(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN)
+        let value = flag == nil ? "true" : "false"
+        LoggerManager.shared.infoAdoreMe("hasUserBeenLoggedIn: \(value)")
         if CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_IS_USER_LOGIN) == nil {
             return false
         }
@@ -671,24 +670,14 @@ class InternalCordialAPI {
     func getPushNotificationStatus() -> String {
         let userdefaultsValue = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? "nil"
 
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): UserDefaults USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS: \(userdefaultsValue)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
+        LoggerManager.shared.infoAdoreMe("USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS: \(userdefaultsValue)")
 
         let status = CordialUserDefaults.string(forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS) ?? API.PUSH_NOTIFICATION_STATUS_DISALLOW
 
         let defaultedToOptOut = status == API.PUSH_NOTIFICATION_STATUS_DISALLOW
 
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): Defaulted to opt-out: \(defaultedToOptOut.description)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
-
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): Status: \(status)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
+        LoggerManager.shared.infoAdoreMe("Defaulted to opt-out: \(defaultedToOptOut.description)")
+        LoggerManager.shared.infoAdoreMe("Authorization Status: \(status)")
 
         return status
     }
@@ -703,15 +692,8 @@ class InternalCordialAPI {
             self.sentPushNotificationAuthorizationStatus(authorizationStatus: authorizationStatus)
         }
 
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): Setting USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS: \(status)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
-        
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): Setting USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS: \(authorizationStatus.rawValue)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
+        LoggerManager.shared.infoAdoreMe("Setting USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS: \(status)")
+        LoggerManager.shared.infoAdoreMe("Setting USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS: \(authorizationStatus.rawValue)")
 
         CordialUserDefaults.set(status, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_STATUS)
         CordialUserDefaults.set(authorizationStatus.rawValue, forKey: API.USER_DEFAULTS_KEY_FOR_CURRENT_PUSH_NOTIFICATION_AUTHORIZATION_STATUS)
@@ -719,11 +701,6 @@ class InternalCordialAPI {
     
     private func sentPushNotificationAuthorizationStatus(authorizationStatus: UNAuthorizationStatus) {
         let mcID = CordialAPI().getCurrentMcID()
-
-        LoggerManager.shared.error(
-            message: "\(String(describing: Self.self)).\(#function)): sentPushNotificationAuthorizationStatus: \(authorizationStatus.rawValue)",
-            category: "CordialSDKAddedByAdoreMe"
-        )
 
         switch authorizationStatus {
         case .denied:

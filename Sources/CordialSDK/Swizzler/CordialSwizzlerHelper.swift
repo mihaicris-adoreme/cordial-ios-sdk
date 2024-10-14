@@ -95,19 +95,12 @@ class CordialSwizzlerHelper {
                         status = API.PUSH_NOTIFICATION_STATUS_DISALLOW
                     }
 
-                    LoggerManager.shared.error(
-                        message: "\(String(describing: Self.self)).\(#function)): Authorization Status: \(status)",
-                        category: "CordialSDKAddedByAdoreMe"
-                    )
-
                     InternalCordialAPI().setPushNotificationStatus(status: status, authorizationStatus: settings.authorizationStatus)
                     
                     let primaryKey = CordialAPI().getContactPrimaryKey()
 
-                    LoggerManager.shared.error(
-                        message: "\(String(describing: Self.self)).\(#function)): primaryKey: \(primaryKey)",
-                        category: "CordialSDKAddedByAdoreMe"
-                    )
+                    LoggerManager.shared.infoAdoreMe("Authorization Status: \(status)")
+                    LoggerManager.shared.infoAdoreMe("primaryKey: \(primaryKey)")
 
                     let upsertContactRequest = UpsertContactRequest(token: token, primaryKey: primaryKey, status: status, attributes: nil)
                     ContactsSender().upsertContacts(upsertContactRequests: [upsertContactRequest])
